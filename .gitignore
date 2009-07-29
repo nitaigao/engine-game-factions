@@ -1,0 +1,17 @@
+*.ncb
+*.user
+*.cache
+*.dat
+*.log
+*.exp
+*.idb
+*resharper*
+*_Resharper*
+build*
+profile*
+packages*
+profile*
+*obj*
+*.manifest
+*.ilk
+*.lib

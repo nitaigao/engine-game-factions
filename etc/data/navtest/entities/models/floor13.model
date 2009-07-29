@@ -1,0 +1,10 @@
+<node name="floor13">
+  <scale x="1" y="1" z="1" />
+  <position x="-52.5794" y="0" z="33.7952" />
+  <rotation qx="0" qy="0" qz="0" qw="1" />
+  <entity name="floor13" id="137" meshFile="/data/entities/meshes/floor13.mesh" castShadows="true" receiveShadows="true">
+    <subentities>
+      <subentity index="0" materialName="NoMaterial" />
+    </subentities>
+  </entity>
+</node>
