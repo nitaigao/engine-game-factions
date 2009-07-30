@@ -1,22 +1,9 @@
 require 'find'
 require 'zip/zipfilesystem'
 require '../etc/scripts/version'
+require '../etc/scripts/rake/msbuild'
 
-class MSBuild
-  def initialize(solutionFile, clrVersion = 'v3.5')
-    @solutionFile = solutionFile
-    frameworkDir = File.join(ENV['windir'].dup, 'Microsoft.NET', 'Framework', clrVersion)
-    @msbuildExecutable = File.join(frameworkDir, 'msbuild.exe')
-  end
-  
-  def clean(compileMode = 'Debug')
-      sh "#{@msbuildExecutable} #{@solutionFile} /property:Configuration=#{compileMode} /t:Clean"
-  end
-  
-	def compile(compileMode = 'Debug')
-		sh "#{@msbuildExecutable} #{@solutionFile} /m /property:BuildInParallel=false /property:Configuration=#{compileMode} /t:Rebuild"
-	end
-end
+require File.expand_path('../etc/scripts/rake/msbuild')
 
 def delete_empty_directories(root_directory)
   iterations = deleted_total = 0
@@ -61,14 +48,6 @@ namespace :build do
 			MSBuild.new($solution_file).clean( $build_configuration )
 		rescue Exception => e
 			raise "\n\nFailed: There was an error when trying to clean the solution\n#{e}"
-		end
-	end
-	
-	task :vendor do
-		begin
-			MSBuild.new($vendor_file).compile( $build_configuration )
-		rescue Exception => e
-			raise "\n\nFailed: There was an error when compiling the vendor dependencies\n#{e}"
 		end
 	end
 	
@@ -180,5 +159,5 @@ task :build => ["build:clean", "build:compile", "build:data"]
 task :vendor => ["vendor:clean", "vendor:compile"]
 task :test => ["build:test"]
 task :deploy => [ "deploy:clean", "deploy:store" ]
-task :continuous_integration => [ :vendor, :build, :test, :deploy ]
+task :continuous_integration => [ :vendor ]#, :build, :test, :deploy ]
 task :default => :build
