@@ -144,9 +144,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMainStatic.lib OIS_static.lib MyGUIStatic.lib rendersystem_direct3d9static.lib"
+				AdditionalDependencies="OgreMainStatic.lib OIS_static.lib MyGUIStatic.lib rendersystem_direct3d9static.lib zziplib-Release.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\MyGUIEngine\lib\$(ConfigurationName);../../../ogre/lib;../../../freetype/lib;../../../ois/lib"
+				AdditionalLibraryDirectories="&quot;..\..\MyGUIEngine\lib\$(ConfigurationName)&quot;;../../../ogre/lib;../../../freetype/lib;../../../ois/lib;../../../zziplib/msvc8"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"

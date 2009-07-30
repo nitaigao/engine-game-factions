@@ -2059,10 +2059,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\WIN32\OgreWin32Resources.rc"
-				>
-			</File>
-			<File
 				RelativePath="..\src\WIN32\winres.h"
 				>
 			</File>
