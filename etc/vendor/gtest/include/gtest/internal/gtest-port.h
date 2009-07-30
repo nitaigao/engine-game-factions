@@ -175,6 +175,7 @@
 //   meanings really should be separated in order to better support
 //   Windows compilers other than MSVC.
 #define GTEST_OS_WINDOWS 1
+#define GTEST_HAS_TR1_TUPLE 0
 #elif defined __APPLE__
 #define GTEST_OS_MAC 1
 #elif defined __linux__
