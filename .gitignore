@@ -6,12 +6,12 @@
 *.exp
 *.idb
 *resharper*
+*.obj
+*.manifest
+*.ilk
 *_Resharper*
 build/
 profile/
 packages/
 profile/
 obj/
-*.obj
-*.manifest
-*.ilk
