@@ -7,11 +7,11 @@
 *.idb
 *resharper*
 *_Resharper*
-build*
-profile*
-packages*
-profile*
-obj*
+build/
+profile/
+packages/
+profile/
+obj/
 *.obj
 *.manifest
 *.ilk
