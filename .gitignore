@@ -12,5 +12,6 @@ profile*
 packages*
 profile*
 obj*
+*.obj
 *.manifest
 *.ilk
