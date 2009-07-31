@@ -10,6 +10,7 @@
 *.manifest
 *.ilk
 *_Resharper*
+BuildLog.htm
 build/
 profile/
 packages/
