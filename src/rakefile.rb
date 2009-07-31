@@ -159,5 +159,5 @@ task :build => ["build:clean", "build:compile", "build:data"]
 task :vendor => ["vendor:clean", "vendor:compile"]
 task :test => ["build:test"]
 task :deploy => [ "deploy:clean", "deploy:store" ]
-task :continuous_integration => [ :vendor ]#, :build, :test, :deploy ]
+task :continuous_integration => [ :vendor, :build, :test, :deploy ]
 task :default => :build
