@@ -59,8 +59,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ogremainstatic_d.lib OgreWin32Resources_d.res rendersystem_direct3d9static_d.lib tinyxmld.lib Rpcrt4.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/ogre/lib;../../etc/vendor/tinyxml/lib"
+				AdditionalDependencies="ogremainstatic_d.lib OgreWin32Resources_d.res rendersystem_direct3d9static_d.lib tinyxmld.lib Rpcrt4.lib zziplib-Release.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/ogre/lib;../../etc/vendor/tinyxml/lib;../../etc/vendor/zziplib/msvc8"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
 				GenerateDebugInformation="true"
