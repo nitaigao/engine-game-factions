@@ -10,6 +10,7 @@
 *.manifest
 *.ilk
 *_Resharper*
+*.tmp_*.vcproj
 BuildLog.htm
 build/
 profile/
