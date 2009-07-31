@@ -92,8 +92,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../../build/release/bin"
+			IntermediateDirectory="../../build/release/obj/4ha6EW2cru.System.Tests"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
