@@ -1,3 +1,5 @@
+*.pdb
+*.pch
 *.ncb
 *.user
 *.cache
