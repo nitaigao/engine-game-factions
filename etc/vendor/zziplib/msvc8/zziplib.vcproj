@@ -178,11 +178,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\zzip\fetch.c"
+				>
+			</File>
+			<File
 				RelativePath="..\zzip\file.c"
 				>
 			</File>
 			<File
+				RelativePath="..\zzip\fseeko.c"
+				>
+			</File>
+			<File
 				RelativePath="..\zzip\info.c"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\memdisk.c"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\mmapped.c"
 				>
 			</File>
 			<File
@@ -191,6 +207,10 @@
 			</File>
 			<File
 				RelativePath="..\zzip\stat.c"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\write.c"
 				>
 			</File>
 			<File
@@ -227,7 +247,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\zzip\autoconf.h"
+				>
+			</File>
+			<File
 				RelativePath="..\zzip\conf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\fetch.h"
 				>
 			</File>
 			<File
@@ -239,7 +267,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\zzip\fseeko.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\info.h"
+				>
+			</File>
+			<File
 				RelativePath="..\zzip\lib.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\memdisk.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\mmapped.h"
 				>
 			</File>
 			<File
@@ -248,6 +292,14 @@
 			</File>
 			<File
 				RelativePath="..\zzip\stdint.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zzip\write.h"
 				>
 			</File>
 			<File

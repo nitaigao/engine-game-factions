@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/ogre/rendersystems/direct3d9/include;../../etc/vendor/directx/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/tinyxml/include"
-				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32;EXPORT;OGRE_STATIC_LIB"
+				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32;EXPORT;FREEIMAGE_LIB;OGRE_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -59,8 +59,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ogremainstatic_d.lib OgreWin32Resources_d.res rendersystem_direct3d9static_d.lib tinyxmld.lib Rpcrt4.lib zziplib-Release.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/ogre/lib;../../etc/vendor/tinyxml/lib;../../etc/vendor/zziplib/msvc8"
+				AdditionalDependencies="ogremainstatic_d.lib rendersystem_direct3d9static_d.lib tinyxmld.lib Rpcrt4.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/ogre/lib;../../etc/vendor/tinyxml/lib"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
 				GenerateDebugInformation="true"
