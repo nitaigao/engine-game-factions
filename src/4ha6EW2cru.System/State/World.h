@@ -84,14 +84,6 @@ namespace State
 		*/
 		GAMEAPI void Destroy( );
 
-
-		/*! Serializes all entities contained in the World to the Given Stream
-		*
-		* @param[in] IO::IStream * stream
-		* @return ( void )
-		*/
-		GAMEAPI void Serialize( IO::IStream* stream );
-
 	private:
 
 		World( const World & copy ) { };

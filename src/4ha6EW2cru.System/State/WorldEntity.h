@@ -76,14 +76,6 @@ namespace State
 		inline ISystemComponent::SystemComponentList GetComponents( ) const { return m_components; };
 
 
-		/*! Serializes the entity and all components to the Given Stream
-		*
-		* @param[in] IO::IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream );
-
-
 		/*! Sets an Attribute on all of the sub components
 		*
 		* @param[in] const System::Attribute & attribute

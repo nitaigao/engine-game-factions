@@ -11,7 +11,6 @@
 #include <string>
 
 #include "../System/ISystemScene.hpp"
-#include "../IO/IStream.hpp"
 
 #include "IWorldEntity.hpp"
 
@@ -75,14 +74,6 @@ namespace State
 		* @return ( void )
 		*/
 		virtual void Destroy( ) = 0;
-
-
-		/*! Serializes all entities contained in the IWorld to the Given Stream
-		*
-		* @param[in] IO::IStream * stream
-		* @return ( void )
-		*/
-		virtual void Serialize( IO::IStream* stream ) = 0;
 
 	};
 };

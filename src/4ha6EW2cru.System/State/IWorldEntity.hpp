@@ -9,7 +9,6 @@
 #define IWORLDENTITY_HPP
 
 #include "../System/ISystemComponent.hpp"
-#include "../IO/IStream.hpp"
 
 namespace State
 {
@@ -66,14 +65,6 @@ namespace State
 		*  @return (void)
 		*/
 		virtual void AddObserver( const System::Message& message, IObserver* observer ) = 0;
-
-
-		/*! Serializes the entity and all components to the Given Stream
-		*
-		* @param[in] IO::IStream * stream
-		* @return ( void )
-		*/
-		virtual void Serialize( IO::IStream* stream ) = 0;
 
 
 		/*! Sets an Attribute on all of the sub components

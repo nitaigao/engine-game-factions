@@ -186,10 +186,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\IO\MemoryStream_Tests.cxx"
-				>
-			</File>
-			<File
 				RelativePath=".\Utility\StringUtils_Tests.cxx"
 				>
 			</File>

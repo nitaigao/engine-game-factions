@@ -61,8 +61,22 @@ namespace :build do
 		end
 	end
 	
+	desc "Test the build output"
+	task :test do
+		begin
+		
+			tests_path = "cd ../build/" + $build_configuration.to_s + "/bin & " + $application_name + ".Tests.exe"
+			#system( tests_path )
+		    
+		rescue Exception => e
+			raise "\n\nFailed: There was an error while running tests\n#{e}"
+		end
+	end
+end
+
+namespace :data do
 	desc "Copies all required data to the build output"
-	task :data do
+	task :build do
 		begin
 			game_dir = File.join( $outputdir, 'data' )
 			
@@ -71,7 +85,6 @@ namespace :build do
 			
 			etc_data_dir = File.join( '..', 'etc', 'data' )
 			game_data_dir = game_dir
-			FileUtils.mkdir game_data_dir
 			
 			Dir.foreach( etc_data_dir ) { | dir |
 				if !dir.to_s.include? "." then
@@ -79,6 +92,8 @@ namespace :build do
 					etc_data = File.join( etc_data_dir, dir )
 					game_data = File.join( game_data_dir, dir )
 					game_data_zip = game_data + '.bad'
+					
+					puts game_data_zip
 					
 					Zip::ZipFile.open(game_data_zip, Zip::ZipFile::CREATE) do |zipfile|
 						Find.find(etc_data) do |path|     	
@@ -93,18 +108,6 @@ namespace :build do
 			
 		rescue Exception => e
 			raise "\n\nFailed: There was an error when copying build data\n#{e}"
-		end
-	end
-	
-	desc "Test the build output"
-	task :test do
-		begin
-		
-			tests_path = "cd ../build/" + $build_configuration.to_s + "/bin & " + $application_name + ".Tests.exe"
-			#system( tests_path )
-		    
-		rescue Exception => e
-			raise "\n\nFailed: There was an error while running tests\n#{e}"
 		end
 	end
 end
@@ -156,9 +159,10 @@ $builddir = '../build'
 $packagesdir = File.join( '../', 'packages' )
 $outputdir = File.join( $builddir, $build_configuration )
 
-task :build => ["build:clean", "build:compile", "build:data"]
+task :data => [ "data:build" ]
+task :build => [ "build:clean", "build:compile", "build:data"]
 task :vendor => ["vendor:clean", "vendor:compile"]
 task :test => ["build:test"]
 task :deploy => [ "deploy:clean", "deploy:store" ]
-task :continuous_integration => [ :vendor, :build, :test, :deploy ]
+task :continuous_integration => [ :vendor, :build, :data, :test, :deploy ]
 task :default => :build

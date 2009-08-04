@@ -57,12 +57,4 @@ namespace State
 			( *i ).second->Destroy( );
 		}
 	}
-
-	void World::Serialize( IO::IStream* stream )
-	{
-		for ( IWorldEntity::WorldEntityMap::iterator e = m_entities.begin( ); e != m_entities.end( ); ++e )
-		{
-			( *e ).second->Serialize( stream );
-		}
-	}
 }

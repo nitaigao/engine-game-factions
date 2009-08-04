@@ -44,10 +44,6 @@ namespace State
 		this->Message( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 	}
 
-	void WorldEntity::Serialize( IO::IStream* stream )
-	{
-
-	}
 
 	void WorldEntity::SetAttribute( const System::Attribute& attribute, const AnyType& value )
 	{
