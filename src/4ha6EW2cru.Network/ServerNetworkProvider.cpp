@@ -1,9 +1,6 @@
 #include "ServerNetworkProvider.h"
 
 #include "NetworkUtils.h"
-#include "NetworkStream.h"
-
-using namespace IO;
 
 #include "Configuration/Configuration.h"
 #include "Configuration/ConfigurationTypes.hpp"

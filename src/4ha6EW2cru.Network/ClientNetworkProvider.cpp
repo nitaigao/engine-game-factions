@@ -25,8 +25,6 @@ using namespace Events;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-#include "NetworkStream.h"
-
 namespace Network
 {
 	ClientNetworkProvider::~ClientNetworkProvider()

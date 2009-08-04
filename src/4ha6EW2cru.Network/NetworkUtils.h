@@ -36,9 +36,6 @@ namespace Network
 		*/
 		NetworkUtils( ) { };
 
-
-		static NetworkMessageNew* DeSerializeNew( RakNet::BitStream* bitStream );
-
 		static unsigned char GetPacketIdentifier( Packet *packet );
 
 		static RakNet::BitStream* ReceiveNetworkMessage( Packet* packet );

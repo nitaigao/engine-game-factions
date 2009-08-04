@@ -16,9 +16,6 @@ using namespace RakNet;
 
 #include "Exceptions/OutOfRangeException.hpp"
 
-#include "IO/MemoryStream.h"
-using namespace IO;
-
 namespace Network
 {
 	unsigned char NetworkUtils::GetPacketIdentifier( Packet *packet )

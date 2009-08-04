@@ -318,11 +318,6 @@ namespace Serialization
 			m_world->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
 		}
 
-		if ( message == System::Messages::Entity::SerializeWorld )
-		{
-			m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IO::IStream* >( ) );
-		}
-
 		return AnyType::AnyTypeMap( );
 	}
 }

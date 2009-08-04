@@ -12,7 +12,6 @@
 #include "System/AnyType.hpp"
 
 #include "System/SystemType.hpp"
-#include "NetworkStream.h"
 
 namespace Network
 {
@@ -24,38 +23,6 @@ namespace Network
 		unsigned char message;
 		RakNet::RakString messageId;
 		AnyType::AnyTypeMap parameters;
-	};
-
-	struct NetworkMessageNew
-	{
-		~NetworkMessageNew( )
-		{
-			delete m_messageData;
-			m_messageData = 0;
-		}
-
-		NetworkMessageNew( )
-			: m_messageData( 0 )
-		{
-
-		}
-
-		explicit NetworkMessageNew( const System::Message& messageType )
-			: m_messageType( messageType )
-			, m_messageData( 0 )
-		{
-
-		}
-
-		NetworkMessageNew( const System::Message& messageType, NetworkStream* messageData )
-			: m_messageType( messageType )
-			, m_messageData( messageData )
-		{
-
-		}
-
-		System::Message m_messageType;
-		NetworkStream* m_messageData;
 	};
 
 	enum NetworkTypes
