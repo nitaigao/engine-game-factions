@@ -33,3 +33,13 @@ TEST( Win32PathInformation_Tests, should_return_the_local_data_directory_path )
 
 	delete pathInformation;
 }
+
+TEST( Win32PathInformation_Tests, should_return_the_system_directory )
+{
+	IPathInformation* pathInformation = new Win32PathInformation( );
+	std::string dataPath = pathInformation->GetGlobalSystemPath( );
+	int dataPathLength = dataPath.length( );
+	EXPECT_TRUE( dataPathLength > 3 );
+
+	delete pathInformation;
+}

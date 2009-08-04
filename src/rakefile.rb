@@ -63,13 +63,13 @@ namespace :build do
 	desc "Copies all required data to the build output"
 	task :data do
 		begin
-			game_dir = File.join( $outputdir, 'game' );
+			game_dir = File.join( $outputdir, 'data' )
 			
 			FileUtils.rm_rf game_dir
 			FileUtils.mkdir game_dir
 			
-			etc_data_dir = File.join( '..', 'etc', 'data' );
-			game_data_dir = File.join( game_dir, 'data' );
+			etc_data_dir = File.join( '..', 'etc', 'data' )
+			game_data_dir = game_dir
 			FileUtils.mkdir game_data_dir
 			
 			Dir.foreach( etc_data_dir ) { | dir |
@@ -99,8 +99,8 @@ namespace :build do
 	task :test do
 		begin
 		
-			tests_path = "cd ../build/" + $build_configuration.to_s + "/bin & " + $application_name + ".Tests.exe";
-			#system( tests_path );
+			tests_path = "cd ../build/" + $build_configuration.to_s + "/bin & " + $application_name + ".Tests.exe"
+			#system( tests_path )
 		    
 		rescue Exception => e
 			raise "\n\nFailed: There was an error while running tests\n#{e}"
@@ -111,13 +111,13 @@ end
 namespace :deploy do
   task :clean do
   
-	build_file_list = FileList.new( File.join( $outputdir,'**/*.*' ) ).exclude( File.join( $outputdir,'**/*.exe' ), File.join( $outputdir,'**/*.dll' ), File.join( $outputdir,'**/*.cfg' ), File.join( $outputdir,'**/*.bad' ) );
+	build_file_list = FileList.new( File.join( $outputdir,'**/*.*' ) ).exclude( File.join( $outputdir,'**/*.exe' ), File.join( $outputdir,'**/*.dll' ), File.join( $outputdir,'**/*.cfg' ), File.join( $outputdir,'**/*.bad' ) )
 	FileUtils.rm build_file_list, :force => true
 	
-	test_files_list = FileList.new( File.join( $outputdir, '**/*test*' ), File.join( $outputdir, '**/*cpp*' ), File.join( $outputdir, '**/*mockpp*' ) );
+	test_files_list = FileList.new( File.join( $outputdir, '**/*test*' ), File.join( $outputdir, '**/*cpp*' ), File.join( $outputdir, '**/*mockpp*' ) )
 	FileUtils.rm test_files_list, :force => true
 	
-	delete_empty_directories( $outputdir );
+	delete_empty_directories( $outputdir )
 	
   end
   task :store do
@@ -152,7 +152,7 @@ $application_name = '4ha6EW2cru'
 $vendor_file = '../etc/vendor/Vendor.sln'
 $solution_file = $application_name + '.sln'
 $builddir = '../build'
-$packagesdir = File.join( '../', 'packages' );
+$packagesdir = File.join( '../', 'packages' )
 $outputdir = File.join( $builddir, $build_configuration )
 
 task :build => ["build:clean", "build:compile", "build:data"]
