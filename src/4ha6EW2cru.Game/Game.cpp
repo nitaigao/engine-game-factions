@@ -43,7 +43,7 @@ void Game::Initialize( )
 
 	m_configuration = ClientConfiguration::Load( "game.cfg" );
 	m_configuration->SetDefault( ConfigSections::Developer, ConfigItems::Developer::Console, false );
-	m_configuration->SetDefault( ConfigSections::Logging, ConfigItems::Logging::LogLevel, static_cast< int >( LEVEL_FATAL ) );
+	m_configuration->SetDefault( ConfigSections::Logging, ConfigItems::Logging::LogLevel, static_cast< int >( LEVEL_WARN ) );
 
 	LogLevel logLevel = static_cast< LogLevel >( m_configuration->Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ).As< int >( ) );
 	Logger::Get( )->SetLogLevel( logLevel );

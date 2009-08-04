@@ -23,6 +23,9 @@ using namespace Logging;
 #include "../IO/Win32PathInformation.h"
 using namespace IO;
 
+#include <tclap/CmdLine.h>
+using namespace TCLAP;
+
 LRESULT CALLBACK WindowProcedure( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
 	switch( msg )
@@ -149,41 +152,45 @@ namespace Platform
 
 	AnyType::AnyTypeMap Win32PlatformManager::GetProgramOptions( ) const
 	{
-		/*int argc = 0;
-		LPWSTR* argv = CommandLineToArgvW( GetCommandLineW( ), &argc );
+		int argc = 0;
+		LPWSTR* args = CommandLineToArgvW( GetCommandLineW( ), &argc );
 
-		options_description optionsDescription( "Allowed options" );
-		optionsDescription.add_options( ) (
-			System::Options::LevelName.c_str( ), 
-			boost::program_options::value< std::string >( ), 
-			"start the level immediately" 
-			);
+		char** argv = new char*[ argc ];
 
-		optionsDescription.add_options( ) (
-			System::Options::DedicatedServer.c_str( ),
-			"runs the client as a dedicated server"
-			);
+		for ( int i = 0; i < argc; i++ )
+		{
+			argv[ i ] = new char[ 20480 ];
+			WideCharToMultiByte( CP_UTF8, 0, args[ i ], -1, ( LPSTR ) argv[ i ], 20480, 0, 0 );
+		}
 
-		positional_options_description  positionalDescription;
-		positionalDescription.add( System::Options::LevelName.c_str( ), 1 );
-		positionalDescription.add( System::Options::DedicatedServer.c_str( ), 1 );
+		CmdLine cmd( "Command Line Options" );
 
-		variables_map variablesMap;
+		ValueArg< std::string > levelNameArg( "l", System::Options::LevelName.c_str( ), "The Level to Load", false, "", "string" );
+		cmd.add( levelNameArg );
 
-		store( 
-			wcommand_line_parser( argc, argv )
-			.options( optionsDescription )
-			.positional( positionalDescription )
-			.run( ), variablesMap 
-			);*/
-			
+		SwitchArg dedicatedServerArg( "d", System::Options::DedicatedServer.c_str( ), "Run as a Dedicated Server", false );
+		cmd.add( dedicatedServerArg );
+
+		cmd.parse( argc, argv );
 
 		AnyType::AnyTypeMap programOptions;
 
-		/*for ( variables_map::iterator i = variablesMap.begin( ); i != variablesMap.end( ); ++i )
+		if ( !levelNameArg.getValue( ).empty( ) )
 		{
-			programOptions[ ( *i ).first ] = ( *i ).second.as< std::string >( );
-		}*/
+			programOptions[ System::Options::LevelName.c_str( ) ] = levelNameArg.getValue( );
+		}
+
+		if ( dedicatedServerArg.getValue( ) )
+		{
+			programOptions[ System::Options::DedicatedServer.c_str( ) ] = dedicatedServerArg.getValue( );
+		}
+
+		for ( int i = 0; i < argc; i++ )
+		{
+			delete[ ] argv[ i ];
+		}
+
+		delete[ ] argv;
 
 		return programOptions;
 	}
