@@ -23,13 +23,16 @@ namespace Configuration
 
 	ConfigurationFile* ConfigurationFile::Load( const std::string& filePath )
 	{
-		if ( !Management::Get( )->GetFileManager( )->FileExists( filePath ) )
+		std::stringstream configPath;
+		configPath << Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetLocalConfigPath( ) << "/" << filePath;
+
+		if ( !Management::Get( )->GetFileManager( )->FileExists( configPath.str( ) ) )
 		{
-			FileBuffer fileBuffer( 0, 0, filePath );
+			FileBuffer fileBuffer( 0, 0, configPath.str( ) );
 			Management::Get( )->GetFileManager( )->SaveFile( fileBuffer );
 		}
 
-		Resources::IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( filePath );
+		Resources::IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( configPath.str( ) );
 		return new ConfigurationFile( resource->GetFileBuffer( ) );
 	}
 

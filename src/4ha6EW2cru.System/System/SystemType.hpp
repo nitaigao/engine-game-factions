@@ -261,6 +261,7 @@ namespace System
 			static const Message ChangeResolution		=	"changeResolution";
 			static const Message GetRenderWindow		=	"getRenderWindow";
 			static const Message GetRootSingleton		=	"getRootSingleton";
+			static const Message ScreenShot				=	"screenShot";
 		}
 	}
 };

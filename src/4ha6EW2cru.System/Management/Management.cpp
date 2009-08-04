@@ -45,6 +45,7 @@ void Management::Initialize( )
 {
 	g_management = new Management( );
 
+	g_management->m_platformManager->Initialize( );
 	g_management->m_fileSystem->Initialize( );
 
 	srand( time( 0 ) );

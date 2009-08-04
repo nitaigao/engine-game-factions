@@ -36,10 +36,12 @@ namespace IO
 
 	void FileSystem::Initialize( )
 	{
-		std::string dataPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalDataPath( );
+		std::string userPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalUserPath( );
 
-		PHYSFS_setWriteDir( dataPath.c_str( ) );
-		this->Mount( dataPath.c_str( ), "/" );
+		this->Mount( userPath, "/" );
+		PHYSFS_setWriteDir( userPath.c_str( ) );
+
+		std::string dataPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalDataPath( );
 
 		if ( exists( dataPath.c_str( ) ) )
 		{
@@ -142,6 +144,7 @@ namespace IO
 
 		if ( !file )
 		{
+			Warn( PHYSFS_getLastError( ) );
 			throw FileWriteException( "FileSystem::SaveFile - Unable to open the destination file for writing" );
 		}
 

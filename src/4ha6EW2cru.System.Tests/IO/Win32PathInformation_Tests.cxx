@@ -34,10 +34,40 @@ TEST( Win32PathInformation_Tests, should_return_the_local_data_directory_path )
 	delete pathInformation;
 }
 
-TEST( Win32PathInformation_Tests, should_return_the_system_directory )
+TEST( Win32PathInformation_Tests, should_return_the_local_config_directory_path )
 {
 	IPathInformation* pathInformation = new Win32PathInformation( );
-	std::string dataPath = pathInformation->GetGlobalSystemPath( );
+	std::string dataPath = pathInformation->GetLocalConfigPath( );
+	int dataPathLength = dataPath.length( );
+	EXPECT_TRUE( dataPathLength > 3 );
+
+	delete pathInformation;
+}
+
+TEST( Win32PathInformation_Tests, should_return_the_user_data_directory )
+{
+	IPathInformation* pathInformation = new Win32PathInformation( );
+	std::string dataPath = pathInformation->GetGlobalUserPath( );
+	int dataPathLength = dataPath.length( );
+	EXPECT_TRUE( dataPathLength > 3 );
+
+	delete pathInformation;
+}
+
+TEST( Win32PathInformation_Tests, should_return_the_user_screenshots_directory )
+{
+	IPathInformation* pathInformation = new Win32PathInformation( );
+	std::string dataPath = pathInformation->GetGlobalScreenShotsPath( );
+	int dataPathLength = dataPath.length( );
+	EXPECT_TRUE( dataPathLength > 3 );
+
+	delete pathInformation;
+}
+
+TEST( Win32PathInformation_Tests, should_return_the_user_config_directory )
+{
+	IPathInformation* pathInformation = new Win32PathInformation( );
+	std::string dataPath = pathInformation->GetGlobalConfigPath( );
 	int dataPathLength = dataPath.length( );
 	EXPECT_TRUE( dataPathLength > 3 );
 

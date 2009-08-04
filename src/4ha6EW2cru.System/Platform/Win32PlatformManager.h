@@ -37,6 +37,13 @@ namespace Platform
 		Win32PlatformManager( );
 
 
+		/*! Initializes the Platform Manager and all Sub Components
+		*
+		* @return ( void )
+		*/
+		void Initialize( );
+
+
 		/*! Creates an Interactive Window for the Player
 		*
 		*  @param[in] const std::string & title

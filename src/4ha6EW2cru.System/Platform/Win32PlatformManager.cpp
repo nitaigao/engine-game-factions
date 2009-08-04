@@ -55,6 +55,11 @@ namespace Platform
 		m_pathInformation = new Win32PathInformation( );
 	}
 
+	void Win32PlatformManager::Initialize()
+	{
+		m_pathInformation->Initialize( );
+	}
+
 	void Win32PlatformManager::CreateInteractiveWindow( const std::string& title, const int& width, const int& height, const bool& fullScreen )
 	{
 		WNDCLASSEX wnd;

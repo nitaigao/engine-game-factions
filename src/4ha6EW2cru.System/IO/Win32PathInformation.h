@@ -35,6 +35,14 @@ namespace IO
 		*/
 		Win32PathInformation( ) { };
 
+
+		/*! Initializes the Platform Manager and all Sub Components
+		*
+		* @return ( void )
+		*/
+		GAMEAPI void Initialize( );
+
+
 		/*! Returns the path to the data directory 
 		*
 		* @return ( std::string )
@@ -46,7 +54,7 @@ namespace IO
 		*
 		* @return ( std::string )
 		*/
-		GAMEAPI std::string GetLocalDataPath( ) const;
+		GAMEAPI std::string GetLocalDataPath( ) const { return "/data"; };
 
 
 		/*! Returns the path to the development data directory
@@ -56,12 +64,41 @@ namespace IO
 		GAMEAPI std::string GetGlobalDevelopmentPath( ) const;
 
 
+		/*! Returns the path to the user data directory
+		*
+		* @return ( std::string )
+		*/
+		GAMEAPI std::string GetGlobalUserPath( ) const;
+
+
+		/*! Returns the path to the user data directory
+		*
+		* @return ( std::string )
+		*/
+		GAMEAPI std::string GetGlobalScreenShotsPath( ) const;
+
+
+		/*! Returns the path to the user data directory
+		*
+		* @return ( std::string )
+		*/
+		GAMEAPI std::string GetGlobalConfigPath( ) const;
+
+
+		/*! Returns the local path to the config directory
+		*
+		* @return ( std::string )
+		*/
+		GAMEAPI inline std::string GetLocalConfigPath( ) const { return "/config"; };
+
+
 		/*! Formats a file path to the Platforms Path Format
 		*
 		* @param[in] const std::string & input
 		* @return ( GAMEAPI std::string )
 		*/
 		GAMEAPI std::string FormatPath( const std::string& input ) const;
+
 
 	private:
 

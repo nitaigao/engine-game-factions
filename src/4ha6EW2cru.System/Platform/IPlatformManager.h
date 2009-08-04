@@ -31,6 +31,13 @@ namespace Platform
 		virtual ~IPlatformManager( ) { };
 
 
+		/*! Initializes the Platform Manager and all Sub Components
+		*
+		* @return ( void )
+		*/
+		virtual void Initialize( ) = 0;
+
+
 		/*! Creates an Interactive Window for the Player
 		 *
 		 *  @param[in] const std::string & title

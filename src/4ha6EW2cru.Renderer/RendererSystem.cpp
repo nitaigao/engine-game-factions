@@ -489,9 +489,11 @@ namespace Renderer
 			m_sceneManager->getRootSceneNode( )->addChild( lineNode );
 		}
 
-		if ( message == "screenShot" )
+		if ( message == System::Messages::Graphics::ScreenShot )
 		{
-			m_window->writeContentsToFile( "C:\\Users\\NK\\Desktop\\output.png" );
+			std::stringstream filePath;
+			filePath << Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalScreenShotsPath( ) << "\\";
+			m_window->writeContentsToTimestampedFile( filePath.str( ), ".jpg" );
 		}
 
 		if ( message == System::Messages::LoadMesh )
