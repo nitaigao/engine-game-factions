@@ -113,7 +113,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs;../../etc/vendor/tinyxml/include"
+				AdditionalIncludeDirectories="../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs;../../etc/vendor/tinyxml/include;../../etc/vendor/tclap/include"
 				PreprocessorDefinitions="TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT;OGRE_STATIC_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
