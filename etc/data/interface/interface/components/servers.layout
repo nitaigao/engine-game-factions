@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyGUI type="Layout">
+    <Widget type="Window" skin="WindowCS" position="320 152 624 464" align="Center" layer="Modal" name="servers">
+        <Property key="Widget_Caption" value="LAN Servers"/>
+        <Widget type="MultiList" skin="MultiList" position="4 9 604 375" layer="Back" name="servers_serverlist"/>
+        <Widget type="Button" skin="Button" position="476 393 128 24" layer="Back" name="servers_connect_button">
+            <Property key="Widget_Caption" value="Connect"/>
+        </Widget>
+        <Widget type="Button" skin="Button" position="340 393 128 24" layer="Back" name="servers_close_button">
+            <Property key="Widget_Caption" value="Close"/>
+        </Widget>
+    </Widget>
+</MyGUI>

@@ -8,18 +8,24 @@
         <Widget type="StaticImage" skin="StaticImage" position_real="0 0 1 1" align="Stretch" name="background_title">
             <Property key="Image_Texture" value="/data/interface/assets/background_streetgun.png"/>
         </Widget>
-        <Widget type="Widget" skin="Default" position="0 0 216 144" name="menubox">
-            <Widget type="Button" skin="MenuButton" position="8 104 200 36" name="button_quit">
+        <Widget type="Widget" skin="Default" position="0 0 216 240" name="menubox">
+            <Widget type="Button" skin="MenuButton" position="-49 176 200 36" name="button_quit">
                 <Property key="Widget_Caption" value="Quit"/>
             </Widget>
             <Widget type="Button" skin="MenuButton" position="8 104 200 36" name="button_endgame">
                 <Property key="Widget_Caption" value="End Game"/>
                 <Property key="Widget_Visible" value="false"/>
             </Widget>
-            <Widget type="Button" skin="MenuButton" position="8 8 200 36" name="button_play">
-                <Property key="Widget_Caption" value="Play"/>
+            <Widget type="Button" skin="MenuButton" position="8 64 200 36" name="button_create">
+                <Property key="Widget_Caption" value="Create Server"/>
             </Widget>
-            <Widget type="Button" skin="MenuButton" position="8 56 200 36" name="button_options">
+            <Widget type="Button" skin="MenuButton" position="0 24 200 36" name="button_play">
+                <Property key="Widget_Caption" value="Find Servers"/>
+            </Widget>
+            <Widget type="Button" skin="MenuButton" position="8 96 200 36" name="button_seperator1">
+                <Property key="Widget_Caption" value="---------------"/>
+            </Widget>
+            <Widget type="Button" skin="MenuButton" position="-31 136 200 36" name="button_options">
                 <Property key="Widget_Caption" value="Options"/>
             </Widget>
             <Widget type="Button" skin="MenuButton" position="8 8 200 36" name="button_resume">

@@ -27,6 +27,9 @@ function Menu.initialize( )
 	local playButton = ux:findWidget( 'button_play' )
 	ux:scriptWidget( playButton, 'onRelease', Menu.onPlayReleased )
 	
+	local createButton = ux:findWidget( 'button_create' )
+	ux:scriptWidget( createButton, 'onRelease', Menu.onCreateReleased )
+	
 	local resumeButton = ux:findWidget( 'button_resume' )
 	ux:scriptWidget( resumeButton, 'onRelease', Menu.onResumeReleased )
 	
@@ -54,6 +57,7 @@ function Menu.onEvent( eventName, val1, val2 )
 	if ( eventName == 'WORLD_LOADING_STARTED' ) then
 	
 		Menu.onHideMenu( )
+		ux:hideMouse( )
 		menu_ingame = true
 		
 	end
@@ -187,10 +191,16 @@ end
 
 function Menu.onPlayReleased( )
 
-	Menu.onHideMenu( )
-	ux:hideMouse( )
+	script:broadcastEvent( 'UI_SERVERS' )
+	
 	--loadLevel( 'theman' )
-	network:connect('127.0.0.1', 8989 )
+	--network:connect('127.0.0.1', 8989 )
+
+end
+
+function Menu.onCreateReleased( )
+
+	script:broadcastEvent( 'UI_CREATESERVER' )
 
 end
 

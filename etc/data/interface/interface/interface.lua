@@ -30,6 +30,7 @@ function Interface.initialize( )
 	ux:loadComponent( 'actor_hit' )
 	ux:loadComponent( 'key_binder' )
 	ux:loadComponent( 'characterselect' )
+	ux:loadComponent( 'servers' )
 	
 end
 
