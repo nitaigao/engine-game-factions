@@ -46,6 +46,7 @@ namespace :build do
 	task :clean do
 		begin
 			MSBuild.new($solution_file).clean( $build_configuration )
+			FileUtils.rm_rf($outputdir)
 		rescue Exception => e
 			raise "\n\nFailed: There was an error when trying to clean the solution\n#{e}"
 		end
