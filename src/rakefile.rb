@@ -160,7 +160,7 @@ $packagesdir = File.join( '../', 'packages' )
 $outputdir = File.join( $builddir, $build_configuration )
 
 task :data => [ "data:build" ]
-task :build => [ "build:clean", "build:compile", "build:data"]
+task :build => [ "build:clean", "build:compile" ]
 task :vendor => ["vendor:clean", "vendor:compile"]
 task :test => ["build:test"]
 task :deploy => [ "deploy:clean", "deploy:store" ]
