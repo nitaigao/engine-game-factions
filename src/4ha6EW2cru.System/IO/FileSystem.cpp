@@ -15,6 +15,8 @@ using namespace Logging;
 #include <boost/filesystem.hpp>
 using namespace boost::filesystem;
 
+#include "../Management/Management.h"
+
 namespace IO
 {
 	FileSystem::FileSystem( )
@@ -27,17 +29,40 @@ namespace IO
 		}
 	}
 
-	FileSystem::~FileSystem()
+	FileSystem::~FileSystem( )
 	{
 		PHYSFS_deinit( );
 	}
 
-	void FileSystem::Initialize()
+	void FileSystem::Initialize( )
 	{
-		PHYSFS_setWriteDir( "../game" );
-		this->Mount( "../game", "/" );
+		std::string dataPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalDataPath( );
 
-		std::string developmentPath = "../../../etc/data";
+		PHYSFS_setWriteDir( dataPath.c_str( ) );
+		this->Mount( dataPath.c_str( ), "/" );
+
+		if ( exists( dataPath.c_str( ) ) )
+		{
+			directory_iterator end;
+
+			for ( directory_iterator i( dataPath ); i != end; ++i )
+			{
+				if ( !is_directory( i->status( ) ) )
+				{
+					std::string fileName = i->path( ).file_string( );
+
+					if( fileName.rfind( ".bad" ) != std::string::npos )
+					{
+						std::stringstream path;
+						path << i->path( );
+
+						this->Mount( path.str( ), Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
+					}
+				}
+			}
+		}
+
+		std::string developmentPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalDevelopmentPath( );
 
 		if ( exists( developmentPath ) )
 		{
@@ -49,7 +74,7 @@ namespace IO
 					std::stringstream path;
 					path << i->path( );
 
-					this->Mount( path.str( ), "/data" );
+					this->Mount( path.str( ), Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
 				}
 			}
 		}
@@ -71,10 +96,11 @@ namespace IO
 	{
 		Info( "Mounting", filePath, "to", mountPoint );
 
-		int result = ( PHYSFS_mount( filePath.c_str( ), mountPoint.c_str( ), 1 ) > 0 );
+		int result = ( PHYSFS_mount( filePath.c_str( ), mountPoint.c_str( ), 0 ) > 0 );
 
 		if ( !result )
 		{
+			Warn( PHYSFS_getLastError( ) );
 			throw FileNotFoundException( "FileSystem::AddFileStore - Could not find File Store" );
 		}
 

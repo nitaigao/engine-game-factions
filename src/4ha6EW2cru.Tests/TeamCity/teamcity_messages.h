@@ -51,4 +51,5 @@ public:
 
 }
 
-#endif /* H_TEAMCITY_MESSAGES */
+#endif
+ /* H_TEAMCITY_MESSAGES */

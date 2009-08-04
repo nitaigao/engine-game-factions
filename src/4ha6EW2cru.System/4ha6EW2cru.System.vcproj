@@ -255,11 +255,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Utility\StringUtils.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\System\SystemManager.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Platform\Win32Clock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IO\Win32PathInformation.cpp"
 				>
 			</File>
 			<File
@@ -425,6 +433,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IO\IPathInformation.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Platform\IPlatformManager.h"
 				>
 			</File>
@@ -577,6 +589,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Utility\StringUtils.h"
+				>
+			</File>
+			<File
 				RelativePath=".\System\SystemExports.hpp"
 				>
 			</File>
@@ -602,6 +618,10 @@
 			</File>
 			<File
 				RelativePath=".\Platform\Win32Clock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IO\Win32PathInformation.h"
 				>
 			</File>
 			<File

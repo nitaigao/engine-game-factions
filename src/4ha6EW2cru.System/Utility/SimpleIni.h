@@ -5,6 +5,7 @@
 # pragma once
 #endif
 
+
 // Disable these warnings in MSVC:
 //  4127 "conditional expression is constant" as the conversion classes trigger
 //  it with the statement if (sizeof(SI_CHAR) == sizeof(char)). This test will
@@ -19,6 +20,7 @@
 # pragma warning (disable: 4127 4503 4702 4786)
 #endif
 
+
 #include <cstring>
 #include <string>
 #include <map>
@@ -28,7 +30,8 @@
 
 #ifdef SI_SUPPORT_IOSTREAMS
 # include <iostream>
-#endif // SI_SUPPORT_IOSTREAMS
+#endif
+ // SI_SUPPORT_IOSTREAMS
 
 #ifdef _DEBUG
 # ifndef assert
@@ -38,6 +41,7 @@
 #else
 # define SI_ASSERT(x)
 #endif
+
 
 enum SI_Error {
     SI_OK       =  0,   //!< No error
@@ -58,11 +62,13 @@ enum SI_Error {
 #else // !_WIN32
 # define SI_NEWLINE_A   "\n"
 # define SI_NEWLINE_W   L"\n"
-#endif // _WIN32
+#endif
+ // _WIN32
 
 #if defined(SI_CONVERT_ICU)
 # include <unicode/ustring.h>
 #endif
+
 
 #if defined(_WIN32)
 # define SI_HAS_WIDE_FILE
@@ -71,6 +77,7 @@ enum SI_Error {
 # define SI_HAS_WIDE_FILE
 # define SI_WCHAR_T     UChar
 #endif
+
 
 
 // ---------------------------------------------------------------------------
@@ -124,6 +131,7 @@ public:
         bool operator<(const Entry & rhs) const { return LoadOrder()(*this, rhs); }
         bool operator>(const Entry & rhs) const { return LoadOrder()(rhs, *this); }
 #endif
+
 
         /** Strict less ordering by name of key only */
         struct KeyOrder : std::binary_function<Entry, Entry, bool> {
@@ -207,7 +215,8 @@ public:
         StreamWriter(const StreamWriter &);             // disable
         StreamWriter & operator=(const StreamWriter &); // disable
     };
-#endif // SI_SUPPORT_IOSTREAMS
+#endif
+ // SI_SUPPORT_IOSTREAMS
 
     /** Characterset conversion utility class to convert strings to the
         same format as is used for the storage.
@@ -350,7 +359,8 @@ public:
     SI_Error LoadFile(
         const SI_WCHAR_T * a_pwszFile
         );
-#endif // SI_HAS_WIDE_FILE
+#endif
+ // SI_HAS_WIDE_FILE
 
     /** Load the file from a file pointer.
 
@@ -373,7 +383,8 @@ public:
     SI_Error Load(
         std::istream & a_istream
         );
-#endif // SI_SUPPORT_IOSTREAMS
+#endif
+ // SI_SUPPORT_IOSTREAMS
 
     /** Load INI file data direct from a std::string
 
@@ -433,7 +444,8 @@ public:
         const SI_WCHAR_T *  a_pwszFile,
         bool                a_bAddSignature = true
         ) const;
-#endif // _WIN32
+#endif
+ // _WIN32
 
     /** Save the INI data to a file. See Save() for details.
 
@@ -508,7 +520,8 @@ public:
         StreamWriter writer(a_ostream);
         return Save(writer, a_bAddSignature);
     }
-#endif // SI_SUPPORT_IOSTREAMS
+#endif
+ // SI_SUPPORT_IOSTREAMS
 
     /** Append the INI data to a string. See Save() for details.
 
@@ -999,7 +1012,8 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::LoadFile(
     fopen_s(&fp, a_pszFile, "rb");
 #else // !__STDC_WANT_SECURE_LIB__
     fp = fopen(a_pszFile, "rb");
-#endif // __STDC_WANT_SECURE_LIB__
+#endif
+ // __STDC_WANT_SECURE_LIB__
     if (!fp) {
         return SI_FILE;
     }
@@ -1021,7 +1035,8 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::LoadFile(
     _wfopen_s(&fp, a_pwszFile, L"rb");
 #else // !__STDC_WANT_SECURE_LIB__
     fp = _wfopen(a_pwszFile, L"rb");
-#endif // __STDC_WANT_SECURE_LIB__
+#endif
+ // __STDC_WANT_SECURE_LIB__
     if (!fp) return SI_FILE;
     SI_Error rc = LoadFile(fp);
     fclose(fp);
@@ -1030,9 +1045,11 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::LoadFile(
     char szFile[256];
     u_austrncpy(szFile, a_pwszFile, sizeof(szFile));
     return LoadFile(szFile);
-#endif // _WIN32
+#endif
+ // _WIN32
 }
-#endif // SI_HAS_WIDE_FILE
+#endif
+ // SI_HAS_WIDE_FILE
 
 template<class SI_CHAR, class SI_STRLESS, class SI_CONVERTER>
 SI_Error
@@ -1161,7 +1178,8 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::Load(
     while (a_istream.good());
     return Load(strData);
 }
-#endif // SI_SUPPORT_IOSTREAMS
+#endif
+ // SI_SUPPORT_IOSTREAMS
 
 template<class SI_CHAR, class SI_STRLESS, class SI_CONVERTER>
 SI_Error
@@ -1918,7 +1936,8 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::SaveFile(
     fopen_s(&fp, a_pszFile, "wb");
 #else // !__STDC_WANT_SECURE_LIB__
     fp = fopen(a_pszFile, "wb");
-#endif // __STDC_WANT_SECURE_LIB__
+#endif
+ // __STDC_WANT_SECURE_LIB__
     if (!fp) return SI_FILE;
     SI_Error rc = SaveFile(fp, a_bAddSignature);
     fclose(fp);
@@ -1943,9 +1962,11 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::SaveFile(
     char szFile[256];
     u_austrncpy(szFile, a_pwszFile, sizeof(szFile));
     return SaveFile(szFile, a_bAddSignature);
-#endif // _WIN32
+#endif
+ // _WIN32
 }
-#endif // SI_HAS_WIDE_FILE
+#endif
+ // SI_HAS_WIDE_FILE
 
 template<class SI_CHAR, class SI_STRLESS, class SI_CONVERTER>
 SI_Error
@@ -1980,6 +2001,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::Save(
 #else
     oSections.sort(typename Entry::LoadOrder());
 #endif
+
 
     // write the file comment if we have one
     bool bNeedNewLine = false;
@@ -2032,6 +2054,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::Save(
 #else
         oKeys.sort(typename Entry::LoadOrder());
 #endif
+
 
         // write all keys and values
         typename TNamesDepend::const_iterator iKey = oKeys.begin();
@@ -2214,6 +2237,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::DeleteString(
 #  define SI_CONVERT_GENERIC
 # endif
 #endif
+
 
 /**
  * Generic case-sensitive less than comparison. This class returns numerically
@@ -2572,7 +2596,8 @@ public:
     }
 };
 
-#endif // SI_CONVERT_GENERIC
+#endif
+ // SI_CONVERT_GENERIC
 
 
 // ---------------------------------------------------------------------------
@@ -2764,7 +2789,8 @@ public:
     }
 };
 
-#endif // SI_CONVERT_ICU
+#endif
+ // SI_CONVERT_ICU
 
 
 // ---------------------------------------------------------------------------
@@ -2780,6 +2806,7 @@ public:
 #  define SI_NO_MBCS
 # endif
 #endif
+
 
 #include <windows.h>
 #ifdef SI_NO_MBCS
@@ -2808,7 +2835,8 @@ struct SI_NoCase {
         return SI_GenericNoCase<SI_CHAR>()(pLeft, pRight);
     }
 };
-#endif // SI_NO_MBCS
+#endif
+ // SI_NO_MBCS
 
 /**
  * Converts MBCS and UTF-8 to a wchar_t (or equivalent) on Windows. This uses
@@ -2931,7 +2959,8 @@ public:
     }
 };
 
-#endif // SI_CONVERT_WIN32
+#endif
+ // SI_CONVERT_WIN32
 
 
 // ---------------------------------------------------------------------------
@@ -2955,6 +2984,7 @@ typedef CSimpleIniTempl<wchar_t,
     SI_Case<wchar_t>,SI_ConvertW<wchar_t> >             CSimpleIniCaseW;
 #endif
 
+
 #ifdef _UNICODE
 # define CSimpleIni      CSimpleIniW
 # define CSimpleIniCase  CSimpleIniCaseW
@@ -2963,11 +2993,14 @@ typedef CSimpleIniTempl<wchar_t,
 # define CSimpleIni      CSimpleIniA
 # define CSimpleIniCase  CSimpleIniCaseA
 # define SI_NEWLINE      SI_NEWLINE_A
-#endif // _UNICODE
+#endif
+ // _UNICODE
 
 #ifdef _MSC_VER
 # pragma warning (pop)
 #endif
 
-#endif // INCLUDED_SimpleIni_h
+
+#endif
+ // INCLUDED_SimpleIni_h
 

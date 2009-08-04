@@ -138,6 +138,7 @@ namespace Physics
 		hkVisualDebugger* m_vdb;
 #endif
 
+
 		HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
 		HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };
 

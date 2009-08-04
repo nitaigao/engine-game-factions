@@ -46,6 +46,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				DisableLanguageExtensions="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -186,6 +187,14 @@
 			</File>
 			<File
 				RelativePath=".\IO\MemoryStream_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\Utility\StringUtils_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\IO\Win32PathInformation_Tests.cxx"
 				>
 			</File>
 			<File

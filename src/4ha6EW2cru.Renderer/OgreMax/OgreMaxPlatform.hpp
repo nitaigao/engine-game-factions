@@ -26,6 +26,7 @@
         #else
             #define _OgreMaxExport __declspec(dllexport)
         #endif
+
     #elif defined(OGREMAX_SHARED_LIBRARY_IMPORT)
         //Importing from a shared library
         #if defined(__MINGW32__)
@@ -33,10 +34,12 @@
         #else
             #define _OgreMaxExport __declspec(dllimport)
         #endif
+
     #else
         //Using the source code directly or from a static library
         #define _OgreMaxExport
     #endif
+
 #else
     //Either using the source code directly or from a static library...
     //Or compiling on a platform that doesn't require import/export decorations
@@ -44,4 +47,6 @@
 #endif
 
 
+
 #endif
+

@@ -27,18 +27,14 @@ namespace Platform
 		*
 		*  @return ()
 		*/
-		~Win32PlatformManager( ) { };
+		~Win32PlatformManager( );
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		Win32PlatformManager( )
-			: m_hWnd( 0 )
-		{
-
-		}
+		Win32PlatformManager( );
 
 
 		/*! Creates an Interactive Window for the Player
@@ -116,10 +112,18 @@ namespace Platform
 		*/
 		std::string GenUUID( ) const;
 
+
+		/*! Returns the Path Information for the platform
+		*
+		* @return ( IPathInformation* )
+		*/
+		inline IO::IPathInformation* GetPathInformation( ) { return m_pathInformation; };
+
 	private:
 
 		size_t m_hWnd;
 		Win32Clock m_clock;
+		IO::IPathInformation* m_pathInformation;
 
 		Win32PlatformManager( const Win32PlatformManager & copy ) { };
 		Win32PlatformManager & operator = ( const Win32PlatformManager & copy ) { return *this; };

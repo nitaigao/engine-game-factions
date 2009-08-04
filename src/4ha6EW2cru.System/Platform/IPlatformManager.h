@@ -12,6 +12,8 @@
 #include "IClock.hpp"
 #include "../System/AnyType.hpp"
 
+#include "../IO/IPathInformation.hpp"
+
 namespace Platform
 {
 	/*! 
@@ -103,6 +105,13 @@ namespace Platform
 		* @return ( std::string )
 		*/
 		virtual std::string GenUUID( ) const = 0;
+
+
+		/*! Returns the Path Information for the platform
+		*
+		* @return ( IPathInformation* )
+		*/
+		virtual IO::IPathInformation* GetPathInformation( ) = 0;
 	};
 };
 

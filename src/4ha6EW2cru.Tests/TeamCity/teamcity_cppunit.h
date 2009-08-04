@@ -48,4 +48,5 @@ private:
 
 }
 
-#endif /* H_TEAMCITY_CPPUNIT */
+#endif
+ /* H_TEAMCITY_CPPUNIT */

@@ -44,4 +44,5 @@ namespace Renderer
 	};
 };
 
-#endif /* __LINE3D_H__ */
+#endif
+ /* __LINE3D_H__ */

@@ -20,6 +20,9 @@ using namespace boost::program_options;
 #include "../Logging/Logger.h"
 using namespace Logging;
 
+#include "../IO/Win32PathInformation.h"
+using namespace IO;
+
 LRESULT CALLBACK WindowProcedure( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
 	switch( msg )
@@ -37,6 +40,21 @@ LRESULT CALLBACK WindowProcedure( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 
 namespace Platform
 {
+	Win32PlatformManager::~Win32PlatformManager()
+	{
+		if ( 0 != m_pathInformation )
+		{
+			delete m_pathInformation;
+			m_pathInformation = 0;
+		}
+	}
+
+	Win32PlatformManager::Win32PlatformManager()
+	{
+		m_hWnd = 0;
+		m_pathInformation = new Win32PathInformation( );
+	}
+
 	void Win32PlatformManager::CreateInteractiveWindow( const std::string& title, const int& width, const int& height, const bool& fullScreen )
 	{
 		WNDCLASSEX wnd;
@@ -126,7 +144,7 @@ namespace Platform
 
 	AnyType::AnyTypeMap Win32PlatformManager::GetProgramOptions( ) const
 	{
-		int argc = 0;
+		/*int argc = 0;
 		LPWSTR* argv = CommandLineToArgvW( GetCommandLineW( ), &argc );
 
 		options_description optionsDescription( "Allowed options" );
@@ -152,15 +170,15 @@ namespace Platform
 			.options( optionsDescription )
 			.positional( positionalDescription )
 			.run( ), variablesMap 
-			);
+			);*/
 			
 
 		AnyType::AnyTypeMap programOptions;
 
-		for ( variables_map::iterator i = variablesMap.begin( ); i != variablesMap.end( ); ++i )
+		/*for ( variables_map::iterator i = variablesMap.begin( ); i != variablesMap.end( ); ++i )
 		{
 			programOptions[ ( *i ).first ] = ( *i ).second.as< std::string >( );
-		}
+		}*/
 
 		return programOptions;
 	}
