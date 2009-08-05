@@ -247,7 +247,24 @@ namespace UX
 		* @param[in] size_t position
 		* @return ( void )
 		*/
-		static void OnEventScrollChangePosition( MyGUI::VScrollPtr sender, size_t position );
+		static void OnEventScrollChangePosition( MyGUI::VScrollPtr widget, size_t position );
+
+
+		/*! Forwards Window Button Events to the widgets in Script
+		*
+		* @param[in] MyGUI::WindowPtr window
+		* @param[in] const std::string & name
+		* @return ( void )
+		*/
+		static void OnWindowButtonPressed( MyGUI::WindowPtr widget, const std::string& name );
+
+
+		/*! Forwards Window Change Coord/Resize Events to the widgets in Script
+		*
+		* @param[in] MyGUI::WindowPtr window
+		* @return ( void )
+		*/
+		static void OnWindowChangeCoord( MyGUI::WindowPtr widget );
 
 		
 		/*! Returns a list of supported Video Resolutions

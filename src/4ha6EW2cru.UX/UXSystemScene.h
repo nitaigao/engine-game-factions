@@ -117,6 +117,9 @@ namespace UX
 		static inline void AddText( MyGUI::EditPtr editWidget, const std::string& text ) { editWidget->addText( text ); };
 		static inline void MultiList_AddColumn( MyGUI::MultiListPtr widget, const std::string& name, int width ) { widget->addColumn( name, width ); };
 		static inline void MultiList_AddItem( MyGUI::MultiListPtr widget, const std::string& name ) { widget->addItem( name ); };
+		static inline int MultiList_GetColumnCount( MyGUI::MultiListPtr widget ) { return static_cast< int >( widget->getColumnCount( ) ); };
+		static inline int MultiList_GetColumnWidthAt( MyGUI::MultiListPtr widget, const int& index ) { return widget->getColumnWidthAt( index ); };
+		static inline void MultiList_SetColumnWidthAt( MyGUI::MultiListPtr widget, const int& index, const int& width ) { return widget->setColumnWidthAt( index, width ); };
 		static inline std::string MultiList_GetItemName( MyGUI::MultiListPtr widget, const int& index ) { return widget->getItemNameAt( index ); };
 		static inline std::string MultiList_GetSubItemName( MyGUI::MultiListPtr widget, const int& column, const int& index ) { return widget->getSubItemNameAt( column, index ); };
 		static inline void MultiList_SetSubItemName( MyGUI::MultiListPtr widget, int column, int index, const std::string& name ) { widget->setSubItemNameAt( column,index, name ); };
@@ -126,7 +129,8 @@ namespace UX
 		static inline MyGUI::EditPtr AsEditBox( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::EditPtr >( widget ); };
 		static inline MyGUI::ProgressPtr AsProgressBar( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::ProgressPtr >( widget ); };
 		static inline MyGUI::MultiListPtr AsMultiList( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::MultiListPtr >( widget ); };
-		static inline MyGUI::VScrollPtr AsScrollBar( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::VScrollPtr> ( widget ); };
+		static inline MyGUI::VScrollPtr AsScrollBar( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::VScrollPtr > ( widget ); };
+		static inline MyGUI::WindowPtr AsWindow( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::WindowPtr >( widget ); };
 
 		void OnMouseMoved( const Events::IEvent* event );
 		void OnMousePressed( const Events::IEvent* event );

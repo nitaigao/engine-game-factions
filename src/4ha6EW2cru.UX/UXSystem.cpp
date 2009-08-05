@@ -60,6 +60,7 @@ namespace UX
 				.def( "asEditBox", &UXSystemScene::AsEditBox )
 				.def( "asProgressBar", &UXSystemScene::AsProgressBar )
 				.def( "asMultiList", &UXSystemScene::AsMultiList )
+				.def( "asWindow", &UXSystemScene::AsWindow )
 				.def( "asScrollbar", &UXSystemScene::AsScrollBar )
 				.def( "setFocus", &UXSystemScene::SetFocus ),
 
@@ -91,12 +92,18 @@ namespace UX
 				.def( "addItem", &UXSystemScene::MultiList_AddItem )
 				.def( "getItemName", &UXSystemScene::MultiList_GetItemName )
 				.def( "getSubItemName", &UXSystemScene::MultiList_GetSubItemName )
-				.def( "setSubItemName", &UXSystemScene::MultiList_SetSubItemName  ),
+				.def( "setSubItemName", &UXSystemScene::MultiList_SetSubItemName  )
+				.def( "getColumnCount", &UXSystemScene::MultiList_GetColumnCount )
+				.def( "getColumnWidthAt", &UXSystemScene::MultiList_GetColumnWidthAt )
+				.def( "setColumnWidthAt", &UXSystemScene::MultiList_SetColumnWidthAt ),
 
 				class_< VScroll, Widget >( "Scrollbar" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "getScrollPosition", &VScroll::getScrollPosition )
 				.def( "setScrollPosition", &VScroll::setScrollPosition ),
+
+				class_< Window, Widget >( "Window" )
+				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) ),
 
 				class_< IntCoord >( "IntCoord" )
 				.def( constructor< >( ) )

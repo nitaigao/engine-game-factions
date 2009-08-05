@@ -78,6 +78,16 @@ namespace UX
 						static_cast< VScroll* >( widget )->eventScrollChangePosition = 0;
 					}
 
+					if ( eventName == "onWindowButtonPressed" )
+					{
+						static_cast< Window* >( widget )->eventWindowButtonPressed = 0;
+					}
+
+					if ( eventName == "onWindowChangeCoord" )
+					{
+						static_cast< Window* >( widget )->eventWindowChangeCoord = 0;
+					}
+
 					widgetUserData->erase( i );
 
 					return;
@@ -125,6 +135,16 @@ namespace UX
 		if( eventName == "onScrollChangePosition" )
 		{
 			static_cast< VScroll* >( widget )->eventScrollChangePosition = newDelegate( &UXSystemComponent::OnEventScrollChangePosition );
+		}
+
+		if ( eventName == "onWindowButtonPressed" )
+		{
+			static_cast< Window* >( widget )->eventWindowButtonPressed = newDelegate( &UXSystemComponent::OnWindowButtonPressed );
+		}
+
+		if ( eventName == "onWindowChangeCoord" )
+		{
+			static_cast< Window* >( widget )->eventWindowChangeCoord = newDelegate( &UXSystemComponent::OnWindowChangeCoord );
 		}
 	}
 
@@ -254,6 +274,58 @@ namespace UX
 				try
 				{
 					eventHandler( static_cast< int >( position ) );
+				}
+				catch( error& e )
+				{
+					object error_msg( from_stack( e.state( ) , -1 ) );
+					std::stringstream logMessage;
+					logMessage << error_msg;
+					Logger::Get( )->Warn( logMessage.str( ) );
+				}
+			}
+		}
+	}
+
+	void UXSystemComponent::OnWindowButtonPressed( MyGUI::WindowPtr widget, const std::string& name )
+	{
+		void* userData = widget->getUserData( );
+		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+
+		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		{
+			if ( ( *i ).first == "onWindowButtonPressed" )
+			{
+				object eventHandler = *( *i ).second;
+
+				try
+				{
+					eventHandler( name );
+				}
+				catch( error& e )
+				{
+					object error_msg( from_stack( e.state( ) , -1 ) );
+					std::stringstream logMessage;
+					logMessage << error_msg;
+					Logger::Get( )->Warn( logMessage.str( ) );
+				}
+			}
+		}
+	}
+
+	void UXSystemComponent::OnWindowChangeCoord( MyGUI::WindowPtr widget )
+	{
+		void* userData = widget->getUserData( );
+		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+
+		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		{
+			if ( ( *i ).first == "onWindowChangeCoord" )
+			{
+				object eventHandler = *( *i ).second;
+
+				try
+				{
+					eventHandler( );
 				}
 				catch( error& e )
 				{
