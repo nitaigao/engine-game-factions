@@ -11,6 +11,7 @@ using namespace Configuration;
 #include <BitStream.h>
 #include <RakPeer.h>
 #include <MessageIdentifiers.h>
+#include <GetTime.h>
 using namespace RakNet;
 
 #include "Logging/Logger.h"
@@ -97,6 +98,14 @@ namespace Network
 
 				break;
 
+			case ID_PONG:
+
+				logMessage << "Pong from " << packet->systemAddress.ToString( );
+
+				this->OnPongReceived( packet );
+
+				break;
+
 			case ID_USER_PACKET_ENUM:
 
 				this->OnPacketReceived( packet );
@@ -131,6 +140,11 @@ namespace Network
 			);
 		}
 
+		if( message == System::Messages::Network::Client::FindServers )
+		{
+			m_networkInterface->Ping( NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port, true );
+		}
+
 		if( message == System::Messages::Network::Client::CharacterSelected )
 		{
 			BitStream stream;
@@ -143,6 +157,15 @@ namespace Network
 		}
 
 		return results;
+	}
+
+	void ClientNetworkProvider::OnPongReceived( Packet* packet )
+	{
+		BitStream stream;
+		stream.Write( RakString( System::Messages::Network::Client::RequestServerInfo.c_str( ) ) );
+		//stream.Write( RakNet::GetTime( ) );
+
+		NetworkUtils::SendNetworkMessage( BitStream( ), packet->systemAddress, m_networkInterface );
 	}
 
 	void ClientNetworkProvider::OnPacketReceived( Packet* packet )

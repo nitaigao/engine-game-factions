@@ -63,6 +63,13 @@ namespace Script
 		void SelectCharacter( const std::string& characterName );
 
 
+		/*! Instructs the Network Stack to look for Game Servers
+		*
+		* @return ( void )
+		*/
+		void FindServers( );
+
+
 	private:
 
 		NetworkFacade( const NetworkFacade & copy ) { };

@@ -64,7 +64,7 @@ namespace UX
 				.def( "asScrollbar", &UXSystemScene::AsScrollBar )
 				.def( "setFocus", &UXSystemScene::SetFocus ),
 
-				class_< Button >( "Button" )
+				class_< Button, Widget >( "Button" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "setChecked", &Button::setStateCheck )
 				.def( "getChecked", &Button::getStateCheck ),

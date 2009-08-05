@@ -20,6 +20,12 @@ function Servers.initialize( )
 
 	script:registerEventHandler( Servers.onEvent )
 	
+	local refreshButton = ux:findWidget( 'servers_refresh_button' ):asButton( )
+	ux:scriptWidget( refreshButton, 'onRelease', Servers.onRefresh )
+	
+	local connectButton = ux:findWidget( 'servers_connect_button' ):asButton( )
+	ux:scriptWidget( connectButton, 'onRelease', Servers.onConnect )
+	
 	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
 	serverList:removeAllItems( )
 	
@@ -45,6 +51,18 @@ function Servers.onEvent( eventName, val1, val2 )
 		Servers.onServerFound( )
 	
 	end
+
+end
+
+function Servers.onRefresh( )
+
+	network:findServers( )
+
+end
+
+function Servers.onConnect( )
+
+	print( 'connect clicked' )
 
 end
 

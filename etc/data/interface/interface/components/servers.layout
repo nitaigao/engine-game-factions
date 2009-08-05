@@ -6,5 +6,8 @@
         <Widget type="Button" skin="Button" position="476 393 128 24" align="Right Bottom" layer="Back" name="servers_connect_button">
             <Property key="Widget_Caption" value="Connect"/>
         </Widget>
+        <Widget type="Button" skin="Button" position="340 393 128 24" align="Right Bottom" layer="Back" name="servers_refresh_button">
+            <Property key="Widget_Caption" value="Refresh"/>
+        </Widget>
     </Widget>
 </MyGUI>

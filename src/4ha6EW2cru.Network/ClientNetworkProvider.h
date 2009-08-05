@@ -58,6 +58,7 @@ namespace Network
 		ClientNetworkProvider & operator = ( const ClientNetworkProvider & copy ) { return *this; };
 
 		void OnPacketReceived( Packet* packet );
+		void OnPongReceived( Packet* packet );
 
 		Configuration::IConfiguration* m_configuration;
 

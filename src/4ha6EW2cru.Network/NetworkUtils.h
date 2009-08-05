@@ -36,6 +36,9 @@ namespace Network
 		*/
 		NetworkUtils( ) { };
 
+		static const SystemAddress BROADCAST_ADDRESS;
+		static const unsigned int NetworkUtils::SERVER_PORT;
+
 		static unsigned char GetPacketIdentifier( Packet *packet );
 
 		static RakNet::BitStream* ReceiveNetworkMessage( Packet* packet );

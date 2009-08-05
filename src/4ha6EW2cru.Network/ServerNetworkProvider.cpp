@@ -42,14 +42,13 @@ namespace Network
 	{
 		m_configuration = configuration;
 
-		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 8989 );
 		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerConnections, 10 );
 		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSleepTime, 30 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerReleaseTime, 10 );
 
 		m_networkInterface = RakNetworkFactory::GetRakPeerInterface( );
 
-		SocketDescriptor socketDescriptor( configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerPort ).As< int >( ), 0 );
+		SocketDescriptor socketDescriptor( NetworkUtils::SERVER_PORT, 0 );
 
 		m_networkInterface->SetMaximumIncomingConnections( 
 			configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxServerConnections ).As< int >( ) 
@@ -93,6 +92,13 @@ namespace Network
 			case ID_REMOTE_CONNECTION_LOST:
 
 				logMessage << packet->systemAddress.ToString( false ) << " has lost connection";
+
+				break;
+
+			case ID_PING:
+			case ID_PING_OPEN_CONNECTIONS:
+
+				logMessage << "Ping from " << packet->systemAddress.ToString( );;
 
 				break;
 
@@ -158,6 +164,11 @@ namespace Network
 			}
 
 			m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
+		}
+
+		if ( message == System::Messages::Network::Client::RequestServerInfo.c_str( ) )
+		{
+			Net( "Request Server Info from: ", packet->systemAddress.ToString( ) );
 		}
 
 		if ( message == System::Messages::Network::Client::CharacterSelected.c_str( ) )

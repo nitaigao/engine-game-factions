@@ -18,6 +18,9 @@ using namespace RakNet;
 
 namespace Network
 {
+	const unsigned int NetworkUtils::SERVER_PORT = 8989;
+	const SystemAddress NetworkUtils::BROADCAST_ADDRESS = SystemAddress( "255.255.255.255", NetworkUtils::SERVER_PORT );
+
 	unsigned char NetworkUtils::GetPacketIdentifier( Packet *packet )
 	{
 		if ( packet == 0 )

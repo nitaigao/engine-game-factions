@@ -12,7 +12,9 @@ namespace Script
 			class_< NetworkFacade >( "NetworkFacade" )
 				.def( constructor< >( ) )
 				.def( "connect", &NetworkFacade::Connect )
-				.def( "selectCharacter", &NetworkFacade::SelectCharacter );
+				.def( "selectCharacter", &NetworkFacade::SelectCharacter )
+				.def( "findServers", &NetworkFacade::FindServers )
+				;
 	}
 
 	void NetworkFacade::Connect( const std::string& hostAddress, const int& port )
@@ -30,5 +32,10 @@ namespace Script
 		parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )->Message( System::Messages::Network::Client::CharacterSelected, parameters );
+	}
+
+	void NetworkFacade::FindServers( )
+	{
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
 	}
 }
