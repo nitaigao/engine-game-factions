@@ -1,5 +1,7 @@
 #include "StringUtils.h"
 
+#include <sstream>
+
 namespace Utility
 {
 	std::string StringUtils::Replace( const std::string& input, const std::string& oldString, const std::string& newString )
@@ -12,5 +14,12 @@ namespace Utility
 		}
 
 		return result;
+	}
+
+	std::string StringUtils::ToString( const int& input )
+	{
+		std::stringstream result;
+		result << input;
+		return result.str( );
 	}
 }

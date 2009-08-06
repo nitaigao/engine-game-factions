@@ -46,15 +46,9 @@ function Servers.onEvent( eventName, val1, val2 )
 	
 	end
 	
-	if ( eventName == "SERVER_FOUND" ) then
-	
-		Servers.onServerFound( )
-	
-	end
-	
 	if ( eventName == "SERVER_ADVERTISED" ) then
 	
-		print( 'server advertised id:' .. val1 )
+		Servers.onServerAdvertised( val1 )
 	
 	end
 
@@ -62,6 +56,9 @@ end
 
 function Servers.onRefresh( )
 
+	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
+	serverList:removeAllItems( )
+	
 	network:findServers( )
 
 end
@@ -72,11 +69,44 @@ function Servers.onConnect( )
 
 end
 
-function Servers.onServerFound( )
+function Servers.onServerAdvertised( cacheIndex )
 
-	print( 'server found' )
+	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
+	serverList:addItem( '' )
+	
+	local serverIndex = serverList:getItemCount( ) - 1
+	local serverAd = network:getServerAd( cacheIndex )
+	
+	for key, value in pairs( serverAd ) do
+	
+		if ( key == 'serverName' ) then
+		
+			serverList:setSubItemName( 0, serverIndex, value )
+		
+		end
+		
+		if ( key == 'players' ) then
+		
+			serverList:setSubItemName( 1, serverIndex, value )
+		
+		end
+		
+		if ( key == 'levelname' ) then
+		
+			serverList:setSubItemName( 2, serverIndex, value )
+		
+		end
+		
+		if ( key == 'ping' ) then
+		
+			serverList:setSubItemName( 3, serverIndex, value )
+		
+		end
+	
+	end
 
 end
+
 
 function Servers.onShowServers( )
     

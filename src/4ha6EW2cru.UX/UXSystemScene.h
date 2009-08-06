@@ -122,6 +122,7 @@ namespace UX
 		static inline void MultiList_SetColumnWidthAt( MyGUI::MultiListPtr widget, const int& index, const int& width ) { return widget->setColumnWidthAt( index, width ); };
 		static inline std::string MultiList_GetItemName( MyGUI::MultiListPtr widget, const int& index ) { return widget->getItemNameAt( index ); };
 		static inline std::string MultiList_GetSubItemName( MyGUI::MultiListPtr widget, const int& column, const int& index ) { return widget->getSubItemNameAt( column, index ); };
+		static inline int MultiList_GetItemCount( MyGUI::MultiListPtr widget ) { return static_cast< int >( widget->getItemCount( ) ); };
 		static inline void MultiList_SetSubItemName( MyGUI::MultiListPtr widget, int column, int index, const std::string& name ) { widget->setSubItemNameAt( column,index, name ); };
 
 		static inline MyGUI::ButtonPtr AsButton( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::ButtonPtr >( widget ); };

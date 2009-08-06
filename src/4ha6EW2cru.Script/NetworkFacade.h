@@ -14,6 +14,8 @@
 
 #include "System/ISystemComponent.hpp"
 
+#include "Utility/StringUtils.h"
+
 namespace Script
 {
 	/*! 
@@ -68,6 +70,14 @@ namespace Script
 		* @return ( void )
 		*/
 		void FindServers( );
+
+
+		/*! Returns the Server Advertisement at the given Cache Index within the Client Server Cache
+		*
+		* @param[in] const int & cacheIndex
+		* @return ( ServerAdvertisement* )
+		*/
+		Utility::StringUtils::StringMap GetServerAd( const int& cacheIndex );
 
 
 	private:

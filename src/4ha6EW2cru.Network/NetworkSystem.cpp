@@ -90,7 +90,14 @@ namespace Network
 				(
 				class_< ServerAdvertisement >( "ServerAdvertisement" )
 					.def( constructor< const std::string&, const std::string&, const int&, const int&, const int& >( ) )
+					.def( "getServerName", &ServerAdvertisement::GetServerName )
+					.def( "getMaxPlayers", &ServerAdvertisement::GetMaxPlayers )
+					.def( "getPlayerCount", &ServerAdvertisement::GetPlayerCount )
+					.def( "getLevelName", &ServerAdvertisement::GetLevelName )
+					.def( "getPing", &ServerAdvertisement::GetPing )
 				);
+
+			results[ System::TypeStrings::NETWORK ] = luaScope;
 		} 
 		else if ( m_networkProvider )
 		{

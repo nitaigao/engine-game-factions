@@ -19,3 +19,15 @@ TEST( StringUtils_Tests, should_not_replace_characters_in_a_string )
 
 	EXPECT_TRUE( result.find( "/" ) == input.find( "/" ) && !result.empty( ) );
 }
+
+TEST( StringVector_Tests, should_convert_int_to_string )
+{
+	int input = 10;
+
+	std::string actual = StringUtils::ToString( input );
+
+	std::stringstream expected;
+	expected << input;
+
+	EXPECT_EQ( expected.str( ), actual );
+}

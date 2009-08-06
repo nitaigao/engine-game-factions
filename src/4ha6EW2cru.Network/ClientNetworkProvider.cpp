@@ -1,10 +1,9 @@
 #include "ClientNetworkProvider.h"
 
 #include "NetworkUtils.h"
+#include "ServerAdvertisement.hpp"
 
-#include "Configuration/Configuration.h"
-#include "Configuration/ConfigurationTypes.hpp"
-using namespace Configuration;
+#include "Management/Management.h"
 
 #include <RakNetworkFactory.h>
 #include <RakSleep.h>
@@ -14,6 +13,10 @@ using namespace Configuration;
 #include <GetTime.h>
 using namespace RakNet;
 
+#include "Configuration/Configuration.h"
+#include "Configuration/ConfigurationTypes.hpp"
+using namespace Configuration;
+
 #include "Logging/Logger.h"
 using namespace Logging;
 
@@ -21,20 +24,24 @@ using namespace Logging;
 #include "Events/EventData.hpp"
 using namespace Events;
 
-#include "Management/Management.h"
-
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-#include "ServerAdvertisement.hpp"
-
 #include "Events/ScriptEvent.hpp"
 using namespace Events;
+
+#include "Utility/StringUtils.h"
+using namespace Utility;
 
 namespace Network
 {
 	ClientNetworkProvider::~ClientNetworkProvider()
 	{
+		for( IServerAdvertisement::ServerAdvertisementList::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
+		{
+			delete ( *i );
+		}
+
 		if ( m_networkInterface != 0 )
 		{
 			delete m_networkInterface;
@@ -139,6 +146,17 @@ namespace Network
 				m_serverAddress.port,
 				0, 0
 			);
+		}
+
+		if ( message == System::Messages::Network::Client::GetServerAd )
+		{
+			IServerAdvertisement* serverAd = m_serverCache[ parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) ];
+
+			results[ System::Parameters::Network::Server::ServerName ] = serverAd->GetServerName( );
+			results[ System::Parameters::Network::Server::LevelName ] = serverAd->GetLevelName( );
+			results[ System::Parameters::Network::Server::MaxPlayers ] = StringUtils::ToString( serverAd->GetMaxPlayers( ) );
+			results[ System::Parameters::Network::Server::PlayerCount ] = StringUtils::ToString( serverAd->GetPlayerCount( ) );
+			results[ System::Parameters::Network::Server::Ping ] = StringUtils::ToString( serverAd->GetPing( ) );
 		}
 
 		if( message == System::Messages::Network::Client::FindServers )

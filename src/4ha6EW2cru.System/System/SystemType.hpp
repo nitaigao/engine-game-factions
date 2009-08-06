@@ -138,6 +138,16 @@ namespace System
 			namespace Client
 			{
 				static const Parameter CharacterName	=	"characterName";
+				static const Parameter ServerCacheIndex =	"serverCacheIndex";
+			}
+
+			namespace Server
+			{
+				static const Parameter ServerName		=	"serverName";
+				static const Parameter LevelName		=	"levelname";
+				static const Parameter MaxPlayers		=	"maxPlayers";
+				static const Parameter PlayerCount		=	"playerCount";
+				static const Parameter Ping				=	"ping";
 			}
 		}
 
@@ -237,6 +247,7 @@ namespace System
 				static const Message CharacterSelected	=	"characterSelelected";
 				static const Message FindServers		=	"findServers";
 				static const Message RequestServerInfo	=	"requestServerInfo";
+				static const Message GetServerAd		=	"getServerAd";
 			}
 
 			namespace Server

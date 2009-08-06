@@ -1,8 +1,11 @@
 #include "NetworkFacade.h"
 
+#include <luabind/table_policy.hpp>
 using namespace luabind;
 
 #include "Management/Management.h"
+
+using namespace Utility;
 
 namespace Script
 {
@@ -14,6 +17,7 @@ namespace Script
 				.def( "connect", &NetworkFacade::Connect )
 				.def( "selectCharacter", &NetworkFacade::SelectCharacter )
 				.def( "findServers", &NetworkFacade::FindServers )
+				.def( "getServerAd", &NetworkFacade::GetServerAd, copy_table_assoc( result ) )
 				;
 	}
 
@@ -23,7 +27,8 @@ namespace Script
 		parameters[ System::Parameters::Network::HostAddress ] = hostAddress;
 		parameters[ System::Parameters::Network::Port ] = port;
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )->Message( System::Messages::Network::Connect, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
+			->Message( System::Messages::Network::Connect, parameters );
 	}
 
 	void NetworkFacade::SelectCharacter( const std::string& characterName )
@@ -31,11 +36,39 @@ namespace Script
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )->Message( System::Messages::Network::Client::CharacterSelected, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
+			->Message( System::Messages::Network::Client::CharacterSelected, parameters );
 	}
 
 	void NetworkFacade::FindServers( )
 	{
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
+			->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
+	}
+
+	StringUtils::StringMap NetworkFacade::GetServerAd( const int& cacheIndex )
+	{
+		AnyType::AnyTypeMap parameters;
+		parameters[ System::Parameters::Network::Client::ServerCacheIndex ] = cacheIndex;
+
+		AnyType::AnyTypeMap results = Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
+			->Message( System::Messages::Network::Client::GetServerAd, parameters ); 
+
+		StringUtils::StringMap serverAd;
+
+		for ( AnyType::AnyTypeMap::iterator i = results.begin( ); i != results.end( ); ++i )
+		{
+			serverAd[ ( *i ).first ] = ( *i ).second.As< std::string >( );
+		}
+
+		std::stringstream players;
+		players 
+			<< results[ System::Parameters::Network::Server::PlayerCount ].As< std::string >( ) 
+			<< "/" 
+			<< results[ System::Parameters::Network::Server::MaxPlayers ].As< std::string >( );
+
+		serverAd[ "players" ] = players.str( );
+
+		return serverAd;
 	}
 }

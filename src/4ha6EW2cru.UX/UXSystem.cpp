@@ -95,7 +95,9 @@ namespace UX
 				.def( "setSubItemName", &UXSystemScene::MultiList_SetSubItemName  )
 				.def( "getColumnCount", &UXSystemScene::MultiList_GetColumnCount )
 				.def( "getColumnWidthAt", &UXSystemScene::MultiList_GetColumnWidthAt )
-				.def( "setColumnWidthAt", &UXSystemScene::MultiList_SetColumnWidthAt ),
+				.def( "setColumnWidthAt", &UXSystemScene::MultiList_SetColumnWidthAt )
+				.def( "getItemCount", &UXSystemScene::MultiList_GetItemCount )
+				,
 
 				class_< VScroll, Widget >( "Scrollbar" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
