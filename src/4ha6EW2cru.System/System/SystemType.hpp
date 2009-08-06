@@ -129,7 +129,7 @@ namespace System
 		namespace Network
 		{
 			static const Parameter HostAddress			=	"hostAddress";
-			static const Parameter Port					=	"port";
+			static const Parameter Port					=	"hostPort";
 			static const Parameter ComponentId			=	"componentId";
 			static const Parameter ComponentMessage		=	"componentMessage";
 			static const Parameter EndOfParameters		=	"endOfParameters";

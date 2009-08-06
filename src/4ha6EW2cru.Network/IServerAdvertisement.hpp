@@ -62,6 +62,20 @@ namespace Network
 		* @return ( int )
 		*/
 		virtual int GetPing( ) = 0;
+
+
+		/*! Returns the address of the server including the port
+		*
+		* @return ( std::string )
+		*/
+		virtual std::string GetServerAddress( ) = 0;
+
+
+		/*! Returns the serverAddress of the server including the port
+		*
+		* @return ( int )
+		*/
+		virtual int GetServerPort( ) = 0;
 	};
 };
 

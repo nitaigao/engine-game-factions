@@ -24,15 +24,19 @@ function Servers.initialize( )
 	ux:scriptWidget( refreshButton, 'onRelease', Servers.onRefresh )
 	
 	local connectButton = ux:findWidget( 'servers_connect_button' ):asButton( )
-	ux:scriptWidget( connectButton, 'onRelease', Servers.onConnect )
+	ux:scriptWidget( connectButton, 'onRelease', Servers.onConnectClicked )
 	
 	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
+	ux:scriptWidget( serverList, 'onListSelectAccept', Servers.onServerListDoubleClick )
+	
 	serverList:removeAllItems( )
 	
 	serverList:addColumn( 'Description', 300 )
 	serverList:addColumn( 'Players', 100 )
 	serverList:addColumn( 'Map', 100 )
 	serverList:addColumn( 'Ping', 100 )
+	serverList:addColumn( 'Address', 0 )
+	serverList:addColumn( 'Port', 0 )
 	
 	Servers.onResized( )
 	
@@ -63,9 +67,32 @@ function Servers.onRefresh( )
 
 end
 
-function Servers.onConnect( )
+function Servers.onServerListDoubleClick( index )
 
-	print( 'connect clicked' )
+	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
+	
+	local serverAddress = serverList:getSubItemName( 4, index )
+	local serverPort = serverList:getSubItemName( 5, index )
+	
+	Servers.Connect( serverAddress, tonumber( serverPort ) )
+
+end
+
+function Servers.onConnectClicked( )
+
+	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
+
+	local serverAddress = serverList:getSubItemName( 4, serverList:getSelectedIndex( ) )
+	local serverPort = serverList:getSubItemName( 5, serverList:getSelectedIndex( ) )
+	
+	Servers.Connect( serverAddress, tonumber( serverPort ) )
+
+end
+
+function Servers.Connect( serverAddress, serverPort )
+
+	network:connect( serverAddress, serverPort )
+	Servers.onHideServers( )
 
 end
 
@@ -99,7 +126,19 @@ function Servers.onServerAdvertised( cacheIndex )
 		
 		if ( key == 'ping' ) then
 		
-			serverList:setSubItemName( 3, serverIndex, value )
+			serverList:setSubItemName( 3, serverIndex, value .. 'ms' )
+		
+		end
+		
+		if ( key == 'hostAddress' ) then
+		
+			serverList:setSubItemName( 4, serverIndex, value )
+		
+		end
+		
+		if ( key == 'hostPort' ) then
+		
+			serverList:setSubItemName( 5, serverIndex, value )
 		
 		end
 	

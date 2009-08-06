@@ -89,12 +89,14 @@ namespace Network
 			scope luaScope = 
 				(
 				class_< ServerAdvertisement >( "ServerAdvertisement" )
-					.def( constructor< const std::string&, const std::string&, const int&, const int&, const int& >( ) )
+					.def( constructor< const std::string&, const std::string&, const int&, const int&, const int&, const std::string&, const int& >( ) )
 					.def( "getServerName", &ServerAdvertisement::GetServerName )
 					.def( "getMaxPlayers", &ServerAdvertisement::GetMaxPlayers )
 					.def( "getPlayerCount", &ServerAdvertisement::GetPlayerCount )
 					.def( "getLevelName", &ServerAdvertisement::GetLevelName )
 					.def( "getPing", &ServerAdvertisement::GetPing )
+					.def( "getServerAddress", &ServerAdvertisement::GetServerAddress )
+					.def( "getServerPort", &ServerAdvertisement::GetServerPort )
 				);
 
 			results[ System::TypeStrings::NETWORK ] = luaScope;

@@ -157,6 +157,8 @@ namespace Network
 			results[ System::Parameters::Network::Server::MaxPlayers ] = StringUtils::ToString( serverAd->GetMaxPlayers( ) );
 			results[ System::Parameters::Network::Server::PlayerCount ] = StringUtils::ToString( serverAd->GetPlayerCount( ) );
 			results[ System::Parameters::Network::Server::Ping ] = StringUtils::ToString( serverAd->GetPing( ) );
+			results[ System::Parameters::Network::HostAddress ] = serverAd->GetServerAddress( );
+			results[ System::Parameters::Network::Port ] = StringUtils::ToString( serverAd->GetServerPort( ) );
 		}
 
 		if( message == System::Messages::Network::Client::FindServers )
@@ -307,7 +309,7 @@ namespace Network
 
 		Info( "Server Advertised", "Name:", serverName, "LevelName:", mapName, "MaxPlayers:", maxPlayers, "NumPlayers:", numPlayers, "Ping", ping );
 
-		ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping );
+		ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port );
 		m_serverCache.push_back( advertisment );
 
 		ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache.size( ) - 1 );

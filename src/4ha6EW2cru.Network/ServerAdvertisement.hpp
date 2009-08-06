@@ -31,12 +31,14 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		ServerAdvertisement( const std::string& serverName, const std::string& levelName, const int& maxPlayers, const int& playerCount, const int& ping )
+		ServerAdvertisement( const std::string& serverName, const std::string& levelName, const int& maxPlayers, const int& playerCount, const int& ping, const std::string& serverAddress, const int& serverPort )
 			: m_serverName( serverName )
 			, m_levelName( levelName )
 			, m_maxPlayers( maxPlayers )
 			, m_playerCount( playerCount )
 			, m_ping( ping )
+			, m_serverAddress( serverAddress )
+			, m_serverPort( serverPort )
 		{
 
 		}
@@ -75,6 +77,20 @@ namespace Network
 		*/
 		inline int GetPing( ) { return m_ping; };
 
+
+		/*! Returns the serverAddress of the server including the port
+		*
+		* @return ( int )
+		*/
+		inline std::string GetServerAddress( ) { return m_serverAddress; };
+
+
+		/*! Returns the serverAddress of the server including the port
+		*
+		* @return ( int )
+		*/
+		inline int GetServerPort( ) { return m_serverPort; };
+
 	private:
 
 		ServerAdvertisement( ) { };
@@ -86,6 +102,8 @@ namespace Network
 		int m_maxPlayers;
 		int m_playerCount;
 		int m_ping;
+		std::string m_serverAddress;
+		int m_serverPort;
 		
 	};
 };

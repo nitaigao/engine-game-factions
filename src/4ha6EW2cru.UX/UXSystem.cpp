@@ -97,6 +97,7 @@ namespace UX
 				.def( "getColumnWidthAt", &UXSystemScene::MultiList_GetColumnWidthAt )
 				.def( "setColumnWidthAt", &UXSystemScene::MultiList_SetColumnWidthAt )
 				.def( "getItemCount", &UXSystemScene::MultiList_GetItemCount )
+				.def( "getSelectedIndex", &UXSystemScene::MultiList_GetSelectedIndex )
 				,
 
 				class_< VScroll, Widget >( "Scrollbar" )

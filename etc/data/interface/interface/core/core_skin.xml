@@ -535,7 +535,7 @@
   
   <Skin name = "MenuButton" size = "29 26" texture = "#{MyGUI_Theme_Texture}">
     <Property key="FontName" value = "DejaVuSans.17" />
-    <Property key="TextAlign" value = "HCenter VCenter" />
+    <Property key="TextAlign" value = "Left VCenter" />
 
     <BasisSkin type="SubSkin" offset = "0 0 10 26" align = "Left VStretch">
       <!--<State name="disabled" offset = "202 2 10 26"/>

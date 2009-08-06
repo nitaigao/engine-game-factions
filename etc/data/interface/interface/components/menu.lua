@@ -121,11 +121,17 @@ function Menu.ToggleInGameMenu( )
 		local playButton = ux:findWidget( 'button_play' )
 		playButton:setVisible( true )
 		
+		local createButton = ux:findWidget( 'button_create' )
+		createButton:setVisible( true )
+		
 		local resumeButton = ux:findWidget( 'button_resume' )
 		resumeButton:setVisible( false )
 		
 		local quitButton = ux:findWidget( 'button_quit' )
 		quitButton:setVisible( true )
+		
+		local seperatorButton = ux:findWidget( 'button_seperator1' )
+		seperatorButton:setVisible( true )
 		
 		local endGameButton = ux:findWidget( 'button_endgame' )
 		endGameButton:setVisible( false )
@@ -141,11 +147,17 @@ function Menu.ToggleInGameMenu( )
 		local playButton = ux:findWidget( 'button_play' )
 		playButton:setVisible( false )
 		
+		local createButton = ux:findWidget( 'button_create' )
+		createButton:setVisible( false )
+		
 		local resumeButton = ux:findWidget( 'button_resume' )
 		resumeButton:setVisible( true )
 		
 		local quitButton = ux:findWidget( 'button_quit' )
 		quitButton:setVisible( false )
+		
+		local seperatorButton = ux:findWidget( 'button_seperator1' )
+		seperatorButton:setVisible( false )
 		
 		local endGameButton = ux:findWidget( 'button_endgame' )
 		endGameButton:setVisible( true )
