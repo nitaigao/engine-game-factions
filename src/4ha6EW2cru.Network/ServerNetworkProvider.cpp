@@ -10,6 +10,7 @@ using namespace Configuration;
 #include <RakSleep.h>
 #include <BitStream.h>
 #include <MessageIdentifiers.h>
+#include <GetTime.h>
 
 using namespace RakNet;
 
@@ -45,6 +46,8 @@ namespace Network
 		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerConnections, 10 );
 		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSleepTime, 30 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerReleaseTime, 10 );
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerName, "Factions Server" );
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxPlayers, 10 );
 
 		m_networkInterface = RakNetworkFactory::GetRakPeerInterface( );
 
@@ -95,10 +98,17 @@ namespace Network
 
 				break;
 
-			case ID_PING:
 			case ID_PING_OPEN_CONNECTIONS:
 
 				logMessage << "Ping from " << packet->systemAddress.ToString( );;
+
+				this->OnPing( packet );
+
+				break;
+
+			case ID_ADVERTISE_SYSTEM:
+
+				this->OnClientAdvertise( packet );
 
 				break;
 
@@ -123,8 +133,8 @@ namespace Network
 		m_clients.push_back( packet->systemAddress );
 
 		BitStream stream;
-		stream.Write( RakString( System::Messages::Game::ChangeLevel.c_str( ) ) );
-		stream.Write( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ).c_str( ) ) );
+		stream.Write( RakString( System::Messages::Game::ChangeLevel ) );
+		stream.Write( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
 
 		NetworkUtils::SendNetworkMessage( stream, packet->systemAddress, m_networkInterface );
 	}
@@ -201,13 +211,38 @@ namespace Network
 			BitStream stream;
 
 			stream.Write( message.c_str( ) );
-			stream.Write( RakString( filePath.c_str( ) ) );
-			stream.Write( RakString( name.c_str( ) ) );
+			stream.Write( RakString( filePath ) );
+			stream.Write( RakString( name ) );
 
 			for ( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
 			{
 				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
 			}
 		}
+	}
+
+	void ServerNetworkProvider::OnPing( Packet* packet )
+	{
+	}
+
+	void ServerNetworkProvider::OnClientAdvertise( Packet* packet )
+	{
+		BitStream* clientStream = NetworkUtils::ReceiveNetworkMessage( packet );
+		RakNetTime clientTime;
+		clientStream->Read( clientTime );
+		delete clientStream;
+
+		std::string serverName = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( );
+		int maxPlayers = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( );
+
+		BitStream stream;
+		stream.WriteCompressed( clientTime );
+		stream.WriteCompressed( RakNet::GetTime( ) );
+		stream.WriteCompressed( RakString( serverName ) );
+		stream.WriteCompressed( m_clients.size( ) );
+		stream.WriteCompressed( maxPlayers );
+		stream.WriteCompressed( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
+
+		m_networkInterface->AdvertiseSystem( packet->systemAddress.ToString( false ), packet->systemAddress.port, ( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
 	}
 }

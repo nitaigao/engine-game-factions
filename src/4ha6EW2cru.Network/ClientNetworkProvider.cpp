@@ -26,6 +26,11 @@ using namespace Events;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
+#include "ServerAdvertisement.hpp"
+
+#include "Events/ScriptEvent.hpp"
+using namespace Events;
+
 namespace Network
 {
 	ClientNetworkProvider::~ClientNetworkProvider()
@@ -98,13 +103,9 @@ namespace Network
 
 				break;
 
-			case ID_PONG:
+			case ID_ADVERTISE_SYSTEM:
 
-				logMessage << "Pong from " << packet->systemAddress.ToString( );
-
-				this->OnPongReceived( packet );
-
-				break;
+				this->OnServerAdvertise( packet );
 
 			case ID_USER_PACKET_ENUM:
 
@@ -142,30 +143,31 @@ namespace Network
 
 		if( message == System::Messages::Network::Client::FindServers )
 		{
-			m_networkInterface->Ping( NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port, true );
+			for( IServerAdvertisement::ServerAdvertisementList::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
+			{
+				delete ( *i );
+			}
+
+			m_serverCache.clear( );
+
+			BitStream stream;
+			stream.Write( RakNet::GetTime( ) );
+
+			m_networkInterface->AdvertiseSystem( NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port, ( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
 		}
 
 		if( message == System::Messages::Network::Client::CharacterSelected )
 		{
 			BitStream stream;
-			stream.Write( RakString( message.c_str( ) ) );
+			stream.Write( RakString( message ) );
 
 			std::string characterName = parameters[ System::Parameters::Network::Client::CharacterName ].As< std::string >( );
-			stream.Write( RakString( characterName.c_str( ) ) );
+			stream.Write( RakString( characterName ) );
 			
 			NetworkUtils::SendNetworkMessage( stream, m_serverAddress, m_networkInterface );
 		}
 
 		return results;
-	}
-
-	void ClientNetworkProvider::OnPongReceived( Packet* packet )
-	{
-		BitStream stream;
-		stream.Write( RakString( System::Messages::Network::Client::RequestServerInfo.c_str( ) ) );
-		//stream.Write( RakNet::GetTime( ) );
-
-		NetworkUtils::SendNetworkMessage( BitStream( ), packet->systemAddress, m_networkInterface );
 	}
 
 	void ClientNetworkProvider::OnPacketReceived( Packet* packet )
@@ -255,5 +257,44 @@ namespace Network
 
 			NetworkUtils::SendNetworkMessage( stream, m_serverAddress, m_networkInterface );
 		}
+	}
+
+	void ClientNetworkProvider::OnServerAdvertise( Packet* packet )
+	{
+		BitStream* stream = NetworkUtils::ReceiveNetworkMessage( packet );
+
+		RakNetTime originalClientTime;
+		stream->ReadCompressed( originalClientTime );
+
+		RakNetTime serverTime;
+		stream->ReadCompressed( serverTime );
+
+		RakString serverName;
+		stream->ReadCompressed( serverName );
+
+		int numPlayers = 0;
+		stream->ReadCompressed( numPlayers );
+
+		int maxPlayers = 0;
+		stream->ReadCompressed( maxPlayers );
+
+		RakString mapName;
+		stream->ReadCompressed( mapName );
+
+		RakNetTime originalClientToServerPing = serverTime - originalClientTime;
+		RakNetTime serverToDestinationClientPing = RakNet::GetTime( ) - serverTime;
+
+		RakNetTime ping = originalClientToServerPing + serverToDestinationClientPing;
+		ping = ( ping < 0 ) ? 0 : ping;
+
+		Info( "Server Advertised", "Name:", serverName, "LevelName:", mapName, "MaxPlayers:", maxPlayers, "NumPlayers:", numPlayers, "Ping", ping );
+
+		ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping );
+		m_serverCache.push_back( advertisment );
+
+		ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache.size( ) - 1 );
+		Management::Get( )->GetEventManager( )->QueueEvent( scriptEvent );
+
+		delete stream;
 	}
 }

@@ -28,6 +28,11 @@ using namespace Configuration;
 #include "ServerNetworkProvider.h"
 #include "ClientNetworkProvider.h"
 
+#include "ServerAdvertisement.hpp"
+
+#include <luabind/luabind.hpp>
+using namespace luabind;
+
 namespace Network
 {
 	NetworkSystem::~NetworkSystem( )
@@ -79,7 +84,15 @@ namespace Network
 	{
 		AnyType::AnyTypeMap results;
 
-		if( m_networkProvider )
+		if ( message == System::Messages::RegisterScriptFunctions )
+		{
+			scope luaScope = 
+				(
+				class_< ServerAdvertisement >( "ServerAdvertisement" )
+					.def( constructor< const std::string&, const std::string&, const int&, const int&, const int& >( ) )
+				);
+		} 
+		else if ( m_networkProvider )
 		{
 			return m_networkProvider->Message( message, parameters );
 		}

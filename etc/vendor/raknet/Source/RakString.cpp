@@ -39,6 +39,10 @@ RakString::RakString()
 {
 	sharedString=&emptyString;
 }
+RakNet::RakString::RakString( std::string input )
+{
+	Assign( input.c_str( ) );
+}
 RakString::RakString( RakString::SharedString *_sharedString )
 {
 	sharedString=_sharedString;

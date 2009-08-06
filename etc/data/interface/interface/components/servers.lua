@@ -51,6 +51,12 @@ function Servers.onEvent( eventName, val1, val2 )
 		Servers.onServerFound( )
 	
 	end
+	
+	if ( eventName == "SERVER_ADVERTISED" ) then
+	
+		print( 'server advertised id:' .. val1 )
+	
+	end
 
 end
 

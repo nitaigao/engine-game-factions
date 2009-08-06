@@ -61,6 +61,8 @@ namespace Network
 		ServerNetworkProvider & operator = ( const ServerNetworkProvider & copy ) { return *this; };
 
 		void OnPacketReceived( Packet* packet );
+		void OnPing( Packet* packet );
+		void OnClientAdvertise( Packet* packet );
 		void OnClientConnected( Packet* packet );
 		void OnClientDisconnected( Packet* packet );
 

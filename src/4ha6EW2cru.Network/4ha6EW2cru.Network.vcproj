@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -60,8 +60,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="RakNetLibStaticDebug.lib ws2_32.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/raknet/lib"
+				AdditionalDependencies="RakNetLibStaticDebug.lib ws2_32.lib luabindd.lib luad.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/raknet/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				IgnoreDefaultLibraryNames="LIBCMT;LIBCMTD"
 				ModuleDefinitionFile="SystemDefinition.def"
 				GenerateDebugInformation="true"
@@ -115,7 +115,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include"
 				PreprocessorDefinitions="TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -133,8 +133,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="RakNetLibStatic.lib ws2_32.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/raknet/lib"
+				AdditionalDependencies="RakNetLibStatic.lib ws2_32.lib luabind.lib lua.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/raknet/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
 				GenerateDebugInformation="true"
@@ -236,6 +236,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IServerAdvertisement.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkMessage.hpp"
 				>
 			</File>
@@ -253,6 +257,10 @@
 			</File>
 			<File
 				RelativePath=".\NetworkUtils.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ServerAdvertisement.hpp"
 				>
 			</File>
 			<File

@@ -5,6 +5,7 @@
 #include "DS_List.h"
 #include "RakNetTypes.h" // int64_t
 #include <stdio.h>
+#include <string>
 
 namespace RakNet
 {
@@ -21,6 +22,7 @@ class RAK_DLL_EXPORT RakString
 public:
 	/// Constructors
 	RakString();
+	RakString( std::string input );
 	RakString(char input);
 	RakString(unsigned char input);
 	RakString(const unsigned char *format, ...);

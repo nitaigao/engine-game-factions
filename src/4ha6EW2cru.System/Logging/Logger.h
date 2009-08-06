@@ -3,7 +3,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 
-#define LOGGER_MAX_ARITY 10
+#define LOGGER_MAX_ARITY 20
 #define LOG_PARAMS(z, n, data) << _##n << " "
 #define LOG_FUNCTIONPARAMS(z, n, data) const T##n& _##n
 

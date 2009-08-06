@@ -11,6 +11,7 @@
 #include "INetworkProvider.hpp"
 #include "INetworkSystem.hpp"
 #include "NetworkMessage.hpp"
+#include "IServerAdvertisement.hpp"
 
 namespace Network
 {
@@ -58,13 +59,15 @@ namespace Network
 		ClientNetworkProvider & operator = ( const ClientNetworkProvider & copy ) { return *this; };
 
 		void OnPacketReceived( Packet* packet );
-		void OnPongReceived( Packet* packet );
+		void OnServerAdvertise( Packet* packet );
 
 		Configuration::IConfiguration* m_configuration;
 
 		RakPeerInterface* m_networkInterface;
 		SystemAddress m_serverAddress;
 		INetworkSystem* m_networkSystem;
+
+		IServerAdvertisement::ServerAdvertisementList m_serverCache;
 		
 	};
 };
