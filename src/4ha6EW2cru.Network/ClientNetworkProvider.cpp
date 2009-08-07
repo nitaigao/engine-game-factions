@@ -37,14 +37,14 @@ namespace Network
 {
 	ClientNetworkProvider::~ClientNetworkProvider()
 	{
-		for( IServerAdvertisement::ServerAdvertisementList::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
+		for( IServerAdvertisement::ServerAdvertisementMap::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
 		{
-			delete ( *i );
+			delete ( *i ).second;
 		}
 
 		if ( m_networkInterface != 0 )
 		{
-			delete m_networkInterface;
+			RakNetworkFactory::DestroyRakPeerInterface( m_networkInterface );
 		}
 	}
 
@@ -68,6 +68,8 @@ namespace Network
 			m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ClientSleepTime ).As< int >( ), 
 			&SocketDescriptor( ), 1 
 			);
+
+		m_networkInterface->SetOccasionalPing( true );
 	}
 
 	void ClientNetworkProvider::Update( const float& deltaMilliseconds )
@@ -110,9 +112,11 @@ namespace Network
 
 				break;
 
-			case ID_ADVERTISE_SYSTEM:
+			case ID_PONG:
 
-				this->OnServerAdvertise( packet );
+				this->OnPong( packet );
+
+				break;
 
 			case ID_USER_PACKET_ENUM:
 
@@ -155,8 +159,18 @@ namespace Network
 
 		if ( message == System::Messages::Network::Client::GetServerAd )
 		{
-			IServerAdvertisement* serverAd = m_serverCache[ parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) ];
+			int serverCacheIndex = 0;
 
+			IServerAdvertisement* serverAd = 0;
+
+			for ( IServerAdvertisement::ServerAdvertisementMap::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
+			{
+				if ( serverCacheIndex++ == parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) )
+				{
+					serverAd = ( *i ).second;
+				}
+			}
+			
 			results[ System::Parameters::Network::Server::ServerName ] = serverAd->GetServerName( );
 			results[ System::Parameters::Network::Server::LevelName ] = serverAd->GetLevelName( );
 			results[ System::Parameters::Network::Server::MaxPlayers ] = StringUtils::ToString( serverAd->GetMaxPlayers( ) );
@@ -168,17 +182,14 @@ namespace Network
 
 		if( message == System::Messages::Network::Client::FindServers )
 		{
-			for( IServerAdvertisement::ServerAdvertisementList::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
+			for( IServerAdvertisement::ServerAdvertisementMap::iterator i = m_serverCache.begin( ); i != m_serverCache.end( ); ++i )
 			{
-				delete ( *i );
+				delete ( *i ).second;
 			}
 
 			m_serverCache.clear( );
 
-			BitStream stream;
-			stream.Write( RakNet::GetTime( ) );
-
-			m_networkInterface->AdvertiseSystem( NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port, ( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
+			m_networkInterface->Ping( NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port, true );
 		}
 
 		if( message == System::Messages::Network::Client::CharacterSelected )
@@ -284,42 +295,39 @@ namespace Network
 		}
 	}
 
-	void ClientNetworkProvider::OnServerAdvertise( Packet* packet )
+	void ClientNetworkProvider::OnPong( Packet* packet )
 	{
-		BitStream* stream = NetworkUtils::ReceiveNetworkMessage( packet );
+		if ( m_serverCache.find( packet->systemAddress.ToString( ) ) == m_serverCache.end( ) )
+		{
+			BitStream* stream = NetworkUtils::ReceiveNetworkMessage( packet );
 
-		RakNetTime originalClientTime;
-		stream->ReadCompressed( originalClientTime );
+			RakNetTime serverTime;
+			stream->Read( serverTime );
 
-		RakNetTime serverTime;
-		stream->ReadCompressed( serverTime );
+			RakString serverName;
+			stream->ReadCompressed( serverName );
 
-		RakString serverName;
-		stream->ReadCompressed( serverName );
+			int numPlayers = 0;
+			stream->ReadCompressed( numPlayers );
 
-		int numPlayers = 0;
-		stream->ReadCompressed( numPlayers );
+			int maxPlayers = 0;
+			stream->ReadCompressed( maxPlayers );
 
-		int maxPlayers = 0;
-		stream->ReadCompressed( maxPlayers );
+			RakString mapName;
+			stream->ReadCompressed( mapName );
 
-		RakString mapName;
-		stream->ReadCompressed( mapName );
+			RakNetTime ping = RakNet::GetTime( ) - serverTime;
 
-		RakNetTime originalClientToServerPing = serverTime - originalClientTime;
-		RakNetTime serverToDestinationClientPing = RakNet::GetTime( ) - serverTime;
+			ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port );
 
-		RakNetTime ping = originalClientToServerPing + serverToDestinationClientPing;
-		ping = ( ping < 0 ) ? 0 : ping;
+			Info( "Server Advertised", "Name:", serverName, "LevelName:", mapName, "MaxPlayers:", maxPlayers, "NumPlayers:", numPlayers, "Ping:", ping, "Address:", packet->systemAddress.ToString( false ), "Port:" ,packet->systemAddress.port );
 
-		Info( "Server Advertised", "Name:", serverName, "LevelName:", mapName, "MaxPlayers:", maxPlayers, "NumPlayers:", numPlayers, "Ping", ping );
+			m_serverCache.insert( std::make_pair( packet->systemAddress.ToString( ), advertisment ) );
 
-		ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port );
-		m_serverCache.push_back( advertisment );
+			ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache.size( ) - 1 );
+			Management::Get( )->GetEventManager( )->QueueEvent( scriptEvent );
 
-		ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache.size( ) - 1 );
-		Management::Get( )->GetEventManager( )->QueueEvent( scriptEvent );
-
-		delete stream;
+			delete stream;
+		}
 	}
 }

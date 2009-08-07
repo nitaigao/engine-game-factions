@@ -30,11 +30,11 @@ namespace Network
 	{
 		if ( m_networkInterface != 0 )
 		{
-			delete m_networkInterface;
+			RakNetworkFactory::DestroyRakPeerInterface( m_networkInterface );
 		}
 	}
 
-	void ServerNetworkProvider::Release()
+	void ServerNetworkProvider::Release( )
 	{
 		m_networkInterface->Shutdown( m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxServerReleaseTime ).As< int >( ) );
 	}
@@ -61,6 +61,19 @@ namespace Network
 			configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxServerConnections ).As< int >( ), 
 			configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerSleepTime ).As< int >( ), 
 			&socketDescriptor, 1 );
+
+		//m_networkInterface->SetOccasionalPing( true );
+
+		std::string serverName = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( );
+		int maxPlayers = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( );
+
+		BitStream stream;
+		stream.WriteCompressed( RakString( serverName ) );
+		stream.WriteCompressed( m_clients.size( ) );
+		stream.WriteCompressed( maxPlayers );
+		stream.WriteCompressed( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
+
+		m_networkInterface->SetOfflinePingResponse( ( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
 	}
 
 	void ServerNetworkProvider::Update( const float& deltaMilliseconds )
@@ -74,7 +87,6 @@ namespace Network
 		if ( packet )
 		{
 			unsigned char packetId = NetworkUtils::GetPacketIdentifier( packet );
-			DefaultMessageIDTypes messageType = static_cast< DefaultMessageIDTypes >( packetId );
 
 			switch( packetId )
 			{
@@ -100,21 +112,15 @@ namespace Network
 
 			case ID_PING_OPEN_CONNECTIONS:
 
-				logMessage << "Ping from " << packet->systemAddress.ToString( );;
-
-				this->OnPing( packet );
-
-				break;
-
-			case ID_ADVERTISE_SYSTEM:
-
-				this->OnClientAdvertise( packet );
+				logMessage << "Ping from " << packet->systemAddress.ToString( );
 
 				break;
 
 			case ID_USER_PACKET_ENUM:
 
 				this->OnPacketReceived( packet );
+
+				break;
 			}
 
 			if( logMessage.str( ).length( ) > 0 )
@@ -142,6 +148,17 @@ namespace Network
 	void ServerNetworkProvider::OnClientDisconnected( Packet* packet )
 	{
 		Info( packet->systemAddress.ToString( ), "disconnected" );
+
+		m_networkInterface->CloseConnection( packet->systemAddress, true );
+
+		for( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
+		{
+			if ( ( *i ) == packet->systemAddress )
+			{
+				m_clients.erase( i );
+				break;
+			}
+		}
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Name ] = packet->systemAddress.ToString( );
@@ -219,30 +236,5 @@ namespace Network
 				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
 			}
 		}
-	}
-
-	void ServerNetworkProvider::OnPing( Packet* packet )
-	{
-	}
-
-	void ServerNetworkProvider::OnClientAdvertise( Packet* packet )
-	{
-		BitStream* clientStream = NetworkUtils::ReceiveNetworkMessage( packet );
-		RakNetTime clientTime;
-		clientStream->Read( clientTime );
-		delete clientStream;
-
-		std::string serverName = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( );
-		int maxPlayers = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( );
-
-		BitStream stream;
-		stream.WriteCompressed( clientTime );
-		stream.WriteCompressed( RakNet::GetTime( ) );
-		stream.WriteCompressed( RakString( serverName ) );
-		stream.WriteCompressed( m_clients.size( ) );
-		stream.WriteCompressed( maxPlayers );
-		stream.WriteCompressed( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
-
-		m_networkInterface->AdvertiseSystem( packet->systemAddress.ToString( false ), packet->systemAddress.port, ( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
 	}
 }

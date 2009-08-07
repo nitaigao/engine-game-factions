@@ -58,8 +58,8 @@ namespace Network
 		ClientNetworkProvider( const ClientNetworkProvider & copy ) { };
 		ClientNetworkProvider & operator = ( const ClientNetworkProvider & copy ) { return *this; };
 
+		void OnPong( Packet* packet );
 		void OnPacketReceived( Packet* packet );
-		void OnServerAdvertise( Packet* packet );
 
 		Configuration::IConfiguration* m_configuration;
 
@@ -67,7 +67,7 @@ namespace Network
 		SystemAddress m_serverAddress;
 		INetworkSystem* m_networkSystem;
 
-		IServerAdvertisement::ServerAdvertisementList m_serverCache;
+		IServerAdvertisement::ServerAdvertisementMap m_serverCache;
 		
 	};
 };

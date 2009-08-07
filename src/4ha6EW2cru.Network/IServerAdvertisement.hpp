@@ -9,6 +9,7 @@
 #define ISERVERADVERTISEMENT_HPP
 
 #include <deque>
+#include <map>
 
 namespace Network
 {
@@ -21,6 +22,7 @@ namespace Network
 	public:
 
 		typedef std::deque< IServerAdvertisement* > ServerAdvertisementList;
+		typedef std::map< std::string, IServerAdvertisement* > ServerAdvertisementMap;
 
 		/*! Default Destructor
 		 *
