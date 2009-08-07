@@ -224,6 +224,7 @@ end
 
 function Menu.onEndGameReleased( )
 
+	network:disconnect( )
 	Menu.ToggleInGameMenu( )
 	menu_ingame = false
 	endGame( )

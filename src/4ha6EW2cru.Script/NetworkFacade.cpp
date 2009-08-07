@@ -15,6 +15,7 @@ namespace Script
 			class_< NetworkFacade >( "NetworkFacade" )
 				.def( constructor< >( ) )
 				.def( "connect", &NetworkFacade::Connect )
+				.def( "disconnect", &NetworkFacade::Disconnect )
 				.def( "selectCharacter", &NetworkFacade::SelectCharacter )
 				.def( "findServers", &NetworkFacade::FindServers )
 				.def( "getServerAd", &NetworkFacade::GetServerAd, copy_table_assoc( result ) )
@@ -70,5 +71,11 @@ namespace Script
 		serverAd[ "players" ] = players.str( );
 
 		return serverAd;
+	}
+
+	void NetworkFacade::Disconnect()
+	{
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
+			->Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) ); 
 	}
 }

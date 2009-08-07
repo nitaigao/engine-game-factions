@@ -57,6 +57,13 @@ namespace Script
 		void Connect( const std::string& hostAddress, const int& port );
 
 
+		/*! Disconnects if connected to a server
+		*
+		* @return ( void )
+		*/
+		void Disconnect( );
+
+
 		/*! Messages the Server that a character has been selected
 		*
 		* @param[in] const std::string & characterName

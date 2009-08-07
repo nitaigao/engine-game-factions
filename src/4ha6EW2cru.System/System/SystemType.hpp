@@ -237,6 +237,7 @@ namespace System
 		namespace Network
 		{
 			static const Message Connect				=	"connect";
+			static const Message Disconnect				=	"disconnect";
 			static const Message ComponentUpdate		=	"updateComponent";
 			static const Message NetwokSetPosition		=	"networkSetPosition";
 			static const Message NetworkSetOrientation	=	"networkSetOrientation";

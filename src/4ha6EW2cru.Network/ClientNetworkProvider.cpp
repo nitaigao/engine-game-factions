@@ -148,6 +148,11 @@ namespace Network
 			);
 		}
 
+		if ( message == System::Messages::Network::Disconnect )
+		{
+			m_networkInterface->CloseConnection( m_serverAddress, true );
+		}
+
 		if ( message == System::Messages::Network::Client::GetServerAd )
 		{
 			IServerAdvertisement* serverAd = m_serverCache[ parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) ];
