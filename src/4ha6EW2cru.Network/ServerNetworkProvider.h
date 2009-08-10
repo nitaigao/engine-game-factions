@@ -63,6 +63,7 @@ namespace Network
 		void OnPacketReceived( Packet* packet );
 		void OnClientConnected( Packet* packet );
 		void OnClientDisconnected( Packet* packet );
+		void OnPing( Packet* packet );
 
 		Configuration::IConfiguration* m_configuration;
 

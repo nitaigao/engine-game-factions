@@ -112,9 +112,9 @@ namespace Network
 
 				break;
 
-			case ID_PONG:
+			case ID_ADVERTISE_SYSTEM:
 
-				this->OnPong( packet );
+				this->OnAdvertiseSystem( packet );
 
 				break;
 
@@ -189,7 +189,12 @@ namespace Network
 
 			m_serverCache.clear( );
 
-			m_networkInterface->Ping( NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port, true );
+			BitStream stream;
+			stream.WriteCompressed( RakNet::GetTime( ) );
+
+			m_networkInterface->AdvertiseSystem( 
+				NetworkUtils::BROADCAST_ADDRESS.ToString( false ), NetworkUtils::BROADCAST_ADDRESS.port,
+				( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
 		}
 
 		if( message == System::Messages::Network::Client::CharacterSelected )
@@ -295,14 +300,14 @@ namespace Network
 		}
 	}
 
-	void ClientNetworkProvider::OnPong( Packet* packet )
+	void ClientNetworkProvider::OnAdvertiseSystem( Packet* packet )
 	{
 		if ( m_serverCache.find( packet->systemAddress.ToString( ) ) == m_serverCache.end( ) )
 		{
 			BitStream* stream = NetworkUtils::ReceiveNetworkMessage( packet );
 
-			RakNetTime serverTime;
-			stream->Read( serverTime );
+			RakNetTime requestTime;
+			stream->ReadCompressed( requestTime );
 
 			RakString serverName;
 			stream->ReadCompressed( serverName );
@@ -316,7 +321,7 @@ namespace Network
 			RakString mapName;
 			stream->ReadCompressed( mapName );
 
-			RakNetTime ping = RakNet::GetTime( ) - serverTime;
+			RakNetTime ping = RakNet::GetTime( ) - requestTime;
 
 			ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port );
 

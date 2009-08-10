@@ -63,17 +63,6 @@ namespace Network
 			&socketDescriptor, 1 );
 
 		//m_networkInterface->SetOccasionalPing( true );
-
-		std::string serverName = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( );
-		int maxPlayers = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( );
-
-		BitStream stream;
-		stream.WriteCompressed( RakString( serverName ) );
-		stream.WriteCompressed( m_clients.size( ) );
-		stream.WriteCompressed( maxPlayers );
-		stream.WriteCompressed( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
-
-		m_networkInterface->SetOfflinePingResponse( ( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( ) );
 	}
 
 	void ServerNetworkProvider::Update( const float& deltaMilliseconds )
@@ -113,6 +102,16 @@ namespace Network
 			case ID_PING_OPEN_CONNECTIONS:
 
 				logMessage << "Ping from " << packet->systemAddress.ToString( );
+
+				//this->OnPing( packet );
+
+				break;
+
+			case ID_ADVERTISE_SYSTEM:
+
+				logMessage << "Advertise from " << packet->systemAddress.ToString( );
+
+				this->OnPing( packet );
 
 				break;
 
@@ -236,5 +235,28 @@ namespace Network
 				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
 			}
 		}
+	}
+
+	void ServerNetworkProvider::OnPing( Packet* packet )
+	{
+		BitStream* incomingStream = NetworkUtils::ReceiveNetworkMessage( packet );
+		RakNetTime clientTime;
+		incomingStream->ReadCompressed( clientTime );
+		delete incomingStream;
+
+		std::string serverName = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( );
+		int maxPlayers = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( );
+
+		BitStream stream;
+		stream.WriteCompressed( clientTime );
+		stream.WriteCompressed( RakString( serverName ) );
+		stream.WriteCompressed( m_clients.size( ) );
+		stream.WriteCompressed( maxPlayers );
+		stream.WriteCompressed( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
+
+		m_networkInterface->AdvertiseSystem( 
+			packet->systemAddress.ToString( false ), packet->systemAddress.port,
+			( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( )
+			);
 	}
 }
