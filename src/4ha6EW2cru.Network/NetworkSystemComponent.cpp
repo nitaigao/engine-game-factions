@@ -44,6 +44,7 @@ namespace Network
 
 	void NetworkSystemComponent::Destroy( )
 	{
-
+		INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
+		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::DestroyEntity, m_attributes );
 	}
 }

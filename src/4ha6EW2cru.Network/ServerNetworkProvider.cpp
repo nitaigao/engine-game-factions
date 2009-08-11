@@ -147,6 +147,13 @@ namespace Network
 	{
 		Info( packet->systemAddress.ToString( ), "disconnected" );
 
+		std::string clientId = packet->systemAddress.ToString( );
+
+		AnyType::AnyTypeMap parameters;
+		parameters[ System::Attributes::Name ] = clientId;
+
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
+
 		m_networkInterface->CloseConnection( packet->systemAddress, true );
 
 		for( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
@@ -157,11 +164,6 @@ namespace Network
 				break;
 			}
 		}
-
-		AnyType::AnyTypeMap parameters;
-		parameters[ System::Attributes::Name ] = packet->systemAddress.ToString( );
-
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
 	}
 
 	void ServerNetworkProvider::OnPacketReceived( Packet* packet )

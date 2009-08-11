@@ -49,6 +49,14 @@ namespace Network
 			OnCreateEntity( name.C_String( ), filePath.C_String( ), packet->systemAddress );
 		}
 
+		if( message == System::Messages::Entity::DestroyEntity.c_str( ) )
+		{
+			RakString name;
+			stream->Read( name );
+
+			OnDestroyEntity( name.C_String( ) );
+		}
+
 		if ( message == System::Messages::Network::ComponentUpdate.c_str( ) )
 		{
 			RakString messageForEntity;
@@ -139,5 +147,13 @@ namespace Network
 		IEventData* eventData = new LevelChangedEventData( levelName );
 		IEvent* event = new Event( GAME_LEVEL_CHANGED, eventData );
 		Management::Get( )->GetEventManager( )->QueueEvent( event );
+	}
+
+	void ClientPacketTranslator::OnDestroyEntity( const std::string& name )
+	{
+		AnyType::AnyTypeMap parameters;
+		parameters[ System::Attributes::Name ] = name;
+
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
 	}
 }

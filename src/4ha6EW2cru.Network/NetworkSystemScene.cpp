@@ -20,7 +20,7 @@ namespace Network
 	void NetworkSystemScene::DestroyComponent( ISystemComponent* component )
 	{
 		m_components.erase( component->GetAttributes( )[ System::Attributes::Name ].As< std::string >( ) );
-
+		component->Destroy( );
 		delete component;
 		component = 0;
 	}

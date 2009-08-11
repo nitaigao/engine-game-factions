@@ -59,6 +59,7 @@ namespace Network
 		void OnAdvertiseSystem( Packet* packet );
 		void OnPacketReceived( Packet* packet );
 
+		void OnDestroyEntity( const std::string& name );
 		void OnChangeLevel( const std::string& levelName );
 		void OnCreateEntity( const std::string& name, const std::string& filePath, const SystemAddress& packetAddress );
 		void OnDisconnected( Packet* packet );

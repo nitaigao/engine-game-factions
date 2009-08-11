@@ -254,7 +254,7 @@ namespace System
 
 			namespace Server
 			{
-				static const Message WorldSnapshot		=	"worldSnapshot";
+				static const Message ClientDisconnected	=	"clientDisconnected";
 			}
 		}
 
