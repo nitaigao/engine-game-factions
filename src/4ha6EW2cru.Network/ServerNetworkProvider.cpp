@@ -62,7 +62,7 @@ namespace Network
 			configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerSleepTime ).As< int >( ), 
 			&socketDescriptor, 1 );
 
-		//m_networkInterface->SetOccasionalPing( true );
+		m_networkInterface->SetOccasionalPing( true );
 	}
 
 	void ServerNetworkProvider::Update( const float& deltaMilliseconds )
@@ -86,7 +86,6 @@ namespace Network
 
 				break;
 
-			case ID_REMOTE_DISCONNECTION_NOTIFICATION:
 			case ID_DISCONNECTION_NOTIFICATION:
 
 				this->OnClientDisconnected( packet );
@@ -188,6 +187,8 @@ namespace Network
 				stream->Read( deltaX );
 				parameters[ System::Parameters::DeltaX ] = deltaX;
 			}
+
+			Net( "Character Update:", messageForEntity.C_String( ), "from", packet->systemAddress.ToString( ) );
 
 			m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
 		}

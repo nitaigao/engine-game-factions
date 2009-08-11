@@ -35,8 +35,6 @@ namespace Network
 
 		virtual void Release( ) = 0;
 
-		virtual void OnPacketReceived( Packet* packet ) = 0;
-
 		virtual AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 
 		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;

@@ -489,6 +489,11 @@ namespace Renderer
 			m_sceneManager->getRootSceneNode( )->addChild( lineNode );
 		}
 
+		if ( message == System::Messages::Graphics::SetCamera )
+		{
+			this->SetAttribute( "activeCamera", parameters[ System::Parameters::Graphics::CameraName ].As< std::string >( ) );
+		}
+
 		if ( message == System::Messages::Graphics::ScreenShot )
 		{
 			std::stringstream filePath;

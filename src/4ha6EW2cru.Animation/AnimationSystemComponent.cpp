@@ -86,9 +86,12 @@ namespace Animation
 		for( AnimationList::iterator i = animations.begin( ); i != animations.end( ); ++i )
 		{
 			this->LoadAnimation( ( *i ).first, ( *i ).second );
-		}
 
-		m_animationBlender->Blend( m_attributes[ System::Attributes::Animation::DefaultAnimation ].As< std::string >( ) );
+			if ( ( *i ).first == m_attributes[ System::Attributes::Animation::DefaultAnimation ].As< std::string >( ) )
+			{
+				m_animationBlender->Blend( ( *i ).first );
+			}
+		}
 
 		AnyType::AnyTypeKeyMap results = this->PushMessage( System::Messages::GetAnimationState, AnyType::AnyTypeMap( ) ).As< AnyType::AnyTypeKeyMap >( );
 		m_ogreSkeletons = results[ System::Types::RENDER ].As< SkeletonList >( );

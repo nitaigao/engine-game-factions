@@ -48,7 +48,13 @@ function Menu.onEvent( eventName, val1, val2 )
 	
 	end
 	
-	if ( eventName == 'UI_MAIN_MENU' ) then
+	if ( eventName == 'GAME_ENDED' ) then
+		
+		Menu.endGame( )
+	
+	end
+	
+	if ( eventName == 'UI_MAIN_MENU' )  then
 	
 		Menu.onShowMenu( )
 	
@@ -204,9 +210,6 @@ end
 function Menu.onPlayReleased( )
 
 	script:broadcastEvent( 'UI_SERVERS' )
-	
-	--loadLevel( 'theman' )
-	--network:connect('127.0.0.1', 8989 )
 
 end
 
@@ -226,8 +229,14 @@ function Menu.onEndGameReleased( )
 
 	network:disconnect( )
 	Menu.ToggleInGameMenu( )
-	menu_ingame = false
+	Menu.endGame( )
 	endGame( )
+
+end
+
+function Menu.endGame( )
+
+	menu_ingame = false
 	Menu.onShowMenu( )
 	ux:setInputAllowed( false )
 

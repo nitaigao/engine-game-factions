@@ -12,6 +12,8 @@
 #include "INetworkSystem.hpp"
 #include "NetworkMessage.hpp"
 #include "IServerAdvertisement.hpp"
+#include "ClientMessageRouter.h"
+#include "ClientPacketTranslator.h"
 
 namespace Network
 {
@@ -37,6 +39,8 @@ namespace Network
 		ClientNetworkProvider( INetworkSystem* networkSystem )
 			: m_configuration( 0 )
 			, m_networkSystem( networkSystem )
+			, m_messageRouter( 0 )
+			, m_packetTranslator( 0 )
 		{
 
 		}
@@ -58,16 +62,12 @@ namespace Network
 		ClientNetworkProvider( const ClientNetworkProvider & copy ) { };
 		ClientNetworkProvider & operator = ( const ClientNetworkProvider & copy ) { return *this; };
 
-		void OnAdvertiseSystem( Packet* packet );
-		void OnPacketReceived( Packet* packet );
-
 		Configuration::IConfiguration* m_configuration;
 
 		RakPeerInterface* m_networkInterface;
-		SystemAddress m_serverAddress;
 		INetworkSystem* m_networkSystem;
-
-		IServerAdvertisement::ServerAdvertisementMap m_serverCache;
+		IClientMessageRouter* m_messageRouter;
+		IClientPacketTranslator* m_packetTranslator;
 		
 	};
 };

@@ -8,7 +8,7 @@ namespace Utility
 	{
 		std::string result = input;
 
-		for( int index = result.find( oldString ); index != std::string::npos; index = result.find( oldString ) )
+		for( int index = result.find( oldString ); index != std::string::npos; index = result.find( oldString, index + newString.length( ) ) )
 		{
 			result.replace( index, newString.length( ), newString.c_str( ) );
 		}

@@ -188,6 +188,10 @@
 				RelativePath=".\main.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\ServerCache_Tests.cxx"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

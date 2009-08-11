@@ -19,11 +19,12 @@
         <Property key="widgetsButtonWidth" value="135"/>
         <Property key="widgetsButtonHeight" value="24"/>
         <Property key="widgetsButtonsInOneLine" value="3"/>
-        <Property key="lastSkinGroup" value="Default"/>
+        <Property key="lastSkinGroup" value="Other"/>
     </WidgetsWindow>
     <RecentFile name="C:/Users/NK/Desktop/characterselect.layout"/>
     <RecentFile name="C:\Users\NK\Development\viper\etc\data\interface\interface\components\characterselect.layout"/>
     <RecentFile name="C:\Users\NK\Desktop\servers.layout"/>
     <RecentFile name="C:\Users\NK\Development\viper\etc\data\interface\interface\components\servers.layout"/>
     <RecentFile name="C:\Users\NK\Development\viper\etc\data\interface\interface\components\menu.layout"/>
+    <RecentFile name="C:\Users\NK\Development\viper\etc\data\interface\interface\components\disconnected.layout"/>
 </MyGUI>

@@ -31,3 +31,20 @@ TEST( StringVector_Tests, should_convert_int_to_string )
 
 	EXPECT_EQ( expected.str( ), actual );
 }
+
+TEST( StringVector_Tests, should_replace_a_string_with_iteself )
+{
+	std::string input = ".xml";
+	std::string result = StringUtils::Replace( input, ".xml", ".xml" );
+
+	EXPECT_EQ( input, result );
+}
+
+TEST( StringVector_Tests, should_replace_a_string_with_an_occurance_of_the_string_later_in_the_replacement )
+{
+	std::string expected = "-fps.xml";
+	std::string input = ".xml";
+	std::string result = StringUtils::Replace( input, input, expected );
+
+	EXPECT_EQ( expected, result );
+}

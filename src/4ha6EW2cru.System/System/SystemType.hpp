@@ -163,6 +163,7 @@ namespace System
 			
 			
 			static const Parameter FullScreen			=	"fullScreen";
+			static const Parameter CameraName			=	"cameraName";
 		}
 
 		namespace IO
@@ -276,6 +277,7 @@ namespace System
 			static const Message GetRenderWindow		=	"getRenderWindow";
 			static const Message GetRootSingleton		=	"getRootSingleton";
 			static const Message ScreenShot				=	"screenShot";
+			static const Message SetCamera				=	"setCamera";
 		}
 	}
 };

@@ -31,6 +31,7 @@ function Interface.initialize( )
 	ux:loadComponent( 'key_binder' )
 	ux:loadComponent( 'characterselect' )
 	ux:loadComponent( 'servers' )
+	ux:loadComponent( 'disconnected' )
 	
 end
 
