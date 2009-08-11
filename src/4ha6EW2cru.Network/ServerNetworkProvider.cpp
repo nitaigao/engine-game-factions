@@ -238,6 +238,21 @@ namespace Network
 				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
 			}
 		}
+
+		if ( message == System::Messages::Entity::DestroyEntity )
+		{
+			std::string name = parameters[ System::Attributes::Name ].As< std::string >( );
+
+			BitStream stream;
+
+			stream.Write( message.c_str( ) );
+			stream.Write( RakString( name ) );
+
+			for ( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
+			{
+				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
+			}
+		}
 	}
 
 	void ServerNetworkProvider::OnPing( Packet* packet )
