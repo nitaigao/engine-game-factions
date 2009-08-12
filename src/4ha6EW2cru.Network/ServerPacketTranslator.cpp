@@ -83,24 +83,32 @@ namespace Network
 
 	void ServerPacketTranslator::OnComponentUpdate( const std::string& message, BitStream* stream )
 	{
-		RakString messageForEntity;
-		stream->Read( messageForEntity );
-
-		RakString entityName;
-		stream->Read( entityName );
-
-		Net( messageForEntity.C_String( ), "for", entityName.C_String( ) );
-
-		AnyType::AnyTypeMap parameters;
-
-		if ( messageForEntity == System::Messages::Mouse_Moved.c_str( ) )
+		while( stream->GetReadOffset( ) != stream->GetNumberOfBitsUsed( ) )
 		{
-			float deltaX;
-			stream->Read( deltaX );
-			parameters[ System::Parameters::DeltaX ] = deltaX;
-		}
+			RakString messageForEntity;
+			stream->Read( messageForEntity );
 
-		m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
+			if ( messageForEntity == System::Messages::Network::ComponentUpdate.c_str( ) )
+			{
+				stream->Read( messageForEntity );
+			}
+
+			RakString entityName;
+			stream->Read( entityName );
+
+			Net( messageForEntity.C_String( ), "for", entityName.C_String( ) );
+
+			AnyType::AnyTypeMap parameters;
+
+			if ( messageForEntity == System::Messages::Mouse_Moved.c_str( ) )
+			{
+				float deltaX;
+				stream->Read( deltaX );
+				parameters[ System::Parameters::DeltaX ] = deltaX;
+			}
+
+			m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
+		}
 	}
 
 	void ServerPacketTranslator::OnCharacterSelected( const std::string& clientName, BitStream* stream )

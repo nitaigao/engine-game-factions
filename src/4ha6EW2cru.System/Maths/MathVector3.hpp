@@ -75,6 +75,19 @@ namespace Maths
 		}
 
 
+		/*! Returns a version of this vector that has been interpolated with the given input by the given amount
+		*
+		*  @param[in] const MathVector3 & input
+		*  @param[in] float amount
+		*  @return (MathVector3)
+		*/
+		inline MathVector3 Interpolate( const MathVector3& input, float amount )
+		{
+			MathVector3 positionDifference = input - *this;
+			return *this + ( positionDifference * amount );
+		}
+
+
 		/*! Returns the Cross Product of the Vector and the specified input
 		 *
 		 *  @param[in] const MathVector3 & input

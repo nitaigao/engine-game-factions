@@ -14,6 +14,7 @@
 #include "IServerAdvertisement.hpp"
 
 #include <RakPeerInterface.h>
+#include <BitStream.h>
 
 namespace Network
 {
@@ -30,6 +31,7 @@ namespace Network
 		virtual void SelectCharacter( const System::Message& message, AnyType::AnyTypeMap &parameters ) = 0;
 		virtual void FindServers( ) = 0;
 		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void UpdateServer( float deltaMilliseconds, float updateRate ) = 0;
 	};
 
 	/*! 
@@ -53,10 +55,11 @@ namespace Network
 		*/
 		ClientMessageRouter( RakPeerInterface* networkInterface )
 			: m_networkInterface( networkInterface )
+			, m_tickRate( 0.0f )
+			, m_tickTotal( 0.0f )
 		{
 
 		}
-
 
 		void Connect( AnyType::AnyTypeMap &parameters );
 		void Disconnect( );
@@ -67,14 +70,19 @@ namespace Network
 		void GetServerAdvertisement( AnyType::AnyTypeMap &parameters, AnyType::AnyTypeMap &results );
 
 		void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		void UpdateServer( float deltaMilliseconds, float updateRate );
 		
 	private:
 
-		SystemAddress m_serverAddress;
-		RakPeerInterface* m_networkInterface;
-
 		ClientMessageRouter( const ClientMessageRouter & copy ) { };
 		ClientMessageRouter & operator = ( const ClientMessageRouter & copy ) { return *this; };
+
+		SystemAddress m_serverAddress;
+		RakPeerInterface* m_networkInterface;
+		RakNet::BitStream m_sendBuffer;
+
+		float m_tickRate;
+		float m_tickTotal;
 		
 	};
 };

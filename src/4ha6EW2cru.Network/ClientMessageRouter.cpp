@@ -105,7 +105,23 @@ namespace Network
 				stream.Write( deltaX );
 			}
 
-			NetworkUtils::SendNetworkMessage( stream, m_serverAddress, m_networkInterface );
+			m_sendBuffer.Write( stream );
 		}
+	}
+
+	void ClientMessageRouter::UpdateServer( float deltaMilliseconds, float updateRate )
+	{
+		m_tickRate = 1.0f / updateRate ;
+
+		if ( m_tickTotal >= m_tickRate && m_sendBuffer.GetNumberOfBitsUsed( ) > 0 )
+		{
+			m_sendBuffer.ResetReadPointer( );
+			NetworkUtils::SendNetworkMessage( m_sendBuffer, m_serverAddress, m_networkInterface );
+
+			m_sendBuffer.Reset( );
+			m_tickTotal = 0.0f;
+		}
+
+		m_tickTotal += deltaMilliseconds;
 	}
 }

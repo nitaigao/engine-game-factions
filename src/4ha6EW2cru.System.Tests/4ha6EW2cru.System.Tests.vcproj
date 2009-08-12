@@ -186,6 +186,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Maths\MathVector3_Tests.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\Utility\StringUtils_Tests.cxx"
 				>
 			</File>

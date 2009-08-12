@@ -41,6 +41,7 @@ namespace Network
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxClientConnections, 1 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ClientSleepTime, 0 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxClientReleaseTime, 10 );
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ClientSnapshotRate, 33 );
 
 		m_networkInterface = new RakPeer( );
 		m_messageRouter = new ClientMessageRouter( m_networkInterface );
@@ -70,53 +71,11 @@ namespace Network
 
 		if ( packet )
 		{
-			Net( "Received packet from", packet->systemAddress.ToString( ) );
-			MessageID messageId = NetworkUtils::GetPacketIdentifier( packet );
-
-			switch( messageId )
-			{
-
-			case ID_NO_FREE_INCOMING_CONNECTIONS:
-
-				Info( packet->systemAddress.ToString( ), "is full" );
-
-				break;
-
-			case ID_CONNECTION_REQUEST_ACCEPTED:
-
-				Info( packet->systemAddress.ToString( ), "accepted the connection" );
-
-				break;
-
-			case ID_CONNECTION_LOST:
-
-				Info( packet->systemAddress.ToString( ), "disconnected" );
-
-				m_packetTranslator->OnDisconnected( packet );
-
-				break;
-
-			case ID_CONNECTION_ATTEMPT_FAILED:
-
-				Info( "Failed to connect to",  packet->systemAddress.ToString( ) );
-
-				break;
-
-			case ID_ADVERTISE_SYSTEM:
-
-				m_packetTranslator->OnAdvertiseSystem( packet );
-
-				break;
-
-			case ID_USER_PACKET_ENUM:
-
-				m_packetTranslator->OnPacketReceived( packet );
-
-				break;
-			}
-
+			TranslatePackets( packet );
 			m_networkInterface->DeallocatePacket( packet );
 		}
+
+		m_messageRouter->UpdateServer( deltaMilliseconds, m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ClientSnapshotRate ).As< int >( ) );
 	}
 
 	AnyType::AnyTypeMap ClientNetworkProvider::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
@@ -154,5 +113,53 @@ namespace Network
 	void ClientNetworkProvider::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
 	{
 		m_messageRouter->PushMessage( message, parameters );
+	}
+
+	void ClientNetworkProvider::TranslatePackets( Packet* packet )
+	{
+		Net( "Received packet from", packet->systemAddress.ToString( ) );
+		MessageID messageId = NetworkUtils::GetPacketIdentifier( packet );
+
+		switch( messageId )
+		{
+
+		case ID_NO_FREE_INCOMING_CONNECTIONS:
+
+			Info( packet->systemAddress.ToString( ), "is full" );
+
+			break;
+
+		case ID_CONNECTION_REQUEST_ACCEPTED:
+
+			Info( packet->systemAddress.ToString( ), "accepted the connection" );
+
+			break;
+
+		case ID_CONNECTION_LOST:
+
+			Info( packet->systemAddress.ToString( ), "disconnected" );
+
+			m_packetTranslator->OnDisconnected( packet );
+
+			break;
+
+		case ID_CONNECTION_ATTEMPT_FAILED:
+
+			Info( "Failed to connect to",  packet->systemAddress.ToString( ) );
+
+			break;
+
+		case ID_ADVERTISE_SYSTEM:
+
+			m_packetTranslator->OnAdvertiseSystem( packet );
+
+			break;
+
+		case ID_USER_PACKET_ENUM:
+
+			m_packetTranslator->OnPacketReceived( packet );
+
+			break;
+		}
 	}
 }

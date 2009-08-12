@@ -49,6 +49,7 @@ namespace Network
 
 		void Update( const float& deltaMilliseconds );
 
+		void TranslatePackets( Packet* packet );
 		void Release( );
 
 		AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );

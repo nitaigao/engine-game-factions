@@ -48,7 +48,6 @@ namespace Network
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxPlayers, 10 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSnapshotRate, 33 );
 
-
 		m_networkInterface = RakNetworkFactory::GetRakPeerInterface( );
 		m_packetTranslator = new ServerPacketTranslator( m_networkSystem, m_networkInterface );
 
