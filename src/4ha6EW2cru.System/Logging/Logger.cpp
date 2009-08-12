@@ -29,7 +29,7 @@ namespace Logging
 		g_logger = 0;
 	}
 
-	Logger* Logger::Get()
+	Logger* Logger::Get( )
 	{
 		return g_logger;
 	}
@@ -47,7 +47,7 @@ namespace Logging
 
 		if ( Management::IsInitialized( ) )
 		{
-			if( level != "DEBUG" )
+			if( level != "DEBUG" && level != "NET" )
 			{
 				Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "MESSAGE_LOGGED", outputMessage.str( ) ) );
 			}

@@ -66,11 +66,13 @@ namespace Network
 
 	private:
 
-		INetworkSystem* m_networkSystem;
-		RakPeerInterface* m_networkInterface;
-
 		ClientPacketTranslator( const ClientPacketTranslator & copy ) { };
 		ClientPacketTranslator & operator = ( const ClientPacketTranslator & copy ) { return *this; };
+
+		void OnComponentUpdate( RakNet::BitStream* stream );
+
+		INetworkSystem* m_networkSystem;
+		RakPeerInterface* m_networkInterface;
 		
 	};
 };

@@ -11,6 +11,8 @@
 #include "INetworkProvider.hpp"
 #include "INetworkSystem.hpp"
 
+#include "ServerPacketTranslator.h"
+
 #include <RakPeerInterface.h>
 
 #include <deque>
@@ -40,7 +42,10 @@ namespace Network
 		*/
 		ServerNetworkProvider( INetworkSystem* networkSystem )
 			: m_configuration( 0 )
+			, m_packetTranslator( 0 )
 			, m_networkSystem( networkSystem )
+			, m_tickRate( 0.0f )
+			, m_tickTotal( 0.0f )
 		{
 
 		}
@@ -60,16 +65,20 @@ namespace Network
 		ServerNetworkProvider( const ServerNetworkProvider & copy ) { };
 		ServerNetworkProvider & operator = ( const ServerNetworkProvider & copy ) { return *this; };
 
-		void OnPacketReceived( Packet* packet );
-		void OnClientConnected( Packet* packet );
-		void OnClientDisconnected( Packet* packet );
-		void OnPing( Packet* packet );
+		void TranslatePackets( Packet* packet );
+		void UpdateClients( const float& deltaMilliseconds );
 
 		Configuration::IConfiguration* m_configuration;
 
-		INetworkSystem* m_networkSystem;
 		RakPeerInterface* m_networkInterface;
+		IServerPacketTranslator* m_packetTranslator;
+
 		SystemAddressList m_clients;
+		INetworkSystem* m_networkSystem;
+		RakNet::BitStream m_sendBuffer;
+
+		float m_tickRate;
+		float m_tickTotal;
 		
 	};
 };

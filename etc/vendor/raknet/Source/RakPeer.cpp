@@ -1,4 +1,4 @@
-/// \file
+Send( const RakNet::BitStream * bitStream, PacketPriority priority, PacketReliability reliability, char orderingChannel, SystemAddress systemAddress, bool broadcast )/// \file
 ///
 /// This file is part of RakNet Copyright 2003 Jenkins Software LLC
 ///

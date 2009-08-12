@@ -28,10 +28,8 @@ namespace Network
 {
 	ServerNetworkProvider::~ServerNetworkProvider()
 	{
-		if ( m_networkInterface != 0 )
-		{
-			RakNetworkFactory::DestroyRakPeerInterface( m_networkInterface );
-		}
+		delete m_networkSystem;
+		RakNetworkFactory::DestroyRakPeerInterface( m_networkInterface );
 	}
 
 	void ServerNetworkProvider::Release( )
@@ -43,13 +41,16 @@ namespace Network
 	{
 		m_configuration = configuration;
 
-		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerConnections, 10 );
-		configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSleepTime, 30 );
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerConnections, 10 );
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSleepTime, 30 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerReleaseTime, 10 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerName, "Factions Server" );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxPlayers, 10 );
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSnapshotRate, 33 );
+
 
 		m_networkInterface = RakNetworkFactory::GetRakPeerInterface( );
+		m_packetTranslator = new ServerPacketTranslator( m_networkSystem, m_networkInterface );
 
 		SocketDescriptor socketDescriptor( NetworkUtils::SERVER_PORT, 0 );
 
@@ -71,153 +72,16 @@ namespace Network
 
 		Packet* packet = m_networkInterface->Receive( );
 
-		std::stringstream logMessage;
-
 		if ( packet )
 		{
-			unsigned char packetId = NetworkUtils::GetPacketIdentifier( packet );
-
-			switch( packetId )
-			{
-
-			case ID_NEW_INCOMING_CONNECTION:
-
-				this->OnClientConnected( packet );
-
-				break;
-
-			case ID_DISCONNECTION_NOTIFICATION:
-
-				this->OnClientDisconnected( packet );
-
-				break;
-
-			case ID_REMOTE_CONNECTION_LOST:
-
-				logMessage << packet->systemAddress.ToString( false ) << " has lost connection";
-
-				break;
-
-			case ID_PING_OPEN_CONNECTIONS:
-
-				logMessage << "Ping from " << packet->systemAddress.ToString( );
-
-				//this->OnPing( packet );
-
-				break;
-
-			case ID_ADVERTISE_SYSTEM:
-
-				logMessage << "Advertise from " << packet->systemAddress.ToString( );
-
-				this->OnPing( packet );
-
-				break;
-
-			case ID_USER_PACKET_ENUM:
-
-				this->OnPacketReceived( packet );
-
-				break;
-			}
-
-			if( logMessage.str( ).length( ) > 0 )
-			{
-				Info( logMessage.str( ) );
-			}
-
+			TranslatePackets( packet );
 			m_networkInterface->DeallocatePacket( packet );
 		}
-	}
 
-	void ServerNetworkProvider::OnClientConnected( Packet* packet )
-	{
-		Info( packet->systemAddress.ToString( ), "connected" );
-
-		m_clients.push_back( packet->systemAddress );
-
-		BitStream stream;
-		stream.Write( RakString( System::Messages::Game::ChangeLevel ) );
-		stream.Write( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
-
-		NetworkUtils::SendNetworkMessage( stream, packet->systemAddress, m_networkInterface );
-	}
-
-	void ServerNetworkProvider::OnClientDisconnected( Packet* packet )
-	{
-		Info( packet->systemAddress.ToString( ), "disconnected" );
-
-		std::string clientId = packet->systemAddress.ToString( );
-
-		AnyType::AnyTypeMap parameters;
-		parameters[ System::Attributes::Name ] = clientId;
-
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
-
-		m_networkInterface->CloseConnection( packet->systemAddress, true );
-
-		for( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
+		if ( m_clients.size( ) > 0 )
 		{
-			if ( ( *i ) == packet->systemAddress )
-			{
-				m_clients.erase( i );
-				break;
-			}
+			UpdateClients( deltaMilliseconds );
 		}
-	}
-
-	void ServerNetworkProvider::OnPacketReceived( Packet* packet )
-	{
-		BitStream* stream = NetworkUtils::ReceiveNetworkMessage( packet );
-
-		RakString message;
-		stream->Read( message );
-
-		if ( message == System::Messages::Network::ComponentUpdate.c_str( ) )
-		{
-			RakString messageForEntity;
-			stream->Read( messageForEntity );
-
-			RakString entityName;
-			stream->Read( entityName );
-
-			AnyType::AnyTypeMap parameters;
-
-			if ( messageForEntity == System::Messages::Mouse_Moved.c_str( ) )
-			{
-				float deltaX;
-				stream->Read( deltaX );
-				parameters[ System::Parameters::DeltaX ] = deltaX;
-			}
-
-			Net( "Character Update:", messageForEntity.C_String( ), "from", packet->systemAddress.ToString( ) );
-
-			m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
-		}
-
-		if ( message == System::Messages::Network::Client::RequestServerInfo.c_str( ) )
-		{
-			Net( "Request Server Info from: ", packet->systemAddress.ToString( ) );
-		}
-
-		if ( message == System::Messages::Network::Client::CharacterSelected.c_str( ) )
-		{
-			RakString characterName;
-			stream->Read( characterName );
-
-			AnyType::AnyTypeMap parameters;
-			parameters[ System::Attributes::Name ] = packet->systemAddress.ToString( );
-
-			std::stringstream entityFilePath;
-			entityFilePath << "/data/entities/" << characterName.C_String( ) << ".xml";
-			parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
-
-			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::CreateEntity, parameters );
-
-			Net( packet->systemAddress.ToString( ), "has selected character:", characterName );
-		}
-
-		delete stream;
 	}
 
 	void ServerNetworkProvider::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
@@ -228,53 +92,129 @@ namespace Network
 			std::string name = parameters[ System::Attributes::Name ].As< std::string >( );
 
 			BitStream stream;
-
 			stream.Write( message.c_str( ) );
 			stream.Write( RakString( filePath ) );
 			stream.Write( RakString( name ) );
 
-			for ( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
-			{
-				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
-			}
+			m_sendBuffer.Write( stream );
 		}
-
-		if ( message == System::Messages::Entity::DestroyEntity )
+		else if ( message == System::Messages::Entity::DestroyEntity )
 		{
 			std::string name = parameters[ System::Attributes::Name ].As< std::string >( );
 
 			BitStream stream;
-
 			stream.Write( message.c_str( ) );
 			stream.Write( RakString( name ) );
 
-			for ( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
+			m_sendBuffer.Write( stream );
+		}
+		else if ( message == System::Messages::SetPosition || message == System::Messages::SetOrientation )
+		{
+			std::string entityName = parameters[ System::Attributes::Name ].As< std::string >( );
+
+			BitStream stream;
+			stream.Write( System::Messages::Network::ComponentUpdate.c_str( ) );
+			stream.Write( message.c_str( ) );
+			stream.Write( entityName.c_str( ) );
+
+			if ( message == System::Messages::SetPosition )
 			{
-				NetworkUtils::SendNetworkMessage( stream, ( *i ), m_networkInterface );
+				MathVector3 position = parameters[ System::Attributes::Position ].As< MathVector3 >( );
+				stream.WriteVector( position.X, position.Y, position.Z );
 			}
+
+			if ( message == System::Messages::SetOrientation )
+			{
+				MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As< MathQuaternion >( );
+				stream.WriteNormQuat( orientation.W, orientation.X, orientation.Y, orientation.Z );
+			}
+
+			m_sendBuffer.Write( stream );
 		}
 	}
 
-	void ServerNetworkProvider::OnPing( Packet* packet )
+	void ServerNetworkProvider::UpdateClients( const float& deltaMilliseconds )
 	{
-		BitStream* incomingStream = NetworkUtils::ReceiveNetworkMessage( packet );
-		RakNetTime clientTime;
-		incomingStream->ReadCompressed( clientTime );
-		delete incomingStream;
+		m_tickRate = 1.0f / m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerSnapshotRate ).As< int >( );
 
-		std::string serverName = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( );
-		int maxPlayers = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( );
+		if ( m_tickTotal >= m_tickRate && m_sendBuffer.GetNumberOfBitsUsed( ) > 0 )
+		{
+			for ( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); ++i )
+			{
+				m_sendBuffer.ResetReadPointer( );
+				NetworkUtils::SendNetworkMessage( m_sendBuffer, ( *i ), m_networkInterface );
+			}
 
-		BitStream stream;
-		stream.WriteCompressed( clientTime );
-		stream.WriteCompressed( RakString( serverName ) );
-		stream.WriteCompressed( m_clients.size( ) );
-		stream.WriteCompressed( maxPlayers );
-		stream.WriteCompressed( RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
+			m_sendBuffer.Reset( );
+			m_tickTotal = 0.0f;
+		}
 
-		m_networkInterface->AdvertiseSystem( 
-			packet->systemAddress.ToString( false ), packet->systemAddress.port,
-			( const char* ) stream.GetData( ), stream.GetNumberOfBitsUsed( )
-			);
+		m_tickTotal += deltaMilliseconds;
+	}
+
+	void ServerNetworkProvider::TranslatePackets( Packet* packet )
+	{
+		unsigned char packetId = NetworkUtils::GetPacketIdentifier( packet );
+
+		switch( packetId )
+		{
+
+		case ID_NEW_INCOMING_CONNECTION:
+
+			m_clients.push_back( packet->systemAddress );
+
+			m_packetTranslator->OnClientConnected( packet );
+
+			break;
+
+		case ID_DISCONNECTION_NOTIFICATION:
+
+			for( SystemAddressList::iterator i = m_clients.begin( ); i != m_clients.end( ); )
+			{
+				if ( ( *i ) == packet->systemAddress )
+				{
+					i = m_clients.erase( i );
+				}
+				else
+				{
+					++i;
+				}
+			}
+
+			m_packetTranslator->OnClientDisconnected( packet );
+
+			break;
+
+		case ID_REMOTE_CONNECTION_LOST:
+
+			Info( packet->systemAddress.ToString( false ), " has lost connection" );
+
+			break;
+
+		case ID_PING_OPEN_CONNECTIONS:
+
+			Info( "Ping from ", packet->systemAddress.ToString( ) );
+
+			break;
+
+		case ID_ADVERTISE_SYSTEM:
+
+			Info( "Advertise from ", packet->systemAddress.ToString( ) );
+
+			m_packetTranslator->OnAdvertiseSystem( 
+				packet, 
+				m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerName ).As< std::string >( ), 
+				m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ).As< int >( ),
+				m_clients.size( )
+				);
+
+			break;
+
+		case ID_USER_PACKET_ENUM:
+
+			m_packetTranslator->OnPacketReceived( packet );
+
+			break;
+		}
 	}
 }

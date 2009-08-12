@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ServerPacketTranslator.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SystemDefinition.cxx"
 				>
 			</File>
@@ -289,6 +293,10 @@
 			</File>
 			<File
 				RelativePath=".\ServerNetworkProvider.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ServerPacketTranslator.h"
 				>
 			</File>
 		</Filter>

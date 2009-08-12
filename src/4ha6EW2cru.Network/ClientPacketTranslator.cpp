@@ -30,6 +30,8 @@ namespace Network
 		RakString message;
 		stream->Read( message );
 
+		Net( message.C_String( ), "from", packet->systemAddress.ToString( ) );
+
 		if ( message == System::Messages::Game::ChangeLevel.c_str( ) )
 		{
 			RakString levelName;
@@ -59,23 +61,7 @@ namespace Network
 
 		if ( message == System::Messages::Network::ComponentUpdate.c_str( ) )
 		{
-			RakString messageForEntity;
-			stream->Read( messageForEntity );
-
-			RakString entityName;
-			stream->Read( entityName );
-
-			AnyType::AnyTypeMap parameters;
-
-			if ( messageForEntity == System::Messages::SetPosition.c_str( ) )
-			{
-				MathVector3 position;
-				stream->Read( position );
-
-				parameters[ System::Attributes::Position ] = position;
-			}
-
-			m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
+			OnComponentUpdate( stream );
 		}
 
 		delete stream;
@@ -155,5 +141,48 @@ namespace Network
 		parameters[ System::Attributes::Name ] = name;
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
+	}
+
+	void ClientPacketTranslator::OnComponentUpdate( BitStream* stream )
+	{
+		while( stream->GetReadOffset( ) != stream->GetNumberOfBitsUsed( ) )
+		{
+			RakString messageForEntity;
+			stream->Read( messageForEntity );
+
+			if ( messageForEntity == System::Messages::Network::ComponentUpdate.c_str( ) )
+			{
+				stream->Read( messageForEntity );
+			}
+
+			RakString entityName;
+			stream->Read( entityName );
+
+			Net( messageForEntity, "for", entityName );
+
+			AnyType::AnyTypeMap parameters;
+
+			if ( messageForEntity == System::Messages::SetPosition.c_str( ) )
+			{
+				MathVector3 position;
+				stream->ReadVector( position.X, position.Y, position.Z );
+
+				parameters[ System::Attributes::Position ] = position;
+			} 
+			else if ( messageForEntity == System::Messages::SetOrientation.c_str( ) )
+			{
+				MathQuaternion orientation;
+				stream->ReadNormQuat( orientation.W, orientation.X, orientation.Y, orientation.Z );
+
+				parameters[ System::Attributes::Orientation ] = orientation;
+			}
+			else
+			{
+				Net( "Dropping Unknown Packet" );
+				break;
+			}
+
+			m_networkSystem->MessageComponent( entityName.C_String( ), messageForEntity.C_String( ), parameters );
+		}
 	}
 }

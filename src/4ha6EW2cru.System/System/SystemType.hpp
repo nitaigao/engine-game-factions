@@ -248,7 +248,6 @@ namespace System
 				static const Message LevelLoaded		=	"levelLoaded";
 				static const Message CharacterSelected	=	"characterSelelected";
 				static const Message FindServers		=	"findServers";
-				static const Message RequestServerInfo	=	"requestServerInfo";
 				static const Message GetServerAd		=	"getServerAd";
 			}
 

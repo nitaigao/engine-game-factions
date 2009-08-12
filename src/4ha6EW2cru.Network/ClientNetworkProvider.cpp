@@ -70,7 +70,10 @@ namespace Network
 
 		if ( packet )
 		{
-			switch( NetworkUtils::GetPacketIdentifier( packet ) )
+			Net( "Received packet from", packet->systemAddress.ToString( ) );
+			MessageID messageId = NetworkUtils::GetPacketIdentifier( packet );
+
+			switch( messageId )
 			{
 
 			case ID_NO_FREE_INCOMING_CONNECTIONS:

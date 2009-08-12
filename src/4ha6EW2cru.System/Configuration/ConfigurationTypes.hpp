@@ -38,6 +38,7 @@ namespace Configuration
 			static const ConfigItem MaxClientReleaseTime	=	"max_client_release_time";
 			static const ConfigItem ServerName				=	"server_name";
 			static const ConfigItem MaxPlayers				=	"max_players";
+			static const ConfigItem ServerSnapshotRate		=	"server_snapshot_rate";
 		}
 
 		namespace Graphics
