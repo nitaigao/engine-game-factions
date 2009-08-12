@@ -44,18 +44,14 @@ namespace Network
 
 			float distanceApart = positionDifference.Length( );
 			
-			if ( distanceApart < 4.0f && distanceApart > 0.1f )
+			if ( distanceApart > 2.0f )
 			{
-				MathVector3 interpolatedPosition = currentPosition.Interpolate( targetPosition, 0.1f );
-				parameters[ System::Attributes::Position ] = interpolatedPosition;
+				this->PushMessage( message, parameters );
 
-				Debug( "Current Position", currentPosition.X, currentPosition.Y, currentPosition.Z );
-				Debug( "Interp  Position", interpolatedPosition.X, interpolatedPosition.Y, interpolatedPosition.Z );
-				Debug( "Target  Position", targetPosition.X, targetPosition.Y, targetPosition.Z );
+				Debug( "Corrected Position" );
 			}
-		}
-
-		if ( message == System::Messages::SetOrientation )
+		} 
+		else if ( message == System::Messages::SetOrientation )
 		{
 			MathQuaternion currentOrientation = m_attributes[ System::Attributes::Orientation ].As< MathQuaternion >( );
 			
@@ -74,21 +70,17 @@ namespace Network
 
 			float angleDifferenceDegrees = angleDifference * ( 180.0f / MathUnits::PI( ) );
 
-			if ( angleDifference < 10.0f && angleDifference > 0.0f )
+			if ( angleDifference > 5.0f )
 			{
-				float interpolatedAngle = currentAngle + ( angleDifference * 0.1f );
-				MathVector3 interpolatedAxis = currentAxis + ( axisDifference * 0.1f );
+				this->PushMessage( message, parameters );
 
-				MathQuaternion interpolatedOrientation( interpolatedAxis, interpolatedAngle );
-				parameters[ System::Attributes::Orientation ] = interpolatedOrientation;
-
-				Debug( "Current Angle", currentAngle );
-				Debug( "Interp  Angle", interpolatedAngle );
-				Debug( "Target  Angle", targetAngle );
+				Debug( "Corrected Orientation" );
 			}
 		}
-
-		this->PushMessage( message, parameters );
+		else
+		{
+			this->PushMessage( message, parameters );
+		}
 	}
 
 	void NetworkSystemComponent::Initialize( )
