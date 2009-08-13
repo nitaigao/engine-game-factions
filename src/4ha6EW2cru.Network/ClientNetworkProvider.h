@@ -47,7 +47,7 @@ namespace Network
 
 		void Initialize( Configuration::IConfiguration* configuration );
 
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 		void TranslatePackets( Packet* packet );
 		void Release( );

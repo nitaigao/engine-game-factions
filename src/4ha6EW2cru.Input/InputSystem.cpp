@@ -64,7 +64,7 @@ namespace Input
 		}
 	}
 
-	void InputSystem::Update( const float& deltaMilliseconds )
+	void InputSystem::Update( float deltaMilliseconds )
 	{
 		m_mouse->capture( );
 		m_keyboard->capture( );

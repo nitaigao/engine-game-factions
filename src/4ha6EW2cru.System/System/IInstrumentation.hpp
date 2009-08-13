@@ -36,7 +36,7 @@ namespace
 		*
 		* @return ( void )
 		*/
-		virtual void SetFPS( const int& fps ) = 0;
+		virtual void SetFPS( int fps ) = 0;
 
 
 		/*! Gets the Round Time of the Given Queue
@@ -53,7 +53,7 @@ namespace
 		* @param[in] const float & roundTime
 		* @return ( void )
 		*/
-		virtual void SetRoundTime( const System::Queues::Queue& queue, const float& roundTime ) = 0;
+		virtual void SetRoundTime( const System::Queues::Queue& queue, float roundTime ) = 0;
 
 
 		/*! Sets the name of the active level

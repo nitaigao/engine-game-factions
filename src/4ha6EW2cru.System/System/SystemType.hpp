@@ -233,6 +233,7 @@ namespace System
 			static const Message CreateEntity			=	"createEntity";
 			static const Message DestroyEntity			=	"destroyEntity";
 			static const Message SerializeWorld			=	"serializeWorld";
+			static const Message DeserializeWorld		=	"deserializeWorld";
 		}
 
 		namespace Network
@@ -254,6 +255,7 @@ namespace System
 			namespace Server
 			{
 				static const Message ClientDisconnected	=	"clientDisconnected";
+				static const Message WorldUpdate		=	"worldUpdate";
 			}
 		}
 

@@ -66,7 +66,7 @@ namespace Input
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the System Scene
@@ -105,7 +105,7 @@ namespace Input
 		*  @param[in] const bool & inputAllowed
 		*  @return (void)
 		*/
-		void SetInputAllowed( const bool& inputAllowed ) { m_inputAllowed = inputAllowed; };
+		void SetInputAllowed( bool inputAllowed ) { m_inputAllowed = inputAllowed; };
 
 
 		/*! Called by the System when a player presses a key on the keyboard

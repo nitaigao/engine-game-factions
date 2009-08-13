@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,9 +62,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib "
+				AdditionalDependencies="gtestd.lib gmock.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib;"
+				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Debug;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -201,12 +201,36 @@
 				RelativePath=".\State\World_Tests.cxx"
 				>
 			</File>
+			<File
+				RelativePath=".\State\WorldEntity_Tests.cxx"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Mocks\MockEntity.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockEntityFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockSerializer.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockStream.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockSystemScene.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

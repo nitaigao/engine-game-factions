@@ -9,6 +9,7 @@
 #define IWORLDENTITY_HPP
 
 #include "../System/ISystemComponent.hpp"
+#include "../IO/IStream.hpp"
 
 namespace State
 {
@@ -34,7 +35,7 @@ namespace State
 		 *
 		 *  @return (const std::string&)
 		 */
-		virtual const std::string& GetName( ) const = 0;
+		virtual std::string GetName( ) const = 0;
 
 
 		/*! Initializes all of the components contained by the entity
@@ -74,6 +75,22 @@ namespace State
 		* @return ( void )
 		*/
 		virtual void SetAttribute( const System::Attribute& attribute, const AnyType& value ) = 0;
+
+		
+		/*! Writes the contents of the entity to the given stream
+		 *
+		 * @param[in] IStream * stream
+		 * @return ( void )
+		 */
+		virtual void Serialize( IO::IStream* stream ) = 0;
+
+
+		/*! Reads the contents of the entity from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		virtual void DeSerialize( IO::IStream* stream ) = 0;
 
 	};
 };

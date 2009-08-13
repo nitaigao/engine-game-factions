@@ -59,7 +59,7 @@ namespace IO
 		*  @param[in] bool binary
 		*  @return (FileBuffer*)
 		*/
-		FileBuffer* GetFile( const std::string& filePath, const bool& binary = true ) const;
+		FileBuffer* GetFile( const std::string& filePath, bool binary = true ) const;
 
 
 		/*! Saves the given file data to the path specified in the FileBuffer
@@ -76,7 +76,7 @@ namespace IO
 		*  @param[in] bool throwOnFail
 		*  @return (bool)
 		*/
-		bool FileExists( const std::string& filePath, const bool& throwOnFail = false ) const;
+		bool FileExists( const std::string& filePath, bool throwOnFail = false ) const;
 
 
 		/*! Performs a file search
@@ -86,11 +86,11 @@ namespace IO
 		*  @param[in] const bool recursive
 		*  @return (FileSearchResultList*)
 		*/
-		FileSearchResult::FileSearchResultList* FileSearch( const std::string& path, const std::string& searchPattern, const bool& recursive ) const;
+		FileSearchResult::FileSearchResultList* FileSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const;
 
 	private:
 
-		FileSearchResult::FileSearchResultList*_FileSearch( const std::string& path, const std::string& pattern, const bool& recursive, FileSearchResult::FileSearchResultList* results ) const;
+		FileSearchResult::FileSearchResultList*_FileSearch( const std::string& path, const std::string& pattern, bool recursive, FileSearchResult::FileSearchResultList* results ) const;
 
 		FileSystem( const FileSystem & copy ) { };
 		FileSystem & operator = ( const FileSystem & copy ) { return *this; };

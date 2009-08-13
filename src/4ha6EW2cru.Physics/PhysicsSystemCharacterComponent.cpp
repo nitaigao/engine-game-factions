@@ -70,7 +70,7 @@ namespace Physics
 		delete m_previousGround;
 	}
 
-	void PhysicsSystemCharacterComponent::Update( const float& deltaMilliseconds )
+	void PhysicsSystemCharacterComponent::Update( float deltaMilliseconds )
 	{
 		if ( m_characterInput.m_userData )
 		{

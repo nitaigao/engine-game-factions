@@ -17,9 +17,6 @@ using namespace Configuration;
 #include "State/World.h"
 using namespace State;
 
-#include "State/Serilaization/XMLSerializer.h"
-using namespace Serialization;
-
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
 #include "Events/ScriptEvent.hpp"
@@ -98,7 +95,6 @@ void Game::Initialize( )
 	// -- Setup the World and World Loader
 
 	m_world = systemManager->CreateWorld( );
-	m_worldLoader = new Serialization::XMLSerializer( m_world );
 
 	// -- Register Events
 
@@ -127,8 +123,9 @@ void Game::Update( )
 	assert( m_isInitialized && "Game::StartLoop - Cannot Start the Loop when not Initialized" );
 
 	float deltaMilliseconds = Management::Get( )->GetPlatformManager( )->GetClock( ).GetDeltaMilliseconds( );
+	
+	m_world->Update( deltaMilliseconds );
 
-	m_worldLoader->Update( deltaMilliseconds );
 	Management::Get( )->Update( deltaMilliseconds );
 }
 
@@ -146,7 +143,6 @@ void Game::Release( )
 
 	m_world->Clear( );
 
-	delete m_worldLoader;
 	delete m_world;
 
 	Management::Release( );
@@ -168,8 +164,8 @@ void Game::OnGameLevelChanged( const IEvent* event )
 
 	std::stringstream levelPath;
 	levelPath << "/data/levels/" << eventData->GetLevelName( ) << ".xml";
-	
-	m_worldLoader->Load( levelPath.str( ) );
+
+	m_world->LoadLevel( levelPath.str( ) );
 
 	Management::Get( )->GetInstrumentation( )->SetLevelName( eventData->GetLevelName( ) );
 }

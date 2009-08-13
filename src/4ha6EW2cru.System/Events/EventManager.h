@@ -64,7 +64,7 @@ namespace Events
 		 *  @param[in] float deltaMilliseconds
 		 *  @return (void)
 		 */
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 		
 		/*! Adds an EventListener for Event processing

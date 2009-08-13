@@ -13,6 +13,7 @@
 #include "../System/ISystemScene.hpp"
 
 #include "IWorldEntity.hpp"
+#include "../IO/IStream.hpp"
 
 namespace State
 {
@@ -62,6 +63,14 @@ namespace State
 		virtual const ISystemScene::SystemSceneMap& GetSystemScenes( ) const = 0;
 
 
+		/*! Updates the world and all of its internal data structures
+		 *
+		 * @param[in] float deltaMilliseconds
+		 * @return ( void )
+		 */
+		virtual void Update( float deltaMilliseconds ) = 0;
+
+
 		/*! Destroys all entities within the world
 		 *
 		 *  @return (void)
@@ -74,6 +83,30 @@ namespace State
 		* @return ( void )
 		*/
 		virtual void Destroy( ) = 0;
+
+
+		/*! Loads a level from the file system
+		 *
+		 * @param[in] const std::string & levelpath
+		 * @return ( void )
+		 */
+		virtual void LoadLevel( const std::string& levelpath ) = 0;
+
+
+		/*! Serializes the contents of the world to the Stream
+		 *
+		 * @param[in] IO::IStream * stream
+		 * @return ( void )
+		 */
+		virtual void Serialize( IO::IStream* stream ) = 0;
+
+
+		/*! De serializes the contents of the stream into the World
+		 *
+		 * @param[in] IO::IStream * stream
+		 * @return ( void )
+		 */
+		virtual void DeSerialize( IO::IStream* stream ) = 0;
 
 	};
 };

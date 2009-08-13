@@ -63,7 +63,7 @@ namespace Network
 		m_networkInterface->Shutdown( m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxClientReleaseTime ).As< int >( ) );
 	}
 
-	void ClientNetworkProvider::Update( const float& deltaMilliseconds )
+	void ClientNetworkProvider::Update( float deltaMilliseconds )
 	{
 		RakSleep( m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ClientSleepTime ).As< int >( ) );
 

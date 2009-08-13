@@ -65,7 +65,7 @@ namespace Physics
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 		AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
 

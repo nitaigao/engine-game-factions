@@ -35,7 +35,7 @@ namespace Animation
 		Logger::Get( )->Warn( errorMessage );
 	}
 
-	void AnimationSystem::Update( const float& deltaMilliseconds )
+	void AnimationSystem::Update( float deltaMilliseconds )
 	{
 		m_scene->Update( deltaMilliseconds );
 	}

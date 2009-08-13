@@ -51,7 +51,7 @@ namespace AI
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the Component
@@ -152,7 +152,7 @@ namespace AI
 		*  @param[in] const bool & loopAnimation
 		*  @return (void)
 		*/
-		void PlayAnimation( const std::string& animationName, const bool& loopAnimation );
+		void PlayAnimation( const std::string& animationName, bool loopAnimation );
 
 
 		/*! Gets the Name of the Component

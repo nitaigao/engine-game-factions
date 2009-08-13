@@ -52,7 +52,7 @@ public:
 	*  @param[in] float deltaMilliseconds
 	*  @return (void)
 	*/
-	virtual void Update( const float& deltaMilliseconds ) = 0;
+	virtual void Update( float deltaMilliseconds ) = 0;
 
 
 	/*! Destroys the Component

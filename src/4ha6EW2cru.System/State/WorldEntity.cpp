@@ -1,5 +1,7 @@
 #include "WorldEntity.h"
 
+using namespace IO;
+
 namespace State
 {
 	void WorldEntity::AddComponent( ISystemComponent* component )
@@ -47,9 +49,28 @@ namespace State
 
 	void WorldEntity::SetAttribute( const System::Attribute& attribute, const AnyType& value )
 	{
+		m_attributes[ attribute ] = value;
+
 		for( ISystemComponent::SystemComponentList::const_iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
 			( *i )->SetAttribute( attribute, value );
+		}
+	}
+
+	void WorldEntity::Serialize( IStream* stream )
+	{
+		stream->Write( m_name );
+
+		AnyType::AnyTypeMap::iterator filePath = m_attributes.find( System::Attributes::FilePath );
+
+		if ( filePath != m_attributes.end( ) )
+		{
+			stream->Write( 1 );
+			stream->Write( ( *filePath ).second.As< std::string >( ) );
+		}
+		else
+		{
+			stream->Write( 0 );
 		}
 	}
 }

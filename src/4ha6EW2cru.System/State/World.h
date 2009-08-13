@@ -9,6 +9,8 @@
 #define WORLD_H
 
 #include "IWorld.hpp"
+#include "Serilaization/IWorldLoader.hpp"
+#include "IWorldEntityFactory.hpp"
 
 #include "../Export.hpp"
 
@@ -33,8 +35,12 @@ namespace State
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI World( )
-			: m_lastEntityId( 0 )
+		GAMEAPI World( );
+
+
+		GAMEAPI World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory )
+			: m_serializer( serializer )
+			, m_entityFactory( entityFactory )
 		{
 
 		}
@@ -84,6 +90,38 @@ namespace State
 		*/
 		GAMEAPI void Destroy( );
 
+
+		/*! Updates the world and all of its internal data structures
+		*
+		* @param[in] float deltaMilliseconds
+		* @return ( void )
+		*/
+		GAMEAPI void Update( float deltaMilliseconds );
+
+
+		/*! Loads a level from the file system
+		*
+		* @param[in] const std::string & levelpath
+		* @return ( void )
+		*/
+		GAMEAPI void LoadLevel( const std::string& levelpath );
+
+
+		/*! Serializes the contents of the world to the Stream
+		*
+		* @param[in] IO::IStream * stream
+		* @return ( void )
+		*/
+		GAMEAPI void Serialize( IO::IStream* stream );
+
+
+		/*! De serializes the contents of the stream into the World
+		*
+		* @param[in] IO::IStream * stream
+		* @return ( void )
+		*/
+		GAMEAPI void DeSerialize( IO::IStream* stream );
+
 	private:
 
 		World( const World & copy ) { };
@@ -92,6 +130,9 @@ namespace State
 		std::string m_name;
 		IWorldEntity::WorldEntityMap m_entities;
 		ISystemScene::SystemSceneMap m_systemScenes;
+
+		Serialization::IWorldSerializer* m_serializer;
+		IWorldEntityFactory* m_entityFactory;
 
 		unsigned int m_lastEntityId;
 	};

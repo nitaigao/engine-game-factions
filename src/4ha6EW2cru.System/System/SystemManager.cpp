@@ -30,7 +30,7 @@ void SystemManager::InitializeAllSystems( IConfiguration* configuration )
 	}
 }
 
-void SystemManager::Update( const float& deltaMilliseconds )
+void SystemManager::Update( float deltaMilliseconds )
 {
 	Management::Get( )->GetInstrumentation( )->SetFPS( 1.0f / deltaMilliseconds );
 

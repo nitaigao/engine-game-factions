@@ -254,7 +254,7 @@ namespace Script
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
 	}
 
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const int& var1 )
+	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1 )
 	{
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
 	}
@@ -264,17 +264,17 @@ namespace Script
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1, const int& var2 )
+	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1, int var2 )
 	{
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const int& var1, const std::string& var2 )
+	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1, const std::string& var2 )
 	{
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const int& var1, const int& var2 )
+	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1, int var2 )
 	{
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
@@ -284,7 +284,7 @@ namespace Script
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName ) ); 
 	}
 
-	std::vector< std::string > ScriptComponent::RayQuery( MathVector3 origin, MathVector3 direction, const float& length, const bool& sortByDistance, const int& maxResults )
+	std::vector< std::string > ScriptComponent::RayQuery( MathVector3 origin, MathVector3 direction, float length, bool sortByDistance, int maxResults )
 	{	
 		AnyType::AnyTypeMap parameters;
 
@@ -346,7 +346,7 @@ namespace Script
 		return result;
 	}
 
-	void ScriptComponent::Update( const float& deltaMilliseconds )
+	void ScriptComponent::Update( float deltaMilliseconds )
 	{
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
 		{

@@ -67,7 +67,7 @@ public:
 	 *  @param[in] float deltaMilliseconds
 	 *  @return (void)
 	 */
-	GAMEAPI void Update( const float& deltaMilliseconds );
+	GAMEAPI void Update( float deltaMilliseconds );
 
 
 	/*! Returns the System Manager

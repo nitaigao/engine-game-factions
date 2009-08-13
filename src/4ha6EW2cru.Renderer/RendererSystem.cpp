@@ -166,7 +166,7 @@ namespace Renderer
 		//CompositorManager::getSingletonPtr( )->setCompositorEnabled( m_sceneManager->getCurrentViewport( ), "HDR", true );
 	}
 
-	void RendererSystem::Update( const float& deltaMilliseconds )
+	void RendererSystem::Update( float deltaMilliseconds )
 	{
 		m_root->renderOneFrame( );
 

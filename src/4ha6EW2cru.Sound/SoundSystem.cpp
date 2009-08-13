@@ -152,7 +152,7 @@ namespace Sound
 		m_fmodSystem->release( );
 	}
 
-	void SoundSystem::Update( const float& deltaMilliseconds )
+	void SoundSystem::Update( float deltaMilliseconds )
 	{
 		m_eventSystem->update( );
 		m_fmodSystem->update( );

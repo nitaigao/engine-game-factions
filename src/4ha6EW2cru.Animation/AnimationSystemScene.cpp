@@ -23,7 +23,7 @@ namespace Animation
 		delete component;
 	};
 
-	void AnimationSystemScene::Update( const float& deltaMilliseconds )
+	void AnimationSystemScene::Update( float deltaMilliseconds )
 	{
 		for( ISystemComponent::SystemComponentMap::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{

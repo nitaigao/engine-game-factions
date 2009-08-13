@@ -55,7 +55,7 @@ namespace Script
 		m_configuration = configuration;
 	}
 
-	void ScriptSystem::Update( const float& deltaMilliseconds )
+	void ScriptSystem::Update( float deltaMilliseconds )
 	{
 		m_auxScene->Update( deltaMilliseconds );
 		m_scene->Update( deltaMilliseconds );
@@ -120,18 +120,18 @@ namespace Script
 				.def( "rayQuery", &ScriptComponent::RayQuery, copy_table( result ) )
 				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
 				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent )
-				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent )
+				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int ) ) &ScriptComponent::BroadcastEvent )
 				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent )
-				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent )
-				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const int& ) ) &ScriptComponent::BroadcastEvent )
-				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const std::string& ) ) &ScriptComponent::BroadcastEvent ),
+				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, int ) ) &ScriptComponent::BroadcastEvent )
+				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int, int ) ) &ScriptComponent::BroadcastEvent )
+				.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int, const std::string& ) ) &ScriptComponent::BroadcastEvent ),
 
 				class_< MathVector3 >( "Vector" )
-				.def( constructor< const float&, const float&, const float& >( ) )
+				.def( constructor< float, float, float >( ) )
 				.def( self + MathVector3( ) ),
 
 				class_< MathQuaternion >( "Quaternion" )
-				.def( constructor< const float&, const float&, const float&, const float& >( ) )
+				.def( constructor< float, float, float, float >( ) )
 				);
 
 			results[ System::TypeStrings::SCRIPT ] = luaScope;

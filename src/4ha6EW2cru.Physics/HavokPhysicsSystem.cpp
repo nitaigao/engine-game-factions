@@ -76,7 +76,7 @@ namespace Physics
 		Management::Get( )->GetServiceManager( )->RegisterService( this ); 
 	}
 
-	void HavokPhysicsSystem::Update( const float& deltaMilliseconds )
+	void HavokPhysicsSystem::Update( float deltaMilliseconds )
 	{
 		m_world->stepDeltaTime( deltaMilliseconds );
 
@@ -110,7 +110,7 @@ namespace Physics
 		Logger::Get( )->Warn( errorMessage );
 	}
 
-	std::vector< std::string > HavokPhysicsSystem::RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, const bool& sortByDistance, const unsigned int& maxResults )
+	std::vector< std::string > HavokPhysicsSystem::RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults )
 	{
 		hkpWorldRayCastInput input;
 		input.m_from = MathTools::AshkVector4( origin );

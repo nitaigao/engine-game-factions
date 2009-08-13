@@ -16,7 +16,7 @@ namespace Utility
 		return result;
 	}
 
-	std::string StringUtils::ToString( const int& input )
+	std::string StringUtils::ToString( int input )
 	{
 		std::stringstream result;
 		result << input;

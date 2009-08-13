@@ -47,7 +47,7 @@ namespace Input
 		component = 0;
 	}
 
-	void InputSystemScene::Update( const float& deltaMilliseconds )
+	void InputSystemScene::Update( float deltaMilliseconds )
 	{
 		if ( m_inputAllowed )
 		{

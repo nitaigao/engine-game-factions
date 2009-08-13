@@ -52,12 +52,23 @@ namespace Serialization
 
 		}
 
-		/*! Loads a Serialized world from the File System
+
+		/*! De serializes the Level File into the component collection
 		*
-		*  @param[in] const std::string & levelPath
-		*  @return (void)
+		* @param[in] const std::string & levelPath
+		* @param[in] IWorldEntity::WorldEntityMap & entities
+		* @return ( void )
 		*/
-		GAMEAPI void Load( const std::string& levelPath );
+		GAMEAPI void DeSerializeLevel( const std::string& levelPath );
+
+
+		/*! De serializes an entity file into the given entity
+		*
+		* @param[in] IWorldEntity *
+		* @param[in] const std::string & filepath
+		* @return ( void )
+		*/
+		GAMEAPI void DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath );
 
 
 		/*! Steps the loading process
@@ -65,7 +76,7 @@ namespace Serialization
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		GAMEAPI void Update( const float& deltaMilliseconds );
+		GAMEAPI void Update( float deltaMilliseconds );
 
 
 		/*! Returns whether or no the Serializer has finished its loading task
@@ -92,7 +103,6 @@ namespace Serialization
 
 	private:
 
-		XMLSerializer( ) { };
 		XMLSerializer( const XMLSerializer & copy ) { };
 		XMLSerializer & operator = ( const XMLSerializer & copy ) { return *this; };
 

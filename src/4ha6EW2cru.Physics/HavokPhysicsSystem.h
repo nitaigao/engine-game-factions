@@ -56,7 +56,7 @@ namespace Physics
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Releases internal data of the System
@@ -112,7 +112,7 @@ namespace Physics
 		 *  @param[in] bool sortByDistance
 		 *  @return (std::vector< std::string >)
 		 */
-		std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, const bool& sortByDistance, const unsigned int& maxResults );
+		std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults );
 
 
 		/*! Returns the Physics World from within Havok

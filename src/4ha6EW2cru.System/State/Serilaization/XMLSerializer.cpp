@@ -25,6 +25,9 @@ using namespace Events;
 
 using namespace ticpp;
 
+#include "../../IO/IStream.hpp"
+using namespace IO;
+
 namespace Serialization
 {
 	XMLSerializer::~XMLSerializer()
@@ -36,7 +39,7 @@ namespace Serialization
 		}
 	}
 	
-	void XMLSerializer::Load( const std::string& levelPath )
+	void XMLSerializer::DeSerializeLevel( const std::string& levelPath )
 	{
 		Management::Get( )->GetServiceManager( )->RegisterService( this );
 
@@ -216,7 +219,7 @@ namespace Serialization
 		}
 	}
 	
-	void XMLSerializer::Update( const float& deltaMilliseconds )
+	void XMLSerializer::Update( float deltaMilliseconds )
 	{
 		if ( !m_loadQueueEl.empty( ) )
 		{
@@ -251,6 +254,21 @@ namespace Serialization
 			m_world->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
 		}
 
+		if( message == System::Messages::Entity::SerializeWorld )
+		{
+			m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+		}
+
+		if( message == System::Messages::Entity::DeserializeWorld )
+		{
+			//m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+		}
+
 		return AnyType::AnyTypeMap( );
+	}
+
+	void XMLSerializer::DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath )
+	{
+
 	}
 }

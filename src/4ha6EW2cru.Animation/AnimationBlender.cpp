@@ -49,7 +49,7 @@ namespace Animation
 		}
 	}
 
-	void AnimationBlender::Update( const float& deltaMilliseconds )
+	void AnimationBlender::Update( float deltaMilliseconds )
 	{
 		for( AnimationControllerList::iterator i = m_blendAnimations.begin( ); i != m_blendAnimations.end( ); )
 		{

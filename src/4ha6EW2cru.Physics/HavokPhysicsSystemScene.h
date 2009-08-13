@@ -65,7 +65,7 @@ namespace Physics
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the System Scene

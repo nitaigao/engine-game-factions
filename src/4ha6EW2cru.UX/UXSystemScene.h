@@ -55,7 +55,7 @@ namespace UX
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the System Scene
@@ -119,10 +119,10 @@ namespace UX
 		static inline void MultiList_AddItem( MyGUI::MultiListPtr widget, const std::string& name ) { widget->addItem( name ); };
 		static inline int MultiList_GetSelectedIndex( MyGUI::MultiListPtr widget ) { return static_cast< int >( widget->getIndexSelected( ) ); };
 		static inline int MultiList_GetColumnCount( MyGUI::MultiListPtr widget ) { return static_cast< int >( widget->getColumnCount( ) ); };
-		static inline int MultiList_GetColumnWidthAt( MyGUI::MultiListPtr widget, const int& index ) { return widget->getColumnWidthAt( index ); };
-		static inline void MultiList_SetColumnWidthAt( MyGUI::MultiListPtr widget, const int& index, const int& width ) { return widget->setColumnWidthAt( index, width ); };
-		static inline std::string MultiList_GetItemName( MyGUI::MultiListPtr widget, const int& index ) { return widget->getItemNameAt( index ); };
-		static inline std::string MultiList_GetSubItemName( MyGUI::MultiListPtr widget, const int& column, const int& index ) { return widget->getSubItemNameAt( column, index ); };
+		static inline int MultiList_GetColumnWidthAt( MyGUI::MultiListPtr widget, int index ) { return widget->getColumnWidthAt( index ); };
+		static inline void MultiList_SetColumnWidthAt( MyGUI::MultiListPtr widget, int index, int width ) { return widget->setColumnWidthAt( index, width ); };
+		static inline std::string MultiList_GetItemName( MyGUI::MultiListPtr widget, int index ) { return widget->getItemNameAt( index ); };
+		static inline std::string MultiList_GetSubItemName( MyGUI::MultiListPtr widget, int column, int index ) { return widget->getSubItemNameAt( column, index ); };
 		static inline int MultiList_GetItemCount( MyGUI::MultiListPtr widget ) { return static_cast< int >( widget->getItemCount( ) ); };
 		static inline void MultiList_SetSubItemName( MyGUI::MultiListPtr widget, int column, int index, const std::string& name ) { widget->setSubItemNameAt( column,index, name ); };
 

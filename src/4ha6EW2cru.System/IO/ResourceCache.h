@@ -49,7 +49,7 @@ namespace Resources
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		inline void Update( const float& deltaMilliseconds ) { };
+		inline void Update( float deltaMilliseconds ) { };
 
 	private:
 

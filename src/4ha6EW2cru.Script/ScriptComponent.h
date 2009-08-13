@@ -62,7 +62,7 @@ namespace Script
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the Component
@@ -228,7 +228,7 @@ namespace Script
 		 *  @param[in] const int & var1
 		 *  @return (void)
 		 */
-		void BroadcastEvent( const std::string& eventName, const int& var1 );
+		void BroadcastEvent( const std::string& eventName, int var1 );
 
 
 
@@ -250,7 +250,7 @@ namespace Script
 		 *  @param[in] const int & var2
 		 *  @return (void)
 		 */
-		void BroadcastEvent( const std::string& eventName, const std::string& var1, const int& var2 );
+		void BroadcastEvent( const std::string& eventName, const std::string& var1, int var2 );
 		
 		
 		/*! Broadcasts an Event to the LUA State with parameters
@@ -260,7 +260,7 @@ namespace Script
 		 *  @param[in] const std::string & var2
 		 *  @return (void)
 		 */
-		void BroadcastEvent( const std::string& eventName, const int& var1, const std::string& var2 );
+		void BroadcastEvent( const std::string& eventName, int var1, const std::string& var2 );
 		
 		
 		/*! Broadcasts an Event to the LUA State with parameters
@@ -270,7 +270,7 @@ namespace Script
 		 *  @param[in] const int & var2
 		 *  @return (void)
 		 */
-		void BroadcastEvent( const std::string& eventName, const int& var1, const int& var2 );
+		void BroadcastEvent( const std::string& eventName, int var1, int var2 );
 
 
 		/*! Performs a Ray Query
@@ -279,7 +279,7 @@ namespace Script
 		 *  @param[in] int maxResults
 		 *  @return (std::vector< std::string >)
 		 */
-		std::vector< std::string > RayQuery( Maths::MathVector3 origin, Maths::MathVector3 direction, const float& length, const bool& sortByDistance, const int& maxResults );
+		std::vector< std::string > RayQuery( Maths::MathVector3 origin, Maths::MathVector3 direction, float length, bool sortByDistance, int maxResults );
 
 
 		/*! Returns the system time in Milliseconds

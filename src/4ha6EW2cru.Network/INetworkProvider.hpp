@@ -31,7 +31,7 @@ namespace Network
 
 		virtual void Initialize( Configuration::IConfiguration* configuration ) = 0;
 
-		virtual void Update( const float& deltaMilliseconds ) = 0;
+		virtual void Update( float deltaMilliseconds ) = 0;
 
 		virtual void Release( ) = 0;
 

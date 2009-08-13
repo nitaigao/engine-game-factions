@@ -156,7 +156,7 @@ namespace Script
 		* @param[in] const int & amount
 		* @return ( void )
 		*/
-		inline void SetMouseSmoothAmount( const int& amount ) { m_configuration->Set( Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount, amount ); };
+		inline void SetMouseSmoothAmount( int amount ) { m_configuration->Set( Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount, amount ); };
 
 
 		/*! Gets the SFX Volume
@@ -171,7 +171,7 @@ namespace Script
 		* @param[in] const int & volume
 		* @return ( void )
 		*/
-		inline void SetSFXVolume( const int& volume ) { m_configuration->Set( Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::SFXVolume, volume ); };
+		inline void SetSFXVolume( int volume ) { m_configuration->Set( Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::SFXVolume, volume ); };
 
 
 		/*! Gets the Music Volume
@@ -186,7 +186,7 @@ namespace Script
 		* @param[in] const int & volume
 		* @return ( void )
 		*/
-		inline void SetMusicVolume( const int& volume ) { m_configuration->Set( Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::MusicVolume, volume ); };
+		inline void SetMusicVolume( int volume ) { m_configuration->Set( Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::MusicVolume, volume ); };
 
 	private:
 

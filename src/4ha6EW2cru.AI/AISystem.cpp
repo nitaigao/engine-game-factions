@@ -11,7 +11,7 @@ namespace AI
 		return m_scene;
 	}
 
-	void AISystem::Update( const float& deltaMilliseconds )
+	void AISystem::Update( float deltaMilliseconds )
 	{
 		m_scene->Update( deltaMilliseconds );
 	}

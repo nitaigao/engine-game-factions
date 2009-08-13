@@ -59,7 +59,7 @@ namespace Animation
 		* @param[in] const float & deltaMilliseconds
 		* @return ( void )
 		*/
-		virtual void Update( const float& deltaMilliseconds ) = 0;
+		virtual void Update( float deltaMilliseconds ) = 0;
 		
 	};
 };

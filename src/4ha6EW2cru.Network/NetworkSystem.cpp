@@ -75,7 +75,7 @@ namespace Network
 		m_networkProvider->PushMessage( message, parameters );
 	}
 
-	void NetworkSystem::Update( const float& deltaMilliseconds )
+	void NetworkSystem::Update( float deltaMilliseconds )
 	{
 		m_networkProvider->Update( deltaMilliseconds );
 	}
@@ -89,7 +89,7 @@ namespace Network
 			scope luaScope = 
 				(
 				class_< ServerAdvertisement >( "ServerAdvertisement" )
-					.def( constructor< const std::string&, const std::string&, const int&, const int&, const int&, const std::string&, const int& >( ) )
+					.def( constructor< const std::string&, const std::string&, int, int, int, const std::string&, int >( ) )
 					.def( "getServerName", &ServerAdvertisement::GetServerName )
 					.def( "getMaxPlayers", &ServerAdvertisement::GetMaxPlayers )
 					.def( "getPlayerCount", &ServerAdvertisement::GetPlayerCount )

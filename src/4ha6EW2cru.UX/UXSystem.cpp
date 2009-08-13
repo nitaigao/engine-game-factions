@@ -125,7 +125,7 @@ namespace UX
 		return results;
 	}
 
-	void UXSystem::Update( const float& deltaMilliseconds )
+	void UXSystem::Update( float deltaMilliseconds )
 	{
 		m_scene->Update( deltaMilliseconds );
 	}

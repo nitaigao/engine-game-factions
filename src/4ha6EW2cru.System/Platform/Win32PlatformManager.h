@@ -52,7 +52,7 @@ namespace Platform
 		*  @param[in] const bool & fullScreen
 		*  @return (void)
 		*/
-		void CreateInteractiveWindow( const std::string& title, const int& width, const int& height, const bool& fullScreen );
+		void CreateInteractiveWindow( const std::string& title, int width, int height, bool fullScreen );
 		
 
 		/*! Closes the Open Window
@@ -82,7 +82,7 @@ namespace Platform
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 		
 
 		/*! Gets the id of the active game window

@@ -946,6 +946,13 @@ namespace RakNet
 	{
 		var.Serialize(this);
 	}
+	/// Write a string to a bitstream
+	/// \param[in] var The value to write
+	template <>
+	inline void BitStream::Write(const std::string& var)
+	{
+		RakString( var ).Serialize(this);
+	}
 	template <>
 		inline void BitStream::Write(const char * var)
 	{

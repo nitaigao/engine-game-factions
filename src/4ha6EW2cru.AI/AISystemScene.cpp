@@ -112,7 +112,7 @@ namespace AI
 		return results;
 	}
 
-	void AISystemScene::Update( const float& deltaMilliseconds )
+	void AISystemScene::Update( float deltaMilliseconds )
 	{
 		for( ISystemComponent::SystemComponentMap::iterator i = m_componentsByName.begin( ); i != m_componentsByName.end( ); ++i )
 		{

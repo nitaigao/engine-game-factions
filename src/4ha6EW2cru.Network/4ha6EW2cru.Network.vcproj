@@ -190,6 +190,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkStream.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkSystem.cpp"
 				>
 			</File>
@@ -265,6 +269,10 @@
 			</File>
 			<File
 				RelativePath=".\NetworkMessage.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkStream.h"
 				>
 			</File>
 			<File

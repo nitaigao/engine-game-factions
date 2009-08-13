@@ -52,7 +52,7 @@ namespace Network
 
 		void Initialize( Configuration::IConfiguration* configuration );
 
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 		inline AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
 
@@ -66,7 +66,7 @@ namespace Network
 		ServerNetworkProvider & operator = ( const ServerNetworkProvider & copy ) { return *this; };
 
 		void TranslatePackets( Packet* packet );
-		void UpdateClients( const float& deltaMilliseconds );
+		void UpdateClients( float deltaMilliseconds );
 
 		Configuration::IConfiguration* m_configuration;
 

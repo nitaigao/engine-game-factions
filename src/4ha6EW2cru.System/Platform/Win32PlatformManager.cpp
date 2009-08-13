@@ -63,7 +63,7 @@ namespace Platform
 		m_pathInformation->Initialize( );
 	}
 
-	void Win32PlatformManager::CreateInteractiveWindow( const std::string& title, const int& width, const int& height, const bool& fullScreen )
+	void Win32PlatformManager::CreateInteractiveWindow( const std::string& title, int width, int height, bool fullScreen )
 	{
 		WNDCLASSEX wnd;
 
@@ -114,7 +114,7 @@ namespace Platform
 		std::cout.rdbuf( existingBuffer );
 	}
 
-	void Win32PlatformManager::Update( const float& deltaMilliseconds )
+	void Win32PlatformManager::Update( float deltaMilliseconds )
 	{
 		MSG msg;
 

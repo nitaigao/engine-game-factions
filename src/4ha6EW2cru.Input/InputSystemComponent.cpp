@@ -55,7 +55,7 @@ namespace Input
 		return AnyType( );
 	}
 
-	void InputSystemComponent::Update( const float& deltaMilliseconds )
+	void InputSystemComponent::Update( float deltaMilliseconds )
 	{
 		Mouse* mouse = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >( )->GetSystem( )->GetMouse( );
 		MouseState mouseState = mouse->getMouseState( );

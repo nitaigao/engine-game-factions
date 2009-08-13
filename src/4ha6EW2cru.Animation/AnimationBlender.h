@@ -77,7 +77,7 @@ namespace Animation
 		* @param[in] const float & deltaMilliseconds
 		* @return ( void )
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 	private:
 

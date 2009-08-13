@@ -60,7 +60,7 @@ namespace Renderer
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( const float& deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 		virtual AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
 

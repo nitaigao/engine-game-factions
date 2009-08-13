@@ -65,7 +65,7 @@ namespace Network
 		m_networkInterface->SetOccasionalPing( true );
 	}
 
-	void ServerNetworkProvider::Update( const float& deltaMilliseconds )
+	void ServerNetworkProvider::Update( float deltaMilliseconds )
 	{
 		RakSleep( m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerSleepTime ).As< int >( ) );
 
@@ -129,10 +129,16 @@ namespace Network
 			}
 
 			m_sendBuffer.Write( stream );
+		} 
+		else if ( message == System::Messages::Network::Server::WorldUpdate )
+		{
+			BitStream* stream = parameters[ System::Parameters::IO::Stream ].As< BitStream* >( );
+			m_sendBuffer.Write( message.c_str( ) );
+			m_sendBuffer.Write( *stream );
 		}
 	}
 
-	void ServerNetworkProvider::UpdateClients( const float& deltaMilliseconds )
+	void ServerNetworkProvider::UpdateClients( float deltaMilliseconds )
 	{
 		m_tickRate = 1.0f / m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerSnapshotRate ).As< int >( );
 

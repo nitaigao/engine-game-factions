@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib "
+				AdditionalDependencies="RakNetLibStaticDebug.lib ws2_32.lib gtestd.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib;"
+				AdditionalLibraryDirectories="../../etc/vendor/raknet/lib;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -186,6 +186,10 @@
 			>
 			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkStream_Tests.cxx"
 				>
 			</File>
 			<File

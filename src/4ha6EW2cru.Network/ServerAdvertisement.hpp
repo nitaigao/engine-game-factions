@@ -31,7 +31,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		ServerAdvertisement( const std::string& serverName, const std::string& levelName, const int& maxPlayers, const int& playerCount, const int& ping, const std::string& serverAddress, const int& serverPort )
+		ServerAdvertisement( const std::string& serverName, const std::string& levelName, int maxPlayers, int playerCount, int ping, const std::string& serverAddress, int serverPort )
 			: m_serverName( serverName )
 			, m_levelName( levelName )
 			, m_maxPlayers( maxPlayers )

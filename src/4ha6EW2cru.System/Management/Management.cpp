@@ -68,7 +68,7 @@ void Management::Release( )
 	delete g_management;
 }
 
-void Management::Update( const float& deltaMilliseconds )
+void Management::Update( float deltaMilliseconds )
 {
 	m_systemManager->Update( deltaMilliseconds );
 	m_platformManager->Update( deltaMilliseconds );

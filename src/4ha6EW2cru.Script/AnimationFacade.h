@@ -53,7 +53,7 @@ namespace Script
 		* @param[in] const bool & loop
 		* @return ( void )
 		*/
-		void StartAnimation( const std::string& animationName, const bool& loop );
+		void StartAnimation( const std::string& animationName, bool loop );
 
 
 		/*! Instructs the Animation System to Stop an Animation for the component

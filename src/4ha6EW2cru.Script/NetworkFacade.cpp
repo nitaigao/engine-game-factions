@@ -22,7 +22,7 @@ namespace Script
 				;
 	}
 
-	void NetworkFacade::Connect( const std::string& hostAddress, const int& port )
+	void NetworkFacade::Connect( const std::string& hostAddress, int port )
 	{
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Network::HostAddress ] = hostAddress;
@@ -47,7 +47,7 @@ namespace Script
 			->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
 	}
 
-	StringUtils::StringMap NetworkFacade::GetServerAd( const int& cacheIndex )
+	StringUtils::StringMap NetworkFacade::GetServerAd( int cacheIndex )
 	{
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Network::Client::ServerCacheIndex ] = cacheIndex;

@@ -46,7 +46,7 @@ namespace Events
 		delete event;
 	}
 
-	void EventManager::Update( const float& deltaMilliseconds )
+	void EventManager::Update( float deltaMilliseconds )
 	{
 		while( m_eventQueue.size( ) > 0 )
 		{

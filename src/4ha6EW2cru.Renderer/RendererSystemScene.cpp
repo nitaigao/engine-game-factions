@@ -40,7 +40,7 @@ namespace Renderer
 		component = 0;
 	}
 
-	void RendererSystemScene::Update( const float& deltaMilliseconds )
+	void RendererSystemScene::Update( float deltaMilliseconds )
 	{
 		for( IRendererSystemComponent::RendererSystemComponentList::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{

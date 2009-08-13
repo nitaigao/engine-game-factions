@@ -8,6 +8,8 @@
 #ifndef IWORLDLOADER_HPP
 #define IWORLDLOADER_HPP
 
+#include "../IWorldEntity.hpp"
+
 namespace Serialization
 {
 	/*!
@@ -25,12 +27,22 @@ namespace Serialization
 		virtual ~IWorldSerializer( ) { };
 
 
-		/*! Loads a Serialized world from the File System
+		/*! De serializes the Level File into the component collection
 		 *
-		 *  @param[in] const std::string & levelPath
-		 *  @return (void)
+		 * @param[in] const std::string & levelPath
+		 * @param[in] IWorldEntity::WorldEntityMap & entities
+		 * @return ( void )
 		 */
-		virtual void Load( const std::string& levelPath ) = 0;
+		virtual void DeSerializeLevel( const std::string& levelPath ) = 0;
+
+
+		/*! De serializes an entity file into the given entity
+		 *
+		 * @param[in] IWorldEntity *
+		 * @param[in] const std::string & filepath
+		 * @return ( void )
+		 */
+		virtual void DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath ) = 0;
 
 
 		/*! Steps the loading process
@@ -38,14 +50,7 @@ namespace Serialization
 		 *  @param[in] float deltaMilliseconds
 		 *  @return (void)
 		 */
-		virtual void Update( const float& deltaMilliseconds ) = 0;
-
-
-		/*! Returns whether or no the Serializer has finished its loading task
-		 *
-		 *  @return (bool)
-		 */
-		virtual bool IsFinishedLoading( ) const = 0;
+		virtual void Update( float deltaMilliseconds ) = 0;
 	};
 };
 

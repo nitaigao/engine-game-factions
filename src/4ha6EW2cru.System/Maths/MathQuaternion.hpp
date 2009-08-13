@@ -42,7 +42,7 @@ namespace Maths
 		 *  @param[in] float angle
 		 *  @return ()
 		 */
-		MathQuaternion( const MathVector3& axis, const float& angle )
+		MathQuaternion( const MathVector3& axis, float angle )
 		{
 			W = cos( 0.5 * angle );
 			X = sin( 0.5 * angle ) * axis.X; 
@@ -60,7 +60,7 @@ namespace Maths
 		 *  @param[in] float w
 		 *  @return ()
 		 */
-		MathQuaternion( const float& x, const float& y, const float& z, const float& w )
+		MathQuaternion( float x, float y, float z, float w )
 			: X( x )
 			, Y( y )
 			, Z( z )

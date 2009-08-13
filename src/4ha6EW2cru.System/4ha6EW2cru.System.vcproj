@@ -279,6 +279,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\State\WorldEntityFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\State\Serilaization\XMLSerializer.cpp"
 				>
 			</File>
@@ -449,6 +453,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IO\IStream.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\System\ISubject.hpp"
 				>
 			</File>
@@ -474,6 +482,10 @@
 			</File>
 			<File
 				RelativePath=".\State\IWorldEntity.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\State\IWorldEntityFactory.hpp"
 				>
 			</File>
 			<File
@@ -618,6 +630,10 @@
 			</File>
 			<File
 				RelativePath=".\State\WorldEntity.h"
+				>
+			</File>
+			<File
+				RelativePath=".\State\WorldEntityFactory.h"
 				>
 			</File>
 			<File

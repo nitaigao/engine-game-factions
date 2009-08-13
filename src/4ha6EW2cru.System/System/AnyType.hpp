@@ -43,7 +43,7 @@ public:
 	 *  @param[in] const int & value
 	 *  @return ()
 	 */
-	AnyType( const int& value )
+	AnyType( int value )
 		: m_value( value )
 	{
 

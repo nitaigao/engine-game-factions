@@ -24,7 +24,7 @@ namespace Renderer
 		return result;
 	}
 
-	void FPSCameraComponent::Update( const float& deltaMilliseconds )
+	void FPSCameraComponent::Update( float deltaMilliseconds )
 	{
 		RendererSystemComponent::Update( deltaMilliseconds );
 

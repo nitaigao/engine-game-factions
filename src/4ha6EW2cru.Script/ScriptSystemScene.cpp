@@ -195,7 +195,7 @@ namespace Script
 		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_ENDED ) );
 	}
 
-	void ScriptSystemScene::Update( const float& deltaMilliseconds )
+	void ScriptSystemScene::Update( float deltaMilliseconds )
 	{
 		for( ScriptComponentList::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{

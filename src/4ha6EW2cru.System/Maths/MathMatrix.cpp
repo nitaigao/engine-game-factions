@@ -13,7 +13,7 @@ namespace Maths
 	/*! 
 	 *  Representation of a Maths Matrix
 	 */
-	MathMatrix::MathMatrix( const float& angle, const MathVector3& axis )
+	MathMatrix::MathMatrix( float angle, const MathVector3& axis )
 	{
 		MathVector3 ax = const_cast< MathVector3& >( axis );
 		this->FromAxisAngle( MathTools::AsOgreVector3( ax ), Ogre::Radian( angle ) );

@@ -54,7 +54,7 @@ namespace Script
 		* @param[in] const int & port
 		* @return ( void )
 		*/
-		void Connect( const std::string& hostAddress, const int& port );
+		void Connect( const std::string& hostAddress, int port );
 
 
 		/*! Disconnects if connected to a server
@@ -84,7 +84,7 @@ namespace Script
 		* @param[in] const int & cacheIndex
 		* @return ( ServerAdvertisement* )
 		*/
-		Utility::StringUtils::StringMap GetServerAd( const int& cacheIndex );
+		Utility::StringUtils::StringMap GetServerAd( int cacheIndex );
 
 
 	private:

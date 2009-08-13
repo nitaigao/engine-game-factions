@@ -156,7 +156,7 @@ namespace Animation
 		return result;
 	}
 
-	void AnimationSystemComponent::Update( const float& deltaMilliseconds )
+	void AnimationSystemComponent::Update( float deltaMilliseconds )
 	{
 		m_animationBlender->Update( deltaMilliseconds );
 

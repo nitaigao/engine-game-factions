@@ -12,7 +12,6 @@
 
 #include "Events/IEvent.hpp"
 #include "State/IWorld.hpp"
-#include "State/Serilaization/IWorldLoader.hpp"
 
 #include "Export.hpp"
 
@@ -39,7 +38,6 @@ public:
 		: m_isQuitting( false )
 		, m_isInitialized( false )
 		, m_world( 0 )
-		, m_worldLoader( 0 )
 	{
 
 	}
@@ -83,7 +81,6 @@ private:
 	bool m_isInitialized;
 
 	Configuration::IConfiguration* m_configuration;
-	Serialization::IWorldSerializer* m_worldLoader;
 	State::IWorld* m_world;
 
 	Game( const Game & copy ) { };

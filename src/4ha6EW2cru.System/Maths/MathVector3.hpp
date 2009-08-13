@@ -45,7 +45,7 @@ namespace Maths
 		 *  @param[in] float z
 		 *  @return ()
 		 */
-		MathVector3( const float& x, const float& y, const float& z )
+		MathVector3( float x, float y, float z )
 			: X( x )
 			, Y( y )
 			, Z( z )
@@ -136,7 +136,7 @@ namespace Maths
 		 *  @param[in] const float & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator / ( const float& input ) const
+		inline MathVector3 operator / ( float input ) const
 		{
 			return MathVector3(
 				X / input,
@@ -192,7 +192,7 @@ namespace Maths
 		 *  @param[in] const float & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator * ( const float& input ) const
+		inline MathVector3 operator * ( float input ) const
 		{
 			return MathVector3(
 				input * X,

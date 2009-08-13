@@ -27,7 +27,7 @@ namespace Utility
 		typedef std::deque< std::string > StringList;
 		typedef std::map< std::string, std::string > StringMap;
 
-		static GAMEAPI std::string ToString( const int& input );
+		static GAMEAPI std::string ToString( int input );
 
 		static GAMEAPI std::string Replace( const std::string& input, const std::string& oldString, const std::string& newString );
 

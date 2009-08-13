@@ -33,7 +33,7 @@ namespace Physics
 		return component;
 	}
 
-	void HavokPhysicsSystemScene::Update( const float& deltaMilliseconds )
+	void HavokPhysicsSystemScene::Update( float deltaMilliseconds )
 	{
 		for( IPhysicsSystemComponent::PhysicsSystemComponentList::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{

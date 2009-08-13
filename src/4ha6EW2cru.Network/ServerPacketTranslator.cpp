@@ -6,6 +6,8 @@ using namespace RakNet;
 #include "Management/Management.h"
 
 #include "NetworkUtils.h"
+#include "NetworkStream.h"
+using namespace IO;
 
 namespace Network
 {
@@ -130,5 +132,18 @@ namespace Network
 
 	void ServerPacketTranslator::OnLevelLoaded( const std::string& clientName )
 	{
+		BitStream stream;
+		NetworkStream networkStream( &stream );
+
+		AnyType::AnyTypeMap parameters;
+		parameters[ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
+
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::SerializeWorld, parameters );
+
+
+		AnyType::AnyTypeMap params;
+		params[ System::Parameters::IO::Stream ] = &stream;
+
+		m_networkSystem->PushMessage( System::Messages::Network::Server::WorldUpdate, params );
 	}
 }

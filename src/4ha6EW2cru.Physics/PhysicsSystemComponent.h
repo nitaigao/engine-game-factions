@@ -65,7 +65,7 @@ namespace Physics
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		virtual void Update( const float& deltaMilliseconds ) { };
+		virtual void Update( float deltaMilliseconds ) { };
 
 
 		/*! Destroys the Component

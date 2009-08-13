@@ -153,7 +153,7 @@ namespace UX
 		}
 	}
 
-	void UXSystemScene::Update( const float& deltaMilliseconds )
+	void UXSystemScene::Update( float deltaMilliseconds )
 	{
 		m_gui->injectFrameEntered( deltaMilliseconds );
 	}

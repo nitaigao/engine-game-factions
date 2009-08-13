@@ -50,7 +50,7 @@ namespace IO
 		 *  @param[in] bool binary
 		 *  @return (FileBuffer*)
 		 */
-		virtual FileBuffer* GetFile( const std::string& filePath, const bool& binary ) const = 0;
+		virtual FileBuffer* GetFile( const std::string& filePath, bool binary ) const = 0;
 
 
 		/*! Saves the given file data to the path specified in the FileBuffer
@@ -67,7 +67,7 @@ namespace IO
 		 *  @param[in] bool throwOnFail
 		 *  @return (bool)
 		 */
-		virtual bool FileExists( const std::string& filePath, const bool& throwOnFail = false ) const = 0;
+		virtual bool FileExists( const std::string& filePath, bool throwOnFail = false ) const = 0;
 
 
 		/*! Performs a file search
@@ -77,7 +77,7 @@ namespace IO
 		 *  @param[in] const bool recursive
 		 *  @return (FileSearchResultList*)
 		 */
-		virtual FileSearchResult::FileSearchResultList* FileSearch( const std::string& path, const std::string& searchPattern, const bool& recursive ) const = 0;
+		virtual FileSearchResult::FileSearchResultList* FileSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const = 0;
 
 	};
 };

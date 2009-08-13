@@ -82,7 +82,7 @@ namespace IO
 		}
 	}
 
-	bool FileSystem::FileExists( const std::string& filePath, const bool& throwOnFail ) const
+	bool FileSystem::FileExists( const std::string& filePath, bool throwOnFail ) const
 	{
 		int exists = PHYSFS_exists( filePath.c_str( ) );
 
@@ -109,7 +109,7 @@ namespace IO
 		return ( result > 0 );
 	}
 
-	FileBuffer* FileSystem::GetFile( const std::string& filePath, const bool& binary ) const
+	FileBuffer* FileSystem::GetFile( const std::string& filePath, bool binary ) const
 	{
 		this->FileExists( filePath, true );
 
@@ -152,7 +152,7 @@ namespace IO
 		PHYSFS_close( file );
 	}
 
-	FileSearchResult::FileSearchResultList* FileSystem::FileSearch( const std::string& path, const std::string& searchPattern, const bool& recursive ) const
+	FileSearchResult::FileSearchResultList* FileSystem::FileSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const
 	{
 		FileSearchResult::FileSearchResultList* results = new FileSearchResult::FileSearchResultList( );
 		
@@ -161,7 +161,7 @@ namespace IO
 		return results;
 	}
 
-	FileSearchResult::FileSearchResultList* FileSystem::_FileSearch( const std::string& path, const std::string& pattern, const bool& recursive, FileSearchResult::FileSearchResultList* results ) const
+	FileSearchResult::FileSearchResultList* FileSystem::_FileSearch( const std::string& path, const std::string& pattern, bool recursive, FileSearchResult::FileSearchResultList* results ) const
 	{
 		char **rc = PHYSFS_enumerateFiles( path.c_str( ) );
 

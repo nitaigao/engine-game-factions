@@ -43,7 +43,7 @@ namespace State
 		*
 		*  @return (const std::string&)
 		*/
-		inline const std::string& GetName( ) const { return m_name; };
+		inline std::string GetName( ) const { return m_name; };
 
 
 		/*! Adds an Observer to the Subject
@@ -58,7 +58,7 @@ namespace State
 		*
 		* @return ( void )
 		*/
-		void Initialize( );
+		GAMEAPI void Initialize( );
 
 
 		/*! Adds a System Component to the Entity
@@ -66,7 +66,7 @@ namespace State
 		*  @param[in] ISystemComponent * component
 		*  @return (void)
 		*/
-		void AddComponent( ISystemComponent* component );
+		GAMEAPI void AddComponent( ISystemComponent* component );
 
 
 		/*! Get a list of all System Components inside the Entity
@@ -82,7 +82,7 @@ namespace State
 		* @param[in] AnyType value
 		* @return ( void )
 		*/
-		void SetAttribute( const System::Attribute& attribute, const AnyType& value );
+		GAMEAPI void SetAttribute( const System::Attribute& attribute, const AnyType& value );
 
 
 		/*! Messages the Component to influence its internal state
@@ -90,7 +90,23 @@ namespace State
 		 *  @param[in] const std::string & message
 		 *  @return (AnyType)
 		 */
-		AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the entity to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		GAMEAPI void Serialize( IO::IStream* stream );
+
+
+		/*! Reads the contents of the entity from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		GAMEAPI void DeSerialize( IO::IStream* stream ) { };
 
 	private:
 
@@ -100,6 +116,7 @@ namespace State
 		std::string m_name;
 		ISystemComponent::SystemComponentList m_components;
 		ObserverMap m_observers;
+		AnyType::AnyTypeMap m_attributes;
 
 	};
 };

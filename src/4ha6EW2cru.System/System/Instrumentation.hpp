@@ -43,7 +43,7 @@ public:
 	*
 	* @return ( void )
 	*/
-	inline void SetFPS( const int& fps ) { m_fps = fps; };
+	inline void SetFPS( int fps ) { m_fps = fps; };
 
 
 	/*! Gets the Round Time of the Given Queue
@@ -60,7 +60,7 @@ public:
 	* @param[in] const float & roundTime
 	* @return ( void )
 	*/
-	inline void SetRoundTime( const System::Queues::Queue& queue, const float& roundTime ) { m_roundTimes[ queue ] = roundTime; };
+	inline void SetRoundTime( const System::Queues::Queue& queue, float roundTime ) { m_roundTimes[ queue ] = roundTime; };
 
 
 	/*! Sets the name of the active level

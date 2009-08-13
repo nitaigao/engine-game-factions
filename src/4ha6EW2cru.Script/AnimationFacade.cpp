@@ -13,7 +13,7 @@ namespace Script
 				.def( "stopAnimation", &AnimationFacade::StopAnimation );
 	}
 
-	void AnimationFacade::StartAnimation( const std::string& animationName, const bool& loop )
+	void AnimationFacade::StartAnimation( const std::string& animationName, bool loop )
 	{
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::AnimationName ] = animationName;

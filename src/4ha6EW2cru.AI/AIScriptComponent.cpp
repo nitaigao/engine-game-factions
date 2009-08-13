@@ -106,7 +106,7 @@ namespace AI
 		//Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "WEAPON_FIRED", m_name ) );
 	}
 
-	void AIScriptComponent::PlayAnimation( const std::string& animationName, const bool& loopAnimation )
+	void AIScriptComponent::PlayAnimation( const std::string& animationName, bool loopAnimation )
 	{
 		IService* service = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
 
@@ -119,7 +119,7 @@ namespace AI
 		service->Message( "playAnimation", parameters );
 	}
 
-	void AIScriptComponent::Update( const float& deltaMilliseconds )
+	void AIScriptComponent::Update( float deltaMilliseconds )
 	{
 		MathVector3 position = m_attributes[ System::Attributes::Position ].As< MathVector3 >( );
 
