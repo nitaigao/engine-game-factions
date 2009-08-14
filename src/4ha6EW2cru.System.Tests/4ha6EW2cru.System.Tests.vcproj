@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib gmock.lib"
+				AdditionalDependencies="gtest.lib gmock.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"

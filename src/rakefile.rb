@@ -65,8 +65,6 @@ namespace :build do
 	task :test do
 		begin
 		
-			
-		
 			Dir.glob( File.join( $outputbindir , "*Tests.exe" )  ) .each{ | test |
 
 				system( test + ' --gtest_output=xml:\\')
