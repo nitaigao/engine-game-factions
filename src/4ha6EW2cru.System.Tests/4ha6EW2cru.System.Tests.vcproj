@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -137,9 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtest.lib "
+				AdditionalDependencies="gtestd.lib gmock.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib;"
+				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
