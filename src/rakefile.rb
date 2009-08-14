@@ -65,8 +65,13 @@ namespace :build do
 	task :test do
 		begin
 		
-			tests_path = "cd ../build/" + $build_configuration.to_s + "/bin & " + $application_name + ".Tests.exe"
-			#system( tests_path )
+			
+		
+			Dir.glob( File.join( $outputbindir , "*Tests.exe" )  ) .each{ | test |
+
+				system( test + ' --gtest_output=xml:\\')
+			
+			}
 		    
 		rescue Exception => e
 			raise "\n\nFailed: There was an error while running tests\n#{e}"
@@ -151,13 +156,14 @@ namespace :deploy do
   end
 end
 
-$build_configuration = 'Release'
+$build_configuration = 'Debug'
 $application_name = '4ha6EW2cru'
 $vendor_file = '../etc/vendor/Vendor.sln'
 $solution_file = $application_name + '.sln'
 $builddir = '../build'
 $packagesdir = File.join( '../', 'packages' )
 $outputdir = File.join( $builddir, $build_configuration )
+$outputbindir = File.join( $outputdir, 'bin' )
 
 task :data => [ "data:build" ]
 task :build => [ "build:clean", "build:compile" ]
