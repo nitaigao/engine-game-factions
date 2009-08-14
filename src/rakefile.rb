@@ -118,36 +118,27 @@ namespace :data do
 end
 
 namespace :deploy do
-  task :clean do
-  
-	build_file_list = FileList.new( File.join( $outputdir,'**/*.*' ) ).exclude( File.join( $outputdir,'**/*.exe' ), File.join( $outputdir,'**/*.dll' ), File.join( $outputdir,'**/*.cfg' ), File.join( $outputdir,'**/*.bad' ) )
-	FileUtils.rm build_file_list, :force => true
-	
-	test_files_list = FileList.new( File.join( $outputdir, '**/*test*' ), File.join( $outputdir, '**/*cpp*' ), File.join( $outputdir, '**/*mockpp*' ) )
-	FileUtils.rm test_files_list, :force => true
-	
-	delete_empty_directories( $outputdir )
-	
-  end
   task :store do
 	begin	
 		versionInfo = VersionInfo.new
 		artifacts_path = $packagesdir
-		output_path = File.join(artifacts_path, 'Factions.zip')
+		output_path = File.join(artifacts_path, $packagefile)
 	  
 	    FileUtils.rm_rf(artifacts_path)
 	    Dir.mkdir(artifacts_path)
 		
 		build_output_dir = $outputdir
 	      
-	    Zip::ZipFile.open(output_path, Zip::ZipFile::CREATE) do |zipfile|
-	      Find.find(build_output_dir) do |path|     			
+	    build_file_list = FileList.new( File.join( $outputdir,'**/*.exe' ), File.join( $outputdir,'**/*.dll' ), File.join( $outputdir,'**/*.cfg' ), File.join( $outputdir,'**/*.bad' ) )
+		
+		Zip::ZipFile.open(output_path, Zip::ZipFile::CREATE) do |zipfile|
+	      build_file_list.each { |path|     			
 			if File.directory?(path) == false then       
 				dest = path.slice(build_output_dir.length + 1, path.length - build_output_dir.length - 1)
 				puts "Adding #{dest} to #{output_path}"
 				zipfile.add(dest,path) if dest
 			end
-	      end
+	      }
 	    end
 		
 	rescue Exception => e
@@ -156,12 +147,13 @@ namespace :deploy do
   end
 end
 
-$build_configuration = 'Debug'
+$build_configuration = 'Release'
 $application_name = '4ha6EW2cru'
 $vendor_file = '../etc/vendor/Vendor.sln'
 $solution_file = $application_name + '.sln'
 $builddir = '../build'
 $packagesdir = File.join( '../', 'packages' )
+$packagefile = File.join( 'Factions.zip' )
 $outputdir = File.join( $builddir, $build_configuration )
 $outputbindir = File.join( $outputdir, 'bin' )
 
@@ -169,6 +161,6 @@ task :data => [ "data:build" ]
 task :build => [ "build:clean", "build:compile" ]
 task :vendor => ["vendor:clean", "vendor:compile"]
 task :test => ["build:test"]
-task :deploy => [ "deploy:clean", "deploy:store" ]
+task :deploy => [ "deploy:store" ]
 task :continuous_integration => [ :vendor, :build, :data, :test, :deploy ]
 task :default => :build
