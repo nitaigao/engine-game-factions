@@ -107,6 +107,11 @@ namespace Network
 			m_messageRouter->SelectCharacter( message, parameters );
 		}
 
+		if ( message == System::Messages::Network::Client::LevelLoaded )
+		{
+			m_messageRouter->LevelLoaded( );
+		}
+
 		return results;
 	}
 

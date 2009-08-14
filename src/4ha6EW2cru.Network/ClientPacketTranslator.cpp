@@ -22,6 +22,9 @@ using namespace Maths;
 #include "Utility/StringUtils.h"
 using namespace Utility;
 
+#include "IO/IStream.hpp"
+using namespace IO;
+
 namespace Network
 {
 	void ClientPacketTranslator::OnPacketReceived( Packet* packet )
@@ -38,12 +41,7 @@ namespace Network
 			RakString levelName;
 			stream->Read( levelName );
 
-			//OnChangeLevel( levelName.C_String( ) );
-
-			BitStream stream;
-			stream.Write( RakString( System::Messages::Network::Client::LevelLoaded ) );
-
-			NetworkUtils::SendNetworkMessage( stream, packet->systemAddress, m_networkInterface );
+			OnChangeLevel( levelName.C_String( ) );
 		}
 
 		if ( message == System::Messages::Entity::CreateEntity.c_str( ) )
@@ -75,9 +73,9 @@ namespace Network
 			NetworkStream networkStream( stream );
 
 			AnyType::AnyTypeMap parameters;
-			parameters[ System::Parameters::IO::Stream ] = &networkStream;
+			parameters[ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
 
-			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DeserializeWorld, parameters );
+			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DeSerializeWorld, parameters );
 		}
 
 		delete stream;
@@ -145,9 +143,9 @@ namespace Network
 
 	void ClientPacketTranslator::OnChangeLevel( const std::string& levelName )
 	{
-		/*IEventData* eventData = new LevelChangedEventData( levelName );
+		IEventData* eventData = new LevelChangedEventData( levelName );
 		IEvent* event = new Event( GAME_LEVEL_CHANGED, eventData );
-		Management::Get( )->GetEventManager( )->QueueEvent( event );*/
+		Management::Get( )->GetEventManager( )->QueueEvent( event );
 	}
 
 	void ClientPacketTranslator::OnDestroyEntity( const std::string& name )

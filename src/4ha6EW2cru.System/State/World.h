@@ -9,8 +9,10 @@
 #define WORLD_H
 
 #include "IWorld.hpp"
-#include "Serilaization/IWorldLoader.hpp"
 #include "IWorldEntityFactory.hpp"
+#include "IEntityService.hpp"
+
+#include "Serilaization/IWorldLoader.hpp"
 
 #include "../Export.hpp"
 
@@ -38,12 +40,20 @@ namespace State
 		GAMEAPI World( );
 
 
-		GAMEAPI World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory )
+		GAMEAPI World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, IEntityService* entityService )
 			: m_serializer( serializer )
 			, m_entityFactory( entityFactory )
+			, m_entityService( entityService )
 		{
 
 		}
+
+
+		/*! Initializes the World
+		*
+		* @return ( void )
+		*/
+		GAMEAPI void Initialize( );
 
 
 		/*! Creates a World Entity Container
@@ -52,6 +62,15 @@ namespace State
 		*  @return (IWorldEntity*)
 		*/
 		GAMEAPI IWorldEntity* CreateEntity( const std::string& name );
+
+
+		/*! Loads an Entity from the given file path
+		*
+		* @param[in] const std::string & name
+		* @param[in] const std::string & filePath
+		* @return ( IWorldEntity& )
+		*/
+		GAMEAPI IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath );
 
 
 		/*! Creates a World Entity Container
@@ -133,6 +152,8 @@ namespace State
 
 		Serialization::IWorldSerializer* m_serializer;
 		IWorldEntityFactory* m_entityFactory;
+
+		IEntityService* m_entityService;
 
 		unsigned int m_lastEntityId;
 	};

@@ -233,7 +233,7 @@ namespace System
 			static const Message CreateEntity			=	"createEntity";
 			static const Message DestroyEntity			=	"destroyEntity";
 			static const Message SerializeWorld			=	"serializeWorld";
-			static const Message DeserializeWorld		=	"deserializeWorld";
+			static const Message DeSerializeWorld		=	"deserializeWorld";
 		}
 
 		namespace Network

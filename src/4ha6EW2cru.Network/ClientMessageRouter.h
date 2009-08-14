@@ -32,6 +32,7 @@ namespace Network
 		virtual void FindServers( ) = 0;
 		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 		virtual void UpdateServer( float deltaMilliseconds, float updateRate ) = 0;
+		virtual void LevelLoaded( ) = 0;
 	};
 
 	/*! 
@@ -71,6 +72,7 @@ namespace Network
 
 		void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
 		void UpdateServer( float deltaMilliseconds, float updateRate );
+		void LevelLoaded( );
 		
 	private:
 

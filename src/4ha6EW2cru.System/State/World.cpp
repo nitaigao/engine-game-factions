@@ -5,6 +5,7 @@
 
 #include "WorldEntity.h"
 #include "WorldEntityFactory.h"
+#include "EntityService.h"
 
 #include "Serilaization/XMLSerializer.h"
 using namespace Serialization;
@@ -20,18 +21,32 @@ namespace State
 
 		delete m_serializer;
 		delete m_entityFactory;
+		delete m_entityService;
 	}
 
-	World::World()
+	World::World( )
 	{
 		m_serializer = new Serialization::XMLSerializer( this );
 		m_entityFactory = new WorldEntityFactory( );
+		m_entityService = new EntityService( this );
+	}
+
+	void World::Initialize( )
+	{
+		Management::Get( )->GetServiceManager( )->RegisterService( m_entityService );
 	}
 	
 	IWorldEntity* World::CreateEntity( const std::string& name )
 	{
 		IWorldEntity* entity = m_entityFactory->CreateEntity( name );
 		m_entities.insert( std::make_pair( name, entity ) );
+		return entity;
+	}
+
+	IWorldEntity* World::CreateEntity( const std::string& name, const std::string& filePath )
+	{
+		IWorldEntity* entity = this->CreateEntity( name );
+		m_serializer->DeSerializeEntity( entity, filePath );
 		return entity;
 	}
 
@@ -90,6 +105,9 @@ namespace State
 			std::string entityName;
 			stream->Read( entityName );
 
+			int hasFilePath;
+			stream->Read( hasFilePath );
+
 			if ( m_entities.find( entityName ) != m_entities.end( ) )
 			{
 				m_entities[ entityName ]->DeSerialize( stream );
@@ -116,4 +134,29 @@ namespace State
 	{
 		m_serializer->DeSerializeLevel( levelpath );
 	}
+
+	/*AnyType::AnyTypeMap XMLSerializer::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	{
+		/*if ( message == System::Messages::Entity::CreateEntity )
+		{
+		this->LoadEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ) );
+		}
+
+		if ( message == System::Messages::Entity::DestroyEntity )
+		{
+		m_world->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
+		}
+
+		if( message == System::Messages::Entity::SerializeWorld )
+		{
+			m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+		}
+
+		if( message == System::Messages::Entity::DeserializeWorld )
+		{
+			//m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+		}
+
+		return AnyType::AnyTypeMap( );
+	}*/
 }

@@ -95,6 +95,7 @@ void Game::Initialize( )
 	// -- Setup the World and World Loader
 
 	m_world = systemManager->CreateWorld( );
+	m_world->Initialize( );
 
 	// -- Register Events
 

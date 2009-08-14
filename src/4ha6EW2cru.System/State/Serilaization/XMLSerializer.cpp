@@ -41,8 +41,6 @@ namespace Serialization
 	
 	void XMLSerializer::DeSerializeLevel( const std::string& levelPath )
 	{
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
-
 		if ( !Management::Get( )->GetFileManager( )->FileExists( levelPath ) )
 		{
 			std::stringstream logMessage;
@@ -143,12 +141,19 @@ namespace Serialization
 	{
 		IWorldEntity* entity = m_world->CreateEntity( name );
 
+		this->PopulateEntity( entity, components );
+
+		return entity;
+	}
+
+	void XMLSerializer::PopulateEntity( IWorldEntity* entity, NodePtrMap& components )
+	{
 		for( NodePtrMap::iterator i = components.begin( ); i != components.end( ); ++i )
 		{
 			if ( Management::Get( )->GetSystemManager( )->HasSystem( ( *i ).first ) ) 
 			{
 				IComponentSerializer* serializer = ComponentSerializerFactory::Create( ( *i ).first );
-				ISystemComponent* component = serializer->DeSerialize( name, ( *i ).second->ToElement( ), m_world->GetSystemScenes( ) );
+				ISystemComponent* component = serializer->DeSerialize( entity->GetName( ), ( *i ).second->ToElement( ), m_world->GetSystemScenes( ) );
 				entity->AddComponent( component );
 
 				delete serializer;
@@ -156,8 +161,6 @@ namespace Serialization
 
 			delete ( *i ).second;
 		}
-
-		return entity;
 	}
 	
 	void XMLSerializer::LoadEntity( ticpp::Element* element )
@@ -242,9 +245,9 @@ namespace Serialization
 		}
 	}
 
-	AnyType::AnyTypeMap XMLSerializer::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	/*AnyType::AnyTypeMap XMLSerializer::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
 	{
-		if ( message == System::Messages::Entity::CreateEntity )
+		/*if ( message == System::Messages::Entity::CreateEntity )
 		{
 			this->LoadEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ) );
 		}
@@ -265,10 +268,16 @@ namespace Serialization
 		}
 
 		return AnyType::AnyTypeMap( );
-	}
+	}*/
 
 	void XMLSerializer::DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath )
 	{
+		NodePtrMap components;
 
+		this->ImportEntity( filepath, components );
+		this->PopulateEntity( entity, components );
+		
+		entity->SetAttribute( System::Attributes::FilePath, filepath );
+		entity->Initialize( );
 	}
 }

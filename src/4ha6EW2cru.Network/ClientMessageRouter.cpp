@@ -124,4 +124,11 @@ namespace Network
 
 		m_tickTotal += deltaMilliseconds;
 	}
+
+	void ClientMessageRouter::LevelLoaded( )
+	{
+		BitStream stream;
+		stream.Write( System::Messages::Network::Client::LevelLoaded.c_str( ) );
+		m_sendBuffer.Write( stream );
+	}
 }

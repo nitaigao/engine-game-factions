@@ -32,12 +32,28 @@ namespace State
 		virtual ~IWorld( ) { };
 
 
+		/*! Initializes the World
+		 *
+		 * @return ( void )
+		 */
+		virtual void Initialize( ) = 0;
+
+
 		/*! Creates a World Entity Container
 		 *
 		 *  @param[in] const std::string & name
 		 *  @return (IWorldEntity*)
 		 */
 		virtual IWorldEntity* CreateEntity( const std::string& name ) = 0;
+
+
+		/*! Loads an Entity from the given file path
+		 *
+		 * @param[in] const std::string & name
+		 * @param[in] const std::string & filePath
+		 * @return ( IWorldEntity& )
+		 */
+		virtual IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath ) = 0;
 
 
 		/*! Creates a World Entity Container

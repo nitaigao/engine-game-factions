@@ -113,7 +113,7 @@ TEST( World_Tests, should_deserialize_existing_entity )
 	MockEntityFactory* entityFactory = new MockEntityFactory( );
 	MockSerializer* serializer = new MockSerializer( );
 	
-	World world( serializer, entityFactory );
+	World world( serializer, entityFactory, 0 );
 
 	EXPECT_CALL( *entityFactory, CreateEntity( A< const std::string& >( ) ) )
 		.WillOnce( Return( mockEntity ) );
@@ -125,7 +125,7 @@ TEST( World_Tests, should_deserialize_existing_entity )
 	EXPECT_CALL( *mockEntity, DeSerialize( &stream ) );
 
 	EXPECT_CALL( stream, Read( An< int& >( ) ) )
-		.WillOnce( Invoke( EntityCount ) );
+		.WillRepeatedly( Invoke( EntityCount ) );
 
 	std::string entityName;
 
@@ -149,14 +149,14 @@ TEST( World_Tests, should_deserialize_a_non_existing_entity )
 
 	EXPECT_CALL( *serializer, DeSerializeEntity( An< IWorldEntity* >( ), A< const std::string& >( ) ) );
 
-	World world( serializer, entityFactory );
+	World world( serializer, entityFactory, 0 );
 
 	MockStream stream;
 
 	EXPECT_CALL( *mockEntity, DeSerialize( &stream ) );
 
 	EXPECT_CALL( stream, Read( An< int& >( ) ) )
-		.WillOnce( Invoke( EntityCount ) );
+		.WillRepeatedly( Invoke( EntityCount ) );
 
 	std::string entityName;
 
@@ -176,7 +176,7 @@ TEST( World_Tests, should_create_entities )
 	EXPECT_CALL( *entityFactory, CreateEntity( A< const std::string& >( ) ) )
 		.WillOnce( Return( mockEntity ) );
 
-	World world( 0, entityFactory );
+	World world( 0, entityFactory, 0 );
 	IWorldEntity* entity = world.CreateEntity( "test" );
 
 	EXPECT_EQ( mockEntity, entity );
@@ -193,6 +193,19 @@ TEST( World_Tests, should_load_a_level_from_the_serializer )
 
 	EXPECT_CALL( *serializer, DeSerializeLevel( levelPath ) );
 
-	World world( serializer, 0 );
+	World world( serializer, 0, 0 );
 	world.LoadLevel( levelPath );
+}
+
+TEST( World_Tests, should_create_an_entity_from_file )
+{
+	MockSerializer* serializer = new MockSerializer( );
+	MockEntityFactory* entityFactory = new MockEntityFactory( );
+
+	std::string filePath = "filePath";
+
+	EXPECT_CALL( *serializer, DeSerializeEntity( An< IWorldEntity* >( ), filePath ) );
+
+	World world( serializer, entityFactory, 0 );
+	world.CreateEntity( "name", filePath );
 }

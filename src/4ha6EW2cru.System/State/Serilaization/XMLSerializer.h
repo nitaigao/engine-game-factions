@@ -99,7 +99,7 @@ namespace Serialization
 		*  @param[in] AnyType::AnyTypeMap & parameters
 		*  @return (AnyType::AnyTypeMap)
 		*/
-		GAMEAPI AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
 
 	private:
 
@@ -117,6 +117,7 @@ namespace Serialization
 		void ImportEntity( const std::string& src, NodePtrMap& components );
 
 		State::IWorldEntity* CreateEntity( const std::string& name, NodePtrMap& components );
+		void PopulateEntity( State::IWorldEntity* entity, NodePtrMap& components );
 
 		State::IWorld* m_world;
 

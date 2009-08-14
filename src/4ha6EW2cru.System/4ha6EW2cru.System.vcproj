@@ -191,6 +191,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\State\EntityService.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Events\EventManager.cpp"
 				>
 			</File>
@@ -325,6 +329,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\State\EntityService.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Events\Event.h"
 				>
 			</File>
@@ -386,6 +394,10 @@
 			</File>
 			<File
 				RelativePath=".\Configuration\IConfigurationFile.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\State\IEntityService.hpp"
 				>
 			</File>
 			<File
