@@ -38,6 +38,14 @@ namespace Network
 		virtual AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 
 		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+
+		/*! Sends a message to a single client across the network
+		*
+		* @param[in] const std::string & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		virtual void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

@@ -87,6 +87,10 @@ namespace Network
 	{
 		INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
 		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::CreateEntity, m_attributes );
+
+		m_attributes[ System::Attributes::Orientation ] = MathQuaternion( );
+		m_attributes[ System::Attributes::Position ] = MathVector3( );
+
 	}
 
 	void NetworkSystemComponent::Destroy( )

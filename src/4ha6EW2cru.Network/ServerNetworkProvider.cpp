@@ -130,11 +130,18 @@ namespace Network
 
 			m_sendBuffer.Write( stream );
 		} 
-		else if ( message == System::Messages::Network::Server::WorldUpdate )
+	}
+
+	void ServerNetworkProvider::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
+	{
+		if ( message == System::Messages::Network::Server::WorldUpdate )
 		{
 			BitStream* stream = parameters[ System::Parameters::IO::Stream ].As< BitStream* >( );
-			m_sendBuffer.Write( message.c_str( ) );
-			m_sendBuffer.Write( *stream );
+
+			BitStream streamToSend;
+			streamToSend.Write( message.c_str( ) );
+			streamToSend.Write( *stream );
+			NetworkUtils::SendNetworkMessage( streamToSend, address, m_networkInterface );
 		}
 	}
 

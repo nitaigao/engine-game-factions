@@ -120,6 +120,10 @@ namespace Network
 		m_messageRouter->PushMessage( message, parameters );
 	}
 
+	void ClientNetworkProvider::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
+	{
+
+	}
 	void ClientNetworkProvider::TranslatePackets( Packet* packet )
 	{
 		Net( "Received packet from", packet->systemAddress.ToString( ) );

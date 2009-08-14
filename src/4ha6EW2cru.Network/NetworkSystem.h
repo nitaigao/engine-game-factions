@@ -107,6 +107,15 @@ namespace Network
 		inline void SetAttribute( const std::string& name, AnyType value ) { m_attributes[ name ] = value; };
 
 
+		/*! Sends a message to a single client across the network
+		*
+		* @param[in] const std::string & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters );
+
+
 		/*! Sends a message across the network
 		*
 		* @param[in] const SystemAddress & networkAddress

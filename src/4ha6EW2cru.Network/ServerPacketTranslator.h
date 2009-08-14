@@ -66,7 +66,7 @@ namespace Network
 
 		void OnComponentUpdate( const std::string& message, RakNet::BitStream* stream );
 		void OnCharacterSelected( const std::string& clientName, RakNet::BitStream* stream );
-		void OnLevelLoaded( const std::string& clientName );
+		void OnLevelLoaded( const SystemAddress& clientAddress );
 
 		INetworkSystem* m_networkSystem;
 		RakPeerInterface* m_networkInterface;

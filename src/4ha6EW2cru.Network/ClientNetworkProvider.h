@@ -58,6 +58,14 @@ namespace Network
 
 		void SendNetworkMessage( const NetworkMessage& message, const SystemAddress& destination );
 
+		/*! Sends a message to a single client across the network
+		*
+		* @param[in] const std::string & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters );
+
 	private:
 
 		ClientNetworkProvider( const ClientNetworkProvider & copy ) { };

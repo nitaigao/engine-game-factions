@@ -75,6 +75,11 @@ namespace Network
 		m_networkProvider->PushMessage( message, parameters );
 	}
 
+	void NetworkSystem::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
+	{
+		m_networkProvider->PushMessage( address, message, parameters );
+	}
+
 	void NetworkSystem::Update( float deltaMilliseconds )
 	{
 		m_networkProvider->Update( deltaMilliseconds );

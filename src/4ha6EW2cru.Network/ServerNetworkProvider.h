@@ -60,6 +60,8 @@ namespace Network
 
 		void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
 
+		void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters );
+
 	private:
 
 		ServerNetworkProvider( const ServerNetworkProvider & copy ) { };

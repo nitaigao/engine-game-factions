@@ -28,8 +28,16 @@ namespace Network
 		*/
 		virtual ~INetworkSystem( ) { };
 
+		/*! Sends a message to a single client across the network
+		*
+		* @param[in] const std::string & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		virtual void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 
-		/*! Sends a message across the network
+
+		/*! Sends a message to all clients across the network
 		*
 		* @param[in] const std::string & message
 		* @param[in] AnyType::AnyTypeMap parameters

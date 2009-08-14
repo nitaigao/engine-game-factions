@@ -56,7 +56,7 @@ namespace Network
 		{
 			Info( packet->systemAddress.ToString( ), "is ready for a world state update" );
 
-			OnLevelLoaded( packet->systemAddress.ToString( ) );
+			OnLevelLoaded( packet->systemAddress );
 		}
 
 		delete stream;
@@ -130,7 +130,7 @@ namespace Network
 		Info( clientName, "has selected character:", characterName );
 	}
 
-	void ServerPacketTranslator::OnLevelLoaded( const std::string& clientName )
+	void ServerPacketTranslator::OnLevelLoaded( const SystemAddress& clientAddress )
 	{
 		BitStream stream;
 		NetworkStream networkStream( &stream );
@@ -140,10 +140,9 @@ namespace Network
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::SerializeWorld, parameters );
 
-
 		AnyType::AnyTypeMap params;
 		params[ System::Parameters::IO::Stream ] = &stream;
 
-		m_networkSystem->PushMessage( System::Messages::Network::Server::WorldUpdate, params );
+		m_networkSystem->PushMessage( clientAddress, System::Messages::Network::Server::WorldUpdate, params );
 	}
 }

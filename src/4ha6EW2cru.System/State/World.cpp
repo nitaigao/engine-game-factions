@@ -134,29 +134,4 @@ namespace State
 	{
 		m_serializer->DeSerializeLevel( levelpath );
 	}
-
-	/*AnyType::AnyTypeMap XMLSerializer::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
-	{
-		/*if ( message == System::Messages::Entity::CreateEntity )
-		{
-		this->LoadEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ) );
-		}
-
-		if ( message == System::Messages::Entity::DestroyEntity )
-		{
-		m_world->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
-		}
-
-		if( message == System::Messages::Entity::SerializeWorld )
-		{
-			m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
-		}
-
-		if( message == System::Messages::Entity::DeserializeWorld )
-		{
-			//m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
-		}
-
-		return AnyType::AnyTypeMap( );
-	}*/
 }
