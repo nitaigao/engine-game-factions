@@ -1,6 +1,7 @@
 #include "NetworkSystem.h"
 
 #include "NetworkSystemScene.h"
+#include "NetworkServerProvider.h"
 
 #include <RakNetworkFactory.h>
 #include <RakSleep.h>
@@ -35,20 +36,26 @@ using namespace luabind;
 
 namespace Network
 {
-	NetworkSystem::~NetworkSystem( )
+	NetworkSystem::NetworkSystem()
+		: m_configuration( 0 )
 	{
-		delete m_networkProvider;
-		m_networkProvider = 0;
+		m_attributes[ System::Attributes::Network::IsServer ] = false;
+		m_scene = new NetworkSystemScene( );
+	}
+
+	GAMEAPI NetworkSystem::NetworkSystem( INetworkSystemScene* scene )
+		: m_scene( scene )
+	{
+
 	}
 
 	void NetworkSystem::Release( )
 	{
-		m_networkProvider->Release( );
+
 	}
 
 	ISystemScene* NetworkSystem::CreateScene()
 	{
-		m_scene = new NetworkSystemScene( this );
 		return m_scene;
 	}
 
@@ -56,7 +63,7 @@ namespace Network
 	{
 		m_configuration = configuration;
 
-		if ( m_attributes[ System::Attributes::Network::IsServer ].As< bool >( ) )
+		/*if ( m_attributes[ System::Attributes::Network::IsServer ].As< bool >( ) )
 		{
 			m_networkProvider = new ServerNetworkProvider( this );
 		}
@@ -65,24 +72,24 @@ namespace Network
 			m_networkProvider = new ClientNetworkProvider( this );
 		}
 
-		m_networkProvider->Initialize( configuration );
+		m_networkProvider->Initialize( configuration );*/
 
 		Management::Get( )->GetServiceManager( )->RegisterService( this ); 
 	}
 
 	void NetworkSystem::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
 	{
-		m_networkProvider->PushMessage( message, parameters );
+		//m_networkProvider->PushMessage( message, parameters );
 	}
 
 	void NetworkSystem::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
 	{
-		m_networkProvider->PushMessage( address, message, parameters );
+		//m_networkProvider->PushMessage( address, message, parameters );
 	}
 
 	void NetworkSystem::Update( float deltaMilliseconds )
 	{
-		m_networkProvider->Update( deltaMilliseconds );
+		m_scene->Update( deltaMilliseconds );
 	}
 
 	AnyType::AnyTypeMap NetworkSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
@@ -105,10 +112,18 @@ namespace Network
 				);
 
 			results[ System::TypeStrings::NETWORK ] = luaScope;
-		} 
-		else if ( m_networkProvider )
+		}
+
+		if ( message == System::Messages::Network::CreateServer )
 		{
-			return m_networkProvider->Message( message, parameters );
+			NetworkServerProvider* serverProvider = new NetworkServerProvider( );
+
+			serverProvider->Initialize(
+				parameters[ System::Parameters::Network::Port ].As< unsigned int >( ),
+				parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( )
+				);
+
+			m_scene->AddNetworkProvider( serverProvider );
 		}
 
 		return results;

@@ -143,6 +143,6 @@ namespace Network
 		AnyType::AnyTypeMap params;
 		params[ System::Parameters::IO::Stream ] = &stream;
 
-		m_networkSystem->PushMessage( clientAddress, System::Messages::Network::Server::WorldUpdate, params );
+		//m_networkSystem->PushMessage( clientAddress, System::Messages::Network::Server::WorldUpdate, params );
 	}
 }

@@ -9,6 +9,8 @@
 #define NETWORKSYSTEMSCENE_H
 
 #include "INetworkSystemScene.hpp"
+#include "INetworkProvider.hpp"
+#include "INetworkSystemComponentFactory.hpp"
 
 namespace Network
 {
@@ -24,15 +26,22 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		~NetworkSystemScene( ) { };
+		GAMEAPI ~NetworkSystemScene( );
 
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		NetworkSystemScene( INetworkSystem* system )
-			: m_system( system )
+		GAMEAPI NetworkSystemScene( );
+
+
+		/*! IoC Constructor
+		*
+		* @return (  )
+		*/
+		NetworkSystemScene( INetworkSystemComponentFactory* componentFactory )
+			: m_componentFactory( componentFactory )
 		{
 
 		}
@@ -50,7 +59,7 @@ namespace Network
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( float deltaMilliseconds ) { };
+		GAMEAPI void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the System Scene
@@ -73,7 +82,7 @@ namespace Network
 		*  @param[in] const std::string & type
 		*  @return (ISystemComponent*)
 		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+		GAMEAPI ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
 
 
 		/*! Destroys a SystemComponent created by the SystemScene
@@ -81,14 +90,22 @@ namespace Network
 		*  @param[in] ISystemComponent * component
 		*  @return (void)
 		*/
-		void DestroyComponent( ISystemComponent* component );
+		GAMEAPI void DestroyComponent( ISystemComponent* component );
+
+
+		/*! Adds a Network provider to the Scene
+		*
+		* @param[in] INetworkProvider * provider
+		* @return ( void )
+		*/
+		inline void AddNetworkProvider( INetworkProvider* provider ) { m_networkProviders.push_back( provider ); };
 
 
 		/*! Returns the Network System
 		*
 		* @return ( INetworkSystem* )
 		*/
-		INetworkSystem* GetSystem( ) const { return m_system; };
+		INetworkSystem* GetSystem( ) const { return 0; };
 
 
 		/*! Messages a component within the Scene
@@ -98,7 +115,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		void MessageComponent( const std::string componentId, const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI void MessageComponent( const std::string& componentId, const System::Message& message, AnyType::AnyTypeMap parameters );
 
 	private:
 
@@ -106,8 +123,8 @@ namespace Network
 		NetworkSystemScene & operator = ( const NetworkSystemScene & copy ) { return *this; };
 
 		ISystemComponent::SystemComponentMap m_components;
-
-		INetworkSystem* m_system;
+		INetworkProvider::NetworkProviderList m_networkProviders;
+		INetworkSystemComponentFactory* m_componentFactory;
 		
 	};
 };

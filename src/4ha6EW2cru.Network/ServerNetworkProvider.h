@@ -8,7 +8,7 @@
 #ifndef SERVERNETWORKPROVIDER_H
 #define SERVERNETWORKPROVIDER_H
 
-#include "INetworkProvider.hpp"
+#include "INetworkProviderOld.hpp"
 #include "INetworkSystem.hpp"
 
 #include "ServerPacketTranslator.h"
@@ -22,7 +22,7 @@ namespace Network
 	/*! 
 	 *  A Network Provider that servers to clients
 	 */
-	class ServerNetworkProvider : public INetworkProvider
+	class ServerNetworkProvider : public INetworkProviderOld
 	{
 
 		typedef std::deque< SystemAddress > SystemAddressList;

@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/dependentextensions/rpc3;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -190,6 +190,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerController.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerEndpoint.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerProvider.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkStream.cpp"
 				>
 			</File>
@@ -203,6 +219,10 @@
 			</File>
 			<File
 				RelativePath=".\NetworkSystemScene.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkSystemServerComponent.cpp"
 				>
 			</File>
 			<File
@@ -244,7 +264,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\INetworkInterface.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\INetworkProvider.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkProviderOld.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkServerController.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkServerEndpoint.hpp"
 				>
 			</File>
 			<File
@@ -260,6 +296,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\INetworkSystemComponentFactory.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\INetworkSystemScene.hpp"
 				>
 			</File>
@@ -268,7 +308,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkInterface.h"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkMessage.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerController.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerEndpoint.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerProvider.h"
 				>
 			</File>
 			<File
@@ -284,7 +340,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkSystemComponentFactory.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkSystemScene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkSystemServerComponent.h"
 				>
 			</File>
 			<File

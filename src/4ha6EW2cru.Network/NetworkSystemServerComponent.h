@@ -1,21 +1,25 @@
 /*!
 *  @company Black Art Studios
 *  @author Nicholas Kostelnik
-*  @file   NetworkSystemComponent.h
-*  @date   2009/07/06
+*  @file   NetworkSystemServerComponent.h
+*  @date   2009/08/16
 */
 #pragma once
-#ifndef NETWORKSYSTEMCOMPONENT_H
-#define NETWORKSYSTEMCOMPONENT_H
+#ifndef NETWORKSYSTEMSERVERCOMPONENT_H
+#define NETWORKSYSTEMSERVERCOMPONENT_H
 
-#include "INetworkSystemComponent.hpp"
+#include "System/ISystemComponent.hpp"
+
+#include "INetworkServerController.hpp"
+
+#include "Export.hpp"
 
 namespace Network
 {
 	/*! 
-	 *  A Network System Component
+	 *  An Entity Component that exists purely on the Server
 	 */
-	class NetworkSystemComponent : public INetworkSystemComponent
+	class NetworkSystemServerComponent : public ISystemComponent
 	{
 
 	public:
@@ -24,15 +28,16 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		~NetworkSystemComponent( ) { };
+		~NetworkSystemServerComponent( ) { };
 
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		NetworkSystemComponent( )
+		NetworkSystemServerComponent( INetworkServerController* messageDispatcher )
 			: m_observer( 0 )
+			, m_messageDispatcher( messageDispatcher )
 		{
 
 		}
@@ -43,7 +48,7 @@ namespace Network
 		*  @param[in] AnyType::AnyValueMap properties
 		*  @return (void)
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( ) { };
 
 
 		/*! Steps the internal data of the Component
@@ -51,14 +56,14 @@ namespace Network
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		GAMEAPI void Update( float deltaMilliseconds ) { };
+		void Update( float deltaMilliseconds ) { };
 
 
 		/*! Destroys the Component
 		*
 		*  @return (void)
 		*/
-		GAMEAPI void Destroy( );
+		void Destroy( ) { };
 
 
 		/*! Adds an Observer to the Component
@@ -100,31 +105,14 @@ namespace Network
 		*/
 		GAMEAPI AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
 
-
-		/*! Adds a Network Provider to the Component
-		*
-		* @param[in] INetworkProvider * provider
-		* @return ( void )
-		*/
-		void AddProvider( INetworkProvider* provider ) { m_networkProviders.push_back( provider ); };
-
-
-		/*! Receives Messages from an inbound network connection
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		GAMEAPI void MessageFromNetwork( const System::Message& message, AnyType::AnyTypeMap parameters );
-
 	private:
 
-		NetworkSystemComponent( const NetworkSystemComponent & copy ) { };
-		NetworkSystemComponent & operator = ( const NetworkSystemComponent & copy ) { return *this; };
+		NetworkSystemServerComponent( const NetworkSystemServerComponent & copy ) { };
+		NetworkSystemServerComponent & operator = ( const NetworkSystemServerComponent & copy ) { return *this; };
 
 		AnyType::AnyTypeMap m_attributes;
 		IObserver* m_observer;
-		INetworkProvider::NetworkProviderList m_networkProviders;
+		INetworkServerController* m_messageDispatcher;
 		
 	};
 };

@@ -18,7 +18,7 @@ namespace Network
 			m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >( );
 		}
 
-		if ( message == System::Messages::SetOrientation )
+		/*if ( message == System::Messages::SetOrientation )
 		{
 			m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >( );
 		}
@@ -26,11 +26,13 @@ namespace Network
 		if ( message == System::Messages::Mouse_Moved )
 		{
 			m_attributes[ System::Parameters::DeltaX ] = parameters[ System::Parameters::DeltaX ].As< float >( );
+		}*/
+
+		for ( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			( *i )->Message( m_attributes[ System::Attributes::Name ].As< std::string >( ), message, parameters );
 		}
 
-		INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
-		networkScene->GetSystem( )->PushMessage( message, m_attributes );
-		
 		return AnyType( );
 	}
 

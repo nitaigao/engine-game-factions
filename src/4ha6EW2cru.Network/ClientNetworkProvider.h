@@ -8,7 +8,7 @@
 #ifndef CLIENTNETWORKPROVIDER_H
 #define CLIENTNETWORKPROVIDER_H
 
-#include "INetworkProvider.hpp"
+#include "INetworkProviderOld.hpp"
 #include "INetworkSystem.hpp"
 #include "NetworkMessage.hpp"
 #include "IServerAdvertisement.hpp"
@@ -20,7 +20,7 @@ namespace Network
 	/*! 
 	 *  A network provider that communicates with servers
 	 */
-	class ClientNetworkProvider : public INetworkProvider
+	class ClientNetworkProvider : public INetworkProviderOld
 	{
 
 	public:

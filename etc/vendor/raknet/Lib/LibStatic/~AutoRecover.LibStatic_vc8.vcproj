@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./../../Source;&quot;./../../DependentExtensions/openssl-0.9.8g&quot;;./../../DependentExtensions/udt4/src;./../../../boost/include"
+				AdditionalIncludeDirectories="./../../Source;&quot;./../../DependentExtensions/openssl-0.9.8g&quot;;./../../DependentExtensions/udt4/src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_RAKNET_LIB;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -109,7 +109,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="./../../Source;&quot;./../../DependentExtensions/openssl-0.9.8g&quot;;./../../DependentExtensions/udt4/src;./../../../boost/include"
+				AdditionalIncludeDirectories="./../../Source;&quot;./../../DependentExtensions/openssl-0.9.8g&quot;;./../../DependentExtensions/udt4/src"
 				PreprocessorDefinitions="_CRT_SECURE_NO_DEPRECATE;WIN32;_RELEASE;_RAKNET_LIB;_CRT_NONSTDC_NO_DEPRECATE"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -448,10 +448,6 @@
 			</File>
 			<File
 				RelativePath="..\..\Source\Router.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\DependentExtensions\RPC3\RPC3.cpp"
 				>
 			</File>
 			<File
@@ -994,14 +990,6 @@
 			</File>
 			<File
 				RelativePath="..\..\Source\RouterInterface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\DependentExtensions\RPC3\RPC3.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\DependentExtensions\RPC3\RPC3_Boost.h"
 				>
 			</File>
 			<File

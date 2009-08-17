@@ -2,26 +2,27 @@
 *  @company Black Art Studios
 *  @author Nicholas Kostelnik
 *  @file   INetworkProvider.hpp
-*  @date   2009/07/15
+*  @date   2009/08/17
 */
 #pragma once
 #ifndef INETWORKPROVIDER_HPP
 #define INETWORKPROVIDER_HPP
 
-#include "Configuration/IConfiguration.hpp"
+#include <vector>
 #include "System/SystemType.hpp"
-
-#include <RakPeerInterface.h>
+#include "System/AnyType.hpp"
 
 namespace Network
 {
 	/*! 
-	 *  A communication provider to the Network
+	 *  Receives and Transmits to Clients on the Network
 	 */
 	class INetworkProvider
 	{
 
 	public:
+
+		typedef std::vector< INetworkProvider* > NetworkProviderList;
 
 		/*! Default Destructor
 		 *
@@ -29,23 +30,32 @@ namespace Network
 		 */
 		virtual ~INetworkProvider( ) { };
 
-		virtual void Initialize( Configuration::IConfiguration* configuration ) = 0;
 
+		/*! Initializes the Network Interface
+		 *
+		 * @param[in] unsigned int port
+		 * @param[in] int maxPlayers
+		 * @return ( void )
+		 */
+		virtual void Initialize( unsigned int port, int maxPlayers ) = 0;
+
+
+		/*! Updates the Network Provider
+		 *
+		 * @param[in] float deltaMilliseconds
+		 * @return ( void )
+		 */
 		virtual void Update( float deltaMilliseconds ) = 0;
 
-		virtual void Release( ) = 0;
 
-		virtual AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
-
-		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
-
-		/*! Sends a message to a single client across the network
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		virtual void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		/*! Distributes the message for the entity across the Network
+		 *
+		 * @param[in] const std::string & entityName
+		 * @param[in] const System::Message & message
+		 * @param[in] AnyType::AnyTypeMap parameters
+		 * @return ( void )
+		 */
+		virtual void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

@@ -87,6 +87,15 @@ namespace Script
 		Utility::StringUtils::StringMap GetServerAd( int cacheIndex );
 
 
+		/*! Creates a Local Server running within the game client
+		 *
+		 * @param[in] unsigned int port
+		 * @param[in] int maxPlayers
+		 * @return ( void )
+		 */
+		void CreateServer( unsigned int port, int maxPlayers );
+
+
 	private:
 
 		NetworkFacade( const NetworkFacade & copy ) { };

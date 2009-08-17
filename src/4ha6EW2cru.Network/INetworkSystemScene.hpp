@@ -10,6 +10,7 @@
 
 #include "System/ISystemScene.hpp"
 #include "INetworkSystem.hpp"
+#include "INetworkProvider.hpp"
 
 namespace Network
 {
@@ -28,6 +29,14 @@ namespace Network
 		virtual ~INetworkSystemScene( ) { };
 
 
+		/*! Adds a Network provider to the Scene
+		 *
+		 * @param[in] INetworkProvider * provider
+		 * @return ( void )
+		 */
+		virtual void AddNetworkProvider( INetworkProvider* provider ) = 0;
+
+
 		/*! Returns the Network System
 		*
 		* @return ( INetworkSystem* )
@@ -42,7 +51,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		virtual void MessageComponent( const std::string componentId, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void MessageComponent( const std::string& componentId, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

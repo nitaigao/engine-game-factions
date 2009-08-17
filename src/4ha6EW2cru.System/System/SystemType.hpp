@@ -243,6 +243,7 @@ namespace System
 			static const Message ComponentUpdate		=	"updateComponent";
 			static const Message NetwokSetPosition		=	"networkSetPosition";
 			static const Message NetworkSetOrientation	=	"networkSetOrientation";
+			static const Message CreateServer			=	"createServer";
 
 			namespace Client
 			{

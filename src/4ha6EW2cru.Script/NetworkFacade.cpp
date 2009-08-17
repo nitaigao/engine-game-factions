@@ -19,6 +19,7 @@ namespace Script
 				.def( "selectCharacter", &NetworkFacade::SelectCharacter )
 				.def( "findServers", &NetworkFacade::FindServers )
 				.def( "getServerAd", &NetworkFacade::GetServerAd, copy_table_assoc( result ) )
+				.def( "createServer", &NetworkFacade::CreateServer )
 				;
 	}
 
@@ -77,5 +78,16 @@ namespace Script
 	{
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
 			->Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) ); 
+	}
+
+	void NetworkFacade::CreateServer( unsigned int port, int maxPlayers )
+	{
+		AnyType::AnyTypeMap parameters;
+		parameters[ System::Parameters::Network::Port ] = port;
+		parameters[ System::Parameters::Network::Server::MaxPlayers ] = maxPlayers;
+
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
+			->Message( System::Messages::Network::CreateServer, parameters );
+		
 	}
 }

@@ -1,16 +1,35 @@
 #include "NetworkSystemScene.h"
 
 #include "NetworkSystemComponent.h"
+#include "NetworkSystemComponentFactory.hpp"
 
 namespace Network
 {
+	NetworkSystemScene::~NetworkSystemScene()
+	{
+		for( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			delete ( *i );
+		}
+
+		delete m_componentFactory;
+	}
+
+	NetworkSystemScene::NetworkSystemScene( )
+		: m_componentFactory( new NetworkSystemComponentFactory( ) )
+	{
+
+	}
 
 	ISystemComponent* NetworkSystemScene::CreateComponent( const std::string& name, const std::string& type )
 	{
-		ISystemComponent* component = new NetworkSystemComponent( );
-		component->SetAttribute( System::Attributes::Name, name );
-		component->SetAttribute( System::Attributes::SystemType, System::Types::NETWORK );
+		INetworkSystemComponent* component = m_componentFactory->Create( name );
 		component->SetAttribute( System::Attributes::Parent, this );
+
+		for( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			component->AddProvider( ( *i ) );
+		}
 
 		m_components.insert( std::make_pair( name, component ) );
 
@@ -25,8 +44,16 @@ namespace Network
 		component = 0;
 	}
 
-	void NetworkSystemScene::MessageComponent( const std::string componentId, const System::Message& message, AnyType::AnyTypeMap parameters )
+	void NetworkSystemScene::MessageComponent( const std::string& componentId, const System::Message& message, AnyType::AnyTypeMap parameters )
 	{
 		static_cast< INetworkSystemComponent* >( m_components[ componentId ] )->MessageFromNetwork( message, parameters );
+	}
+
+	void NetworkSystemScene::Update( float deltaMilliseconds )
+	{
+		for( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			( *i )->Update( deltaMilliseconds );
+		}
 	}
 }
