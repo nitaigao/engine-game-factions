@@ -125,7 +125,11 @@ namespace Network
 
 		if ( message == System::Messages::Network::CreateServer )
 		{
+			//TODO - need to access this without calling singletons all the time
+			//Management::Get( )->GetInstrumentation( )->SetLevelName( parameters[ System::Parameters::Network::Server::LevelName ].As< std::string >( ) );
+
 			NetworkServerProvider* serverProvider = new NetworkServerProvider( m_configuration );
+
 			serverProvider->Initialize(
 				parameters[ System::Parameters::Network::Port ].As< unsigned int >( ),
 				parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( )
@@ -145,6 +149,11 @@ namespace Network
 		if ( message == System::Messages::Network::Disconnect )
 		{
 			m_clientProvider->Disconnect( );
+		}
+
+		if ( message == System::Messages::Network::Client::CharacterSelected )
+		{
+			m_clientProvider->SelectCharacter( parameters[ System::Parameters::Network::Client::CharacterName ].As< std::string >( ) );
 		}
 
 		return results;

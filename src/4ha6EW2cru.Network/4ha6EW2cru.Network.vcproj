@@ -190,6 +190,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkClientController.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkClientEndpoint.cpp"
 				>
 			</File>
@@ -272,11 +276,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\INetworkClientController.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\INetworkClientEndpoint.hpp"
 				>
 			</File>
 			<File
 				RelativePath=".\INetworkClientProvider.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkController.hpp"
 				>
 			</File>
 			<File
@@ -325,6 +337,10 @@
 			</File>
 			<File
 				RelativePath=".\IServerAdvertisement.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientController.h"
 				>
 			</File>
 			<File

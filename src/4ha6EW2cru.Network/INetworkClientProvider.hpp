@@ -43,6 +43,14 @@ namespace Network
 		 */
 		virtual void Disconnect( ) = 0;
 
+
+		/*! Selects a Character to play on the Server
+		 *
+		 * @param[in] const std::string & characterName
+		 * @return ( void )
+		 */
+		virtual void SelectCharacter( const std::string& characterName ) = 0;
+
 	};
 };
 

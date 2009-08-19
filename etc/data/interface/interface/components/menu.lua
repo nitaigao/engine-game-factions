@@ -216,7 +216,7 @@ end
 function Menu.onCreateReleased( )
 
 	--script:broadcastEvent( 'UI_CREATESERVER' )
-	network:createServer( 8990, 32 )
+	network:createServer( 8990, 32, 'sandbox' )
 	network:connect( '127.0.0.1', 8990 )
 
 end
@@ -243,5 +243,7 @@ function Menu.endGame( )
 	ux:setInputAllowed( false )
 
 end
+
+print( 'hello' )
 
 Menu.initialize( )

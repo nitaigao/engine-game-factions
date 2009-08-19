@@ -4,16 +4,18 @@
 
 using namespace RakNet;
 
+#include "Management/Management.h"
+
 namespace Network
 {
 	NetworkServerController::~NetworkServerController( )
 	{
-		//delete m_rpc;
+
 	}
 
 	void NetworkServerController::Initialize( )
 	{
-		m_networkInterface->AttachPlugin( m_rpc );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::LoadLevel );
 	}
 
 	void NetworkServerController::SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation )
@@ -28,8 +30,7 @@ namespace Network
 
 	void NetworkServerController::ClientConnected( const SystemAddress& clientAddress )
 	{
-		m_rpc->SetRecipientAddress( clientAddress, false );
-		RPC3_REGISTER_FUNCTION( m_rpc, &NetworkClientEndpoint::LoadLevel );
-		m_rpc->CallC( "&NetworkClientEndpoint::LoadLevel", RakString( "test" ), m_rpc );
+		m_networkInterface->GetRPC( )->SetRecipientAddress( clientAddress, false );
+		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::LoadLevel", RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
 	}
 }

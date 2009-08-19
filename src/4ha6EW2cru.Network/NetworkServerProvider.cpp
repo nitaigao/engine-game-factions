@@ -58,6 +58,7 @@ namespace Network
 
 		m_networkInterface->Initialize( port, maxConnections );
 		m_controller->Initialize( );
+		m_endpoint->Initialize( );
 	}
 
 	void NetworkServerProvider::Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters )
@@ -75,6 +76,11 @@ namespace Network
 		if ( message == System::Messages::Mouse_Moved )
 		{
 			//m_attributes[ System::Parameters::DeltaX ] = parameters[ System::Parameters::DeltaX ].As< float >( );
+		}
+
+		if ( message == System::Messages::Entity::CreateEntity )
+		{
+			int a = 1;
 		}
 	}
 

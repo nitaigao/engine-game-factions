@@ -12,6 +12,8 @@
 #include "INetworkServerEndpoint.hpp"
 #include "INetworkInterface.hpp"
 
+#include <RPC3.h>
+
 #include "Export.hpp"
 
 namespace Network
@@ -43,12 +45,21 @@ namespace Network
 		}
 
 
-		/*! Updates the Endpoint and probes for network messages
+		/*! Initializes the Endpoint
+		*
+		* @return ( void )
+		*/
+		GAMEAPI void Initialize( );
+
+
+		/*! Updates the Endpoint
 		*
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
 		GAMEAPI void Update( float deltaMilliseconds );
+
+		static void SelectCharacter( RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork );
 
 	private:
 

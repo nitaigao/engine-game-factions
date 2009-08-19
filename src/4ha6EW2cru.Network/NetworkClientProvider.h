@@ -10,6 +10,7 @@
 
 #include "INetworkClientProvider.hpp"
 #include "INetworkClientEndpoint.hpp"
+#include "INetworkClientController.hpp"
 #include "INetworkInterface.hpp"
 
 #include "Configuration/IConfiguration.hpp"
@@ -44,10 +45,11 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientEndpoint* endpoint )
+		NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
 			: m_configuration( configuration )
 			, m_networkInterface( networkInterface )
 			, m_endpoint( endpoint )
+			, m_controller( controller )
 		{
 
 		}
@@ -102,6 +104,14 @@ namespace Network
 		*/
 		GAMEAPI void Disconnect( );
 
+
+		/*! Selects a Character to play on the Server
+		*
+		* @param[in] const std::string & characterName
+		* @return ( void )
+		*/
+		GAMEAPI void SelectCharacter( const std::string& characterName );
+
 	private:
 
 		NetworkClientProvider( const NetworkClientProvider & copy ) { };
@@ -110,6 +120,7 @@ namespace Network
 		Configuration::IConfiguration* m_configuration;
 		INetworkInterface* m_networkInterface;
 		INetworkClientEndpoint* m_endpoint;
+		INetworkClientController* m_controller;
 		
 	};
 };

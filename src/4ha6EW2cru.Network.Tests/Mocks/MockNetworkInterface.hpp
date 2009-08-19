@@ -28,6 +28,7 @@ namespace
 		MOCK_METHOD1( SetOfflinePingInformation, void( RakNet::BitStream* ) );
 		MOCK_METHOD0( GetConnectionCount, int( ) );
 		MOCK_METHOD1( AttachPlugin, void( PluginInterface2* ) );
+		MOCK_METHOD0( GetRPC, RakNet::RPC3*( ) );
 		
 	};
 };

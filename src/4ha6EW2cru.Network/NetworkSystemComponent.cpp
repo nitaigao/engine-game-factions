@@ -87,17 +87,21 @@ namespace Network
 
 	void NetworkSystemComponent::Initialize( )
 	{
-		INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
-		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::CreateEntity, m_attributes );
+		/*INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
+		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::CreateEntity, m_attributes );*/
 
 		m_attributes[ System::Attributes::Orientation ] = MathQuaternion( );
 		m_attributes[ System::Attributes::Position ] = MathVector3( );
 
+		for ( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			( *i )->Message( m_attributes[ System::Attributes::Name ].As< std::string >( ), System::Messages::Entity::CreateEntity, m_attributes );
+		}
 	}
 
 	void NetworkSystemComponent::Destroy( )
 	{
-		INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
-		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::DestroyEntity, m_attributes );
+		/*INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
+		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::DestroyEntity, m_attributes );*/
 	}
 }

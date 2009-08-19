@@ -91,9 +91,10 @@ namespace Script
 		 *
 		 * @param[in] unsigned int port
 		 * @param[in] int maxPlayers
+		 * @param[in] std::string levelName
 		 * @return ( void )
 		 */
-		void CreateServer( unsigned int port, int maxPlayers );
+		void CreateServer( unsigned int port, int maxPlayers, const std::string& levelName );
 
 
 	private:

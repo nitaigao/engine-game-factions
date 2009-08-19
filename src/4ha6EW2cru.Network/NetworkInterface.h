@@ -104,12 +104,20 @@ namespace Network
 		*/
 		void AttachPlugin( PluginInterface2* plugin );
 
+
+		/*! Returns the RPC interface
+		*
+		* @return ( RakNet::RPC3* )
+		*/
+		inline RakNet::RPC3* GetRPC( ) { return m_rpc; }
+
 	private:
 
 		NetworkInterface( const NetworkInterface & copy ) { };
 		NetworkInterface & operator = ( const NetworkInterface & copy ) { return *this; };
 
 		RakPeerInterface* m_networkAdapter;
+		RakNet::RPC3* m_rpc;
 		
 	};
 };

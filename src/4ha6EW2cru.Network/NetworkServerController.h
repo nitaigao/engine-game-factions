@@ -11,8 +11,6 @@
 #include "INetworkServerController.hpp"
 #include "INetworkInterface.hpp"
 
-#include <RPC3.h>
-
 namespace Network
 {
 	/*! 
@@ -35,14 +33,13 @@ namespace Network
 		* @return (  )
 		*/
 		NetworkServerController( INetworkInterface* networkInterface )
-			: m_rpc( new RakNet::RPC3( ) )
-			, m_networkInterface( networkInterface )
+			: m_networkInterface( networkInterface )
 		{
 
 		}
 
 
-		/*! Initialized the Server Controller
+		/*! Initializes the Server Controller
 		*
 		* @return ( void )
 		*/
@@ -79,7 +76,6 @@ namespace Network
 		NetworkServerController( const NetworkServerController & copy ) { };
 		NetworkServerController & operator = ( const NetworkServerController & copy ) { return *this; };
 
-		RakNet::RPC3* m_rpc;
 		INetworkInterface* m_networkInterface; 
 		
 	};

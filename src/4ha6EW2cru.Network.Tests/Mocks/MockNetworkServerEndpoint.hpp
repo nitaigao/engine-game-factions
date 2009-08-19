@@ -18,6 +18,7 @@ namespace
 	public:
 
 		MOCK_METHOD1( Update, void( float ) );
+		MOCK_METHOD0( Initialize, void( ) );
 		
 	};
 };

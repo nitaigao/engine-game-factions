@@ -9,10 +9,12 @@ namespace Network
 	NetworkInterface::~NetworkInterface( )
 	{
 		RakNetworkFactory::DestroyRakPeerInterface( m_networkAdapter );
+		delete m_rpc;
 	}
 
 	NetworkInterface::NetworkInterface( )
 		: m_networkAdapter( RakNetworkFactory::GetRakPeerInterface( ) )
+		, m_rpc( new RakNet::RPC3( ) )
 	{
 
 	}
@@ -24,6 +26,7 @@ namespace Network
 		SocketDescriptor descriptor( port, 0 );
 		m_networkAdapter->Startup( maxConnections, 0, &descriptor, 1 );
 		m_networkAdapter->SetOccasionalPing( true );
+		m_networkAdapter->AttachPlugin( m_rpc );
 	}
 
 	void NetworkInterface::Destroy( unsigned int timeToBlock )

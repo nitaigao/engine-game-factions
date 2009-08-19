@@ -239,6 +239,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Mocks\MockNetworkClientController.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockNetworkClientEndpoint.hpp"
 				>
 			</File>
@@ -272,6 +276,10 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockServiceManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientController_Tests.h"
 				>
 			</File>
 			<File

@@ -8,12 +8,14 @@
 #ifndef INETWORKSERVERENDPOINT_HPP
 #define INETWORKSERVERENDPOINT_HPP
 
+#include "INetworkEndpoint.hpp"
+
 namespace Network
 {
 	/*! 
 	 *  An endpoint that receives client information
 	 */
-	class INetworkServerEndpoint
+	class INetworkServerEndpoint : public INetworkEndpoint
 	{
 
 	public:
@@ -23,14 +25,6 @@ namespace Network
 		 *  @return ()
 		 */
 		virtual ~INetworkServerEndpoint( ) { };
-
-
-		/*! Updates the Endpoint and probes for network messages
-		 *
-		 * @param[in] float deltaMilliseconds
-		 * @return ( void )
-		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
 		
 	};
 };

@@ -25,44 +25,57 @@ using namespace RakNet;
 #include "Configuration/Configuration.h"
 using namespace Configuration;
 
-TEST( NetworkServerProvider, should_initialize_network_interface )
+class NetworkServerProvider_Tests : public ::testing::Test
 {
-	MockNetworkInterface* eth0 = new MockNetworkInterface( );
-	EXPECT_CALL( *eth0, Initialize( An< unsigned int >( ), An< int >( ) ) );
+
+public:
+
+	virtual void SetUp( )
+	{
+		m_networkInterface = new MockNetworkInterface( );
+		m_controller = new MockNetworkServerController( );
+		m_endpoint = new MockNetworkServerEndpoint( ); 
+	}
+
+	MockNetworkInterface* m_networkInterface;
+	MockNetworkServerController* m_controller;
+	MockNetworkServerEndpoint* m_endpoint;
+};
+
+TEST_F( NetworkServerProvider_Tests, should_initialize_network_interface )
+{
+	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
 	ClientConfiguration config;
 
-	NetworkServerProvider provider( &config, eth0, new MockNetworkServerController( ), 0 );
+	NetworkServerProvider provider( &config, m_networkInterface, m_controller, m_endpoint );
 	provider.Initialize( 0, 0 );
 }
 
-TEST( NetworkServerProvider, should_update_endpoint )
+TEST_F( NetworkServerProvider_Tests, should_update_endpoint )
 {
 	float delta = 99;
+	EXPECT_CALL( *m_endpoint, Update( delta ) );
 
-	MockNetworkServerEndpoint* endpoint = new MockNetworkServerEndpoint( ); 
-	EXPECT_CALL( *endpoint, Update( delta ) );
-
-	NetworkServerProvider provider( 0, 0, 0, endpoint );
+	NetworkServerProvider provider( 0, m_networkInterface, m_controller, m_endpoint );
 	provider.Update( delta );
 }
 
-TEST( NetworkServerProvider, should_handle_set_position_messages )
+TEST_F( NetworkServerProvider_Tests, should_handle_set_position_messages )
 {
 	std::string entityName = "test";
 	MathVector3 position = MathVector3::Forward( );
 
-	MockNetworkServerController* controller = new MockNetworkServerController( );
-	EXPECT_CALL( *controller, SetPosition( entityName, position ) );
+	EXPECT_CALL( *m_controller, SetPosition( entityName, position ) );
 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::Position ] = position;
 
-	NetworkServerProvider provider( 0, 0, controller, 0 );
+	NetworkServerProvider provider( 0, m_networkInterface, m_controller, m_endpoint );
 	provider.Message( entityName, System::Messages::SetPosition, parameters );
 }
 
-TEST( NetworkServerController, should_set_offline_message_on_level_changed )
+TEST_F( NetworkServerProvider_Tests, should_set_offline_message_on_level_changed )
 {
 	MockNetworkInterface* eth0 = new MockNetworkInterface( );
 	
@@ -73,22 +86,19 @@ TEST( NetworkServerController, should_set_offline_message_on_level_changed )
 
 	ClientConfiguration config;
 
-	NetworkServerProvider provider( &config, eth0, new MockNetworkServerController( ), 0 );
+	NetworkServerProvider provider( &config, eth0, m_controller, m_endpoint);
 	provider.Initialize( 0, 0 );
 
 	Event event( GAME_LEVEL_CHANGED, new LevelChangedEventData( "test" ) );
 	provider.OnGameLevelChanged( &event );
 }
 
-TEST( NetworkServerProvider_Tests, should_initialize_controller )
+TEST_F( NetworkServerProvider_Tests, should_initialize_controller )
 {
-	MockNetworkServerController* controller = new MockNetworkServerController( );
-	EXPECT_CALL( *controller, Initialize( ) );
-
-	MockNetworkInterface* networkInterface = new MockNetworkInterface( );
+	EXPECT_CALL( *m_controller, Initialize( ) );
 
 	ClientConfiguration config;
 
-	NetworkServerProvider provider( &config, networkInterface, controller, 0 );
+	NetworkServerProvider provider( &config, m_networkInterface, m_controller, m_endpoint );
 	provider.Initialize( 0, 0 );
 }

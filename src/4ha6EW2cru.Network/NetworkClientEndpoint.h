@@ -11,8 +11,6 @@
 #include "INetworkClientEndpoint.hpp"
 #include "INetworkInterface.hpp"
 
-#include <RPC3.h>
-
 #include "Export.hpp"
 
 namespace Network
@@ -37,8 +35,7 @@ namespace Network
 		* @return (  )
 		*/
 		NetworkClientEndpoint( INetworkInterface* networkInterface )
-			: m_rpc( new RakNet::RPC3( ) )
-			, m_networkInterface( networkInterface )
+			: m_networkInterface( networkInterface )
 		{
 
 		}
@@ -58,14 +55,13 @@ namespace Network
 		*/
 		GAMEAPI void Update( float deltaMilliseconds );
 
-		static void LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork  );
+		static void LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
 
 	private:
 
 		NetworkClientEndpoint( const NetworkClientEndpoint & copy ) { };
 		NetworkClientEndpoint & operator = ( const NetworkClientEndpoint & copy ) { return *this; };
 
-		RakNet::RPC3* m_rpc;
 		INetworkInterface* m_networkInterface;
 		
 	};

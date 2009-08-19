@@ -10,6 +10,7 @@
 
 #include <RakNetTypes.h>
 #include <PluginInterface2.h>
+#include <RPC3.h>
 
 #include <string>
 
@@ -97,6 +98,13 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void AttachPlugin( PluginInterface2* plugin ) = 0;
+
+
+		/*! Returns the RPC interface
+		 *
+		 * @return ( RakNet::RPC3* )
+		 */
+		virtual RakNet::RPC3* GetRPC( ) = 0;
 		
 	};
 };

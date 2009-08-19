@@ -95,3 +95,19 @@ TEST( NetworkSystem_Tests, should_update_the_scene )
 	system.Update( delta );
 }
 
+
+TEST( NetworkSystem_Tests, should_call_select_character_when_client_picks_one )
+{
+	std::string characterName = "marine";
+
+	MockNetworkClientProvider* clientProvider = new MockNetworkClientProvider( );
+	EXPECT_CALL( *clientProvider, SelectCharacter( characterName ) );
+
+	NetworkSystem system( 0, 0, clientProvider );
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
+
+	system.Message( System::Messages::Network::Client::CharacterSelected, parameters );
+}
+

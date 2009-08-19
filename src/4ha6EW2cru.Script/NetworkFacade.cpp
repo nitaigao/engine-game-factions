@@ -80,11 +80,12 @@ namespace Script
 			->Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) ); 
 	}
 
-	void NetworkFacade::CreateServer( unsigned int port, int maxPlayers )
+	void NetworkFacade::CreateServer( unsigned int port, int maxPlayers, const std::string& levelName )
 	{
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Network::Port ] = port;
 		parameters[ System::Parameters::Network::Server::MaxPlayers ] = maxPlayers;
+		parameters[ System::Parameters::Network::Server::LevelName ] = levelName;
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
 			->Message( System::Messages::Network::CreateServer, parameters );

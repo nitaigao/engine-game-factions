@@ -10,6 +10,8 @@
 
 #include <string>
 
+#include "INetworkController.hpp"
+
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
@@ -20,7 +22,7 @@ namespace Network
 	/*! 
 	 *  Dispatches Server Messages to the Network
 	 */
-	class INetworkServerController
+	class INetworkServerController : public INetworkController
 	{
 
 	public:
