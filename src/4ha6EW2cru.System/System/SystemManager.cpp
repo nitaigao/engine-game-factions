@@ -140,7 +140,6 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 	InitializeSystemFunction initializeSystem = reinterpret_cast< InitializeSystemFunction >( GetProcAddress( library, "Initialize" ) );
 	initializeSystem( Management::Get( ), Logger::Get( ) );
 
-
 	CreateSystemFunction createSystem = reinterpret_cast< CreateSystemFunction >( GetProcAddress( library, "CreateSystem" ) );
 	ISystem* system = createSystem( );
 

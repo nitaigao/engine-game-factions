@@ -19,10 +19,15 @@ namespace
 
 	public:
 
+		MOCK_METHOD2( Connect, void( const std::string&, unsigned int ) );
+		MOCK_METHOD0( Disconnect, void( ) );
 		MOCK_METHOD2( Initialize, void( unsigned int, int ) );
 		MOCK_METHOD1( Destroy, void( unsigned int ) );
 		MOCK_METHOD0( Receive, Packet*( ) );
 		MOCK_METHOD1( DeAllocatePacket, void( Packet* ) );
+		MOCK_METHOD1( SetOfflinePingInformation, void( RakNet::BitStream* ) );
+		MOCK_METHOD0( GetConnectionCount, int( ) );
+		MOCK_METHOD1( AttachPlugin, void( PluginInterface2* ) );
 		
 	};
 };

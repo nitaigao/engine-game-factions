@@ -20,7 +20,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( )
 {
-	return new Network::NetworkSystem( );
+	return new Network::NetworkSystem( Management::Get( )->GetServiceManager( ) );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

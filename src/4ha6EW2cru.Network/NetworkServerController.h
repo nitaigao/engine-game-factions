@@ -9,6 +9,7 @@
 #define NETWORKSERVERCONTROLLER_H
 
 #include "INetworkServerController.hpp"
+#include "INetworkInterface.hpp"
 
 #include <RPC3.h>
 
@@ -33,8 +34,9 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkServerController( )
+		NetworkServerController( INetworkInterface* networkInterface )
 			: m_rpc( new RakNet::RPC3( ) )
+			, m_networkInterface( networkInterface )
 		{
 
 		}
@@ -65,13 +67,12 @@ namespace Network
 		GAMEAPI void SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation );
 
 
-		/*! Advertises the System to the given Network Address
+		/*! Instructs the Controller that a client has connected
 		*
 		* @param[in] const SystemAddress & clientAddress
-		* @param[in] const RakTime & clientTime
 		* @return ( void )
 		*/
-		GAMEAPI void AdvertiseSystem( const SystemAddress& clientAddress, const RakNetTime& clientTime );
+		GAMEAPI void ClientConnected( const SystemAddress& clientAddress );
 
 	private:
 
@@ -79,6 +80,7 @@ namespace Network
 		NetworkServerController & operator = ( const NetworkServerController & copy ) { return *this; };
 
 		RakNet::RPC3* m_rpc;
+		INetworkInterface* m_networkInterface; 
 		
 	};
 };

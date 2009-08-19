@@ -23,7 +23,7 @@ namespace
 		MOCK_METHOD0( Initialize, void( ) );
 		MOCK_METHOD2( SetPosition, void( const std::string&, const Maths::MathVector3& ) );
 		MOCK_METHOD2( SetOrientation, void( const std::string&, const Maths::MathQuaternion& ) );
-		MOCK_METHOD2( AdvertiseSystem, void( const SystemAddress& clientAddress, const RakNetTime& clientTime ) );
+		MOCK_METHOD1( ClientConnected, void( const SystemAddress& ) );
 		
 	};
 };

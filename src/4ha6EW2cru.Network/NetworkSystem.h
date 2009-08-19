@@ -12,8 +12,10 @@
 
 #include "INetworkSystem.hpp"
 #include "INetworkSystemScene.hpp"
+#include "INetworkClientProvider.hpp"
 
 #include "Configuration/IConfiguration.hpp"
+#include "Service/IServiceManager.h"
 
 namespace Network
 {
@@ -29,20 +31,20 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~NetworkSystem( ) { };
+		GAMEAPI ~NetworkSystem( );
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		GAMEAPI NetworkSystem( );
+		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager );
 
 
 		/*! IoC Constructor
 		*
 		* @return (  )
 		*/
-		GAMEAPI NetworkSystem( INetworkSystemScene* scene );
+		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager, INetworkSystemScene* scene, INetworkClientProvider* clientProvider );
 
 
 		/*! Initializes the System
@@ -142,6 +144,8 @@ namespace Network
 
 		AnyType::AnyTypeMap m_attributes;
 		INetworkSystemScene* m_scene;
+		Services::IServiceManager* m_serviceManager;
+		INetworkClientProvider* m_clientProvider;
 		
 	};
 };

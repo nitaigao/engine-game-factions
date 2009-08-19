@@ -9,6 +9,7 @@
 #define EVENTDATA_H
 
 #include "IEventData.hpp"
+#include "../System/SystemType.hpp"
 
 namespace Events
 {

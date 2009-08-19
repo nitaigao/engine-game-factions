@@ -4,8 +4,13 @@ using namespace testing;
 #include "NetworkServerController.h"
 using namespace Network;
 
-TEST( NetworkServerController, should_call_rpc_on_set_position )
+#include "Mocks/MockNetworkInterface.hpp"
+
+TEST( NetworkServerController, should_attach_rpc_plugin_to_interface )
 {
-	NetworkServerController controller;
-	controller.SetPosition( "somename", Maths::MathVector3( ) );
+	MockNetworkInterface eth0;
+	EXPECT_CALL( eth0, AttachPlugin( An< PluginInterface2* >( ) ) );
+
+	NetworkServerController controller( &eth0 );
+	controller.Initialize( );
 }

@@ -23,7 +23,7 @@ namespace Script
 				;
 	}
 
-	void NetworkFacade::Connect( const std::string& hostAddress, int port )
+	void NetworkFacade::Connect( const std::string& hostAddress, unsigned int port )
 	{
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Network::HostAddress ] = hostAddress;

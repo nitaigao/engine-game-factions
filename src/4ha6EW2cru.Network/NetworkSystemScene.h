@@ -66,7 +66,7 @@ namespace Network
 		*
 		*  @return (void)
 		*/
-		inline void Destroy( ) { };
+		GAMEAPI void Destroy( );
 
 
 		/*! Gets the System::Types::Type of the SystemScene

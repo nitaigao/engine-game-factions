@@ -34,10 +34,10 @@ namespace Network
 		/*! Initializes the Network Interface
 		 *
 		 * @param[in] unsigned int port
-		 * @param[in] int maxPlayers
+		 * @param[in] int maxConnections
 		 * @return ( void )
 		 */
-		virtual void Initialize( unsigned int port, int maxPlayers ) = 0;
+		virtual void Initialize( unsigned int port, int maxConnections ) = 0;
 
 
 		/*! Updates the Network Provider
@@ -56,6 +56,13 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+
+
+		/*! Destroys the Provider
+		 *
+		 * @return ( void )
+		 */
+		virtual void Destroy( ) = 0;
 		
 	};
 };

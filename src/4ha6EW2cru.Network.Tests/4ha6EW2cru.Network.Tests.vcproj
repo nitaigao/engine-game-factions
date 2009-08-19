@@ -42,7 +42,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source;../../etc/vendor/raknet/dependentextensions/rpc3"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -117,8 +117,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source;../../etc/vendor/raknet/dependentextensions/rpc3;../../etc/vendor/gmock/include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -136,9 +136,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="RakNetLibStatic.lib ws2_32.lib gtest.lib "
+				AdditionalDependencies="RakNetLibStatic.lib ws2_32.lib gtest.lib gmock.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../../etc/vendor/raknet/lib;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
+				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/raknet/lib;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -193,6 +193,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkClientEndpoint_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientProvider_Tests.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkServer_Tests.cxx"
 				>
 			</File>
@@ -231,6 +239,14 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Mocks\MockNetworkClientEndpoint.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockNetworkClientProvider.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockNetworkServerController.hpp"
 				>
 			</File>
@@ -252,6 +268,10 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockNetworkSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockServiceManager.hpp"
 				>
 			</File>
 			<File

@@ -115,7 +115,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include;../../etc/vendor/raknet/dependentextensions/rpc3"
 				PreprocessorDefinitions="TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -187,6 +187,14 @@
 			</File>
 			<File
 				RelativePath=".\ClientPacketTranslator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientEndpoint.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientProvider.cpp"
 				>
 			</File>
 			<File
@@ -264,6 +272,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\INetworkClientEndpoint.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkClientProvider.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkEndpoint.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\INetworkInterface.hpp"
 				>
 			</File>
@@ -305,6 +325,14 @@
 			</File>
 			<File
 				RelativePath=".\IServerAdvertisement.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientEndpoint.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkClientProvider.h"
 				>
 			</File>
 			<File

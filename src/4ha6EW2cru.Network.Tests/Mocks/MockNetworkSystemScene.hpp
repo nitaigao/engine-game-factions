@@ -22,8 +22,6 @@ namespace
 		MOCK_METHOD1( AddNetworkProvider, void( INetworkProvider* ) );
 		MOCK_CONST_METHOD0( GetSystem, INetworkSystem*( ) );
 		MOCK_METHOD3( MessageComponent, void( const std::string&, const System::Message&, AnyType::AnyTypeMap ) );
-
-
 		MOCK_METHOD0( Initialize, void( ) );
 		MOCK_METHOD1( Update, void( float ) );
 		MOCK_METHOD0( Destroy, void( ) );

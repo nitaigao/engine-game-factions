@@ -23,7 +23,14 @@ namespace Configuration
 		{	
 			if ( ( *i ).first == section && ( *i ).second.first == key )
 			{
-				result = m_configFile->FindConfigItem( section, key, ( *i ).second.second );
+				if ( m_configFile )
+				{
+					result = m_configFile->FindConfigItem( section, key, ( *i ).second.second );
+				}
+				else
+				{
+					return ( *i ).second.second;
+				}
 			}
 		}
 

@@ -8,7 +8,10 @@
 #ifndef INETWORKINTERFACE_HPP
 #define INETWORKINTERFACE_HPP
 
-#include "RakNetTypes.h"
+#include <RakNetTypes.h>
+#include <PluginInterface2.h>
+
+#include <string>
 
 namespace Network
 {
@@ -56,6 +59,44 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void DeAllocatePacket( Packet* packet ) = 0;
+
+
+		/*! Sets the Information that will be sent in an offline Ping Response
+		 *
+		 * @param[in] BitStream * information
+		 * @return ( void )
+		 */
+		virtual void SetOfflinePingInformation( RakNet::BitStream* information ) = 0;
+
+		/*! Returns the Number of Peer connected to the Interface
+		 *
+		 * @return ( int )
+		 */
+		virtual int GetConnectionCount( ) = 0;
+
+
+		/*! Connects the interface to a Peer
+		 *
+		 * @param[in] const std::string address
+		 * @param[in] unsigned int port
+		 * @return ( void )
+		 */
+		virtual void Connect( const std::string& address, unsigned int port ) = 0;
+
+
+		/*! Disconnects the Interface from it's connected Peer
+		 *
+		 * @return ( void )
+		 */
+		virtual void Disconnect( ) = 0;
+
+
+		/*! Attaches a plugin to the interface
+		 *
+		 * @param[in] PluginInterface2 * plugin
+		 * @return ( void )
+		 */
+		virtual void AttachPlugin( PluginInterface2* plugin ) = 0;
 		
 	};
 };

@@ -2,6 +2,7 @@
 
 #include "NetworkSystemScene.h"
 #include "NetworkServerProvider.h"
+#include "NetworkClientProvider.h"
 
 #include <RakNetworkFactory.h>
 #include <RakSleep.h>
@@ -34,19 +35,31 @@ using namespace Configuration;
 #include <luabind/luabind.hpp>
 using namespace luabind;
 
+#include "Service/IServiceManager.h"
+using namespace Services;
+
 namespace Network
 {
-	NetworkSystem::NetworkSystem()
-		: m_configuration( 0 )
+	NetworkSystem::~NetworkSystem( )
 	{
-		m_attributes[ System::Attributes::Network::IsServer ] = false;
-		m_scene = new NetworkSystemScene( );
+
 	}
 
-	GAMEAPI NetworkSystem::NetworkSystem( INetworkSystemScene* scene )
-		: m_scene( scene )
+	NetworkSystem::NetworkSystem( IServiceManager* serviceManager )
+		: m_configuration( 0 )
+		, m_serviceManager( serviceManager )
+		, m_scene( new NetworkSystemScene( ) )
+		, m_clientProvider( 0 )
 	{
+		m_attributes[ System::Attributes::Network::IsServer ] = false;
+	}
 
+	NetworkSystem::NetworkSystem( IServiceManager* serviceManager, INetworkSystemScene* scene, INetworkClientProvider* clientProvider )
+		: m_scene( scene )
+		, m_serviceManager( serviceManager )
+		, m_clientProvider( clientProvider )
+	{
+		m_attributes[ System::Attributes::Network::IsServer ] = false;
 	}
 
 	void NetworkSystem::Release( )
@@ -63,18 +76,14 @@ namespace Network
 	{
 		m_configuration = configuration;
 
-		/*if ( m_attributes[ System::Attributes::Network::IsServer ].As< bool >( ) )
-		{
-			m_networkProvider = new ServerNetworkProvider( this );
-		}
-		else
-		{
-			m_networkProvider = new ClientNetworkProvider( this );
-		}
+		m_serviceManager->RegisterService( this );
 
-		m_networkProvider->Initialize( configuration );*/
-
-		Management::Get( )->GetServiceManager( )->RegisterService( this ); 
+		if ( !m_attributes[ System::Attributes::Network::IsServer ].As< bool >( ) )
+		{
+			m_clientProvider = new NetworkClientProvider( m_configuration );
+			m_clientProvider->Initialize( 0, 1 );
+			m_scene->AddNetworkProvider( m_clientProvider );
+		}
 	}
 
 	void NetworkSystem::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
@@ -116,14 +125,26 @@ namespace Network
 
 		if ( message == System::Messages::Network::CreateServer )
 		{
-			NetworkServerProvider* serverProvider = new NetworkServerProvider( );
-
+			NetworkServerProvider* serverProvider = new NetworkServerProvider( m_configuration );
 			serverProvider->Initialize(
 				parameters[ System::Parameters::Network::Port ].As< unsigned int >( ),
 				parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( )
 				);
 
 			m_scene->AddNetworkProvider( serverProvider );
+		}
+
+		if ( message == System::Messages::Network::Connect )
+		{
+			m_clientProvider->Connect( 
+				parameters[ System::Parameters::Network::HostAddress ].As< std::string >( ).c_str( ),
+				parameters[ System::Parameters::Network::Port ].As< unsigned int >( )
+				);
+		}
+
+		if ( message == System::Messages::Network::Disconnect )
+		{
+			m_clientProvider->Disconnect( );
 		}
 
 		return results;

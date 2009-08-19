@@ -56,4 +56,12 @@ namespace Network
 			( *i )->Update( deltaMilliseconds );
 		}
 	}
+
+	void NetworkSystemScene::Destroy()
+	{
+		for( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			( *i )->Destroy( );
+		}
+	}
 }

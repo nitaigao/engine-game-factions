@@ -29,7 +29,18 @@ namespace Configuration
 		 *
 		 *  @return ()
 		 */
-		~ClientConfiguration( );
+		GAMEAPI ~ClientConfiguration( );
+
+
+		/*! Default Constructor
+		 *
+		 * @return (  )
+		 */
+		ClientConfiguration( )
+			: m_configFile( 0 )
+		{
+
+		}
 
 
 		/*! Loads the configuration from the specified file

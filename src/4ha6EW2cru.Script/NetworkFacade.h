@@ -54,7 +54,7 @@ namespace Script
 		* @param[in] const int & port
 		* @return ( void )
 		*/
-		void Connect( const std::string& hostAddress, int port );
+		void Connect( const std::string& hostAddress, unsigned int port );
 
 
 		/*! Disconnects if connected to a server

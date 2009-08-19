@@ -65,6 +65,45 @@ namespace Network
 		*/
 		void DeAllocatePacket( Packet* packet );
 
+
+		/*! Sets the Information that will be sent in an offline Ping Response
+		*
+		* @param[in] BitStream * information
+		* @return ( void )
+		*/
+		void SetOfflinePingInformation( RakNet::BitStream* information );
+
+
+		/*! Returns the Number of Peer connected to the Interface
+		*
+		* @return ( int )
+		*/
+		inline int GetConnectionCount( ) { return m_networkAdapter->NumberOfConnections( ); };
+
+
+		/*! Connects the interface to a Peer
+		*
+		* @param[in] const std::string address
+		* @param[in] unsigned int port
+		* @return ( void )
+		*/
+		void Connect( const std::string& address, unsigned int port );
+
+
+		/*! Disconnects the Interface from it's connected Peer
+		*
+		* @return ( void )
+		*/
+		void Disconnect( );
+
+
+		/*! Attaches a plugin to the interface
+		*
+		* @param[in] PluginInterface2 * plugin
+		* @return ( void )
+		*/
+		void AttachPlugin( PluginInterface2* plugin );
+
 	private:
 
 		NetworkInterface( const NetworkInterface & copy ) { };

@@ -40,3 +40,13 @@ TEST( NetworkSystemScene, should_add_providers_to_a_new_component )
 
 	delete component;
 }
+
+TEST( NetworkSystemScene, should_release_all_providers )
+{
+	MockNetworkSystemProvider* provider = new MockNetworkSystemProvider( );
+	EXPECT_CALL( *provider, Destroy( ) ); 
+
+	NetworkSystemScene scene;
+	scene.AddNetworkProvider( provider );
+	scene.Destroy( );
+}

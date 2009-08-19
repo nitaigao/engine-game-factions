@@ -9,8 +9,15 @@
 #define NETWORKSERVERPROVIDER_H
 
 
-#include "INetworkServerController.hpp"
 #include "INetworkProvider.hpp"
+#include "INetworkServerController.hpp"
+#include "INetworkServerEndpoint.hpp"
+#include "INetworkInterface.hpp"
+
+#include "Configuration/IConfiguration.hpp"
+
+#include "Events/EventManager.h"
+#include "Events/Event.h"
 
 #include "Export.hpp"
 
@@ -35,7 +42,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		GAMEAPI NetworkServerProvider( );
+		GAMEAPI NetworkServerProvider( Configuration::IConfiguration* configuration );
 
 
 		/*! IoC Constructor
@@ -43,8 +50,11 @@ namespace Network
 		 * @param[in] INetworkInterface * networkInterface
 		 * @return (  )
 		 */
-		NetworkServerProvider( INetworkServerController* controller )
-			: m_controller( controller )
+		NetworkServerProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkServerController* controller, INetworkServerEndpoint* endpoint )
+			: m_networkInterface( networkInterface )
+			, m_controller( controller )
+			, m_configuration( configuration )
+			, m_endpoint( endpoint )
 		{
 
 		}
@@ -53,10 +63,10 @@ namespace Network
 		/*! Initializes the Network Interface
 		*
 		* @param[in] unsigned int port
-		* @param[in] int maxPlayers
+		* @param[in] int maxConnections
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( unsigned int port, int maxPlayers );
+		GAMEAPI void Initialize( unsigned int port, int maxConnections );
 
 
 		/*! Updates the Network Provider
@@ -64,7 +74,7 @@ namespace Network
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
-		GAMEAPI void Update( float deltaMilliseconds ) { };
+		GAMEAPI void Update( float deltaMilliseconds );
 
 
 		/*! Distributes the message for the entity across the Network
@@ -77,12 +87,25 @@ namespace Network
 		GAMEAPI void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters );
 
 
+		/*! Destroys the Provider
+		*
+		* @return ( void )
+		*/
+		GAMEAPI void Destroy( );
+
+
+		GAMEAPI void OnGameLevelChanged( Events::IEvent* event );
+
+
 	private:
 
 		NetworkServerProvider( const NetworkServerProvider & copy ) { };
 		NetworkServerProvider & operator = ( const NetworkServerProvider & copy ) { return *this; };
 
+		INetworkInterface* m_networkInterface;
 		INetworkServerController* m_controller;
+		Configuration::IConfiguration* m_configuration;
+		INetworkServerEndpoint* m_endpoint;
 		
 	};
 };

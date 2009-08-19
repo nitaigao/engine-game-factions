@@ -13,9 +13,33 @@ using namespace Network;
 #include <GetTime.h>
 using namespace RakNet;
 
-TEST( NetworkServerEndpoint, should_respond_to_server_advertisement )
+TEST( NetworkServerEndpoint, should_intruct_client_on_connect )
 {
 	SystemAddress clientAddress( "127.0.0.1", 8990 );
+	
+	BitStream stream;
+	stream.Write( ( MessageID ) ID_NEW_INCOMING_CONNECTION );
+	stream.ResetReadPointer( );
+
+	Packet p;
+	p.data = stream.GetData( );
+	p.bitSize = stream.GetNumberOfBitsUsed( );
+	p.systemAddress = clientAddress;
+
+	MockNetworkInterface eth0;
+	EXPECT_CALL( eth0, Receive( ) )
+	.WillOnce( Return( &p ) );
+
+	MockNetworkServerController controller;
+	EXPECT_CALL( controller, ClientConnected( clientAddress ) );
+
+	NetworkServerEndpoint endpoint( &eth0, &controller );
+	endpoint.Update( 99 );
+}
+
+TEST( NetworkServerEndpoint, should_respond_to_server_advertisement )
+{
+	/*SystemAddress clientAddress( "127.0.0.1", 8990 );
 	RakNetTime time = RakNet::GetTime( );
 
 	BitStream stream;
@@ -36,5 +60,5 @@ TEST( NetworkServerEndpoint, should_respond_to_server_advertisement )
 	EXPECT_CALL( controller, AdvertiseSystem( clientAddress, time ) );
 
 	NetworkServerEndpoint endpoint( &eth0, &controller );
-	endpoint.Update( 99 );
+	endpoint.Update( 99 );*/
 }

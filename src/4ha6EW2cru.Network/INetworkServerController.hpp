@@ -56,14 +56,13 @@ namespace Network
 		 */
 		virtual void SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation ) = 0;
 
-
-		/*! Advertises the System to the given Network Address
+		
+		/*! Instructs the Controller that a client has connected
 		 *
 		 * @param[in] const SystemAddress & clientAddress
-		 * @param[in] const RakTime & clientTime
 		 * @return ( void )
 		 */
-		virtual void AdvertiseSystem( const SystemAddress& clientAddress, const RakNetTime& clientTime ) = 0;
+		virtual void ClientConnected( const SystemAddress& clientAddress ) = 0;
 		
 	};
 };

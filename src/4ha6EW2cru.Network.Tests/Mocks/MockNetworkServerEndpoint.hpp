@@ -8,6 +8,8 @@
 #ifndef MOCKNETWORKSERVERENDPOINT_HPP
 #define MOCKNETWORKSERVERENDPOINT_HPP
 
+#include "NetworkServerEndpoint.h"
+
 namespace
 {
 	class MockNetworkServerEndpoint : public INetworkServerEndpoint
