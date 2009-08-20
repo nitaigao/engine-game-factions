@@ -22,6 +22,11 @@ protected:
 		m_provider = new MockNetworkSystemProvider( );
 	}
 
+	void DestroyContext( )
+	{
+		delete m_provider;
+	}
+
 	NetworkSystemScene* CreateSubject( )
 	{
 		return new NetworkSystemScene( m_componentFactory );

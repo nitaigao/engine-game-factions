@@ -9,6 +9,7 @@
 #define SERVERCACHE_H
 
 #include "ServerAdvertisement.hpp"
+#include "IServerCache.hpp"
 
 #include "Export.hpp"
 
@@ -17,14 +18,14 @@ namespace Network
 	/*! 
 	 *  A Cache of Available Servers for the Client
 	 */
-	class ServerCache
+	class ServerCache : public IServerCache
 	{
 
 	public:
 
-		GAMEAPI static void Initialize( );
-		GAMEAPI static ServerCache* Get( );
-		GAMEAPI static void Destroy( );
+		~ServerCache( ) { };
+
+		ServerCache( ) { };
 
 
 		GAMEAPI bool Exists( const std::string& systemAddress ) const;
@@ -37,8 +38,6 @@ namespace Network
 
 	private:
 
-		~ServerCache( ) { };
-		ServerCache( ) { };
 		ServerCache( const ServerCache & copy ) { };
 		ServerCache & operator = ( const ServerCache & copy ) { return *this; };
 

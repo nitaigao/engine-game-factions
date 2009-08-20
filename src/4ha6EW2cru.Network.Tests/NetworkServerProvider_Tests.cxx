@@ -43,11 +43,6 @@ protected:
 		m_configuration = new ClientConfiguration( );
 	}
 
-	void DestroyContext( )
-	{
-		delete m_configuration;
-	}
-
 	NetworkServerProvider* CreateSubject( )
 	{
 		return new NetworkServerProvider( m_configuration, m_networkInterface, m_controller, m_endpoint );

@@ -33,7 +33,7 @@ namespace Events
 		 *
 		 *  @return ()
 		 */
-		~EventManager( );
+		GAMEAPI ~EventManager( );
 
 
 		/*! Default Constructor

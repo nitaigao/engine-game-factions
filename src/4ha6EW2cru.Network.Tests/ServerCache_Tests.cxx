@@ -5,57 +5,57 @@ using namespace testing;
 #include "ServerAdvertisement.hpp"
 using namespace Network;
 
-TEST( ServerCache_Tests, should_exist_after_adding )
+class ServerCache_Tests : public TestHarness< ServerCache >
+{
+	ServerCache* CreateSubject( )
+	{
+		return new ServerCache( );
+	}
+};
+
+TEST_F( ServerCache_Tests, should_exist_after_adding )
 {
 	std::string address = "test";
 
-	ServerCache::Initialize( );
-	ServerCache::Get( )->Add( address, 0 );
+	m_subject->Add( address, 0 );
 
-	EXPECT_TRUE( ServerCache::Get( )->Exists( address ) );
-
-	ServerCache::Destroy( );
+	EXPECT_TRUE( m_subject->Exists( address ) );
 }
 
-TEST( ServerCache_Tests, should_find_after_adding )
+TEST_F( ServerCache_Tests, should_find_after_adding )
 {
 	ServerAdvertisement* ad = new ServerAdvertisement( "test", "", 0, 0, 0, "", 0 );
 
-	ServerCache::Initialize( );
-	ServerCache::Get( )->Add( "test", ad );
+	m_subject->Add( "test", ad );
 
-	IServerAdvertisement* result = ServerCache::Get( )->Find( 0 );
+	IServerAdvertisement* result = m_subject->Find( 0 );
 
 	EXPECT_EQ( ad, result );
 
-	ServerCache::Destroy( );
+	delete ad;
 }
 
-TEST( ServerCache_Tests, should_have_correct_count_after_adding )
+TEST_F( ServerCache_Tests, should_have_correct_count_after_adding )
 {
 	ServerAdvertisement* ad = new ServerAdvertisement( "test", "", 0, 0, 0, "", 0 );
 
-	ServerCache::Initialize( );
-	ServerCache::Get( )->Add( "test", ad );
+	m_subject->Add( "test", ad );
 
-	int result = ServerCache::Get( )->GetCount( );
+	int result = m_subject->GetCount( );
 
 	EXPECT_EQ( 1, result );
 
-	ServerCache::Destroy( );
+	delete ad;
 }
 
-TEST( ServerCache_Tests, should_clear_the_cache )
+TEST_F( ServerCache_Tests, should_clear_the_cache )
 {
 	ServerAdvertisement* ad = new ServerAdvertisement( "test", "", 0, 0, 0, "", 0 );
 
-	ServerCache::Initialize( );
-	ServerCache::Get( )->Add( "test", ad );
+	m_subject->Add( "test", ad );
 
-	ServerCache::Get( )->Clear( );
-	int result = ServerCache::Get( )->GetCount( );
+	m_subject->Clear( );
+	int result = m_subject->GetCount( );
 
 	EXPECT_EQ( 0, result );
-
-	ServerCache::Destroy( );
 }

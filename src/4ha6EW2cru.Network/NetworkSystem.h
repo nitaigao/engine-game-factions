@@ -8,6 +8,8 @@
 #ifndef NETWORKSYSTEM_H
 #define NETWORKSYSTEM_H
 
+#include "Events/EventManager.h"
+
 #include "Service/IService.hpp"
 
 #include "INetworkSystem.hpp"
@@ -42,12 +44,14 @@ namespace Network
 		* @return (  )
 		*/
 		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
-			INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider )
+			INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider
+			, Events::EventManager* eventManager )
 			: m_instrumentation( instrumentation )
 			, m_serviceManager( serviceManager )
 			, m_scene( scene )
 			, m_clientProvider( clientProvider )
 			, m_serverProvider( serverProvider )
+			, m_eventManager( eventManager )
 		{
 			m_attributes[ System::Attributes::Network::IsServer ] = false;
 		}
@@ -152,7 +156,8 @@ namespace Network
 		System::IInstrumentation* m_instrumentation;
 		INetworkSystemScene* m_scene;
 		INetworkClientProvider* m_clientProvider;
-		INetworkServerProvider* m_serverProvider;	
+		INetworkServerProvider* m_serverProvider;
+		Events::EventManager* m_eventManager;
 	};
 };
 

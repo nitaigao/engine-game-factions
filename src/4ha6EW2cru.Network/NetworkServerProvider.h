@@ -88,7 +88,7 @@ namespace Network
 		GAMEAPI void Destroy( );
 
 
-		GAMEAPI void OnGameLevelChanged( Events::IEvent* event );
+		GAMEAPI void OnGameLevelChanged( const Events::IEvent* event );
 
 
 	private:

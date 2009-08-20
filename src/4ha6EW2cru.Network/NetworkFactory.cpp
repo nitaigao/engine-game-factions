@@ -13,6 +13,8 @@
 #include "NetworkSystemScene.h"
 #include "NetworkSystemComponentFactory.hpp"
 
+#include "ServerCache.h"
+
 #include "NetworkSystem.h"
 
 #include "Management/Management.h"
@@ -30,11 +32,13 @@ namespace Network
 		case CLIENT:
 			{
 				INetworkInterface* networkInterface = new NetworkInterface( );
+				IServerCache* serverCache = new ServerCache( );
 
 				return new NetworkClientProvider( 
 					networkInterface, 
 					new NetworkClientController( networkInterface ),
-					new NetworkClientEndpoint( networkInterface )
+					new NetworkClientEndpoint( networkInterface, serverCache ),
+					serverCache
 					);
 			}
 
@@ -69,7 +73,8 @@ namespace Network
 			Management::Get( )->GetInstrumentation( ),
 			this->CreateNetworkSystemScene( ),
 			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT ) ),
-			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER ) )
+			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER ) ),
+			Management::Get( )->GetEventManager( )
 			);
 	}
 

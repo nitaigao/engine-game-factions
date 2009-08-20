@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 using namespace testing;
 
+#include "Events/EventManager.h"
+using namespace Events;
+
 #include "NetworkSystem.h"
 #include "ServerNetworkProvider.h"
 using namespace Network;
@@ -27,6 +30,7 @@ protected:
 	MockNetworkClientProvider* m_clientProvider;
 	MockNetworkServerProvider * m_serverProvider;
 	MockInstrumentation* m_instrumentation;
+	EventManager* m_eventManager;
 
 	void EstablishContext( )
 	{
@@ -35,6 +39,7 @@ protected:
 		m_clientProvider = new MockNetworkClientProvider( );
 		m_serverProvider = new MockNetworkServerProvider( );
 		m_instrumentation = new MockInstrumentation( );
+		m_eventManager = new EventManager( );
 	}
 
 
@@ -43,21 +48,12 @@ protected:
 		delete m_scene;
 		delete m_serviceManager;
 		delete m_instrumentation;
-
-		if ( m_clientProvider != 0 )
-		{
-			delete m_clientProvider;
-		}
-
-		if ( m_serverProvider != 0 )
-		{
-			delete m_serverProvider;
-		}
+		delete m_eventManager;
 	}
 
 	NetworkSystem* CreateSubject( )
 	{
-		return new NetworkSystem( m_serviceManager, m_instrumentation, m_scene, m_clientProvider, m_serverProvider ); 
+		return new NetworkSystem( m_serviceManager, m_instrumentation, m_scene, m_clientProvider, m_serverProvider, m_eventManager ); 
 	}
 };
 
@@ -131,4 +127,3 @@ TEST_F( NetworkSystem_Tests, should_call_select_character_when_client_picks_one 
 
 	m_subject->Message( System::Messages::Network::Client::CharacterSelected, parameters );
 }
-

@@ -10,6 +10,7 @@
 
 #include "INetworkClientEndpoint.hpp"
 #include "INetworkInterface.hpp"
+#include "IServerCache.hpp"
 
 #include "Export.hpp"
 
@@ -34,8 +35,9 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface )
+		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache )
 			: m_networkInterface( networkInterface )
+			, m_serverCache( serverCache )
 		{
 
 		}
@@ -63,6 +65,7 @@ namespace Network
 		NetworkClientEndpoint & operator = ( const NetworkClientEndpoint & copy ) { return *this; };
 
 		INetworkInterface* m_networkInterface;
+		IServerCache* m_serverCache;
 		
 	};
 };

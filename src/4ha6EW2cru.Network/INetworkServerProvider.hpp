@@ -29,7 +29,7 @@ namespace Network
 		virtual ~INetworkServerProvider( ) { };
 
 
-		virtual void OnGameLevelChanged( Events::IEvent* event ) = 0;
+		virtual void OnGameLevelChanged( const Events::IEvent* event ) = 0;
 		
 	};
 };

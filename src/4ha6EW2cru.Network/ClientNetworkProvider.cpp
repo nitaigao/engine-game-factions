@@ -36,7 +36,7 @@ namespace Network
 	{
 		m_configuration = configuration;
 
-		ServerCache::Initialize( );
+		//ServerCache::Initialize( );
 
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxClientConnections, 1 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ClientSleepTime, 0 );
@@ -58,7 +58,7 @@ namespace Network
 
 	void ClientNetworkProvider::Release( )
 	{
-		ServerCache::Destroy( );
+		//ServerCache::Destroy( );
 
 		m_networkInterface->Shutdown( m_configuration->Find( ConfigSections::Network, ConfigItems::Network::MaxClientReleaseTime ).As< int >( ) );
 	}

@@ -65,7 +65,7 @@ namespace Network
 		}
 	}
 
-	void NetworkServerProvider::OnGameLevelChanged( IEvent* event )
+	void NetworkServerProvider::OnGameLevelChanged( const IEvent* event )
 	{
 		LevelChangedEventData* eventData = static_cast< LevelChangedEventData* >( event->GetEventData( ) );
 

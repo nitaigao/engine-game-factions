@@ -283,6 +283,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Mocks\MockServerCache.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockServiceManager.hpp"
 				>
 			</File>

@@ -348,6 +348,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IServerCache.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkClientController.h"
 				>
 			</File>

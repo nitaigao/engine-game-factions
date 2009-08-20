@@ -15,7 +15,7 @@ namespace Network
 {
 	void ClientMessageRouter::FindServers( )
 	{
-		ServerCache::Get( )->Clear( );
+		//ServerCache::Get( )->Clear( );
 
 		BitStream stream;
 		stream.WriteCompressed( RakNet::GetTime( ) );
@@ -43,7 +43,7 @@ namespace Network
 	{
 		int serverCacheIndex = 0;
 
-		IServerAdvertisement* serverAd = ServerCache::Get( )->Find( parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) );
+		IServerAdvertisement* serverAd = 0;//ServerCache::Get( )->Find( parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) );
 
 		if ( serverAd )
 		{

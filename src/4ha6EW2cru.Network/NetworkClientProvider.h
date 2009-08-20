@@ -12,6 +12,7 @@
 #include "INetworkClientEndpoint.hpp"
 #include "INetworkClientController.hpp"
 #include "INetworkInterface.hpp"
+#include "IServerCache.hpp"
 
 #include "Configuration/IConfiguration.hpp"
 
@@ -38,10 +39,11 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientProvider( INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
+		NetworkClientProvider( INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint, IServerCache* serverCache )
 			: m_networkInterface( networkInterface )
 			, m_endpoint( endpoint )
 			, m_controller( controller )
+			, m_serverCache( serverCache )
 		{
 
 		}
@@ -112,6 +114,7 @@ namespace Network
 		INetworkInterface* m_networkInterface;
 		INetworkClientEndpoint* m_endpoint;
 		INetworkClientController* m_controller;
+		IServerCache* m_serverCache;
 		
 	};
 };

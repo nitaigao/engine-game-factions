@@ -4,24 +4,6 @@
 
 namespace Network
 {
-	ServerCache* ServerCache::m_instance = 0;
-
-	void ServerCache::Initialize()
-	{
-		ServerCache::m_instance = new ServerCache( );
-	}
-
-	ServerCache* ServerCache::Get()
-	{
-		return ServerCache::m_instance;
-	}
-
-	void ServerCache::Destroy()
-	{
-		ServerCache::m_instance->Clear( );
-		delete ServerCache::m_instance;
-	}
-
 	bool ServerCache::Exists( const std::string& systemAddress ) const
 	{
 		std::stringstream serverName;

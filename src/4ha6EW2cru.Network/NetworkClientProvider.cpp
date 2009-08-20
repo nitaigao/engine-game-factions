@@ -3,6 +3,7 @@
 #include "NetworkInterface.h"
 #include "NetworkClientEndpoint.h"
 #include "NetworkClientController.h"
+#include "ServerCache.h"
 
 namespace Network
 {
@@ -11,6 +12,7 @@ namespace Network
 		delete m_endpoint;
 		delete m_controller;
 		delete m_networkInterface;
+		delete m_serverCache;
 	}
 
 	void NetworkClientProvider::Connect( const std::string& serverAddress, unsigned int port )

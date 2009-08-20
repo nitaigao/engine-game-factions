@@ -83,7 +83,7 @@ namespace Network
 
 	void ClientPacketTranslator::OnAdvertiseSystem( Packet* packet )
 	{
-		if ( !ServerCache::Get( )->Exists( packet->systemAddress.ToString( ) ) ) 
+		if ( 0 )//ServerCache::Get( )->Exists( packet->systemAddress.ToString( ) ) ) 
 		{
 			BitStream* stream = NetworkUtils::ReceiveNetworkMessage( packet );
 
@@ -108,10 +108,10 @@ namespace Network
 
 			Info( "Server Advertised", "Name:", serverName, "LevelName:", mapName, "MaxPlayers:", maxPlayers, "NumPlayers:", numPlayers, "Ping:", ping, "Address:", packet->systemAddress.ToString( false ), "Port:" ,packet->systemAddress.port );
 
-			ServerCache::Get( )->Add( packet->systemAddress.ToString( ), advertisment ); 
+			//ServerCache::Get( )->Add( packet->systemAddress.ToString( ), advertisment ); 
 
-			ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", ServerCache::Get( )->GetCount( ) - 1 );
-			Management::Get( )->GetEventManager( )->QueueEvent( scriptEvent );
+		//	ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", ServerCache::Get( )->GetCount( ) - 1 );
+			//Management::Get( )->GetEventManager( )->QueueEvent( scriptEvent );
 
 			delete stream;
 		}

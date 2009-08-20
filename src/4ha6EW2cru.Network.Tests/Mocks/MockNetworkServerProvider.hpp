@@ -25,7 +25,7 @@ namespace
 		MOCK_METHOD1( Update, void( float ) );
 		MOCK_METHOD3( Message, void( const std::string&, const System::Message&, AnyType::AnyTypeMap ) );
 		MOCK_METHOD0( Destroy, void( ) );
-		MOCK_METHOD1( OnGameLevelChanged, void( Events::IEvent* ) );
+		MOCK_METHOD1( OnGameLevelChanged, void( const Events::IEvent* ) );
 		
 	};
 };

@@ -7,97 +7,101 @@ using namespace Network;
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockNetworkClientEndpoint.hpp"
 #include "Mocks/MockNetworkClientController.hpp"
+#include "Mocks/MockServerCache.hpp"
 
 #include "Configuration/Configuration.h"
 using namespace Configuration;
 
-TEST( NetworkClientProvider, should_initialize_network_interface )
+class NetworkClientProvider_Tests : public TestHarness< NetworkClientProvider >
+{
+
+protected:
+	 
+	MockNetworkInterface* m_networkInterface;
+	MockNetworkClientController* m_controller;
+	MockNetworkClientEndpoint* m_endpoint;
+	MockServerCache* m_serverCache;
+
+	void EstablishContext( )
+	{
+		m_networkInterface = new MockNetworkInterface( );
+		m_controller = new MockNetworkClientController( );
+		m_endpoint = new MockNetworkClientEndpoint( );
+		m_serverCache = new MockServerCache( );
+	}
+
+	void DestroyContext( )
+	{
+
+	}
+
+	NetworkClientProvider* CreateSubject( )
+	{
+		return new NetworkClientProvider( m_networkInterface, m_controller, m_endpoint, m_serverCache );
+	}
+};
+
+TEST_F( NetworkClientProvider_Tests, should_initialize_network_interface )
 {
 	unsigned int port = 8989;
 	int maxConnections = 10;
 
-	MockNetworkClientController* controller = new MockNetworkClientController( );
-	EXPECT_CALL( *controller, Initialize( ) );
+	EXPECT_CALL( *m_controller, Initialize( ) );
+	EXPECT_CALL( *m_endpoint, Initialize( ) );
+	EXPECT_CALL( *m_networkInterface, Initialize( port, maxConnections ) );
 
-	MockNetworkClientEndpoint* endpoint = new MockNetworkClientEndpoint( );
-	EXPECT_CALL( *endpoint, Initialize( ) );
-
-	MockNetworkInterface* eth0 = new MockNetworkInterface( );
-	EXPECT_CALL( *eth0, Initialize( port, maxConnections ) );
-
-	NetworkClientProvider provider( eth0, controller, endpoint );
-	provider.Initialize( port, maxConnections );
+	m_subject->Initialize( port, maxConnections );
 }
 
-TEST( NetworkClientProvider, should_connect_to_a_server )
+TEST_F( NetworkClientProvider_Tests, should_connect_to_a_server )
 {
 	std::string address = "127.0.0.1";
 	unsigned int port = 8989;
 
-	MockNetworkInterface* eth0 = new MockNetworkInterface( );
-	EXPECT_CALL( *eth0, Connect( address, port ) );
+	EXPECT_CALL( *m_networkInterface, Connect( address, port ) );
 
-	NetworkClientProvider provider( eth0, 0, 0 );
-	provider.Connect( address, port );
+	m_subject->Connect( address, port );
 }
 
-TEST( NetworkClientProvider, should_disconnect_from_a_server )
+TEST_F( NetworkClientProvider_Tests, should_disconnect_from_a_server )
 {
-	MockNetworkInterface* eth0 = new MockNetworkInterface( );
-	EXPECT_CALL( *eth0, Disconnect( ) );
+	EXPECT_CALL( *m_networkInterface, Disconnect( ) );
 
-	NetworkClientProvider provider( eth0, 0, 0 );
-	provider.Disconnect( );
+	m_subject->Disconnect( );
 }
 
-TEST( NetworkClientProvider, should_initialize_endpoint )
+TEST_F( NetworkClientProvider_Tests, should_initialize_endpoint )
 {
-	MockNetworkClientController* controller = new MockNetworkClientController( );
-	EXPECT_CALL( *controller, Initialize( ) );
+	EXPECT_CALL( *m_controller, Initialize( ) );
+	EXPECT_CALL( *m_endpoint, Initialize( ) );
+	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
-	MockNetworkClientEndpoint* endpoint = new MockNetworkClientEndpoint( );
-	EXPECT_CALL( *endpoint, Initialize( ) );
-
-	MockNetworkInterface* eth0 = new MockNetworkInterface( );
-	EXPECT_CALL( *eth0, Initialize( An< unsigned int >( ), An< int >( ) ) );
-
-	NetworkClientProvider provider( eth0, controller, endpoint );
-	provider.Initialize( 0, 0 );
+	m_subject->Initialize( 0, 0 );
 }
 
-TEST( NetworkClientProvider_Tests, should_update_the_endpoint )
+TEST_F( NetworkClientProvider_Tests, should_update_the_endpoint )
 {
 	float delta = 99;
 
-	MockNetworkClientEndpoint* endpoint = new MockNetworkClientEndpoint( );
-	EXPECT_CALL( *endpoint, Update( delta ) );
+	EXPECT_CALL( *m_endpoint, Update( delta ) );
 
-	NetworkClientProvider provider( 0, 0, endpoint );
-	provider.Update( delta );
+	m_subject->Update( delta );
 }
 
-TEST( NetworkClientProvider_Tests, should_initialize_the_client_controller )
+TEST_F( NetworkClientProvider_Tests, should_initialize_the_client_controller )
 {
-	MockNetworkClientController* controller = new MockNetworkClientController( );
-	EXPECT_CALL( *controller, Initialize( ) );
+	EXPECT_CALL( *m_controller, Initialize( ) );
+	EXPECT_CALL( *m_endpoint, Initialize( ) );
+	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
-	MockNetworkClientEndpoint* endpoint = new MockNetworkClientEndpoint( );
-	EXPECT_CALL( *endpoint, Initialize( ) );
-
-	MockNetworkInterface* eth0 = new MockNetworkInterface( );
-	EXPECT_CALL( *eth0, Initialize( An< unsigned int >( ), An< int >( ) ) );
-
-	NetworkClientProvider provider( eth0, controller, endpoint );
-	provider.Initialize( 0, 0 );
+	m_subject->Initialize( 0, 0 );
 }
 
-TEST( NetworkClientProvider_Tests, should_select_a_character )
+TEST_F( NetworkClientProvider_Tests, should_select_a_character )
 {
 	std::string characterName = "marine";
 
-	MockNetworkClientController* controller = new MockNetworkClientController( );
-	EXPECT_CALL( *controller, SelectCharacter( characterName ) );
+	EXPECT_CALL( *m_controller, SelectCharacter( characterName ) );
 
-	NetworkClientProvider provider( 0, controller, 0 );
-	provider.SelectCharacter( characterName );
+	m_subject->SelectCharacter( characterName );
 }
