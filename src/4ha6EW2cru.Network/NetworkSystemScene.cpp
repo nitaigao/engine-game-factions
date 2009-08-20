@@ -7,18 +7,7 @@ namespace Network
 {
 	NetworkSystemScene::~NetworkSystemScene()
 	{
-		for( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
-		{
-			delete ( *i );
-		}
-
 		delete m_componentFactory;
-	}
-
-	NetworkSystemScene::NetworkSystemScene( )
-		: m_componentFactory( new NetworkSystemComponentFactory( ) )
-	{
-
 	}
 
 	ISystemComponent* NetworkSystemScene::CreateComponent( const std::string& name, const std::string& type )

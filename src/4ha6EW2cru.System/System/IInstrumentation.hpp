@@ -8,7 +8,7 @@
 #ifndef IINSTRUMENTATION_HPP
 #define IINSTRUMENTATION_HPP
 
-namespace 
+namespace System
 {
 	/*! 
 	 *  The Instrumentation Provider of Statistics about the Game

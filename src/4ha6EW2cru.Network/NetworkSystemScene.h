@@ -33,13 +33,6 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		GAMEAPI NetworkSystemScene( );
-
-
-		/*! IoC Constructor
-		*
-		* @return (  )
-		*/
 		NetworkSystemScene( INetworkSystemComponentFactory* componentFactory )
 			: m_componentFactory( componentFactory )
 		{

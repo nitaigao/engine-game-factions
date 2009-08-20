@@ -5,6 +5,7 @@ using namespace Services;
 
 #include "../System/SystemManager.h"
 #include "../System/Instrumentation.hpp"
+using namespace System;
 
 #include "../Exceptions/UnInitializedException.hpp"
 

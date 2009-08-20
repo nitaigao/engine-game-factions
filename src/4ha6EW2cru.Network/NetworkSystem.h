@@ -13,9 +13,12 @@
 #include "INetworkSystem.hpp"
 #include "INetworkSystemScene.hpp"
 #include "INetworkClientProvider.hpp"
+#include "INetworkServerProvider.hpp"
 
 #include "Configuration/IConfiguration.hpp"
 #include "Service/IServiceManager.h"
+#include "System/Instrumentation.hpp"
+#include "System/IInstrumentation.hpp"
 
 namespace Network
 {
@@ -33,18 +36,21 @@ namespace Network
 		 */
 		GAMEAPI ~NetworkSystem( );
 
+
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager );
-
-
-		/*! IoC Constructor
-		*
-		* @return (  )
-		*/
-		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager, INetworkSystemScene* scene, INetworkClientProvider* clientProvider );
+		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
+			INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider )
+			: m_instrumentation( instrumentation )
+			, m_serviceManager( serviceManager )
+			, m_scene( scene )
+			, m_clientProvider( clientProvider )
+			, m_serverProvider( serverProvider )
+		{
+			m_attributes[ System::Attributes::Network::IsServer ] = false;
+		}
 
 
 		/*! Initializes the System
@@ -140,13 +146,13 @@ namespace Network
 		NetworkSystem( const NetworkSystem & copy ) { };
 		NetworkSystem & operator = ( const NetworkSystem & copy ) { return *this; };
 	
-		Configuration::IConfiguration* m_configuration;
-
 		AnyType::AnyTypeMap m_attributes;
-		INetworkSystemScene* m_scene;
+
 		Services::IServiceManager* m_serviceManager;
+		System::IInstrumentation* m_instrumentation;
+		INetworkSystemScene* m_scene;
 		INetworkClientProvider* m_clientProvider;
-		
+		INetworkServerProvider* m_serverProvider;	
 	};
 };
 

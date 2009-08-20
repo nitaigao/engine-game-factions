@@ -8,45 +8,59 @@ using namespace Network;
 #include "Mocks/MockNetworkSystemComponentFactory.hpp"
 #include "Mocks/MockNetworkSystemComponent.hpp"
 
-TEST( NetworkSystemScene, should_update_providers )
+class NetworkSystemScene_Tests : public TestHarness< NetworkSystemScene >
+{
+
+protected:
+
+	MockNetworkSystemComponentFactory* m_componentFactory;
+	MockNetworkSystemProvider* m_provider;
+
+	void EstablishContext( )
+	{
+		m_componentFactory = new MockNetworkSystemComponentFactory( );
+		m_provider = new MockNetworkSystemProvider( );
+	}
+
+	NetworkSystemScene* CreateSubject( )
+	{
+		return new NetworkSystemScene( m_componentFactory );
+	}
+};
+
+
+TEST_F( NetworkSystemScene_Tests, should_update_providers )
 {
 	float delta = 99;
 
-	MockNetworkSystemProvider* provider = new MockNetworkSystemProvider( );
-	EXPECT_CALL( *provider, Update( delta ) ); 
+	EXPECT_CALL( *m_provider, Update( delta ) ); 
 
-	NetworkSystemScene scene;
-	scene.AddNetworkProvider( provider );
-	scene.Update( delta );
+	m_subject->AddNetworkProvider( m_provider );
+	m_subject->Update( delta );
 }
 
 
-TEST( NetworkSystemScene, should_add_providers_to_a_new_component )
+TEST_F( NetworkSystemScene_Tests, should_add_providers_to_a_new_component )
 {
-	MockNetworkSystemProvider* provider = new MockNetworkSystemProvider( );
-	MockNetworkSystemComponentFactory* factory = new MockNetworkSystemComponentFactory( );
 	MockNetworkSystemComponent* component = new MockNetworkSystemComponent( );
 
 	std::string name = "test";
 
-	EXPECT_CALL( *factory, Create( name ) )
+	EXPECT_CALL( *m_componentFactory, Create( name ) )
 		.WillOnce( Return( component ) );
 
-	EXPECT_CALL( *component, AddProvider( provider ) );
+	EXPECT_CALL( *component, AddProvider( m_provider ) );
  
-	NetworkSystemScene scene( factory );
-	scene.AddNetworkProvider( provider );
-	scene.CreateComponent( name, "default" );
+	m_subject->AddNetworkProvider( m_provider );
+	m_subject->CreateComponent( name, "default" );
 
 	delete component;
 }
 
-TEST( NetworkSystemScene, should_release_all_providers )
+TEST_F( NetworkSystemScene_Tests, should_release_all_providers )
 {
-	MockNetworkSystemProvider* provider = new MockNetworkSystemProvider( );
-	EXPECT_CALL( *provider, Destroy( ) ); 
+	EXPECT_CALL( *m_provider, Destroy( ) ); 
 
-	NetworkSystemScene scene;
-	scene.AddNetworkProvider( provider );
-	scene.Destroy( );
+	m_subject->AddNetworkProvider( m_provider );
+	m_subject->Destroy( );
 }

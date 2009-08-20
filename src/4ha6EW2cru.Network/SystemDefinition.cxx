@@ -1,8 +1,10 @@
+#include "NetworkFactory.h"
 #include "NetworkSystem.h"
 
 #include "System/Memory.cxx"
 
 #include "Management/Management.h"
+
 #include "Logging/Logger.h"
 using namespace Logging;
 
@@ -20,7 +22,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( )
 {
-	return new Network::NetworkSystem( Management::Get( )->GetServiceManager( ) );
+	return Network::NetworkFactory( ).CreateNetworkSystem( );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

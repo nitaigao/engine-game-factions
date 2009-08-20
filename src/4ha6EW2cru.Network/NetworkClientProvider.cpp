@@ -6,15 +6,6 @@
 
 namespace Network
 {
-	NetworkClientProvider::NetworkClientProvider( Configuration::IConfiguration* configuration )
-		: m_configuration( configuration )
-		, m_networkInterface( new NetworkInterface( ) )
-		, m_controller( new NetworkClientController( m_networkInterface ) )
-		, m_endpoint( new NetworkClientEndpoint( m_networkInterface ) )
-	{
-
-	}
-
 	NetworkClientProvider::~NetworkClientProvider( )
 	{
 		delete m_endpoint;

@@ -20,31 +20,12 @@ using namespace RakNet;
 
 namespace Network
 {
-	NetworkServerProvider::NetworkServerProvider( IConfiguration* configuration )
-		: m_configuration( configuration )
-		, m_networkInterface( new NetworkInterface( ) )
-		, m_controller( new NetworkServerController( m_networkInterface ) )
-		, m_endpoint( new NetworkServerEndpoint( m_networkInterface, m_controller ) )
-	{
-
-	}
-
 	NetworkServerProvider::~NetworkServerProvider( )
 	{
-		if ( m_endpoint != 0 )
-		{
-			delete m_endpoint;
-		}
-
-		if ( m_controller != 0 )
-		{
-			delete m_controller;
-		}
-
-		if ( m_networkInterface != 0 )
-		{
-			delete m_networkInterface;
-		}
+		delete m_configuration;
+		delete m_endpoint;
+		delete m_controller;
+		delete m_networkInterface;
 	}
 
 	void NetworkServerProvider::Initialize( unsigned int port, int maxConnections)

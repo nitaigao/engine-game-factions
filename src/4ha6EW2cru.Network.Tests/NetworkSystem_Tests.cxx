@@ -11,103 +11,124 @@ using namespace Configuration;
 #include "Mocks/MockNetworkSystemScene.hpp"
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockNetworkClientProvider.hpp"
+#include "Mocks/MockNetworkServerProvider.hpp"
+#include "Mocks/MockInstrumentation.hpp"
 
 #include "Service/IService.hpp"
 using namespace Services;
 
-TEST( NetworkSystem_Tests, should_add_server_network_provider_to_scene )
+class NetworkSystem_Tests : public TestHarness< NetworkSystem >
 {
-	MockServiceManager serviceManager;
-	EXPECT_CALL( serviceManager, RegisterService( An< IService* >( ) ) );
 
-	MockNetworkSystemScene* scene = new MockNetworkSystemScene( );
-	EXPECT_CALL( *scene, AddNetworkProvider( An< INetworkProvider* >( ) ) )
+protected:
+
+	MockServiceManager* m_serviceManager;
+	MockNetworkSystemScene* m_scene;
+	MockNetworkClientProvider* m_clientProvider;
+	MockNetworkServerProvider * m_serverProvider;
+	MockInstrumentation* m_instrumentation;
+
+	void EstablishContext( )
+	{
+		m_serviceManager = new MockServiceManager( );
+		m_scene = new MockNetworkSystemScene( );
+		m_clientProvider = new MockNetworkClientProvider( );
+		m_serverProvider = new MockNetworkServerProvider( );
+		m_instrumentation = new MockInstrumentation( );
+	}
+
+
+	void DestroyContext( )
+	{
+		delete m_scene;
+		delete m_serviceManager;
+		delete m_instrumentation;
+
+		if ( m_clientProvider != 0 )
+		{
+			delete m_clientProvider;
+		}
+
+		if ( m_serverProvider != 0 )
+		{
+			delete m_serverProvider;
+		}
+	}
+
+	NetworkSystem* CreateSubject( )
+	{
+		return new NetworkSystem( m_serviceManager, m_instrumentation, m_scene, m_clientProvider, m_serverProvider ); 
+	}
+};
+
+TEST_F( NetworkSystem_Tests, should_add_server_network_provider_to_scene )
+{
+	EXPECT_CALL( *m_serviceManager, RegisterService( An< IService* >( ) ) );
+	EXPECT_CALL( *m_scene, AddNetworkProvider( An< INetworkProvider* >( ) ) )
 		.Times( AtLeast( 1 ) );
 
 	ClientConfiguration config;
-
-	NetworkSystem system( &serviceManager, scene, 0 );
-	system.Initialize( &config );
+	m_subject->Initialize( &config );
 	
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::Network::Port ] = static_cast< unsigned int >( 8989 );
 	parameters[ System::Parameters::Network::Server::MaxPlayers ] = 10;
+	parameters[ System::Parameters::Game::LevelName ] = "test";
 
-	system.Message( System::Messages::Network::CreateServer, parameters );
-
-	delete scene;
+	m_subject->Message( System::Messages::Network::CreateServer, parameters );
 }
 
-TEST( NetworkSystem, should_add_client_network_provider_to_the_scene )
+TEST_F( NetworkSystem_Tests, should_add_client_network_provider_to_the_scene )
 {
-	MockServiceManager serviceManager;
-	EXPECT_CALL( serviceManager, RegisterService( An< IService* >( ) ) );
-
-	MockNetworkSystemScene* scene = new MockNetworkSystemScene( );
-	EXPECT_CALL( *scene, AddNetworkProvider( An< INetworkProvider* >( ) ) );
+	EXPECT_CALL( *m_serviceManager, RegisterService( An< IService* >( ) ) );
+	EXPECT_CALL( *m_scene, AddNetworkProvider( An< INetworkProvider* >( ) ) );
 
 	ClientConfiguration config;
 
-	NetworkSystem system( &serviceManager, scene, 0 );
-	system.SetAttribute( System::Attributes::Network::IsServer, false );
-	system.Initialize( &config );
-
-	delete scene;
+	m_subject->SetAttribute( System::Attributes::Network::IsServer, false );
+	m_subject->Initialize( &config );
+	m_subject->Release( );
 }
 
-TEST( NetworkSystem, should_connect_to_server )
+TEST_F( NetworkSystem_Tests, should_connect_to_server )
 {
 	std::string serverAddress = "127.0.0.1";
 	unsigned int port = 8989;
 
-	MockNetworkClientProvider* clientProvider = new MockNetworkClientProvider( );
-	EXPECT_CALL( *clientProvider, Connect( serverAddress, port ) );
-
-	NetworkSystem system( 0, 0, clientProvider );
+	EXPECT_CALL( *m_clientProvider, Connect( serverAddress, port ) );
 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::Network::HostAddress ] = serverAddress;
 	parameters[ System::Parameters::Network::Port ] = port;
 
-	system.Message( System::Messages::Network::Connect, parameters );
+	m_subject->Message( System::Messages::Network::Connect, parameters );
 }
 
-TEST( NetworkSystem, should_disconnect_from_server )
+TEST_F( NetworkSystem_Tests, should_disconnect_from_server )
 {
-	MockNetworkClientProvider* clientProvider = new MockNetworkClientProvider( );
-	EXPECT_CALL( *clientProvider, Disconnect( ) );
-
-	NetworkSystem system( 0, 0, clientProvider );
-
-	system.Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) );
+	EXPECT_CALL( *m_clientProvider, Disconnect( ) );
+	m_subject->Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) );
 }
 
-TEST( NetworkSystem_Tests, should_update_the_scene )
+TEST_F( NetworkSystem_Tests, should_update_the_scene )
 {
 	float delta = 99;
 
-	MockServiceManager serviceManager;
+	EXPECT_CALL( *m_scene, Update( delta ) );
 
-	MockNetworkSystemScene scene;
-	EXPECT_CALL( scene, Update( delta ) );
-
-	NetworkSystem system( &serviceManager , &scene, 0 );
-	system.Update( delta );
+	m_subject->Update( delta );
 }
 
 
-TEST( NetworkSystem_Tests, should_call_select_character_when_client_picks_one )
+TEST_F( NetworkSystem_Tests, should_call_select_character_when_client_picks_one )
 {
 	std::string characterName = "marine";
 
-	MockNetworkClientProvider* clientProvider = new MockNetworkClientProvider( );
-	EXPECT_CALL( *clientProvider, SelectCharacter( characterName ) );
-
-	NetworkSystem system( 0, 0, clientProvider );
+	EXPECT_CALL( *m_clientProvider, SelectCharacter( characterName ) );
 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
 
-	system.Message( System::Messages::Network::Client::CharacterSelected, parameters );
+	m_subject->Message( System::Messages::Network::Client::CharacterSelected, parameters );
 }
 

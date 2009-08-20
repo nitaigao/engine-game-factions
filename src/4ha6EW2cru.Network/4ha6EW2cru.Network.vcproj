@@ -202,6 +202,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkInterface.cpp"
 				>
 			</File>
@@ -316,6 +320,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\INetworkServerProvider.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\INetworkStream.hpp"
 				>
 			</File>
@@ -349,6 +357,10 @@
 			</File>
 			<File
 				RelativePath=".\NetworkClientProvider.h"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkFactory.h"
 				>
 			</File>
 			<File

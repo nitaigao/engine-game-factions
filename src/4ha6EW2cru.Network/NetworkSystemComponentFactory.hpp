@@ -10,6 +10,8 @@
 
 #include "INetworkSystemComponentFactory.hpp"
 
+#include "NetworkSystemComponent.h"
+
 namespace Network
 {
 	/*! 

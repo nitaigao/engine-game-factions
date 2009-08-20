@@ -8,10 +8,12 @@
 #ifndef INSTRUMENTATION_HPP
 #define INSTRUMENTATION_HPP
 
+#include "IInstrumentation.hpp"
+
 /*! 
  *  A provider for performance statistics
  */
-class Instrumentation : public IInstrumentation
+class Instrumentation : public System::IInstrumentation
 {
 
 	typedef std::map< System::Queues::Queue, float > RoundTimeList;

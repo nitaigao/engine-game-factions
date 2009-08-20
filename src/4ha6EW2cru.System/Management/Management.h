@@ -116,7 +116,7 @@ public:
 	*
 	* @return ( IInstrumentation* )
 	*/
-	inline IInstrumentation* GetInstrumentation( ) { return m_instrumentation; };
+	inline System::IInstrumentation* GetInstrumentation( ) { return m_instrumentation; };
 
 protected:
 
@@ -135,7 +135,7 @@ private:
 	IO::IFileSystem* m_fileSystem;
 	Resources::IResourceCache* m_resourceCache;
 	Events::EventManager* m_eventManager;
-	IInstrumentation* m_instrumentation;
+	System::IInstrumentation* m_instrumentation;
 
 };
 

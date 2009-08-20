@@ -35,32 +35,15 @@ using namespace Configuration;
 #include <luabind/luabind.hpp>
 using namespace luabind;
 
-#include "Service/IServiceManager.h"
 using namespace Services;
 
 namespace Network
 {
 	NetworkSystem::~NetworkSystem( )
 	{
-
-	}
-
-	NetworkSystem::NetworkSystem( IServiceManager* serviceManager )
-		: m_configuration( 0 )
-		, m_serviceManager( serviceManager )
-		, m_scene( new NetworkSystemScene( ) )
-		, m_clientProvider( 0 )
-	{
-		m_attributes[ System::Attributes::Network::IsServer ] = false;
-	}
-
-	NetworkSystem::NetworkSystem( IServiceManager* serviceManager, INetworkSystemScene* scene, INetworkClientProvider* clientProvider )
-		: m_scene( scene )
-		, m_serviceManager( serviceManager )
-		, m_clientProvider( clientProvider )
-	{
-		m_attributes[ System::Attributes::Network::IsServer ] = false;
-	}
+		delete m_clientProvider;
+		delete m_serverProvider;
+	}	
 
 	void NetworkSystem::Release( )
 	{
@@ -74,13 +57,10 @@ namespace Network
 
 	void NetworkSystem::Initialize( Configuration::IConfiguration* configuration )
 	{
-		m_configuration = configuration;
-
 		m_serviceManager->RegisterService( this );
 
 		if ( !m_attributes[ System::Attributes::Network::IsServer ].As< bool >( ) )
 		{
-			m_clientProvider = new NetworkClientProvider( m_configuration );
 			m_clientProvider->Initialize( 0, 1 );
 			m_scene->AddNetworkProvider( m_clientProvider );
 		}
@@ -125,17 +105,14 @@ namespace Network
 
 		if ( message == System::Messages::Network::CreateServer )
 		{
-			//TODO - need to access this without calling singletons all the time
-			//Management::Get( )->GetInstrumentation( )->SetLevelName( parameters[ System::Parameters::Network::Server::LevelName ].As< std::string >( ) );
+			m_instrumentation->SetLevelName( parameters[ System::Parameters::Game::LevelName ].As< std::string >( ) );
 
-			NetworkServerProvider* serverProvider = new NetworkServerProvider( m_configuration );
-
-			serverProvider->Initialize(
+			m_serverProvider->Initialize(
 				parameters[ System::Parameters::Network::Port ].As< unsigned int >( ),
 				parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( )
 				);
 
-			m_scene->AddNetworkProvider( serverProvider );
+			m_scene->AddNetworkProvider( m_serverProvider );
 		}
 
 		if ( message == System::Messages::Network::Connect )

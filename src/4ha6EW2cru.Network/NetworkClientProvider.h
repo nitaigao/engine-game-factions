@@ -32,22 +32,14 @@ namespace Network
 		 *  @return ()
 		 */
 		GAMEAPI ~NetworkClientProvider( );
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		explicit NetworkClientProvider( Configuration::IConfiguration* configuration );
-
+	
 
 		/*! IoC Constructor
 		*
 		* @return (  )
 		*/
-		NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
-			: m_configuration( configuration )
-			, m_networkInterface( networkInterface )
+		NetworkClientProvider( INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
+			: m_networkInterface( networkInterface )
 			, m_endpoint( endpoint )
 			, m_controller( controller )
 		{
@@ -117,7 +109,6 @@ namespace Network
 		NetworkClientProvider( const NetworkClientProvider & copy ) { };
 		NetworkClientProvider & operator = ( const NetworkClientProvider & copy ) { return *this; };
 
-		Configuration::IConfiguration* m_configuration;
 		INetworkInterface* m_networkInterface;
 		INetworkClientEndpoint* m_endpoint;
 		INetworkClientController* m_controller;

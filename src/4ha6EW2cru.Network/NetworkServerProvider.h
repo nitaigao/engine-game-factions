@@ -12,6 +12,7 @@
 #include "INetworkProvider.hpp"
 #include "INetworkServerController.hpp"
 #include "INetworkServerEndpoint.hpp"
+#include "INetworkServerProvider.hpp"
 #include "INetworkInterface.hpp"
 
 #include "Configuration/IConfiguration.hpp"
@@ -26,7 +27,7 @@ namespace Network
 	/*! 
 	 *  Receives input from clients on the Network and Transmits Updates
 	 */
-	class NetworkServerProvider : public INetworkProvider
+	class NetworkServerProvider : public INetworkServerProvider
 	{
 
 	public:
@@ -36,13 +37,6 @@ namespace Network
 		 *  @return ()
 		 */
 		GAMEAPI ~NetworkServerProvider( );
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		GAMEAPI NetworkServerProvider( Configuration::IConfiguration* configuration );
 
 
 		/*! IoC Constructor

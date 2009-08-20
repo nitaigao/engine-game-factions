@@ -25,9 +25,7 @@ TEST( NetworkClientProvider, should_initialize_network_interface )
 	MockNetworkInterface* eth0 = new MockNetworkInterface( );
 	EXPECT_CALL( *eth0, Initialize( port, maxConnections ) );
 
-	ClientConfiguration config;
-
-	NetworkClientProvider provider( &config, eth0, controller, endpoint );
+	NetworkClientProvider provider( eth0, controller, endpoint );
 	provider.Initialize( port, maxConnections );
 }
 
@@ -39,9 +37,7 @@ TEST( NetworkClientProvider, should_connect_to_a_server )
 	MockNetworkInterface* eth0 = new MockNetworkInterface( );
 	EXPECT_CALL( *eth0, Connect( address, port ) );
 
-	ClientConfiguration config;
-
-	NetworkClientProvider provider( &config, eth0, 0, 0 );
+	NetworkClientProvider provider( eth0, 0, 0 );
 	provider.Connect( address, port );
 }
 
@@ -50,9 +46,7 @@ TEST( NetworkClientProvider, should_disconnect_from_a_server )
 	MockNetworkInterface* eth0 = new MockNetworkInterface( );
 	EXPECT_CALL( *eth0, Disconnect( ) );
 
-	ClientConfiguration config;
-
-	NetworkClientProvider provider( &config, eth0, 0, 0 );
+	NetworkClientProvider provider( eth0, 0, 0 );
 	provider.Disconnect( );
 }
 
@@ -67,7 +61,7 @@ TEST( NetworkClientProvider, should_initialize_endpoint )
 	MockNetworkInterface* eth0 = new MockNetworkInterface( );
 	EXPECT_CALL( *eth0, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
-	NetworkClientProvider provider( 0, eth0, controller, endpoint );
+	NetworkClientProvider provider( eth0, controller, endpoint );
 	provider.Initialize( 0, 0 );
 }
 
@@ -78,7 +72,7 @@ TEST( NetworkClientProvider_Tests, should_update_the_endpoint )
 	MockNetworkClientEndpoint* endpoint = new MockNetworkClientEndpoint( );
 	EXPECT_CALL( *endpoint, Update( delta ) );
 
-	NetworkClientProvider provider( 0, 0, 0, endpoint );
+	NetworkClientProvider provider( 0, 0, endpoint );
 	provider.Update( delta );
 }
 
@@ -93,7 +87,7 @@ TEST( NetworkClientProvider_Tests, should_initialize_the_client_controller )
 	MockNetworkInterface* eth0 = new MockNetworkInterface( );
 	EXPECT_CALL( *eth0, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
-	NetworkClientProvider provider( 0, eth0, controller, endpoint );
+	NetworkClientProvider provider( eth0, controller, endpoint );
 	provider.Initialize( 0, 0 );
 }
 
@@ -104,6 +98,6 @@ TEST( NetworkClientProvider_Tests, should_select_a_character )
 	MockNetworkClientController* controller = new MockNetworkClientController( );
 	EXPECT_CALL( *controller, SelectCharacter( characterName ) );
 
-	NetworkClientProvider provider( 0, 0, controller, 0 );
+	NetworkClientProvider provider( 0, controller, 0 );
 	provider.SelectCharacter( characterName );
 }
