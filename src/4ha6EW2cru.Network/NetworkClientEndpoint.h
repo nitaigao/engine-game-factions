@@ -13,6 +13,7 @@
 #include "IServerCache.hpp"
 
 #include "Events/EventManager.h"
+#include "Service/IServiceManager.h"
 
 namespace Network
 {
@@ -35,7 +36,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager );
+		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager );
 
 
 		/*! Initializes the Endpoint
@@ -62,10 +63,12 @@ namespace Network
 
 
 		static void Net_LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
-
 		static void Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
+		static void Net_UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 
-		void CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork ); 
+
+		void CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
+		void UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 
 	private:
 
@@ -76,6 +79,8 @@ namespace Network
 		IServerCache* m_serverCache;
 
 		Events::EventManager* m_eventManager;
+		Services::IServiceManager* m_serviceManager;
+
 		bool m_isPassive;
 
 		static NetworkClientEndpoint* m_clientEndpoint;

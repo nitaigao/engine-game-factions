@@ -12,16 +12,12 @@
 #include "INetworkServerEndpoint.hpp"
 #include "INetworkInterface.hpp"
 
-#include <RPC3.h>
-
-#include "Export.hpp"
-
 namespace Network
 {
 	/*! 
 	 *  The Server Endpoint for receiving Network messages
 	 */
-	class NetworkServerEndpoint : public INetworkServerEndpoint
+	class GAMEAPI NetworkServerEndpoint : public INetworkServerEndpoint
 	{
 
 	public:
@@ -37,19 +33,14 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkServerController* controller )
-			: m_networkInterface( networkInterface )
-			, m_networkController( controller )
-		{
-
-		}
+		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkServerController* controller );
 
 
 		/*! Initializes the Endpoint
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Updates the Endpoint
@@ -57,9 +48,18 @@ namespace Network
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
-		static void SelectCharacter( RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork );
+
+		/*! Called when a client has finished loading a level
+		*
+		* @param[in] RakNet::RPC3 * rpcFromNetwork
+		* @return ( void )
+		*/
+		void LevelLoaded( RakNet::RPC3* rpcFromNetwork );
+
+		static void Net_LevelLoaded( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
+		static void Net_SelectCharacter( RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork );
 
 	private:
 
@@ -68,6 +68,8 @@ namespace Network
 		
 		INetworkInterface* m_networkInterface;
 		INetworkServerController* m_networkController;
+
+		static NetworkServerEndpoint* m_networkServerEndpoint;
 
 	};
 };

@@ -17,7 +17,7 @@ namespace Network
 	/*! 
 	 *  Sends Client Information to the Network
 	 */
-	class INetworkClientController : public INetworkController
+	class GAMEAPI INetworkClientController : public INetworkController
 	{
 
 	public:
@@ -42,6 +42,12 @@ namespace Network
 		 */
 		virtual void FindServers( ) = 0;
 		
+
+		/*! Tells the Server that the Client has finished loading the Level
+		 *
+		 * @return ( void )
+		 */
+		virtual void LevelLoaded( ) = 0;
 	};
 };
 

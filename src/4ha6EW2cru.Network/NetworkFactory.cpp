@@ -37,7 +37,7 @@ namespace Network
 				return new NetworkClientProvider( 
 					networkInterface, 
 					new NetworkClientController( networkInterface ),
-					new NetworkClientEndpoint( networkInterface, serverCache, Management::Get( )->GetEventManager( ) ),
+					new NetworkClientEndpoint( networkInterface, serverCache, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) ),
 					serverCache
 					);
 			}
@@ -45,7 +45,7 @@ namespace Network
 		case SERVER:
 			{
 				INetworkInterface* networkInterface = new NetworkInterface( );
-				INetworkServerController* controller = new NetworkServerController( networkInterface );
+				INetworkServerController* controller = new NetworkServerController( networkInterface, Management::Get( )->GetServiceManager( ) );
 
 				return new NetworkServerProvider( 
 					new ClientConfiguration( ),

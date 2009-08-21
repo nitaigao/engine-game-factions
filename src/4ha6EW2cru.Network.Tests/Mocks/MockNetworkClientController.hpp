@@ -22,6 +22,7 @@ namespace
 		MOCK_METHOD0( Initialize, void( ) );
 		MOCK_METHOD1( SelectCharacter, void( const std::string& ) );
 		MOCK_METHOD0( FindServers, void( ) );
+		MOCK_METHOD0( LevelLoaded, void ( ) );
 		
 	};
 };

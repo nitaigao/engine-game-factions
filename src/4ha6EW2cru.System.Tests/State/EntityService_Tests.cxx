@@ -45,12 +45,13 @@ TEST( EntityService_Tests, should_create_entity_when_messaged )
 	MockStream stream;
 	MockWorld world;
 
-	EXPECT_CALL( world, CreateEntity( A< const std::string& >( ), A< const std::string& >( ) ) );
+	EXPECT_CALL( world, CreateEntity( A< const std::string& >( ), A< const std::string& >( ), A< const std::string& >( ) ) );
 
 	EntityService service( &world );
 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::Name ] = "testName";
+	parameters[ System::Attributes::EntityType ] = "testType";
 	parameters[ System::Attributes::FilePath ] = "testPath";
 
 	service.Message( System::Messages::Entity::CreateEntity, parameters );

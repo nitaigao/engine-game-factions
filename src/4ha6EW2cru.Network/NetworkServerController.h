@@ -11,12 +11,14 @@
 #include "INetworkServerController.hpp"
 #include "INetworkInterface.hpp"
 
+#include "Service/IServiceManager.h"
+
 namespace Network
 {
 	/*! 
 	 *  A Controller that transmits messages across the network
 	 */
-	class NetworkServerController : public INetworkServerController, public NetworkIDObject
+	class GAMEAPI NetworkServerController : public INetworkServerController
 	{
 
 	public:
@@ -25,15 +27,16 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~NetworkServerController( );
+		~NetworkServerController( );
 
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		NetworkServerController( INetworkInterface* networkInterface )
+		NetworkServerController( INetworkInterface* networkInterface, Services::IServiceManager* serviceManager )
 			: m_networkInterface( networkInterface )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -43,7 +46,7 @@ namespace Network
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Sends the SetPosition message for an Entity across the Network
@@ -52,7 +55,7 @@ namespace Network
 		* @param[in] const Maths::MathVector3 & position
 		* @return ( void )
 		*/
-		GAMEAPI void SetPosition( const std::string& name, const Maths::MathVector3& position );
+		void SetPosition( const std::string& name, const Maths::MathVector3& position );
 
 
 		/*! Sends the SetOrientation message for an given Entity across the network
@@ -61,7 +64,7 @@ namespace Network
 		* @param[in] const Maths::MathQuaternion & orientation
 		* @return ( void )
 		*/
-		GAMEAPI void SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation );
+		void SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation );
 
 
 		/*! Instructs the Controller that a client has connected
@@ -69,7 +72,7 @@ namespace Network
 		* @param[in] const SystemAddress & clientAddress
 		* @return ( void )
 		*/
-		GAMEAPI void ClientConnected( const SystemAddress& clientAddress );
+		void ClientConnected( const SystemAddress& clientAddress );
 
 
 		/*! Broadcasts to the connected clients to create the Entity
@@ -78,7 +81,15 @@ namespace Network
 		* @param[in] const std::string & filePath
 		* @return ( void )
 		*/
-		GAMEAPI void CreateEntity( const std::string& entityName, const std::string& filePath );
+		void CreateEntity( const std::string& entityName, const std::string& entityType );
+
+
+		/*! Pushes a world update to the client at the given address
+		*
+		* @param[in] const SystemAddress & address
+		* @return ( void )
+		*/
+		void SendWorldUpdate( const SystemAddress& address );
 
 	private:
 
@@ -86,7 +97,7 @@ namespace Network
 		NetworkServerController & operator = ( const NetworkServerController & copy ) { return *this; };
 
 		INetworkInterface* m_networkInterface; 
-		
+		Services::IServiceManager* m_serviceManager;
 	};
 };
 

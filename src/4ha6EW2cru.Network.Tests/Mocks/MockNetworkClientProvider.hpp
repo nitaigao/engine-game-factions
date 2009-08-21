@@ -30,6 +30,7 @@ namespace
 		MOCK_METHOD0( FindServers, void( ) );
 		MOCK_METHOD1( GetServerAdvertisement, IServerAdvertisement*( int ) );
 		MOCK_METHOD1( SetPassive, void( bool ) );
+		MOCK_METHOD0( LevelLoaded, void ( ) );
 
 	};
 };

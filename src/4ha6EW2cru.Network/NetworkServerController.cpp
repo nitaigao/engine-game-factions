@@ -1,8 +1,11 @@
 #include "NetworkServerController.h"
 
 #include "NetworkClientEndpoint.h"
-
+#include "NetworkStream.h"
 using namespace RakNet;
+
+#include "IO/IStream.hpp"
+using namespace IO;
 
 #include "Management/Management.h"
 
@@ -17,6 +20,7 @@ namespace Network
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_LoadLevel );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
 	}
 
 	void NetworkServerController::SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation )
@@ -35,10 +39,24 @@ namespace Network
 		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_LoadLevel", RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
 	}
 
-	void NetworkServerController::CreateEntity( const std::string& entityName, const std::string& filePath )
+	void NetworkServerController::CreateEntity( const std::string& entityName, const std::string& entityType )
 	{
 		m_networkInterface->GetRPC( )->SetRecipientAddress( UNASSIGNED_SYSTEM_ADDRESS, true );
+		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_CreateEntity", RakString( entityName ), RakString( entityType ) );
+	}
 
-		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_CreateEntity", RakString( entityName ), RakString( filePath ) );
+	void NetworkServerController::SendWorldUpdate( const SystemAddress& address )
+	{
+		m_networkInterface->GetRPC( )->SetRecipientAddress( address, false );
+		
+		BitStream stream;
+		NetworkStream networkStream( &stream );
+
+		AnyType::AnyTypeMap parameters;
+		parameters[ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
+
+		m_serviceManager->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::SerializeWorld, parameters );
+
+		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_UpdateWorld", stream );
 	}
 }

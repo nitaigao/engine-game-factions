@@ -61,7 +61,7 @@ namespace Network
 
 		if ( message == System::Messages::Entity::CreateEntity )
 		{
-			m_controller->CreateEntity( entityName, parameters[ System::Attributes::FilePath ].As< std::string >( ) );
+			m_controller->CreateEntity( entityName, parameters[ System::Attributes::EntityType ].As< std::string >( ) );
 		}
 	}
 

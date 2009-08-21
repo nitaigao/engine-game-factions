@@ -161,7 +161,7 @@ namespace Network
 
 		if ( message == System::Messages::Network::Client::LevelLoaded )
 		{
-
+			m_clientProvider->LevelLoaded( );
 		}
 
 		return results;

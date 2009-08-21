@@ -61,12 +61,12 @@ namespace State
 	{
 		stream->Write( m_name );
 
-		AnyType::AnyTypeMap::iterator filePath = m_attributes.find( System::Attributes::FilePath );
+		AnyType::AnyTypeMap::iterator entityType = m_attributes.find( System::Attributes::EntityType );
 
-		if ( filePath != m_attributes.end( ) )
+		if ( entityType != m_attributes.end( ) )
 		{
 			stream->Write( 1 );
-			stream->Write( ( *filePath ).second.As< std::string >( ) );
+			stream->Write( ( *entityType ).second.As< std::string >( ) );
 		}
 		else
 		{

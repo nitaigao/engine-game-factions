@@ -43,10 +43,16 @@ namespace State
 		return entity;
 	}
 
-	IWorldEntity* World::CreateEntity( const std::string& name, const std::string& filePath )
+	IWorldEntity* World::CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType )
 	{
 		IWorldEntity* entity = this->CreateEntity( name );
 		m_serializer->DeSerializeEntity( entity, filePath );
+		
+		entity->SetAttribute( System::Attributes::EntityType, entityType );
+		entity->SetAttribute( System::Attributes::FilePath, filePath );
+
+		entity->Initialize( ); 
+
 		return entity;
 	}
 
@@ -114,12 +120,13 @@ namespace State
 			}
 			else
 			{
-				std::string filePath;
-				stream->Read( filePath );
+				std::string entityType;
+				stream->Read( entityType );
 
-				IWorldEntity* entity = m_entityFactory->CreateEntity( entityName );
-				m_serializer->DeSerializeEntity( entity, filePath );
+				std::stringstream filePath;
+				filePath << "/data/entities/" << entityType << ".xml";
 
+				IWorldEntity* entity = this->CreateEntity( entityName, filePath.str( ), entityType );
 				entity->DeSerialize( stream );
 			}
 		}

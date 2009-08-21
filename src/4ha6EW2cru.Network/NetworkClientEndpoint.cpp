@@ -8,6 +8,7 @@ using namespace RakNet;
 #include "NetworkUtils.h"
 #include "ServerAdvertisement.hpp"
 #include "ServerCache.h"
+#include "NetworkStream.h"
 
 #include "Management/Management.h"
 
@@ -19,14 +20,17 @@ using namespace Events;
 #include "Utility/StringUtils.h"
 using namespace Utility;
 
+using namespace IO;
+
 namespace Network
 {
 	NetworkClientEndpoint* NetworkClientEndpoint::m_clientEndpoint = 0;
 
-	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager )
+	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager )
 		: m_networkInterface( networkInterface )
 		, m_serverCache( serverCache )
 		, m_eventManager( eventManager )
+		, m_serviceManager( serviceManager )
 		, m_isPassive( false )
 	{
 		NetworkClientEndpoint::m_clientEndpoint = this;
@@ -36,6 +40,7 @@ namespace Network
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_LoadLevel );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
 	}
 
 	void NetworkClientEndpoint::Net_LoadLevel( RakString levelName, RakNet::RPC3* rpcFromNetwork )
@@ -50,21 +55,34 @@ namespace Network
 		NetworkClientEndpoint::m_clientEndpoint->CreateEntity( entityName, filePath, rpcFromNetwork );
 	}
 
-	void NetworkClientEndpoint::CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::Net_UpdateWorld( BitStream& stream, RakNet::RPC3* rpcFromNetwork )
+	{
+		NetworkClientEndpoint::m_clientEndpoint->UpdateWorld( stream, rpcFromNetwork );
+	}
+
+	void NetworkClientEndpoint::UpdateWorld( BitStream& stream, RakNet::RPC3* rpcFromNetwork )
+	{
+		NetworkStream networkStream( &stream );
+
+		AnyType::AnyTypeMap parameters;
+		parameters [ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
+
+		m_serviceManager->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DeSerializeWorld, parameters );
+	}
+
+	void NetworkClientEndpoint::CreateEntity( RakNet::RakString entityName, RakNet::RakString entityType, RakNet::RPC3* rpcFromNetwork )
 	{
 		if ( !m_isPassive )
 		{
 			AnyType::AnyTypeMap parameters;
 			parameters[ System::Attributes::Name ] = std::string( entityName );
+			parameters[ System::Attributes::EntityType ] = std::string( entityType );
 
-			if ( entityName == rpcFromNetwork->GetLastSenderAddress( ).ToString( ) )
-			{
-				parameters[ System::Attributes::FilePath ] = StringUtils::Replace( filePath.C_String( ), ".xml", "-fps.xml" );
-			}
-			else
-			{
-				parameters[ System::Attributes::FilePath ] = std::string( filePath.C_String( ) );
-			}
+			std::string fileExtension = ( entityName == m_networkInterface->GetAddress( rpcFromNetwork->GetLastSenderAddress( ) ).ToString( ) ) ? "-fps.xml" : ".xml";
+
+			std::stringstream entityFilePath;
+			entityFilePath << "/data/entities/" << entityType << fileExtension;
+			parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
 
 			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::CreateEntity, parameters );
 		}

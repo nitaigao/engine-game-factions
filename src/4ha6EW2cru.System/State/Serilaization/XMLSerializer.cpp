@@ -28,6 +28,9 @@ using namespace ticpp;
 #include "../../IO/IStream.hpp"
 using namespace IO;
 
+#include "../../Utility/StringUtils.h"
+using namespace Utility;
+
 namespace Serialization
 {
 	XMLSerializer::~XMLSerializer()
@@ -276,8 +279,5 @@ namespace Serialization
 
 		this->ImportEntity( filepath, components );
 		this->PopulateEntity( entity, components );
-		
-		entity->SetAttribute( System::Attributes::FilePath, filepath );
-		entity->Initialize( );
 	}
 }

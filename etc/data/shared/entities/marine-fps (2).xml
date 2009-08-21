@@ -1,8 +1,0 @@
-<entity src="/data/entities/marine-base.xml">
-  <components>
-	<component type="default" system="graphics">
-	  <attributes>
-		<attribute key="model" v1="/data/entities/models/marine.model" />
-	  </attributes>
-	</component>
-</entity>

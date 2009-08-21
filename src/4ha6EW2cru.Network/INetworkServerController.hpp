@@ -22,7 +22,7 @@ namespace Network
 	/*! 
 	 *  Dispatches Server Messages to the Network
 	 */
-	class INetworkServerController : public INetworkController
+	class GAMEAPI INetworkServerController : public INetworkController
 	{
 
 	public:
@@ -74,6 +74,14 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void CreateEntity( const std::string& entityName, const std::string& filePath ) = 0;
+
+
+		/*! Pushes a world update to the client at the given address
+		 *
+		 * @param[in] const SystemAddress & address
+		 * @return ( void )
+		 */
+		virtual void SendWorldUpdate( const SystemAddress& address ) = 0;
 		
 	};
 };

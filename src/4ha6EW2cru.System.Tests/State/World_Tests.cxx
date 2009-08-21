@@ -201,11 +201,16 @@ TEST( World_Tests, should_create_an_entity_from_file )
 {
 	MockSerializer* serializer = new MockSerializer( );
 	MockEntityFactory* entityFactory = new MockEntityFactory( );
+	MockEntity entity;
 
 	std::string filePath = "filePath";
+	std::string name = "name";
 
+	EXPECT_CALL( *entityFactory, CreateEntity( name ) )
+		.WillOnce( Return( &entity ) );
+	
 	EXPECT_CALL( *serializer, DeSerializeEntity( An< IWorldEntity* >( ), filePath ) );
 
 	World world( serializer, entityFactory, 0 );
-	world.CreateEntity( "name", filePath );
+	world.CreateEntity( name, filePath, "type" );
 }

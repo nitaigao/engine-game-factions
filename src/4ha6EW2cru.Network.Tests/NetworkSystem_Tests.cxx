@@ -163,4 +163,10 @@ TEST_F( NetworkSystem_Tests, should_return_server_ad )
 
 	delete ad;
 }
+
+TEST_F( NetworkSystem_Tests, should_send_level_loaded )
+{
+	EXPECT_CALL( *m_clientProvider, LevelLoaded( ) );
+	m_subject->Message( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
+}
 	

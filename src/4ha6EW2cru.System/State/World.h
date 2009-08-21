@@ -70,7 +70,7 @@ namespace State
 		* @param[in] const std::string & filePath
 		* @return ( IWorldEntity& )
 		*/
-		GAMEAPI IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath );
+		GAMEAPI IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType );
 
 
 		/*! Creates a World Entity Container

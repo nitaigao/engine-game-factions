@@ -8,12 +8,14 @@
 #ifndef INETWORKCONTROLLER_HPP
 #define INETWORKCONTROLLER_HPP
 
+#include "Export.hpp"
+
 namespace Network
 {
 	/*! 
 	 *  Sends information across the Network
 	 */
-	class INetworkController
+	class GAMEAPI INetworkController
 	{
 
 	public:

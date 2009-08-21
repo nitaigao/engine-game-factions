@@ -99,11 +99,12 @@ TEST_F( NetworkServerProvider_Tests, should_initialize_controller )
 TEST_F( NetworkServerProvider_Tests, should_create_entity_using_controller )
 {
 	std::string entityName = "testname";
-	std::string entityFilePath = "filePath";
+	std::string entityType = "type";;
 
 	AnyType::AnyTypeMap parameters;
-	parameters[ System::Attributes::FilePath ] = entityFilePath;
+	parameters[ System::Attributes::FilePath ] = "filePath";
+	parameters[ System::Attributes::EntityType ] = "type";
 
-	EXPECT_CALL( *m_controller, CreateEntity( entityName, entityFilePath ) );
+	EXPECT_CALL( *m_controller, CreateEntity( entityName, entityType ) );
 	m_subject->Message( entityName, System::Messages::Entity::CreateEntity, parameters );
 }

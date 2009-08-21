@@ -137,3 +137,9 @@ TEST_F( NetworkClientProvider_Tests, should_set_passive_mode )
 	EXPECT_CALL( *m_endpoint, SetPassive( isPassive ) );
 	m_subject->SetPassive( isPassive );
 }
+
+TEST_F( NetworkClientProvider_Tests, should_send_level_loaded_to_controller )
+{
+	EXPECT_CALL( *m_controller, LevelLoaded( ) );
+	m_subject->LevelLoaded( );
+}

@@ -11,6 +11,7 @@ using namespace RakNet;
 
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockServerCache.hpp"
+#include "Mocks/MockServiceManager.hpp"
 
 #include "Events/EventManager.h"
 using namespace Events;
@@ -23,12 +24,14 @@ protected:
 	MockNetworkInterface* m_networkInterface;
 	MockServerCache* m_serverCache;
 	EventManager* m_eventManager;
+	MockServiceManager* m_serviceManager;
 
 	void EstablishContext( )
 	{
 		m_networkInterface = new MockNetworkInterface( );
 		m_serverCache = new MockServerCache( );
 		m_eventManager = new EventManager( );
+		m_serviceManager = new MockServiceManager( );
 	}
 
 	void DestroyContext( )
@@ -36,11 +39,12 @@ protected:
 		delete m_networkInterface;
 		delete m_serverCache;
 		delete m_eventManager;
+		delete m_serviceManager;
 	}
 
 	NetworkClientEndpoint* CreateSubject( )
 	{
-		return new NetworkClientEndpoint( m_networkInterface, m_serverCache, m_eventManager );
+		return new NetworkClientEndpoint( m_networkInterface, m_serverCache, m_eventManager, m_serviceManager );
 	}
 };
 

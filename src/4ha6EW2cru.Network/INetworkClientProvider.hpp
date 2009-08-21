@@ -75,6 +75,13 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void SetPassive( bool isPassive ) = 0;
+
+
+		/*! Tells the Server that the Client has finished loading the level
+		 *
+		 * @return ( void )
+		 */
+		virtual void LevelLoaded( ) = 0;
 	};
 };
 

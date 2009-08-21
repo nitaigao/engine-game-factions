@@ -11,14 +11,12 @@
 #include "INetworkClientController.hpp"
 #include "INetworkInterface.hpp"
 
-#include "Export.hpp"
-
 namespace Network
 {
 	/*! 
 	 *  Sends Client Information across the Network
 	 */
-	class NetworkClientController : public INetworkClientController
+	class GAMEAPI NetworkClientController : public INetworkClientController
 	{
 
 	public:
@@ -45,21 +43,28 @@ namespace Network
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Selects a character within the game
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void SelectCharacter( const std::string& characterName );
+		void SelectCharacter( const std::string& characterName );
 
 
 		/*! Broadcasts the Network for Servers
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void FindServers( );
+		void FindServers( );
+
+
+		/*! Tells the Server that the Client has finished loading the Level
+		*
+		* @return ( void )
+		*/
+		void LevelLoaded( );
 
 
 	private:

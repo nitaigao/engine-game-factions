@@ -53,7 +53,7 @@ namespace State
 		 * @param[in] const std::string & filePath
 		 * @return ( IWorldEntity& )
 		 */
-		virtual IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath ) = 0;
+		virtual IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType ) = 0;
 
 
 		/*! Creates a World Entity Container

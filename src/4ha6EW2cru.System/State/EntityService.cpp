@@ -19,7 +19,7 @@ namespace State
 
 		if ( message == System::Messages::Entity::CreateEntity )
 		{
-			m_world->CreateEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ) );
+			m_world->CreateEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ), parameters[ System::Attributes::EntityType ].As< std::string >( ) );
 		}
 
 		if ( message == System::Messages::Entity::DestroyEntity )

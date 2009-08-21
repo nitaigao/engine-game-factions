@@ -10,12 +10,14 @@
 
 #include "INetworkEndpoint.hpp"
 
+#include <RPC3.h>
+
 namespace Network
 {
 	/*! 
 	 *  An endpoint that receives client information
 	 */
-	class INetworkServerEndpoint : public INetworkEndpoint
+	class GAMEAPI INetworkServerEndpoint : public INetworkEndpoint
 	{
 
 	public:
@@ -25,6 +27,14 @@ namespace Network
 		 *  @return ()
 		 */
 		virtual ~INetworkServerEndpoint( ) { };
+
+
+		/*! Called when a client has finished loading a level
+		 *
+		 * @param[in] RakNet::RPC3 * rpcFromNetwork
+		 * @return ( void )
+		 */
+		virtual void LevelLoaded( RakNet::RPC3* rpcFromNetwork ) = 0;
 		
 	};
 };

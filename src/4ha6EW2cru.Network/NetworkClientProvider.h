@@ -128,6 +128,13 @@ namespace Network
 		*/
 		 inline void SetPassive( bool isPassive ) { m_endpoint->SetPassive( isPassive ); };
 
+
+		 /*! Tells the Server that the Client has finished loading the level
+		 *
+		 * @return ( void )
+		 */
+		 inline void LevelLoaded( ) { m_controller->LevelLoaded( ); };
+
 	private:
 
 		NetworkClientProvider( const NetworkClientProvider & copy ) { };

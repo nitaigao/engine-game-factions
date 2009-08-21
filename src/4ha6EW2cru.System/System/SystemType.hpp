@@ -79,6 +79,7 @@ namespace System
 		static const Attribute Parent					=	"parent";
 		static const Attribute Message					=	"message";
 		static const Attribute ComponentType			=	"type";
+		static const Attribute EntityType				=	"entityType";
 		
 		namespace Animation
 		{
