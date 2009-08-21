@@ -17,11 +17,9 @@ namespace Network
 		return m_advertCache.size( );
 	}
 
-	void ServerCache::Add( const std::string& systemAddress, IServerAdvertisement* serverAdvertisement )
+	void ServerCache::Add( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port )
 	{
-		std::stringstream serverName;
-		serverName << systemAddress;
-		m_advertCache[ serverName.str( ) ] = serverAdvertisement;
+		m_advertCache[ address ] = new ServerAdvertisement( serverName, mapName, maxPlayers, numPlayers, ping, address, port );
 	}
 
 	IServerAdvertisement* ServerCache::Find( int index ) const
@@ -48,5 +46,10 @@ namespace Network
 			delete ( *i ).second;
 			i = m_advertCache.erase( i );
 		}
+	}
+
+	ServerCache::~ServerCache()
+	{
+		this->Clear( );
 	}
 }

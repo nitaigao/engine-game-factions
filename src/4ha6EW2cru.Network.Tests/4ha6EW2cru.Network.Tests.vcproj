@@ -291,7 +291,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkClientController_Tests.h"
+				RelativePath=".\NetworkClientController_Tests.cxx"
 				>
 			</File>
 			<File
@@ -300,6 +300,10 @@
 			</File>
 			<File
 				RelativePath=".\ServerAdvertisement_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\TestEnvironment.hpp"
 				>
 			</File>
 		</Filter>

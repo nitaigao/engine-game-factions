@@ -9,6 +9,8 @@
 #define INETWORKCLIENTPROVIDER_HPP
 
 #include "INetworkProvider.hpp"
+#include "IServerAdvertisement.hpp"
+
 #include <string>
 
 namespace Network
@@ -51,6 +53,20 @@ namespace Network
 		 */
 		virtual void SelectCharacter( const std::string& characterName ) = 0;
 
+
+		/*! Broadcasts the Local Network for Servers
+		 *
+		 * @return ( void )
+		 */
+		virtual void FindServers( ) = 0;
+
+		
+		/*! Finds the Server Advertisement at the given cache index
+		 *
+		 * @param[in] int cacheIndex
+		 * @return ( IServerAdvertisement* )
+		 */
+		virtual IServerAdvertisement* GetServerAdvertisement( int cacheIndex ) = 0;
 	};
 };
 

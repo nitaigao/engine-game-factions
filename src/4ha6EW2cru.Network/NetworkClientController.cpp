@@ -16,4 +16,9 @@ namespace Network
 	{
 		m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::SelectCharacter", RakString( characterName ) );
 	}
+
+	void NetworkClientController::FindServers( ) 
+	{
+		m_networkInterface->BroadcastOfflinePing( );
+	}
 }

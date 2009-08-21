@@ -34,6 +34,13 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void SelectCharacter( const std::string& characterName ) = 0;
+
+
+		/*! Broadcasts the Network for Servers
+		 *
+		 * @return ( void )
+		 */
+		virtual void FindServers( ) = 0;
 		
 	};
 };

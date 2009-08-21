@@ -111,6 +111,13 @@ namespace Network
 		*/
 		inline RakNet::RPC3* GetRPC( ) { return m_rpc; }
 
+
+		/*! Broadcasts the Network with a Ping
+		*
+		* @return ( void )
+		*/
+		void BroadcastOfflinePing( );
+
 	private:
 
 		NetworkInterface( const NetworkInterface & copy ) { };

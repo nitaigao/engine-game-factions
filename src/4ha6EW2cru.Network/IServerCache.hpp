@@ -33,7 +33,7 @@ namespace Network
 		virtual int GetCount( ) const = 0;
 
 
-		virtual void Add( const std::string& systemAddress, IServerAdvertisement* serverAdvertisement ) = 0;
+		virtual void Add( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port ) = 0;
 
 
 		virtual IServerAdvertisement* Find( int index ) const = 0;

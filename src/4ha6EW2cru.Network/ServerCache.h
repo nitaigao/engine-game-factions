@@ -23,14 +23,14 @@ namespace Network
 
 	public:
 
-		~ServerCache( ) { };
+		GAMEAPI ~ServerCache( );
 
 		ServerCache( ) { };
 
 
 		GAMEAPI bool Exists( const std::string& systemAddress ) const;
 		GAMEAPI int GetCount( ) const;
-		GAMEAPI void Add( const std::string& systemAddress, IServerAdvertisement* serverAdvertisement );
+		GAMEAPI void Add( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port );
 		GAMEAPI IServerAdvertisement* Find( int index ) const;
 		GAMEAPI void Clear( );
 

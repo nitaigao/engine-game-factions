@@ -46,4 +46,14 @@ namespace Network
 	{
 		m_controller->SelectCharacter( characterName );
 	}
+
+	void NetworkClientProvider::FindServers( )
+	{
+		m_controller->FindServers( );
+	}
+
+	IServerAdvertisement* NetworkClientProvider::GetServerAdvertisement( int cacheIndex )
+	{
+		return m_serverCache->Find( cacheIndex );
+	}
 }

@@ -11,6 +11,8 @@
 #include "INetworkClientController.hpp"
 #include "INetworkInterface.hpp"
 
+#include "Export.hpp"
+
 namespace Network
 {
 	/*! 
@@ -43,14 +45,21 @@ namespace Network
 		*
 		* @return ( void )
 		*/
-		void Initialize( );
+		GAMEAPI void Initialize( );
 
 
 		/*! Selects a character within the game
 		*
 		* @return ( void )
 		*/
-		void SelectCharacter( const std::string& characterName );
+		GAMEAPI void SelectCharacter( const std::string& characterName );
+
+
+		/*! Broadcasts the Network for Servers
+		*
+		* @return ( void )
+		*/
+		GAMEAPI void FindServers( );
 
 
 	private:

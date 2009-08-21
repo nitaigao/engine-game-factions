@@ -105,6 +105,13 @@ namespace Network
 		 * @return ( RakNet::RPC3* )
 		 */
 		virtual RakNet::RPC3* GetRPC( ) = 0;
+
+
+		/*! Broadcasts the Network with a Ping
+		 *
+		 * @return ( void )
+		 */
+		virtual void BroadcastOfflinePing( ) = 0;
 		
 	};
 };

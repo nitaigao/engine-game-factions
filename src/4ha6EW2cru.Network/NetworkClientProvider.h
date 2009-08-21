@@ -106,6 +106,21 @@ namespace Network
 		*/
 		GAMEAPI void SelectCharacter( const std::string& characterName );
 
+
+		/*! Broadcasts the Local Network for Servers
+		*
+		* @return ( void )
+		*/
+		GAMEAPI void FindServers( );
+
+
+		/*! Finds the Server Advertisement at the given cache index
+		*
+		* @param[in] int cacheIndex
+		* @return ( IServerAdvertisement* )
+		*/
+		GAMEAPI IServerAdvertisement* GetServerAdvertisement( int cacheIndex );
+
 	private:
 
 		NetworkClientProvider( const NetworkClientProvider & copy ) { };

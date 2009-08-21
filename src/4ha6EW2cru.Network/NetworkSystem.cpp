@@ -8,8 +8,10 @@
 #include <RakSleep.h>
 #include <BitStream.h>
 #include <MessageIdentifiers.h>
-
 using namespace RakNet;
+
+#include "Utility/StringUtils.h"
+using namespace Utility;
 
 #include "Logging/Logger.h"
 using namespace Logging;
@@ -132,6 +134,29 @@ namespace Network
 		if ( message == System::Messages::Network::Client::CharacterSelected )
 		{
 			m_clientProvider->SelectCharacter( parameters[ System::Parameters::Network::Client::CharacterName ].As< std::string >( ) );
+		}
+
+		if( message == System::Messages::Network::Client::FindServers )
+		{
+			m_clientProvider->FindServers( );
+		}
+
+		if ( message == System::Messages::Network::Client::GetServerAd )
+		{
+			IServerAdvertisement* serverAd = m_clientProvider->GetServerAdvertisement( parameters[ System::Parameters::Network::Client::ServerCacheIndex ].As< int >( ) );
+		
+			if ( serverAd )
+			{
+				results[ System::Parameters::Network::Server::ServerName ] = serverAd->GetServerName( );
+				results[ System::Parameters::Network::Server::LevelName ] = serverAd->GetLevelName( );
+				results[ System::Parameters::Network::Server::MaxPlayers ] = StringUtils::ToString( serverAd->GetMaxPlayers( ) );
+				results[ System::Parameters::Network::Server::PlayerCount ] = StringUtils::ToString( serverAd->GetPlayerCount( ) );
+				results[ System::Parameters::Network::Server::Ping ] = StringUtils::ToString( serverAd->GetPing( ) );
+				results[ System::Parameters::Network::HostAddress ] = serverAd->GetServerAddress( );
+				results[ System::Parameters::Network::Port ] = StringUtils::ToString( serverAd->GetServerPort( ) );
+
+				delete serverAd;
+			}
 		}
 
 		return results;

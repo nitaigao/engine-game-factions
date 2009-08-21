@@ -37,7 +37,7 @@ namespace Network
 				return new NetworkClientProvider( 
 					networkInterface, 
 					new NetworkClientController( networkInterface ),
-					new NetworkClientEndpoint( networkInterface, serverCache ),
+					new NetworkClientEndpoint( networkInterface, serverCache, Management::Get( )->GetEventManager( ) ),
 					serverCache
 					);
 			}

@@ -6,6 +6,7 @@ using namespace Events;
 
 #include "NetworkSystem.h"
 #include "ServerNetworkProvider.h"
+#include "ServerAdvertisement.hpp"
 using namespace Network;
 
 #include "Configuration/Configuration.h"
@@ -126,4 +127,25 @@ TEST_F( NetworkSystem_Tests, should_call_select_character_when_client_picks_one 
 	parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
 
 	m_subject->Message( System::Messages::Network::Client::CharacterSelected, parameters );
+}
+
+TEST_F( NetworkSystem_Tests, should_find_servers )
+{
+	EXPECT_CALL( *m_clientProvider, FindServers( ) );
+	m_subject->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
+}
+
+TEST_F( NetworkSystem_Tests, should_return_server_ad )
+{
+	int cacheIndex = 0;
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::Network::Client::ServerCacheIndex ] = cacheIndex;
+
+	ServerAdvertisement* ad = new ServerAdvertisement( "name", "level", 10, 1, 10, "127.0.0.1", 8989 );
+
+	EXPECT_CALL( *m_clientProvider, GetServerAdvertisement( cacheIndex ) )
+		.WillOnce( Return( ad ) );
+
+	m_subject->Message( System::Messages::Network::Client::GetServerAd, parameters );
 }

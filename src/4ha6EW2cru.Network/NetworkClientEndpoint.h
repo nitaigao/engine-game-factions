@@ -12,6 +12,8 @@
 #include "INetworkInterface.hpp"
 #include "IServerCache.hpp"
 
+#include "Events/EventManager.h"
+
 #include "Export.hpp"
 
 namespace Network
@@ -35,9 +37,10 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache )
+		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager )
 			: m_networkInterface( networkInterface )
 			, m_serverCache( serverCache )
+			, m_eventManager( eventManager )
 		{
 
 		}
@@ -66,6 +69,8 @@ namespace Network
 
 		INetworkInterface* m_networkInterface;
 		IServerCache* m_serverCache;
+
+		Events::EventManager* m_eventManager;
 		
 	};
 };

@@ -2,6 +2,7 @@
 using namespace testing;
 
 #include "NetworkClientProvider.h"
+#include "ServerAdvertisement.hpp"
 using namespace Network;
 
 #include "Mocks/MockNetworkInterface.hpp"
@@ -104,4 +105,26 @@ TEST_F( NetworkClientProvider_Tests, should_select_a_character )
 	EXPECT_CALL( *m_controller, SelectCharacter( characterName ) );
 
 	m_subject->SelectCharacter( characterName );
+}
+
+TEST_F( NetworkClientProvider_Tests, should_find_servers )
+{
+	EXPECT_CALL( *m_controller, FindServers( ) );
+	m_subject->FindServers( );
+}
+
+TEST_F( NetworkClientProvider_Tests, should_get_server_ad )
+{
+	int cacheIndex = 0;
+
+	IServerAdvertisement* ad = new ServerAdvertisement( "name", "level", 10, 1, 10, "127.0.0.1", 8989 );
+
+	EXPECT_CALL( *m_serverCache, Find( cacheIndex ) )
+		.WillOnce( Return( ad ) );
+
+	IServerAdvertisement* result = m_subject->GetServerAdvertisement( cacheIndex );
+
+	EXPECT_EQ( ad, result );
+
+	delete ad;
 }

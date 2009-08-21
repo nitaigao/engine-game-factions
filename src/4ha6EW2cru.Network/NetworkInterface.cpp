@@ -6,6 +6,8 @@ using namespace RakNet;
 
 namespace Network
 {
+	const unsigned int SERVER_PORT = 8990;
+
 	NetworkInterface::~NetworkInterface( )
 	{
 		RakNetworkFactory::DestroyRakPeerInterface( m_networkAdapter );
@@ -61,5 +63,10 @@ namespace Network
 	void NetworkInterface::AttachPlugin( PluginInterface2* plugin )
 	{
 		m_networkAdapter->AttachPlugin( plugin );
+	}
+
+	void NetworkInterface::BroadcastOfflinePing( )
+	{
+		m_networkAdapter->Ping( "255.255.255.255", SERVER_PORT, true );
 	}
 }

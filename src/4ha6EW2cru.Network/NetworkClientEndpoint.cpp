@@ -52,25 +52,23 @@ namespace Network
 				RakString serverName;
 				stream->Read( serverName );
 
-				int numPlayers = 0;
-				stream->Read( numPlayers );
-
 				int maxPlayers = 0;
 				stream->Read( maxPlayers );
+
+				int numPlayers = 0;
+				stream->Read( numPlayers );
 
 				RakString mapName;
 				stream->Read( mapName );
 
 				RakNetTime ping = RakNet::GetTime( ) - requestTime;
 
-				//ServerAdvertisement* advertisment = new ServerAdvertisement( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port );
+				Info( "Found Server", "Address:", packet->systemAddress.ToString( ), "ServerName:", serverName, "Map:", "Ping:", ping, "MapName", mapName, "Players", numPlayers, "Max Players:", maxPlayers );
 
-				//Info( "Server Advertised", "Name:", serverName, "LevelName:", mapName, "MaxPlayers:", maxPlayers, "NumPlayers:", numPlayers, "Ping:", ping, "Address:", packet->systemAddress.ToString( false ), "Port:" ,packet->systemAddress.port );
+				m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 
 
-				m_serverCache->Add( packet->systemAddress.ToString( ), 0 ); 
-
-				//ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache->GetCount( ) - 1 );
-				//Management::Get( )->GetEventManager( )->QueueEvent( scriptEvent );
+				ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache->GetCount( ) - 1 );
+				m_eventManager->QueueEvent( scriptEvent );
 
 				delete stream;
 
