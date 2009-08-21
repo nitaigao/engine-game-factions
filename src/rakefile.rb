@@ -132,7 +132,7 @@ namespace :deploy do
 		Zip::ZipFile.open(output_path, Zip::ZipFile::CREATE) do |zipfile|
 	      build_file_list.each { |path|     			
 			if File.directory?(path) == false then       
-				dest = path.slice(build_output_dir.length + 1, path.length - build_output_dir.length - 1)
+				dest = File.join( $application_name, path.slice( build_output_dir.length + 1, path.length - build_output_dir.length - 1 ) )
 				puts "Adding #{dest} to #{output_path}"
 				zipfile.add(dest,path) if dest
 			end
@@ -146,12 +146,12 @@ namespace :deploy do
 end
 
 $build_configuration = 'Release'
-$application_name = '4ha6EW2cru'
+$application_name = 'Factions'
 $vendor_file = '../etc/vendor/Vendor.sln'
-$solution_file = $application_name + '.sln'
+$solution_file =  '4ha6EW2cru.sln'
 $builddir = '../build'
 $packagesdir = File.join( '../', 'packages' )
-$packagefile = File.join( 'Factions.zip' )
+$packagefile = File.join( $application_name + '.zip' )
 $outputdir = File.join( $builddir, $build_configuration )
 $outputbindir = File.join( $outputdir, 'bin' )
 
