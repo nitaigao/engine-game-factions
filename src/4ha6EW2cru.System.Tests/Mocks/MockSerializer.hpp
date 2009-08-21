@@ -20,9 +20,9 @@ namespace
 
 	public:
 		
-		MOCK_METHOD1( DeSerializeLevel, void ( const std::string& ) );
-		MOCK_METHOD2( DeSerializeEntity, void( IWorldEntity*, const std::string& ) );
-		MOCK_METHOD1( Update, void( float ) );
+		MOCK_METHOD1(DeSerializeLevel, void (const std::string&));
+		MOCK_METHOD2(DeSerializeEntity, void(IWorldEntity*, const std::string&));
+		MOCK_METHOD1(Update, void(float));
 		
 	};
 };

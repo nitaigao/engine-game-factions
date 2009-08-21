@@ -17,9 +17,9 @@ namespace
 
 	public:
 
-		MOCK_METHOD1( RegisterService, void( Services::IService* ) );
-		MOCK_METHOD2( MessageAll, AnyType::AnyTypeMap( const System::Message&, AnyType::AnyTypeMap ) );
-		MOCK_CONST_METHOD1( FindService, Services::IService*( System::Types::Type ) );
+		MOCK_METHOD1(RegisterService, void(Services::IService*));
+		MOCK_METHOD2(MessageAll, AnyType::AnyTypeMap(const System::Message&, AnyType::AnyTypeMap));
+		MOCK_CONST_METHOD1(FindService, Services::IService*(System::Types::Type));
 		
 	};
 };

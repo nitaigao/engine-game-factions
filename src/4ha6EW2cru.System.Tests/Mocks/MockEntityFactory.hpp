@@ -17,7 +17,7 @@ namespace
 
 	public:
 
-		MOCK_CONST_METHOD1( CreateEntity, State::IWorldEntity*( const std::string& ) );
+		MOCK_CONST_METHOD1(CreateEntity, State::IWorldEntity*(const std::string&));
 		
 	};
 };

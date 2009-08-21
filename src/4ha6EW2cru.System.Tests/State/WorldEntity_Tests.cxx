@@ -8,16 +8,16 @@ using namespace testing;
 #include "State/WorldEntity.h"
 using namespace State;
 
-TEST( World_Tests, should_serialize_entity )
+TEST(World_Tests, should_serialize_entity)
 {
 	std::string entityName = "test";
 
 	int hasFile = 0;
 
 	MockStream stream;
-	EXPECT_CALL( stream, Write( entityName ) );
-	EXPECT_CALL( stream, Write( hasFile ) );
+	EXPECT_CALL(stream, Write(entityName));
+	EXPECT_CALL(stream, Write(hasFile));
 
-	WorldEntity entity( entityName );
-	entity.Serialize( &stream );
+	WorldEntity entity(entityName);
+	entity.Serialize(&stream);
 }

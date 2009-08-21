@@ -20,10 +20,10 @@ namespace
 
 	public:
 
-		MOCK_METHOD1( Write, void( const std::string& ) );
-		MOCK_METHOD1( Read, void( std::string& ) );
-		MOCK_METHOD1( Write, void( int ) );
-		MOCK_METHOD1( Read, void( int& ) );
+		MOCK_METHOD1(Write, void(const std::string&));
+		MOCK_METHOD1(Read, void(std::string&));
+		MOCK_METHOD1(Write, void(int));
+		MOCK_METHOD1(Read, void(int&));
 		
 	};
 };

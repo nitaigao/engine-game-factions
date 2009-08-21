@@ -17,7 +17,7 @@ namespace
 
 	public:
 
-		MOCK_METHOD1( Create, INetworkSystemComponent*( const std::string& ) );
+		MOCK_METHOD1(Create, INetworkSystemComponent*(const std::string&));
 
 	};
 };

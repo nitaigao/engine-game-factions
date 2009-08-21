@@ -1,5 +1,5 @@
 #ifdef EXPORT
-#    define GAMEAPI __declspec( dllexport )
+#    define GAMEAPI __declspec(dllexport)
 #else
-#    define GAMEAPI __declspec( dllimport )
+#    define GAMEAPI __declspec(dllimport)
 #endif
