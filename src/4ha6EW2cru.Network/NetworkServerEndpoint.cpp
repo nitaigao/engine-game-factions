@@ -45,6 +45,14 @@ namespace Network
 
 				break;
 
+			case ID_RPC_REMOTE_ERROR:
+
+				RPCErrorCodes errorCode = ( RPCErrorCodes ) packet->data[ 1 ];
+
+				int a = 1;
+
+				break;
+
 			}
 
 			m_networkInterface->DeAllocatePacket( packet );

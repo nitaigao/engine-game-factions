@@ -61,7 +61,7 @@
 #define RAKNET_RSA_FACTOR_LIMBS 16
 
 // Enable to support peer to peer with NetworkIDs. Disable to save memory if doing client/server only
-#define NETWORK_ID_SUPPORTS_PEER_TO_PEER
+//#define NETWORK_ID_SUPPORTS_PEER_TO_PEER
 
 // O(1) instead of O(log2n) but takes more memory if less than 1/3 of the mappings are used.
 // Only supported if NETWORK_ID_SUPPORTS_PEER_TO_PEER is commented out
