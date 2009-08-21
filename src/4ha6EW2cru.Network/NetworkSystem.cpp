@@ -109,6 +109,8 @@ namespace Network
 		{
 			m_instrumentation->SetLevelName( parameters[ System::Parameters::Game::LevelName ].As< std::string >( ) );
 
+			m_clientProvider->SetPassive( true );
+
 			m_serverProvider->Initialize(
 				parameters[ System::Parameters::Network::Port ].As< unsigned int >( ),
 				parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( )
@@ -154,9 +156,12 @@ namespace Network
 				results[ System::Parameters::Network::Server::Ping ] = StringUtils::ToString( serverAd->GetPing( ) );
 				results[ System::Parameters::Network::HostAddress ] = serverAd->GetServerAddress( );
 				results[ System::Parameters::Network::Port ] = StringUtils::ToString( serverAd->GetServerPort( ) );
-
-				delete serverAd;
 			}
+		}
+
+		if ( message == System::Messages::Network::Client::LevelLoaded )
+		{
+
 		}
 
 		return results;

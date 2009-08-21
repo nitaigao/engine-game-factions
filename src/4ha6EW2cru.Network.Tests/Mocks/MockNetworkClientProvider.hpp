@@ -29,6 +29,7 @@ namespace
 		MOCK_METHOD1( SelectCharacter, void( const std::string& ) );
 		MOCK_METHOD0( FindServers, void( ) );
 		MOCK_METHOD1( GetServerAdvertisement, IServerAdvertisement*( int ) );
+		MOCK_METHOD1( SetPassive, void( bool ) );
 
 	};
 };

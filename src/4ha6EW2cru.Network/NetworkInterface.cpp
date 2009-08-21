@@ -69,4 +69,9 @@ namespace Network
 	{
 		m_networkAdapter->Ping( "255.255.255.255", SERVER_PORT, true );
 	}
+
+	SystemAddress NetworkInterface::GetAddress( const SystemAddress& address )
+	{
+		return m_networkAdapter->GetExternalID( address );
+	}
 }

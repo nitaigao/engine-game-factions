@@ -18,7 +18,7 @@ namespace Network
 	/*! 
 	 *  A Client Network Provider
 	 */
-	class INetworkClientProvider : public INetworkProvider
+	class GAMEAPI INetworkClientProvider : public INetworkProvider
 	{
 
 	public:
@@ -67,6 +67,14 @@ namespace Network
 		 * @return ( IServerAdvertisement* )
 		 */
 		virtual IServerAdvertisement* GetServerAdvertisement( int cacheIndex ) = 0;
+
+
+		/*! Stops the Client from receiving traffic, but it can still send messages
+		 *
+		 * @param[in] bool isPassive
+		 * @return ( void )
+		 */
+		virtual void SetPassive( bool isPassive ) = 0;
 	};
 };
 

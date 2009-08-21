@@ -112,6 +112,14 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void BroadcastOfflinePing( ) = 0;
+
+
+		/*! Finds the NetworkAddress for communicating with the given address
+		 *
+		 * @param[in] const SystemAddress & address
+		 * @return ( SystemAddress )
+		 */
+		virtual SystemAddress GetAddress( const SystemAddress& address ) = 0;
 		
 	};
 };

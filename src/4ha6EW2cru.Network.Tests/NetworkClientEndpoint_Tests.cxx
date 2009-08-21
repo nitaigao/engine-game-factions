@@ -78,3 +78,8 @@ TEST_F( NetworkClientEndpoint_Tests, should_receive_offline_pong_messages )
 
 	delete p;
 }
+
+TEST_F( NetworkClientEndpoint_Tests, should_create_an_entity )
+{
+	
+}

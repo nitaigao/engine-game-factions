@@ -8,12 +8,14 @@
 #ifndef INETWORKENDPOINT_HPP
 #define INETWORKENDPOINT_HPP
 
+#include "Export.hpp"
+
 namespace Network
 {
 	/*! 
 	 *  An Endpoint for receiving data from the network
 	 */
-	class INetworkEndpoint
+	class GAMEAPI INetworkEndpoint
 	{
 
 	public:

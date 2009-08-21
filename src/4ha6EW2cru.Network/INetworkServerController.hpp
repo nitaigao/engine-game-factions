@@ -65,6 +65,15 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void ClientConnected( const SystemAddress& clientAddress ) = 0;
+
+
+		/*! Broadcasts to the connected clients to create the Entity
+		 *
+		 * @param[in] const std::string & entityName
+		 * @param[in] const std::string & filePath
+		 * @return ( void )
+		 */
+		virtual void CreateEntity( const std::string& entityName, const std::string& filePath ) = 0;
 		
 	};
 };

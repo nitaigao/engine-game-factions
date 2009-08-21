@@ -15,7 +15,7 @@ namespace Network
 	/*! 
 	 *  Receives traffic from the Server
 	 */
-	class INetworkClientEndpoint : public INetworkEndpoint
+	class GAMEAPI INetworkClientEndpoint : public INetworkEndpoint
 	{
 
 	public:
@@ -25,6 +25,14 @@ namespace Network
 		 *  @return ()
 		 */
 		virtual ~INetworkClientEndpoint( ) { };
+
+
+		/*! Stops the Endpoint from Receiving data
+		 *
+		 * @param[in] bool isPassive
+		 * @return ( void )
+		 */
+		virtual void SetPassive( bool isPassive ) = 0;
 		
 	};
 };

@@ -87,6 +87,18 @@ TEST_F( NetworkSystem_Tests, should_add_client_network_provider_to_the_scene )
 	m_subject->Release( );
 }
 
+TEST_F( NetworkSystem_Tests, should_set_client_to_passive_if_server )
+{
+	EXPECT_CALL( *m_clientProvider, SetPassive( true ) );
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::Network::Port ] = static_cast< unsigned int >( 8989 );
+	parameters[ System::Parameters::Network::Server::MaxPlayers ] = 10;
+	parameters[ System::Parameters::Game::LevelName ] = "test";
+
+	m_subject->Message( System::Messages::Network::CreateServer, parameters );
+}
+
 TEST_F( NetworkSystem_Tests, should_connect_to_server )
 {
 	std::string serverAddress = "127.0.0.1";
@@ -148,4 +160,7 @@ TEST_F( NetworkSystem_Tests, should_return_server_ad )
 		.WillOnce( Return( ad ) );
 
 	m_subject->Message( System::Messages::Network::Client::GetServerAd, parameters );
+
+	delete ad;
 }
+	

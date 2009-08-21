@@ -30,6 +30,7 @@ namespace
 		MOCK_METHOD1( AttachPlugin, void( PluginInterface2* ) );
 		MOCK_METHOD0( GetRPC, RakNet::RPC3*( ) );
 		MOCK_METHOD0( BroadcastOfflinePing, void( ) );
+		MOCK_METHOD1( GetAddress, SystemAddress( const SystemAddress& ) );
 		
 	};
 };

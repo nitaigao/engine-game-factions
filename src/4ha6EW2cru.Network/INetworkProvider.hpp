@@ -12,12 +12,15 @@
 #include "System/SystemType.hpp"
 #include "System/AnyType.hpp"
 
+#include "Export.hpp"
+
+
 namespace Network
 {
 	/*! 
 	 *  Receives and Transmits to Clients on the Network
 	 */
-	class INetworkProvider
+	class GAMEAPI INetworkProvider
 	{
 
 	public:

@@ -24,6 +24,7 @@ namespace
 		MOCK_METHOD2( SetPosition, void( const std::string&, const Maths::MathVector3& ) );
 		MOCK_METHOD2( SetOrientation, void( const std::string&, const Maths::MathQuaternion& ) );
 		MOCK_METHOD1( ClientConnected, void( const SystemAddress& ) );
+		MOCK_METHOD2( CreateEntity, void( const std::string&, const std::string& ) );
 		
 	};
 };

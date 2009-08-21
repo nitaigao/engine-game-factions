@@ -118,6 +118,14 @@ namespace Network
 		*/
 		void BroadcastOfflinePing( );
 
+
+		/*! Finds the NetworkAddress for communicating with the given address
+		*
+		* @param[in] const SystemAddress & address
+		* @return ( SystemAddress )
+		*/
+		SystemAddress GetAddress( const SystemAddress& address );
+
 	private:
 
 		NetworkInterface( const NetworkInterface & copy ) { };

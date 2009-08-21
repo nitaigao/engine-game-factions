@@ -16,7 +16,7 @@ namespace Network
 	/*! 
 	 *  A Controller that transmits messages across the network
 	 */
-	class NetworkServerController : public INetworkServerController
+	class NetworkServerController : public INetworkServerController, public NetworkIDObject
 	{
 
 	public:
@@ -70,6 +70,15 @@ namespace Network
 		* @return ( void )
 		*/
 		GAMEAPI void ClientConnected( const SystemAddress& clientAddress );
+
+
+		/*! Broadcasts to the connected clients to create the Entity
+		*
+		* @param[in] const std::string & entityName
+		* @param[in] const std::string & filePath
+		* @return ( void )
+		*/
+		GAMEAPI void CreateEntity( const std::string& entityName, const std::string& filePath );
 
 	private:
 

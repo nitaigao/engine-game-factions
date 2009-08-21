@@ -9,7 +9,29 @@ using namespace Network;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-TEST( NetworkSystemComponent, should_forward_internal_messages_to_registered_providers )
+class NetworkSystemComponent_Tests : public TestHarness< NetworkSystemComponent >
+{
+
+protected:
+
+	void EstablishContext( )
+	{
+
+	}
+
+
+	void DestroyContext( )
+	{
+
+	}
+
+	NetworkSystemComponent* CreateSubject( )
+	{
+		return new NetworkSystemComponent( );
+	}
+};
+
+TEST_F( NetworkSystemComponent_Tests, should_forward_internal_messages_to_registered_providers )
 {
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::Position ] = MathVector3::Forward( );
@@ -20,8 +42,20 @@ TEST( NetworkSystemComponent, should_forward_internal_messages_to_registered_pro
 	MockNetworkSystemProvider provider;
 	EXPECT_CALL( provider, Message( entityName, message, A< AnyType::AnyTypeMap >( ) ) );
 
-	NetworkSystemComponent component;
-	component.SetAttribute( System::Attributes::Name, entityName );
-	component.AddProvider( &provider );
-	component.Message( message, parameters );
+	m_subject->SetAttribute( System::Attributes::Name, entityName );
+	m_subject->AddProvider( &provider );
+	m_subject->Message( message, parameters );
+}
+
+TEST_F( NetworkSystemComponent_Tests, should_notify_network_when_created )
+{
+	std::string entityName = "hello";
+	System::Message message = System::Messages::Entity::CreateEntity;
+
+	MockNetworkSystemProvider provider;
+	EXPECT_CALL( provider, Message( entityName, message, An< AnyType::AnyTypeMap >( ) ) );
+
+	m_subject->SetAttribute( System::Attributes::Name, entityName );
+	m_subject->AddProvider( &provider );
+	m_subject->Initialize( );
 }

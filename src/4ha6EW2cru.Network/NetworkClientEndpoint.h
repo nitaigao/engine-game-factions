@@ -14,14 +14,12 @@
 
 #include "Events/EventManager.h"
 
-#include "Export.hpp"
-
 namespace Network
 {
 	/*! 
 	 *  Endpoint for Incoming client information
 	 */
-	class NetworkClientEndpoint : public INetworkClientEndpoint
+	class GAMEAPI NetworkClientEndpoint : public INetworkClientEndpoint
 	{
 
 	public:
@@ -37,20 +35,14 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager )
-			: m_networkInterface( networkInterface )
-			, m_serverCache( serverCache )
-			, m_eventManager( eventManager )
-		{
-
-		}
+		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager );
 
 
 		/*! Initializes the Endpoint
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Updates the Endpoint
@@ -58,9 +50,22 @@ namespace Network
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
-		static void LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
+
+		/*! Stops the Endpoint from Receiving data
+		*
+		* @param[in] bool isPassive
+		* @return ( void )
+		*/
+		inline void SetPassive( bool isPassive ) { m_isPassive = isPassive; };
+
+
+		static void Net_LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
+
+		static void Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
+
+		void CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork ); 
 
 	private:
 
@@ -71,6 +76,9 @@ namespace Network
 		IServerCache* m_serverCache;
 
 		Events::EventManager* m_eventManager;
+		bool m_isPassive;
+
+		static NetworkClientEndpoint* m_clientEndpoint;
 		
 	};
 };

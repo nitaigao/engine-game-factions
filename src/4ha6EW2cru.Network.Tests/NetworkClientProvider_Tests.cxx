@@ -110,6 +110,7 @@ TEST_F( NetworkClientProvider_Tests, should_select_a_character )
 TEST_F( NetworkClientProvider_Tests, should_find_servers )
 {
 	EXPECT_CALL( *m_controller, FindServers( ) );
+	EXPECT_CALL( *m_serverCache, Clear( ) );
 	m_subject->FindServers( );
 }
 
@@ -127,4 +128,12 @@ TEST_F( NetworkClientProvider_Tests, should_get_server_ad )
 	EXPECT_EQ( ad, result );
 
 	delete ad;
+}
+
+TEST_F( NetworkClientProvider_Tests, should_set_passive_mode )
+{
+	bool isPassive = true;
+
+	EXPECT_CALL( *m_endpoint, SetPassive( isPassive ) );
+	m_subject->SetPassive( isPassive );
 }

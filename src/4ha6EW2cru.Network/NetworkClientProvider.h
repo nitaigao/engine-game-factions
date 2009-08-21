@@ -16,14 +16,12 @@
 
 #include "Configuration/IConfiguration.hpp"
 
-#include "Export.hpp"
-
 namespace Network
 {
 	/*! 
 	 *  A Client for transmitting and receiving client messages to and from the server
 	 */
-	class NetworkClientProvider : public INetworkClientProvider
+	class GAMEAPI NetworkClientProvider : public INetworkClientProvider
 	{
 
 	public:
@@ -32,14 +30,15 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~NetworkClientProvider( );
+		~NetworkClientProvider( );
 	
 
 		/*! IoC Constructor
 		*
 		* @return (  )
 		*/
-		NetworkClientProvider( INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint, IServerCache* serverCache )
+		NetworkClientProvider( INetworkInterface* networkInterface, INetworkClientController* controller, 
+			INetworkClientEndpoint* endpoint, IServerCache* serverCache )
 			: m_networkInterface( networkInterface )
 			, m_endpoint( endpoint )
 			, m_controller( controller )
@@ -55,7 +54,7 @@ namespace Network
 		* @param[in] int maxConnections
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( unsigned int port, int maxConnections );
+		void Initialize( unsigned int port, int maxConnections );
 
 
 		/*! Updates the Network Provider
@@ -63,7 +62,7 @@ namespace Network
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Distributes the message for the entity across the Network
@@ -73,14 +72,14 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters ) { };
+		void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters ) { };
 
 
 		/*! Destroys the Provider
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Destroy( );
+		void Destroy( );
 
 
 		/*! Connects the Provider to a Server Address
@@ -89,14 +88,14 @@ namespace Network
 		* @param[in] unsigned int port
 		* @return (  )
 		*/
-		GAMEAPI void Connect( const std::string& serverAddress, unsigned int port );
+		void Connect( const std::string& serverAddress, unsigned int port );
 
 
 		/*! Disconnects the Provider if connected to a Server
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Disconnect( );
+		void Disconnect( );
 
 
 		/*! Selects a Character to play on the Server
@@ -104,14 +103,14 @@ namespace Network
 		* @param[in] const std::string & characterName
 		* @return ( void )
 		*/
-		GAMEAPI void SelectCharacter( const std::string& characterName );
+		void SelectCharacter( const std::string& characterName );
 
 
 		/*! Broadcasts the Local Network for Servers
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void FindServers( );
+		void FindServers( );
 
 
 		/*! Finds the Server Advertisement at the given cache index
@@ -119,7 +118,15 @@ namespace Network
 		* @param[in] int cacheIndex
 		* @return ( IServerAdvertisement* )
 		*/
-		GAMEAPI IServerAdvertisement* GetServerAdvertisement( int cacheIndex );
+		IServerAdvertisement* GetServerAdvertisement( int cacheIndex );
+
+
+		/*! Stops the Client from receiving traffic, but it can still send messages
+		*
+		* @param[in] bool isPassive
+		* @return ( void )
+		*/
+		 inline void SetPassive( bool isPassive ) { m_endpoint->SetPassive( isPassive ); };
 
 	private:
 

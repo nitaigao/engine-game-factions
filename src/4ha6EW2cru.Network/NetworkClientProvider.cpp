@@ -49,6 +49,7 @@ namespace Network
 
 	void NetworkClientProvider::FindServers( )
 	{
+		m_serverCache->Clear( );
 		m_controller->FindServers( );
 	}
 
