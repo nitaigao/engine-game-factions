@@ -38,6 +38,12 @@ function Console.onEvent( eventName, val1 )
 		console_ingame = true
 		
 	end
+	
+	if ( eventName == 'GAME_ENDED' ) then
+	
+		console_ingame = false
+	
+	end
 
 	if ( eventName == 'MESSAGE_LOGGED' ) then 
 	

@@ -58,17 +58,25 @@ namespace State
 
 	void World::DestroyEntity( const std::string& name )
 	{
-		IWorldEntity* entity = ( *m_entities.find( name ) ).second;
-		ISystemComponent::SystemComponentList components = entity->GetComponents( );
+		IWorldEntity::WorldEntityMap::iterator entity = m_entities.find( name );
 
-		for( ISystemComponent::SystemComponentList::iterator c = components.begin( ); c != components.end( ); ++c )
+		if ( entity != m_entities.end( ) )
 		{
-			m_systemScenes[ ( *c )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( ) ]->DestroyComponent( ( *c ) );
+			ISystemComponent::SystemComponentList components = ( *entity ).second->GetComponents( );
+
+			for( ISystemComponent::SystemComponentList::iterator c = components.begin( ); c != components.end( ); ++c )
+			{
+				m_systemScenes[ ( *c )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( ) ]->DestroyComponent( ( *c ) );
+			}
+
+			delete ( *entity ).second;
+
+			m_entities.erase( name );
 		}
-
-		delete entity;
-
-		m_entities.erase( name );
+		else
+		{
+			Warn( "Attempted to delete a not existing Entity:", name );
+		}
 	}
 	
 	void World::Clear( )
