@@ -22,7 +22,7 @@ namespace Network
 
 	class INetworkFactory
 	{
-		virtual INetworkProvider* CreateNetworkProvider( NetworkProviderType type ) = 0;
+		virtual INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene ) = 0;
 		virtual INetworkSystem* CreateNetworkSystem( ) = 0;
 		virtual INetworkSystemScene* CreateNetworkSystemScene( ) = 0;
 	};
@@ -48,7 +48,7 @@ namespace Network
 		*/
 		NetworkFactory( ) { };
 
-		INetworkProvider* CreateNetworkProvider( NetworkProviderType type );
+		INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene );
 
 		INetworkSystemScene* CreateNetworkSystemScene( );
 

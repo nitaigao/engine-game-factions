@@ -24,7 +24,7 @@ using namespace Configuration;
 
 namespace Network
 {
-	INetworkProvider* NetworkFactory::CreateNetworkProvider( NetworkProviderType type )
+	INetworkProvider* NetworkFactory::CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene )
 	{
 		switch ( type )
 		{
@@ -37,7 +37,7 @@ namespace Network
 				return new NetworkClientProvider( 
 					networkInterface, 
 					new NetworkClientController( networkInterface ),
-					new NetworkClientEndpoint( networkInterface, serverCache, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) ),
+					new NetworkClientEndpoint( networkInterface, scene, serverCache, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) ),
 					serverCache
 					);
 			}
@@ -68,12 +68,14 @@ namespace Network
 
 	INetworkSystem* NetworkFactory::CreateNetworkSystem()
 	{
+		INetworkSystemScene* scene = this->CreateNetworkSystemScene( );
+
 		return new NetworkSystem( 
 			Management::Get( )->GetServiceManager( ), 
 			Management::Get( )->GetInstrumentation( ),
-			this->CreateNetworkSystemScene( ),
-			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT ) ),
-			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER ) ),
+			scene,
+			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT, scene ) ),
+			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER, 0 ) ),
 			Management::Get( )->GetEventManager( )
 			);
 	}

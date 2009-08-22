@@ -27,8 +27,9 @@ namespace Network
 {
 	NetworkClientEndpoint* NetworkClientEndpoint::m_clientEndpoint = 0;
 
-	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager )
+	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* m_networkScene, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager )
 		: m_networkInterface( networkInterface )
+		, m_networkScene( m_networkScene )
 		, m_serverCache( serverCache )
 		, m_eventManager( eventManager )
 		, m_serviceManager( serviceManager )
@@ -40,44 +41,63 @@ namespace Network
 	void NetworkClientEndpoint::Initialize( )
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_LoadLevel );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_DestroyEntity );
-		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_SetEntityPosition );
+		
 	}
 
-	void NetworkClientEndpoint::Net_LoadLevel( RakString levelName, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::Net_LoadLevel( RakString levelName, RPC3* rpcFromNetwork )
 	{
 		IEventData* eventData = new LevelChangedEventData( levelName.C_String( ) );
 		IEvent* event = new Event( GAME_LEVEL_CHANGED, eventData );
 		Management::Get( )->GetEventManager( )->QueueEvent( event );
 	}
 
-	void NetworkClientEndpoint::Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::Net_CreateEntity( RakString entityName, RakString filePath, RPC3* rpcFromNetwork )
 	{
 		NetworkClientEndpoint::m_clientEndpoint->CreateEntity( entityName, filePath, rpcFromNetwork );
 	}
 
-	void NetworkClientEndpoint::Net_DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::Net_DestroyEntity( RakString entityname, RPC3* rpcFromNetwork )
 	{
 		NetworkClientEndpoint::m_clientEndpoint->DestroyEntity( entityname, rpcFromNetwork );
 	}
 
-	void NetworkClientEndpoint::Net_UpdateWorld( BitStream& stream, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::Net_UpdateWorld( BitStream& stream, RPC3* rpcFromNetwork )
 	{
 		NetworkClientEndpoint::m_clientEndpoint->UpdateWorld( stream, rpcFromNetwork );
 	}
 
-	void NetworkClientEndpoint::UpdateWorld( BitStream& stream, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::Net_SetEntityPosition( RakString entityName, const Maths::MathVector3& position, RPC3* rpcFromNetwork )
+	{
+		NetworkClientEndpoint::m_clientEndpoint->SetEntityPosition( entityName, position, rpcFromNetwork );
+	}
+
+	void NetworkClientEndpoint::SetEntityPosition( RakString entityName, const Maths::MathVector3& position, RPC3* rpcFromNetwork )
+	{
+		if ( !m_isPassive )
+		{
+			AnyType::AnyTypeMap parameters;
+			parameters[ System::Attributes::Position ] = position;
+
+			m_networkScene->MessageComponent( std::string( entityName ), System::Messages::SetPosition, parameters );
+		}
+	}
+
+	void NetworkClientEndpoint::UpdateWorld( BitStream& stream, RPC3* rpcFromNetwork )
 	{
 		NetworkStream networkStream( &stream );
 
 		AnyType::AnyTypeMap parameters;
 		parameters [ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
 
-		m_serviceManager->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::DeSerializeWorld, parameters );
+		m_serviceManager->FindService( System::Types::ENTITY )
+			->ProcessMessage( System::Messages::Entity::DeSerializeWorld, parameters );
 	}
 
-	void NetworkClientEndpoint::CreateEntity( RakNet::RakString entityName, RakNet::RakString entityType, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::CreateEntity( RakString entityName, RakString entityType, RPC3* rpcFromNetwork )
 	{
 		if ( !m_isPassive )
 		{
@@ -91,19 +111,20 @@ namespace Network
 			entityFilePath << "/data/entities/" << entityType << fileExtension;
 			parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
 
-			m_serviceManager->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
+			m_serviceManager->FindService( System::Types::ENTITY )
+				->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
 		}
 	}
 
-	void NetworkClientEndpoint::DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::DestroyEntity( RakString entityname, RPC3* rpcFromNetwork )
 	{
 		if ( !m_isPassive )
 		{
 			AnyType::AnyTypeMap parameters;
 			parameters[ System::Attributes::Name ] = std::string( entityname );
 
-			IService* service = m_serviceManager->FindService( System::Types::ENTITY );
-			service->ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
+			m_serviceManager->FindService( System::Types::ENTITY )
+				->ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
 		}
 	}
 
@@ -144,7 +165,7 @@ namespace Network
 					RakString mapName;
 					stream->Read( mapName );
 
-					RakNetTime ping = RakNet::GetTime( ) - requestTime;
+					RakNetTime ping = GetTime( ) - requestTime;
 
 					Info( "Found Server", "Address:", packet->systemAddress.ToString( ), "ServerName:", serverName, "Map:", "Ping:", ping, "MapName", mapName, "Players", numPlayers, "Max Players:", maxPlayers );
 

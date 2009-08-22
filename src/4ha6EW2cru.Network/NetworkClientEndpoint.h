@@ -10,10 +10,13 @@
 
 #include "INetworkClientEndpoint.hpp"
 #include "INetworkInterface.hpp"
+#include "INetworkSystemScene.hpp"
 #include "IServerCache.hpp"
 
 #include "Events/EventManager.h"
 #include "Service/IServiceManager.h"
+
+#include "Maths/MathVector3.hpp"
 
 namespace Network
 {
@@ -36,7 +39,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager );
+		NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager );
 
 
 		/*! Initializes the Endpoint
@@ -63,14 +66,18 @@ namespace Network
 
 
 		static void Net_LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
-		static void Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
-		static void Net_DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
 		static void Net_UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 
+		static void Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
+		static void Net_DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
+		static void Net_SetEntityPosition( RakNet::RakString entityName, const Maths::MathVector3& position, RakNet::RPC3* rpcFromNetwork );
 
+
+		void UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 		void CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
 		void DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
-		void UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
+		void SetEntityPosition( RakNet::RakString entityName, const Maths::MathVector3& position, RakNet::RPC3* rpcFromNetwork );
+		
 
 	private:
 
@@ -78,6 +85,7 @@ namespace Network
 		NetworkClientEndpoint & operator = ( const NetworkClientEndpoint & copy ) { return *this; };
 
 		INetworkInterface* m_networkInterface;
+		INetworkSystemScene* m_networkScene;
 		IServerCache* m_serverCache;
 
 		Events::EventManager* m_eventManager;

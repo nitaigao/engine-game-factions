@@ -40,24 +40,6 @@ namespace Network
 		 */
 		virtual void Initialize( ) = 0;
 
-
-		/*! Sends the SetPosition message for an Entity across the Network
-		 *
-		 * @param[in] const std::string & name
-		 * @param[in] const Maths::MathVector3 & position
-		 * @return ( void )
-		 */
-		virtual void SetPosition( const std::string& name, const Maths::MathVector3& position ) = 0;
-
-
-		/*! Sends the SetOrientation message for an given Entity across the network
-		 *
-		 * @param[in] const std::string & name
-		 * @param[in] const Maths::MathQuaternion & orientation
-		 * @return ( void )
-		 */
-		virtual void SetOrientation( const std::string& name, const Maths::MathQuaternion& orientation ) = 0;
-
 		
 		/*! Instructs the Controller that a client has connected
 		 *
@@ -98,6 +80,15 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void SendWorldUpdate( const SystemAddress& address ) = 0;
+
+
+		/*! Sends an Entity Position update to all clients
+		 *
+		 * @param[in] const std::string & entityName
+		 * @param[in] const Maths::MathVector3 & position
+		 * @return ( void )
+		 */
+		virtual void SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position ) = 0;
 		
 	};
 };

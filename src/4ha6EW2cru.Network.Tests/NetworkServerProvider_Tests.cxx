@@ -63,19 +63,6 @@ TEST_F( NetworkServerProvider_Tests, should_update_endpoint )
 	m_subject->Update( delta );
 }
 
-TEST_F( NetworkServerProvider_Tests, should_handle_set_position_messages )
-{
-	std::string entityName = "test";
-	MathVector3 position = MathVector3::Forward( );
-
-	EXPECT_CALL( *m_controller, SetPosition( entityName, position ) );
-
-	AnyType::AnyTypeMap parameters;
-	parameters[ System::Attributes::Position ] = position;
-
-	m_subject->Message( entityName, System::Messages::SetPosition, parameters );
-}
-
 TEST_F( NetworkServerProvider_Tests, should_set_offline_message_on_level_changed )
 {	
 	EXPECT_CALL( *m_networkInterface, GetConnectionCount( ) )
@@ -118,4 +105,17 @@ TEST_F( NetworkServerProvider_Tests, should_destroy_entity_using_the_controller 
 
 	EXPECT_CALL( *m_controller, DestroyEntity( entityName ) );
 	m_subject->Message( entityName, System::Messages::Entity::DestroyEntity, parameters );
+}
+
+TEST_F( NetworkServerProvider_Tests, should_forward_position_events_to_clients )
+{
+	MathVector3 position = MathVector3::Forward( );
+	std::string entityName = "test";
+
+	EXPECT_CALL( *m_controller, SetEntityPosition( entityName, position ) );
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Attributes::Position ] = position;
+
+	m_subject->Message( entityName, System::Messages::SetPosition, parameters );
 }

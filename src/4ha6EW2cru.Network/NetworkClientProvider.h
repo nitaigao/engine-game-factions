@@ -72,7 +72,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		void Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters ) { };
+		void Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Destroys the Provider

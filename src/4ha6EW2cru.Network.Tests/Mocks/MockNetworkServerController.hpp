@@ -11,6 +11,8 @@
 #include "INetworkServerController.hpp"
 using namespace Network;
 
+#include "Maths/MathVector3.hpp"
+
 #include <gmock/gmock.h>
 
 namespace
@@ -21,13 +23,12 @@ namespace
 	public:
 
 		MOCK_METHOD0( Initialize, void( ) );
-		MOCK_METHOD2( SetPosition, void( const std::string&, const Maths::MathVector3& ) );
-		MOCK_METHOD2( SetOrientation, void( const std::string&, const Maths::MathQuaternion& ) );
 		MOCK_METHOD1( ClientConnected, void( const SystemAddress& ) );
 		MOCK_METHOD2( CreateEntity, void( const std::string&, const std::string& ) );
 		MOCK_METHOD1( DestroyEntity, void( const std::string& ) );
 		MOCK_METHOD1( SendWorldUpdate, void( const SystemAddress& ) );
 		MOCK_METHOD1( ClientDisconnected, void( const SystemAddress& ) );
+		MOCK_METHOD2( SetEntityPosition, void( const std::string&, const Maths::MathVector3& ) );
 		
 	};
 };

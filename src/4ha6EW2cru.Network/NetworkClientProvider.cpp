@@ -57,4 +57,9 @@ namespace Network
 	{
 		return m_serverCache->Find( cacheIndex );
 	}
+
+	void NetworkClientProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	{
+
+	}
 }

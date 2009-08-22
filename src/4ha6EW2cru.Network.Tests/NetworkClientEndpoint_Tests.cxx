@@ -13,9 +13,13 @@ using namespace RakNet;
 #include "Mocks/MockServerCache.hpp"
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockService.h"
+#include "Mocks/MockNetworkSystemScene.hpp"
 
 #include "Events/EventManager.h"
 using namespace Events;
+
+#include "Maths/MathVector3.hpp"
+using namespace Maths;
 
 class NetworkClientEndpoint_Tests : public TestHarness< NetworkClientEndpoint >
 {
@@ -26,10 +30,12 @@ protected:
 	MockServerCache* m_serverCache;
 	EventManager* m_eventManager;
 	MockServiceManager* m_serviceManager;
+	MockNetworkSystemScene* m_scene;
 
 	void EstablishContext( )
 	{
 		m_networkInterface = new MockNetworkInterface( );
+		m_scene = new MockNetworkSystemScene( );
 		m_serverCache = new MockServerCache( );
 		m_eventManager = new EventManager( );
 		m_serviceManager = new MockServiceManager( );
@@ -38,6 +44,7 @@ protected:
 	void DestroyContext( )
 	{
 		delete m_networkInterface;
+		delete m_scene;
 		delete m_serverCache;
 		delete m_eventManager;
 		delete m_serviceManager;
@@ -45,7 +52,7 @@ protected:
 
 	NetworkClientEndpoint* CreateSubject( )
 	{
-		return new NetworkClientEndpoint( m_networkInterface, m_serverCache, m_eventManager, m_serviceManager );
+		return new NetworkClientEndpoint( m_networkInterface, m_scene, m_serverCache, m_eventManager, m_serviceManager );
 	}
 };
 
@@ -97,4 +104,13 @@ TEST_F( NetworkClientEndpoint_Tests, should_destroy_an_entity_if_not_passive )
 		.WillOnce( Return( AnyType::AnyTypeMap( ) ) );
 
 	m_subject->DestroyEntity( entityName, 0 );
+}
+
+TEST_F( NetworkClientEndpoint_Tests, should_set_an_entity_position_if_not_passive )
+{
+	std::string entityName = "test";
+
+	EXPECT_CALL( *m_scene, MessageComponent( entityName, System::Messages::SetPosition, An< AnyType::AnyTypeMap >( ) ) );
+
+	m_subject->SetEntityPosition( entityName, MathVector3::Forward( ), 0 );
 }

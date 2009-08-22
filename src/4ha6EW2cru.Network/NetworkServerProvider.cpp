@@ -46,7 +46,7 @@ namespace Network
 	{
 		if ( message == System::Messages::SetPosition )
 		{
-			m_controller->SetPosition( entityName, parameters[ System::Attributes::Position ].As< MathVector3 >( ) );
+			m_controller->SetEntityPosition( entityName, parameters[ System::Attributes::Position ].As< MathVector3 >( ) );
 		}
 
 		if ( message == System::Messages::SetOrientation )
