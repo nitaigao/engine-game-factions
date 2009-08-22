@@ -54,13 +54,13 @@ namespace Network
 
 		void Update( float deltaMilliseconds );
 
-		inline AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
+		inline AnyType::AnyTypeMap Message( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
 
 		void Release( );
 
-		void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
-		void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters );
+		void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

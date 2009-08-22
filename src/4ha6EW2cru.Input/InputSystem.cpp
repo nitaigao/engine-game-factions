@@ -147,7 +147,7 @@ namespace Input
 		}
 	}
 
-	AnyType::AnyTypeMap InputSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap InputSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 

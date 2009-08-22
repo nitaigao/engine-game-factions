@@ -57,7 +57,7 @@ namespace UX
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		inline AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
 
 
 		/*! Messages the Component to influence its internal state
@@ -65,7 +65,7 @@ namespace UX
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		inline AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+		inline AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
 
 		/* Inherited from ISystemComponent */
 

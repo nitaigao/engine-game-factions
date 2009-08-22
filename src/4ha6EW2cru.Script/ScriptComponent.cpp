@@ -301,13 +301,13 @@ namespace Script
 		debugParameters[ "destination" ] = destination;
 
 		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		renderService->Message( "drawLine", debugParameters );*/
+		renderService->MessageType( "drawLine", debugParameters );*/
 
 		IService* rayService = Management::Get( )->GetServiceManager( )->FindService( System::Types::PHYSICS );
-		return rayService->Message( System::Messages::CastRay, parameters ) [ "hits" ].As< std::vector< std::string > >( );
+		return rayService->ProcessMessage( System::Messages::CastRay, parameters ) [ "hits" ].As< std::vector< std::string > >( );
 	}
 
-	AnyType ScriptComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType ScriptComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType result;
 

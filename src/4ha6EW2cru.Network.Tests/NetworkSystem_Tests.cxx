@@ -72,7 +72,7 @@ TEST_F( NetworkSystem_Tests, should_add_server_network_provider_to_scene )
 	parameters[ System::Parameters::Network::Server::MaxPlayers ] = 10;
 	parameters[ System::Parameters::Game::LevelName ] = "test";
 
-	m_subject->Message( System::Messages::Network::CreateServer, parameters );
+	m_subject->ProcessMessage( System::Messages::Network::CreateServer, parameters );
 }
 
 TEST_F( NetworkSystem_Tests, should_add_client_network_provider_to_the_scene )
@@ -96,7 +96,7 @@ TEST_F( NetworkSystem_Tests, should_set_client_to_passive_if_server )
 	parameters[ System::Parameters::Network::Server::MaxPlayers ] = 10;
 	parameters[ System::Parameters::Game::LevelName ] = "test";
 
-	m_subject->Message( System::Messages::Network::CreateServer, parameters );
+	m_subject->ProcessMessage( System::Messages::Network::CreateServer, parameters );
 }
 
 TEST_F( NetworkSystem_Tests, should_connect_to_server )
@@ -110,13 +110,13 @@ TEST_F( NetworkSystem_Tests, should_connect_to_server )
 	parameters[ System::Parameters::Network::HostAddress ] = serverAddress;
 	parameters[ System::Parameters::Network::Port ] = port;
 
-	m_subject->Message( System::Messages::Network::Connect, parameters );
+	m_subject->ProcessMessage( System::Messages::Network::Connect, parameters );
 }
 
 TEST_F( NetworkSystem_Tests, should_disconnect_from_server )
 {
 	EXPECT_CALL( *m_clientProvider, Disconnect( ) );
-	m_subject->Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) );
+	m_subject->ProcessMessage( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) );
 }
 
 TEST_F( NetworkSystem_Tests, should_update_the_scene )
@@ -138,13 +138,13 @@ TEST_F( NetworkSystem_Tests, should_call_select_character_when_client_picks_one 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
 
-	m_subject->Message( System::Messages::Network::Client::CharacterSelected, parameters );
+	m_subject->ProcessMessage( System::Messages::Network::Client::CharacterSelected, parameters );
 }
 
 TEST_F( NetworkSystem_Tests, should_find_servers )
 {
 	EXPECT_CALL( *m_clientProvider, FindServers( ) );
-	m_subject->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
+	m_subject->ProcessMessage( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
 }
 
 TEST_F( NetworkSystem_Tests, should_return_server_ad )
@@ -159,7 +159,7 @@ TEST_F( NetworkSystem_Tests, should_return_server_ad )
 	EXPECT_CALL( *m_clientProvider, GetServerAdvertisement( cacheIndex ) )
 		.WillOnce( Return( ad ) );
 
-	m_subject->Message( System::Messages::Network::Client::GetServerAd, parameters );
+	m_subject->ProcessMessage( System::Messages::Network::Client::GetServerAd, parameters );
 
 	delete ad;
 }
@@ -167,6 +167,6 @@ TEST_F( NetworkSystem_Tests, should_return_server_ad )
 TEST_F( NetworkSystem_Tests, should_send_level_loaded )
 {
 	EXPECT_CALL( *m_clientProvider, LevelLoaded( ) );
-	m_subject->Message( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
+	m_subject->ProcessMessage( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
 }
 	

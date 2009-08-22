@@ -108,3 +108,14 @@ TEST_F( NetworkServerProvider_Tests, should_create_entity_using_controller )
 	EXPECT_CALL( *m_controller, CreateEntity( entityName, entityType ) );
 	m_subject->Message( entityName, System::Messages::Entity::CreateEntity, parameters );
 }
+
+TEST_F( NetworkServerProvider_Tests, should_destroy_entity_using_the_controller )
+{
+	std::string entityName = "hello";
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Attributes::Name ] = entityName;
+
+	EXPECT_CALL( *m_controller, DestroyEntity( entityName ) );
+	m_subject->Message( entityName, System::Messages::Entity::DestroyEntity, parameters );
+}

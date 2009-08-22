@@ -110,7 +110,7 @@ namespace Events
 		 *  @param[in] const std::string message
 		 *  @return ()
 		 */
-		explicit MessageLoggedEventData( const System::Message& message )
+		explicit MessageLoggedEventData( const System::MessageType& message )
 			: m_message( message )
 		{
 

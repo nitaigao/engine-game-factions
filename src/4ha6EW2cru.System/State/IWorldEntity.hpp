@@ -65,7 +65,7 @@ namespace State
 		*  @param[in] IObserver * observer
 		*  @return (void)
 		*/
-		virtual void AddObserver( const System::Message& message, IObserver* observer ) = 0;
+		virtual void AddObserver( const System::MessageType& message, IObserver* observer ) = 0;
 
 
 		/*! Sets an Attribute on all of the sub components

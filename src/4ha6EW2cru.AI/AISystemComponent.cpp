@@ -4,12 +4,12 @@ using namespace Maths;
 
 namespace AI
 {
-	AnyType AISystemComponent::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType AISystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		return m_observer->Message( message, parameters );
+		return m_observer->Observe( message, parameters );
 	}
 
-	AnyType AISystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType AISystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
  		if ( message == System::Messages::SetPlayerPosition )
 		{

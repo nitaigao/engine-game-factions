@@ -31,7 +31,7 @@ namespace Network
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Name ] = clientId;
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
 		m_networkInterface->CloseConnection( packet->systemAddress, true );
 	}
 
@@ -125,7 +125,7 @@ namespace Network
 		entityFilePath << "/data/entities/" << characterName << ".xml";
 		parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::CreateEntity, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
 
 		Info( clientName, "has selected character:", characterName );
 	}
@@ -138,7 +138,7 @@ namespace Network
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::SerializeWorld, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::SerializeWorld, parameters );
 
 		AnyType::AnyTypeMap params;
 		params[ System::Parameters::IO::Stream ] = &stream;

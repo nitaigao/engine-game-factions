@@ -58,7 +58,7 @@ namespace Network
 		 * @param[in] AnyType::AnyTypeMap parameters
 		 * @return ( void )
 		 */
-		virtual void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 
 		/*! Destroys the Provider

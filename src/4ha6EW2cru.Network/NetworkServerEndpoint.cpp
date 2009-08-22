@@ -45,11 +45,15 @@ namespace Network
 
 				break;
 
+			case ID_DISCONNECTION_NOTIFICATION:
+
+				m_networkController->ClientDisconnected( packet->systemAddress );
+
+				break;
+
 			case ID_RPC_REMOTE_ERROR:
 
-				RPCErrorCodes errorCode = ( RPCErrorCodes ) packet->data[ 1 ];
-
-				int a = 1;
+				NetworkUtils::HandleRPCError( packet );
 
 				break;
 
@@ -77,7 +81,7 @@ namespace Network
 		parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )
-			->Message( System::Messages::Entity::CreateEntity, parameters );
+			->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
 	}
 
 	void NetworkServerEndpoint::Net_LevelLoaded( RakString levelName, RakNet::RPC3* rpcFromNetwork )

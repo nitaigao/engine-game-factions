@@ -30,7 +30,7 @@ namespace Input
 		* @param[in] const std::string & fullCode
 		* @return (  )
 		*/
-		InputMessageBinding( const System::Message& message, const std::string& fullCode )
+		InputMessageBinding( const System::MessageType& message, const std::string& fullCode )
 		{
 			m_message = message;
 			m_fullCode = fullCode;
@@ -82,7 +82,7 @@ namespace Input
 		static const std::string TypeName( ) { return "InputMessageBinding"; };
 
 
-		/*! Returns the Type of the Message Binding
+		/*! Returns the Type of the MessageType Binding
 		*
 		* @return ( InputMessageBindingType )
 		*/
@@ -118,11 +118,11 @@ namespace Input
 		void SetText( const std::string& text ) { m_text = text; };
 
 
-		/*! Gets the Message Associated with the Binding
+		/*! Gets the MessageType Associated with the Binding
 		*
 		* @return ( unsigned int )
 		*/
-		System::Message GetMessage( ) const { return m_message; };
+		System::MessageType GetMessage( ) const { return m_message; };
 
 	private:
 
@@ -130,7 +130,7 @@ namespace Input
 		unsigned int m_code;
 		std::string m_text;
 		std::string m_fullCode;
-		System::Message m_message;
+		System::MessageType m_message;
 
 	};
 };

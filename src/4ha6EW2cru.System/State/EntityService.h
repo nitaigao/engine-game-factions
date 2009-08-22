@@ -54,7 +54,7 @@ namespace State
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 	private:

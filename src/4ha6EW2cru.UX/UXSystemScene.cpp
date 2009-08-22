@@ -28,10 +28,10 @@ namespace UX
 	void UXSystemScene::Initialize( )
 	{
 		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		Root* root = renderService->Message( System::Messages::Graphics::GetRootSingleton, AnyType::AnyTypeMap( ) )[ "result" ].As< Ogre::Root* >( );
+		Root* root = renderService->ProcessMessage( System::Messages::Graphics::GetRootSingleton, AnyType::AnyTypeMap( ) )[ "result" ].As< Ogre::Root* >( );
 		Root::initFromPtr( root ); 
 		
-		Ogre::RenderWindow* renderWindow = renderService->Message( System::Messages::Graphics::GetRenderWindow, AnyType::AnyTypeMap( ) )[ "renderWindow" ].As< Ogre::RenderWindow* >( );
+		Ogre::RenderWindow* renderWindow = renderService->ProcessMessage( System::Messages::Graphics::GetRenderWindow, AnyType::AnyTypeMap( ) )[ "renderWindow" ].As< Ogre::RenderWindow* >( );
 		m_gui->initialise( renderWindow, "/data/interface/core/core.xml", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "" );
 		m_gui->hidePointer( );
 
@@ -54,7 +54,7 @@ namespace UX
 		{
 			AnyType::AnyTypeMap parameters;
 			parameters[ "name" ] = ( *i )->GetAttributes( )[ System::Attributes::Name ].As< std::string >( );
-			scriptService->Message( "unloadComponent", parameters );
+			scriptService->ProcessMessage( "unloadComponent", parameters );
 			delete ( *i );
 		}
 
@@ -79,12 +79,12 @@ namespace UX
 		scriptParameters[ System::Attributes::Name ] = name;
 
 		IService* scriptService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SCRIPT );
-		ISystemComponent* scriptComponent = scriptService->Message( System::Messages::LoadScript, scriptParameters )[ "component" ].As< ISystemComponent* >( );
+		ISystemComponent* scriptComponent = scriptService->ProcessMessage( System::Messages::LoadScript, scriptParameters )[ "component" ].As< ISystemComponent* >( );
 
-		lua_State* scriptState = scriptComponent->Message( System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
+		lua_State* scriptState = scriptComponent->Observe( System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
 		globals( scriptState )[ System::TypeStrings::UX ] = component;
 
-		scriptComponent->Message( System::Messages::RunScript, AnyType::AnyTypeMap( ) );
+		scriptComponent->Observe( System::Messages::RunScript, AnyType::AnyTypeMap( ) );
 
 		m_components.push_back( component );
 

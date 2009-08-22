@@ -444,7 +444,7 @@ namespace Renderer
 		this->SetAttribute( "backgroundColor", parameters );
 	}
 
-	AnyType::AnyTypeMap RendererSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap RendererSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 

@@ -21,7 +21,7 @@ namespace UX
 		return m_scene;
 	}
 
-	AnyType::AnyTypeMap UXSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap UXSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 

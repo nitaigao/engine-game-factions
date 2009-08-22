@@ -25,7 +25,7 @@ namespace Script
 		AnyType::AnyTypeMap parameters;
 		parameters[ "eventPath" ] = eventPath;
 
-		soundService->Message( "playMusic", parameters );
+		soundService->ProcessMessage( "playMusic", parameters );
 	}
 
 	void SoundFacade::TriggerEvent( const std::string& eventPath )

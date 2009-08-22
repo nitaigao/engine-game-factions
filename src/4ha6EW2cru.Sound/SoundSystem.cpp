@@ -203,7 +203,7 @@ namespace Sound
 		return FMOD_OK;
 	}
 
-	AnyType::AnyTypeMap SoundSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap SoundSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 		FMOD_RESULT result;

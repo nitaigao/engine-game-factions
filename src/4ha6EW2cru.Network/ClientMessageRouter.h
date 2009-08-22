@@ -28,9 +28,9 @@ namespace Network
 		virtual void Connect( AnyType::AnyTypeMap &parameters ) = 0;
 		virtual void Disconnect( ) = 0;
 		virtual void GetServerAdvertisement( AnyType::AnyTypeMap &parameters, AnyType::AnyTypeMap &results ) = 0;
-		virtual void SelectCharacter( const System::Message& message, AnyType::AnyTypeMap &parameters ) = 0;
+		virtual void SelectCharacter( const System::MessageType& message, AnyType::AnyTypeMap &parameters ) = 0;
 		virtual void FindServers( ) = 0;
-		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 		virtual void UpdateServer( float deltaMilliseconds, float updateRate ) = 0;
 		virtual void LevelLoaded( ) = 0;
 	};
@@ -65,12 +65,12 @@ namespace Network
 		void Connect( AnyType::AnyTypeMap &parameters );
 		void Disconnect( );
 		
-		void SelectCharacter( const System::Message& message, AnyType::AnyTypeMap &parameters );
+		void SelectCharacter( const System::MessageType& message, AnyType::AnyTypeMap &parameters );
 
 		void FindServers( );
 		void GetServerAdvertisement( AnyType::AnyTypeMap &parameters, AnyType::AnyTypeMap &results );
 
-		void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 		void UpdateServer( float deltaMilliseconds, float updateRate );
 		void LevelLoaded( );
 		

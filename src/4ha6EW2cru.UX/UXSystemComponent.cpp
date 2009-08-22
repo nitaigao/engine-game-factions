@@ -25,7 +25,7 @@ namespace UX
 		parameters[ System::Parameters::Graphics::Height ] = height;
 		parameters[ System::Parameters::Graphics::FullScreen ] = isFullScreen;
 
-		renderService->Message( "changeResolution", parameters );
+		renderService->ProcessMessage( "changeResolution", parameters );
 
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GRAPHICS_SETTINGS_CHANGED", width, height ) );
 
@@ -39,7 +39,7 @@ namespace UX
 		AnyType::AnyTypeMap parameters;
 		parameters[ "inputAllowed" ] = inputAllowed;
 		
-		inputService->Message( "setInputAllowed", parameters );
+		inputService->ProcessMessage( "setInputAllowed", parameters );
 	}
 
 	void UXSystemComponent::UnScriptWidget( MyGUI::Widget* widget, const std::string& eventName, luabind::object function )
@@ -343,7 +343,7 @@ namespace UX
 		typedef std::vector< std::string > StringVector;
 
 		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		StringVector resolutions = renderService->Message( "getAvailableVideoModes", AnyType::AnyTypeMap( ) )[ "availableVideoModes" ].As< StringVector >( );
+		StringVector resolutions = renderService->ProcessMessage( "getAvailableVideoModes", AnyType::AnyTypeMap( ) )[ "availableVideoModes" ].As< StringVector >( );
 
 		std::multimap< int, std::string > resolutionWidths;
 

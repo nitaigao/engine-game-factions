@@ -39,7 +39,7 @@ namespace Services
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		virtual AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 	};
 };

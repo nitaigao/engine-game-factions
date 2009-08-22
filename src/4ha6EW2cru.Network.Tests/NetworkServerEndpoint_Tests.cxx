@@ -13,7 +13,35 @@ using namespace Network;
 #include <GetTime.h>
 using namespace RakNet;
 
-TEST( NetworkServerEndpoint, should_intruct_client_on_connect )
+
+class NetworkServerEndpoint_Tests : public TestHarness< NetworkServerEndpoint >
+{
+
+protected:
+
+	MockNetworkInterface* m_networkInterface;
+	MockNetworkServerController* m_controller;
+
+	void EstablishContext( )
+	{
+		m_networkInterface = new MockNetworkInterface( );
+		m_controller = new MockNetworkServerController( );
+	}
+
+
+	void DestroyContext( )
+	{
+		delete m_controller;
+		delete m_networkInterface;
+	}
+
+	NetworkServerEndpoint* CreateSubject( )
+	{
+		return new NetworkServerEndpoint( m_networkInterface, m_controller );
+	}
+};
+
+TEST_F( NetworkServerEndpoint_Tests, should_intruct_client_on_connect )
 {
 	SystemAddress clientAddress( "127.0.0.1", 8990 );
 	
@@ -26,25 +54,20 @@ TEST( NetworkServerEndpoint, should_intruct_client_on_connect )
 	p.bitSize = stream.GetNumberOfBitsUsed( );
 	p.systemAddress = clientAddress;
 
-	MockNetworkInterface eth0;
-	EXPECT_CALL( eth0, Receive( ) )
-	.WillOnce( Return( &p ) );
+	EXPECT_CALL( *m_networkInterface, Receive( ) )
+		.WillOnce( Return( &p ) );
 
-	MockNetworkServerController controller;
-	EXPECT_CALL( controller, ClientConnected( clientAddress ) );
+	EXPECT_CALL( *m_controller, ClientConnected( clientAddress ) );
 
-	NetworkServerEndpoint endpoint( &eth0, &controller );
-	endpoint.Update( 99 );
+	m_subject->Update( 99 );
 }
 
-TEST( NetworkServerEndpoint, should_respond_to_server_advertisement )
+TEST_F( NetworkServerEndpoint_Tests, should_destroy_client_entity_on_disconnect )
 {
-	/*SystemAddress clientAddress( "127.0.0.1", 8990 );
-	RakNetTime time = RakNet::GetTime( );
+	SystemAddress clientAddress( "127.0.0.1", 8990 );
 
 	BitStream stream;
-	stream.Write( ( MessageID ) ID_ADVERTISE_SYSTEM );
-	stream.Write( time );
+	stream.Write( ( MessageID ) ID_DISCONNECTION_NOTIFICATION );
 	stream.ResetReadPointer( );
 
 	Packet p;
@@ -52,13 +75,10 @@ TEST( NetworkServerEndpoint, should_respond_to_server_advertisement )
 	p.bitSize = stream.GetNumberOfBitsUsed( );
 	p.systemAddress = clientAddress;
 
-	MockNetworkInterface eth0;
-	EXPECT_CALL( eth0, Receive( ) )
+	EXPECT_CALL( *m_networkInterface, Receive( ) )
 		.WillOnce( Return( &p ) );
 
-	MockNetworkServerController controller;
-	EXPECT_CALL( controller, AdvertiseSystem( clientAddress, time ) );
+	EXPECT_CALL( *m_controller, ClientDisconnected( clientAddress ) );
 
-	NetworkServerEndpoint endpoint( &eth0, &controller );
-	endpoint.Update( 99 );*/
+	m_subject->Update( 99 );
 }

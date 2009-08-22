@@ -92,7 +92,7 @@ namespace Input
 		else if ( arg.key == OIS::KC_F12 )
 		{
 			IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-			renderService->Message( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
+			renderService->ProcessMessage( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
 		}
 		else
 		{

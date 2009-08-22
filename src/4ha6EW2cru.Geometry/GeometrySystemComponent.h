@@ -98,7 +98,7 @@ namespace Geometry
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Messages the Component to influence its internal state
@@ -106,7 +106,7 @@ namespace Geometry
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

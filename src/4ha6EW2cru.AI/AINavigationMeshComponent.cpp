@@ -23,13 +23,13 @@ namespace AI
 		parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
 
 		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		renderService->Message( System::Messages::DestroyMesh, parameters );*/
+		renderService->MessageType( System::Messages::DestroyMesh, parameters );*/
 	}
 
 	void AINavigationMeshComponent::Initialize( )
 	{
 		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		AnyType::AnyTypeMap results = renderService->Message( System::Messages::LoadMesh, m_attributes );
+		AnyType::AnyTypeMap results = renderService->ProcessMessage( System::Messages::LoadMesh, m_attributes );
 		MathVector3::MathVector3List vertices = results[ "vertices" ].As< MathVector3::MathVector3List >( );
 
 		NavigationPolygon* polygon = new NavigationPolygon( );
@@ -142,9 +142,9 @@ namespace AI
 		return waypoints;
 	}
 
-	AnyType AINavigationMeshComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType AINavigationMeshComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		AISystemComponent::Message( message, parameters );
+		AISystemComponent::Observe( message, parameters );
 
 		AnyType result;
 
@@ -170,7 +170,7 @@ namespace AI
 
 			renderParameters[ System::Parameters::Vertices ] = vertices;
 			renderParameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
-			renderService->Message( System::Messages::RenderMesh, renderParameters );
+			renderService->ProcessMessage( System::Messages::RenderMesh, renderParameters );
 		}
 
 		if ( message == System::Messages::FindPath )

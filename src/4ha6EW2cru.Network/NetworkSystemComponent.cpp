@@ -11,7 +11,7 @@ using namespace Logging;
 
 namespace Network
 {
-	AnyType NetworkSystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType NetworkSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{
@@ -36,7 +36,7 @@ namespace Network
 		return AnyType( );
 	}
 
-	void NetworkSystemComponent::MessageFromNetwork( const System::Message& message, AnyType::AnyTypeMap parameters )
+	void NetworkSystemComponent::MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{
@@ -98,7 +98,9 @@ namespace Network
 
 	void NetworkSystemComponent::Destroy( )
 	{
-		/*INetworkSystemScene* networkScene = m_attributes[ System::Attributes::Parent ].As< NetworkSystemScene* >( );
-		networkScene->GetSystem( )->PushMessage( System::Messages::Entity::DestroyEntity, m_attributes );*/
+		for ( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
+		{
+			( *i )->Message( m_attributes[ System::Attributes::Name ].As< std::string >( ), System::Messages::Entity::DestroyEntity, m_attributes );
+		}
 	}
 }

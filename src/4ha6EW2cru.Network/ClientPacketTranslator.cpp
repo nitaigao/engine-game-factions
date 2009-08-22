@@ -75,7 +75,7 @@ namespace Network
 			AnyType::AnyTypeMap parameters;
 			parameters[ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
 
-			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DeSerializeWorld, parameters );
+			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::DeSerializeWorld, parameters );
 		}
 
 		delete stream;
@@ -138,7 +138,7 @@ namespace Network
 			parameters[ System::Attributes::FilePath ] = filePath;
 		}
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::CreateEntity, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
 	}
 
 	void ClientPacketTranslator::OnChangeLevel( const std::string& levelName )
@@ -153,7 +153,7 @@ namespace Network
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Name ] = name;
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DestroyEntity, parameters );
+		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
 	}
 
 	void ClientPacketTranslator::OnComponentUpdate( BitStream* stream )

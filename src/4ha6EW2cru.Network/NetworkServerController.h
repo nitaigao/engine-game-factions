@@ -75,6 +75,14 @@ namespace Network
 		void ClientConnected( const SystemAddress& clientAddress );
 
 
+		/*! Instructs the controller that a client has disconnected
+		*
+		* @param[in] const SystemAddress & clientDisconnected
+		* @return ( void )
+		*/
+		void ClientDisconnected( const SystemAddress& clientAddress );
+
+
 		/*! Broadcasts to the connected clients to create the Entity
 		*
 		* @param[in] const std::string & entityName
@@ -82,6 +90,14 @@ namespace Network
 		* @return ( void )
 		*/
 		void CreateEntity( const std::string& entityName, const std::string& entityType );
+
+
+		/*! Broadcasts to the connected clients to destroy the entity
+		*
+		* @param[in] const std::string & entityName
+		* @return ( void )
+		*/
+		void DestroyEntity( const std::string& entityName );
 
 
 		/*! Pushes a world update to the client at the given address

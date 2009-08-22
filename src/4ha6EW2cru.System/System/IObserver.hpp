@@ -22,7 +22,7 @@ class IObserver
 
 public:
 
-	typedef std::multimap< System::Message, IObserver* > ObserverMap;
+	typedef std::multimap< System::MessageType, IObserver* > ObserverMap;
 	typedef std::deque< IObserver* > ObserverList;
 
 	/*! Messages the Observer to influence its internal state
@@ -30,7 +30,7 @@ public:
 	*  @param[in] const std::string & message
 	*  @return (AnyType)
 	*/
-	virtual AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+	virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 };
 

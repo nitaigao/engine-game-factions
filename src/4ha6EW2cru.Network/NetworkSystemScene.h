@@ -104,11 +104,11 @@ namespace Network
 		/*! Messages a component within the Scene
 		*
 		* @param[in] const std::string componentId
-		* @param[in] const System::Message & message
+		* @param[in] const System::MessageType & message
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void MessageComponent( const std::string& componentId, const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI void MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

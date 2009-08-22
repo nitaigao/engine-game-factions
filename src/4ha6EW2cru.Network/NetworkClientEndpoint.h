@@ -64,10 +64,12 @@ namespace Network
 
 		static void Net_LoadLevel( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
 		static void Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
+		static void Net_DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
 		static void Net_UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 
 
 		void CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
+		void DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
 		void UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 
 	private:

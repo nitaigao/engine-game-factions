@@ -10,6 +10,7 @@ using namespace Maths;
 #include <RakString.h>
 #include <BitStream.h>
 #include <MessageIdentifiers.h>
+#include <RPC3.h>
 using namespace RakNet;
 
 #include "System/SystemType.hpp"
@@ -53,5 +54,39 @@ namespace Network
 		bitStream->Read( messageId );
 
 		return bitStream;
+	}
+
+	void NetworkUtils::HandleRPCError( Packet* packet )
+	{
+		switch ( packet->data[1] )
+		{
+		case RakNet::RPC_ERROR_NETWORK_ID_MANAGER_UNAVAILABLE:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_NETWORK_ID_MANAGER_UNAVAILABLE" );
+			break;
+
+		case RakNet::RPC_ERROR_OBJECT_DOES_NOT_EXIST:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_OBJECT_DOES_NOT_EXIST" );
+			break;
+
+		case RakNet::RPC_ERROR_FUNCTION_INDEX_OUT_OF_RANGE:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_FUNCTION_INDEX_OUT_OF_RANGE" );
+			break;
+
+		case RakNet::RPC_ERROR_FUNCTION_NOT_REGISTERED:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_FUNCTION_NOT_REGISTERED" );
+			break;
+
+		case RakNet::RPC_ERROR_FUNCTION_NO_LONGER_REGISTERED:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_FUNCTION_NO_LONGER_REGISTERED" );
+			break;
+
+		case RakNet::RPC_ERROR_CALLING_CPP_AS_C:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_CALLING_CPP_AS_C" );
+			break;
+
+		case RakNet::RPC_ERROR_CALLING_C_AS_CPP:
+			Fatal( "RPC Error:", packet->data + 2, "RPC_ERROR_CALLING_C_AS_CPP" );
+			break;
+		}
 	}
 }

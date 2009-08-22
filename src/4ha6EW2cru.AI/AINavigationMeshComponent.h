@@ -51,7 +51,7 @@ namespace AI
 		void Destroy( );
 
 
-		AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 		/*! Returns a Path in way points from the start point to the destination point
 		*

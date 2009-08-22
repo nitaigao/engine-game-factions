@@ -30,12 +30,12 @@ namespace AI
 		parameters[ System::Attributes::Name ] = m_name + "_ai";
 		parameters[ System::Parameters::ScriptPath ] = m_attributes[ System::Parameters::ScriptPath ];
 
-		ISystemComponent* scriptComponent = scriptService->Message( System::Messages::LoadScript, parameters )[ "component" ].As< ISystemComponent* >( );
+		ISystemComponent* scriptComponent = scriptService->ProcessMessage( System::Messages::LoadScript, parameters )[ "component" ].As< ISystemComponent* >( );
 
-		lua_State* scriptState = scriptComponent->Message( System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
+		lua_State* scriptState = scriptComponent->Observe( System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
 		globals( scriptState )[ "ai" ] = this;
 
-		scriptComponent->Message( System::Messages::RunScript, AnyType::AnyTypeMap( ) );
+		scriptComponent->Observe( System::Messages::RunScript, AnyType::AnyTypeMap( ) );
 	}
 
 	void AIScriptComponent::Destroy()
@@ -44,7 +44,7 @@ namespace AI
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Name ] = m_name + "_ai";
-		scriptService->Message( "unloadComponent", parameters );
+		scriptService->ProcessMessage( "unloadComponent", parameters );
 	}
 
 	void AIScriptComponent::WalkForward( )
@@ -116,7 +116,7 @@ namespace AI
 		parameters[ "animationName" ] = animationName;
 		parameters[ "loopAnimation" ] = loopAnimation;
 
-		service->Message( "playAnimation", parameters );
+		service->ProcessMessage( "playAnimation", parameters );
 	}
 
 	void AIScriptComponent::Update( float deltaMilliseconds )
@@ -165,7 +165,7 @@ namespace AI
 		parameters[ System::Parameters::SortByyDistance ] = true;
 		parameters[ System::Parameters::MaxResults ] = 1;
 
-		std::vector< std::string > results = physicsService->Message( System::Messages::CastRay, parameters )[ "hits" ].As< std::vector< std::string > >( );
+		std::vector< std::string > results = physicsService->ProcessMessage( System::Messages::CastRay, parameters )[ "hits" ].As< std::vector< std::string > >( );
 
 		return results.size( ) > 0;
 	}
@@ -178,6 +178,6 @@ namespace AI
 		parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As< MathVector3 >( );
 		parameters[ System::Parameters::Destination ] = position;
 
-		return scene->GetNavigationMesh( )->Message( System::Messages::FindPath, parameters ).As< MathVector3::MathVector3List >( );
+		return scene->GetNavigationMesh( )->Observe( System::Messages::FindPath, parameters ).As< MathVector3::MathVector3List >( );
 	}
 }

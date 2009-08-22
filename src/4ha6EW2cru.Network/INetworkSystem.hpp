@@ -34,7 +34,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		virtual void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 
 		/*! Sends a message to all clients across the network
@@ -43,7 +43,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 
 		/*! Sends a message to a local component

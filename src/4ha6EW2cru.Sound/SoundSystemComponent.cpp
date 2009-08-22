@@ -5,7 +5,7 @@ using namespace Maths;
 
 namespace Sound
 {
-	AnyType SoundSystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType SoundSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if( message == System::Messages::TriggerSoundEvent  )
 		{

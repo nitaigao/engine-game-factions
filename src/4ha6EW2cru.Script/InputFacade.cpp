@@ -23,18 +23,18 @@ namespace Script
 			);
 	}
 
-	std::string InputFacade::GetTextForMessage( const System::Message& message )
+	std::string InputFacade::GetTextForMessage( const System::MessageType& message )
 	{
 		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Message ] = message;
 
-		return inputService->Message( System::Messages::Input::GetTextForMessage, parameters )[ "result" ].As< std::string >( );
+		return inputService->ProcessMessage( System::Messages::Input::GetTextForMessage, parameters )[ "result" ].As< std::string >( );
 	}
 
 
-	void InputFacade::SetMessageBinding( const System::Message& message, const std::string& binding )
+	void InputFacade::SetMessageBinding( const System::MessageType& message, const std::string& binding )
 	{
 		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
 
@@ -42,10 +42,10 @@ namespace Script
 		parameters[ System::Attributes::Message ] = message;
 		parameters[ System::Parameters::Binding ] = binding;
 
-		inputService->Message( System::Messages::SetBindingForMessage, parameters );
+		inputService->ProcessMessage( System::Messages::SetBindingForMessage, parameters );
 	}
 
-	void InputFacade::SetDefaultMessageBinding( const System::Message& message, const std::string& binding )
+	void InputFacade::SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding )
 	{
 		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
 
@@ -53,6 +53,6 @@ namespace Script
 		parameters[ System::Attributes::Message ] = message;
 		parameters[ System::Parameters::Binding ] = binding;
 
-		inputService->Message( System::Messages::Input::SetDefaultBindingForMessage, parameters );
+		inputService->ProcessMessage( System::Messages::Input::SetDefaultBindingForMessage, parameters );
 	}
 }

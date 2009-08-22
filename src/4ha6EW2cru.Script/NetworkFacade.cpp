@@ -30,7 +30,7 @@ namespace Script
 		parameters[ System::Parameters::Network::Port ] = port;
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
-			->Message( System::Messages::Network::Connect, parameters );
+			->ProcessMessage( System::Messages::Network::Connect, parameters );
 	}
 
 	void NetworkFacade::SelectCharacter( const std::string& characterName )
@@ -39,13 +39,13 @@ namespace Script
 		parameters[ System::Parameters::Network::Client::CharacterName ] = characterName;
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
-			->Message( System::Messages::Network::Client::CharacterSelected, parameters );
+			->ProcessMessage( System::Messages::Network::Client::CharacterSelected, parameters );
 	}
 
 	void NetworkFacade::FindServers( )
 	{
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
-			->Message( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
+			->ProcessMessage( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
 	}
 
 	StringUtils::StringMap NetworkFacade::GetServerAd( int cacheIndex )
@@ -54,7 +54,7 @@ namespace Script
 		parameters[ System::Parameters::Network::Client::ServerCacheIndex ] = cacheIndex;
 
 		AnyType::AnyTypeMap results = Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
-			->Message( System::Messages::Network::Client::GetServerAd, parameters ); 
+			->ProcessMessage( System::Messages::Network::Client::GetServerAd, parameters ); 
 
 		StringUtils::StringMap serverAd;
 
@@ -77,7 +77,7 @@ namespace Script
 	void NetworkFacade::Disconnect()
 	{
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
-			->Message( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) ); 
+			->ProcessMessage( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) ); 
 	}
 
 	void NetworkFacade::CreateServer( unsigned int port, int maxPlayers, const std::string& levelName )
@@ -88,7 +88,7 @@ namespace Script
 		parameters[ System::Parameters::Game::LevelName ] = levelName;
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
-			->Message( System::Messages::Network::CreateServer, parameters );
+			->ProcessMessage( System::Messages::Network::CreateServer, parameters );
 		
 	}
 }

@@ -33,7 +33,7 @@ namespace Network
 		component = 0;
 	}
 
-	void NetworkSystemScene::MessageComponent( const std::string& componentId, const System::Message& message, AnyType::AnyTypeMap parameters )
+	void NetworkSystemScene::MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		static_cast< INetworkSystemComponent* >( m_components[ componentId ] )->MessageFromNetwork( message, parameters );
 	}

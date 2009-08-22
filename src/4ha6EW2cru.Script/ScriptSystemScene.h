@@ -111,7 +111,7 @@ namespace Script
 		 *  @param[in] const std::string & message
 		 *  @return (void)
 		 */
-		static void Print( const System::Message& message );
+		static void Print( const System::MessageType& message );
 
 		
 		/*! Quits the game

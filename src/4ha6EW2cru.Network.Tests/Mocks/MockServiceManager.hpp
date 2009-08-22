@@ -8,7 +8,10 @@
 #ifndef MOCKSERVICEMANAGER_HPP
 #define MOCKSERVICEMANAGER_HPP
 
+#include <gmock/gmock.h>
+
 #include "Service/IServiceManager.h"
+#include "Service/IService.hpp"
 
 namespace
 {
@@ -18,7 +21,7 @@ namespace
 	public:
 
 		MOCK_METHOD1(RegisterService, void(Services::IService*));
-		MOCK_METHOD2(MessageAll, AnyType::AnyTypeMap(const System::Message&, AnyType::AnyTypeMap));
+		MOCK_METHOD2(MessageAll, AnyType::AnyTypeMap(const System::MessageType&, AnyType::AnyTypeMap));
 		MOCK_CONST_METHOD1(FindService, Services::IService*(System::Types::Type));
 		
 	};

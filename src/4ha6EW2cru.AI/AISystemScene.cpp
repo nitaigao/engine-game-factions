@@ -75,7 +75,7 @@ namespace AI
 	void AISystemScene::Initialize()
 	{
 		IService* scriptService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SCRIPT );
-		lua_State* state = scriptService->Message( "getMasterState", AnyType::AnyTypeMap( ) )[ "masterState" ].As< lua_State* >( );
+		lua_State* state = scriptService->ProcessMessage( "getMasterState", AnyType::AnyTypeMap( ) )[ "masterState" ].As< lua_State* >( );
 
 		module( state )
 		[

@@ -61,7 +61,7 @@ namespace Script
 		m_scene->Update( deltaMilliseconds );
 	}
 
-	AnyType::AnyTypeMap ScriptSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap ScriptSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 

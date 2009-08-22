@@ -49,7 +49,7 @@ namespace Script
 		* @param[in] const std::string & message
 		* @return ( std::string )
 		*/
-		std::string GetTextForMessage( const System::Message& message );
+		std::string GetTextForMessage( const System::MessageType& message );
 
 
 		/*! Sets the key or mouse button to the given message
@@ -58,7 +58,7 @@ namespace Script
 		* @param[in] const std::string & binding
 		* @return ( void )
 		*/
-		void SetMessageBinding( const System::Message& message, const std::string& binding );
+		void SetMessageBinding( const System::MessageType& message, const std::string& binding );
 
 
 		/*! Sets a default binding for the given message which will be used if the binding isn't specified in the config file
@@ -67,7 +67,7 @@ namespace Script
 		* @param[in] const std::string & binding
 		* @return ( void )
 		*/
-		void SetDefaultMessageBinding( const System::Message& message, const std::string& binding );
+		void SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding );
 
 	private:
 

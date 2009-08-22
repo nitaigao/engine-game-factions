@@ -22,7 +22,7 @@ TEST( EntityService_Tests, should_deserialize_when_messaged )
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::IO::Stream ] = static_cast< IO::IStream* >( &stream );
 
-	service.Message( System::Messages::Entity::DeSerializeWorld, parameters );
+	service.ProcessMessage( System::Messages::Entity::DeSerializeWorld, parameters );
 }
 
 TEST( EntityService_Tests, should_serialize_when_messaged )
@@ -37,7 +37,7 @@ TEST( EntityService_Tests, should_serialize_when_messaged )
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::IO::Stream ] = static_cast< IO::IStream* >( &stream );
 
-	service.Message( System::Messages::Entity::SerializeWorld, parameters );
+	service.ProcessMessage( System::Messages::Entity::SerializeWorld, parameters );
 }
 
 TEST( EntityService_Tests, should_create_entity_when_messaged )
@@ -54,7 +54,7 @@ TEST( EntityService_Tests, should_create_entity_when_messaged )
 	parameters[ System::Attributes::EntityType ] = "testType";
 	parameters[ System::Attributes::FilePath ] = "testPath";
 
-	service.Message( System::Messages::Entity::CreateEntity, parameters );
+	service.ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
 }
 
 TEST( EntityService_Tests, should_destroy_entity_when_messaged )
@@ -69,5 +69,5 @@ TEST( EntityService_Tests, should_destroy_entity_when_messaged )
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::Name ] = "testName";
 
-	service.Message( System::Messages::Entity::DestroyEntity, parameters );
+	service.ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
 }

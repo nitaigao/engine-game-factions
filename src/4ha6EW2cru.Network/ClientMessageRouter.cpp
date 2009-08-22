@@ -28,7 +28,7 @@ namespace Network
 			);
 	}
 
-	void ClientMessageRouter::SelectCharacter( const System::Message& message, AnyType::AnyTypeMap &parameters )
+	void ClientMessageRouter::SelectCharacter( const System::MessageType& message, AnyType::AnyTypeMap &parameters )
 	{
 		BitStream stream;
 		stream.Write( RakString( message ) );
@@ -76,7 +76,7 @@ namespace Network
 		m_networkInterface->CloseConnection( m_serverAddress, true );
 	}
 
-	void ClientMessageRouter::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	void ClientMessageRouter::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( 
 			message == System::Messages::Move_Forward_Pressed ||

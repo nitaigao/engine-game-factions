@@ -83,7 +83,7 @@ namespace Network
 		}
 	}
 
-	void ServerNetworkProvider::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	void ServerNetworkProvider::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::Entity::CreateEntity )
 		{
@@ -132,7 +132,7 @@ namespace Network
 		} 
 	}
 
-	void ServerNetworkProvider::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
+	void ServerNetworkProvider::PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::Network::Server::WorldUpdate )
 		{

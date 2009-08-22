@@ -15,13 +15,13 @@ namespace Services
 		return 0;
 	}
 
-	AnyType::AnyTypeMap ServiceManager::MessageAll( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap ServiceManager::MessageAll( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 
 		for( IService::ServiceList::const_iterator i = m_services.begin( ); i != m_services.end( ); ++i )
 		{
-			AnyType::AnyTypeMap serviceResults = ( *i )->Message( message, parameters );
+			AnyType::AnyTypeMap serviceResults = ( *i )->ProcessMessage( message, parameters );
 
 			for ( AnyType::AnyTypeMap::iterator i = serviceResults.begin( ); i != serviceResults.end( ); ++i )
 			{

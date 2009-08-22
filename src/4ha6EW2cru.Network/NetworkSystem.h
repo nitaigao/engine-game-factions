@@ -85,7 +85,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Returns the type of the System
@@ -124,7 +124,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Sends a message across the network
@@ -134,7 +134,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Sends a message to a local component

@@ -9,7 +9,7 @@ namespace Geometry
 		
 	}
 
-	AnyType GeometrySystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType GeometrySystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{
@@ -30,11 +30,11 @@ namespace Geometry
 		return AnyType( );
 	}
 
-	AnyType GeometrySystemComponent::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType GeometrySystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		for( ObserverList::iterator i = m_observers.begin( ); i != m_observers.end( ); ++i )
 		{
-			( *i )->Message( System::Messages::SetPosition, m_attributes );
+			( *i )->Observe( System::Messages::SetPosition, m_attributes );
 		}
 
 		return AnyType( );

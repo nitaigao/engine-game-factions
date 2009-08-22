@@ -58,6 +58,7 @@ namespace Network
 
 	void NetworkInterface::Disconnect()
 	{
+		m_networkAdapter->CloseConnection( m_networkAdapter->GetSystemAddressFromIndex( 0 ), true );
 	}
 
 	void NetworkInterface::AttachPlugin( PluginInterface2* plugin )

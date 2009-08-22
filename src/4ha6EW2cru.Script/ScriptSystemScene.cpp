@@ -173,7 +173,7 @@ namespace Script
 		ScriptSystemScene::Script_PError( luaState );
 	}
 
-	void ScriptSystemScene::Print( const System::Message& message )
+	void ScriptSystemScene::Print( const System::MessageType& message )
 	{
 		Logger::Get( )->Info( message );
 	}

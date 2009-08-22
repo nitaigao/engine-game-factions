@@ -47,11 +47,11 @@ namespace Network
 		/*! Messages a component within the Scene
 		*
 		* @param[in] const std::string componentId
-		* @param[in] const System::Message & message
+		* @param[in] const System::MessageType & message
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		virtual void MessageComponent( const std::string& componentId, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

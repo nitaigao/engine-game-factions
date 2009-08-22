@@ -107,7 +107,7 @@ namespace Renderer
 		*  @param[in] AnyType::AnyTypeMap parameters
 		*  @return (AnyType)
 		*/
-		AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Messages the Component to influence its internal state
@@ -115,7 +115,7 @@ namespace Renderer
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		virtual AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	protected:
 

@@ -51,7 +51,7 @@ namespace State
 		*  @param[in] IObserver * observer
 		*  @return (void)
 		*/
-		void AddObserver( const System::Message& message, IObserver* observer ) { m_observers.insert( std::make_pair( message, observer ) ); };
+		void AddObserver( const System::MessageType& message, IObserver* observer ) { m_observers.insert( std::make_pair( message, observer ) ); };
 
 
 		/*! Initializes all of the components contained by the entity
@@ -90,7 +90,7 @@ namespace State
 		 *  @param[in] const std::string & message
 		 *  @return (AnyType)
 		 */
-		GAMEAPI AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Writes the contents of the entity to the given stream

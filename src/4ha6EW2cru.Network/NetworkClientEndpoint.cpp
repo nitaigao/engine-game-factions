@@ -21,6 +21,7 @@ using namespace Events;
 using namespace Utility;
 
 using namespace IO;
+using namespace Services;
 
 namespace Network
 {
@@ -40,6 +41,7 @@ namespace Network
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_LoadLevel );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_DestroyEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
 	}
 
@@ -55,6 +57,11 @@ namespace Network
 		NetworkClientEndpoint::m_clientEndpoint->CreateEntity( entityName, filePath, rpcFromNetwork );
 	}
 
+	void NetworkClientEndpoint::Net_DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork )
+	{
+		NetworkClientEndpoint::m_clientEndpoint->DestroyEntity( entityname, rpcFromNetwork );
+	}
+
 	void NetworkClientEndpoint::Net_UpdateWorld( BitStream& stream, RakNet::RPC3* rpcFromNetwork )
 	{
 		NetworkClientEndpoint::m_clientEndpoint->UpdateWorld( stream, rpcFromNetwork );
@@ -67,7 +74,7 @@ namespace Network
 		AnyType::AnyTypeMap parameters;
 		parameters [ System::Parameters::IO::Stream ] = static_cast< IStream* >( &networkStream );
 
-		m_serviceManager->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::DeSerializeWorld, parameters );
+		m_serviceManager->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::DeSerializeWorld, parameters );
 	}
 
 	void NetworkClientEndpoint::CreateEntity( RakNet::RakString entityName, RakNet::RakString entityType, RakNet::RPC3* rpcFromNetwork )
@@ -84,7 +91,19 @@ namespace Network
 			entityFilePath << "/data/entities/" << entityType << fileExtension;
 			parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
 
-			Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )->Message( System::Messages::Entity::CreateEntity, parameters );
+			m_serviceManager->FindService( System::Types::ENTITY )->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
+		}
+	}
+
+	void NetworkClientEndpoint::DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork )
+	{
+		if ( !m_isPassive )
+		{
+			AnyType::AnyTypeMap parameters;
+			parameters[ System::Attributes::Name ] = std::string( entityname );
+
+			IService* service = m_serviceManager->FindService( System::Types::ENTITY );
+			service->ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
 		}
 	}
 
@@ -141,8 +160,7 @@ namespace Network
 
 			case ID_RPC_REMOTE_ERROR:
 				{
-					RPCErrorCodes errorCode = ( RPCErrorCodes ) packet->data[ 1 ];
-					int a = 1;
+					NetworkUtils::HandleRPCError( packet );
 					
 					break;
 				}

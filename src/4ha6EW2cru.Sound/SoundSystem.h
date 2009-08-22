@@ -71,7 +71,7 @@ namespace Sound
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Returns the type of the System

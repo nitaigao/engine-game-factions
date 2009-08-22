@@ -68,12 +68,12 @@ namespace Network
 		}
 	}
 
-	void NetworkSystem::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	void NetworkSystem::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		//m_networkProvider->PushMessage( message, parameters );
 	}
 
-	void NetworkSystem::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
+	void NetworkSystem::PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		//m_networkProvider->PushMessage( address, message, parameters );
 	}
@@ -83,7 +83,7 @@ namespace Network
 		m_scene->Update( deltaMilliseconds );
 	}
 
-	AnyType::AnyTypeMap NetworkSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap NetworkSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 

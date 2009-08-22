@@ -78,7 +78,7 @@ namespace Network
 		m_messageRouter->UpdateServer( deltaMilliseconds, m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ClientSnapshotRate ).As< int >( ) );
 	}
 
-	AnyType::AnyTypeMap ClientNetworkProvider::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap ClientNetworkProvider::Message( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 
@@ -115,12 +115,12 @@ namespace Network
 		return results;
 	}
 
-	void ClientNetworkProvider::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	void ClientNetworkProvider::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		m_messageRouter->PushMessage( message, parameters );
 	}
 
-	void ClientNetworkProvider::PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters )
+	void ClientNetworkProvider::PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 
 	}

@@ -42,7 +42,7 @@ namespace Network
 		m_endpoint->Initialize( );
 	}
 
-	void NetworkServerProvider::Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters )
+	void NetworkServerProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{
@@ -62,6 +62,11 @@ namespace Network
 		if ( message == System::Messages::Entity::CreateEntity )
 		{
 			m_controller->CreateEntity( entityName, parameters[ System::Attributes::EntityType ].As< std::string >( ) );
+		}
+
+		if ( message == System::Messages::Entity::DestroyEntity )
+		{
+			m_controller->DestroyEntity( entityName );
 		}
 	}
 

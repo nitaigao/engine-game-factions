@@ -94,7 +94,7 @@ namespace Sound
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		inline AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
 
 
 		/*! Messages the Component to influence its internal state
@@ -102,7 +102,7 @@ namespace Sound
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 		void TriggerEvent( const std::string& eventPath );
 		void KeyoutEvent( const std::string& eventPath );

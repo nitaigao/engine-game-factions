@@ -40,7 +40,7 @@ public:
 	*  @param[in] AnyType::AnyValueMap parameters
 	*  @return (AnyType)
 	*/
-	virtual AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+	virtual AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 };
 

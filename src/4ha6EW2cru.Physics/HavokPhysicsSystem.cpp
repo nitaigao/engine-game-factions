@@ -148,7 +148,7 @@ namespace Physics
 		return results;
 	}
 
-	AnyType::AnyTypeMap HavokPhysicsSystem::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap HavokPhysicsSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
 

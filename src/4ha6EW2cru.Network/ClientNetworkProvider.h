@@ -52,9 +52,9 @@ namespace Network
 		void TranslatePackets( Packet* packet );
 		void Release( );
 
-		AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType::AnyTypeMap Message( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
-		void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 		void SendNetworkMessage( const NetworkMessage& message, const SystemAddress& destination );
 
@@ -64,7 +64,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters );
+		void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

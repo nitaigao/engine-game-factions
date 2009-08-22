@@ -41,7 +41,7 @@ namespace Services
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( AnyType::AnyTypeMap )
 		*/
-		virtual AnyType::AnyTypeMap MessageAll( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual AnyType::AnyTypeMap MessageAll( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 
 		/*! Finds a Registered Service by System::Types::Type

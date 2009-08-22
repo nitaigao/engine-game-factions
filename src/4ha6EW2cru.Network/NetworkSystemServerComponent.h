@@ -95,7 +95,7 @@ namespace Network
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		inline AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) { return m_observer->Message( message, parameters ); };
+		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( message, parameters ); };
 
 
 		/*! Messages the Component to influence its internal state
@@ -103,7 +103,7 @@ namespace Network
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		GAMEAPI AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

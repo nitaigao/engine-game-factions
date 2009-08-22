@@ -42,7 +42,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		virtual void MessageFromNetwork( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

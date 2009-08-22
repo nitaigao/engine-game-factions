@@ -99,7 +99,7 @@ namespace Serialization
 		*  @param[in] AnyType::AnyTypeMap & parameters
 		*  @return (AnyType::AnyTypeMap)
 		*/
-		GAMEAPI AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
+		GAMEAPI AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
 
 	private:
 

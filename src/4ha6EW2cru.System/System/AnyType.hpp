@@ -89,6 +89,13 @@ public:
 	 */
 	const std::type_info& GetType( ) const { return m_value.type( ); };
 
+
+	bool operator == ( const AnyType& input ) const
+	{
+		return false;
+	}
+
+
 private:
 
 	boost::any m_value;

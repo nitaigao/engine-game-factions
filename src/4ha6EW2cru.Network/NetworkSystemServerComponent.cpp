@@ -5,7 +5,7 @@ using namespace Maths;
 
 namespace Network
 {
-	AnyType NetworkSystemServerComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType NetworkSystemServerComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{

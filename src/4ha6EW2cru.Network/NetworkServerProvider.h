@@ -78,7 +78,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void Message( const std::string& entityName, const System::Message& message, AnyType::AnyTypeMap parameters );
+		GAMEAPI void Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Destroys the Provider

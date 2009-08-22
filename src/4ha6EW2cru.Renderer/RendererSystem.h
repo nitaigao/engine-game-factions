@@ -81,7 +81,7 @@ namespace Renderer
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		inline AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		inline AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Returns the type of the System

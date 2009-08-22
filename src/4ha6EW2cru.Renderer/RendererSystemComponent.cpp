@@ -60,12 +60,12 @@ namespace Renderer
 		this->DestroySceneNode( m_sceneNode );
 	}
 
-	AnyType RendererSystemComponent::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType RendererSystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		return m_observer->Message( message, parameters );
+		return m_observer->Observe( message, parameters );
 	}
 
-	AnyType RendererSystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType RendererSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{

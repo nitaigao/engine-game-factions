@@ -35,11 +35,11 @@ namespace Network
 
 		virtual void Release( ) = 0;
 
-		virtual AnyType::AnyTypeMap Message( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual AnyType::AnyTypeMap Message( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
-		virtual void PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
-		virtual void PushMessage( const SystemAddress& address, const System::Message& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

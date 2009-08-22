@@ -1,11 +1,11 @@
 #include "EntityService.h"
 
-#include "../IO/IStream.hpp";
+#include "../IO/IStream.hpp"
 using namespace IO;
 
 namespace State
 {
-	AnyType::AnyTypeMap EntityService::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap EntityService::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if( message == System::Messages::Entity::DeSerializeWorld )
 		{

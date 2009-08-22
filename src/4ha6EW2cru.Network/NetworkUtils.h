@@ -44,6 +44,8 @@ namespace Network
 		static RakNet::BitStream* ReceiveNetworkMessage( Packet* packet );
 
 		static void SendNetworkMessage( RakNet::BitStream& data, const SystemAddress& destination, RakPeerInterface* networkInterface );
+
+		static void HandleRPCError( Packet* packet );
 		
 
 	private:

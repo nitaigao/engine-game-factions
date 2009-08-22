@@ -12,6 +12,7 @@ using namespace RakNet;
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockServerCache.hpp"
 #include "Mocks/MockServiceManager.hpp"
+#include "Mocks/MockService.h"
 
 #include "Events/EventManager.h"
 using namespace Events;
@@ -83,7 +84,17 @@ TEST_F( NetworkClientEndpoint_Tests, should_receive_offline_pong_messages )
 	delete p;
 }
 
-TEST_F( NetworkClientEndpoint_Tests, should_create_an_entity )
+TEST_F( NetworkClientEndpoint_Tests, should_destroy_an_entity_if_not_passive )
 {
+	MockService mockService;
+
+	EXPECT_CALL( *m_serviceManager, FindService( System::Types::ENTITY ) )
+		.WillOnce( Return( &mockService ) );
+
+	std::string entityName = "test";
 	
+	EXPECT_CALL( mockService, ProcessMessage( System::Messages::Entity::DestroyEntity, An< AnyType::AnyTypeMap >( ) ) )
+		.WillOnce( Return( AnyType::AnyTypeMap( ) ) );
+
+	m_subject->DestroyEntity( entityName, 0 );
 }

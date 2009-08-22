@@ -24,12 +24,12 @@ namespace
 		MOCK_METHOD0( Initialize, void( ) );
 		MOCK_METHOD1( AddComponent, void( ISystemComponent* ) );
 		MOCK_CONST_METHOD0( GetComponents, ISystemComponent::SystemComponentList( ) );
-		MOCK_METHOD2( AddObserver, void( const System::Message&, IObserver* ) );
+		MOCK_METHOD2( AddObserver, void( const System::MessageType&, IObserver* ) );
 		MOCK_METHOD2( SetAttribute, void( const System::Attribute&, const AnyType& ) );
 		MOCK_METHOD1( Serialize, void( IO::IStream* ) );
 		MOCK_METHOD1( DeSerialize, void( IO::IStream* ) );
 
-		MOCK_METHOD2( Message, AnyType( const System::Message&, AnyType::AnyTypeMap ) );
+		MOCK_METHOD2( Observe, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
 		
 	};
 };

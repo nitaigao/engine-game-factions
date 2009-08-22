@@ -104,7 +104,7 @@ namespace Physics
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Messages the Component to influence its internal state
@@ -112,7 +112,7 @@ namespace Physics
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		virtual AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Returns the RigidBody of the Component

@@ -9,16 +9,16 @@ namespace State
 		m_components.push_back( component );
 
 		component->AddObserver( this );
-		component->Message( System::Messages::AddedToComponent, AnyType::AnyTypeMap( ) );
+		component->Observe( System::Messages::AddedToComponent, AnyType::AnyTypeMap( ) );
 	}
 
-	AnyType WorldEntity::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType WorldEntity::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeKeyMap results;
 
 		for( ISystemComponent::SystemComponentList::const_iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
-			AnyType result = ( *i )->Message( message, parameters );
+			AnyType result = ( *i )->Observe( message, parameters );
 			System::Types::Type systemType = ( *i )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( );
 			results.insert( std::make_pair( systemType, result ) );
 		}
@@ -27,7 +27,7 @@ namespace State
 		{
 			if ( ( *i ).first == System::Messages::All_Messages || ( *i ).first == message )
 			{
-				( *i ).second->Message( message, parameters );
+				( *i ).second->Observe( message, parameters );
 			}
 		}
 
@@ -36,14 +36,14 @@ namespace State
 
 	void WorldEntity::Initialize( )
 	{
-		this->Message( System::Messages::PreInitialize, AnyType::AnyTypeMap( ) );
+		this->Observe( System::Messages::PreInitialize, AnyType::AnyTypeMap( ) );
 
 		for( ISystemComponent::SystemComponentList::const_iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
 			( *i )->Initialize( ); 
 		}
 
-		this->Message( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
+		this->Observe( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 	}
 
 

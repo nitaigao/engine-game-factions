@@ -87,7 +87,7 @@ namespace AI
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		virtual AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Messages the Component to influence its internal state
@@ -95,7 +95,7 @@ namespace AI
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		virtual AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Gets the attributes of the Component

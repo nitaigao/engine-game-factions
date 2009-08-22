@@ -128,7 +128,7 @@ namespace Animation
 		control->removeReference( );
 	}
 
-	AnyType AnimationSystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType AnimationSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType result;
 

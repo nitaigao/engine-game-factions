@@ -30,17 +30,17 @@ namespace Input
 		m_attributes[ System::Parameters::DeltaY ] = 0.0f;
 	}
 
-	AnyType InputSystemComponent::PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType InputSystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		for( ObserverList::iterator i = m_observers.begin( ); i != m_observers.end( ); ++i )
 		{
-			( *i )->Message( message, parameters );
+			( *i )->Observe( message, parameters );
 		}
 
 		return AnyType( );
 	}
 
-	AnyType InputSystemComponent::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
+	AnyType InputSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{
