@@ -1,8 +1,10 @@
 #include "NetworkSystem.h"
 
+#include "NetworkUtils.h"
 #include "NetworkSystemScene.h"
 #include "NetworkServerProvider.h"
 #include "NetworkClientProvider.h"
+#include "ServerAdvertisement.hpp"
 
 #include <RakNetworkFactory.h>
 #include <RakSleep.h>
@@ -23,21 +25,14 @@ using namespace Events;
 #include "System/SystemType.hpp"
 using namespace Configuration;
 
-#include "Management/Management.h"
-
-#include "NetworkUtils.h"
-
-#include "Configuration/ConfigurationTypes.hpp"
-
-#include "ServerNetworkProvider.h"
-#include "ClientNetworkProvider.h"
-
-#include "ServerAdvertisement.hpp"
-
 #include <luabind/luabind.hpp>
 using namespace luabind;
 
 using namespace Services;
+
+#include "Management/Management.h"
+
+#include "Configuration/ConfigurationTypes.hpp"
 
 namespace Network
 {
