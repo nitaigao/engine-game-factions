@@ -142,9 +142,9 @@ namespace AI
 		return waypoints;
 	}
 
-	AnyType AINavigationMeshComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType AINavigationMeshComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		AISystemComponent::Observe( message, parameters );
+		AISystemComponent::Observe( subject, message, parameters );
 
 		AnyType result;
 

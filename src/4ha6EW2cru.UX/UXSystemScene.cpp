@@ -81,10 +81,11 @@ namespace UX
 		IService* scriptService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SCRIPT );
 		ISystemComponent* scriptComponent = scriptService->ProcessMessage( System::Messages::LoadScript, scriptParameters )[ "component" ].As< ISystemComponent* >( );
 
-		lua_State* scriptState = scriptComponent->Observe( System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
+		//TODO: This implementation needs to be looked at, possibly using a different interface to the script system instead of the traditional scene access route
+		lua_State* scriptState = scriptComponent->Observe( 0, System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
 		globals( scriptState )[ System::TypeStrings::UX ] = component;
 
-		scriptComponent->Observe( System::Messages::RunScript, AnyType::AnyTypeMap( ) );
+		scriptComponent->Observe( 0, System::Messages::RunScript, AnyType::AnyTypeMap( ) );
 
 		m_components.push_back( component );
 

@@ -34,13 +34,13 @@ namespace Input
 	{
 		for( ObserverList::iterator i = m_observers.begin( ); i != m_observers.end( ); ++i )
 		{
-			( *i )->Observe( message, parameters );
+			( *i )->Observe( this, message, parameters );
 		}
 
 		return AnyType( );
 	}
 
-	AnyType InputSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType InputSystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{

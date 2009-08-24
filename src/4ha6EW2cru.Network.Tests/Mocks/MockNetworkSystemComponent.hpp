@@ -24,7 +24,7 @@ namespace
 		MOCK_METHOD2( SetAttribute, void( const System::Attribute&, const AnyType& ) );
 		MOCK_METHOD1( AddProvider, void( INetworkProvider* ) );
 		MOCK_METHOD2( MessageFromNetwork, void( const System::MessageType&, AnyType::AnyTypeMap ) );
-		MOCK_METHOD2( Observe, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
+		MOCK_METHOD3( Observe, AnyType( const ISubject*, const System::MessageType&, AnyType::AnyTypeMap ) );
 		MOCK_METHOD1( AddObserver, void( IObserver* ) );
 		MOCK_METHOD2( PushMessage, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
 		

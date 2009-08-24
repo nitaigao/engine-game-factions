@@ -11,7 +11,7 @@ using namespace Logging;
 
 namespace Network
 {
-	AnyType NetworkSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType NetworkSystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{

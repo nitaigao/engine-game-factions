@@ -5,7 +5,7 @@ using namespace Maths;
 
 namespace Network
 {
-	AnyType NetworkSystemServerComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType NetworkSystemServerComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 	
 

@@ -112,7 +112,7 @@ namespace Input
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Called by the Scene when the user presses a mouse button

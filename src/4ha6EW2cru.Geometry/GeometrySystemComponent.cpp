@@ -9,7 +9,7 @@ namespace Geometry
 		
 	}
 
-	AnyType GeometrySystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType GeometrySystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{
@@ -34,7 +34,7 @@ namespace Geometry
 	{
 		for( ObserverList::iterator i = m_observers.begin( ); i != m_observers.end( ); ++i )
 		{
-			( *i )->Observe( System::Messages::SetPosition, m_attributes );
+			( *i )->Observe( this, System::Messages::SetPosition, m_attributes );
 		}
 
 		return AnyType( );

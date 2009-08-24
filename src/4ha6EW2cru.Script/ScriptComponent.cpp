@@ -307,7 +307,7 @@ namespace Script
 		return rayService->ProcessMessage( System::Messages::CastRay, parameters ) [ "hits" ].As< std::vector< std::string > >( );
 	}
 
-	AnyType ScriptComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType ScriptComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType result;
 

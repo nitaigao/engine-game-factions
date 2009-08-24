@@ -29,7 +29,7 @@ namespace
 		MOCK_METHOD1( Serialize, void( IO::IStream* ) );
 		MOCK_METHOD1( DeSerialize, void( IO::IStream* ) );
 
-		MOCK_METHOD2( Observe, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
+		MOCK_METHOD3( Observe, AnyType( const ISubject*, const System::MessageType&, AnyType::AnyTypeMap ) );
 		
 	};
 };

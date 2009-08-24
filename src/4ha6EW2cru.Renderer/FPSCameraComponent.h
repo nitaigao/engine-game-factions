@@ -62,7 +62,7 @@ namespace Renderer
 		*/
 		void Update( float deltaMilliseconds );
 
-		virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

@@ -62,10 +62,10 @@ namespace Renderer
 
 	AnyType RendererSystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		return m_observer->Observe( message, parameters );
+		return m_observer->Observe( this, message, parameters );
 	}
 
-	AnyType RendererSystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType RendererSystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::SetPosition )
 		{

@@ -16,7 +16,7 @@ namespace State
 	/*!
 	 *  A World Entity Container 
 	 */
-	class IWorldEntity : public IObserver
+	class GAMEAPI IWorldEntity : public IObserver
 	{
 
 	public:

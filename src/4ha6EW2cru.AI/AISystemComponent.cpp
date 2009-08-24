@@ -6,10 +6,10 @@ namespace AI
 {
 	AnyType AISystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		return m_observer->Observe( message, parameters );
+		return m_observer->Observe( this, message, parameters );
 	}
 
-	AnyType AISystemComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType AISystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
  		if ( message == System::Messages::SetPlayerPosition )
 		{

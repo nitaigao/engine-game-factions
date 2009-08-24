@@ -11,9 +11,9 @@ using namespace Logging;
 
 namespace Renderer
 {
-	AnyType FPSCameraComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType FPSCameraComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		AnyType result = RendererSystemComponent::Observe( message, parameters );
+		AnyType result = RendererSystemComponent::Observe( subject, message, parameters );
 
 		if ( message == System::Messages::Mouse_Moved )
 		{

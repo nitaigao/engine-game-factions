@@ -44,7 +44,7 @@ TEST_F( NetworkSystemComponent_Tests, should_forward_internal_messages_to_regist
 
 	m_subject->SetAttribute( System::Attributes::Name, entityName );
 	m_subject->AddProvider( &provider );
-	m_subject->Observe( message, parameters );
+	m_subject->Observe( 0, message, parameters );
 }
 
 TEST_F( NetworkSystemComponent_Tests, should_notify_network_when_created )

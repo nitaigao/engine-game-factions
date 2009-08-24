@@ -65,7 +65,7 @@ namespace UX
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		inline AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+		inline AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
 
 		/* Inherited from ISystemComponent */
 

@@ -67,7 +67,7 @@ namespace Physics
 		*/
 		void Update( float deltaMilliseconds );
 
-		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

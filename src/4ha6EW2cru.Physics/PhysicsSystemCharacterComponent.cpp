@@ -194,9 +194,9 @@ namespace Physics
 		}
 	}
 
-	AnyType PhysicsSystemCharacterComponent::Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType PhysicsSystemCharacterComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		AnyType returnValue = PhysicsSystemComponent::Observe( message, parameters );
+		AnyType returnValue = PhysicsSystemComponent::Observe( subject, message, parameters );
 
 		if( message == System::Messages::Move_Forward_Pressed )
 		{

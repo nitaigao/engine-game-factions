@@ -108,7 +108,7 @@ namespace Script
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Posts a message to the parent Entity
@@ -117,7 +117,7 @@ namespace Script
 		 *  @param[in] AnyType::AnyValueMap parameters
 		 *  @return (AnyType)
 		 */
-		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( message, parameters ); };
+		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
 
 
 		/*! Returns the LUA state of the Component

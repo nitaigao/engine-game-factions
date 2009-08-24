@@ -95,7 +95,7 @@ namespace AI
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Gets the attributes of the Component

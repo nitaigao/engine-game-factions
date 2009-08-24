@@ -8,16 +8,19 @@
 #ifndef IOBSERVER_H
 #define IOBSERVER_H
 
+#include <deque>
 #include "AnyType.hpp"
 
 #include "../System/SystemType.hpp"
 
-#include <deque>
+#include "../Export.hpp"
+
+class ISubject;
 
 /*! 
  *  Observes a change from an ISubject
  */
-class IObserver
+class GAMEAPI IObserver
 {
 
 public:
@@ -30,7 +33,7 @@ public:
 	*  @param[in] const std::string & message
 	*  @return (AnyType)
 	*/
-	virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+	virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 };
 

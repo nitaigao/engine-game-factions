@@ -112,7 +112,7 @@ namespace Physics
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		virtual AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Returns the RigidBody of the Component

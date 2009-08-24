@@ -102,7 +102,7 @@ namespace Sound
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 		void TriggerEvent( const std::string& eventPath );
 		void KeyoutEvent( const std::string& eventPath );

@@ -15,7 +15,7 @@ namespace State
 	/*!
 	 *  A container for components that make up an Entity 
 	 */
-	class WorldEntity : public IWorldEntity
+	class GAMEAPI WorldEntity : public IWorldEntity
 	{
 
 	public:
@@ -58,7 +58,7 @@ namespace State
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Adds a System Component to the Entity
@@ -66,7 +66,7 @@ namespace State
 		*  @param[in] ISystemComponent * component
 		*  @return (void)
 		*/
-		GAMEAPI void AddComponent( ISystemComponent* component );
+		void AddComponent( ISystemComponent* component );
 
 
 		/*! Get a list of all System Components inside the Entity
@@ -82,7 +82,7 @@ namespace State
 		* @param[in] AnyType value
 		* @return ( void )
 		*/
-		GAMEAPI void SetAttribute( const System::Attribute& attribute, const AnyType& value );
+		void SetAttribute( const System::Attribute& attribute, const AnyType& value );
 
 
 		/*! Messages the Component to influence its internal state
@@ -90,7 +90,7 @@ namespace State
 		 *  @param[in] const std::string & message
 		 *  @return (AnyType)
 		 */
-		GAMEAPI AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Writes the contents of the entity to the given stream
@@ -98,7 +98,7 @@ namespace State
 		* @param[in] IStream * stream
 		* @return ( void )
 		*/
-		GAMEAPI void Serialize( IO::IStream* stream );
+		void Serialize( IO::IStream* stream );
 
 
 		/*! Reads the contents of the entity from the stream
@@ -106,7 +106,7 @@ namespace State
 		* @param[in] IStream * stream
 		* @return ( void )
 		*/
-		GAMEAPI void DeSerialize( IO::IStream* stream ) { };
+		void DeSerialize( IO::IStream* stream ) { };
 
 	private:
 

@@ -114,7 +114,7 @@ namespace Animation
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( message, parameters ); };
+		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
 
 
 		/*! Messages the Component to influence its internal state
@@ -122,7 +122,7 @@ namespace Animation
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		AnyType Observe( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 		void TransformBone( hkaPose* pose, Ogre::Node* bone );
 

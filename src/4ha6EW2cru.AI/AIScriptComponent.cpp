@@ -32,10 +32,10 @@ namespace AI
 
 		ISystemComponent* scriptComponent = scriptService->ProcessMessage( System::Messages::LoadScript, parameters )[ "component" ].As< ISystemComponent* >( );
 
-		lua_State* scriptState = scriptComponent->Observe( System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
+		lua_State* scriptState = scriptComponent->Observe( this, System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
 		globals( scriptState )[ "ai" ] = this;
 
-		scriptComponent->Observe( System::Messages::RunScript, AnyType::AnyTypeMap( ) );
+		scriptComponent->Observe( this, System::Messages::RunScript, AnyType::AnyTypeMap( ) );
 	}
 
 	void AIScriptComponent::Destroy()
@@ -178,6 +178,6 @@ namespace AI
 		parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As< MathVector3 >( );
 		parameters[ System::Parameters::Destination ] = position;
 
-		return scene->GetNavigationMesh( )->Observe( System::Messages::FindPath, parameters ).As< MathVector3::MathVector3List >( );
+		return scene->GetNavigationMesh( )->Observe( this, System::Messages::FindPath, parameters ).As< MathVector3::MathVector3List >( );
 	}
 }
