@@ -5,7 +5,6 @@ using namespace testing;
 using namespace Events;
 
 #include "NetworkSystem.h"
-#include "ServerNetworkProvider.h"
 #include "ServerAdvertisement.hpp"
 using namespace Network;
 
