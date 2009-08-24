@@ -50,4 +50,3 @@ TEST_F( NetworkServerController_Tests, should_destroy_entity_on_client_disconnec
 
 	m_subject->ClientDisconnected( SystemAddress( "127.0.0.1", 3242 ) );
 }
-

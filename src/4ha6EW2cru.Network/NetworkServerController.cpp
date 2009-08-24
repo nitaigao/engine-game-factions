@@ -22,6 +22,8 @@ namespace Network
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_DestroyEntity );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_MessageEntity );
+
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_SetEntityPosition );		
 	}
 
@@ -70,6 +72,19 @@ namespace Network
 
 	void NetworkServerController::SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position )
 	{
-		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_SetEntityPosition", RakString( entityName ), position );
+		//m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_SetEntityPosition", RakString( entityName ), position );
+	}
+
+	void NetworkServerController::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	{
+		BitStream stream;
+
+		if ( message == System::Messages::Mouse_Moved )
+		{
+			float deltaX = parameters[ System::Parameters::DeltaX ].As< float >( );
+			stream.Write( deltaX );
+		}
+
+		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
 	}
 }

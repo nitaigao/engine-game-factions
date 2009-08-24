@@ -106,6 +106,18 @@ TEST_F( NetworkClientEndpoint_Tests, should_destroy_an_entity_if_not_passive )
 	m_subject->DestroyEntity( entityName, 0 );
 }
 
+TEST_F( NetworkClientEndpoint_Tests, should_message_entity_mouse_moved_if_not_passive )
+{
+	std::string entityName = "test";
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::DeltaX ] = 0.1f;
+
+	EXPECT_CALL( *m_scene, MessageComponent( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
+
+	m_subject->MessageEntity( entityName, System::Messages::Mouse_Moved, parameters, 0 );
+}
+
 TEST_F( NetworkClientEndpoint_Tests, should_set_an_entity_position_if_not_passive )
 {
 	std::string entityName = "test";

@@ -29,6 +29,7 @@ namespace
 		MOCK_METHOD1( SendWorldUpdate, void( const SystemAddress& ) );
 		MOCK_METHOD1( ClientDisconnected, void( const SystemAddress& ) );
 		MOCK_METHOD2( SetEntityPosition, void( const std::string&, const Maths::MathVector3& ) );
+		MOCK_METHOD3( MessageEntity, void( const std::string&, const System::MessageType&, AnyType::AnyTypeMap ) );
 		
 	};
 };

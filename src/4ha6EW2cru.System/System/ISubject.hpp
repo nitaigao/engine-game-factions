@@ -14,7 +14,7 @@
 /*! 
  *  The Subject of a System Change
  */
-class ISubject
+class GAMEAPI ISubject
 {
 
 public:

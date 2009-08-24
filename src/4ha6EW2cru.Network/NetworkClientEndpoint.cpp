@@ -44,6 +44,7 @@ namespace Network
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_UpdateWorld );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_DestroyEntity );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_MessageEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_SetEntityPosition );
 		
 	}
@@ -73,6 +74,29 @@ namespace Network
 	void NetworkClientEndpoint::Net_SetEntityPosition( RakString entityName, const Maths::MathVector3& position, RPC3* rpcFromNetwork )
 	{
 		NetworkClientEndpoint::m_clientEndpoint->SetEntityPosition( entityName, position, rpcFromNetwork );
+	}
+
+	void NetworkClientEndpoint::Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, BitStream& parameters, RakNet::RPC3* rpcFromNetwork )
+	{
+		AnyType::AnyTypeMap parametersMap;
+
+		if ( message == System::Messages::Mouse_Moved )
+		{
+			float deltaX = 0.0f;
+			parameters.Read( deltaX );
+
+			parametersMap[ System::Parameters::DeltaX ] = deltaX;
+		}
+
+		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork );
+	}
+
+	void NetworkClientEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork )
+	{
+		if ( !m_isPassive )
+		{
+			m_networkScene->MessageComponent( entityName, message, parameters );
+		}
 	}
 
 	void NetworkClientEndpoint::SetEntityPosition( RakString entityName, const Maths::MathVector3& position, RPC3* rpcFromNetwork )

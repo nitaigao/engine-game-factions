@@ -44,21 +44,6 @@ namespace Network
 
 	void NetworkServerProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		if ( message == System::Messages::SetPosition )
-		{
-			m_controller->SetEntityPosition( entityName, parameters[ System::Attributes::Position ].As< MathVector3 >( ) );
-		}
-
-		if ( message == System::Messages::SetOrientation )
-		{
-			//m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >( );
-		}
-
-		if ( message == System::Messages::Mouse_Moved )
-		{
-			//m_attributes[ System::Parameters::DeltaX ] = parameters[ System::Parameters::DeltaX ].As< float >( );
-		}
-
 		if ( message == System::Messages::Entity::CreateEntity )
 		{
 			m_controller->CreateEntity( entityName, parameters[ System::Attributes::EntityType ].As< std::string >( ) );
@@ -67,6 +52,22 @@ namespace Network
 		if ( message == System::Messages::Entity::DestroyEntity )
 		{
 			m_controller->DestroyEntity( entityName );
+		}
+
+		if ( 
+			message == System::Messages::Move_Forward_Pressed ||
+			message == System::Messages::Move_Backward_Pressed ||
+			message == System::Messages::Move_Forward_Released ||
+			message == System::Messages::Move_Backward_Released ||
+			message == System::Messages::Strafe_Right_Pressed ||
+			message == System::Messages::Strafe_Left_Pressed ||
+			message == System::Messages::Strafe_Right_Released ||
+			message == System::Messages::Strafe_Left_Released ||
+			message == System::Messages::Jump ||
+			message == System::Messages::Mouse_Moved
+			)
+		{
+			m_controller->MessageEntity( entityName, message, parameters );
 		}
 	}
 

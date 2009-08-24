@@ -107,7 +107,19 @@ TEST_F( NetworkServerProvider_Tests, should_destroy_entity_using_the_controller 
 	m_subject->Message( entityName, System::Messages::Entity::DestroyEntity, parameters );
 }
 
-TEST_F( NetworkServerProvider_Tests, should_forward_position_events_to_clients )
+TEST_F( NetworkServerProvider_Tests, should_forward_mouse_moved_events_to_the_network )
+{
+	std::string entityName = "test";
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::DeltaX ] = "1.0f";
+
+	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
+
+	m_subject->Message( entityName, System::Messages::Mouse_Moved, parameters );
+}
+
+/*TEST_F( NetworkServerProvider_Tests, should_forward_position_events_to_clients )
 {
 	MathVector3 position = MathVector3::Forward( );
 	std::string entityName = "test";
@@ -118,4 +130,4 @@ TEST_F( NetworkServerProvider_Tests, should_forward_position_events_to_clients )
 	parameters[ System::Attributes::Position ] = position;
 
 	m_subject->Message( entityName, System::Messages::SetPosition, parameters );
-}
+}*/

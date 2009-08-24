@@ -98,6 +98,16 @@ namespace Network
 		*/
 		void SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position );
 
+
+		/*! Forwards the Message to the given Entity
+		*
+		* @param[in] const std::string & entityName
+		* @param[in] const System::MessageType & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
 	private:
 
 		NetworkServerController( const NetworkServerController & copy ) { };

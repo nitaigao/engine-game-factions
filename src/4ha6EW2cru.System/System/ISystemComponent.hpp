@@ -22,7 +22,7 @@
 /*! 
  *  A System Scene Component
  */
-class ISystemComponent : public IObserver, public ISubject
+class GAMEAPI ISystemComponent : public IObserver, public ISubject
 {
 
 public:

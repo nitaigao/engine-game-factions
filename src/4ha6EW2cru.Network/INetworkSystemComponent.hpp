@@ -16,7 +16,7 @@ namespace Network
 	/*! 
 	 *  A Network System Component
 	 */
-	class INetworkSystemComponent : public ISystemComponent
+	class GAMEAPI INetworkSystemComponent : public ISystemComponent
 	{
 
 	public:

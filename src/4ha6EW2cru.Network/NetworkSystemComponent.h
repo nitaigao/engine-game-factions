@@ -15,7 +15,7 @@ namespace Network
 	/*! 
 	 *  A Network System Component
 	 */
-	class NetworkSystemComponent : public INetworkSystemComponent
+	class GAMEAPI NetworkSystemComponent : public INetworkSystemComponent
 	{
 
 	public:
@@ -43,7 +43,7 @@ namespace Network
 		*  @param[in] AnyType::AnyValueMap properties
 		*  @return (void)
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Steps the internal data of the Component
@@ -51,14 +51,14 @@ namespace Network
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		GAMEAPI void Update( float deltaMilliseconds ) { };
+		void Update( float deltaMilliseconds ) { };
 
 
 		/*! Destroys the Component
 		*
 		*  @return (void)
 		*/
-		GAMEAPI void Destroy( );
+		void Destroy( );
 
 
 		/*! Adds an Observer to the Component
@@ -98,7 +98,7 @@ namespace Network
 		*  @param[in] const std::string & message
 		*  @return (AnyType)
 		*/
-		GAMEAPI AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Adds a Network Provider to the Component
@@ -115,7 +115,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		void MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

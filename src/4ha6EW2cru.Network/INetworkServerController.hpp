@@ -10,6 +10,9 @@
 
 #include <string>
 
+#include "System/SystemType.hpp"
+#include "System/AnyType.hpp"
+
 #include "INetworkController.hpp"
 
 #include "Maths/MathVector3.hpp"
@@ -89,6 +92,16 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position ) = 0;
+
+
+		/*! Forwards the Message to the given Entity
+		 *
+		 * @param[in] const std::string & entityName
+		 * @param[in] const System::MessageType & message
+		 * @param[in] AnyType::AnyTypeMap parameters
+		 * @return ( void )
+		 */
+		virtual void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 		
 	};
 };

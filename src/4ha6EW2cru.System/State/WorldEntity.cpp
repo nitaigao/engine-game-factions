@@ -20,12 +20,12 @@ namespace State
 
 		for( ISystemComponent::SystemComponentList::const_iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
-			if ( ( *i ) != subject )
-			{
+			//if ( ( *i ) != subject )
+			//{
 				AnyType result = ( *i )->Observe( subject, message, parameters );
 				System::Types::Type systemType = ( *i )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( );
 				results.insert( std::make_pair( systemType, result ) );
-			}
+			//}
 		}
 
 		for ( ObserverMap::iterator i = m_observers.begin( ); i != m_observers.end( ); ++i )
