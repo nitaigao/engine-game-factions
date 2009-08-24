@@ -10,6 +10,9 @@
 
 #include "Export.hpp"
 
+#include "Logging/Logger.h"
+using namespace Logging;
+
 namespace Network
 {
 	/*! 
@@ -32,6 +35,14 @@ namespace Network
 		* @return ( void )
 		*/
 		virtual void Initialize( ) = 0;
+
+
+		/*! Updates the internal state of the controller and processes the send queue at the send interval
+		 *
+		 * @param[in] float deltaMilliseconds
+		 * @return ( void )
+		 */
+		virtual void Update( float deltaMilliseconds ) = 0;
 		
 	};
 };

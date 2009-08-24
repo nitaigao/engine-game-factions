@@ -71,13 +71,11 @@ namespace Network
 		static void Net_CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
 		static void Net_DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
 		static void Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, RakNet::BitStream& parameters, RakNet::RPC3* rpcFromNetwork );
-		static void Net_SetEntityPosition( RakNet::RakString entityName, const Maths::MathVector3& position, RakNet::RPC3* rpcFromNetwork );
 
 		void UpdateWorld( RakNet::BitStream& stream, RakNet::RPC3* rpcFromNetwork );
 		void CreateEntity( RakNet::RakString entityName, RakNet::RakString filePath, RakNet::RPC3* rpcFromNetwork );
 		void DestroyEntity( RakNet::RakString entityname, RakNet::RPC3* rpcFromNetwork );
-		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork );
-		void SetEntityPosition( RakNet::RakString entityName, const Maths::MathVector3& position, RakNet::RPC3* rpcFromNetwork );
+		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, const SystemAddress& sender );
 		
 
 	private:

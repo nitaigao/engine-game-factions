@@ -51,7 +51,7 @@ namespace Network
 					new ClientConfiguration( ),
 					networkInterface, 
 					controller,
-					new NetworkServerEndpoint( networkInterface, controller )
+					new NetworkServerEndpoint( networkInterface, scene, controller )
 					);
 			}
 
@@ -75,7 +75,7 @@ namespace Network
 			Management::Get( )->GetInstrumentation( ),
 			scene,
 			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT, scene ) ),
-			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER, 0 ) ),
+			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER, scene ) ),
 			Management::Get( )->GetEventManager( )
 			);
 	}

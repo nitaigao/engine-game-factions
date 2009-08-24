@@ -72,8 +72,8 @@ namespace Physics
 
 	void PhysicsSystemCharacterComponent::Update( float deltaMilliseconds )
 	{
-		if ( m_characterInput.m_userData )
-		{
+		//if ( m_characterInput.m_userData )
+		//{
 			float walkSpeed = 2.0f;
 			float stopSpeed = 0.0f;
 
@@ -191,7 +191,7 @@ namespace Physics
 			
 			m_characterInput.m_wantJump = false;
 			m_characterInput.m_userData = ( m_characterBody->getLinearVelocity( ).compareEqual4( hkVector4::getZero( ) ).anyIsSet( ) );
-		}
+		//}
 	}
 
 	AnyType PhysicsSystemCharacterComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )

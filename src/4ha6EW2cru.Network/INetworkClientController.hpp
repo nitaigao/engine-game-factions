@@ -10,6 +10,9 @@
 
 #include "INetworkController.hpp"
 
+#include "System/SystemType.hpp"
+#include "System/AnyType.hpp"
+
 #include <string>
 
 namespace Network
@@ -48,6 +51,24 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void LevelLoaded( ) = 0;
+
+
+		/*! Forwards the Message to the given Entity
+		*
+		* @param[in] const std::string & entityName
+		* @param[in] const System::MessageType & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		virtual void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+
+
+		/*! Stops the Controller from Sending client data
+		*
+		* @param[in] bool isPassive
+		* @return ( void )
+		*/
+		virtual void SetPassive( bool isPassive ) = 0;
 	};
 };
 

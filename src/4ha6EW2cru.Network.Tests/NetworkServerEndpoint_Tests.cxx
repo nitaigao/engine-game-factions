@@ -6,6 +6,7 @@ using namespace Network;
 
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockNetworkServerController.hpp"
+#include "Mocks/MockNetworkSystemScene.hpp"
 
 #include <RakNetTime.h>
 #include <BitStream.h>
@@ -21,11 +22,13 @@ protected:
 
 	MockNetworkInterface* m_networkInterface;
 	MockNetworkServerController* m_controller;
+	MockNetworkSystemScene* m_scene;
 
 	void EstablishContext( )
 	{
 		m_networkInterface = new MockNetworkInterface( );
 		m_controller = new MockNetworkServerController( );
+		m_scene = new MockNetworkSystemScene( );
 	}
 
 
@@ -33,11 +36,12 @@ protected:
 	{
 		delete m_controller;
 		delete m_networkInterface;
+		delete m_scene;
 	}
 
 	NetworkServerEndpoint* CreateSubject( )
 	{
-		return new NetworkServerEndpoint( m_networkInterface, m_controller );
+		return new NetworkServerEndpoint( m_networkInterface, m_scene, m_controller );
 	}
 };
 
@@ -81,4 +85,16 @@ TEST_F( NetworkServerEndpoint_Tests, should_destroy_client_entity_on_disconnect 
 	EXPECT_CALL( *m_controller, ClientDisconnected( clientAddress ) );
 
 	m_subject->Update( 99 );
+}
+
+TEST_F( NetworkServerEndpoint_Tests, should_message_entity_mouse_moved )
+{
+	std::string entityName = "test";
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::DeltaX ] = 0.1f;
+
+	EXPECT_CALL( *m_scene, MessageComponent( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
+
+	m_subject->MessageEntity( entityName, System::Messages::Mouse_Moved, parameters, 0 );
 }

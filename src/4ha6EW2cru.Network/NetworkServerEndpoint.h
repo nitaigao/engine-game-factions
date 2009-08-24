@@ -11,6 +11,7 @@
 #include "INetworkServerController.hpp"
 #include "INetworkServerEndpoint.hpp"
 #include "INetworkInterface.hpp"
+#include "INetworkSystemScene.hpp"
 
 namespace Network
 {
@@ -33,7 +34,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkServerController* controller );
+		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller );
 
 
 		/*! Initializes the Endpoint
@@ -60,6 +61,9 @@ namespace Network
 
 		static void Net_LevelLoaded( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
 		static void Net_SelectCharacter( RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork );
+		static void Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, RakNet::BitStream& parameters, RakNet::RPC3* rpcFromNetwork );
+
+		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork );
 
 	private:
 
@@ -68,6 +72,7 @@ namespace Network
 		
 		INetworkInterface* m_networkInterface;
 		INetworkServerController* m_networkController;
+		INetworkSystemScene* m_networkScene;
 
 		static NetworkServerEndpoint* m_networkServerEndpoint;
 

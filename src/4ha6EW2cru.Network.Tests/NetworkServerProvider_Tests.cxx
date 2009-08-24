@@ -119,6 +119,15 @@ TEST_F( NetworkServerProvider_Tests, should_forward_mouse_moved_events_to_the_ne
 	m_subject->Message( entityName, System::Messages::Mouse_Moved, parameters );
 }
 
+/*TEST_F( NetworkServerProvider_Tests, should_update_the_controller )
+{
+	float delta = 10.0f;
+
+	EXPECT_CALL( *m_controller, Update( delta ) );
+
+	m_subject->Update( delta );
+}
+
 /*TEST_F( NetworkServerProvider_Tests, should_forward_position_events_to_clients )
 {
 	MathVector3 position = MathVector3::Forward( );

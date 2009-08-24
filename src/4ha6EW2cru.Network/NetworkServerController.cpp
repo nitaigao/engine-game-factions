@@ -23,8 +23,6 @@ namespace Network
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_DestroyEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_MessageEntity );
-
-		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_SetEntityPosition );		
 	}
 
 	void NetworkServerController::ClientConnected( const SystemAddress& clientAddress )
@@ -70,11 +68,6 @@ namespace Network
 			->ProcessMessage( System::Messages::Entity::DestroyEntity, parameters );
 	}
 
-	void NetworkServerController::SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position )
-	{
-		//m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_SetEntityPosition", RakString( entityName ), position );
-	}
-
 	void NetworkServerController::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		BitStream stream;
@@ -83,6 +76,9 @@ namespace Network
 		{
 			float deltaX = parameters[ System::Parameters::DeltaX ].As< float >( );
 			stream.Write( deltaX );
+
+			float deltaY = parameters[ System::Parameters::DeltaY ].As< float >( );
+			stream.Write( deltaY );
 		}
 
 		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );

@@ -14,9 +14,10 @@ namespace Network
 {
 	NetworkServerEndpoint* NetworkServerEndpoint::m_networkServerEndpoint = 0;
 
-	NetworkServerEndpoint::NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkServerController* controller )
+	NetworkServerEndpoint::NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller )
 		: m_networkInterface( networkInterface )
 		, m_networkController( controller )
+		, m_networkScene( networkScene )
 	{
 		NetworkServerEndpoint::m_networkServerEndpoint = this;
 	}
@@ -25,6 +26,7 @@ namespace Network
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkServerEndpoint::Net_SelectCharacter );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkServerEndpoint::Net_LevelLoaded );
+		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkServerEndpoint::Net_MessageEntity );
 	}
 
 	void NetworkServerEndpoint::Update( float deltaMilliseconds )
@@ -89,8 +91,33 @@ namespace Network
 		 NetworkServerEndpoint::m_networkServerEndpoint->LevelLoaded( rpcFromNetwork ); 
 	};
 
+	void NetworkServerEndpoint::Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, RakNet::BitStream& parameters, RakNet::RPC3* rpcFromNetwork )
+	{
+		AnyType::AnyTypeMap parametersMap;
+
+		Debug( message, "for", entityName );
+
+		if ( message == System::Messages::Mouse_Moved )
+		{
+			float deltaX = 0.0f;
+			parameters.Read( deltaX );
+			parametersMap[ System::Parameters::DeltaX ] = deltaX;
+
+			float deltaY = 0.0f;
+			parameters.Read( deltaY );
+			parametersMap[ System::Parameters::DeltaY ] = deltaY;
+		}
+
+		NetworkServerEndpoint::m_networkServerEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork );
+	}
+
 	void NetworkServerEndpoint::LevelLoaded( RakNet::RPC3* rpcFromNetwork )
 	{
 		m_networkController->SendWorldUpdate( rpcFromNetwork->GetLastSenderAddress( ) );
+	}
+
+	void NetworkServerEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork )
+	{
+		m_networkScene->MessageComponent( entityName, message, parameters );
 	}
 }

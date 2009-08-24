@@ -85,15 +85,6 @@ namespace Network
 		virtual void SendWorldUpdate( const SystemAddress& address ) = 0;
 
 
-		/*! Sends an Entity Position update to all clients
-		 *
-		 * @param[in] const std::string & entityName
-		 * @param[in] const Maths::MathVector3 & position
-		 * @return ( void )
-		 */
-		virtual void SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position ) = 0;
-
-
 		/*! Forwards the Message to the given Entity
 		 *
 		 * @param[in] const std::string & entityName

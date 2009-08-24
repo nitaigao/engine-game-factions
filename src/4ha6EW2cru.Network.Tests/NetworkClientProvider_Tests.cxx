@@ -135,6 +135,8 @@ TEST_F( NetworkClientProvider_Tests, should_set_passive_mode )
 	bool isPassive = true;
 
 	EXPECT_CALL( *m_endpoint, SetPassive( isPassive ) );
+	EXPECT_CALL( *m_controller, SetPassive( isPassive ) );
+
 	m_subject->SetPassive( isPassive );
 }
 
@@ -142,4 +144,16 @@ TEST_F( NetworkClientProvider_Tests, should_send_level_loaded_to_controller )
 {
 	EXPECT_CALL( *m_controller, LevelLoaded( ) );
 	m_subject->LevelLoaded( );
+}
+
+TEST_F( NetworkClientProvider_Tests, should_forward_input_events_to_the_network )
+{
+	std::string entityName = "test";
+
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Parameters::DeltaX ] = "1.0f";
+
+	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
+
+	m_subject->Message( entityName, System::Messages::Mouse_Moved, parameters );
 }

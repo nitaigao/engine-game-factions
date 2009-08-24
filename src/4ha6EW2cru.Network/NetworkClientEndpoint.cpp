@@ -45,7 +45,6 @@ namespace Network
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_CreateEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_DestroyEntity );
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_MessageEntity );
-		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_SetEntityPosition );
 		
 	}
 
@@ -71,11 +70,6 @@ namespace Network
 		NetworkClientEndpoint::m_clientEndpoint->UpdateWorld( stream, rpcFromNetwork );
 	}
 
-	void NetworkClientEndpoint::Net_SetEntityPosition( RakString entityName, const Maths::MathVector3& position, RPC3* rpcFromNetwork )
-	{
-		NetworkClientEndpoint::m_clientEndpoint->SetEntityPosition( entityName, position, rpcFromNetwork );
-	}
-
 	void NetworkClientEndpoint::Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, BitStream& parameters, RakNet::RPC3* rpcFromNetwork )
 	{
 		AnyType::AnyTypeMap parametersMap;
@@ -84,29 +78,22 @@ namespace Network
 		{
 			float deltaX = 0.0f;
 			parameters.Read( deltaX );
-
 			parametersMap[ System::Parameters::DeltaX ] = deltaX;
+
+			float deltaY = 0.0f;
+			parameters.Read( deltaY );
+			parametersMap[ System::Parameters::DeltaY ] = deltaY;
 		}
 
-		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork );
+		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork->GetLastSenderAddress( ) );
 	}
 
-	void NetworkClientEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork )
+	void NetworkClientEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, const SystemAddress& sender )
 	{
-		if ( !m_isPassive )
+		if ( !m_isPassive && entityName != sender.ToString( ) )
 		{
+			Debug( message, "for", entityName );
 			m_networkScene->MessageComponent( entityName, message, parameters );
-		}
-	}
-
-	void NetworkClientEndpoint::SetEntityPosition( RakString entityName, const Maths::MathVector3& position, RPC3* rpcFromNetwork )
-	{
-		if ( !m_isPassive )
-		{
-			AnyType::AnyTypeMap parameters;
-			parameters[ System::Attributes::Position ] = position;
-
-			m_networkScene->MessageComponent( std::string( entityName ), System::Messages::SetPosition, parameters );
 		}
 	}
 

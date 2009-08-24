@@ -60,6 +60,20 @@ namespace Network
 
 	void NetworkClientProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-
+		if ( 
+			message == System::Messages::Move_Forward_Pressed ||
+			message == System::Messages::Move_Backward_Pressed ||
+			message == System::Messages::Move_Forward_Released ||
+			message == System::Messages::Move_Backward_Released ||
+			message == System::Messages::Strafe_Right_Pressed ||
+			message == System::Messages::Strafe_Left_Pressed ||
+			message == System::Messages::Strafe_Right_Released ||
+			message == System::Messages::Strafe_Left_Released ||
+			message == System::Messages::Jump ||
+			message == System::Messages::Mouse_Moved
+			)
+		{
+			m_controller->MessageEntity( entityName, message, parameters );
+		}
 	}
 }

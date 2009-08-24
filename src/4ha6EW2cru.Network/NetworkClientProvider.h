@@ -126,7 +126,11 @@ namespace Network
 		* @param[in] bool isPassive
 		* @return ( void )
 		*/
-		 inline void SetPassive( bool isPassive ) { m_endpoint->SetPassive( isPassive ); };
+		 inline void SetPassive( bool isPassive ) 
+		 { 
+			 m_endpoint->SetPassive( isPassive ); 
+			 m_controller->SetPassive( isPassive );
+		 };
 
 
 		 /*! Tells the Server that the Client has finished loading the level

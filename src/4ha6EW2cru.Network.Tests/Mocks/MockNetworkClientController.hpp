@@ -23,6 +23,9 @@ namespace
 		MOCK_METHOD1( SelectCharacter, void( const std::string& ) );
 		MOCK_METHOD0( FindServers, void( ) );
 		MOCK_METHOD0( LevelLoaded, void ( ) );
+		MOCK_METHOD3( MessageEntity, void( const std::string&, const System::MessageType&, AnyType::AnyTypeMap ) );
+		MOCK_METHOD1( SetPassive, void( bool ) );
+		MOCK_METHOD1( Update, void( float ) );
 		
 	};
 };

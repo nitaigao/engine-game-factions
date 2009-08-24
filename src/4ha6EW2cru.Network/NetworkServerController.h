@@ -90,15 +90,6 @@ namespace Network
 		void SendWorldUpdate( const SystemAddress& address );
 
 
-		/*! Sends an Entity Position update to all clients
-		*
-		* @param[in] const std::string & entityName
-		* @param[in] const Maths::MathVector3 & position
-		* @return ( void )
-		*/
-		void SetEntityPosition( const std::string& entityName, const Maths::MathVector3& position );
-
-
 		/*! Forwards the Message to the given Entity
 		*
 		* @param[in] const std::string & entityName
@@ -107,6 +98,14 @@ namespace Network
 		* @return ( void )
 		*/
 		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Updates the internal state of the controller and processes the send queue at the send interval
+		*
+		* @param[in] float deltaMilliseconds
+		* @return ( void )
+		*/
+		void Update( float deltaMilliseconds ) { };
 
 	private:
 

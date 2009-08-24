@@ -178,18 +178,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\ClientMessageRouter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientNetworkProvider.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientPacketTranslator.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\NetworkClientController.cpp"
 				>
 			</File>
@@ -238,23 +226,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkSystemServerComponent.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\NetworkUtils.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\ServerCache.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ServerNetworkProvider.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ServerPacketTranslator.cpp"
 				>
 			</File>
 			<File
@@ -267,18 +243,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\ClientMessageRouter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientNetworkProvider.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ClientPacketTranslator.h"
-				>
-			</File>
 			<File
 				RelativePath=".\INetworkClientController.hpp"
 				>
@@ -408,10 +372,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\NetworkSystemServerComponent.h"
-				>
-			</File>
-			<File
 				RelativePath=".\NetworkUtils.h"
 				>
 			</File>
@@ -421,14 +381,6 @@
 			</File>
 			<File
 				RelativePath=".\ServerCache.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ServerNetworkProvider.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ServerPacketTranslator.h"
 				>
 			</File>
 		</Filter>
