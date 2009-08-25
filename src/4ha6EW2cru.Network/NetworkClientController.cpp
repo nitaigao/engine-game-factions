@@ -32,24 +32,28 @@ namespace Network
 
 	void NetworkClientController::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
+		BitStream stream;
+
+		if ( message == System::Messages::Mouse_Moved )
+		{
+			float deltaX = parameters[ System::Parameters::DeltaX ].As< float >( );
+			stream.Write( deltaX );
+
+			float deltaY = parameters[ System::Parameters::DeltaY ].As< float >( );
+			stream.Write( deltaY );
+		}
+
 		SystemAddress clientAddress = m_networkInterface->GetAddress( m_networkInterface->GetRPC( )->GetRakPeer( )->GetSystemAddressFromIndex( 0 ) );
 
-		if ( !m_isPassive && entityName == clientAddress.ToString( ) )
+		if ( m_isPassive )
 		{
-			BitStream stream;
-
-			if ( message == System::Messages::Mouse_Moved )
-			{
-				float deltaX = parameters[ System::Parameters::DeltaX ].As< float >( );
-				stream.Write( deltaX );
-
-				float deltaY = parameters[ System::Parameters::DeltaY ].As< float >( );
-				stream.Write( deltaY );
-			}
-
+			m_networkInterface->GetRPC( )->SetRecipientAddress( UNASSIGNED_SYSTEM_ADDRESS, true );
+			m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
+		}
+		else if ( entityName == clientAddress.ToString( ) )
+		{
 			SystemAddress serverAddress = m_networkInterface->GetRPC( )->GetRakPeer( )->GetSystemAddressFromIndex( 0 );
 			m_networkInterface->GetRPC( )->SetRecipientAddress( serverAddress, false );
-
 			m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
 		}
 	}

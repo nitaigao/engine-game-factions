@@ -95,8 +95,6 @@ namespace Network
 	{
 		AnyType::AnyTypeMap parametersMap;
 
-		Debug( message, "for", entityName );
-
 		if ( message == System::Messages::Mouse_Moved )
 		{
 			float deltaX = 0.0f;
@@ -119,5 +117,6 @@ namespace Network
 	void NetworkServerEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork )
 	{
 		m_networkScene->MessageComponent( entityName, message, parameters );
+		m_networkController->MessageEntity( entityName, message, parameters ); // forward the message to the rest of the clients on the network
 	}
 }

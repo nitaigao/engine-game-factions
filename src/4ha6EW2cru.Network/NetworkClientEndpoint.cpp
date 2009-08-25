@@ -85,14 +85,13 @@ namespace Network
 			parametersMap[ System::Parameters::DeltaY ] = deltaY;
 		}
 
-		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork->GetLastSenderAddress( ) );
+		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork->GetRakPeer( )->GetExternalID( rpcFromNetwork->GetLastSenderAddress( ) ) );
 	}
 
 	void NetworkClientEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, const SystemAddress& sender )
 	{
 		if ( !m_isPassive && entityName != sender.ToString( ) )
 		{
-			Debug( message, "for", entityName );
 			m_networkScene->MessageComponent( entityName, message, parameters );
 		}
 	}
