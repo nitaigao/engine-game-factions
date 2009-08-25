@@ -16,7 +16,7 @@ namespace State
 	/*!
 	 *  A World Entity Container 
 	 */
-	class GAMEAPI IWorldEntity : public IObserver, public ISerializable
+	class GAMEAPI IWorldEntity : public IObserver, public System::ISerializable
 	{
 
 	public:

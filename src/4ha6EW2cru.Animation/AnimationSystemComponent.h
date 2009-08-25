@@ -14,8 +14,6 @@
 #include <Common/Base/hkBase.h>
 #include <Common/Serialize/Util/hkLoader.h>
 
-#include "System/ISerializable.hpp"
-
 #include <Animation/Animation/Playback/hkaAnimatedSkeleton.h>
 #include <Animation/Animation/Animation/hkaAnimationBinding.h>
 #include <Animation/Animation/Deform/Skinning/hkaMeshBinding.h>
@@ -32,7 +30,7 @@ namespace Animation
 	/*! 
 	 *  An Animation System Component
 	 */
-	class AnimationSystemComponent : public IAnimationSystemComponent, public ISerializable
+	class AnimationSystemComponent : public IAnimationSystemComponent
 	{
 
 		typedef std::deque< hkPackfileData* > LoadedDataList;

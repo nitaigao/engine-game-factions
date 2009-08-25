@@ -10,14 +10,12 @@
 
 #include "INetworkSystemComponent.hpp"
 
-#include "System/ISerializable.hpp"
-
 namespace Network
 {
 	/*! 
 	 *  A Network System Component
 	 */
-	class GAMEAPI NetworkSystemComponent : public INetworkSystemComponent, public ISerializable
+	class GAMEAPI NetworkSystemComponent : public INetworkSystemComponent
 	{
 
 	public:

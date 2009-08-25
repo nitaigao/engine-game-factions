@@ -22,10 +22,14 @@ namespace
 
 	public:
 
-		MOCK_METHOD1(Write, void(const std::string&));
-		MOCK_METHOD1(Read, void(std::string&));
-		MOCK_METHOD1(Write, void(int));
-		MOCK_METHOD1(Read, void(int&));
+		MOCK_METHOD1 (Write, void( const std::string& ) );
+		MOCK_METHOD1( Read, void( std::string& ));
+		MOCK_METHOD1( Write, void( int ) );
+		MOCK_METHOD1( Read, void( int& ) );
+		MOCK_METHOD1( Write, void( const Maths::MathVector3& ) );
+		MOCK_METHOD1( Read, void( Maths::MathVector3& ) );
+		MOCK_METHOD1( Write, void( const Maths::MathQuaternion& ) );
+		MOCK_METHOD1( Read, void( Maths::MathQuaternion& ) );
 		
 	};
 };

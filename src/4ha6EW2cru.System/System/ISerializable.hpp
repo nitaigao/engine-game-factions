@@ -10,12 +10,14 @@
 
 #include "../IO/IStream.hpp"
 
-namespace 
+#include "../Export.hpp"
+
+namespace System
 {
 	/*! 
 	 *  A class that can Serialize / Deserialize itself
 	 */
-	class ISerializable
+	class GAMEAPI ISerializable
 	{
 
 	public:

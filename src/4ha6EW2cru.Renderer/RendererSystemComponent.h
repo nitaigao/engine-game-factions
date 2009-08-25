@@ -8,8 +8,6 @@
 #ifndef RENDERERSYSTEMCOMPONENT_H
 #define RENDERERSYSTEMCOMPONENT_H
 
-#include "System/ISerializable.hpp"
-
 #include <Ogre.h>
 
 #include "IRendererSystemComponent.hpp"
@@ -20,7 +18,7 @@ namespace Renderer
 	/*!
 	 *  A normal Render System Component 
 	 */
-	class RendererSystemComponent : public IRendererSystemComponent, public ISerializable
+	class RendererSystemComponent : public IRendererSystemComponent
 	{
 
 		typedef std::deque< Ogre::Skeleton* > SkeletonList;

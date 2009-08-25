@@ -1,41 +1,68 @@
 #include <gtest/gtest.h>
 using namespace testing;
 
-#include <gmock/gmock.h>
-
 #include "State/World.h"
 using namespace State;
 
 #include "../Mocks/MockSystemScene.hpp"
 #include "../Mocks/MockStream.h"
-using ::testing::Return;
-
 #include "../Mocks/MockSerializer.hpp"
 #include "../Mocks/MockEntity.hpp"
 #include "../Mocks/MockEntityFactory.hpp"
+#include "../Mocks/MockEntityService.hpp"
 
-TEST( World_Tests, should_create_entity )
+class World_Tests : public TestHarness< World >
 {
-	World world;
-	IWorldEntity* entity = world.CreateEntity( "nick" );
+
+protected:
+
+	MockSerializer* m_serializer;
+	MockEntityFactory* m_entityFactory;
+	MockEntityService* m_entityService;
+
+	void EstablishContext( )
+	{
+		m_serializer = new MockSerializer( );
+		m_entityFactory = new MockEntityFactory( );
+		m_entityService = new MockEntityService( );
+	}
+
+
+	void DestroyContext( )
+	{
+
+	}
+
+	World* CreateSubject( )
+	{
+		return new World( m_serializer, m_entityFactory, m_entityService );
+	}
+};
+
+
+TEST_F( World_Tests, should_create_entity )
+{
+	IWorldEntity* entity = m_subject->CreateEntity( "nick" );
 
 	delete entity;
 }
 
-TEST( World_Tests, should_create_and_destroy_an_entity )
+TEST_F( World_Tests, should_create_and_destroy_an_entity )
 {
 	std::string entityName = "nick";
 
-	World world;
-	world.CreateEntity( entityName );
-	world.DestroyEntity( entityName );
+	MockEntity* entity = new MockEntity( );
+
+	EXPECT_CALL( *m_entityFactory, CreateEntity( entityName ) ).WillOnce( Return( entity ) );
+	EXPECT_CALL( *entity, GetComponents( ) ).WillOnce( Return( ISystemComponent::SystemComponentList( ) ) );
+
+	m_subject->CreateEntity( entityName );
+	m_subject->DestroyEntity( entityName );
 }
 
 
-TEST( World_Tests, should_clear_world )
+TEST_F( World_Tests, should_clear_world )
 {
-	World world;
-
 	int count = rand( ) % 100;
 
 	for( int i = 0; i < count; i++ )
@@ -43,17 +70,21 @@ TEST( World_Tests, should_clear_world )
 		std::stringstream name;
 		name << i;
 
-		world.CreateEntity( name.str( ) );
+		MockEntity* entity = new MockEntity( );
+
+		EXPECT_CALL( *entity, GetComponents( ) ).WillRepeatedly( Return( ISystemComponent::SystemComponentList( ) ) );
+		EXPECT_CALL( *m_entityFactory, CreateEntity( name.str( ) ) ).WillOnce( Return( entity ) );
+
+		m_subject->CreateEntity( name.str( ) );
 	}
 
-	world.Clear( );
+	m_subject->Clear( );
 }
 
-TEST( World_Tests, should_serialize_world_with_count_of_entities_at_the_front )
+TEST_F( World_Tests, should_serialize_world_with_count_of_entities_at_the_front )
 {
 	int entityCount = rand( ) % 100;
 
-	World world;
 	MockStream stream;
 
 	EXPECT_CALL( stream, Write( entityCount ) );
@@ -65,119 +96,91 @@ TEST( World_Tests, should_serialize_world_with_count_of_entities_at_the_front )
 		std::stringstream entityName;
 		entityName << "test_" << i;
 
-		EXPECT_CALL( stream, Write( entityName.str( ) ) );
+		MockEntity* entity = new MockEntity( );
 
-		IWorldEntity* entity = world.CreateEntity( entityName.str( ) );
+		EXPECT_CALL( *entity, GetComponents( ) ).WillRepeatedly( Return( ISystemComponent::SystemComponentList( ) ) );
+		EXPECT_CALL( *m_entityFactory, CreateEntity( entityName.str( ) ) ).WillOnce( Return( entity ) );
+		EXPECT_CALL( *entity, Serialize( &stream ) );
+
+		m_subject->CreateEntity( entityName.str( ) );
 	}
 
-	EXPECT_CALL( stream, Write( hasFile ) )
-		.Times( entityCount );
-
-	world.Serialize( &stream );
+	m_subject->Serialize( &stream );
 
 	for( int i = 0; i < entityCount; i++ )
 	{
 		std::stringstream entityName;
 		entityName << "test_" << i;
 
-		world.DestroyEntity( entityName.str( ) );
+		m_subject->DestroyEntity( entityName.str( ) );
 	}
 }
 
-TEST( World_Tests, should_look_at_entity_count_on_deserialize )
+TEST_F( World_Tests, should_look_at_entity_count_on_deserialize )
 {
-	World world;
 	MockStream stream;
 
 	int entityCount = 0;
 
 	EXPECT_CALL( stream, Read( entityCount ) );
 
-	world.DeSerialize( &stream );
+	m_subject->DeSerialize( &stream );
 }
 
+void EntityCount( int& data ) { data = 1; };
+void EntityName( std::string& data ) { data = "test"; }
+void HasFileNameTrue( int& data ) { data = 1; };
+void HasFileNameFalse( int& data ) { data = 0; };
+void EntityType( std::string& data ) { data = "marine"; };
 
-void EntityCount( int& data )
+TEST_F( World_Tests, should_deserialize_existing_entity )
 {
-	data = 1;
-}
-
-void EntityName( std::string& data )
-{
-	data = "test";
-}
-
-TEST( World_Tests, should_deserialize_existing_entity )
-{
-	MockEntity* mockEntity = new MockEntity( );
-	MockEntityFactory* entityFactory = new MockEntityFactory( );
-	MockSerializer* serializer = new MockSerializer( );
-	
-	World world( serializer, entityFactory, 0 );
-
-	EXPECT_CALL( *entityFactory, CreateEntity( A< const std::string& >( ) ) )
-		.WillOnce( Return( mockEntity ) );
-
-	IWorldEntity* entity = world.CreateEntity( "test" );
-
 	MockStream stream;
+	MockEntity mockEntity;;
+	EXPECT_CALL( mockEntity, DeSerialize( &stream ) );
 
-	EXPECT_CALL( *mockEntity, DeSerialize( &stream ) );
+	EXPECT_CALL( *m_entityFactory, CreateEntity( A< const std::string& >( ) ) ).WillOnce( Return( &mockEntity ) );
 
-	EXPECT_CALL( stream, Read( An< int& >( ) ) )
-		.WillRepeatedly( Invoke( EntityCount ) );
+	m_subject->CreateEntity( "test" );
 
-	std::string entityName;
+	Sequence sequence;
 
-	EXPECT_CALL( stream, Read( A< std::string& >( ) ) )
-		.WillRepeatedly( Invoke( EntityName ) );
+	EXPECT_CALL( stream, Read( An< int& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( EntityCount ) );
+	EXPECT_CALL( stream, Read( An< std::string& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( EntityName ) );
+	EXPECT_CALL( stream, Read( An< int& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( HasFileNameFalse ) );
+	EXPECT_CALL( stream, Read( An< std::string& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( EntityType ) );
 
-	world.DeSerialize( &stream );
-	
-	delete mockEntity;
+	m_subject->DeSerialize( &stream );
 }
 
-TEST( World_Tests, should_deserialize_a_non_existing_entity )
+TEST_F( World_Tests, should_deserialize_a_non_existing_entity )
 {
-	MockEntity* mockEntity = new MockEntity( );
-	MockEntityFactory* entityFactory = new MockEntityFactory( );
-
-	EXPECT_CALL( *entityFactory, CreateEntity( A< const std::string& >( ) ) )
-		.WillOnce( Return( mockEntity ) );
-
-	MockSerializer* serializer = new MockSerializer( );
-
-	EXPECT_CALL( *serializer, DeSerializeEntity( An< IWorldEntity* >( ), A< const std::string& >( ) ) );
-
-	World world( serializer, entityFactory, 0 );
-
 	MockStream stream;
+	MockEntity mockEntity;;
+	EXPECT_CALL( mockEntity, DeSerialize( &stream ) );
 
-	EXPECT_CALL( *mockEntity, DeSerialize( &stream ) );
+	EXPECT_CALL( *m_entityFactory, CreateEntity( A< const std::string& >( ) ) ).WillOnce( Return( &mockEntity ) );
 
-	EXPECT_CALL( stream, Read( An< int& >( ) ) )
-		.WillRepeatedly( Invoke( EntityCount ) );
+	m_subject->CreateEntity( "test" );
 
-	std::string entityName;
+	Sequence sequence;
 
-	EXPECT_CALL( stream, Read( A< std::string& >( ) ) )
-		.WillRepeatedly( Invoke( EntityName ) );
+	EXPECT_CALL( stream, Read( An< int& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( EntityCount ) );
+	EXPECT_CALL( stream, Read( An< std::string& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( EntityName ) );
+	EXPECT_CALL( stream, Read( An< int& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( HasFileNameTrue ) );
+	EXPECT_CALL( stream, Read( An< std::string& >( ) ) ).InSequence( sequence ).WillOnce( Invoke( EntityType ) );
 
-	world.DeSerialize( &stream );
-
-	delete mockEntity;
+	m_subject->DeSerialize( &stream );
 }
 
-TEST( World_Tests, should_create_entities )
+TEST_F( World_Tests, should_create_entities )
 {
 	MockEntity* mockEntity = new MockEntity( );
-	MockEntityFactory* entityFactory = new MockEntityFactory( );
-
-	EXPECT_CALL( *entityFactory, CreateEntity( A< const std::string& >( ) ) )
+	
+	EXPECT_CALL( *m_entityFactory, CreateEntity( A< const std::string& >( ) ) )
 		.WillOnce( Return( mockEntity ) );
 
-	World world( 0, entityFactory, 0 );
-	IWorldEntity* entity = world.CreateEntity( "test" );
+	IWorldEntity* entity = m_subject->CreateEntity( "test" );
 
 	EXPECT_EQ( mockEntity, entity );
 
@@ -185,32 +188,24 @@ TEST( World_Tests, should_create_entities )
 }
 
 
-TEST( World_Tests, should_load_a_level_from_the_serializer )
+TEST_F( World_Tests, should_load_a_level_from_the_serializer )
 {
-	MockSerializer* serializer = new MockSerializer( );
-
 	std::string levelPath = "levelPath";
 
-	EXPECT_CALL( *serializer, DeSerializeLevel( levelPath ) );
+	EXPECT_CALL( *m_serializer, DeSerializeLevel( levelPath ) );
 
-	World world( serializer, 0, 0 );
-	world.LoadLevel( levelPath );
+	m_subject->LoadLevel( levelPath );
 }
 
-TEST( World_Tests, should_create_an_entity_from_file )
+TEST_F( World_Tests, should_create_an_entity_from_file )
 {
-	MockSerializer* serializer = new MockSerializer( );
-	MockEntityFactory* entityFactory = new MockEntityFactory( );
 	MockEntity entity;
 
 	std::string filePath = "filePath";
 	std::string name = "name";
 
-	EXPECT_CALL( *entityFactory, CreateEntity( name ) )
-		.WillOnce( Return( &entity ) );
-	
-	EXPECT_CALL( *serializer, DeSerializeEntity( An< IWorldEntity* >( ), filePath ) );
+	EXPECT_CALL( *m_entityFactory, CreateEntity( name ) ).WillOnce( Return( &entity ) );
+	EXPECT_CALL( *m_serializer, DeSerializeEntity( An< IWorldEntity* >( ), filePath ) );
 
-	World world( serializer, entityFactory, 0 );
-	world.CreateEntity( name, filePath, "type" );
+	m_subject->CreateEntity( name, filePath, "type" );
 }

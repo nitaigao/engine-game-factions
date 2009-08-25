@@ -11,14 +11,12 @@
 #include "ISoundSystemComponent.hpp"
 #include "ISoundScene.hpp"
 
-#include "System/ISerializable.hpp"
-
 namespace Sound
 {
 	/*!
 	 *  A Sound System Component 
 	 */
-	class SoundSystemComponent : public ISoundSystemComponent, public ISerializable
+	class SoundSystemComponent : public ISoundSystemComponent
 	{
 
 		typedef std::map< std::string, FMOD::Event* > SoundEventList;

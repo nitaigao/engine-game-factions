@@ -15,6 +15,21 @@ namespace Network
 		m_bitStream->Write( data );
 	}
 
+	void NetworkStream::Write( const Maths::MathVector3& data )
+	{
+		m_bitStream->Write( data.X );
+		m_bitStream->Write( data.Y );
+		m_bitStream->Write( data.Z );
+	}
+
+	void NetworkStream::Write( const Maths::MathQuaternion& data )
+	{
+		m_bitStream->Write( data.X );
+		m_bitStream->Write( data.Y );
+		m_bitStream->Write( data.Z );
+		m_bitStream->Write( data.W );
+	}
+
 	void NetworkStream::Read( std::string& data )
 	{
 		RakString returnValue;
@@ -25,5 +40,20 @@ namespace Network
 	void NetworkStream::Read( int& data )
 	{
 		m_bitStream->Read( data );
+	}
+
+	void NetworkStream::Read( Maths::MathVector3& data )
+	{
+		m_bitStream->Read( data.X );
+		m_bitStream->Read( data.Y );
+		m_bitStream->Read( data.Z );
+	}
+
+	void NetworkStream::Read( Maths::MathQuaternion& data )
+	{
+		m_bitStream->Read( data.X );
+		m_bitStream->Read( data.Y );
+		m_bitStream->Read( data.Z );
+		m_bitStream->Read( data.W );
 	}
 }

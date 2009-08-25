@@ -178,6 +178,20 @@ namespace Maths
 		}
 
 
+		
+		/*! Converts the quaternion to text values
+		 *
+		 * @param[in] std::ostream & stream
+		 * @param[in] const MathQuaternion & input
+		 * @return ( friend std::ostream& )
+		 */
+		friend std::ostream& operator << ( std::ostream& stream, const MathQuaternion& input ) 
+		{
+			stream << "X:" << input.X << " Y:" << input.Y << " Z:" << input.Z << " W:" << input.W;
+			return stream;
+		}
+
+
 		/*! Returns an IDENTITY Quaternion
 		 *
 		 *  @return (Maths::MathQuaternion)

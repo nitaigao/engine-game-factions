@@ -14,8 +14,6 @@
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
-#include "System/ISerializable.hpp"
-
 #include <Common/Base/hkBase.h>
 #include <Common/Serialize/Util/hkLoader.h>
 
@@ -24,7 +22,7 @@ namespace Physics
 	/*! 
 	 *  A Standard Physics Component
 	 */
-	class PhysicsSystemComponent : public IPhysicsSystemComponent, public ISerializable
+	class PhysicsSystemComponent : public IPhysicsSystemComponent
 	{
 
 	public:

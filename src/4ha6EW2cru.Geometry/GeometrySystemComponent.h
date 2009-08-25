@@ -23,7 +23,7 @@ namespace Geometry
 	/*! 
 	*  A Geometry System Scene Component
 	*/
-	class GeometrySystemComponent : public ISystemComponent
+	class GAMEAPI GeometrySystemComponent : public ISystemComponent
 	{
 
 	public:
@@ -52,7 +52,7 @@ namespace Geometry
 		*  @param[in] AnyType::AnyValueMap properties
 		*  @return (void)
 		*/
-		void Initialize( );
+		void Initialize( ) { };
 
 
 		/*! Steps the internal data of the Component
@@ -108,6 +108,22 @@ namespace Geometry
 		*  @return (AnyType)
 		*/
 		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream );
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream );
 
 	private:
 

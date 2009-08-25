@@ -106,7 +106,7 @@ namespace State
 		* @param[in] IStream * stream
 		* @return ( void )
 		*/
-		void DeSerialize( IO::IStream* stream ) { };
+		void DeSerialize( IO::IStream* stream );
 
 	private:
 

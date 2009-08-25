@@ -122,15 +122,15 @@ namespace State
 			int hasFilePath;
 			stream->Read( hasFilePath );
 
+			std::string entityType;
+			stream->Read( entityType );
+
 			if ( m_entities.find( entityName ) != m_entities.end( ) )
 			{
 				m_entities[ entityName ]->DeSerialize( stream );
 			}
 			else
 			{
-				std::string entityType;
-				stream->Read( entityType );
-
 				std::stringstream filePath;
 				filePath << "/data/entities/" << entityType << ".xml";
 

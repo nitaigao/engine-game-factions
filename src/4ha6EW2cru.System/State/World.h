@@ -14,14 +14,12 @@
 
 #include "Serilaization/IWorldLoader.hpp"
 
-#include "../Export.hpp"
-
 namespace State
 {
 	/*!
 	 *  The Container for all Entities 
 	 */
-	class World : public IWorld
+	class GAMEAPI World : public IWorld
 	{
 
 	public:
@@ -30,17 +28,17 @@ namespace State
 		*
 		*  @return ()
 		*/
-		GAMEAPI ~World( );
+		~World( );
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI World( );
+		World( );
 
 
-		GAMEAPI World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, IEntityService* entityService )
+		World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, IEntityService* entityService )
 			: m_serializer( serializer )
 			, m_entityFactory( entityFactory )
 			, m_entityService( entityService )
@@ -53,7 +51,7 @@ namespace State
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( );
+		void Initialize( );
 
 
 		/*! Creates a World Entity Container
@@ -61,7 +59,7 @@ namespace State
 		*  @param[in] const std::string & name
 		*  @return (IWorldEntity*)
 		*/
-		GAMEAPI IWorldEntity* CreateEntity( const std::string& name );
+		IWorldEntity* CreateEntity( const std::string& name );
 
 
 		/*! Loads an Entity from the given file path
@@ -70,7 +68,7 @@ namespace State
 		* @param[in] const std::string & filePath
 		* @return ( IWorldEntity& )
 		*/
-		GAMEAPI IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType );
+		IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType );
 
 
 		/*! Creates a World Entity Container
@@ -78,7 +76,7 @@ namespace State
 		*  @param[in] const std::string & name
 		*  @return (IWorldEntity*)
 		*/
-		GAMEAPI void DestroyEntity( const std::string& name );
+		void DestroyEntity( const std::string& name );
 
 
 		/*! Adds a System Scene to the internal scene list
@@ -86,28 +84,28 @@ namespace State
 		*  @param[in] ISystemScene * systemScene
 		*  @return (void)
 		*/
-		GAMEAPI inline void AddSystemScene( ISystemScene* systemScene ) { m_systemScenes.insert( std::make_pair( systemScene->GetType( ), systemScene ) ); }
+		inline void AddSystemScene( ISystemScene* systemScene ) { m_systemScenes.insert( std::make_pair( systemScene->GetType( ), systemScene ) ); }
 		
 		
 		/*! Gets a list of internal system scenes
 		*
 		*  @return (const SystemSceneMap&)
 		*/
-		GAMEAPI inline const ISystemScene::SystemSceneMap& GetSystemScenes( ) const { return m_systemScenes; };
+		inline const ISystemScene::SystemSceneMap& GetSystemScenes( ) const { return m_systemScenes; };
 
 
 		/*! Destroys all entities within the world
 		*
 		*  @return (void)
 		*/
-		GAMEAPI void Clear( );
+		void Clear( );
 
 
 		/*! Destroys the World and All Registered Scenes
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Destroy( );
+		void Destroy( );
 
 
 		/*! Updates the world and all of its internal data structures
@@ -115,7 +113,7 @@ namespace State
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Loads a level from the file system
@@ -123,7 +121,7 @@ namespace State
 		* @param[in] const std::string & levelpath
 		* @return ( void )
 		*/
-		GAMEAPI void LoadLevel( const std::string& levelpath );
+		void LoadLevel( const std::string& levelpath );
 
 
 		/*! Serializes the contents of the world to the Stream
@@ -131,7 +129,7 @@ namespace State
 		* @param[in] IO::IStream * stream
 		* @return ( void )
 		*/
-		GAMEAPI void Serialize( IO::IStream* stream );
+		void Serialize( IO::IStream* stream );
 
 
 		/*! De serializes the contents of the stream into the World
@@ -139,7 +137,7 @@ namespace State
 		* @param[in] IO::IStream * stream
 		* @return ( void )
 		*/
-		GAMEAPI void DeSerialize( IO::IStream* stream );
+		void DeSerialize( IO::IStream* stream );
 
 	private:
 

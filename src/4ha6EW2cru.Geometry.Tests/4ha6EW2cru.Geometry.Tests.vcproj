@@ -2,10 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="4ha6EW2cru.System.Tests"
-	ProjectGUID="{D07A629D-130E-41EE-B513-7268A926BD6B}"
-	RootNamespace="My4ha6EW2cruSystemTests"
-	Keyword="Win32Proj"
+	Name="4ha6EW2cru.Geometry.Tests"
+	ProjectGUID="{84CC768A-3B8E-4B15-B601-44B948EE90DA}"
+	RootNamespace="My4ha6EW2cruGeometryTests"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -19,9 +18,9 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="../../build/debug/bin"
-			IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.System.Tests"
+			IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.Geometry.Tests"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -41,13 +40,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../4ha6EW2cru.Geometry;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -63,10 +59,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="gtestd.lib gmock.lib"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Debug;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
-				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -94,9 +88,9 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="../../build/release/bin"
-			IntermediateDirectory="../../build/release/obj/4ha6EW2cru.System.Tests"
+			IntermediateDirectory="../../build/release/obj/4ha6EW2cru.Geometry.Tests"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -118,11 +112,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -138,10 +129,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="gtest.lib gmock.lib"
-				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
-				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -171,8 +160,12 @@
 	</Configurations>
 	<References>
 		<ProjectReference
-			ReferencedProjectIdentifier="{58D6A894-4481-4A63-9958-49AE9B3A83D3}"
-			RelativePathToProject=".\4ha6EW2cru.System\4ha6EW2cru.System.vcproj"
+			ReferencedProjectIdentifier="{643FD76F-1A19-4168-B813-3B876F8AC900}"
+			RelativePathToProject=".\4ha6EW2cru.Geometry\4ha6EW2cru.Geometry.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{D07A629D-130E-41EE-B513-7268A926BD6B}"
+			RelativePathToProject=".\4ha6EW2cru.System.Tests\4ha6EW2cru.System.Tests.vcproj"
 		/>
 	</References>
 	<Files>
@@ -182,31 +175,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\State\EntityService_Tests.cxx"
+				RelativePath=".\GeometrySystemComponent_Tests.cxx"
 				>
 			</File>
 			<File
 				RelativePath=".\main.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Maths\MathVector3_Tests.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\Utility\StringUtils_Tests.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\IO\Win32PathInformation_Tests.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\State\World_Tests.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\State\WorldEntity_Tests.cxx"
 				>
 			</File>
 		</Filter>
@@ -215,38 +188,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\Mocks\MockEntity.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockEntityFactory.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockEntityService.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockSerializer.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockStream.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockSystemComponent.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockSystemScene.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockWorld.hpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

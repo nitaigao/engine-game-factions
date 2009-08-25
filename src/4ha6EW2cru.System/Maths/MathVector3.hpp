@@ -242,15 +242,15 @@ namespace Maths
 		}
 
 
-		inline std::ostream& operator << ( std::ostream& stream )
+		/*! Converts the vector to text values
+		 *
+		 * @param[in] std::ostream & stream
+		 * @param[in] const MathVector3 & vector
+		 * @return ( friend std::ostream& )
+		 */
+		friend std::ostream& operator << ( std::ostream& stream, const MathVector3& input ) 
 		{
-			stream << "X:" << X << " Y:" << Y << " Z:" << Z;
-			return stream;
-		}
-
-		friend std::ostream& operator << ( std::ostream& stream, const MathVector3& vector ) 
-		{
-			stream << "X:" << vector.X << " Y:" << vector.Y << " Z:" << vector.Z;
+			stream << "X:" << input.X << " Y:" << input.Y << " Z:" << input.Z;
 			return stream;
 		}
 

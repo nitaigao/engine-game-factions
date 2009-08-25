@@ -70,19 +70,26 @@ namespace State
 
 		AnyType::AnyTypeMap::iterator entityType = m_attributes.find( System::Attributes::EntityType );
 
-		if ( entityType != m_attributes.end( ) )
-		{
-			stream->Write( 1 );
-			stream->Write( ( *entityType ).second.As< std::string >( ) );
+		stream->Write( ( entityType != m_attributes.end( ) ) ? 1 : 0 );
+		stream->Write( ( entityType != m_attributes.end( ) ) ? ( *entityType ).second.As< std::string >( ) : "" );
 
-			/*for( ISystemComponent::SystemComponentList i = m_components.begin( ); i != m_components.end( ); ++i )
-			{
-				( *i )->Serialize( stream );
-			}*/
-		}
-		else
+		for( ISystemComponent::SystemComponentList::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
-			stream->Write( 0 );
+			( *i )->Serialize( stream );
+		}
+	}
+
+	void WorldEntity::DeSerialize( IO::IStream* stream )
+	{
+		int systemType = 0;
+		stream->Read( systemType );
+
+		for( ISystemComponent::SystemComponentList::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
+		{
+			if ( ( *i )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( ) == static_cast< System::Types::Type >( systemType ) )
+			{
+				( *i )->DeSerialize( stream );
+			}
 		}
 	}
 }

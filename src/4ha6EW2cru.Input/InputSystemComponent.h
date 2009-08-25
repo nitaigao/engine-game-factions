@@ -15,14 +15,13 @@
 #include "InputMessageBinding.hpp"
 
 #include "System/SystemType.hpp"
-#include "System/ISerializable.hpp"
 
 namespace Input
 {
 	/*! 
 	 *  An Input System Scene Component
 	 */
-	class InputSystemComponent : public IInputSystemComponent, public ISerializable
+	class InputSystemComponent : public IInputSystemComponent
 	{
 		typedef std::deque< float > InputHistory;
 	

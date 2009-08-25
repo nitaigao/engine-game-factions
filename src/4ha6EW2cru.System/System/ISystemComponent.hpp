@@ -15,6 +15,7 @@
 
 #include "IObserver.hpp"
 #include "ISubject.hpp"
+#include "ISerializable.hpp"
 
 #include "../Maths/MathQuaternion.hpp"
 #include "../Maths/MathVector3.hpp"
@@ -22,7 +23,7 @@
 /*! 
  *  A System Scene Component
  */
-class GAMEAPI ISystemComponent : public IObserver, public ISubject
+class GAMEAPI ISystemComponent : public IObserver, public ISubject, public System::ISerializable
 {
 
 public:

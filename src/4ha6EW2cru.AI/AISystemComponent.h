@@ -14,8 +14,6 @@
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
-#include "System/ISerializable.hpp"
-
 #include "IBehavior.hpp"
 #include "IAISystemComponent.hpp"
 
@@ -24,7 +22,7 @@ namespace AI
 	/*! 
 	 *  An Artificial Intelligence System Scene Component
 	 */
-	class AISystemComponent : public IAISystemComponent, public ISerializable
+	class AISystemComponent : public IAISystemComponent
 	{
 
 	public:

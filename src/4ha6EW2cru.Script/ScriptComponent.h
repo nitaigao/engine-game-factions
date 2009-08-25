@@ -10,7 +10,6 @@
 
 #include "IScriptComponent.hpp"
 #include "Events/IEvent.hpp"
-#include "System/ISerializable.hpp"
 
 #include "IScriptFacade.hpp"
 #include "IScriptFunctionHandler.hpp"
@@ -22,7 +21,7 @@ namespace Script
 	/*!
 	 *  A Script System Component 
 	 */
-	class ScriptComponent : public IScriptComponent, public ISerializable
+	class ScriptComponent : public IScriptComponent
 	{
 
 	public:

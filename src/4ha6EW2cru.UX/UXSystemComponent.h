@@ -16,8 +16,6 @@
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
-#include "System/ISerializable.hpp"
-
 #include "IUXSystemComponent.hpp"
 #include "IUXSystemScene.hpp"
 
@@ -26,7 +24,7 @@ namespace UX
 	/*! 
 	*  A UX System Scene Component
 	*/
-	class UXSystemComponent : public IUXSystemComponent, public ISerializable
+	class UXSystemComponent : public IUXSystemComponent
 	{
 
 	public:

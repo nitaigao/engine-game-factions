@@ -1,6 +1,10 @@
 #ifndef MOCKSYSTEMSCENE_HPP
 #define MOCKSYSTEMSCENE_HPP
 
+#include <gmock/gmock.h>
+
+#include "System/ISystemScene.hpp"
+
 class MockSystemScene : public ISystemScene
 {
 

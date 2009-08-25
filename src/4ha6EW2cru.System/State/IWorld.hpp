@@ -11,16 +11,17 @@
 #include <string>
 
 #include "../System/ISystemScene.hpp"
+#include "../IO/IStream.hpp"
+#include "../Export.hpp"
 
 #include "IWorldEntity.hpp"
-#include "../IO/IStream.hpp"
 
 namespace State
 {
 	/*!
 	 *  A container for all entities 
 	 */
-	class IWorld
+	class GAMEAPI IWorld
 	{
 
 	public:
