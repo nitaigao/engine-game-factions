@@ -45,12 +45,13 @@ namespace Network
 
 		SystemAddress clientAddress = m_networkInterface->GetAddress( m_networkInterface->GetRPC( )->GetRakPeer( )->GetSystemAddressFromIndex( 0 ) );
 
-		if ( m_isPassive )
+		/*if ( m_isPassive )
 		{
 			m_networkInterface->GetRPC( )->SetRecipientAddress( UNASSIGNED_SYSTEM_ADDRESS, true );
-			m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
+			//m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
 		}
-		else if ( entityName == clientAddress.ToString( ) )
+		else if*/
+		if ( !m_isPassive && entityName == clientAddress.ToString( ) )
 		{
 			SystemAddress serverAddress = m_networkInterface->GetRPC( )->GetRakPeer( )->GetSystemAddressFromIndex( 0 );
 			m_networkInterface->GetRPC( )->SetRecipientAddress( serverAddress, false );

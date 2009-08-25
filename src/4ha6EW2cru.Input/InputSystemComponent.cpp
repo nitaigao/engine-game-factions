@@ -45,6 +45,8 @@ namespace Input
 		if ( message == System::Messages::SetPosition )
 		{
 			m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >( );
+
+			this->PushMessage( System::Messages::SetPlayerPosition, parameters );
 		}
 
 		if ( message == System::Messages::SetOrientation )

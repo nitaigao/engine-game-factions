@@ -24,6 +24,8 @@ function Player:initialize( )
 
 end
 
+move_count = 0
+
 function Player.onEvent( eventName, var1, var2 )
 
 	if ( eventName == 'WORLD_LOADING_FINISHED' ) then

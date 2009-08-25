@@ -42,7 +42,7 @@ namespace Sound
 			m_soundSystemScene->GetSoundSystem( )->GetEventSystem( )->get3DListenerAttributes( 0, &position, &velocity, &forward, &up );
 			m_soundSystemScene->GetSoundSystem( )->GetEventSystem( )->set3DListenerAttributes( 
 				0, 
-				&MathTools::AsFMODVector( parameters[ System::Parameters::PlayerPosition ].As< MathVector3 >( ) ), 
+				&MathTools::AsFMODVector( parameters[ System::Attributes::Position ].As< MathVector3 >( ) ), 
 				&velocity,
 				&MathTools::AsFMODVector( MathVector3::Forward( ) ), 
 				&MathTools::AsFMODVector( MathVector3::Up( ) ) 

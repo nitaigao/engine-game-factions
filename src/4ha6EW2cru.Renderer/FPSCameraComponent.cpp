@@ -17,7 +17,6 @@ namespace Renderer
 
 		if ( message == System::Messages::Mouse_Moved )
 		{
-			//m_attributes[ System::Parameters::DeltaX ] = parameters[ System::Parameters::DeltaX ].As< float >( );
 			m_attributes[ System::Parameters::DeltaY ] = parameters[ System::Parameters::DeltaY ].As< float >( );
 		}
 
@@ -35,9 +34,6 @@ namespace Renderer
 		{
 			m_cameraNode->pitch( Degree( -pitchDelta ) );
 		} 
-
-		//float yawDelta = m_attributes[ System::Parameters::DeltaX ].As< float >( );
-		//m_sceneNode->yaw( Degree( -yawDelta ) );
 
 		Matrix3 yawMatrix;
 		m_sceneNode->getOrientation( ).ToRotationMatrix( yawMatrix ); 
@@ -65,21 +61,11 @@ namespace Renderer
 		m_attributes[ System::Attributes::POI ] = MathTools::FromOgreVector3( localPoi );
 		m_attributes[ System::Attributes::LookAt ] = MathTools::FromOgreVector3( m_sceneNode->getPosition( ) + forward );
 		m_attributes[ System::Attributes::Position ] = MathTools::FromOgreVector3( m_sceneNode->getPosition( ) );
-		//m_attributes[ System::Attributes::Orientation ] = MathQuaternion( m_sceneNode->getOrientation( ) );
-		m_attributes[ System::Parameters::PlayerPosition ] = MathTools::FromOgreVector3( m_sceneNode->getPosition( ) );
 
-		/*if ( yawDelta != 0.0f )
-		{
-			this->PushMessage( System::Messages::SetOrientation, m_attributes );
-		}*/
-
-		if ( /*yawDelta != 0.0f ||*/ pitchDelta != 0.0f )
+		if ( pitchDelta != 0.0f )
 		{
 			this->PushMessage( System::Messages::SetLookAt, m_attributes );
 		}
-
-		//this->PushMessage( System::Messages::SetPosition, m_attributes );
-		//this->PushMessage( System::Messages::SetPlayerPosition, m_attributes );
 	}
 
 	void FPSCameraComponent::Initialize( )

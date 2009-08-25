@@ -244,6 +244,4 @@ function Menu.endGame( )
 
 end
 
-print( 'hello' )
-
 Menu.initialize( )
