@@ -74,6 +74,11 @@ namespace State
 		{
 			stream->Write( 1 );
 			stream->Write( ( *entityType ).second.As< std::string >( ) );
+
+			/*for( ISystemComponent::SystemComponentList i = m_components.begin( ); i != m_components.end( ); ++i )
+			{
+				( *i )->Serialize( stream );
+			}*/
 		}
 		else
 		{

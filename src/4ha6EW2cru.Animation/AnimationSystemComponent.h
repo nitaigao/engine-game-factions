@@ -14,6 +14,8 @@
 #include <Common/Base/hkBase.h>
 #include <Common/Serialize/Util/hkLoader.h>
 
+#include "System/ISerializable.hpp"
+
 #include <Animation/Animation/Playback/hkaAnimatedSkeleton.h>
 #include <Animation/Animation/Animation/hkaAnimationBinding.h>
 #include <Animation/Animation/Deform/Skinning/hkaMeshBinding.h>
@@ -30,7 +32,7 @@ namespace Animation
 	/*! 
 	 *  An Animation System Component
 	 */
-	class AnimationSystemComponent : public IAnimationSystemComponent
+	class AnimationSystemComponent : public IAnimationSystemComponent, public ISerializable
 	{
 
 		typedef std::deque< hkPackfileData* > LoadedDataList;
@@ -123,6 +125,22 @@ namespace Animation
 		*  @return (AnyType)
 		*/
 		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 		void TransformBone( hkaPose* pose, Ogre::Node* bone );
 

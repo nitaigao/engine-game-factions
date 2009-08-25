@@ -10,12 +10,14 @@
 
 #include "INetworkSystemComponent.hpp"
 
+#include "System/ISerializable.hpp"
+
 namespace Network
 {
 	/*! 
 	 *  A Network System Component
 	 */
-	class GAMEAPI NetworkSystemComponent : public INetworkSystemComponent
+	class GAMEAPI NetworkSystemComponent : public INetworkSystemComponent, public ISerializable
 	{
 
 	public:
@@ -116,6 +118,22 @@ namespace Network
 		* @return ( void )
 		*/
 		void MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 	private:
 

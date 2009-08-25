@@ -16,6 +16,8 @@
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
+#include "System/ISerializable.hpp"
+
 #include "IUXSystemComponent.hpp"
 #include "IUXSystemScene.hpp"
 
@@ -24,7 +26,7 @@ namespace UX
 	/*! 
 	*  A UX System Scene Component
 	*/
-	class UXSystemComponent : public IUXSystemComponent
+	class UXSystemComponent : public IUXSystemComponent, public ISerializable
 	{
 
 	public:
@@ -272,6 +274,22 @@ namespace UX
 		 *  @return (std::vector< std::string >)
 		 */
 		std::vector< std::string > GetSupportedResolutions( );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 	private:
 

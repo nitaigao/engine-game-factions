@@ -457,6 +457,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\System\ISerializable.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Service\IService.hpp"
 				>
 			</File>

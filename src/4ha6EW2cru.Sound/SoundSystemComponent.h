@@ -11,12 +11,14 @@
 #include "ISoundSystemComponent.hpp"
 #include "ISoundScene.hpp"
 
+#include "System/ISerializable.hpp"
+
 namespace Sound
 {
 	/*!
 	 *  A Sound System Component 
 	 */
-	class SoundSystemComponent : public ISoundSystemComponent
+	class SoundSystemComponent : public ISoundSystemComponent, public ISerializable
 	{
 
 		typedef std::map< std::string, FMOD::Event* > SoundEventList;
@@ -103,6 +105,23 @@ namespace Sound
 		*  @return (AnyType)
 		*/
 		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
+
 
 		void TriggerEvent( const std::string& eventPath );
 		void KeyoutEvent( const std::string& eventPath );

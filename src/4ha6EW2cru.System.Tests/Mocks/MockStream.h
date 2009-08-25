@@ -8,6 +8,8 @@
 #ifndef MOCKSTREAM_H
 #define MOCKSTREAM_H
 
+#include <gmock/gmock.h>
+
 #include "IO/IStream.hpp"
 
 namespace 

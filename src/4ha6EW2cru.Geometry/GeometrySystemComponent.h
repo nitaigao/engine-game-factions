@@ -10,6 +10,7 @@
 
 #include "System/IObserver.hpp"
 #include "System/ISystemComponent.hpp"
+#include "System/ISerializable.hpp"
 
 #include "System/AnyType.hpp"
 #include "System/SystemType.hpp"

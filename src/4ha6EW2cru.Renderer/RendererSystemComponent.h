@@ -8,6 +8,8 @@
 #ifndef RENDERERSYSTEMCOMPONENT_H
 #define RENDERERSYSTEMCOMPONENT_H
 
+#include "System/ISerializable.hpp"
+
 #include <Ogre.h>
 
 #include "IRendererSystemComponent.hpp"
@@ -18,7 +20,7 @@ namespace Renderer
 	/*!
 	 *  A normal Render System Component 
 	 */
-	class RendererSystemComponent : public IRendererSystemComponent
+	class RendererSystemComponent : public IRendererSystemComponent, public ISerializable
 	{
 
 		typedef std::deque< Ogre::Skeleton* > SkeletonList;
@@ -116,6 +118,22 @@ namespace Renderer
 		*  @return (AnyType)
 		*/
 		virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 	protected:
 

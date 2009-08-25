@@ -10,6 +10,7 @@
 
 #include "IScriptComponent.hpp"
 #include "Events/IEvent.hpp"
+#include "System/ISerializable.hpp"
 
 #include "IScriptFacade.hpp"
 #include "IScriptFunctionHandler.hpp"
@@ -21,7 +22,7 @@ namespace Script
 	/*!
 	 *  A Script System Component 
 	 */
-	class ScriptComponent : public IScriptComponent
+	class ScriptComponent : public IScriptComponent, public ISerializable
 	{
 
 	public:
@@ -109,6 +110,22 @@ namespace Script
 		*  @return (AnyType)
 		*/
 		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 
 		/*! Posts a message to the parent Entity

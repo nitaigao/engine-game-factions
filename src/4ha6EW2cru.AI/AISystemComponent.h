@@ -14,6 +14,8 @@
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
+#include "System/ISerializable.hpp"
+
 #include "IBehavior.hpp"
 #include "IAISystemComponent.hpp"
 
@@ -22,7 +24,7 @@ namespace AI
 	/*! 
 	 *  An Artificial Intelligence System Scene Component
 	 */
-	class AISystemComponent : public IAISystemComponent
+	class AISystemComponent : public IAISystemComponent, public ISerializable
 	{
 
 	public:
@@ -111,6 +113,22 @@ namespace AI
 		*  @param[in] const AnyType & value
 		*/
 		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 	protected:
 

@@ -68,6 +68,7 @@ public:
 	*/
 	virtual AnyType::AnyTypeMap GetAttributes( ) const = 0;
 
+
 	/*! Sets an Attribute on the Component *
 	 *  @param[in] const unsigned int attributeId
 	 *  @param[in] const AnyType & value

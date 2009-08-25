@@ -15,13 +15,14 @@
 #include "InputMessageBinding.hpp"
 
 #include "System/SystemType.hpp"
+#include "System/ISerializable.hpp"
 
 namespace Input
 {
 	/*! 
 	 *  An Input System Scene Component
 	 */
-	class InputSystemComponent : public IInputSystemComponent
+	class InputSystemComponent : public IInputSystemComponent, public ISerializable
 	{
 		typedef std::deque< float > InputHistory;
 	
@@ -155,6 +156,22 @@ namespace Input
 		* @return ( void )
 		*/
 		void KeyReleased( const OIS::KeyEvent &arg );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 	
 	private:
 	

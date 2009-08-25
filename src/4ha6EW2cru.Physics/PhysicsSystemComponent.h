@@ -14,6 +14,8 @@
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"
 
+#include "System/ISerializable.hpp"
+
 #include <Common/Base/hkBase.h>
 #include <Common/Serialize/Util/hkLoader.h>
 
@@ -22,7 +24,7 @@ namespace Physics
 	/*! 
 	 *  A Standard Physics Component
 	 */
-	class PhysicsSystemComponent : public IPhysicsSystemComponent
+	class PhysicsSystemComponent : public IPhysicsSystemComponent, public ISerializable
 	{
 
 	public:
@@ -113,6 +115,22 @@ namespace Physics
 		*  @return (AnyType)
 		*/
 		virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+
+
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
 
 
 		/*! Returns the RigidBody of the Component

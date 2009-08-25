@@ -9,14 +9,14 @@
 #define IWORLDENTITY_HPP
 
 #include "../System/ISystemComponent.hpp"
-#include "../IO/IStream.hpp"
+#include "../System/ISerializable.hpp"
 
 namespace State
 {
 	/*!
 	 *  A World Entity Container 
 	 */
-	class GAMEAPI IWorldEntity : public IObserver
+	class GAMEAPI IWorldEntity : public IObserver, public ISerializable
 	{
 
 	public:
@@ -75,22 +75,6 @@ namespace State
 		* @return ( void )
 		*/
 		virtual void SetAttribute( const System::Attribute& attribute, const AnyType& value ) = 0;
-
-		
-		/*! Writes the contents of the entity to the given stream
-		 *
-		 * @param[in] IStream * stream
-		 * @return ( void )
-		 */
-		virtual void Serialize( IO::IStream* stream ) = 0;
-
-
-		/*! Reads the contents of the entity from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		virtual void DeSerialize( IO::IStream* stream ) = 0;
 
 	};
 };
