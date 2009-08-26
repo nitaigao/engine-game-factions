@@ -12,13 +12,14 @@
 
 #include "../System/SystemType.hpp"
 #include "../System/AnyType.hpp"
+#include "../Export.hpp"
 
 namespace Services
 {
 	/*! 
 	 *  An Anonymous Service Interface
 	 */
-	class IService
+	class GAMEAPI IService
 	{
 
 	public:

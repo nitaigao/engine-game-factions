@@ -23,6 +23,7 @@ using namespace Logging;
 using namespace Events;
 
 #include "System/SystemType.hpp"
+#include "System/Instrumentation.hpp"
 using namespace Configuration;
 
 #include <luabind/luabind.hpp>
@@ -61,16 +62,6 @@ namespace Network
 			m_clientProvider->Initialize( 0, 1 );
 			m_scene->AddNetworkProvider( m_clientProvider );
 		}
-	}
-
-	void NetworkSystem::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
-	{
-		//m_networkProvider->PushMessage( message, parameters );
-	}
-
-	void NetworkSystem::PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters )
-	{
-		//m_networkProvider->PushMessage( address, message, parameters );
 	}
 
 	void NetworkSystem::Update( float deltaMilliseconds )
@@ -160,10 +151,5 @@ namespace Network
 		}
 
 		return results;
-	}
-
-	void NetworkSystem::MessageComponent( const std::string& componentName, const std::string& message, AnyType::AnyTypeMap parameters )
-	{
-		m_scene->MessageComponent( componentName, message, parameters );
 	}
 }

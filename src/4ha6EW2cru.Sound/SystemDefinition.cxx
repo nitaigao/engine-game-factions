@@ -1,4 +1,5 @@
-#include "SoundSystem.h"
+#include "SoundFactory.h"
+using namespace Sound;
 
 #include "System/Memory.cxx"
 
@@ -20,7 +21,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( )
 {
-	return new Sound::SoundSystem( );
+	return SoundFactory( ).CreateSoundSystem( );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

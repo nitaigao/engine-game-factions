@@ -17,7 +17,7 @@ namespace Network
 	/*! 
 	 *  A Network System Scene
 	 */
-	class INetworkSystemScene : public ISystemScene
+	class GAMEAPI INetworkSystemScene : public ISystemScene
 	{
 
 	public:
@@ -35,13 +35,6 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void AddNetworkProvider( INetworkProvider* provider ) = 0;
-
-
-		/*! Returns the Network System
-		*
-		* @return ( INetworkSystem* )
-		*/
-		virtual INetworkSystem* GetSystem( ) const = 0;
 
 
 		/*! Messages a component within the Scene

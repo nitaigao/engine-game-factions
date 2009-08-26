@@ -12,13 +12,14 @@
 #include "Configuration/IConfiguration.hpp"
 
 #include "ISoundSystem.hpp"
+#include "ISoundScene.hpp"
 
 namespace Sound
 {
 	/*!
 	 *  The Sound System 
 	 */
-	class SoundSystem : public ISoundSystem, public Services::IService
+	class GAMEAPI SoundSystem : public ISoundSystem, public Services::IService
 	{
 
 	public:
@@ -31,17 +32,17 @@ namespace Sound
 
 
 		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		SoundSystem( )
-			: m_fmodSystem( 0 )
+		*
+		*  @return ()
+		*/
+		SoundSystem( ISoundScene* scene )
+			: m_scene( scene )
+			, m_fmodSystem( 0 )
 			, m_eventSystem( 0 )
 			, m_configuration( 0 )
 		{
 
 		}
-
 
 		/*! Initializes the System
 		*
@@ -118,6 +119,7 @@ namespace Sound
 		FMOD::System* m_fmodSystem;
 		FMOD::EventSystem* m_eventSystem;
 		Configuration::IConfiguration* m_configuration;
+		ISoundScene* m_scene;
 
 		static FMOD_RESULT F_CALLBACK FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
 		static FMOD_RESULT F_CALLBACK FileClose( void* handle, void*  userdata );

@@ -17,11 +17,12 @@
 #include "ISystemScene.hpp"
 
 #include "../Configuration/IConfiguration.hpp"
+#include "../Export.hpp"
 
 /*! 
  *  A Game System
  */
-class ISystem
+class GAMEAPI ISystem
 {
 
 public:

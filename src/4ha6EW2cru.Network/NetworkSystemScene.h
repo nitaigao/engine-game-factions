@@ -17,7 +17,7 @@ namespace Network
 	/*! 
 	 *  A Network System Scene
 	 */
-	class NetworkSystemScene : public INetworkSystemScene
+	class GAMEAPI NetworkSystemScene : public INetworkSystemScene
 	{
 
 	public:
@@ -26,7 +26,7 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~NetworkSystemScene( );
+		~NetworkSystemScene( );
 
 
 		/*! Default Constructor
@@ -52,14 +52,14 @@ namespace Network
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the System Scene
 		*
 		*  @return (void)
 		*/
-		GAMEAPI void Destroy( );
+		void Destroy( );
 
 
 		/*! Gets the System::Types::Type of the SystemScene
@@ -75,7 +75,7 @@ namespace Network
 		*  @param[in] const std::string & type
 		*  @return (ISystemComponent*)
 		*/
-		GAMEAPI ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
 
 
 		/*! Destroys a SystemComponent created by the SystemScene
@@ -83,7 +83,7 @@ namespace Network
 		*  @param[in] ISystemComponent * component
 		*  @return (void)
 		*/
-		GAMEAPI void DestroyComponent( ISystemComponent* component );
+		void DestroyComponent( ISystemComponent* component );
 
 
 		/*! Adds a Network provider to the Scene
@@ -94,13 +94,6 @@ namespace Network
 		inline void AddNetworkProvider( INetworkProvider* provider ) { m_networkProviders.push_back( provider ); };
 
 
-		/*! Returns the Network System
-		*
-		* @return ( INetworkSystem* )
-		*/
-		INetworkSystem* GetSystem( ) const { return 0; };
-
-
 		/*! Messages a component within the Scene
 		*
 		* @param[in] const std::string componentId
@@ -108,7 +101,7 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		void MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

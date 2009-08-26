@@ -17,9 +17,7 @@ namespace Sound
 {
 	ISystemScene* SoundSystem::CreateScene()
 	{
-		ISoundScene* scene = new SoundScene( this );
-		scene->Initialize( );
-		return scene;
+		return m_scene;
 	}
 
 	void SoundSystem::Initialize( IConfiguration* configuration )

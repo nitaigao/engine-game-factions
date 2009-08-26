@@ -14,10 +14,12 @@
 
 #include "ISystemComponent.hpp"
 
+#include "../Export.hpp"
+
 /*! 
  *  A System Specific Scene
  */
-class ISystemScene
+class GAMEAPI ISystemScene
 {
 
 public:

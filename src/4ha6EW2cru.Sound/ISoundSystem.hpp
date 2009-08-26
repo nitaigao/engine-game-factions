@@ -18,7 +18,7 @@ namespace Sound
 	/*!
 	 *  The Sound System 
 	 */
-	class ISoundSystem : public ISystem
+	class GAMEAPI ISoundSystem : public ISystem
 	{
 
 	public:

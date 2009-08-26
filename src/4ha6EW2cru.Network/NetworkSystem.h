@@ -19,7 +19,6 @@
 
 #include "Configuration/IConfiguration.hpp"
 #include "Service/IServiceManager.h"
-#include "System/Instrumentation.hpp"
 #include "System/IInstrumentation.hpp"
 
 namespace Network
@@ -27,7 +26,7 @@ namespace Network
 	/*! 
 	 *  The Network System
 	 */
-	class NetworkSystem : public INetworkSystem, public Services::IService
+	class GAMEAPI NetworkSystem : public INetworkSystem, public Services::IService
 	{
 
 	public:
@@ -36,14 +35,14 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~NetworkSystem( );
+		~NetworkSystem( );
 
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		GAMEAPI NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
+		NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
 			INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider
 			, Events::EventManager* eventManager )
 			: m_instrumentation( instrumentation )
@@ -61,7 +60,7 @@ namespace Network
 		*
 		*  @return (void)
 		*/
-		GAMEAPI void Initialize( Configuration::IConfiguration* configuration );
+		void Initialize( Configuration::IConfiguration* configuration );
 
 
 		/*! Steps the System's internal data
@@ -69,14 +68,14 @@ namespace Network
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Releases internal data of the System
 		*
 		*  @return (System::Types::Type)
 		*/
-		GAMEAPI void Release( );
+		void Release( );
 
 
 		/*! Messages the system with a command
@@ -85,28 +84,28 @@ namespace Network
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Returns the type of the System
 		*
 		*  @return (System::Types::Type)
 		*/
-		GAMEAPI inline System::Types::Type GetType( ) const { return System::Types::NETWORK; };
+		inline System::Types::Type GetType( ) const { return System::Types::NETWORK; };
 
 
 		/*! Creates a System Scene
 		*
 		*  @return (ISystemScene*)
 		*/
-		GAMEAPI ISystemScene* CreateScene( );
+		ISystemScene* CreateScene( );
 
 
 		/*! Gets the System's Properties
 		*
 		*  @return (AnyTypeMap)
 		*/
-		GAMEAPI inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+		inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
 		/*! Sets a System Property
@@ -115,35 +114,7 @@ namespace Network
 		*  @param[in] AnyType value
 		*  @return (void)
 		*/
-		GAMEAPI inline void SetAttribute( const std::string& name, AnyType value ) { m_attributes[ name ] = value; };
-
-
-		/*! Sends a message to a single client across the network
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		GAMEAPI void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters );
-
-
-		/*! Sends a message across the network
-		*
-		* @param[in] const SystemAddress & networkAddress
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		GAMEAPI void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
-
-
-		/*! Sends a message to a local component
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		GAMEAPI void MessageComponent( const std::string& componentName, const std::string& message, AnyType::AnyTypeMap parameters );
+		inline void SetAttribute( const std::string& name, AnyType value ) { m_attributes[ name ] = value; };
 
 	private:
 

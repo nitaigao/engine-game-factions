@@ -39,11 +39,7 @@ namespace Sound
 		*  @param[in] ISystem * system
 		*  @return ()
 		*/
-		explicit SoundScene( ISoundSystem* soundSystem )
-			: m_soundSystem( soundSystem )
-		{
-
-		}
+		explicit SoundScene( ) { };
 
 
 		/*! Initializes the System Scene
@@ -92,6 +88,7 @@ namespace Sound
 		void DestroyComponent( ISystemComponent* component );
 
 		inline ISoundSystem* GetSoundSystem( ) { return m_soundSystem; };
+		inline void SetSoundSystem( ISoundSystem* soundSystem ) { m_soundSystem = soundSystem; };
 
 	private:
 
