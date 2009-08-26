@@ -178,6 +178,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\SoundComponentFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundEventSystem.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SoundFactory.cpp"
 				>
 			</File>
@@ -208,6 +216,14 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\ISoundComponentFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ISoundEventSystem.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ISoundFactory.hpp"
 				>
 			</File>
@@ -221,6 +237,14 @@
 			</File>
 			<File
 				RelativePath=".\ISoundSystemComponent.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundComponentFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundEventSystem.h"
 				>
 			</File>
 			<File

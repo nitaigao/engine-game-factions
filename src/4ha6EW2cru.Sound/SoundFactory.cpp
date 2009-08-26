@@ -2,15 +2,18 @@
 
 #include "SoundSystem.h"
 #include "SoundScene.h"
+#include "SoundEventSystem.h"
+#include "SoundComponentFactory.h"
+
+#include "Management/Management.h"
 
 namespace Sound
 {
 	ISoundSystem* SoundFactory::CreateSoundSystem()
 	{	
-		//TODO: This is a bug, remove it
-		SoundScene* scene = new SoundScene( );
-		ISoundSystem* system = new SoundSystem( scene );
-		scene->SetSoundSystem( system );
+		SoundEventSystem* eventSystem = new SoundEventSystem( );
+		SoundScene* scene = new SoundScene( new SoundComponentFactory( eventSystem ) );
+		ISoundSystem* system = new SoundSystem( Management::Get( )->GetServiceManager( ), scene, eventSystem );
 		return system;
 	}
 }

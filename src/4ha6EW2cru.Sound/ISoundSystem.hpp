@@ -29,12 +29,6 @@ namespace Sound
 		 */
 		virtual ~ISoundSystem( ) { };
 
-		/*! Returns the FMOD Event System
-		*
-		*  @return (FMOD::EventSystem*)
-		*/
-		virtual FMOD::EventSystem* GetEventSystem( ) const = 0;
-
 	};
 };
 

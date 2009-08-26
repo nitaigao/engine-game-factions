@@ -9,17 +9,20 @@
 #define SOUNDSYSTEMCOMPONENT_H
 
 #include "ISoundSystemComponent.hpp"
-#include "ISoundScene.hpp"
+#include "ISoundEventSystem.hpp"
+
+#include <fmod.hpp>
+#include <fmod_event.hpp>
 
 namespace Sound
 {
 	/*!
 	 *  A Sound System Component 
 	 */
-	class SoundSystemComponent : public ISoundSystemComponent
+	class GAMEAPI SoundSystemComponent : public ISoundSystemComponent
 	{
-
-		typedef std::map< std::string, FMOD::Event* > SoundEventList;
+		typedef std::multiset< std::string > TriggerRequestList;
+		typedef std::map< std::string, FMOD::Event* > SoundEventMap;
 
 	public:
 
@@ -35,9 +38,9 @@ namespace Sound
 		*  @param[in] const std::string & name
 		*  @return ()
 		*/
-		SoundSystemComponent( const std::string& name, ISoundScene* soundSystemScene )
+		SoundSystemComponent( const std::string& name, ISoundEventSystem* eventSystem )
 			: m_name( name )
-			, m_soundSystemScene( soundSystemScene )
+			, m_eventSystem( eventSystem )
 		{
 
 		}
@@ -121,7 +124,6 @@ namespace Sound
 		void DeSerialize( IO::IStream* stream ) { };
 
 
-		void TriggerEvent( const std::string& eventPath );
 		void KeyoutEvent( const std::string& eventPath );
 
 	private:
@@ -129,12 +131,13 @@ namespace Sound
 		SoundSystemComponent( const SoundSystemComponent & copy ) { };
 		SoundSystemComponent & operator = ( const SoundSystemComponent & copy ) { return *this; };
 
-		ISoundScene* m_soundSystemScene;
+		ISoundEventSystem* m_eventSystem;
 
 		std::string m_name;
 		AnyType::AnyTypeMap m_attributes;
 
-		SoundEventList m_activeSoundEvents;
+		TriggerRequestList m_triggerRequests;
+		SoundEventMap m_activeEvents;
 
 	};
 };

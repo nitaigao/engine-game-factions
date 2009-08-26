@@ -1,20 +1,20 @@
 /*!
 *  @company Black Art Studios
 *  @author Nicholas Kostelnik
-*  @file   MockSystemComponent.hpp
-*  @date   2009/08/25
+*  @file   MockSoundSystemComponent.hpp
+*  @date   2009/08/26
 */
 #pragma once
-#ifndef MOCKSYSTEMCOMPONENT_HPP
-#define MOCKSYSTEMCOMPONENT_HPP
+#ifndef MOCKSOUNDSYSTEMCOMPONENT_HPP
+#define MOCKSOUNDSYSTEMCOMPONENT_HPP
 
 #include <gmock/gmock.h>
 
-#include "System/ISystemComponent.hpp"
+#include "ISoundSystemComponent.hpp"
 
 namespace
 {
-	class MockSystemComponent : public ISystemComponent
+	class MockSoundSystemComponent : public ISoundSystemComponent
 	{
 
 	public:
@@ -29,6 +29,7 @@ namespace
 		MOCK_METHOD3( Observe, AnyType( const ISubject*, const System::MessageType&, AnyType::AnyTypeMap ) );
 		MOCK_METHOD1( AddObserver, void( IObserver* ) );
 		MOCK_METHOD2( PushMessage, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
+		
 	};
 };
 

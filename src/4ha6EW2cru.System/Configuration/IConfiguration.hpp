@@ -9,13 +9,14 @@
 #define ICONFIGURATION_H
 
 #include "../System/AnyType.hpp"
+#include "../Export.hpp"
 
 namespace Configuration
 {
 	/*! 
 	 *  The Game Configuration Source
 	 */
-	class IConfiguration
+	class GAMEAPI IConfiguration
 	{
 
 	public:

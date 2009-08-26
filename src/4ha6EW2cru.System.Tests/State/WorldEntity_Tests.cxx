@@ -6,7 +6,6 @@ using namespace State;
 
 #include "../Mocks/MockStream.h"
 #include "../Mocks/MockSystemComponent.hpp"
-using namespace Mocks;
 
 #include "Maths/MathVector3.hpp"
 #include "Maths/MathQuaternion.hpp"

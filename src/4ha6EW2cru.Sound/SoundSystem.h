@@ -9,10 +9,13 @@
 #define SOUNDSYSTEM_H
 
 #include "Service/IService.hpp"
+#include "Service/IServiceManager.h"
+
 #include "Configuration/IConfiguration.hpp"
 
 #include "ISoundSystem.hpp"
 #include "ISoundScene.hpp"
+#include "ISoundEventSystem.hpp"
 
 namespace Sound
 {
@@ -28,17 +31,18 @@ namespace Sound
 		 *
 		 *  @return ()
 		 */
-		~SoundSystem( ) { };
+		~SoundSystem( );
 
 
 		/*! Default Constructor
 		*
 		*  @return ()
 		*/
-		SoundSystem( ISoundScene* scene )
-			: m_scene( scene )
+		SoundSystem( Services::IServiceManager* serviceManager, ISoundScene* scene, ISoundEventSystem* eventSystem )
+			: m_serviceManager( serviceManager )
+			, m_scene( scene )
+			, m_eventSystem( eventSystem )
 			, m_fmodSystem( 0 )
-			, m_eventSystem( 0 )
 			, m_configuration( 0 )
 		{
 
@@ -105,21 +109,16 @@ namespace Sound
 		inline void SetAttribute( const std::string& name, AnyType value ) { };		
 
 
-		/*! Returns the FMOD Event System
-		 *
-		 *  @return (FMOD::EventSystem*)
-		 */
-		FMOD::EventSystem* GetEventSystem( ) const { return m_eventSystem; };
-
 	private:
 
 		SoundSystem( const SoundSystem & copy ) { };
 		SoundSystem & operator = ( const SoundSystem & copy ) { return *this; };
 
 		FMOD::System* m_fmodSystem;
-		FMOD::EventSystem* m_eventSystem;
+		ISoundEventSystem* m_eventSystem;
 		Configuration::IConfiguration* m_configuration;
 		ISoundScene* m_scene;
+		Services::IServiceManager* m_serviceManager;
 
 		static FMOD_RESULT F_CALLBACK FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
 		static FMOD_RESULT F_CALLBACK FileClose( void* handle, void*  userdata );

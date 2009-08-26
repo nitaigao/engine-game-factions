@@ -16,7 +16,7 @@ namespace Sound
 	/*!
 	 *  A Sound Scene 
 	 */
-	class ISoundScene : public ISystemScene
+	class GAMEAPI ISoundScene : public ISystemScene
 	{
 
 	public:

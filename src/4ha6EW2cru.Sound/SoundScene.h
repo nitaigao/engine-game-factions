@@ -10,6 +10,8 @@
 
 #include "ISoundScene.hpp"
 #include "ISoundSystem.hpp"
+#include "ISoundEventSystem.hpp"
+#include "ISoundComponentFactory.hpp"
 
 #include "Events/IEvent.hpp"
 #include "Events/EventType.hpp"
@@ -22,7 +24,7 @@ namespace Sound
 	/*!
 	 *  A Sound Scene 
 	 */
-	class SoundScene : public ISoundScene
+	class GAMEAPI SoundScene : public ISoundScene
 	{
 
 	public:
@@ -31,7 +33,7 @@ namespace Sound
 		 *
 		 *  @return ()
 		 */
-		~SoundScene( ) { };
+		~SoundScene( );
 
 
 		/*! Default Constructor
@@ -39,7 +41,11 @@ namespace Sound
 		*  @param[in] ISystem * system
 		*  @return ()
 		*/
-		explicit SoundScene( ) { };
+		explicit SoundScene( ISoundComponentFactory* componentFactory )
+			: m_componentFactory( componentFactory )
+		{
+
+		}
 
 
 		/*! Initializes the System Scene
@@ -93,6 +99,7 @@ namespace Sound
 	private:
 
 		ISoundSystem* m_soundSystem;
+		ISoundComponentFactory* m_componentFactory;
 	};
 };
 

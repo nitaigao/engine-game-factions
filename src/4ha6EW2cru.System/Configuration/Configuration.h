@@ -11,14 +11,12 @@
 #include "IConfiguration.hpp"
 #include "IConfigurationFile.hpp"
 
-#include "../Export.hpp"
-
 namespace Configuration
 {
 	/*! 
 	 *  Contains configuration items from the file system
 	 */
-	class ClientConfiguration : public IConfiguration
+	class GAMEAPI ClientConfiguration : public IConfiguration
 	{
 		typedef std::pair< std::string, AnyType > KeyValuePair;
 		typedef std::multimap< std::string, KeyValuePair > DefaultPropertyList;
@@ -29,7 +27,7 @@ namespace Configuration
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~ClientConfiguration( );
+		~ClientConfiguration( );
 
 
 		/*! Default Constructor
@@ -48,7 +46,7 @@ namespace Configuration
 		 *  @param[in] const std::string & filePath
 		 *  @return (ClientConfiguration*)
 		 */
-		static GAMEAPI IConfiguration* Load( const std::string& filePath );
+		static IConfiguration* Load( const std::string& filePath );
 
 
 		/*! Finds a configuration item based on the specified section and key
@@ -57,7 +55,7 @@ namespace Configuration
 		 *  @param[in] const std::string & key
 		 *  @return (AnyType)
 		 */
-		GAMEAPI AnyType Find( const std::string& section, const std::string& key );
+		AnyType Find( const std::string& section, const std::string& key );
 
 
 		/*! Finds an entire section
@@ -65,7 +63,7 @@ namespace Configuration
 		* @param[in] const std::string & section
 		* @return ( AnyType::AnyTypeMap )
 		*/
-		GAMEAPI AnyType::AnyTypeMap FindSection( const std::string& section );
+		AnyType::AnyTypeMap FindSection( const std::string& section );
 
 
 		/*! Sets the default value for a configuration item
@@ -75,7 +73,7 @@ namespace Configuration
 		 *  @param[in] const AnyType & value
 		 *  @return (void)
 		 */
-		GAMEAPI void SetDefault( const std::string& section, const std::string& key, const AnyType& value );
+		void SetDefault( const std::string& section, const std::string& key, const AnyType& value );
 
 
 		/*! Sets the value for a configuration item
@@ -85,7 +83,7 @@ namespace Configuration
 		 *  @param[in] const AnyType & value
 		 *  @return (void)
 		 */
-		GAMEAPI void Set( const std::string& section, const std::string& key, const AnyType& value );
+		void Set( const std::string& section, const std::string& key, const AnyType& value );
 
 	private:
 

@@ -15,6 +15,11 @@ using namespace Configuration;
 
 namespace Sound
 {
+	SoundSystem::~SoundSystem()
+	{
+		delete m_eventSystem;
+	}
+
 	ISystemScene* SoundSystem::CreateScene()
 	{
 		return m_scene;
@@ -113,52 +118,25 @@ namespace Sound
 			// error binding IO functions
 		}
 
-		result = EventSystem_Create( &m_eventSystem );
-
-		if ( result != FMOD_OK )
-		{
-			// error creating event system
-		}
-
-		result = m_eventSystem->getSystemObject( &m_fmodSystem );
-
-		if ( result != FMOD_OK )
-		{
-			// error getting the FMOD system object
-		}
-
-		result = m_eventSystem->init( 256, FMOD_INIT_NORMAL, 0);
-
-		if ( result != FMOD_OK )
-		{
-			// error initializing the FMOD event system
-		}
-
-		result = m_eventSystem->load( "/data/sound/game.fev", 0, 0 );
-
-		if ( result != FMOD_OK )
-		{
-			Logging::Logger::Get( )->Warn( "SoundSystem::Initialize - Couldn't load the game sound archive" );
-		}
-
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
+		m_eventSystem->Initialize( m_fmodSystem );
+		m_serviceManager->RegisterService( this );
 	}
 
 	void SoundSystem::Release()
 	{
-		m_eventSystem->release( );
+		m_eventSystem->Destroy( );
 		m_fmodSystem->release( );
 	}
 
 	void SoundSystem::Update( float deltaMilliseconds )
 	{
-		m_eventSystem->update( );
+		m_eventSystem->Update( deltaMilliseconds );
 		m_fmodSystem->update( );
 
-		FMOD::EventCategory* masterCategory = 0;
+		/*FMOD::EventCategory* masterCategory = 0;
 		m_eventSystem->getCategory( "master", &masterCategory );
 		float sfxVolume = static_cast< float >( m_configuration->Find( ConfigSections::Sound, "sfx_volume" ).As< int >( ) ) / 100;
-		masterCategory->setVolume( sfxVolume );
+		masterCategory->setVolume( sfxVolume );*/
 	}
 
 	FMOD_RESULT F_CALLBACK SoundSystem::FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata )
@@ -204,7 +182,7 @@ namespace Sound
 	AnyType::AnyTypeMap SoundSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		AnyType::AnyTypeMap results;
-		FMOD_RESULT result;
+		/*FMOD_RESULT result;
 
 		if( message == "load" )
 		{
@@ -224,7 +202,7 @@ namespace Sound
 				result = event->start( );
 				results[ "result" ] = ( result == FMOD_OK );
 			}
-		}
+		}*/
 
 		return results;
 	}

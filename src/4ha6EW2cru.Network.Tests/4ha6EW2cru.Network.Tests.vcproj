@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source;../../etc/vendor/raknet/dependentextensions/rpc3"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../4ha6EW2cru.Network;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source;../../etc/vendor/raknet/dependentextensions/rpc3"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source;../../etc/vendor/raknet/dependentextensions/rpc3;../../etc/vendor/gmock/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../4ha6EW2cru.Network;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/raknet/Source;../../etc/vendor/raknet/dependentextensions/rpc3;../../etc/vendor/gmock/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -288,10 +288,6 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockService.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockServiceManager.hpp"
 				>
 			</File>
 			<File

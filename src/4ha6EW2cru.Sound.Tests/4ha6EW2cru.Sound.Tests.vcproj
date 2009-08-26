@@ -41,6 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../4ha6EW2cru.Sound;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include;../../etc/vendor/fmod/inc"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -113,6 +114,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../4ha6EW2cru.Sound;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/tinyxml/include;../../etc/vendor/fmod/inc"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -168,6 +170,10 @@
 			ReferencedProjectIdentifier="{D07A629D-130E-41EE-B513-7268A926BD6B}"
 			RelativePathToProject=".\4ha6EW2cru.System.Tests\4ha6EW2cru.System.Tests.vcproj"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{58D6A894-4481-4A63-9958-49AE9B3A83D3}"
+			RelativePathToProject=".\4ha6EW2cru.System\4ha6EW2cru.System.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -180,7 +186,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SoundComponentFactory_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundEventSystem_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundScene_Tests.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\SoundSystem_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\SoundSystemComponent_Tests.cxx"
 				>
 			</File>
 		</Filter>
@@ -189,6 +211,18 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Mocks\MockSoundComponentFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockSoundEventSystem.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockSoundSystemComponent.hpp"
+				>
+			</File>
 			<File
 				RelativePath=".\Mocks\MockSoundSystemScene.hpp"
 				>

@@ -177,14 +177,19 @@ namespace System
 
 	namespace Messages
 	{
+		// Geometry
 		static const MessageType All_Messages				=	"all_messages";
 		static const MessageType SetPosition				=	"set_position";
 		static const MessageType SetOrientation				=	"set_orientation";
 		static const MessageType SetLookAt					=	"set_lookAt";
-		static const MessageType TriggerSoundEvent			=	"trigger_soundevent";
-		static const MessageType KeyOutSoundEvent			=	"keyout_soundevent";
 		static const MessageType SetPlayerPosition			=	"set_player_position";
 
+		//Sound
+		static const MessageType PlayMusic					=	"playMusic";
+		static const MessageType TriggerSoundEvent			=	"trigger_soundevent";
+		static const MessageType KeyOutSoundEvent			=	"keyout_soundevent";
+
+		//Input
 		static const MessageType Move_Forward_Pressed		=	"+move_forward";
 		static const MessageType Move_Forward_Released		=	"-move_forward";
 		static const MessageType Move_Backward_Pressed		=	"+move_backward";
@@ -204,30 +209,44 @@ namespace System
 		static const MessageType Mouse_Moved				=	"mouse_moved";
 		static const MessageType Jump						=	"jump";
 
-		static const MessageType Pause_Game					=	"pause";
-		static const MessageType AddedToComponent			=	"added_to_component";
-		static const MessageType RegisterScriptFunctions	=	"registerScriptFunctions";
-		static const MessageType RegisterService			=	"registerService";
 		static const MessageType GetBindingForMessage		=	"getBindingForMessage";
 		static const MessageType SetBindingForMessage		=	"setBindingForMessage";
-		static const MessageType PlayAnimation				=	"playAnimation";
 		static const MessageType SetInvertYAxis				=	"setInvertYAxis";
+
+		//Game
+		static const MessageType Pause_Game					=	"pause";
+		
+		//AI
+		static const MessageType FindPath					=	"findPath";
+		
+		//Renderer
 		static const MessageType LoadMesh					=	"loadNavMesh";
 		static const MessageType RenderMesh					=	"renderMesh";
 		static const MessageType DestroyMesh				=	"destroy";
-		static const MessageType FindPath					=	"findPath";
-		static const MessageType GetState					=	"getState";
-		static const MessageType RunScript					=	"runScript";
-		static const MessageType SetScriptGlobal			=	"setScriptGlobal";
-		static const MessageType LoadScript					=	"loadScript";
+
+		//Physics
 		static const MessageType CastRay					=	"castRay";
 
+		//Script
+		static const MessageType LoadScript					=	"loadScript";
+		static const MessageType SetScriptGlobal			=	"setScriptGlobal";
+		static const MessageType GetState					=	"getState";
+		static const MessageType RunScript					=	"runScript";
+		static const MessageType RegisterScriptFunctions	=	"registerScriptFunctions";
+
+		//Animation
+		static const MessageType PlayAnimation				=	"playAnimation";
 		static const MessageType StartAnimation				=	"startAnimation";
 		static const MessageType StopAnimation				=	"stopAnimation";
 		static const MessageType GetAnimationState			=	"getAnimationState";
 
+		//Entity
+		static const MessageType AddedToComponent			=	"added_to_component";
 		static const MessageType PreInitialize				=	"preInitialize";
 		static const MessageType PostInitialize				=	"postInitialize";
+
+		//Service
+		static const MessageType RegisterService			=	"registerService";
 
 		namespace Entity
 		{

@@ -23,9 +23,9 @@ namespace Script
 		IService* soundService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SOUND );
 		
 		AnyType::AnyTypeMap parameters;
-		parameters[ "eventPath" ] = eventPath;
+		parameters[ System::Parameters::SoundEventPath ] = eventPath;
 
-		soundService->ProcessMessage( "playMusic", parameters );
+		soundService->ProcessMessage( System::Messages::PlayMusic, parameters );
 	}
 
 	void SoundFacade::TriggerEvent( const std::string& eventPath )
