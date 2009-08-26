@@ -55,21 +55,21 @@ namespace Events
 			if ( m_handlerTarget == 0 )
 			{
 				NullReferenceException nullTarget( "EventListener::HandleEvent - HandlerTarget is NULL" );
-				Logging::Logger::Get( )->Fatal( nullTarget.what( ) );
+				Fatal( nullTarget.what( ) );
 				throw nullTarget;
 			}
 
 			if ( m_handlerFunctor == 0 )
 			{
 				NullReferenceException nullHandler( "EventListener::HandleEvent - HandlerFunctor is NULL" );
-				Logging::Logger::Get( )->Fatal( nullHandler.what( ) );
+				Fatal( nullHandler.what( ) );
 				throw nullHandler;
 			}
 
 			if ( 0 == event )
 			{
 				NullReferenceException nullEvent( "EventListener::HandleEvent - Event is NULL" );
-				Logging::Logger::Get( )->Fatal( nullEvent.what( ) );
+				Fatal( nullEvent.what( ) );
 				throw nullEvent;
 			}
 
@@ -114,6 +114,20 @@ namespace Events
 		 */
 		inline bool IsMarkedForDeletion( ) const { return m_markedForDeletion; };
 
+
+		/*! Returns the Address of the Class performing the Task
+		*
+		* @return ( unsigned int )
+		*/
+		unsigned int GetHandlerAddress( ) const { return ( unsigned int ) m_handlerTarget; };
+
+
+		/*! Returns the name to the Function performing the Task
+		*
+		* @return ( std::string )
+		*/
+		std::string GetHandlerFunctionName( ) const { return typeid( m_handlerFunctor ).name( ); };
+
 	private:
 
 		HandlerFunctor m_handlerFunctor;
@@ -127,6 +141,26 @@ namespace Events
 		EventListener & operator = ( const EventListener & copy ) { return *this; };
 
 	};
+
+	template< class T >
+	IEventListener* MakeEventListener( const EventType& eventType, T* handlerTarget, void ( T::*handlerFunctor ) ( const IEvent* event ) )
+	{
+		if ( 0 == handlerTarget )
+		{
+			NullReferenceException nullTarget( "EventManager::RemoveEventListener - Event Target is NULL" );
+			Fatal( nullTarget.what( ) );
+			throw nullTarget;
+		}
+
+		if ( 0 == handlerFunctor )
+		{
+			NullReferenceException nullFunctor( "EventManager::RemoveEventListener - Handler Functor is NULL" );
+			Fatal( nullFunctor.what( ) );
+			throw nullFunctor;
+		}
+
+		return new EventListener< T >( eventType, handlerTarget, handlerFunctor );
+	}
 };
 
 #endif

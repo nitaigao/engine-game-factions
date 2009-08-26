@@ -20,6 +20,9 @@ using namespace Events;
 #include "Utility/StringUtils.h"
 using namespace Utility;
 
+#include "Logging/Logger.h"
+using namespace Logging;
+
 using namespace IO;
 using namespace Services;
 

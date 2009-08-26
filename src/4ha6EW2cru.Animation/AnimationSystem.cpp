@@ -32,7 +32,7 @@ namespace Animation
 
 	void AnimationSystem::errorReportFunction( const char* errorMessage, void* errorOutputObject )
 	{
-		Logger::Get( )->Warn( errorMessage );
+		Warn( errorMessage );
 	}
 
 	void AnimationSystem::Update( float deltaMilliseconds )

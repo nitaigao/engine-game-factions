@@ -11,12 +11,14 @@
 #include "EventType.hpp"
 #include "IEventData.hpp"
 
+#include "../Export.hpp"
+
 namespace Events
 {
 	/*! 
 	 *  Interface for all Events
 	 */
-	class IEvent
+	class GAMEAPI IEvent
 	{
 
 	public:

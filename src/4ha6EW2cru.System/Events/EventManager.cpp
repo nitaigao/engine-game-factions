@@ -3,6 +3,7 @@
 #include "../Logging/Logger.h"
 using namespace Logging;
 
+#include "../Exceptions/NullReferenceException.hpp"
 #include "../Exceptions/UnInitializedException.hpp"
 #include "../Exceptions/AlreadyInitializedException.hpp"
 using namespace Exceptions;
@@ -14,7 +15,7 @@ namespace Events
 		if ( 0 == event )
 		{
 			NullReferenceException e( "EventManager::QueueEvent - Attempted to add a NULL Event to the Queue" );
-			Logger::Get( )->Fatal( e.what ( ) );
+			Fatal( e.what ( ) );
 			throw e;
 		}
 
@@ -26,7 +27,7 @@ namespace Events
 		if ( 0 == event )
 		{
 			NullReferenceException e( "EventManager::TriggerEvent - Attempted to trigger a NULL Event" );
-			Logger::Get( )->Fatal( e.what ( ) );
+			Fatal( e.what ( ) );
 			throw e;
 		}
 
@@ -84,5 +85,27 @@ namespace Events
 		}
 
 		m_eventListeners.clear( );
+	}
+
+	void EventManager::RemoveEventListener( IEventListener* eventListener )
+	{
+		for ( EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
+		{
+			if (
+				eventListener->GetHandlerAddress( ) == ( *i )->GetHandlerAddress( ) &&
+				eventListener->GetEventType( ) == ( *i )->GetEventType( ) &&
+				eventListener->GetHandlerFunctionName( ) == ( *i )->GetHandlerFunctionName( )
+				)
+			{
+				( *i )->MarkForDeletion( );
+			}
+		}
+
+		delete eventListener;
+	}
+
+	void EventManager::AddEventListener( IEventListener* eventListener )
+	{
+		m_eventListeners.push_back( eventListener );
 	}
 }

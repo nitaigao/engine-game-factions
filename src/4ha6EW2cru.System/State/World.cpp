@@ -1,5 +1,8 @@
 #include "World.h"
 
+#include "../Logging/Logger.h"
+using namespace Logging;
+
 #include "../System/ISystem.hpp"
 #include "../Management/Management.h"
 

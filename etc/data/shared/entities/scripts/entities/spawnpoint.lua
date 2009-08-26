@@ -21,6 +21,8 @@ extend( SpawnPoint, Object )
 function SpawnPoint:initialize( )
 
 	script:registerEventHandler( SpawnPoint.onEvent )
+	
+	spawnManager:registerSpawnPoint( self )
 
 end
 

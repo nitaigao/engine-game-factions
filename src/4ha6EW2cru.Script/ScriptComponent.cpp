@@ -31,11 +31,15 @@ using namespace Services;
 #include "NetworkFacade.h"
 #include "InputFacade.h"
 
+#include "Events/EventManager.h"
+#include "Events/EventListener.h"
+using namespace Events;
+
 namespace Script
 {
 	void ScriptComponent::Initialize( )
 	{
-		Management::Get( )->GetEventManager( )->AddEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
 
 		this->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
 
@@ -62,7 +66,7 @@ namespace Script
 
 	void ScriptComponent::Destroy( )
 	{
-		Management::Get( )->GetEventManager( )->RemoveEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
 
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
 		{
@@ -93,14 +97,14 @@ namespace Script
 		{
 			std::stringstream errorMessage;
 			errorMessage << lua_tostring( m_state, -1 );
-			Logger::Get( )->Warn( errorMessage.str( ) );
+			Warn( errorMessage.str( ) );
 			lua_pop( m_state, 1 );
 		}
 
 		if ( LUA_ERRMEM == result )
 		{
 			ScriptException memE( "Script::Initialize - There is memory allocation error within the Script" );
-			Logger::Get( )->Fatal( memE.what( ) );
+			Fatal( memE.what( ) );
 			throw memE;
 		}
 	}
@@ -116,7 +120,7 @@ namespace Script
 			object error_msg( from_stack( e.state( ) , -1) );
 			std::stringstream logMessage;
 			logMessage << error_msg;
-			Logger::Get( )->Warn( logMessage.str( ) );
+			Warn( logMessage.str( ) );
 		}
 	}
 
@@ -128,7 +132,7 @@ namespace Script
 		{
 			std::stringstream errorMessage;
 			errorMessage << lua_tostring( m_state, -1 );
-			Logger::Get( )->Warn( errorMessage.str( ) );
+			Warn( errorMessage.str( ) );
 			lua_pop( m_state, 1 );
 		}
 	}
@@ -142,7 +146,7 @@ namespace Script
 		{
 			std::stringstream errorMessage;
 			errorMessage << lua_tostring( m_state, -1 );
-			Logger::Get( )->Warn( errorMessage.str( ) );
+			Warn( errorMessage.str( ) );
 			lua_pop( m_state, 1 );
 		}
 	}
@@ -243,7 +247,7 @@ namespace Script
 					object error_msg( from_stack( e.state( ) , -1) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -359,7 +363,7 @@ namespace Script
 				object error_msg( from_stack( e.state( ) , -1) );
 				std::stringstream logMessage;
 				logMessage << error_msg;
-				Logger::Get( )->Warn( logMessage.str( ) );
+				Warn( logMessage.str( ) );
 			}
 		}
 

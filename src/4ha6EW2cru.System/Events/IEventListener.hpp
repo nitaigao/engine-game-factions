@@ -56,6 +56,20 @@ namespace Events
 		 */
 		virtual inline bool IsMarkedForDeletion( ) const = 0;
 
+
+		/*! Returns the Address of the Class performing the Task
+		 *
+		 * @return ( unsigned int )
+		 */
+		virtual unsigned int GetHandlerAddress( ) const = 0;
+
+
+		/*! Returns the name to the Function performing the Task
+		*
+		* @return ( std::string )
+		*/
+		virtual std::string GetHandlerFunctionName( ) const = 0;
+
 	};
 };
 

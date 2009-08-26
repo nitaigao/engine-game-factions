@@ -12,6 +12,7 @@ using namespace luabind;
 
 #include "Events/EventType.hpp"
 #include "Events/EventData.hpp"
+#include "Events/EventListener.h"
 #include "Events/InputEventData.hpp"
 using namespace Events;
 
@@ -37,11 +38,11 @@ namespace UX
 
 		WidgetManager::getInstancePtr( )->registerUnlinker( this );
 
-		Management::Get( )->GetEventManager( )->AddEventListener( INPUT_MOUSE_PRESSED, this, &UXSystemScene::OnMousePressed );
-		Management::Get( )->GetEventManager( )->AddEventListener( INPUT_MOUSE_MOVED, this, &UXSystemScene::OnMouseMoved );
-		Management::Get( )->GetEventManager( )->AddEventListener( INPUT_MOUSE_RELEASED, this, &UXSystemScene::OnMouseReleased );
-		Management::Get( )->GetEventManager( )->AddEventListener( INPUT_KEY_DOWN, this, &UXSystemScene::OnKeyDown );
-		Management::Get( )->GetEventManager( )->AddEventListener( INPUT_KEY_UP, this, &UXSystemScene::OnKeyUp );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( INPUT_MOUSE_PRESSED, this, &UXSystemScene::OnMousePressed ) );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( INPUT_MOUSE_MOVED, this, &UXSystemScene::OnMouseMoved ) );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( INPUT_MOUSE_RELEASED, this, &UXSystemScene::OnMouseReleased ) );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( INPUT_KEY_DOWN, this, &UXSystemScene::OnKeyDown ) );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( INPUT_KEY_UP, this, &UXSystemScene::OnKeyUp ) );
 
 		this->InitializeComponent( "interface-root", "/data/interface/interface.lua" );
 	}
@@ -58,11 +59,11 @@ namespace UX
 			delete ( *i );
 		}
 
-		Management::Get( )->GetEventManager( )->RemoveEventListener( INPUT_MOUSE_PRESSED, this, &UXSystemScene::OnMousePressed );
-		Management::Get( )->GetEventManager( )->RemoveEventListener( INPUT_MOUSE_MOVED, this, &UXSystemScene::OnMouseMoved );
-		Management::Get( )->GetEventManager( )->RemoveEventListener( INPUT_MOUSE_RELEASED, this, &UXSystemScene::OnMouseReleased );
-		Management::Get( )->GetEventManager( )->RemoveEventListener( INPUT_KEY_DOWN, this, &UXSystemScene::OnKeyDown );
-		Management::Get( )->GetEventManager( )->RemoveEventListener( INPUT_KEY_UP, this, &UXSystemScene::OnKeyUp );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( INPUT_MOUSE_PRESSED, this, &UXSystemScene::OnMousePressed ) );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( INPUT_MOUSE_MOVED, this, &UXSystemScene::OnMouseMoved ) );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( INPUT_MOUSE_RELEASED, this, &UXSystemScene::OnMouseReleased ) );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( INPUT_KEY_DOWN, this, &UXSystemScene::OnKeyDown ) );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( INPUT_KEY_UP, this, &UXSystemScene::OnKeyUp ) );
 
 		m_gui->shutdown( );
 	}

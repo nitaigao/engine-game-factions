@@ -42,7 +42,7 @@ namespace Renderer
 		if ( 0 == archive )
 		{
 			NullReferenceException e( "BadArchiveFactory::destroyInstance -- Archive is NULL" );
-			Logger::Get( )->Fatal( e.what( ) );
+			Fatal( e.what( ) );
 			throw e;
 		}
 

@@ -22,6 +22,7 @@ using namespace IO;
 #include "Maths/MathTools.hpp"
 using namespace Maths;
 
+#include "Events/EventListener.h"
 using namespace Events;
 
 #include "Configuration/ConfigurationTypes.hpp"
@@ -48,7 +49,7 @@ namespace Renderer
 	{
 		Ogre::WindowEventUtilities::removeWindowEventListener( m_window, this );
 
-		Management::Get( )->GetEventManager( )->RemoveEventListener( GAME_ENDED, this, &RendererSystem::OnGameEnded );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_ENDED, this, &RendererSystem::OnGameEnded ) );
 		
 		if ( m_logListener != 0 )
 		{
@@ -158,7 +159,7 @@ namespace Renderer
 		m_factories.push_back( lineFactory );
 		m_root->addMovableObjectFactory( lineFactory );
 
-		Management::Get( )->GetEventManager( )->AddEventListener( GAME_ENDED, this, &RendererSystem::OnGameEnded );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_ENDED, this, &RendererSystem::OnGameEnded ) );
 
 		Management::Get( )->GetServiceManager( )->RegisterService( this );
 

@@ -173,7 +173,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -199,7 +199,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -228,7 +228,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -254,7 +254,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -280,7 +280,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -306,7 +306,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}
@@ -332,7 +332,7 @@ namespace UX
 					object error_msg( from_stack( e.state( ) , -1 ) );
 					std::stringstream logMessage;
 					logMessage << error_msg;
-					Logger::Get( )->Warn( logMessage.str( ) );
+					Warn( logMessage.str( ) );
 				}
 			}
 		}

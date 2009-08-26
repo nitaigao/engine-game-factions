@@ -56,7 +56,7 @@ namespace Script
 		if( !result )
 		{
 			OutOfRangeException e( "ScriptSystemScene::CreateComponent - Unable to grow the LUA stack to the required size" );
-			Logger::Get( )->Fatal( e.what( ) );
+			Fatal( e.what( ) );
 			throw e;
 		}
 		
@@ -158,7 +158,7 @@ namespace Script
 		}
 
 		lua_pushstring( luaState, errorMessage.str( ).c_str( ) );
-		Logger::Get( )->Warn( errorMessage.str( ) );
+		Warn( errorMessage.str( ) );
 
 		return 0;	
 	}
@@ -175,7 +175,7 @@ namespace Script
 
 	void ScriptSystemScene::Print( const System::MessageType& message )
 	{
-		Logger::Get( )->Info( message );
+		Info( message );
 	}
 
 	void ScriptSystemScene::Quit( )

@@ -17,7 +17,7 @@ namespace Events
 	/*! 
 	 *  A Game Event
 	 */
-	class Event : public IEvent
+	class GAMEAPI Event : public IEvent
 	{
 
 	public:

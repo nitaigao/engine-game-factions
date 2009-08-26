@@ -48,7 +48,7 @@ namespace Serialization
 		{
 			std::stringstream logMessage;
 			logMessage << "Unable to locate level file at path: " << levelPath;
-			Logger::Get( )->Warn( logMessage.str( ) );
+			Warn( logMessage.str( ) );
 			return;
 		}
 

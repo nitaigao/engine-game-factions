@@ -12,16 +12,15 @@
 #include <map>
 
 #include "IEvent.hpp"
-#include "EventListener.h"
-
-#include "../Export.hpp"
+#include "IEventListener.hpp"
+#include "IEventManager.hpp"
 
 namespace Events
 {
 	/*! 
 	 *  Manages all Events distributed throughout the Game
 	 */
-	class EventManager
+	class GAMEAPI EventManager : public IEventManager
 	{
 
 		typedef std::queue< const IEvent* > EventQueue;
@@ -33,7 +32,7 @@ namespace Events
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~EventManager( );
+		~EventManager( );
 
 
 		/*! Default Constructor
@@ -48,7 +47,7 @@ namespace Events
 		 *  @param[in] const IEvent * event
 		 *  @return (void)
 		 */
-		GAMEAPI void QueueEvent( const Events::IEvent* event );
+		void QueueEvent( const Events::IEvent* event );
 
 
 		/*! Processes an Event immediately
@@ -56,7 +55,7 @@ namespace Events
 		 *  @param[in] const IEvent * event
 		 *  @return (void)
 		 */
-		GAMEAPI void TriggerEvent( const Events::IEvent* event );
+		void TriggerEvent( const Events::IEvent* event );
 
 		
 		/*! Dispatched all events in the Event Queue to their Listening Event Handlers
@@ -66,81 +65,22 @@ namespace Events
 		 */
 		void Update( float deltaMilliseconds );
 
-		
+
 		/*! Adds an EventListener for Event processing
 		 *
-		 *  @param[in] const EventType eventType
-		 *  @param[in] T * handlerTarget
-		 *  @param[in] void 
-		 *  @param[in] T:: * handlerFunctor 
-		 *  @param[in] 
-		 *  @param[in] const IEvent * event 
-		 *  @return (void)
+		 * @param[in] IEventListener * eventListener
+		 * @return ( void )
 		 */
-		template< class T >
-		void AddEventListener( const EventType eventType, T* handlerTarget, void ( T::*handlerFunctor ) ( const IEvent* event ) )
-		{
-			if ( 0 == handlerTarget )
-			{
-				NullReferenceException nullTarget( "EventManager::AddEventListener - Event Target is NULL" );
-				Logging::Logger::Get( )->Fatal( nullTarget.what( ) );
-				throw nullTarget;
-			}
-
-			if ( 0 == handlerFunctor )
-			{
-				NullReferenceException nullFunctor( "EventManager::AddEventListener - Handler Functor is NULL" );
-				Logging::Logger::Get( )->Fatal( nullFunctor.what( ) );
-				throw nullFunctor;
-			}
-
-			EventListener< T >* eventListener = new EventListener< T >( eventType, handlerTarget, handlerFunctor );
-			m_eventListeners.push_back( eventListener );
-		}
+		void AddEventListener( IEventListener* eventListener );
 
 
 		/*! Marks an Event Listener for removal on the next call to Update
 		 *
-		 *  @param[in] const EventType eventType
-		 *  @param[in] T * handlerTarget
-		 *  @param[in] void 
-		 *  @param[in] T:: * handlerFunctor 
-		 *  @param[in] 
-		 *  @param[in] const IEvent * event 
-		 *  @return (void)
+		 * @param[in] IEventListener * eventListener
+		 * @return ( void )
 		 */
-		template< class T >
-		void RemoveEventListener( const EventType eventType, T* handlerTarget, void ( T::*handlerFunctor ) ( const IEvent* event ) )
-		{
-			if ( 0 == handlerTarget )
-			{
-				NullReferenceException nullTarget( "EventManager::RemoveEventListener - Event Target is NULL" );
-				Logging::Logger::Get( )->Fatal( nullTarget.what( ) );
-				throw nullTarget;
-			}
-
-			if ( 0 == handlerFunctor )
-			{
-				NullReferenceException nullFunctor( "EventManager::RemoveEventListener - Handler Functor is NULL" );
-				Logging::Logger::Get( )->Fatal( nullFunctor.what( ) );
-				throw nullFunctor;
-			}
-
-			for ( EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
-			{
-				EventListener< T >* eventListener = static_cast< EventListener< T >* >( ( *i ) );
-
-				if (
-					handlerFunctor == eventListener->GetHandlerFunctor( ) &&
-					eventType == eventListener->GetEventType( ) &&
-					handlerTarget == eventListener->GetHandlerTarget( )
-					)
-				{
-					( *i )->MarkForDeletion( );
-					return;
-				}
-			}
-		}
+		void RemoveEventListener( IEventListener* eventListener );
+		
 
 	private:
 

@@ -302,10 +302,6 @@
 				RelativePath=".\ServerAdvertisement_Tests.cxx"
 				>
 			</File>
-			<File
-				RelativePath=".\TestEnvironment.hpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

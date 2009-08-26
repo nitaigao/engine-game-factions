@@ -49,7 +49,7 @@ namespace Renderer
 		}
 		catch( Ogre::FileNotFoundException e )
 		{
-			Logger::Get( )->Fatal( e.what( ) );
+			Fatal( e.what( ) );
 		}
 
 		delete model;

@@ -131,7 +131,7 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 	if ( library == NULL )
 	{
 		FileNotFoundException e( "SystemManager::LoadSystem - Unable to load the given System dll" );
-		Logger::Get( )->Fatal( e.what( ) );
+		Fatal( e.what( ) );
 		throw e;
 	}
 

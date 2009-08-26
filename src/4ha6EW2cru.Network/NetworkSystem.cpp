@@ -20,6 +20,7 @@ using namespace Logging;
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
+#include "Events/EventListener.h"
 using namespace Events;
 
 #include "System/SystemType.hpp"
@@ -103,7 +104,7 @@ namespace Network
 				);
 
 			m_scene->AddNetworkProvider( m_serverProvider );
-			m_eventManager->AddEventListener( GAME_LEVEL_CHANGED, static_cast< NetworkServerProvider* >( m_serverProvider ), &NetworkServerProvider::OnGameLevelChanged );
+			m_eventManager->AddEventListener( MakeEventListener( GAME_LEVEL_CHANGED, static_cast< NetworkServerProvider* >( m_serverProvider ), &NetworkServerProvider::OnGameLevelChanged ) );
 		}
 
 		if ( message == System::Messages::Network::Connect )
