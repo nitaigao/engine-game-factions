@@ -15,7 +15,7 @@ namespace Script
 	/*!
 	 *  The Scripting System 
 	 */
-	class IScriptSystem : public ISystem
+	class GAMEAPI IScriptSystem : public ISystem
 	{
 
 	public:

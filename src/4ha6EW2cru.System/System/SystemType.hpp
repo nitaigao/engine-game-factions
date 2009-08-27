@@ -233,6 +233,7 @@ namespace System
 		static const MessageType GetState					=	"getState";
 		static const MessageType RunScript					=	"runScript";
 		static const MessageType RegisterScriptFunctions	=	"registerScriptFunctions";
+		static const MessageType UnloadComponent			=	"unloadComponent";
 
 		//Animation
 		static const MessageType PlayAnimation				=	"playAnimation";

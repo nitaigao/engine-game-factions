@@ -12,17 +12,20 @@
 
 #include "Configuration/IConfiguration.hpp"
 #include "Events/IEvent.hpp"
+#include "Service/IServiceManager.h"
 
 #include "ScriptConfiguration.h"
 #include "IScriptSystemScene.hpp"
+#include "IScriptComponentFactory.hpp"
 #include "IScriptComponent.hpp"
+#include "ILuaState.hpp"
 
 namespace Script
 {
 	/*!
 	 *  A Script System Scene 
 	 */
-	class ScriptSystemScene : public IScriptSystemScene
+	class GAMEAPI ScriptSystemScene : public IScriptSystemScene
 	{
 
 		typedef std::pair< Events::EventType, luabind::object > EventHandler;
@@ -40,10 +43,19 @@ namespace Script
 		
 		/*! Default Constructor
 		 *
-		 *  @param[in] Configuration::IConfiguration * configuration
 		 *  @return ()
 		 */
-		ScriptSystemScene( Configuration::IConfiguration* configuration );
+		ScriptSystemScene( Configuration::IConfiguration* configuration, IScriptComponentFactory* componentFactory, 
+			ILuaState* masterState,	Services::IServiceManager* serviceManager )
+			: m_configuration( configuration )
+			, m_componentFactory( componentFactory )
+			, m_masterState( masterState )
+			, m_serviceManager( serviceManager )
+			, m_scriptConfiguration( 0 )
+			, m_eventHandlers( new EventHandlerList( ) )
+		{
+
+		}
 
 
 		/*! Initializes the System Scene
@@ -83,14 +95,6 @@ namespace Script
 		*/
 		void DestroyComponent( ISystemComponent* component );
 
-		
-		/*! Finds a Component within the Scene
-		*
-		*  @param[in] const std::string & name
-		*  @return (IScriptComponent*)
-		*/
-		ISystemComponent* FindComponent( const std::string& name ) const;
-
 
 		/*! Gets the System::Types::Type of the SystemScene
 		*
@@ -99,41 +103,12 @@ namespace Script
 		inline System::Types::Type GetType( ) const { return System::Types::SCRIPT; };
 
 
-		/*! Returns the Master LUA state of the Scene
+		/*! Unloads and Destroys a Script Component
 		*
-		*  @return (lua_State*)
+		* @param[in] const std::string & name
+		* @return ( void )
 		*/
-		lua_State* GetState( ) const { return m_state; };
-
-		
-		/*!  Prints the specified message to the console
-		 *
-		 *  @param[in] const std::string & message
-		 *  @return (void)
-		 */
-		static void Print( const System::MessageType& message );
-
-		
-		/*! Quits the game
-		 *
-		 *  @return (void)
-		 */
-		static void Quit( );
-
-		
-		/*! Loads the specified level
-		 *
-		 *  @param[in] const std::string & levelName
-		 *  @return (void)
-		 */
-		static void LoadLevel( const std::string& levelName );
-
-		
-		/*! Ends the current Game
-		 *
-		 *  @return (void)
-		 */
-		static void EndGame( );
+		void UnloadComponent( const std::string& name );
 
 	private:
 
@@ -141,13 +116,12 @@ namespace Script
 		ScriptSystemScene( const ScriptSystemScene & copy ) { };
 		ScriptSystemScene & operator = ( const ScriptSystemScene & copy ) { return *this; };
 
-		static int Script_PError( lua_State* luaState );
-		static void Script_Error( lua_State* luaState );
-		static void Script_CastError( lua_State* luaState, LUABIND_TYPE_INFO typeInfo );
+		ILuaState* m_masterState;
+		Configuration::IConfiguration* m_configuration;
+		IScriptComponentFactory* m_componentFactory;
+		Services::IServiceManager* m_serviceManager;
 
 		ScriptConfiguration* m_scriptConfiguration;
-
-		lua_State* m_state;
 		ScriptComponentList m_components;
 		EventHandlerList* m_eventHandlers;
 

@@ -1,22 +1,21 @@
 #include <gtest/gtest.h>
 using namespace testing;
 
-/*#include "ScriptComponent.h"
+#include "ScriptComponent.h"
 using namespace Script;
 
-#include "Events/EventManager.h"
-using namespace Events;
+#include "Mocks/MockEventManager.hpp"
 
 class ScriptComponent_Tests : public TestHarness< ScriptComponent >
 {
 
 protected:
 
-	EventManager* m_eventManager;
+	MockEventManager* m_eventManager;
 
 	void EstablishContext( )
 	{
-		m_eventManager = new EventManager( );
+		m_eventManager = new MockEventManager( );
 	}
 
 	void DestroyContext( )
@@ -26,9 +25,9 @@ protected:
 
 	ScriptComponent* CreateSubject( )
 	{
-		return new ScriptComponent( 0 );
+		return new ScriptComponent( 0, m_eventManager );
 	}
-};*/
+};
 
 TEST( ScriptComponent_Tests, should_broadcast_event )
 {

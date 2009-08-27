@@ -33,20 +33,6 @@ namespace Script
 		virtual ~IScriptComponent( ) { };
 
 
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		virtual void Update( float deltaMilliseconds ) = 0;
-
-
-		/*! Returns the LUA state of the Component
-		 *
-		 *  @return (lua_State*)
-		 */
-		virtual lua_State* GetState( ) const = 0;
-
 		/*! Runs the Loaded Script
 		*
 		*  @return (void)

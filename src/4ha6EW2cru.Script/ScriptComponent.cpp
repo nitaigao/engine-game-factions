@@ -24,7 +24,9 @@ using namespace luabind;
 using namespace Services;
 
 #include "ScriptFunctionHandler.hpp"
+#include "LuaState.h"
 
+#include "SystemFacade.h"
 #include "SoundFacade.h"
 #include "InstrumentationFacade.h"
 #include "AnimationFacade.h"
@@ -43,25 +45,34 @@ namespace Script
 
 		this->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
 
-		SoundFacade* soundFacade = new SoundFacade( this );
-		luabind::globals( m_state )[ "sfx" ] = soundFacade;
-		m_facades.push_back( soundFacade );
+		if ( typeid( m_state ) == typeid( LuaState* ) )
+		{
+			LuaState* state = static_cast< LuaState* >( m_state );
 
-		InstrumentationFacade* instrumentationFacade = new InstrumentationFacade( );
-		luabind::globals( m_state )[ "instrumentation" ] = instrumentationFacade;
-		m_facades.push_back( instrumentationFacade );
+			SystemFacade* systemFacade = new SystemFacade( );
+			state->SetGlobal( "system", systemFacade );
+			m_facades.push_back( systemFacade );
 
-		AnimationFacade* animationFacade = new AnimationFacade( this );
-		luabind::globals( m_state ) [ "animation" ] = animationFacade;
-		m_facades.push_back( animationFacade );
+			SoundFacade* soundFacade = new SoundFacade( this );
+			state->SetGlobal( "sfx", soundFacade );
+			m_facades.push_back( soundFacade );
 
-		NetworkFacade* networkFacade = new NetworkFacade( );
-		luabind::globals( m_state ) [ "network" ] = networkFacade;
-		m_facades.push_back( networkFacade );
+			InstrumentationFacade* instrumentationFacade = new InstrumentationFacade( );
+			state->SetGlobal( "instrumentation", instrumentationFacade );
+			m_facades.push_back( instrumentationFacade );
 
-		InputFacade* inputFacade = new InputFacade( );
-		luabind::globals( m_state )[ "input" ] = inputFacade;
-		m_facades.push_back( inputFacade );
+			AnimationFacade* animationFacade = new AnimationFacade( this );
+			state->SetGlobal( "animation", animationFacade );
+			m_facades.push_back( animationFacade );
+
+			NetworkFacade* networkFacade = new NetworkFacade( );
+			state->SetGlobal( "network", networkFacade );
+			m_facades.push_back( networkFacade );
+
+			InputFacade* inputFacade = new InputFacade( );
+			state->SetGlobal( "input", inputFacade );
+			m_facades.push_back( inputFacade );
+		}
 	}
 
 	void ScriptComponent::Destroy( )
@@ -89,7 +100,7 @@ namespace Script
 
 	void ScriptComponent::LoadScript( const std::string& scriptPath )
 	{
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( scriptPath );
+		/*IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( scriptPath );
 
 		int result = luaL_loadbuffer( m_state, resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength, resource->GetFileBuffer( )->filePath.c_str( ) );
 
@@ -106,12 +117,12 @@ namespace Script
 			ScriptException memE( "Script::Initialize - There is memory allocation error within the Script" );
 			Fatal( memE.what( ) );
 			throw memE;
-		}
+		}*/
 	}
 
 	void ScriptComponent::RunScript( )
 	{
-		try
+		/*try
 		{
 			resume< void >( m_state );
 		}
@@ -121,12 +132,12 @@ namespace Script
 			std::stringstream logMessage;
 			logMessage << error_msg;
 			Warn( logMessage.str( ) );
-		}
+		}*/
 	}
 
 	void ScriptComponent::IncludeScript( const std::string& scriptPath )
 	{
-		this->LoadScript( scriptPath );
+		/*this->LoadScript( scriptPath );
 		
 		if ( lua_pcall( m_state, 0, 0, 0 ) )
 		{
@@ -134,13 +145,13 @@ namespace Script
 			errorMessage << lua_tostring( m_state, -1 );
 			Warn( errorMessage.str( ) );
 			lua_pop( m_state, 1 );
-		}
+		}*/
 	}
 
 
 	void ScriptComponent::ExecuteString( const std::string& input )
 	{
-		Info( input );
+		/*Info( input );
 
 		if ( luaL_dostring( m_state, input.c_str( ) ) )
 		{
@@ -148,7 +159,7 @@ namespace Script
 			errorMessage << lua_tostring( m_state, -1 );
 			Warn( errorMessage.str( ) );
 			lua_pop( m_state, 1 );
-		}
+		}*/
 	}
 
 	void ScriptComponent::RegisterEvent( const luabind::object& function )

@@ -8,7 +8,7 @@
 #ifndef SCRIPTSYSTEM_H
 #define SCRIPTSYSTEM_H
 
-#include "Service/IService.hpp"
+#include "Service/IServiceManager.h"
 #include "Configuration/IConfiguration.hpp"
 
 #include "IScriptSystem.hpp"
@@ -19,7 +19,7 @@ namespace Script
 	/*!
 	 *  The Scripting System 
 	 */
-	class ScriptSystem : public IScriptSystem, public Services::IService
+	class GAMEAPI ScriptSystem : public IScriptSystem, public Services::IService
 	{
 
 	public:
@@ -35,10 +35,11 @@ namespace Script
 		*
 		*  @return ()
 		*/
-		ScriptSystem( )
-			: m_configuration( 0 )
-			, m_scene( 0 )
-			, m_auxScene( 0 )
+		ScriptSystem( IScriptSystemScene* scene, IScriptSystemScene* auxScene, Services::IServiceManager* serviceManager )
+			: m_scene( scene )
+			, m_auxScene( auxScene )
+			, m_serviceManager( serviceManager )
+			, m_configuration( 0 )
 		{
 
 		}
@@ -114,6 +115,7 @@ namespace Script
 
 		IScriptSystemScene* m_scene;
 		IScriptSystemScene* m_auxScene;
+		Services::IServiceManager* m_serviceManager;
 
 	};
 };

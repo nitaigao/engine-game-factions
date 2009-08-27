@@ -21,7 +21,7 @@ namespace Script
 	/*!
 	 *  A Script System Scene 
 	 */
-	class IScriptSystemScene : public ISystemScene
+	class GAMEAPI IScriptSystemScene : public ISystemScene
 	{
 
 	public:
@@ -32,20 +32,14 @@ namespace Script
 		 */
 		virtual ~IScriptSystemScene( ) { };
 
-		
-		/*! Returns the Master LUA state of the Scene
-		 *
-		 *  @return (lua_State*)
-		 */
-		virtual lua_State* GetState( ) const = 0;
 
-
-		/*! Finds a Component within the Scene
+		/*! Unloads and Destroys a Script Component
 		 *
-		 *  @param[in] const std::string & name
-		 *  @return (IScriptComponent*)
+		 * @param[in] const std::string & name
+		 * @return ( void )
 		 */
-		virtual ISystemComponent* FindComponent( const std::string& name ) const = 0;
+		virtual void UnloadComponent( const std::string& name ) = 0;
+
 
 	};
 };

@@ -40,21 +40,21 @@ namespace Events
 		 *
 		 *  @return (const EventType)
 		 */
-		virtual inline EventType GetEventType( ) const = 0;
+		virtual EventType GetEventType( ) const = 0;
 
 		
 		/*! Marks the EventHandler for Deletion on the Next Update
 		 *
 		 *  @return (void)
 		 */
-		virtual inline void MarkForDeletion( ) = 0;
+		virtual void MarkForDeletion( ) = 0;
 
 
 		/*! Gets whether the EventHandler is marked for deletion
 		 *
 		 *  @return (bool)
 		 */
-		virtual inline bool IsMarkedForDeletion( ) const = 0;
+		virtual bool IsMarkedForDeletion( ) const = 0;
 
 
 		/*! Returns the Address of the Class performing the Task

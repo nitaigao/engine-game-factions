@@ -1,4 +1,5 @@
-#include "ScriptSystem.h"
+#include "ScriptFactory.h"
+using namespace Script;
 
 #include "System/Memory.cxx"
 
@@ -20,7 +21,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( )
 {
-	return new Script::ScriptSystem( );
+	return ScriptFactory( ).CreateScriptSystem( );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

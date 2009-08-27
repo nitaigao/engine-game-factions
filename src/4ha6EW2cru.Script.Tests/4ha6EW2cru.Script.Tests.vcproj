@@ -59,8 +59,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib gmock.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Debug;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib"
+				AdditionalDependencies="gtestd.lib gmock.lib luabindd.lib luad.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Debug;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -182,11 +182,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\LuaState_Tests.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\ScriptComponent_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptComponentFactory_Tests.cxx"
 				>
 			</File>
 		</Filter>
@@ -195,6 +203,26 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\Mocks\MockLuaState.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockScriptComponent.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockScriptComponentFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockScriptSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptSystemScene_Tests.cxx"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -202,6 +230,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\ScriptSystem_Tests.cxx"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

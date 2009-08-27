@@ -228,6 +228,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Mocks\MockEventManager.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockSerializer.hpp"
 				>
 			</File>

@@ -9,10 +9,11 @@
 #define SCRIPTCOMPONENT_H
 
 #include "IScriptComponent.hpp"
-#include "Events/IEvent.hpp"
+#include "Events/IEventManager.hpp"
 
 #include "IScriptFacade.hpp"
 #include "IScriptFunctionHandler.hpp"
+#include "ILuaState.hpp"
 
 #include <luabind/luabind.hpp>
 
@@ -40,8 +41,9 @@ namespace Script
 		*  @param[in] const std::string & name
 		*  @return ()
 		*/
-		ScriptComponent( lua_State* state )
+		ScriptComponent( ILuaState* state, Events::IEventManager* eventManager )
 			: m_state( state )
+			, m_eventManager( eventManager )
 			, m_observer( 0 )
 			, m_eventHandlers( 0 )
 		{
@@ -134,13 +136,6 @@ namespace Script
 		 *  @return (AnyType)
 		 */
 		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
-
-
-		/*! Returns the LUA state of the Component
-		*
-		*  @return (lua_State*)
-		*/
-		inline lua_State* GetState( ) const { return m_state; };
 
 
 		/*! Generic Event Handler to Forward Game Events to the Script
@@ -313,7 +308,8 @@ namespace Script
 		ScriptComponent( const ScriptComponent & copy ) { };
 		ScriptComponent & operator = ( const ScriptComponent & copy ) { return *this; };
 
-		lua_State* m_state;
+		ILuaState* m_state;
+		Events::IEventManager* m_eventManager;
 
 		IScriptFunctionHandler::FunctionList m_eventHandlers;
 		IScriptFunctionHandler::FunctionList m_updateHandlers;

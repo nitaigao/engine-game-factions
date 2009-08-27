@@ -190,11 +190,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LuaState.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkFacade.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\ScriptComponent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptComponentFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFactory.cpp"
 				>
 			</File>
 			<File
@@ -217,6 +229,10 @@
 				RelativePath=".\SystemDefinition.def"
 				>
 			</File>
+			<File
+				RelativePath=".\SystemFacade.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -236,6 +252,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ILuaState.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\INetworkFacade.h"
 				>
 			</File>
@@ -249,6 +269,10 @@
 			</File>
 			<File
 				RelativePath=".\IScriptComponent.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptComponentFactory.hpp"
 				>
 			</File>
 			<File
@@ -276,6 +300,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LuaState.h"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkFacade.h"
 				>
 			</File>
@@ -284,7 +312,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScriptComponentFactory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptConfiguration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFactory.h"
 				>
 			</File>
 			<File
@@ -301,6 +337,10 @@
 			</File>
 			<File
 				RelativePath=".\SoundFacade.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SystemFacade.h"
 				>
 			</File>
 		</Filter>

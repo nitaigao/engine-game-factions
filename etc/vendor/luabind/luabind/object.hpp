@@ -581,6 +581,12 @@ namespace adl
           other.m_interpreter = 0;
       }
 
+	  index_proxy( )
+		  : m_next( Next( ) )
+	  {
+
+	  }
+
       ~index_proxy()
       {
           if (m_interpreter)

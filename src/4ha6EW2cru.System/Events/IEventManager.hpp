@@ -10,6 +10,8 @@
 
 #include "../Export.hpp"
 
+#include "IEventListener.hpp"
+
 namespace Events
 {
 	/*! 
