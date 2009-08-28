@@ -15,8 +15,8 @@ BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReser
 
 extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 {
-	//Management::Initialize( management );
-	//Logger::Initialize( logger );
+	Management::Initialize( management );
+	Logger::Initialize( logger );
 }
 
 extern "C" ISystem* __stdcall CreateSystem( )

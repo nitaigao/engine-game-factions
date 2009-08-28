@@ -47,6 +47,14 @@ namespace Script
 
 		}
 
+
+		/*! Returns the Name that the Facade will use in script
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) { return "animation"; };
+
+
 		/*! Instructs the Animation System to Start an Animation for the component
 		*
 		* @param[in] const std::string & animationName
@@ -62,6 +70,13 @@ namespace Script
 		* @return ( void )
 		*/
 		void StopAnimation( const std::string& animationName );
+
+
+		/*! Initializes the Facade with the given ScriptComponent
+		*
+		* @return ( void )
+		*/
+		void Initialize( ) { };
 
 	private:
 

@@ -25,6 +25,11 @@ namespace
 		MOCK_METHOD1( AddEventListener, void( Events::IEventListener* ) );
 		MOCK_METHOD1( RemoveEventListener, void( Events::IEventListener* ) );
 
+		static void ConsumeEventListener( Events::IEventListener* eventListener )
+		{
+			delete eventListener;
+		}
+
 	};
 };
 

@@ -4,6 +4,7 @@ using namespace Maths;
 
 #include "ScriptSystemScene.h"
 #include "ScriptComponent.h"
+#include "IScriptFacadeManager.hpp"
 
 #include "Management/Management.h"
 
@@ -35,9 +36,6 @@ namespace Script
 		m_configuration = configuration;
 
 		m_serviceManager->RegisterService( this );
-
-		m_auxScene->Initialize( );
-		m_scene->Initialize( );
 	}
 
 	void ScriptSystem::Update( float deltaMilliseconds )
@@ -50,11 +48,16 @@ namespace Script
 	{
 		AnyType::AnyTypeMap results;
 
+		if( message == System::Messages::PostInitialize )
+		{
+			m_auxScene->Initialize( );
+			m_scene->Initialize( );
+		}
+
 		if( message == System::Messages::LoadScript )
 		{
 			ISystemComponent* component = m_auxScene->CreateComponent( parameters[ System::Attributes::Name ].As< std::string >( ), "default" );
 			component->SetAttribute( System::Parameters::ScriptPath, parameters[ System::Parameters::ScriptPath ].As< std::string >( ) );
-			component->Initialize( );
 			results[ "component" ] = component;
 		}
 
@@ -86,7 +89,7 @@ namespace Script
 						.property( "musicVolume", &ScriptConfiguration::GetMusicVolume, &ScriptConfiguration::SetMusicVolume ),
 
 				class_< ScriptComponent >( "ScriptComponent" )
-					.def( constructor< >( ) )
+					.def( constructor< ILuaState*, Events::IEventManager*, IScriptFacadeManager* >( ) )
 					.def( "include", &ScriptComponent::IncludeScript )
 					.def( "registerEventHandler", &ScriptComponent::RegisterEvent )
 					.def( "registerUpdateHandler", &ScriptComponent::RegisterUpdate )
@@ -95,9 +98,7 @@ namespace Script
 					.def( "getName", &ScriptComponent::GetName )
 					.def( "getLookAt", &ScriptComponent::GetLookAt )
 					.def( "getPosition", &ScriptComponent::GetPosition )
-					.def( "getTime", &ScriptComponent::GetTime )
 					.def( "executeString", &ScriptComponent::ExecuteString )
-					.def( "rayQuery", &ScriptComponent::RayQuery, copy_table( result ) )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int ) ) &ScriptComponent::BroadcastEvent )

@@ -13,6 +13,7 @@
 
 #include "IScriptFacade.hpp"
 #include "IScriptFunctionHandler.hpp"
+#include "IScriptFacadeManager.hpp"
 #include "ILuaState.hpp"
 
 #include <luabind/luabind.hpp>
@@ -22,7 +23,7 @@ namespace Script
 	/*!
 	 *  A Script System Component 
 	 */
-	class ScriptComponent : public IScriptComponent
+	class GAMEAPI ScriptComponent : public IScriptComponent
 	{
 
 	public:
@@ -31,9 +32,7 @@ namespace Script
 		*
 		*  @return ()
 		*/
-		~ScriptComponent( ) { };
-
-		ScriptComponent( ) { };
+		~ScriptComponent( );
 
 
 		/*! Default Constructor
@@ -41,9 +40,10 @@ namespace Script
 		*  @param[in] const std::string & name
 		*  @return ()
 		*/
-		ScriptComponent( ILuaState* state, Events::IEventManager* eventManager )
+		ScriptComponent( ILuaState* state, Events::IEventManager* eventManager, IScriptFacadeManager* facadeManager )
 			: m_state( state )
 			, m_eventManager( eventManager )
+			, m_facadeManager( facadeManager )
 			, m_observer( 0 )
 			, m_eventHandlers( 0 )
 		{
@@ -153,14 +153,6 @@ namespace Script
 		 *  @return (void)
 		 */
 		void RunScript( );
-
-
-		/*! Loads a Script From the File System
-		 *
-		 *  @param[in] const std::string & scriptPath
-		 *  @return (void)
-		 */
-		void LoadScript( const std::string& scriptPath );
 
 
 		/*! Includes a script into the current LUA State
@@ -284,21 +276,6 @@ namespace Script
 		void BroadcastEvent( const std::string& eventName, int var1, int var2 );
 
 
-		/*! Performs a Ray Query
-		 *
-		 *  @param[in] bool sortByDistance
-		 *  @param[in] int maxResults
-		 *  @return (std::vector< std::string >)
-		 */
-		std::vector< std::string > RayQuery( Maths::MathVector3 origin, Maths::MathVector3 direction, float length, bool sortByDistance, int maxResults );
-
-
-		/*! Returns the system time in Milliseconds
-		 *
-		 *  @return (float)
-		 */
-		float GetTime( ) const;
-
 		inline Maths::MathVector3 GetLookAt( ) const { return m_lookAt; };
 
 		inline Maths::MathVector3 GetPosition( ) { return m_attributes[ System::Attributes::Position ].As< Maths::MathVector3 >( ); };
@@ -310,11 +287,12 @@ namespace Script
 
 		ILuaState* m_state;
 		Events::IEventManager* m_eventManager;
+		IScriptFacadeManager* m_facadeManager;
 
 		IScriptFunctionHandler::FunctionList m_eventHandlers;
 		IScriptFunctionHandler::FunctionList m_updateHandlers;
 
-		IScriptFacade::ScriptControllerList m_facades;
+		IScriptFacade::ScriptFacadeList m_facades;
 
 		IObserver* m_observer;
 

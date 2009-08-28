@@ -153,8 +153,6 @@ namespace Renderer
 
 		m_root->renderOneFrame( );
 
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
-
 		LineFactory* lineFactory = new LineFactory( );
 		m_factories.push_back( lineFactory );
 		m_root->addMovableObjectFactory( lineFactory );

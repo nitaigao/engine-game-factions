@@ -225,7 +225,7 @@ namespace System
 		static const MessageType DestroyMesh				=	"destroy";
 
 		//Physics
-		static const MessageType CastRay					=	"castRay";
+		static const MessageType RayQuery					=	"castRay";
 
 		//Script
 		static const MessageType LoadScript					=	"loadScript";

@@ -29,6 +29,7 @@ using namespace Maths;
 #include "AnimationFacade.h"
 #include "NetworkFacade.h"
 #include "InputFacade.h"
+#include "PhysicsFacade.h"
 
 namespace Script
 {
@@ -48,6 +49,9 @@ namespace Script
 			delete m_scriptConfiguration;
 			m_scriptConfiguration = 0;
 		}
+
+		delete m_configuration;
+		m_configuration = 0;
 	}
 
 	ISystemComponent* ScriptSystemScene::CreateComponent( const std::string& name, const std::string& type )
@@ -82,6 +86,7 @@ namespace Script
 		m_masterState->RegisterTypes( AnimationFacade::RegisterFunctions( ) );
 		m_masterState->RegisterTypes( NetworkFacade::RegisterFunctions( ) );
 		m_masterState->RegisterTypes( InputFacade::RegisterFunctions( ) );
+		m_masterState->RegisterTypes( PhysicsFacade::RegisterFunctions( ) );
 
 		m_scriptConfiguration = new ScriptConfiguration( m_configuration );
 
@@ -110,10 +115,7 @@ namespace Script
 
 		if ( i != m_components.end( ) )
 		{
-			( *i ).second->Destroy( );
-
+			this->DestroyComponent( ( *i ).second );
 		}
-
-		m_components.erase( i );
 	}
 }

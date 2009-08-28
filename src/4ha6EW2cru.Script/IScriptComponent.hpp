@@ -21,7 +21,7 @@ namespace Script
 	/*!
 	 *  A Script System Component 
 	 */
-	class IScriptComponent : public ISystemComponent
+	class GAMEAPI IScriptComponent : public ISystemComponent
 	{
 
 	public:

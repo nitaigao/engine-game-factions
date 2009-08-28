@@ -8,6 +8,9 @@ using namespace Services;
 
 #include "Management/Management.h"
 
+#include "LuaState.h"
+using namespace Script;
+
 using namespace luabind;
 
 #include "Events/EventType.hpp"
@@ -83,8 +86,8 @@ namespace UX
 		ISystemComponent* scriptComponent = scriptService->ProcessMessage( System::Messages::LoadScript, scriptParameters )[ "component" ].As< ISystemComponent* >( );
 
 		//TODO: This implementation needs to be looked at, possibly using a different interface to the script system instead of the traditional scene access route
-		lua_State* scriptState = scriptComponent->Observe( 0, System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< lua_State* >( );
-		globals( scriptState )[ System::TypeStrings::UX ] = component;
+		ILuaState* scriptState = scriptComponent->Observe( 0, System::Messages::GetState, AnyType::AnyTypeMap( ) ).As< ILuaState* >( );
+		static_cast< LuaState* >( scriptState )->SetGlobal( System::TypeStrings::UX, component );
 
 		scriptComponent->Observe( 0, System::Messages::RunScript, AnyType::AnyTypeMap( ) );
 

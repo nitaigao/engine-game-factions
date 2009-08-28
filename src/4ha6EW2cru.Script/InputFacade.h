@@ -44,6 +44,13 @@ namespace Script
 		static luabind::scope  RegisterFunctions( );
 
 
+		/*! Returns the Name that the Facade will use in script
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) { return "input"; };
+
+
 		/*! Returns the key or mouse text associated with the given message
 		*
 		* @param[in] const std::string & message
@@ -68,6 +75,13 @@ namespace Script
 		* @return ( void )
 		*/
 		void SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding );
+
+
+		/*! Initializes the Facade with the given ScriptComponent
+		*
+		* @return ( void )
+		*/
+		void Initialize( ) { };
 
 	private:
 

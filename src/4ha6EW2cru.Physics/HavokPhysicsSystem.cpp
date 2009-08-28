@@ -152,7 +152,7 @@ namespace Physics
 	{
 		AnyType::AnyTypeMap results;
 
-		if ( message == System::Messages::CastRay )
+		if ( message == System::Messages::RayQuery )
 		{
 			results[ "hits" ] = this->RayQuery( 
 				parameters[ System::Parameters::Origin ].As< MathVector3 >( ),

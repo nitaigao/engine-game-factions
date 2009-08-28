@@ -48,6 +48,13 @@ namespace Script
 		static luabind::scope RegisterFunctions( );
 
 
+		/*! Returns the Name that the Facade will use in script
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) { return "network"; };
+
+
 		/*! Requests the Game connects to the specified server
 		*
 		* @param[in] const std::string & serverAddress
@@ -95,6 +102,13 @@ namespace Script
 		 * @return ( void )
 		 */
 		void CreateServer( unsigned int port, int maxPlayers, const std::string& levelName );
+
+
+		/*! Initializes the Facade with the given ScriptComponent
+		*
+		* @return ( void )
+		*/
+		void Initialize( ) { };
 
 
 	private:

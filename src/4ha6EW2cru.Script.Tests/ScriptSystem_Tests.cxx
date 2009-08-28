@@ -49,14 +49,14 @@ TEST_F( ScriptSystem_Tests, should_register_with_service_manager )
 	m_subject->Initialize( &config );
 }
 
-TEST_F( ScriptSystem_Tests, should_initailize_scenes )
+TEST_F( ScriptSystem_Tests, post_init_should_initailize_scenes )
 {
 	EXPECT_CALL( *m_scene, Initialize( ) );
 	EXPECT_CALL( *m_auxScene, Initialize( ) );
 
 	ClientConfiguration config;
 
-	m_subject->Initialize( &config );
+	m_subject->ProcessMessage( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 }
 
 TEST_F( ScriptSystem_Tests, should_destroy_aux_scene )
@@ -89,7 +89,6 @@ TEST_F( ScriptSystem_Tests, should_create_component_for_aux_scene )
 	MockScriptComponent component;
 
 	EXPECT_CALL( *m_auxScene, CreateComponent( name, "default" ) ).WillOnce( Return( &component ) );
-	EXPECT_CALL( component, Initialize( ) );
 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::Name ] = name;

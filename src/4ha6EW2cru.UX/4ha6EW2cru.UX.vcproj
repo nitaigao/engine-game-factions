@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/mygui/myguiengine/include;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/ois/includes"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Script;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/mygui/myguiengine/include;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/ois/includes"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32;EXPORT;OGRE_STATIC_LIB;MYGUI_STATIC_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -170,6 +170,10 @@
 		<ProjectReference
 			ReferencedProjectIdentifier="{58D6A894-4481-4A63-9958-49AE9B3A83D3}"
 			RelativePathToProject=".\4ha6EW2cru.System\4ha6EW2cru.System.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{4C8A052A-E490-46DC-90AC-B70605128E5C}"
+			RelativePathToProject=".\4ha6EW2cru.Script\4ha6EW2cru.Script.vcproj"
 		/>
 	</References>
 	<Files>

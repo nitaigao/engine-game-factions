@@ -198,11 +198,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PhysicsFacade.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptComponent.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\ScriptComponentFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFacadeFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFacadeManager.cpp"
 				>
 			</File>
 			<File
@@ -284,6 +296,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IScriptFacadeFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptFacadeManager.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IScriptFunctionHandler.hpp"
 				>
 			</File>
@@ -308,6 +328,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PhysicsFacade.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptComponent.h"
 				>
 			</File>
@@ -317,6 +341,14 @@
 			</File>
 			<File
 				RelativePath=".\ScriptConfiguration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFacadeFactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFacadeManager.h"
 				>
 			</File>
 			<File

@@ -45,6 +45,13 @@ namespace Script
 		static luabind::scope  RegisterFunctions( );
 
 
+		/*! Returns the Name that the Facade will use in script
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) { return "instrumentation"; };
+
+
 		/*! Gets the FPS Statistic for the Game
 		*
 		* @return ( int )
@@ -58,6 +65,13 @@ namespace Script
 		* @return ( float )
 		*/
 		inline float GetRoundTime( const System::Queues::Queue& queue ) { return Management::Get( )->GetInstrumentation( )->GetRoundTime( queue ); };
+
+
+		/*! Initializes the Facade with the given ScriptComponent
+		*
+		* @return ( void )
+		*/
+		void Initialize( ) { };
 
 	private:
 

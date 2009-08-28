@@ -32,7 +32,7 @@ void Game::Initialize( )
 
 	if ( m_isInitialized )
 	{
-		AlreadyInitializedException e ( "Game::Initialize - Attempted to Initialized when the game had already been Initialized" );
+		AlreadyInitializedException e( "Game::Initialize - Attempted to Initialized when the game had already been Initialized" );
 		Fatal( e.what( ) );
 		throw e;
 	}
@@ -92,6 +92,7 @@ void Game::Initialize( )
 	}
 
 	systemManager->InitializeAllSystems( m_configuration );
+	Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 
 	// -- Setup the World and World Loader
 

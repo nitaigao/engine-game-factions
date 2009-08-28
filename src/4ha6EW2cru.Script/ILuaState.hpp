@@ -55,6 +55,29 @@ namespace Script
 		 * @return ( void )
 		 */
 		virtual void RegisterTypes( const luabind::scope& classScope ) = 0;
+
+
+		/*! Loads a Script File from the FileSystem
+		 *
+		 * @param[in] const std::string & scriptPath
+		 * @return ( void )
+		 */
+		virtual void LoadScript( const std::string& scriptPath ) = 0; 
+
+
+		/*! Executes this Script State
+		 *
+		 * @return ( void )
+		 */
+		virtual void Execute( ) = 0;
+
+
+		/*! Executes the given string as Lua code
+		 *
+		 * @param[in] const std::string & scriptString
+		 * @return ( void )
+		 */
+		virtual void ExecuteString( const std::string& scriptString ) = 0;
 		
 	};
 };

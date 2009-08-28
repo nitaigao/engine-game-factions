@@ -42,6 +42,13 @@ namespace Script
 		static luabind::scope RegisterFunctions( );
 
 
+		/*! Returns the Name that the Facade will use in script
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) { return "system"; };
+
+
 		/*!  Prints the specified message to the console
 		*
 		*  @param[in] const std::string & message
@@ -70,6 +77,20 @@ namespace Script
 		*  @return (void)
 		*/
 		void EndGame( );
+
+
+		/*! Returns the system time in Milliseconds
+		*
+		*  @return (float)
+		*/
+		float GetTime( ) const;
+
+
+		/*! Initializes the Facade with the given ScriptComponent
+		*
+		* @return ( void )
+		*/
+		void Initialize( ) { };
 
 	private:
 

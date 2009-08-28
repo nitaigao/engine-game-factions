@@ -26,13 +26,6 @@ using namespace Services;
 #include "ScriptFunctionHandler.hpp"
 #include "LuaState.h"
 
-#include "SystemFacade.h"
-#include "SoundFacade.h"
-#include "InstrumentationFacade.h"
-#include "AnimationFacade.h"
-#include "NetworkFacade.h"
-#include "InputFacade.h"
-
 #include "Events/EventManager.h"
 #include "Events/EventListener.h"
 using namespace Events;
@@ -41,43 +34,23 @@ namespace Script
 {
 	void ScriptComponent::Initialize( )
 	{
-		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
+		m_eventManager->AddEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
 
-		this->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
+		m_state->Initialize( );
+		m_state->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
 
-		if ( typeid( m_state ) == typeid( LuaState* ) )
-		{
-			LuaState* state = static_cast< LuaState* >( m_state );
-
-			SystemFacade* systemFacade = new SystemFacade( );
-			state->SetGlobal( "system", systemFacade );
-			m_facades.push_back( systemFacade );
-
-			SoundFacade* soundFacade = new SoundFacade( this );
-			state->SetGlobal( "sfx", soundFacade );
-			m_facades.push_back( soundFacade );
-
-			InstrumentationFacade* instrumentationFacade = new InstrumentationFacade( );
-			state->SetGlobal( "instrumentation", instrumentationFacade );
-			m_facades.push_back( instrumentationFacade );
-
-			AnimationFacade* animationFacade = new AnimationFacade( this );
-			state->SetGlobal( "animation", animationFacade );
-			m_facades.push_back( animationFacade );
-
-			NetworkFacade* networkFacade = new NetworkFacade( );
-			state->SetGlobal( "network", networkFacade );
-			m_facades.push_back( networkFacade );
-
-			InputFacade* inputFacade = new InputFacade( );
-			state->SetGlobal( "input", inputFacade );
-			m_facades.push_back( inputFacade );
-		}
+		m_facadeManager->Initialize( this );
 	}
 
 	void ScriptComponent::Destroy( )
 	{
-		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
+
+		for( IScriptFacade::ScriptFacadeList::iterator i = m_facades.begin( ); i != m_facades.end( ); )
+		{
+			delete ( *i );
+			i = m_facades.erase( i );
+		}
 
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
 		{
@@ -90,76 +63,22 @@ namespace Script
 			delete ( *i );
 			i = m_eventHandlers.erase( i );
 		}
-
-		for( IScriptFacade::ScriptControllerList::iterator i = m_facades.begin( ); i != m_facades.end( ); )
-		{
-			delete ( *i );
-			i = m_facades.erase( i );
-		}
-	}
-
-	void ScriptComponent::LoadScript( const std::string& scriptPath )
-	{
-		/*IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( scriptPath );
-
-		int result = luaL_loadbuffer( m_state, resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength, resource->GetFileBuffer( )->filePath.c_str( ) );
-
-		if ( LUA_ERRSYNTAX == result )
-		{
-			std::stringstream errorMessage;
-			errorMessage << lua_tostring( m_state, -1 );
-			Warn( errorMessage.str( ) );
-			lua_pop( m_state, 1 );
-		}
-
-		if ( LUA_ERRMEM == result )
-		{
-			ScriptException memE( "Script::Initialize - There is memory allocation error within the Script" );
-			Fatal( memE.what( ) );
-			throw memE;
-		}*/
 	}
 
 	void ScriptComponent::RunScript( )
 	{
-		/*try
-		{
-			resume< void >( m_state );
-		}
-		catch( error& e )
-		{
-			object error_msg( from_stack( e.state( ) , -1) );
-			std::stringstream logMessage;
-			logMessage << error_msg;
-			Warn( logMessage.str( ) );
-		}*/
+		m_state->Execute( );
 	}
 
 	void ScriptComponent::IncludeScript( const std::string& scriptPath )
 	{
-		/*this->LoadScript( scriptPath );
-		
-		if ( lua_pcall( m_state, 0, 0, 0 ) )
-		{
-			std::stringstream errorMessage;
-			errorMessage << lua_tostring( m_state, -1 );
-			Warn( errorMessage.str( ) );
-			lua_pop( m_state, 1 );
-		}*/
+		m_state->LoadScript( scriptPath );
+		m_state->Execute( );
 	}
-
 
 	void ScriptComponent::ExecuteString( const std::string& input )
 	{
-		/*Info( input );
-
-		if ( luaL_dostring( m_state, input.c_str( ) ) )
-		{
-			std::stringstream errorMessage;
-			errorMessage << lua_tostring( m_state, -1 );
-			Warn( errorMessage.str( ) );
-			lua_pop( m_state, 1 );
-		}*/
+		m_state->ExecuteString( input );
 	}
 
 	void ScriptComponent::RegisterEvent( const luabind::object& function )
@@ -266,60 +185,37 @@ namespace Script
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1 )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
+		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
 	}
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1 )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
+		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
 	}
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1, const std::string& var2 )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
+		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1, int var2 )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
+		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1, const std::string& var2 )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
+		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1, int var2 )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
+		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
 	}
 
 	void ScriptComponent::BroadcastEvent( const std::string& eventName )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( eventName ) ); 
-	}
-
-	std::vector< std::string > ScriptComponent::RayQuery( MathVector3 origin, MathVector3 direction, float length, bool sortByDistance, int maxResults )
-	{	
-		AnyType::AnyTypeMap parameters;
-
-		MathVector3 originToDestination = direction - origin;
-		MathVector3 destination = origin + originToDestination * length;
-
-		parameters[ System::Parameters::Origin ] = origin;
-		parameters[ System::Parameters::Destination ] = destination;
-		parameters[ System::Parameters::SortByyDistance ] = sortByDistance;
-		parameters[ System::Parameters::MaxResults ] = maxResults;
-
-		/*AnyType::AnyTypeMap debugParameters;
-		debugParameters[ "origin" ] = origin;
-		debugParameters[ "destination" ] = destination;
-
-		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		renderService->MessageType( "drawLine", debugParameters );*/
-
-		IService* rayService = Management::Get( )->GetServiceManager( )->FindService( System::Types::PHYSICS );
-		return rayService->ProcessMessage( System::Messages::CastRay, parameters ) [ "hits" ].As< std::vector< std::string > >( );
+		m_eventManager->QueueEvent( new ScriptEvent( eventName ) ); 
 	}
 
 	AnyType ScriptComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
@@ -356,7 +252,7 @@ namespace Script
 			result = m_state;
 		}
 
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( message, m_attributes[ System::Attributes::Name ].As< std::string >( ) ) );
+		m_eventManager->QueueEvent( new ScriptEvent( message, m_attributes[ System::Attributes::Name ].As< std::string >( ) ) );
 
 		return result;
 	}
@@ -405,8 +301,9 @@ namespace Script
 		}
 	}
 
-	float ScriptComponent::GetTime( ) const
+	ScriptComponent::~ScriptComponent()
 	{
-		return Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+		delete m_facadeManager;
+		delete m_state;
 	}
 }

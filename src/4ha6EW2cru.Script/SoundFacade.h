@@ -46,6 +46,12 @@ namespace Script
 
 		}
 
+		/*! Returns the Name that the Facade will use in script
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) { return "sound"; };
+
 
 		void TriggerEvent( const std::string& eventPath );
 
@@ -57,6 +63,13 @@ namespace Script
 		*  @return (void)
 		*/
 		void PlayMusic( const std::string& eventPath );
+
+
+		/*! Initializes the Facade with the given ScriptComponent
+		*
+		* @return ( void )
+		*/
+		void Initialize( ) { };
 
 	private:
 

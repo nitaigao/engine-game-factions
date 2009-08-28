@@ -22,6 +22,7 @@ namespace Script
 				.def( "quit", &SystemFacade::Quit )
 				.def( "loadLevel", &SystemFacade::LoadLevel )
 				.def( "endGame", &SystemFacade::EndGame )
+				.def( "getTime", &SystemFacade::GetTime )
 		);
 	}
 
@@ -45,5 +46,10 @@ namespace Script
 	{
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GAME_ENDED" ) );
 		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_ENDED ) );
+	}
+
+	float SystemFacade::GetTime( ) const
+	{
+		return Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
 	}
 }

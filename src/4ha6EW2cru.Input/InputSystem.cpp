@@ -41,7 +41,7 @@ namespace Input
 
 		this->LoadMessageBindings( );
 
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
+		//Management::Get( )->GetServiceManager( )->RegisterService( this );
 	}
 	
 	ISystemScene* InputSystem::CreateScene( )
@@ -153,7 +153,7 @@ namespace Input
 
 		if ( message == System::Messages::RegisterService )
 		{
-			Management::Get( )->GetServiceManager( )->RegisterService( this );
+			//Management::Get( )->GetServiceManager( )->RegisterService( this );
 		}
 
 		if ( message == System::Messages::Input::GetTextForMessage )

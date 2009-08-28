@@ -165,7 +165,7 @@ namespace AI
 		parameters[ System::Parameters::SortByyDistance ] = true;
 		parameters[ System::Parameters::MaxResults ] = 1;
 
-		std::vector< std::string > results = physicsService->ProcessMessage( System::Messages::CastRay, parameters )[ "hits" ].As< std::vector< std::string > >( );
+		std::vector< std::string > results = physicsService->ProcessMessage( System::Messages::RayQuery, parameters )[ "hits" ].As< std::vector< std::string > >( );
 
 		return results.size( ) > 0;
 	}

@@ -6,6 +6,7 @@ using namespace Script;
 
 #include "Mocks/MockLuaState.hpp"
 #include "Mocks/MockEventManager.hpp"
+#include "Mocks/MockScriptFacadeFactory.hpp"
 
 using namespace luabind::adl;
 
@@ -16,13 +17,14 @@ protected:
 
 	MockLuaState* m_masterState;
 	MockEventManager* m_eventManager;
+	MockScriptFacadeFactory* m_facadeFactory;
 
 	void EstablishContext( )
 	{
 		m_masterState = new MockLuaState( );
 		m_eventManager = new MockEventManager( );
+		m_facadeFactory = new MockScriptFacadeFactory( );
 	}
-
 
 	void DestroyContext( )
 	{
@@ -32,7 +34,7 @@ protected:
 
 	ScriptComponentFactory* CreateSubject( )
 	{
-		return new ScriptComponentFactory( m_masterState, m_eventManager ); 
+		return new ScriptComponentFactory( m_masterState, m_eventManager, m_facadeFactory ); 
 	}
 };
 
@@ -48,9 +50,3 @@ TEST_F( ScriptComponentFactory_Tests, should_create_component )
 
 	delete actual;
 }
-
-
-/* TODO	INject a Mock LUA state, have the component factory use that as a master state which also gets stored in the scene.
-		Finish off the ScriptScene::CreateComponent method to use the factory and store the component in the global variable
-		( this should possibly be action'd inside the factory or maybe some clever template method on the LuaState object to allow any
-		kind of registeration. ) */

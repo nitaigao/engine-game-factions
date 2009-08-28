@@ -9,6 +9,7 @@
 #define SCRIPTCOMPONENTFACTORY_H
 
 #include "IScriptComponentFactory.hpp"
+#include "IScriptFacadeFactory.hpp"
 #include "ILuaState.hpp"
 
 #include "Events/IEventManager.hpp"
@@ -27,16 +28,17 @@ namespace Script
 		 *
 		 *  @return ()
 		 */
-		~ScriptComponentFactory( ) { };
+		~ScriptComponentFactory( );
 
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		ScriptComponentFactory( ILuaState* masterState, Events::IEventManager* eventManager )
+		ScriptComponentFactory( ILuaState* masterState, Events::IEventManager* eventManager, IScriptFacadeFactory* facadeFactory )
 			: m_masterState( masterState )
 			, m_eventManager( eventManager )
+			, m_facadeFactory( facadeFactory )
 		{
 
 		}
@@ -57,6 +59,7 @@ namespace Script
 
 		ILuaState* m_masterState;
 		Events::IEventManager* m_eventManager;
+		IScriptFacadeFactory* m_facadeFactory;
 		
 	};
 };
