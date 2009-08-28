@@ -551,8 +551,8 @@ public:
 
 } // End namespace
 
-#endif
-
 #ifdef _MSC_VER
 #pragma warning( pop )
+#endif
+
 #endif

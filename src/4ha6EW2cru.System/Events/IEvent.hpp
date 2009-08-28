@@ -10,6 +10,7 @@
 
 #include "EventType.hpp"
 #include "IEventData.hpp"
+#include <queue>
 
 #include "../Export.hpp"
 
@@ -22,6 +23,8 @@ namespace Events
 	{
 
 	public:
+
+		typedef std::queue< const IEvent* > EventQueue;
 
 		/*! Default Destructor
 		 *

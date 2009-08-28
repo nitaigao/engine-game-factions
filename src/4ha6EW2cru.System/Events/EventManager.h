@@ -7,6 +7,7 @@
 #pragma once
 #ifndef EVENTMANAGER_H
 #define EVENTMANAGER_H
+#pragma warning( disable : 4251 )
 
 #include <queue>
 #include <map>
@@ -22,9 +23,6 @@ namespace Events
 	 */
 	class GAMEAPI EventManager : public IEventManager
 	{
-
-		typedef std::queue< const IEvent* > EventQueue;
-		typedef std::vector< IEventListener* > EventListenerList;
 
 	public:
 
@@ -87,8 +85,8 @@ namespace Events
 		EventManager( const EventManager & copy ) { };
 		EventManager & operator = ( const EventManager & copy ) { return *this; };
 
-		EventQueue m_eventQueue;
-		EventListenerList m_eventListeners;
+		IEvent::EventQueue m_eventQueue;
+		IEventListener::EventListenerList m_eventListeners;
 
 	};
 };

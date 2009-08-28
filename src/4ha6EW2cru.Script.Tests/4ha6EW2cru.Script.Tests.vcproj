@@ -113,7 +113,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.System.Tests;../4ha6EW2cru.Script;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -131,8 +131,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtest.lib gmock.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
+				AdditionalDependencies="gtest.lib gmock.lib luabind.lib lua.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"

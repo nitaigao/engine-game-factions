@@ -7,6 +7,7 @@
 #pragma once
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
+#pragma warning( disable : 4251 )
 
 #include "IConfiguration.hpp"
 #include "IConfigurationFile.hpp"

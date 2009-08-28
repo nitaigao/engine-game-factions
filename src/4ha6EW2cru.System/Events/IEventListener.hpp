@@ -11,6 +11,8 @@
 #include "IEvent.hpp"
 #include "EventType.hpp"
 
+#include <deque>
+
 namespace Events
 {
 	/*! 
@@ -20,6 +22,8 @@ namespace Events
 	{
 
 	public:
+
+		typedef std::deque< IEventListener* > EventListenerList;
 
 		/*! Default Destructor
 		 *

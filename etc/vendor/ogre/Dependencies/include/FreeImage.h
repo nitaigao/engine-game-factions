@@ -47,7 +47,7 @@
 // Version information ------------------------------------------------------
 
 #define FREEIMAGE_MAJOR_VERSION   3
-#define FREEIMAGE_MINOR_VERSION   10
+#define FREEIMAGE_MINOR_VERSION   12
 #define FREEIMAGE_RELEASE_SERIAL  0
 
 // Compiler options ---------------------------------------------------------
@@ -410,7 +410,8 @@ FI_ENUM(FREE_IMAGE_FORMAT) {
 	FIF_SGI		= 28,
 	FIF_EXR		= 29,
 	FIF_J2K		= 30,
-	FIF_JP2		= 31
+	FIF_JP2		= 31,
+	FIF_PFM		= 32
 };
 
 /** Image type used in FreeImage.
@@ -672,16 +673,21 @@ typedef void (DLL_CALLCONV *FI_InitProc)(Plugin *plugin, int format_id);
 #define IFF_DEFAULT         0
 #define J2K_DEFAULT			0		// save with a 16:1 rate
 #define JP2_DEFAULT			0		// save with a 16:1 rate
-#define JPEG_DEFAULT        0		// loading (see JPEG_FAST); saving (see JPEG_QUALITYGOOD)
+#define JPEG_DEFAULT        0		// loading (see JPEG_FAST); saving (see JPEG_QUALITYGOOD|JPEG_SUBSAMPLING_420)
 #define JPEG_FAST           0x0001	// load the file as fast as possible, sacrificing some quality
 #define JPEG_ACCURATE       0x0002	// load the file with the best quality, sacrificing some speed
 #define JPEG_CMYK			0x0004	// load separated CMYK "as is" (use | to combine with other load flags)
+#define JPEG_EXIFROTATE		0x0008	// load and rotate according to Exif 'Orientation' tag if available
 #define JPEG_QUALITYSUPERB  0x80	// save with superb quality (100:1)
 #define JPEG_QUALITYGOOD    0x0100	// save with good quality (75:1)
 #define JPEG_QUALITYNORMAL  0x0200	// save with normal quality (50:1)
 #define JPEG_QUALITYAVERAGE 0x0400	// save with average quality (25:1)
 #define JPEG_QUALITYBAD     0x0800	// save with bad quality (10:1)
 #define JPEG_PROGRESSIVE	0x2000	// save as a progressive-JPEG (use | to combine with other save flags)
+#define JPEG_SUBSAMPLING_411 0x1000		// save with high 4x1 chroma subsampling (4:1:1) 
+#define JPEG_SUBSAMPLING_420 0x4000		// save with medium 2x2 medium chroma subsampling (4:2:0) - default value
+#define JPEG_SUBSAMPLING_422 0x8000		// save with low 2x1 chroma subsampling (4:2:2) 
+#define JPEG_SUBSAMPLING_444 0x10000	// save with no chroma subsampling (4:4:4)
 #define KOALA_DEFAULT       0
 #define LBM_DEFAULT         0
 #define MNG_DEFAULT         0
@@ -690,8 +696,14 @@ typedef void (DLL_CALLCONV *FI_InitProc)(Plugin *plugin, int format_id);
 #define PCD_BASEDIV4        2		// load the bitmap sized 384 x 256
 #define PCD_BASEDIV16       3		// load the bitmap sized 192 x 128
 #define PCX_DEFAULT         0
+#define PFM_DEFAULT         0
 #define PNG_DEFAULT         0
-#define PNG_IGNOREGAMMA		1		// avoid gamma correction
+#define PNG_IGNOREGAMMA		1		// loading: avoid gamma correction
+#define PNG_Z_BEST_SPEED			0x0001	// save using ZLib level 1 compression flag (default value is 6)
+#define PNG_Z_DEFAULT_COMPRESSION	0x0006	// save using ZLib level 6 compression flag (default recommended value)
+#define PNG_Z_BEST_COMPRESSION		0x0009	// save using ZLib level 9 compression flag (default value is 6)
+#define PNG_Z_NO_COMPRESSION		0x0100	// save without ZLib compression
+#define PNG_INTERLACED				0x0200	// save using Adam7 interlacing (use | to combine with other save flags)
 #define PNM_DEFAULT         0
 #define PNM_SAVE_RAW        0       // If set the writer saves in RAW format (i.e. P4, P5 or P6)
 #define PNM_SAVE_ASCII      1       // If set the writer saves in ASCII format (i.e. P1, P2 or P3)
@@ -985,6 +997,7 @@ DLL_API BOOL DLL_CALLCONV FreeImage_GetMetadata(FREE_IMAGE_MDMODEL model, FIBITM
 
 // helpers
 DLL_API unsigned DLL_CALLCONV FreeImage_GetMetadataCount(FREE_IMAGE_MDMODEL model, FIBITMAP *dib);
+DLL_API BOOL DLL_CALLCONV FreeImage_CloneMetadata(FIBITMAP *dst, FIBITMAP *src);
 
 // tag to C string conversion
 DLL_API const char* DLL_CALLCONV FreeImage_TagToString(FREE_IMAGE_MDMODEL model, FITAG *tag, char *Make FI_DEFAULT(NULL));

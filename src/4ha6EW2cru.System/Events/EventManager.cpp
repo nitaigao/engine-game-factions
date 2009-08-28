@@ -31,9 +31,9 @@ namespace Events
 			throw e;
 		}
 
-		EventListenerList eventListeners( m_eventListeners );
+		IEventListener::EventListenerList eventListeners( m_eventListeners );
 
-		for ( EventListenerList::iterator i = eventListeners.begin( ); i != eventListeners.end( ); ++i )
+		for ( IEventListener::EventListenerList::iterator i = eventListeners.begin( ); i != eventListeners.end( ); ++i )
 		{
 			if ( 
 				( *i )->GetEventType( ) == event->GetEventType( ) && !( *i )->IsMarkedForDeletion( ) || 
@@ -55,7 +55,7 @@ namespace Events
 			m_eventQueue.pop( );
 		}
 
-		for ( EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); )
+		for ( IEventListener::EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); )
 		{
 			if ( ( *i )->IsMarkedForDeletion( ) )
 			{
@@ -79,7 +79,7 @@ namespace Events
 			m_eventQueue.pop( );
 		}
 
-		for( EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
+		for( IEventListener::EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
 		{
 			delete ( *i );
 		}
@@ -89,7 +89,7 @@ namespace Events
 
 	void EventManager::RemoveEventListener( IEventListener* eventListener )
 	{
-		for ( EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
+		for ( IEventListener::EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
 		{
 			if (
 				eventListener->GetHandlerAddress( ) == ( *i )->GetHandlerAddress( ) &&

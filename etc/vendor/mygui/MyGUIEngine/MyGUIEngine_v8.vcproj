@@ -277,13 +277,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200"
+				Optimization="2"
 				AdditionalIncludeDirectories="include;..\Dependencies\include;../../ogre/ogremain/include;../../ois/includes;../../ogre/dependencies/include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD;OGRE_STATIC_LIB;FREEIMAGE_LIB"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MYGUI_BUILD;OGRE_STATIC_LIB;FREEIMAGE_LIB;MYGUI_STATIC_LIB"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="MyGUI_Precompiled.h"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
