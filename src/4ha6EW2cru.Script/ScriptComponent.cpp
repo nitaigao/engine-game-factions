@@ -74,7 +74,7 @@ namespace Script
 	void ScriptComponent::IncludeScript( const std::string& scriptPath )
 	{
 		m_state->LoadScript( scriptPath );
-		m_state->Execute( );
+		m_state->ReParse( );
 	}
 
 	void ScriptComponent::ExecuteString( const std::string& input )

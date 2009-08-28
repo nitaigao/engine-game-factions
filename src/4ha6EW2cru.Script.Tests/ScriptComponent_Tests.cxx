@@ -76,7 +76,7 @@ TEST_F( ScriptComponent_Tests, should_include_script )
 	std::string scriptPath = "/path/to/script";
 
 	EXPECT_CALL( *m_state, LoadScript( scriptPath ) );
-	EXPECT_CALL( *m_state, Execute( ) );
+	EXPECT_CALL( *m_state, ReParse( ) );
 
 	m_subject->IncludeScript( scriptPath );
 }

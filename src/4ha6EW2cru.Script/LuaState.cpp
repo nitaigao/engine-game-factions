@@ -119,4 +119,15 @@ namespace Script
 			lua_pop( m_state, 1 );
 		}
 	}
+
+	void LuaState::ReParse( )
+	{
+		if ( lua_pcall( m_state, 0, 0, 0 ) )
+		{
+			std::stringstream errorMessage;
+			errorMessage << lua_tostring( m_state, -1 );
+			Warn( errorMessage.str( ) );
+			lua_pop( m_state, 1 );
+		}
+	}
 }

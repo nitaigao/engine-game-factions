@@ -25,6 +25,7 @@ namespace
 		MOCK_METHOD1( RegisterTypes, void( const luabind::scope& ) );
 		MOCK_METHOD1( LoadScript, void( const std::string& ) );
 		MOCK_METHOD0( Execute, void( ) );
+		MOCK_METHOD0( ReParse, void( ) );
 		MOCK_METHOD1( ExecuteString, void( const std::string& ) );
 		
 	};

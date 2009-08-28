@@ -21,7 +21,7 @@ function Weapon:create( name, damage, fireRate )
 	weapon.name = name
 	weapon.damage = damage
 	weapon.fireRate = fireRate
-	weapon.timeOfLastFire = script:getTime( )
+	weapon.timeOfLastFire = system:getTime( )
 	weapon.bulletTravel = 100
 	weapon.isFiring = false;
 	
@@ -46,11 +46,11 @@ function Weapon:fireAt( source, direction )
 		
 	end
 
-	local timeNow = script:getTime( )
+	local timeNow = system:getTime( )
 	
 	if ( ( timeNow - self.timeOfLastFire ) >= self.fireRate ) then
 		
-		local results = script:rayQuery( source, direction, self.bulletTravel, true, 1 )
+		local results = physics:rayQuery( source, direction, self.bulletTravel, true, 1 )
 		
 		for key, value in pairs( results ) do
 		

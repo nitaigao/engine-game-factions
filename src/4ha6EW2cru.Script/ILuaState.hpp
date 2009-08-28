@@ -72,6 +72,13 @@ namespace Script
 		virtual void Execute( ) = 0;
 
 
+		/*! Runs a new Parse over a Script
+		 *
+		 * @return ( void )
+		 */
+		virtual void ReParse( ) = 0;
+
+
 		/*! Executes the given string as Lua code
 		 *
 		 * @param[in] const std::string & scriptString
