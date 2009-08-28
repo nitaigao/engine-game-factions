@@ -58,6 +58,7 @@ namespace Script
 		{
 			ISystemComponent* component = m_auxScene->CreateComponent( parameters[ System::Attributes::Name ].As< std::string >( ), "default" );
 			component->SetAttribute( System::Parameters::ScriptPath, parameters[ System::Parameters::ScriptPath ].As< std::string >( ) );
+			component->Initialize( );
 			results[ "component" ] = component;
 		}
 

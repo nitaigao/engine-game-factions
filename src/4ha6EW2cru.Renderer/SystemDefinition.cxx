@@ -1,5 +1,8 @@
 #pragma warning( once : 4099 )
 
+#include "Configuration/IConfiguration.hpp"
+using namespace Configuration;
+
 #include "RendererSystem.h"
 
 #include "System/Memory.cxx"
@@ -19,7 +22,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 	//Logger::Initialize( logger );
 }
 
-extern "C" ISystem* __stdcall CreateSystem( )
+extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
 {
 	return new Renderer::RendererSystem( );
 }

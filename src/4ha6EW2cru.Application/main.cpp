@@ -30,7 +30,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 {
 
 #ifdef _DEBUG
-	_crtBreakAlloc = 66110;
+	//_crtBreakAlloc = 72389;
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
 #endif
 

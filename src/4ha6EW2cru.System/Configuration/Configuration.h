@@ -30,23 +30,19 @@ namespace Configuration
 		~ClientConfiguration( );
 
 
-		/*! Default Constructor
-		 *
-		 * @return (  )
-		 */
 		ClientConfiguration( )
 			: m_configFile( 0 )
 		{
 
-		}
+		};
 
 
-		/*! Loads the configuration from the specified file
-		 *
-		 *  @param[in] const std::string & filePath
-		 *  @return (ClientConfiguration*)
-		 */
-		static IConfiguration* Load( const std::string& filePath );
+		/*! Initializes the Configuration from the given file path, if it doesn't exist it will be created
+		*
+		* @param[in] const std::string & filePath
+		* @return ( void )
+		*/
+		void Initialize( const std::string& filePath );
 
 
 		/*! Finds a configuration item based on the specified section and key
@@ -86,12 +82,6 @@ namespace Configuration
 		void Set( const std::string& section, const std::string& key, const AnyType& value );
 
 	private:
-
-		ClientConfiguration( IConfigurationFile* configFile )
-			: m_configFile( configFile )
-		{
-
-		};
 
 		IConfigurationFile* m_configFile;
 		DefaultPropertyList m_defaultPropertyList;

@@ -28,6 +28,14 @@ namespace Configuration
 		virtual ~IConfiguration( ) { };
 
 
+		/*! Initializes the Configuration from the given file path, if it doesn't exist it will be created
+		 *
+		 * @param[in] const std::string & filePath
+		 * @return ( void )
+		 */
+		virtual void Initialize( const std::string& filePath ) = 0;
+
+
 		/*! Finds the value for the given section and key
 		 *
 		 *  @param[in] const std::string & section

@@ -31,20 +31,21 @@ Management::~Management( )
 	delete m_platformManager;
 }
 
-Management::Management( )
+Management::Management( Configuration::IConfiguration* configuration )
+	: m_configuration( configuration )
 {
 	m_serviceManager = new ServiceManager( );
 	m_platformManager = new Win32PlatformManager( );
 	m_eventManager = new Events::EventManager( );
-	m_systemManager = new SystemManager( );
+	m_systemManager = new SystemManager( m_configuration );
 	m_instrumentation = new Instrumentation( );
 	m_fileSystem = new FileSystem( );
 	m_resourceCache = new ResourceCache( );
 }
 
-void Management::Initialize( )
+void Management::Initialize( Configuration::IConfiguration* configuration )
 {
-	g_management = new Management( );
+	g_management = new Management( configuration );
 
 	g_management->m_platformManager->Initialize( );
 	g_management->m_fileSystem->Initialize( );

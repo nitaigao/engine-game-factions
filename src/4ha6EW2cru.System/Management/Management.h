@@ -17,6 +17,7 @@
 #include "../System/ISystemManager.hpp"
 #include "../IO/IFileSystem.hpp"
 #include "../System/IInstrumentation.hpp"
+#include "../Configuration/IConfiguration.hpp"
 
 /*! 
  *  An Interface to the Game Managers
@@ -37,7 +38,7 @@ public:
 	 *
 	 *  @return (void)
 	 */
-	static GAMEAPI void Initialize( );
+	static GAMEAPI void Initialize( Configuration::IConfiguration* configuration );
 
 	
 	/*! Initializes Management from another instance of the Singleton, for use accross dll boundaries
@@ -122,12 +123,14 @@ protected:
 
 	~Management( );
 
-	Management( );
+	Management( Configuration::IConfiguration* configuration );
 
 private:
 
 	Management( const Management & copy ) { };
 	Management & operator = ( const Management & copy ) { return *this; };
+
+	Configuration::IConfiguration* m_configuration;
 
 	Services::IServiceManager* m_serviceManager;
 	ISystemManager* m_systemManager;

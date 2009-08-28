@@ -31,7 +31,6 @@ protected:
 	void DestroyContext( )
 	{
 		delete m_eventManager;
-		delete m_state;
 	}
 
 	ScriptComponent* CreateSubject( )
@@ -60,6 +59,8 @@ TEST_F( ScriptComponent_Tests, should_destroy )
 {
 	EXPECT_CALL( *m_eventManager, RemoveEventListener( An< IEventListener* >( ) ) )
 		.WillOnce( Invoke( MockEventManager::ConsumeEventListener ) );
+
+	EXPECT_CALL( *m_facadeManager, Destroy( ) );
 
 	m_subject->Destroy( );
 }

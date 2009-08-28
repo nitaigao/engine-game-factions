@@ -49,9 +49,6 @@ namespace Script
 			delete m_scriptConfiguration;
 			m_scriptConfiguration = 0;
 		}
-
-		delete m_configuration;
-		m_configuration = 0;
 	}
 
 	ISystemComponent* ScriptSystemScene::CreateComponent( const std::string& name, const std::string& type )
@@ -90,7 +87,7 @@ namespace Script
 
 		m_scriptConfiguration = new ScriptConfiguration( m_configuration );
 
-		if ( typeid( m_masterState ) == typeid( LuaState* ) )
+		if ( typeid( *m_masterState ) == typeid( LuaState ) )
 		{
 			static_cast< LuaState* >( m_masterState )->SetGlobal( "Configuration", m_scriptConfiguration );
 		}

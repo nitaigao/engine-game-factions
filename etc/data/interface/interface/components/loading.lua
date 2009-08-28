@@ -32,7 +32,7 @@ function Loading.onShowLoading( levelName )
 	local loading = ux:findWidget( 'loading' )
 	loading:setVisible( true ) 
 	
-	print( 'Loading Started for Level ' .. levelName )
+	system:print( 'Loading Started for Level ' .. levelName )
 
 end
 
@@ -44,7 +44,7 @@ function Loading.onHideLoading( )
 	local loading = ux:findWidget( 'loading' )
 	loading:setVisible( false )
 	
-	print( 'Loading Finished' )
+	system:print( 'Loading Finished' )
 
 end
 

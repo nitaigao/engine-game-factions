@@ -36,7 +36,6 @@ namespace Script
 	{
 		m_eventManager->AddEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
 
-		m_state->Initialize( );
 		m_state->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
 
 		m_facadeManager->Initialize( this );
@@ -45,6 +44,8 @@ namespace Script
 	void ScriptComponent::Destroy( )
 	{
 		m_eventManager->RemoveEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
+
+		m_facadeManager->Destroy( );
 
 		for( IScriptFacade::ScriptFacadeList::iterator i = m_facades.begin( ); i != m_facades.end( ); )
 		{

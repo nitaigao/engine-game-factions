@@ -41,7 +41,7 @@ namespace Input
 
 		this->LoadMessageBindings( );
 
-		//Management::Get( )->GetServiceManager( )->RegisterService( this );
+		Management::Get( )->GetServiceManager( )->RegisterService( this );
 	}
 	
 	ISystemScene* InputSystem::CreateScene( )

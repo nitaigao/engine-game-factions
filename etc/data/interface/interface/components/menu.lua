@@ -197,7 +197,7 @@ end
 
 function Menu.onQuitReleased( )
 
-	quit( )
+	system:quit( )
 
 end
 
@@ -232,7 +232,7 @@ function Menu.onEndGameReleased( )
 	network:disconnect( )
 	Menu.ToggleInGameMenu( )
 	Menu.endGame( )
-	endGame( )
+	system:endGame( )
 
 end
 

@@ -13,25 +13,25 @@ Interface = { }
 
 function Interface.initialize( )
 
-	print( 'Loading Interface' )
+	system:print( 'Loading Interface' )
 	
 	--sfx:triggerEvent( 'game/ux/title_loaded' )
 	
-	--script:unregisterEventHandler( Interface.onEvent )
-	--ux:showMouse( )
+	script:unregisterEventHandler( Interface.onEvent )
+	ux:showMouse( )
 
-	--ux:loadComponent( 'title' )
-	--ux:loadComponent( 'menu' )
-	--ux:loadComponent( 'options' )
-	---ux:loadComponent( 'console' )
-	--ux:loadComponent( 'loading' )
-	--ux:loadComponent( 'hud' )
-	--ux:loadComponent( 'statistics' )
-	--ux:loadComponent( 'actor_hit' )
-	--ux:loadComponent( 'key_binder' )
-	--ux:loadComponent( 'characterselect' )
-	--ux:loadComponent( 'servers' )
-	--ux:loadComponent( 'disconnected' )
+	ux:loadComponent( 'title' )
+	ux:loadComponent( 'menu' )
+	ux:loadComponent( 'options' )
+	ux:loadComponent( 'console' )
+	ux:loadComponent( 'loading' )
+	ux:loadComponent( 'hud' )
+	ux:loadComponent( 'statistics' )
+	ux:loadComponent( 'actor_hit' )
+	ux:loadComponent( 'key_binder' )
+	ux:loadComponent( 'characterselect' )
+	ux:loadComponent( 'servers' )
+	ux:loadComponent( 'disconnected' )
 	
 end
 
@@ -45,4 +45,4 @@ function Interface.onEvent( eventName )
 
 end
 
---script:registerEventHandler( Interface.onEvent )
+script:registerEventHandler( Interface.onEvent )

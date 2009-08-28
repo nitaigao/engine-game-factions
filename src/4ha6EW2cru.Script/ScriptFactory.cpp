@@ -15,19 +15,19 @@ using namespace Configuration;
 
 namespace Script
 {
-	IScriptSystem* ScriptFactory::CreateScriptSystem( )
+	IScriptSystem* ScriptFactory::CreateScriptSystem( Configuration::IConfiguration* configuration )
 	{
-		return new ScriptSystem( this->CreateScriptSystemScene( ), this->CreateScriptSystemScene( ), Management::Get( )->GetServiceManager( ) );
+		return new ScriptSystem( this->CreateScriptSystemScene( configuration ), this->CreateScriptSystemScene( configuration ), Management::Get( )->GetServiceManager( ) );
 	}
 
-	IScriptSystemScene* ScriptFactory::CreateScriptSystemScene( )
+	IScriptSystemScene* ScriptFactory::CreateScriptSystemScene( Configuration::IConfiguration* configuration )
 	{
-		ILuaState* state = new LuaState( );
+		ILuaState* state = new LuaState( Management::Get( )->GetResourceManager( ) );
 		IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory( state );
 		IScriptComponentFactory* componentFactory = new ScriptComponentFactory( state, Management::Get( )->GetEventManager( ), facadeFactory );
 
 		return new ScriptSystemScene( 
-			new ClientConfiguration( ), // TODO: possible bug
+			configuration,
 			componentFactory,
 			state, 
 			Management::Get( )->GetServiceManager( ) 

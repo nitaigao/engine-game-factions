@@ -10,6 +10,7 @@
 
 #include "ISystemManager.hpp"
 #include "../State/World.h"
+#include "../Configuration/IConfiguration.hpp"
 
 /*! 
 *  Manages each System of the Game
@@ -32,8 +33,9 @@ public:
 	 *
 	 *  @return ()
 	 */
-	SystemManager( )
+	SystemManager( Configuration::IConfiguration* configuration )
 		: m_accumulator( 0.0f )
+		, m_configuration( configuration )
 	{
 
 	}
@@ -110,6 +112,7 @@ private:
 	SystemLibraryList m_systemLibraries;
 
 	float m_accumulator;
+	Configuration::IConfiguration* m_configuration;
 
 };
 

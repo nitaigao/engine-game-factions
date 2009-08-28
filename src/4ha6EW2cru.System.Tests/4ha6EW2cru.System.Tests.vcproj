@@ -232,6 +232,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Mocks\MockResourceCache.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockSerializer.hpp"
 				>
 			</File>

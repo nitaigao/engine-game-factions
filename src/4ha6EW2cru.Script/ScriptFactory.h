@@ -11,6 +11,8 @@
 #include "IScriptSystem.hpp"
 #include "IScriptSystemScene.hpp"
 
+#include "Configuration/IConfiguration.hpp"
+
 namespace Script
 {
 	/*! 
@@ -39,14 +41,14 @@ namespace Script
 		 *
 		 * @return ( IScriptSystem* )
 		 */
-		IScriptSystem* CreateScriptSystem( );
+		IScriptSystem* CreateScriptSystem( Configuration::IConfiguration* configuration );
 
 
 		/*! Creates a Script System Scene
 		 *
 		 * @return ( IScriptSystemScene* )
 		 */
-		IScriptSystemScene* CreateScriptSystemScene( );
+		IScriptSystemScene* CreateScriptSystemScene( Configuration::IConfiguration* configuration );
 
 	private:
 

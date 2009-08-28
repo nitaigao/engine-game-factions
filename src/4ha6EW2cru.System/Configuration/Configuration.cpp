@@ -9,10 +9,9 @@ namespace Configuration
 		delete m_configFile;
 	}
 
-	IConfiguration* ClientConfiguration::Load( const std::string& filePath )
+	void ClientConfiguration::Initialize( const std::string& filePath )
 	{
-		IConfigurationFile* configFile = ConfigurationFile::Load( filePath );
-		return new ClientConfiguration( configFile );
+		m_configFile = ConfigurationFile::Load( filePath );
 	}
 
 	AnyType ClientConfiguration::Find( const std::string& section, const std::string& key )

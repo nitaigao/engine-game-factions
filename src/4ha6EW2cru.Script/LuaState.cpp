@@ -3,6 +3,9 @@
 using namespace luabind;
 using namespace luabind::adl;
 
+#include "IO/IResource.hpp"
+using namespace Resources;
+
 extern "C" 
 {
 #	include <lua.h>
@@ -10,6 +13,7 @@ extern "C"
 }
 
 #include "Exceptions/OutOfRangeException.hpp"
+#include "Exceptions/ScriptException.hpp"
 
 #include "Logging/Logger.h"
 using namespace Logging;
@@ -32,7 +36,7 @@ namespace Script
 
 	ILuaState* LuaState::CreateChild( )
 	{
-		LuaState* childState = new LuaState( );
+		LuaState* childState = new LuaState( m_resourceCache );
 
 		int result = lua_checkstack( m_state, LUA_MINSTACK );
 
@@ -70,10 +74,27 @@ namespace Script
 
 	void LuaState::LoadScript( const std::string& scriptPath )
 	{
+		IResource* resource = m_resourceCache->GetResource( scriptPath );
 
+		int result = luaL_loadbuffer( m_state, resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength, resource->GetFileBuffer( )->filePath.c_str( ) );
+
+		if ( LUA_ERRSYNTAX == result )
+		{
+			std::stringstream errorMessage;
+			errorMessage << lua_tostring( m_state, -1 );
+			Warn( errorMessage.str( ) );
+			lua_pop( m_state, 1 );
+		}
+
+		if ( LUA_ERRMEM == result )
+		{
+			ScriptException memE( "Script::Initialize - There is memory allocation error within the Script" );
+			Fatal( memE.what( ) );
+			throw memE;
+		}
 	}
 
-	void LuaState::Execute()
+	void LuaState::Execute( )
 	{
 		try
 		{

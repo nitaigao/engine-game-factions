@@ -141,7 +141,7 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 	initializeSystem( Management::Get( ), Logger::Get( ) );
 
 	CreateSystemFunction createSystem = reinterpret_cast< CreateSystemFunction >( GetProcAddress( library, "CreateSystem" ) );
-	ISystem* system = createSystem( );
+	ISystem* system = createSystem( m_configuration );
 
 	m_systemLibraries.insert( std::make_pair( system, library ) );
 

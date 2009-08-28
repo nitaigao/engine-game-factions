@@ -40,7 +40,6 @@ protected:
 	void DestroyContext( )
 	{
 		delete m_serviceManager;
-		delete m_configuration;
 	}
 
 	ScriptSystemScene* CreateSubject( )
@@ -91,11 +90,16 @@ TEST_F( ScriptSystemScene_Tests, should_unload_component )
 	std::string name = "name";
 	std::string type = "type";
 
-	MockScriptComponent component;
+	AnyType::AnyTypeMap attributes;
+	attributes[ System::Attributes::Name ] = name;
 
-	EXPECT_CALL( *m_factory, CreateComponent( name, type ) ).WillOnce( Return( &component ) );
+	MockScriptComponent* component = new MockScriptComponent( );
+
+	EXPECT_CALL( *m_factory, CreateComponent( name, type ) ).WillOnce( Return( component ) );
 	m_subject->CreateComponent( name, type );
 
-	EXPECT_CALL( component, Destroy( ) );
+	EXPECT_CALL( *component, GetAttributes( ) ).WillOnce( Return( attributes ) );
+
+	EXPECT_CALL( *component, Destroy( ) );
 	m_subject->UnloadComponent( name );
 }

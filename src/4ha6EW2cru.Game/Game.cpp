@@ -28,18 +28,13 @@ void Game::Initialize( )
 	Logger::Initialize( );
 	Logger::Get( )->SetLogLevel( Logging::LEVEL_WARN );
 
-	Management::Initialize( );
+	m_configuration = new ClientConfiguration( );
 
-	if ( m_isInitialized )
-	{
-		AlreadyInitializedException e( "Game::Initialize - Attempted to Initialized when the game had already been Initialized" );
-		Fatal( e.what( ) );
-		throw e;
-	}
+	Management::Initialize( m_configuration );
 
 	// -- Set Configuration Defaults 
 
-	m_configuration = ClientConfiguration::Load( "game.cfg" );
+	m_configuration->Initialize( "game.cfg" );
 	m_configuration->SetDefault( ConfigSections::Developer, ConfigItems::Developer::Console, false );
 	m_configuration->SetDefault( ConfigSections::Logging, ConfigItems::Logging::LogLevel, static_cast< int >( LEVEL_WARN ) );
 

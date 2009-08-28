@@ -13,7 +13,7 @@
 int main( int argc, char **argv ) 
 {
 #ifdef _DEBUG
-	//_crtBreakAlloc = 2775;
+	//_crtBreakAlloc = 2047;
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
 #endif
 

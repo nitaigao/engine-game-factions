@@ -40,8 +40,8 @@ protected:
 
 TEST_F( ScriptComponentFactory_Tests, should_create_component )
 {
-	MockLuaState childState;
-	EXPECT_CALL( *m_masterState, CreateChild(  ) ).WillOnce( Return( &childState ) );
+	MockLuaState* childState = new MockLuaState( );
+	EXPECT_CALL( *m_masterState, CreateChild(  ) ).WillOnce( Return( childState ) );
 
 	IScriptComponent* actual = m_subject->CreateComponent( "name", "type" );
 	IScriptComponent* expected = 0;

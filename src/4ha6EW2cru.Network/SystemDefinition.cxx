@@ -1,6 +1,9 @@
 #include "NetworkFactory.h"
 #include "NetworkSystem.h"
 
+#include "Configuration/IConfiguration.hpp"
+using namespace Configuration;
+
 #include "System/Memory.cxx"
 
 #include "Management/Management.h"
@@ -20,7 +23,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 	//Logger::Initialize( logger );
 }
 
-extern "C" ISystem* __stdcall CreateSystem( )
+extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
 {
 	return Network::NetworkFactory( ).CreateNetworkSystem( );
 }

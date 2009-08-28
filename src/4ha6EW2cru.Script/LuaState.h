@@ -10,6 +10,8 @@
 
 #include "ILuaState.hpp"
 
+#include "IO/IResourceCache.hpp"
+
 namespace Script
 {
 	/*! 
@@ -31,8 +33,9 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		LuaState( )
+		LuaState( Resources::IResourceCache* resourceCache )
 			: m_state( 0 )
+			, m_resourceCache( resourceCache )
 		{
 
 		}
@@ -107,6 +110,7 @@ namespace Script
 		LuaState & operator = ( const LuaState & copy ) { return *this; };
 
 		lua_State* m_state;
+		Resources::IResourceCache* m_resourceCache;
 		
 	};
 };

@@ -2,6 +2,7 @@
 using namespace testing;
 
 #include "LuaState.h"
+#include "Mocks/MockResourceCache.hpp"
 using namespace Script;
 
 using namespace luabind;
@@ -11,20 +12,22 @@ class LuaState_Tests : public TestHarness< LuaState >
 
 protected:
 
+	MockResourceCache* m_resourceCache;
+
 	void EstablishContext( )
 	{
-
+		m_resourceCache = new MockResourceCache;
 	}
 
 
 	void DestroyContext( )
 	{
-
+		delete m_resourceCache;
 	}
 
 	LuaState* CreateSubject( )
 	{
-		return new LuaState( ); 
+		return new LuaState( m_resourceCache ); 
 	}
 };
 
