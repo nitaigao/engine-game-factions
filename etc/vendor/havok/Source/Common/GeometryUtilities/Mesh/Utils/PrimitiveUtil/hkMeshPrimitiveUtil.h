@@ -37,10 +37,10 @@ class hkMeshPrimitiveUtil
 		static void HK_CALL appendTriangleIndices(hkMeshSection::PrimitiveType primType, int numVertices, int indexBase, hkArray<hkUint32>& indicesOut);
 
 			/// Append triangle indices from indexed primitives
-        static void HK_CALL appendTriangleIndices(hkMeshSection::PrimitiveType primType, const hkUint16* indices, int numIndices, int indexBase, hkArray<hkUint16>& indicesOut);
+        static void HK_CALL appendTriangleIndices16(hkMeshSection::PrimitiveType primType, const hkUint16* indices, int numIndices, int indexBase, hkArray<hkUint16>& indicesOut);
 
 			/// Append triangle indices from indexed primitives
-		static void HK_CALL appendTriangleIndices(hkMeshSection::PrimitiveType primType, const hkUint32* indices, int numIndices, int indexBase, hkArray<hkUint32>& indicesOut);
+		static void HK_CALL appendTriangleIndices32(hkMeshSection::PrimitiveType primType, const hkUint32* indices, int numIndices, int indexBase, hkArray<hkUint32>& indicesOut);
 
 			/// Returns a section as list of triangle indices - must have been locked with indices
 		static void HK_CALL appendTriangleIndices(const hkMeshSection& section, hkArray<hkUint16>& indicesOut);
@@ -58,7 +58,7 @@ class hkMeshPrimitiveUtil
 #endif // HK_MESH_PRIMITIVE_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

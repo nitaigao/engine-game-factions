@@ -39,6 +39,7 @@ havokTypes="""
 			TYPE_INT64,
 			TYPE_UINT64,
 			TYPE_REAL, // floating
+			TYPE_HALF, // 16-bit float
 			TYPE_VECTOR4,
 			TYPE_QUATERNION,
 			TYPE_MATRIX3,
@@ -65,7 +66,7 @@ havokTypes="""
 def _extractHavokTypes():
     return [ 'hk%s' % m.lower() for m in re.findall('^\s*TYPE_([^,]*)(?m)', havokTypes) ]
 havokTypesList = _extractHavokTypes()
-floatingPointTypes = "hkReal hkVector4 hkQuaternion hkMatrix3 hkRotation hkQsTransform hkMatrix4 hkTransform".split()
+floatingPointTypes = "hkHalf hkReal hkVector4 hkQuaternion hkMatrix3 hkRotation hkQsTransform hkMatrix4 hkTransform".split()
 aggregateTypes = "hkVector4 hkQuaternion hkMatrix3 hkRotation hkQsTransform hkMatrix4 hkTransform".split()
 
 def _readExtraTypes():
@@ -108,7 +109,10 @@ def resolveExtraType(decl):
 def _typecode(mtype):
     """Get the enumerated type from a c++ type.
     """
-    mtype = mtype.strip()
+    mtype = removeFromDeclarationSpaced( mtype.strip(), ("mutable","const") )
+    mtype = mtype.replace(" *","*").replace(" &","&")
+    # try to resolve custom type and clean up
+    mtype = resolveExtraType(mtype)
 
     # template match
     for key, val in [
@@ -119,16 +123,14 @@ def _typecode(mtype):
         ("hkEnum<", "hkClassMember::TYPE_ENUM"),
         ("hkFlags<", "hkClassMember::TYPE_FLAGS"),
         ("hkZero<", "hkClassMember::TYPE_ZERO"),
-        ("hkHomogeneousArray<", "hkClassMember::TYPE_HOMOGENEOUSARRAY") ]:
+        ("hkHomogeneousArray<", "hkClassMember::TYPE_HOMOGENEOUSARRAY"),
+        ("hkStringPtrArray", "hkClassMember::TYPE_ARRAY")
+        ]:
         if mtype.startswith(key):
             return val
 
-    # clean up and extract valuable type info only
-    mtype = removeFromDeclarationSpaced( mtype, ("mutable","const") )
-    mtype = mtype.split("[")[0]
-    # try to resolve custom type and clean up
-    mtype = resolveExtraType(mtype)
-    mtype = mtype.replace(" *","*").replace(" &","&")
+    # extract valuable type info only
+    mtype = mtype.split("[")[0].strip()
 
     # exact match
     try:
@@ -139,6 +141,7 @@ def _typecode(mtype):
             "float": "hkClassMember::TYPE_REAL",
             "char": "hkClassMember::TYPE_CHAR",
             "char*": "hkClassMember::TYPE_CSTRING",
+            "hkStringPtr": "hkClassMember::TYPE_STRINGPTR",
             "void": "hkClassMember::TYPE_VOID" }[mtype]
     except KeyError:
         pass
@@ -167,13 +170,13 @@ def _getReferencedEnum(e):
 def _getPointedClass(fullname):
     """Get the hkClass - must be type info only - no const or mutable
     """
-    name = fullname.split("[")[0]
+    name = fullname.split("[")[0].strip()
     if (name.endswith('*') or name.endswith('&')):
         # here we always expect '*' or '&' chars at the end of the declaration
         # so, strip the last char: '*' or '&'
         name = name[:-1]
     name = name.strip().split()[-1]
-    if name in "void hkBool bool char char* float hkReal hkVector4 hkQuaternion hkMatrix3 " \
+    if name in "void hkBool bool char char* hkStringPtr float hkHalf hkReal hkVector4 hkQuaternion hkMatrix3 " \
             "hkRotation hkQsTransform hkMatrix4 hkTransform".split():
         return None
     inttype = lambda(x) : [x+str(s) for s in [8,16,32,64]]
@@ -228,8 +231,8 @@ def _get_type_from_pointer(a):
     """Return true if this is pointer to struct.
     """
     try:
-        a = resolveExtraType(a)
         a = a.replace(" *","*").replace(" &","&")
+        a = resolveExtraType(a)
         t = _typecode( a[:-1] )
     except RuntimeError:
         return "hkClassMember::TYPE_STRUCT"
@@ -242,22 +245,32 @@ def _get_type_from_pointer(a):
         pass
     return t
 
-def _infocode(type):
+def _infocode(mtype):
     """Get the 'extra' information associated with a member.
        For arrays this is the contained type.
        For enums this is the size of the enum.
     """
-    firstLessThan = type.find("<")#XXX
-    if type[:firstLessThan] in ("hkArray", "hkInplaceArray", "hkSimpleArray", "hkZero"):
-        elem = type[firstLessThan+1:-1]
-        if type[:firstLessThan] == "hkInplaceArray":
+    mtype = removeFromDeclarationSpaced( mtype.strip(), ("mutable","const") )
+    # try to resolve custom type and clean up
+    mtype = mtype.replace(" *","*").replace(" &","&")
+    mtype = resolveExtraType(mtype)
+
+    if mtype == "hkStringPtrArray":
+        return _typecode("hkStringPtr")
+    
+    firstLessThan = mtype.find("<")#XXX
+    if mtype[:firstLessThan] in ("hkArray", "hkInplaceArray", "hkSimpleArray", "hkZero"):
+        elem = mtype[firstLessThan+1:-1]
+        if mtype[:firstLessThan] == "hkInplaceArray":
             elem = ",".join( elem.split(",")[:-1] )
+        if elem.strip() == "hkStringPtr":
+            raise RuntimeError("found %s. To reflect array of referenced strings you must use hkStringPtrArray." % mtype)
         return _typecode(elem)
-    elif type.startswith("enum "):
+    elif mtype.startswith("enum "):
         try:
-            size = int( type.split(":")[1] )
+            size = int( mtype.split(":")[1] )
         except ValueError:
-            raise RuntimeError("found an unsized enum %s" % type.name)
+            raise RuntimeError("found an unsized enum %s" % mtype.name)
         return {8:1, 16:2, 32:4}[size]
     return ""
 
@@ -268,7 +281,7 @@ class struct:
         self.__dict__.update(args)
 
 def _isFinishCtor(klass, method):
-    return method.name == klass.name and len(method.parameter) == 1 and method.parameter[0].type == "hkFinishLoadedObjectFlag"
+    return method.name == klass.name and len(method.parameter) == 1 and removeFromDeclaration(method.parameter[0].type, ("class")) == "hkFinishLoadedObjectFlag"
 
 def _hasFinishCtor(klass):
     return True in [ _isFinishCtor(klass, m) for m in klass.method ]
@@ -374,8 +387,8 @@ def domToClass(dom, debug=0, collectAll=False, pchfile=""):
         # Get cstyle array size
         if member_type.find("[") != -1:
             member_type, rest = member_type.split("[")
-            marraysize = rest.split("]")[0]
-            member_type += rest.split("]")[-1] # handle array zeros: hkZero<int[3]>
+            marraysize = rest.split("]")[0].strip()
+            member_type += rest.split("]")[-1].strip() # handle array zeros: hkZero<int[3]>
 
         if mtype in ("hkClassMember::TYPE_ARRAY", "hkClassMember::TYPE_INPLACEARRAY", "hkClassMember::TYPE_ZERO", "hkClassMember::TYPE_SIMPLEARRAY"):
             msubtype = _infocode( member_type )
@@ -462,7 +475,7 @@ def domToClass(dom, debug=0, collectAll=False, pchfile=""):
             if not zero(m.default):
                 mtype = m.type.split("[",1)
                 carray = len(mtype)==2 and ("[%s"%mtype[1]) or ""
-                mtype = mtype[0]
+                mtype = mtype[0].strip()
                 mtype = re.sub("(struct\s+)([^:])", r"\1%s%s::\2" % (namespace, klass.name), mtype)
                 mtype = re.sub("hkZero<(.+)>", r"\1", mtype)
                 mtype = re.sub("hkSimpleArray<(.+)>", r"\tstruct { void* p; int s; }", mtype)
@@ -738,6 +751,8 @@ def domToClass(dom, debug=0, collectAll=False, pchfile=""):
             ret.append("#include <Common/Base/Reflection/hkInternalClassMember.h>")
             ret.append("#include <Common/Base/Reflection/hkTypeInfo.h>")
             ret.append("#include <%s>" % filename.replace(".hkclass", ".h") )
+            ret.append("#define True true")
+            ret.append("#define False false")
             ret.append("" if not file.overridedestination else 'HK_REFLECTION_CLASSFILE_HEADER("%s");\n' % filename )
         # should really use xml file decl order here
         ret.append("")
@@ -811,7 +826,7 @@ if __name__=="__main__":
 
 
 #
-# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 # 
 # Confidential Information of Havok.  (C) Copyright 1999-2009
 # Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

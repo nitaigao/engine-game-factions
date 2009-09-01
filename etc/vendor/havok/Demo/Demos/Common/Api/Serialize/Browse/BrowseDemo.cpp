@@ -22,40 +22,12 @@
 #define SIMPLE_LOAD_WITH_VERSIONING
 #include <Common/Serialize/Version/hkVersionUtil.h>
 #include <Graphics/Common/Font/hkgFont.h>
+#include <Common/Serialize/Util/hkSerializeUtil.h>
 #include <Common/Serialize/Packfile/Binary/hkPackfileHeader.h>
 #include <Physics/Utilities/Serialize/hkpHavokSnapshot.h>
 
 #define START_HORIZONTAL (20+m_env->m_window->getTVDeadZoneH())
 #define START_VERTICAL (20+m_env->m_window->getTVDeadZoneV())
-
-#if defined(SIMPLE_LOAD_WITH_VERSIONING)
-#	include <Common/Serialize/Version/hkVersionRegistry.h>
-	void versionContents(hkPackfileReader* reader)
-	{
-		if( hkVersionUtil::updateToCurrentVersion( *reader, hkVersionRegistry::getInstance() ) != HK_SUCCESS )
-		{
-			HK_WARN_ALWAYS(0, "Couldn't update version, skipping.\n");
-		}
-	}
-#else
-	void maybeVersionContents(hkPackfileReader* reader)
-	{
-		if( hkString::strCmp( reader->getContentsVersion(), hkVersionUtil::getCurrentVersion() ) != 0 )
-		{
-			HK_WARN_ALWAYS(0, "Versioning is disabled, but file is from an older version.\n");
-		}
-	}
-#endif
-
-// We have a different binary file depending on the compiler and platform
-static inline void BrowseDemo_getBinaryFileName(hkString& e)
-{
-	e.printf("%d%d%d%d.hkx", 
-		hkStructureLayout::HostLayoutRules.m_bytesInPointer,
-		hkStructureLayout::HostLayoutRules.m_littleEndian? 1 : 0,
-		hkStructureLayout::HostLayoutRules.m_reusePaddingOptimization? 1 : 0,
-		hkStructureLayout::HostLayoutRules.m_emptyBaseClassOptimization? 1 : 0);
-} 
 
 BrowseDemo::BrowseDemo( hkDemoEnvironment* env) 
 :	hkDefaultPhysicsDemo(env)
@@ -94,39 +66,14 @@ BrowseDemo::~BrowseDemo()
 
 hkResult BrowseDemo::readAndSetupPackfile(const char* filename)
 {
-	hkIstream infile( filename );
-	if( infile.isOk() == false )
+	hkRefPtr<hkResource> res = hkSerializeUtil::load(filename);
+	if( res )
 	{
-		return HK_FAILURE;
-	}
-
-	// create thew suitable reader
-	hkPackfileReader* reader = HK_NULL;
-	switch( hkPackfileReader::detectFormat(infile.getStreamReader()) )
-	{
-		case hkPackfileReader::FORMAT_BINARY:
-			reader = new hkBinaryPackfileReader();
-			break;
-		case hkPackfileReader::FORMAT_XML:
-			reader = new hkXmlPackfileReader();
-			break;
-		default:
-			return HK_FAILURE;
-	}
-
-	// Load the entire file
-	hkResult res = reader->loadEntireFile( infile.getStreamReader() );
-	if( res == HK_SUCCESS )
-	{
-		versionContents(reader);
-
-		// Get a handle to the memory allocated by the reader, and add a reference to it.
-		// This allows us to delete the reader.
-		m_packfileData = reader->getPackfileData();
-		m_packfileData->addReference();
+		// Keep a handle to the loaded data
+		m_packfileData = res;
 
 		// Get the top level object in the file
-		m_contents = static_cast<hkRootLevelContainer*>( reader->getContents( hkRootLevelContainerClass.getName() ) );
+		m_contents = res->getContents<hkRootLevelContainer>();
 		HK_ASSERT2(0xa6451543, m_contents != HK_NULL, "Could not load root level obejct" );
 
 		if( hkpPhysicsData* physicsData = static_cast<hkpPhysicsData*>( m_contents->findObjectByType( hkpPhysicsDataClass.getName() ) ) )
@@ -155,10 +102,7 @@ hkResult BrowseDemo::readAndSetupPackfile(const char* filename)
 		}
 	}
 
-	// We can now delete the reader. Note we still keep a reference to the allocated data.
-	reader->removeReference(); // same as delete since we have the only reference
-
-	return res;
+	return res ? HK_SUCCESS : HK_FAILURE;
 }
 
 
@@ -234,7 +178,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(BrowseDemo, HK_DEMO_TYPE_TEST, helpString, "");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

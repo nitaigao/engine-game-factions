@@ -211,7 +211,7 @@ class hkgDisplayObject : public hkgReferencedObject
 		{
 			USER_POINTER_UNKNOWN = 0,
 			USER_POINTER_RIGID_BODY,
-			USER_POINTER_BREAKABLE_BODY,
+			USER_POINTER_BREAKABLE_BODY,	///
 		};
 
 		inline void setUserPointer(int type, void* d);
@@ -230,12 +230,14 @@ class hkgDisplayObject : public hkgReferencedObject
 
 
 		inline hkgDisplayObject();
-		inline virtual ~hkgDisplayObject();
+		virtual ~hkgDisplayObject();
 
 		void renderGeomsInOrder(hkgDisplayContext* context) const;
 
 		inline hkgArray<hkgGeometry*>*	remapIndex( int& index ) const;
 		inline hkgGeometry*				searchAndRemoveByName( hkgArray<hkgGeometry*>* geomArray, const char* name, bool preserveOrder);
+
+		virtual void onGeometryChange() { }
 
 	public:
 
@@ -280,7 +282,7 @@ class hkgDisplayObject : public hkgReferencedObject
 #endif // HK_GRAPHICS_DISPLAY_OBJECT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

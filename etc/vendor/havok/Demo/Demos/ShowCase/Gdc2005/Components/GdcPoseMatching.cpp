@@ -179,9 +179,9 @@ void Gdc2005Demo::initPoseMatching()
 
 	// The get-up animations for the demo.
 	hkArray<const char*> getUpAnimations;
-	getUpAnimations.pushBack( "Resources/Animation/Showcase/Gdc2005/Animations/hkKnockdown2.hkx" );
-	getUpAnimations.pushBack( "Resources/Animation/Showcase/Gdc2005/Animations/hkGetupBack1.hkx" );
-	getUpAnimations.pushBack( "Resources/Animation/Showcase/Gdc2005/Animations/hkGetupFront1.hkx" );
+	getUpAnimations.pushBack( "Resources/Animation/ShowCase/Gdc2005/Animations/hkKnockdown2.hkx" );
+	getUpAnimations.pushBack( "Resources/Animation/ShowCase/Gdc2005/Animations/hkGetupBack1.hkx" );
+	getUpAnimations.pushBack( "Resources/Animation/ShowCase/Gdc2005/Animations/hkGetupFront1.hkx" );
 
 	// Iterate through all the animations
 	for( int curAnimation = 0; curAnimation < getUpAnimations.getSize(); curAnimation++ )
@@ -339,7 +339,7 @@ void Gdc2005Demo::quitPoseMatching()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

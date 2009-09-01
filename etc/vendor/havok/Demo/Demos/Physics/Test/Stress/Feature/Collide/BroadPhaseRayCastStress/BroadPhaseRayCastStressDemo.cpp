@@ -268,7 +268,7 @@ HK_DECLARE_DEMO_VARIANT(BroadPhaseRayCastStressDemo, HK_DEMO_TYPE_PRIME, "16-bit
 HK_DECLARE_DEMO_VARIANT(BroadPhaseRayCastStressDemo, HK_DEMO_TYPE_PRIME, "32-bit broadphase", 1, "Raycast stress test", "");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

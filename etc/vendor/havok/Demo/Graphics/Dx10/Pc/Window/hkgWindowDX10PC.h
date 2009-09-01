@@ -33,6 +33,8 @@ public:
 	virtual void setMousePosition(int x,int y);
 	virtual void showMouseCursor(bool visible);
 
+	virtual bool setFullscreen(bool on, int x, int y);
+
 	virtual HKG_WINDOW_MSG_STATUS peekMessages(bool inViewportResize = false); // will loop on windows messages if any. Will return if idle.
 	virtual void waitMessages(); // block until there is messages
 
@@ -57,12 +59,8 @@ protected:
 
 	void					cleanupD3D();
 	HRESULT					resizeD3D();
-	bool					updateSizeD3D();
+	bool					updateSizeD3D(int w, int h);
 
-	DWORD					m_dwWindowStyle;     // Saved window style for mode switches
-    RECT					m_rcWindowBounds;    // Saved window bounds for mode switches
-    RECT					m_rcWindowClient;    // Saved client area size for mode switches
-	
 	BOOL					m_bUseDepthBuffer;   // Whether to autocreate depthbuffer
     DWORD					m_dwMinDepthBits;    // Minimum number of bits needed in depth buffer
     DWORD					m_dwMinStencilBits;  // Minimum number of bits needed in stencil buffer
@@ -90,7 +88,7 @@ LRESULT CALLBACK hkgWindowProcDX10PC(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 #endif //HK_GRAPHICS_WINDOW_DX10_PC_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

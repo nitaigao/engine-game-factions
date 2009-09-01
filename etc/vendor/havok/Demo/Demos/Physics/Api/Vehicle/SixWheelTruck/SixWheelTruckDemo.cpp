@@ -76,27 +76,13 @@ SixWheelTruckDemo::SixWheelTruckDemo(hkDemoEnvironment* env)
 				//
 				// SHAPE CONSTRUCTION.
 				//
-				hkArray<hkVector4> planeEquations;
-				hkGeometry geom;
+				hkStridedVertices stridedVerts;
 				{
-					hkStridedVertices stridedVerts;
-					{
-						stridedVerts.m_numVertices = numVertices;
-						stridedVerts.m_striding = stride;
-						stridedVerts.m_vertices = vertices;
-					}
-
-					hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-					{
-						stridedVerts.m_numVertices = geom.m_vertices.getSize();
-						stridedVerts.m_striding = sizeof(hkVector4);
-						stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-					}
-
-					chassisShape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
+					stridedVerts.m_numVertices = numVertices;
+					stridedVerts.m_striding = stride;
+					stridedVerts.m_vertices = vertices;
 				}
-				chassisShape->setRadius(0.05f);
+				chassisShape = new hkpConvexVerticesShape(stridedVerts);
 			}
 		}
 
@@ -127,11 +113,16 @@ SixWheelTruckDemo::SixWheelTruckDemo(hkDemoEnvironment* env)
 																			chassisInfo);
 
 					chassisRigidBody = new hkpRigidBody(chassisInfo);
-
-					m_world->addEntity(chassisRigidBody);
-
-					HK_SET_OBJECT_COLOR((hkUlong)chassisRigidBody->getCollidable(), 0x80ff8080);
 				}
+
+				SixWheelTruckSetup setup;
+				m_vehicles[vehicleId].m_vehicle = createVehicle( setup, chassisRigidBody);
+				m_vehicles[vehicleId].m_lastRPM = 0.0f;
+				
+				wheelRadius = m_vehicles[vehicleId].m_vehicle->m_data->m_wheelParams[0].m_radius;
+				wheelWidth = m_vehicles[vehicleId].m_vehicle->m_data->m_wheelParams[0].m_width;
+
+				HK_SET_OBJECT_COLOR((hkUlong)chassisRigidBody->getCollidable(), 0x80ff8080);
 
 				// This hkpAction flips the car upright if it turns over. 	 
 				if (vehicleId == 0) 	 
@@ -141,13 +132,6 @@ SixWheelTruckDemo::SixWheelTruckDemo(hkDemoEnvironment* env)
 					hkReal strength = 15.0f; 	 
 					m_reorientAction = new hkpReorientAction(chassisRigidBody, rotationAxis, upAxis, strength); 	 
 				}
-
-				SixWheelTruckSetup setup;
-				m_vehicles[vehicleId].m_vehicle = createVehicle( setup, chassisRigidBody);
-				m_vehicles[vehicleId].m_lastRPM = 0.0f;
-				
-				wheelRadius = m_vehicles[vehicleId].m_vehicle->m_data->m_wheelParams[0].m_radius;
-				wheelWidth = m_vehicles[vehicleId].m_vehicle->m_data->m_wheelParams[0].m_width;
 
 				chassisRigidBody->removeReference();
 			}
@@ -184,7 +168,7 @@ HK_DECLARE_DEMO(SixWheelTruckDemo, HK_DEMO_TYPE_PHYSICS, "Drive a very heavy six
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

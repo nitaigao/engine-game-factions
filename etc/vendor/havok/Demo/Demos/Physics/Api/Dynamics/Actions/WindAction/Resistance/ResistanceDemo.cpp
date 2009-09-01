@@ -82,7 +82,9 @@ ResistanceDemo::ResistanceDemo(hkDemoEnvironment* env)
 
 	// Create the wind
 	{
-		m_resistanceManager.m_wind = new hkpPrevailingWind( hkVector4( 0.0f, 0.0f, 0.0f ) );
+		hkpPrevailingWind* wind = new hkpPrevailingWind( hkVector4( 0.0f, 0.0f, 0.0f ) );
+		m_resistanceManager.m_wind = wind; 
+		wind->removeReference();
 	}
 
 	// Create a grid of objects.
@@ -156,7 +158,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(ResistanceDemo, HK_DEMO_TYPE_PRIME, "This demo shows the effect of resistance due to motion", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

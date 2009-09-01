@@ -58,7 +58,7 @@ protected:
     static void _addArrayData( const char* fieldName, void* data, int size, int capacity, int objSize, hkStatisticsCollector* collector);
     static int _getArrayElementSize(const hkClassMember& mem);
     static void _addObject(const char* fieldName, const void* obj, const hkClass& cls, hkStatisticsCollector* collector);
-    static void _addCstring(const hkClassMember& mem, char* string, hkStatisticsCollector* collector);
+    static void _addCstring(const hkClassMember& mem, const char* string, hkStatisticsCollector* collector);
 
 
 	//static void _addChildObjectContents(const char* fieldName, void* obj, const hkClass& cls, hkStatisticsCollector* collector);
@@ -68,7 +68,7 @@ protected:
 #endif // HK_STATISTICS_COLLECTOR_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

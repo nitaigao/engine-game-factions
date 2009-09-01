@@ -8,7 +8,7 @@
 
 
 // Post T&L cache aware triangle stripifier in O(n.log(n)).
-// based on the T&L cache simulator by Tanguy Fautré <softdev@telenet.be>
+// based on the T&L cache simulator by Tanguy Fautre<softdev@telenet.be>
 
 
 #ifndef HK_TRIANGLE_STRIPPER_H
@@ -70,6 +70,29 @@ class hkTriangleStripper
     /// Enable this if you want better results at the expense of being slightly slower.
     HK_FORCE_INLINE void setBackwardSearch(hkBool enabled = false) { m_backwardSearch = enabled; }
 
+    class TriangleEdge
+	{
+	public:
+		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_GEOMETRY, hkTriangleStripper::TriangleEdge);
+		TriangleEdge() : m_A(0), m_B(0), m_triPos(0) {}
+	    HK_FORCE_INLINE TriangleEdge(Index indexA, Index indexB, hkUint32 p=0) : m_A(indexA), m_B(indexB), m_triPos(p) { }
+		~TriangleEdge() {}
+
+	    HK_FORCE_INLINE Index A() const { return m_A; }
+	    HK_FORCE_INLINE Index B() const { return m_B; }
+		HK_FORCE_INLINE hkUint32 triPos() const { return m_triPos; }
+
+	    HK_FORCE_INLINE hkBool operator == (const TriangleEdge & Right) const
+		{
+		    return ((A() == Right.A()) && (B() == Right.B()));
+		}
+
+	private:
+	    Index    m_A;
+	    Index    m_B;
+		hkUint32 m_triPos;
+	};
+
 
  private:
 
@@ -97,29 +120,6 @@ class hkTriangleStripper
 	};
 
 
-
-    class TriangleEdge
-	{
-	public:
-		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_GEOMETRY, hkTriangleStripper::TriangleEdge);
-		TriangleEdge() : m_A(0), m_B(0), m_triPos(0) {}
-	    HK_FORCE_INLINE TriangleEdge(Index indexA, Index indexB, hkUint32 p=0) : m_A(indexA), m_B(indexB), m_triPos(p) { }
-		~TriangleEdge() {}
-
-	    HK_FORCE_INLINE Index A() const { return m_A; }
-	    HK_FORCE_INLINE Index B() const { return m_B; }
-		HK_FORCE_INLINE hkUint32 triPos() const { return m_triPos; }
-
-	    HK_FORCE_INLINE hkBool operator == (const TriangleEdge & Right) const
-		{
-		    return ((A() == Right.A()) && (B() == Right.B()));
-		}
-
-	private:
-	    Index    m_A;
-	    Index    m_B;
-		hkUint32 m_triPos;
-	};
 
     typedef enum { ABC, BCA, CAB } TriangleOrder;
 
@@ -224,7 +224,7 @@ class hkTriangleStripper
 #endif // HK_TRIANGLE_STRIPPER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

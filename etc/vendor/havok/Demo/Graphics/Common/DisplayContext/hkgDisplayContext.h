@@ -28,8 +28,6 @@ class hkgBlendMatrixSet;
 
 #define HKG_CHECK_CONTEXT_LOCK_STATUS(ctx) HK_ASSERT2(0x4354260, ctx->isLocked(), "You are making graphics calls without locking the display context") 
 
-class hkGpuInterface; // NV_P2P  XXXXX HACK!
-
 /// The display context. One of the core classes in the graphics library. It represents the rendering state of
 /// graphics hardware / underlying API, so that the library can work with any API even if the API stores no state 
 /// itself, like the pure DirectX H/W abstraction layer on the Xbox. The display context not only stores the state 
@@ -86,6 +84,9 @@ class hkgDisplayContext : public hkgReferencedObject
 			/// Get the current active vertex shader.
 		inline hkgShader*		getCurrentVertexShader() const;
 
+			/// Get the current active geom shader.
+		inline hkgShader*		getCurrentGeometryShader() const;
+
 			/// Get the current active pixel shader.
 		inline hkgShader*		getCurrentPixelShader() const;
 
@@ -112,7 +113,10 @@ class hkgDisplayContext : public hkgReferencedObject
 			/// Set the current active shader. 
 		virtual void		    setCurrentVertexShader(hkgShader* s); // will bind to it aswell
 
-		/// Set the current active shader. 
+			/// Set the current active shader. 
+		virtual void		    setCurrentGeometryShader(hkgShader* s); // will bind to it aswell
+
+			/// Set the current active shader. 
 		virtual void		    setCurrentPixelShader(hkgShader* s); // will bind to it aswell
 
 		void					setCurrentGlobalShaderCollection( hkgShaderCollection* globalShaders );
@@ -179,12 +183,25 @@ class hkgDisplayContext : public hkgReferencedObject
 			/// that you have set them up using the hkgLight class. This is merely a state change.
 		virtual void setLightState(int light, bool on) = 0;
 
+			/// Enable/Disable (per pixel) fog
+		virtual void setFogState(bool on);
+			
+			/// Set the fog parameters. Fnear and ffar are from 0..1, with respect to camera near/far plane.
+		virtual void setLinearFogParameters(float fnear, float ffar );
+	
+			/// Only makes sense if mode is exp or exp2, with associated density (1/(e^d*density) etc)
+		virtual void setExpFogParameters(HKG_FOG_MODE fogMode, float density  );
+
+		virtual void getFogParams( HKG_FOG_MODE& fogMode, float& fnear, float& ffar, float& density);
+
 			/// Alter if needed the current state to match the given desired state. This is used to 
 			/// make sure that the context matches your desired rendering view, without having to query 
-			/// each state in turn.
+			/// each state in turn. Default args are dangerous on this func as modfes will change in a 
+			/// non obvious way
 		void matchState( HKG_ENABLED_STATE desiredState, 
-						HKG_CULLFACE_MODE desiredCullfaceMode = HKG_CULLFACE_CW,
-						HKG_BLEND_MODE desiredBlendMode = HKG_BLEND_MODULATE );
+						HKG_CULLFACE_MODE desiredCullfaceMode /*= HKG_CULLFACE_CW*/,
+						HKG_BLEND_MODE desiredBlendMode /*= HKG_BLEND_MODULATE*/,
+						HKG_ALPHA_SAMPLE_MODE desiredAlphaSampleMode /*= HKG_ALPHA_SAMPLE_COVERAGE*/ );
 		
 			/// This method makes the underlying hardware state match that assumed by this context. This
 			/// Is required at startup to get the hardware in a set state, and also after the state of
@@ -207,6 +224,12 @@ class hkgDisplayContext : public hkgReferencedObject
 			/// Additive or Modulated blend mode.
 		inline void setBlendMode( HKG_BLEND_MODE m );
 
+			/// AlphaToCoverage support etc
+		inline HKG_ALPHA_SAMPLE_MODE getAlphaSampleMode() const;
+
+			/// AlphaToCoverage support etc
+		inline void setAlphaSampleMode( HKG_ALPHA_SAMPLE_MODE m );
+
 			/// How color is set
 		inline HKG_COLOR_MODE getColorMode() const;
 
@@ -225,8 +248,10 @@ class hkgDisplayContext : public hkgReferencedObject
 
 			/// What, if any, stage is locked externally (with a shadow map for instance)
 		inline HKG_TEXTURE_STAGE_LOCK_MODE getTextureStageLockMode() const;
+		inline int getTextureStageLockCount() const;
 
 		inline void setTextureStageLockMode( HKG_TEXTURE_STAGE_LOCK_MODE l );
+		inline void setTextureStageLockCount( int c );
 
 
 		// Immediate mode rendering
@@ -317,10 +342,8 @@ class hkgDisplayContext : public hkgReferencedObject
 		virtual void setShadowVsmBias( float bias, float epsilon );
 		virtual void getShadowVsmBias( float& bias, float& epsilon );
 
-//#ifdef NV_P2P
-        void setGpuInterface(hkGpuInterface *pGpu) { m_gpuInterface = pGpu; }
-        hkGpuInterface* getGpuInterface() { return m_gpuInterface; }
-//#endif
+		void setAlphaScale(float s);
+		float getAlphaScale() const;
 
 	protected:
 
@@ -331,10 +354,16 @@ class hkgDisplayContext : public hkgReferencedObject
 		HKG_VERTEX_OPTIONS  m_vertexOptions;	
 		HKG_CULLFACE_MODE   m_cullfaceMode;
 		HKG_BLEND_MODE	    m_blendMode;
+		HKG_ALPHA_SAMPLE_MODE	m_alphaSampleMode;
 		HKG_COLOR_MODE		m_colorMode;
+		HKG_FOG_MODE		m_fogMode;
+		float				m_fogNear;
+		float				m_fogFar;
+		float				m_fogDensity;
 		HKG_DEBUG_FLAGS	    m_debugFlags;
 		HKG_RENDER_PASS_INFO m_renderPass;
 		HKG_TEXTURE_STAGE_LOCK_MODE m_textureStageLock;
+		int					m_textureStageLockCount;
 		hkgWindow*		    m_owner;
 		hkgViewport*	    m_currentViewport;
 		hkgTexture*		    m_currentBoundTextures[HKG_MAX_TEXTURE_STAGES]; // max 8 stages.
@@ -346,6 +375,7 @@ class hkgDisplayContext : public hkgReferencedObject
 			// Shader support
 		mutable hkgShaderContext*   m_shaderContext;
 		hkgShader*		    m_currentBoundVertexShader;
+		hkgShader*		    m_currentBoundGeometryShader;
 		hkgShader*		    m_currentBoundPixelShader;
 		hkgShaderCollection* m_globalShaderCollection;
 
@@ -357,6 +387,7 @@ class hkgDisplayContext : public hkgReferencedObject
 		int		m_maxAnisotropy;
 		float	m_shadowVsmBias;
 		float   m_shadowVsmEpsilon;
+		float	m_alphaScale;
 
 		mutable hkgArray<hkgTexture*> m_texturePalette;
 		mutable hkgArray<hkgVertexSet*> m_vertexSets;
@@ -364,9 +395,6 @@ class hkgDisplayContext : public hkgReferencedObject
 		mutable class hkCriticalSection* m_contextLock;
 		static HK_THREAD_LOCAL(int) m_threadLocalLockCount;
 
-//#ifdef NV_P2P
-        hkGpuInterface *m_gpuInterface;
-//#endif
 };
 
 class hkgDisplayContextAutoLock
@@ -392,7 +420,7 @@ class hkgDisplayContextAutoLock
 #endif //HK_GRAPHICS_DISPLAY_CONTEXT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -190,7 +190,7 @@ inline float* hkgCamera::getCameraInverseMatrix()
 	return m_camInv;
 }
 
-inline float* hkgCamera::getFrustumPlane(unsigned int i)
+inline const float* hkgCamera::getFrustumPlane(unsigned int i) const
 {
 	HK_ASSERT(0x5932cc69,  i < 6 );
 
@@ -309,27 +309,16 @@ inline float hkgCamera::computeIconVerticalDrawSize( float distanceFromCam, int 
 
 inline void hkgCamera::setCameraName( const char* newName )
 {
-	if ( m_cameraName )
-	{
-		hkDeallocate<char>(m_cameraName);
-	}
-
-	if ( newName == HK_NULL )
-	{
-		m_cameraName = HK_NULL;
-		return;
-	}
-
-	m_cameraName = hkString::strDup( newName );
+	m_cameraName = newName;
 }
 
 inline const char* hkgCamera::getCameraName() const
 {
-	return m_cameraName;
+	return m_cameraName.cString();
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

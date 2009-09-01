@@ -18,18 +18,23 @@ class hkBarycentricVertexInterpolator
 
             /// Ctor
         hkBarycentricVertexInterpolator();
+
             /// Call before anything is calculated. Returns
         void start(const hkMeshVertexBuffer::LockedVertices& srcLockedVertices, const hkMatrix4& objectToWorld, hkBool isInverted);
+
             /// Call when processing has finished
         void end();
+
             /// Set up a support - must be called before any vertex interpolations are calculated with calculateVertex
         void setSupport(int v0, int v1, int v2);
 
 			/// Calculate a destination vertex from the vertex postion
         void calculateVertex(const hkVector4& vertexPosition, const hkMeshVertexBuffer::LockedVertices& dstVertex);
+
             /// Calculate the vertex data from the barycentric coordinates. If vertexPosition is HK_NULL it will interpolated for the output
             /// else it will just be copied
         void calculateVertex(const hkVector4* vertexPosition, hkPadSpu<hkReal> lambda[3], const hkMeshVertexBuffer::LockedVertices& dstVertex);
+
             /// Copy a vertex taking into account transform, inversion etc
         void copyVertex(int vertexIndex, const hkMeshVertexBuffer::LockedVertices& dstVertex);
 
@@ -37,7 +42,7 @@ class hkBarycentricVertexInterpolator
         static void HK_CALL calcBarycentricCoordinates(hkVector4Parameter pos, hkVector4Parameter t0, hkVector4Parameter t1, hkVector4Parameter t2, hkPadSpu<hkReal> result[3]);
 
     protected:
-        hkBool m_isStarted;                                             
+        hkBool m_isStarted;                                             ///
 		hkMeshVertexBuffer::LockedVertices m_srcLockedVertices;
         hkMeshVertexBuffer::LockedVertices::Buffer m_srcPositionBuffer;
 
@@ -52,7 +57,7 @@ class hkBarycentricVertexInterpolator
 #endif // HK_BARYCENTRIC_VERTEX_INTERPOLATOR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

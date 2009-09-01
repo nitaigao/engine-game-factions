@@ -25,11 +25,17 @@ typedef unsigned short HKG_ENABLED_STATE;
 #define HKG_ENABLED_WIREFRAME				(1<<6)
 #define HKG_ENABLED_POINTSPRITESCALING		(1<<7)
 #define HKG_ENABLED_POINTSPRITETEXTURING	(1<<8)
+#define HKG_ENABLED_FOG						(1<<9)
 #define HKG_ENABLED_ALL						(0xffff)
 
 typedef unsigned short HKG_BLEND_MODE;
 #define HKG_BLEND_MODULATE		(1<<0) // Standard, (SRC_APLHA, 1-SRC_ALPHA) style
 #define HKG_BLEND_ADD           (1<<1) // Additive, (SRC_ALPHA, 1) style
+#define HKG_BLEND_MULTIPLY      (1<<2) // col = Dest*Src
+
+typedef unsigned short HKG_ALPHA_SAMPLE_MODE;
+#define HKG_ALPHA_SAMPLE_NORMAL		(1<<0) // Just blend is as normal
+#define HKG_ALPHA_SAMPLE_COVERAGE	(1<<1) // Used in conjunction with the above modes, when depth write is on. AlphaToCoverage (A2C mode)
 
 typedef unsigned short HKG_TEXTURE_MODE;
 #define HKG_TEXTURE_MODULATE	(1<<0) // Default, multiply material color with texel
@@ -45,6 +51,11 @@ typedef unsigned int HKG_COLOR_MODE;
 #define HKG_COLOR_GLOBAL_SHADER	      (1<<2) // The current shaders etc are all global, material may or may not be
 #define HKG_COLOR_GLOBAL_SHADER_COLLECTION	 (1<<3) // The current shader collection is all global, material may or may not be
 
+typedef unsigned short HKG_FOG_MODE;
+#define HKG_FOG_NONE                 0
+#define HKG_FOG_LINEAR               1 
+#define HKG_FOG_EXP					 2 
+#define HKG_FOG_EXP2				 3 
 
 typedef unsigned int HKG_TEXTURE_STAGE_LOCK_MODE;
 #define HKG_TEXTURE_STAGE_ALL_UNLOCKED    0
@@ -58,11 +69,11 @@ typedef unsigned int HKG_TEXTURE_STAGE_LOCK_MODE;
 #define HKG_TEXTURE_STAGE_LOCKED_TEXTURE7 8
 
 typedef unsigned int HKG_MATERIAL_VERTEX_HINT;
-#define HKG_MATERIAL_VERTEX_HINT_NONE     0  
-#define HKG_MATERIAL_VERTEX_HINT_VCOLOR   1  // Per Vertex Color 
-#define HKG_MATERIAL_VERTEX_HINT_TANGENTS 2  // Normal Mapping etc
-#define HKG_MATERIAL_VERTEX_HINT_BLENDING 4  // Skinning
-
+#define HKG_MATERIAL_VERTEX_HINT_NONE      0 
+#define HKG_MATERIAL_VERTEX_HINT_VCOLOR    1  // Per Vertex Color 
+#define HKG_MATERIAL_VERTEX_HINT_TANGENTS  2  // Normal Mapping etc
+#define HKG_MATERIAL_VERTEX_HINT_BLENDING  4  // Skinning
+#define HKG_MATERIAL_VERTEX_HINT_INSTANCED 8  // H/W Instanced (world transform in tcoords)
 
 typedef unsigned short HKG_IMM_GROUP;
 #define HKG_IMM_LINES           (1<<0)
@@ -78,13 +89,17 @@ typedef unsigned short HKG_RENDER_PASS_INFO; // allows platforms to know the cur
 #define HKG_RENDER_PASS_NORMAL			(1) // normal, run of the mill, no shadow maps etc
 #define HKG_RENDER_PASS_TO_DEPTHMAP		(1<<1) // rendering depth values only
 #define HKG_RENDER_PASS_USING_DEPTHMAP	(1<<2) // rendering based on the shadow map results. Shadow map type can be found using hkgWindow::getShadowMapSupport()
+#define HKG_RENDER_PASS_INSTANCED       (1<<3) // currently rendering a h/w instanced object 
+#define HKG_RENDER_PASS_BLENDED         (1<<4) // currently rendering a scene with special blend state (for oldskool planar reflections etc)
+#define HKG_RENDER_PASS_NOLINEARDEPTH   (1<<5) // when you want to disable the output of linear depth (will be 0 instead of posView.z)
+
 
 #define HKG_MAX_TEXTURE_STAGES   8
 
 #endif //HK_GRAPHICS_DISPLAY_CONTEXT_DEFINES__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -82,28 +82,11 @@ TankDemo::TankDemo(hkDemoEnvironment* env)
 				//
 				// SHAPE CONSTRUCTION.
 				//
-				hkArray<hkVector4> planeEquations;
-				hkGeometry geom;
-				{
-					hkStridedVertices stridedVerts;
-					{
-						stridedVerts.m_numVertices = numVertices;
-						stridedVerts.m_striding = stride;
-						stridedVerts.m_vertices = vertices;
-					}
-
-					hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-					{
-						stridedVerts.m_numVertices = geom.m_vertices.getSize();
-						stridedVerts.m_striding = sizeof(hkVector4);
-						stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-					}
-
-					body = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-				}
-
-				body->setRadius(0.05f);
+				hkStridedVertices stridedVerts;
+				stridedVerts.m_numVertices = numVertices;
+				stridedVerts.m_striding = stride;
+				stridedVerts.m_vertices = vertices;
+				body = new hkpConvexVerticesShape(stridedVerts);
 			}
 
 			hkReal xRoofFront = 0.8f;
@@ -135,27 +118,11 @@ TankDemo::TankDemo(hkDemoEnvironment* env)
 				//
 				// SHAPE CONSTRUCTION.
 				//
-				hkArray<hkVector4> planeEquations;
-				hkGeometry geom;
-				{
-					hkStridedVertices stridedVerts;
-					{
-						stridedVerts.m_numVertices = numVertices;
-						stridedVerts.m_striding = stride;
-						stridedVerts.m_vertices = vertices;
-					}
-
-					hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-					{
-						stridedVerts.m_numVertices = geom.m_vertices.getSize();
-						stridedVerts.m_striding = sizeof(hkVector4);
-						stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-					}
-
-					turret = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-				}
-				turret->setRadius(0.1f);
+				hkStridedVertices stridedVerts;
+				stridedVerts.m_numVertices = numVertices;
+				stridedVerts.m_striding = stride;
+				stridedVerts.m_vertices = vertices;
+				turret = new hkpConvexVerticesShape(stridedVerts);
 			}
 		}
 
@@ -170,11 +137,7 @@ TankDemo::TankDemo(hkDemoEnvironment* env)
 
 			hkArray<hkpShape*> shapeArray;
 
-			hkpBoxShape* gun = new hkpBoxShape(halfSize3, 0 );
-
-			body->setRadius(0.05f);
-			turret->setRadius(0.05f);
-			gun->setRadius(0.05f);
+			hkpBoxShape* gun = new hkpBoxShape(halfSize3, 0.05f );
 
 			hkTransform transform;
 			transform.setIdentity();
@@ -223,11 +186,13 @@ TankDemo::TankDemo(hkDemoEnvironment* env)
 																			chassisInfo);
 
 					chassisRigidBody = new hkpRigidBody(chassisInfo);
-
-					m_world->addEntity(chassisRigidBody);
-
-					HK_SET_OBJECT_COLOR((hkUlong)chassisRigidBody->getCollidable(), 0x80ff8080);
 				}
+
+				TankSetup tsetup;
+				m_vehicles[vehicleId].m_vehicle = createVehicle( tsetup, chassisRigidBody);
+				m_vehicles[vehicleId].m_lastRPM = 0.0f;
+
+				HK_SET_OBJECT_COLOR((hkUlong)chassisRigidBody->getCollidable(), 0x80ff8080);
 
 				// This hkpAction flips the car upright if it turns over. 	 
 				if (vehicleId == 0) 	 
@@ -237,10 +202,6 @@ TankDemo::TankDemo(hkDemoEnvironment* env)
 					hkReal strength = 10.0f; 	 
 					m_reorientAction = new hkpReorientAction(chassisRigidBody, rotationAxis, upAxis, strength); 	 
 				}
-
-				TankSetup tsetup;
-				m_vehicles[vehicleId].m_vehicle = createVehicle( tsetup, chassisRigidBody);
-				m_vehicles[vehicleId].m_lastRPM = 0.0f;
 
 				chassisRigidBody->removeReference();
 			}
@@ -308,7 +269,7 @@ static const char helpString[] = "Controls:\n" \
 HK_DECLARE_DEMO(TankDemo, HK_DEMO_TYPE_PHYSICS, "Drive a heavy tank on a MOPP landscape", helpString );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

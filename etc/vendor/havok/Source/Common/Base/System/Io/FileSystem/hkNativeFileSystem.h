@@ -15,10 +15,31 @@
 #include <Common/Base/System/Io/Reader/Buffered/hkBufferedStreamReader.h>
 #include <Common/Base/System/Io/Writer/Buffered/hkBufferedStreamWriter.h>
 
+#if defined(HK_PLATFORM_PSP) || defined(HK_PLATFORM_PS2) || defined(HK_PLATFORM_UNIX) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_LRB)
+#	include <Common/Base/System/Io/Reader/Posix/hkPosixStreamReader.h>
+#	include <Common/Base/System/Io/Writer/Posix/hkPosixStreamWriter.h>
+
+#	if defined (HK_PLATFORM_UNIX) ||  defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_LRB)
+#		include <Common/Base/System/Io/Directory/Posix/hkPosixListDirectory.h>
+#	else
+#		include <Common/Base/System/Io/Directory/EmptyImpl/hkListDirectoryEmptyImpl.h>
+#	endif
+
+#elif defined(HK_PLATFORM_WIN32) || defined(HK_PLATFORM_XBOX) || defined(HK_PLATFORM_XBOX360)
 #	include <Common/Base/System/Io/Reader/Stdio/hkStdioStreamReader.h>
 #	include <Common/Base/System/Io/Writer/Stdio/hkStdioStreamWriter.h>
 #	include <Common/Base/System/Io/Directory/Win32/hkWin32ListDirectory.h>
 
+#elif defined(HK_PLATFORM_PS3_PPU)
+#	include <Common/Base/System/Io/Reader/Stdio/hkStdioStreamReader.h>
+#	include <Common/Base/System/Io/Writer/Stdio/hkStdioStreamWriter.h>
+#	include <Common/Base/System/Io/Directory/Ps3/hkPs3ListDirectory.h> 
+#	include <sys/paths.h>
+
+#else
+#	include <Common/Base/System/Io/Reader/Stdio/hkStdioStreamReader.h>
+#	include <Common/Base/System/Io/Writer/Stdio/hkStdioStreamWriter.h>
+#endif
 
 // FileSystem class implementation for native file systems.
 // Uses default reader, writer and file system browsers for each platform
@@ -103,7 +124,7 @@ public:
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

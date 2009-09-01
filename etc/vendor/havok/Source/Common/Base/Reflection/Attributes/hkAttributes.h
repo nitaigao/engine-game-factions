@@ -85,7 +85,7 @@ extern const hkClass hkUiAttributeClass;
 struct hkUiAttribute
 {
 	//+defineattribute(true)
-	//+version(1)
+	//+version(2)
 	public:
 		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_HKCLASS, hkUiAttribute );
 		HK_DECLARE_REFLECTION();
@@ -110,6 +110,10 @@ struct hkUiAttribute
 
 			/// Opens a new subgroup with the specified name.
 		const char* m_group;
+
+			/// A comma-separated list [string] used to hide any usually visible baseclass members. This tag can only be used on a class itself and will
+			/// be ignored when used on a member.
+		const char* m_hideBaseClassMembers;
 
 			/// Close the current subgroup.
 		hkBool m_endGroup;
@@ -240,6 +244,7 @@ struct hkArrayTypeAttribute
 	{
 		NONE = 0,
 		POINTSOUP,	/// This member represents an array of points in space.
+		ENTITIES,	/// This member represents an array of hkpEntity objects.
 	};
 
 		/// Can be used to define the array type
@@ -276,7 +281,7 @@ struct hkDocumentationAttribute
 #endif // HK_ATTRIBUTE_CLASS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

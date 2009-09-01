@@ -100,7 +100,7 @@ private:
 			/// Store the current mouse buttons
 			hkUint32							m_mouseButtons;
 
-			/// Store the current state of the analgue sticks
+			/// Store the current state of the analogue sticks
 			hkReal								m_sticks[4];
 
 			Frame ( void );
@@ -164,7 +164,7 @@ private:
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

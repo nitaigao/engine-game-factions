@@ -21,7 +21,10 @@ class hkProcessHandler
 			HK_REGISTER_PROCESS = 0xC0, 
 			HK_SELECT_PROCESS,
 			HK_CREATE_PROCESS,
-			HK_DELETE_PROCESS
+			HK_DELETE_PROCESS,
+
+			HK_PAUSE_WORLD_STEP,   // these are here to avoid dependency of VDB frontend on Destruction
+			HK_UNPAUSE_WORLD_STEP
 		};
 
 		virtual ~hkProcessHandler() {}
@@ -60,7 +63,7 @@ class hkProcessHandler
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

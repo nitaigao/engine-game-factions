@@ -149,6 +149,17 @@ namespace hkVector4Util
 		/// Returns the squared distance from p to the line segment ab 
 	HK_FORCE_INLINE hkSimdReal HK_CALL distToLineSquared( const hkVector4& a, const hkVector4& b, const hkVector4& p );
 
+		/// Helper function for use with hkAlgorithm::findMinimumIndex, etc.
+		/// Sample usage (finding the index of the element of "vectors" that is closest to "point"
+		///		int minIndex = hkAlgorithm::findMinimumIndex( vectors.begin(), vectors.getSize(), hkVector4Util::DistanceToPoint( point ) );
+	struct DistanceToPoint
+	{
+		HK_FORCE_INLINE DistanceToPoint( hkVector4Parameter p ) : m_p(p) { }
+		HK_FORCE_INLINE hkReal operator() (hkVector4Parameter p) const { return m_p.distanceToSquared3(p); }
+
+		hkVector4 m_p;
+	};
+
 		/// check for free registers for computers with lot's of registers (e.g. PlayStation(R)2)
 	HK_FORCE_INLINE void HK_CALL checkRegisters( hkUint32 registerMask );
 
@@ -157,6 +168,16 @@ namespace hkVector4Util
 
 		/// release these registers
 	HK_FORCE_INLINE void HK_CALL releaseRegisters( hkUint32 registerMask );
+
+		//
+		//	convertions
+		//
+
+		/// convert an hkVector4 to a string representing the x,y,z components in that order.
+	hkString HK_CALL toString3(const hkVector4& x,char separator=',');
+
+		/// convert an hkVector4 to a string representing the x,y,z,w components in that order.
+	hkString HK_CALL toString4(const hkVector4& x,char separator=',');
 
 		//
 		//	compression
@@ -220,7 +241,7 @@ HK_FORCE_INLINE void HK_CALL hkVector4Util::releaseRegisters( hkUint32 registerM
 #endif // HK_MATH_VECTOR3_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

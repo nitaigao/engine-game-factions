@@ -76,26 +76,12 @@ hkpRigidBody* CrashTestDummiesDemo::createSimpleCarHull()
 				for (int i = 0; i < 2; i++)
 				{
 					hkStridedVertices stridedVerts;
-					{
-						stridedVerts.m_numVertices = numVertices[i];
-						stridedVerts.m_striding = stride;
-						stridedVerts.m_vertices = vertices[i];
-					}
-
-					hkGeometry geom;
-					hkArray<hkVector4> planeEquations;
-
-					hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-					{
-						stridedVerts.m_numVertices = geom.m_vertices.getSize();
-						stridedVerts.m_striding = sizeof(hkVector4);
-						stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-					}
-
-					hkpConvexVerticesShape* shape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-					shape->setRadius(0.01f);
-
+					stridedVerts.m_numVertices = numVertices[i];
+					stridedVerts.m_striding = stride;
+					stridedVerts.m_vertices = vertices[i];
+					
+					hkpConvexVerticesShape* shape = new hkpConvexVerticesShape(stridedVerts);
+					
 					hkpConvexTranslateShape* tshape = new hkpConvexTranslateShape(shape, hkVector4(1.5f, 0.0f, 0.0f));
 
 					shapes.pushBack(shape);
@@ -395,7 +381,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO( CrashTestDummiesDemo, HK_DEMO_TYPE_PHYSICS, "CrashTestDummies", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

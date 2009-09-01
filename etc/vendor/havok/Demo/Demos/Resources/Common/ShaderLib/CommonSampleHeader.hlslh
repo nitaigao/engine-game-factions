@@ -1,0 +1,174 @@
+// TKBMS v1.0 -----------------------------------------------------
+//
+// PLATFORM		: WIN32 XENON
+// PRODUCT		: ALL
+// VISIBILITY	: PUBLIC
+//
+// ------------------------------------------------------TKBMS v1.0
+
+#ifndef _HK_COMMON_SAMPLE_HEADER__H
+#define _HK_COMMON_SAMPLE_HEADER__H
+
+#ifndef HKG_CUBEMAP_SLOT0
+float4 _sample0( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D0.Sample( g_sSamplerZero, d);
+	#else
+		return tex2D( g_sSamplerZero, d );
+	#endif
+}
+#else
+float4 _cubeSample0( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube0.Sample( g_sSamplerZero, d); 
+	#else
+		return texCUBE(g_sSamplerZero, d); 
+	#endif
+}
+#endif
+
+#ifndef HKG_CUBEMAP_SLOT1
+float4 _sample1( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D1.Sample( g_sSamplerOne, d);
+	#else
+		return tex2D( g_sSamplerOne, d );
+	#endif
+}
+#else
+float4 _cubeSample1( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube1.Sample( g_sSamplerOne, d); 
+	#else
+		return texCUBE(g_sSamplerOne, d); 
+	#endif
+}
+#endif
+
+#ifndef HKG_CUBEMAP_SLOT2
+float4 _sample2( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D2.Sample( g_sSamplerTwo, d);
+	#else
+		return tex2D( g_sSamplerTwo, d );
+	#endif
+}
+#else
+float4 _cubeSample2( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube2.Sample( g_sSamplerTwo, d); 
+	#else
+		return texCUBE(g_sSamplerTwo, d); 
+	#endif
+}
+#endif
+
+#ifndef HKG_CUBEMAP_SLOT3
+float4 _sample3( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D3.Sample( g_sSamplerThree, d);
+	#else
+		return tex2D( g_sSamplerThree, d );
+	#endif
+}
+#else
+float4 _cubeSample3( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube3.Sample( g_sSamplerThree, d); 
+	#else
+		return texCUBE(g_sSamplerThree, d); 
+	#endif
+}
+#endif
+
+#ifndef HKG_CUBEMAP_SLOT4
+float4 _sample4( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D4.Sample( g_sSamplerFour, d);
+	#else
+		return tex2D( g_sSamplerFour, d );
+	#endif
+}
+#else
+float4 _cubeSample4( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube4.Sample( g_sSamplerFour, d); 
+	#else
+		return texCUBE(g_sSamplerFour, d); 
+	#endif
+}
+#endif
+
+#ifndef HKG_CUBEMAP_SLOT5
+float4 _sample5( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D5.Sample( g_sSamplerFive, d);
+	#else
+		return tex2D( g_sSamplerFive, d );
+	#endif
+}
+#else
+float4 _cubeSample5( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube5.Sample( g_sSamplerFive, d); 
+	#else
+		return texCUBE(g_sSamplerFive, d); 
+	#endif
+}
+#endif
+
+
+#ifndef HKG_CUBEMAP_SLOT6
+float4 _sample6( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D6.Sample( g_sSamplerSix, d);
+	#else
+		return tex2D( g_sSamplerSix, d );
+	#endif
+}
+#else
+float4 _cubeSample6( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube6.Sample( g_sSamplerSix, d); 
+	#else
+		return texCUBE(g_sSamplerSix, d); 
+	#endif
+}
+#endif
+
+
+#ifndef HKG_CUBEMAP_SLOT7
+float4 _sample7( float2 d )
+{
+	#ifdef HKG_DX10
+		return Tex2D7.Sample( g_sSamplerSeven, d);
+	#else
+		return tex2D( g_sSamplerSeven, d );
+	#endif
+}
+#else
+float4 _cubeSample7( float3 d )
+{	
+	#ifdef HKG_DX10
+		return TexCube7.Sample( g_sSamplerSeven, d); 
+	#else
+		return texCUBE(g_sSamplerSeven, d); 
+	#endif
+}
+#endif
+
+#endif  // _HK_COMMON_SAMPLE_HEADER__H

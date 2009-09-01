@@ -13,6 +13,15 @@
 //:STYLE VertOneLightParallax PixT1Parallax LD1 T1 DIFFUSE0 NORMAL0 DISPLACEMENT0 SPECULAR0
 //:STYLE VertOneLightParallax PixT1ParallaxShadow LD1 T1 SHADOWMAP DIFFUSE0 NORMAL0 DISPLACEMENT0 SPECULAR0
 
+//:STYLE VertOneLightParallax PixT1Parallax LD2 T1 DIFFUSE0 NORMAL0 DISPLACEMENT0 SPECULAR0
+//:STYLE VertOneLightParallax PixT1ParallaxShadow LD2 T1 SHADOWMAP DIFFUSE0 NORMAL0 DISPLACEMENT0 SPECULAR0
+
+//:STYLE VertOneLightParallax PixT1Parallax LD1 T1 DIFFUSE0 NORMAL0 DISPLACEMENT0 DEFINE:NO_SPEC
+//:STYLE VertOneLightParallax PixT1ParallaxShadow LD1 T1 SHADOWMAP DIFFUSE0 NORMAL0 DISPLACEMENT0 DEFINE:NO_SPEC
+
+//:STYLE VertOneLightParallax PixT1Parallax LD2 T1 DIFFUSE0 NORMAL0 DISPLACEMENT0 DEFINE:NO_SPEC
+//:STYLE VertOneLightParallax PixT1ParallaxShadow LD2 T1 SHADOWMAP DIFFUSE0 NORMAL0 DISPLACEMENT0 DEFINE:NO_SPEC
+
 #include "CommonHeader.hlslh"
 
 // #define PARALLAX_VISUALIZE_LOD 1
@@ -24,12 +33,6 @@ float4x4 g_mWorldView		: WorldView;
 float4x4 g_mProj			: Proj;
 float4x4 g_mViewInv			: ViewInverse;
  
-// extra textures
-sampler g_sSamplerOne  : register(s1);		// T0 if shadows, otherwise T1
-sampler g_sSamplerTwo  : register(s2);		// T1 if shadows, , otherwise T1
-sampler g_sSamplerThree : register(s3);     // T1 if shadows, otherwise T3
-sampler g_sSamplerFour  : register(s4);		// T3 if shadows
-
 //float    g_fHeightMapScale = 0.1;         // Describes the useful range of values for the height field
 
 //float2   g_vTextureDims = float2(256,256);            // Specifies texture dimensions for computation of mip level at 
@@ -51,8 +54,8 @@ struct vertexInputT1Parallax
 	float4 inPositionOS  : POSITION; 
     float2 inTexCoord    : TEXCOORD0;
     float3 vInNormalOS   : NORMAL;
-    float3 vInTangentOS  : TEXCOORD3;
-    float3 vInBinormalOS : TEXCOORD4;
+    float3 vInTangentOS  : TANGENT;
+    float3 vInBinormalOS : BINORMAL;
 };
 						 
 struct vertexOutputT1Parallax
@@ -73,7 +76,7 @@ vertexOutputT1Parallax VertOneLightParallax( vertexInputT1Parallax In )
 {
 	vertexOutputT1Parallax Out;
 
-float    g_fHeightMapScale = 0.03;         // Describes the useful range of values for the height field
+float    g_fHeightMapScale = 0.05;         // Describes the useful range of values for the height field
 	// Transform and output input position 
     float4 viewPos =  mul( float4(In.inPositionOS.xyz, 1.0), g_mWorldView);
     Out.position = mul( viewPos, g_mProj );
@@ -110,7 +113,7 @@ float    g_fHeightMapScale = 0.03;         // Describes the useful range of valu
     float3x3 mWorldToTangent = float3x3( vTangentWS, vBinormalWS, vNormalWS );
        
     // Propagate the view and the light vectors (in tangent space):
-    Out.vLightTS = mul( vLightWS, mWorldToTangent );
+    Out.vLightTS = mul( mWorldToTangent, vLightWS );
     Out.vViewTS  = mul( mWorldToTangent, vViewWS  );
        
     // Compute the ray direction for intersecting the height field profile with 
@@ -142,13 +145,13 @@ float    g_fHeightMapScale = 0.03;         // Describes the useful range of valu
 float4 ComputeIllumination( float2 texCoord, float3 vLightTS, float3 vViewTS)
 {
    // Sample the normal from the normal map for the given texture sample:
-   float3 vNormalTS = normalize( tex2D( g_sSamplerOne, texCoord ) * 2 - 1 );
+   float3 vNormalTS = normalize( _sample1( texCoord ) * 2 - 1 );
    
    // Sample base map:
-   float4 cBaseColor = tex2D( g_sSamplerZero, texCoord );
+   float4 cBaseColor = _sample0(texCoord );
    
    // Compute diffuse color component:
-   float3 vLightTSAdj = float3( vLightTS.x, -vLightTS.y, vLightTS.z );
+   float3 vLightTSAdj = float3( vLightTS.x, vLightTS.y, vLightTS.z );
    
    float4 cDiffuse = saturate( dot( vNormalTS, vLightTSAdj )) * g_cDiffuseColor;
    
@@ -156,9 +159,14 @@ float4 ComputeIllumination( float2 texCoord, float3 vLightTS, float3 vViewTS)
    float3 vReflectionTS = normalize( 2 * dot( vViewTS, vNormalTS ) * vNormalTS - vViewTS );
 
    float fRdotL = saturate( dot( vReflectionTS, vLightTSAdj ));
-   float4 cSpecular = saturate( pow( fRdotL, g_cSpecularPower )) * 
-						tex2D( g_sSamplerThree, texCoord ) * g_cSpecularColor;
-   
+
+#ifndef NO_SPEC
+    float4 cSpecular = saturate( pow( fRdotL, g_cSpecularPower )) * 
+						_sample3(texCoord ) * g_cSpecularColor;
+#else
+	float4 cSpecular = saturate( pow( fRdotL, g_cSpecularPower )) * g_cSpecularColor;
+#endif
+
    // Composite the final color:
    return ( g_cAmbientColor + cDiffuse ) * cBaseColor + cSpecular; 
 }   
@@ -169,13 +177,13 @@ float4 ComputeIlluminationAndShadow( float2 texCoord,
 									 float fOcclusionShadow )
 {
    // Sample the normal from the normal map for the given texture sample:
-   float3 vNormalTS = normalize( tex2D( g_sSamplerTwo, texCoord ) * 2 - 1 );
+   float3 vNormalTS = normalize( _sample5(texCoord ) * 2 - 1 );
    
    // Sample base map:
-   float4 cBaseColor = tex2D( g_sSamplerOne, texCoord );
+   float4 cBaseColor = _sample4(texCoord );
    
    // Compute diffuse color component:
-   float3 vLightTSAdj = float3( vLightTS.x, -vLightTS.y, vLightTS.z );
+   float3 vLightTSAdj = float3( vLightTS.x, vLightTS.y, vLightTS.z );
    
    float4 cDiffuse = saturate( dot( vNormalTS, vLightTSAdj )) * g_cDiffuseColor;
    
@@ -183,11 +191,16 @@ float4 ComputeIlluminationAndShadow( float2 texCoord,
    float3 vReflectionTS = normalize( 2 * dot( vViewTS, vNormalTS ) * vNormalTS - vViewTS );
 
    float fRdotL = saturate( dot( vReflectionTS, vLightTSAdj ));
+
+#ifndef NO_SPEC
    float4 cSpecular = saturate( pow( fRdotL, g_cSpecularPower )) * 
-						tex2D( g_sSamplerFour, texCoord ) * g_cSpecularColor;
-   
+						_sample7(texCoord ) * g_cSpecularColor;
+#else
+   float4 cSpecular = saturate( pow( fRdotL, g_cSpecularPower )) * g_cSpecularColor;
+#endif
+
 #ifdef HKG_SHADOWS_VSM
-	float lightAmount = getLightAmountVSM( vPositionLS, vPositionWS );
+	float lightAmount = getLightAmountVSM( vPositionLS, float4(0,0,0,1), float4(0,0,0,1), float4(0,0,0,1), vPositionWS );
 #else
 	float lightAmount = getLightAmountSM( vPositionLS ); 
 #endif
@@ -208,7 +221,7 @@ pixelOutput PixT1Parallax( vertexOutputT1Parallax In )
 //	pixelOutput o;
 //	o.color = ComputeIllumination(In.texCoord, vLightTS, vViewTS, 1);
 //	return o;
-	float    g_fHeightMapScale = 0.03;         // Describes the useful range of values for the height field
+	float    g_fHeightMapScale = 0.05;         // Describes the useful range of values for the height field
 float2   g_vTextureDims = float2(256,256);            // Specifies texture dimensions for computation of mip level at 
                                     // render time (width, height)
 int      g_nLODThreshold = 5;           // The mip level id for transitioning between the full computation
@@ -310,7 +323,11 @@ int      g_nMaxSamples = 20;             // The maximum number of samples for sa
 
          // Sample height map which in this case is stored in the alpha channel of the normal map:
          //fCurrHeight = tex2Dgrad( g_sSamplerOne, vTexCurrentOffset, dx, dy ).a;
-         fCurrHeight = tex2Dgrad( g_sSamplerTwo, vTexCurrentOffset, dx, dy ).r;
+#ifdef HKG_DX10
+		 fCurrHeight = Tex2D2.SampleGrad( g_sSamplerTwo, vTexCurrentOffset, dx, dy ).r;
+#else
+		 fCurrHeight = tex2Dgrad( g_sSamplerTwo, vTexCurrentOffset, dx, dy ).r;
+#endif
 
          fCurrentBound -= fStepSize;
 
@@ -390,7 +407,9 @@ int      g_nMaxSamples = 20;             // The maximum number of samples for sa
    // But since this example isn't doing that, we just output the computed result color here:
    pixelOutput Output;
    Output.color = cResultColor;
-   
+   clip( Output.color.a - ALPHA_DISCARD_TOLERANCE );
+
+   //xx DEPTH, fog
    return Output;
 }
 
@@ -510,8 +529,12 @@ float    g_fShadowSoftening = 1;        // Blurring factor for the soft shadows 
          vTexCurrentOffset -= vTexOffsetPerStep;
 
          // Sample height map which in this case is stored in the alpha channel of the normal map:
-         //fCurrHeight = tex2Dgrad( g_sSamplerOne, vTexCurrentOffset, dx, dy ).a;
-         fCurrHeight = tex2Dgrad( g_sSamplerTwo, vTexCurrentOffset, dx, dy ).r;
+         //fCurrHeight = tex2Dgrad( g_sSamplerFour, vTexCurrentOffset, dx, dy ).a;
+#ifdef HKG_DX10
+		 fCurrHeight = Tex2D2.SampleGrad( g_sSamplerFive, vTexCurrentOffset, dx, dy ).r;
+#else
+		 fCurrHeight = tex2Dgrad( g_sSamplerFive, vTexCurrentOffset, dx, dy ).r;
+#endif
 
          fCurrentBound -= fStepSize;
 
@@ -581,14 +604,14 @@ float    g_fShadowSoftening = 1;        // Blurring factor for the soft shadows 
         // Compute the soft blurry shadows taking into account self-occlusion for 
         // features of the height field:
    
-        float sh0 =  tex2Dgrad( g_sSamplerTwo, texSampleBase, dx, dy ).r;
-        float shA = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.88, dx, dy ).r - sh0 - 0.88 ) *  1 * g_fShadowSoftening;
-        float sh9 = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.77, dx, dy ).r - sh0 - 0.77 ) *  2 * g_fShadowSoftening;
-        float sh8 = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.66, dx, dy ).r - sh0 - 0.66 ) *  4 * g_fShadowSoftening;
-        float sh7 = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.55, dx, dy ).r - sh0 - 0.55 ) *  6 * g_fShadowSoftening;
-        float sh6 = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.44, dx, dy ).r - sh0 - 0.44 ) *  8 * g_fShadowSoftening;
-        float sh5 = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.33, dx, dy ).r - sh0 - 0.33 ) * 10 * g_fShadowSoftening;
-        float sh4 = (tex2Dgrad( g_sSamplerTwo, texSampleBase + vLightRayTS * 0.22, dx, dy ).r - sh0 - 0.22 ) * 12 * g_fShadowSoftening;
+        float sh0 =  tex2Dgrad( g_sSamplerFive, texSampleBase, dx, dy ).r;
+        float shA = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.88, dx, dy ).r - sh0 - 0.88 ) *  1 * g_fShadowSoftening;
+        float sh9 = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.77, dx, dy ).r - sh0 - 0.77 ) *  2 * g_fShadowSoftening;
+        float sh8 = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.66, dx, dy ).r - sh0 - 0.66 ) *  4 * g_fShadowSoftening;
+        float sh7 = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.55, dx, dy ).r - sh0 - 0.55 ) *  6 * g_fShadowSoftening;
+        float sh6 = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.44, dx, dy ).r - sh0 - 0.44 ) *  8 * g_fShadowSoftening;
+        float sh5 = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.33, dx, dy ).r - sh0 - 0.33 ) * 10 * g_fShadowSoftening;
+        float sh4 = (tex2Dgrad( g_sSamplerFive, texSampleBase + vLightRayTS * 0.22, dx, dy ).r - sh0 - 0.22 ) * 12 * g_fShadowSoftening;
    
         // Compute the actual shadow strength:
         fOcclusionShadow = 1 - max( max( max( max( max( max( shA, sh9 ), sh8 ), sh7 ), sh6 ), sh5 ), sh4 );
@@ -615,12 +638,16 @@ float    g_fShadowSoftening = 1;        // Blurring factor for the soft shadows 
    // But since this example isn't doing that, we just output the computed result color here:
    pixelOutput Output;
    Output.color = cResultColor;
-   
+      
+   clip( Output.color.a - ALPHA_DISCARD_TOLERANCE );
+
+	//XX DEPTH, fog
+
    return Output;
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

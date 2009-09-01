@@ -59,9 +59,9 @@ class hkDataObject
 				/// Not reflected.
 			TYPE_VOID = 0,
 
-				/// Byte, signed or unsigned 8-bit integer.
+				/// Byte, signed or unsigned 8-bit integer, used only in arrays and tuples
 			TYPE_BYTE,
-				/// Signed or unsigned 16/32/64-bit integer. 
+				/// Signed or unsigned 8/16/32/64-bit integer. 
 			TYPE_INT,
 				/// 32-bit float.
 			TYPE_REAL,
@@ -149,6 +149,10 @@ class hkDataObject
  				void operator=(hkInt64 i);
 					/// Assign 32-bit float to value.
  				void operator=(hkReal r);
+					/// Assign bool to value.
+ 				void operator=(bool b);
+					/// Assign 16-bit float to value.
+ 				void operator=(hkHalf r);
 					/// Assign c-style string to value.
 				void operator=(const char* s);
 					/// Assign array or tuple to value.
@@ -263,6 +267,8 @@ class hkDataArray
  				void operator=(hkInt64 i);
 					/// Assign 32-bit float to value.
  				void operator=(hkReal r);
+					/// Assign 16-bit float to value.
+ 				void operator=(hkHalf r);
 					/// Assign array or a tuple to value.
   				void operator=(const hkDataArray& l);
 					/// Assign object to value.
@@ -367,6 +373,8 @@ class hkDataArray
 		void setAll(const hkUint64* a, int n);
 			/// Set array size to 'n' and initialize the array items with values from 'a'.
 		void setAll(const hkReal* a, int n);
+			/// Set array size to 'n' and initialize the array items with values from 'a'.
+		void setAll(const hkHalf* a, int n);
 
 		//getAll?
 
@@ -521,7 +529,7 @@ inline int hkDataObject::getNumRealsFromType(hkDataObject::Type mtype)
 #endif // HK_DATA_OBJECT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

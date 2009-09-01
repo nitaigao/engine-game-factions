@@ -195,7 +195,10 @@ class hkArray
 			/// Inserts the array a at index i.
 			/// See also getSubarray() and the constructor, which uses an existing
 			/// C style array in place.
-		void insertAt(int i, const T* p, int numElems );
+		void insertAt(int i, const T* a, int numElems );
+
+			/// Appends the array a.
+		void append(const T* a, int numElems );
 
 			/// Replaces elements [i,i+ndel) with the supplied array.
 			/// This method avoids redundant copying associated with separate remove & insert steps.
@@ -357,7 +360,7 @@ class hkInplaceArrayAligned16 : public hkArray<T>
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

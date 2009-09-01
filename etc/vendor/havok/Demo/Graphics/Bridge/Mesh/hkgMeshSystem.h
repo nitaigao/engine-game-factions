@@ -78,6 +78,20 @@ class hkgMeshSystem: public hkMemoryMeshSystem
             // Given a registry will look for a material registered
         static hkMeshMaterial* HK_CALL findMaterial(hkMeshMaterialRegistry* registry, const hkgMaterial* material);
 
+		//
+		// Some options
+		//
+
+		enum InstancingSupport
+		{
+			NO_INSTANCING,	///
+			CPU_INSTANCING, ///
+			HW_INSTANCING   ///
+		};
+
+		HK_FORCE_INLINE void setInstancingEnabled(InstancingSupport s) { m_instancingSupport = s; }
+		HK_FORCE_INLINE InstancingSupport getInstancingEnabled() { return m_instancingSupport; }
+
 	public:
 
 		virtual hkMeshVertexBuffer* createSkinnedVertexBuffer(const hkVertexFormat& vertexFormat, int numVertices);
@@ -87,12 +101,14 @@ class hkgMeshSystem: public hkMemoryMeshSystem
 
 			/// The hkgGraphics display context
 		hkRefPtr<hkgDisplayContext> m_context;
+
+		hkEnum<InstancingSupport, hkUint8> m_instancingSupport;
 };
 
 #endif // HKG_MESH_SYSTEM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -45,13 +45,13 @@ class CustomAttributesDemo : public hkDefaultDemo
 			// longhand attribute access
 			if( const hkVariant* v = k->getAttribute("Example.GuiLayoutOrder") )
 			{
-				ExampleIntListAttribute* attr = static_cast<ExampleIntListAttribute*>(v->m_object);
-				attr;
+				ExampleIntListAttribute* attr;
+				attr = static_cast<ExampleIntListAttribute*>(v->m_object);
 			}
 			if( const hkVariant* v = k->getMemberByName("name")->getAttribute("Example.IconData") )
 			{
-				ExampleRawByteData* attr = static_cast<ExampleRawByteData*>(v->m_object);
-				attr;
+				ExampleRawByteData* attr;
+				attr = static_cast<ExampleRawByteData*>(v->m_object);
 			}
 
 			// shorthand for the above: puts the attribute into the supplied
@@ -82,7 +82,7 @@ class CustomAttributesDemo : public hkDefaultDemo
 HK_DECLARE_DEMO(CustomAttributesDemo, HK_DEMO_TYPE_PRIME, "Custom metadata attributes", HK_NULL);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

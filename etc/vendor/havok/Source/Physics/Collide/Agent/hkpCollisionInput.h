@@ -10,7 +10,7 @@
 #define HK_COLLIDE2_COLLISION_INPUT_H
 
 class hkpCollisionDispatcher;
-class hkpShapeCollectionFilter;
+class hkpCollisionFilter;
 class hkpConvexListFilter;
 struct hkpCollisionAgentConfig;
 class hkpSpuCollisionQueryDispatcher;
@@ -41,7 +41,7 @@ struct hkpCollisionInput
 
 			/// The filter used if any shape collections are queried. This filter will be called before any child shapes
 			/// are considered for the query.
-		hkPadSpu<const hkpShapeCollectionFilter*> m_filter;
+		hkPadSpu<const hkpCollisionFilter*> m_filter;
 
 			/// A filter used to decide how to treat convex list shapes in collisions.
 		hkPadSpu<const hkpConvexListFilter*> m_convexListFilter;
@@ -64,7 +64,7 @@ struct hkpCollisionInput
 #endif // HK_COLLIDE2_COLLISION_INPUT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

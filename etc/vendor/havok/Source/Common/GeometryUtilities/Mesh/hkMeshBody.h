@@ -61,7 +61,7 @@ class hkMeshBody: public hkReferencedObject
 			/// Helper enum to specify what type of pointer is used for mouse picking in the Havok demos
         enum PickDataIdentifier
         {
-            PICK_BREAKABLE_BODY = 1,            ///
+            PICK_RIGID_BODY_WITH_BREAKABLE_BODY = 1,            ///
             PICK_USER = 0x1000,                 ///
         };
 
@@ -106,7 +106,7 @@ class hkMeshBody: public hkReferencedObject
 #endif // HK_MESH_BODY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

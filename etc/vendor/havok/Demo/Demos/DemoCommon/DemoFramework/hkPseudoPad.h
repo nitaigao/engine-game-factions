@@ -34,6 +34,12 @@ void hkPseudoPad::updatePad( int padIndex, hkgWindow* window, hkReal deltaTime, 
 
 		m_stick[0] = pad.getStickState(0);
 		m_stick[1] = pad.getStickState(1);
+
+		m_trigger[0].m_prev = m_trigger[0].m_cur;
+		m_trigger[0].m_cur = pad.getTriggerPos( 0 );
+		m_trigger[1].m_prev = m_trigger[1].m_cur;
+		m_trigger[1].m_cur = pad.getTriggerPos( 1 );
+
 	}
 	else // fake one
 	{
@@ -165,7 +171,7 @@ void hkPseudoPad::updatePad( int padIndex, hkgWindow* window, hkReal deltaTime, 
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

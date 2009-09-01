@@ -34,7 +34,7 @@ class BroadphaseAddRemoveDemo : public hkDefaultPhysicsDemo
 	protected:
 		hkArray<hkpRigidBody*>		m_bodies;
 		hkArray<hkpEntity*>			m_batch;
-		hkPseudoRandomGenerator*	m_rndgen;
+		hkPseudoRandomGenerator		m_rndgen;
 		hkpShape*					m_shape;
 		hkReal						m_timer;
 		hkReal						m_rate;
@@ -48,7 +48,7 @@ class BroadphaseAddRemoveDemo : public hkDefaultPhysicsDemo
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

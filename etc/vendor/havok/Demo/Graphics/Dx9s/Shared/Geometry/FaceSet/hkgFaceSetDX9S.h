@@ -26,12 +26,17 @@ public:
 	// psuedo Instanced cpu style rendering
 	void renderSetState(hkgDisplayContext* state);
 	void renderPrims(hkgDisplayContext* state);
+	void renderSinglePrim(hkgDisplayContext* state, int pi, hkgBlendMatrixSet* overrideBm );
 	void renderCleanState(hkgDisplayContext* state);
 
 	inline LPDIRECT3DDEVICE9 getDevice();
 	inline const LPDIRECT3DDEVICE9 getDevice() const;
 
 	virtual void initialize(hkArray<hkUint32>* reorderedVertices = HK_NULL);
+
+public:
+
+	int	 m_numIndexedPrimsThisFrame;
 
 protected:
 		
@@ -44,6 +49,7 @@ protected:
 	LPDIRECT3DINDEXBUFFER9	m_pIB;
 	bool					m_hardwareIB;
 	unsigned int			m_numIndices;
+
 
 	struct IndexBufferInfo
 	{
@@ -60,7 +66,7 @@ protected:
 #endif // HK_GRAPHICS_FACE_SET_DX9S_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

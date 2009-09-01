@@ -16,19 +16,24 @@ class hkMallocMemory : public hkMemory
 {
 	public:
 
-		virtual void allocateChunkBatch(void** blocksOut, int nblocks, int nbytes)
+		hkMallocMemory( int maxNumElemsOnThreadMemoryFreeList = DEFAULT_MAX_NUM_ELEMS_ON_THREAD_MEMORY_FREE_LIST )
+			: hkMemory(maxNumElemsOnThreadMemoryFreeList)
+		{		
+		}
+
+		virtual void allocateChunkBatch(void** blocksOut, int nblocks, int nbytes, HK_MEMORY_CLASS cl)
 		{
 			for( int i = 0; i < nblocks; ++i )
 			{
-				blocksOut[i] = allocateChunk(nbytes, HK_MEMORY_CLASS_ROOT);
+				blocksOut[i] = allocateChunk(nbytes, cl);
 			}
 		}
 
-		virtual void deallocateChunkBatch(void** blocksOut, int nblocks, int nbytes)
+		virtual void deallocateChunkBatch(void** blocksOut, int nblocks, int nbytes, HK_MEMORY_CLASS cl)
 		{
 			for( int i = 0; i < nblocks; ++i )
 			{
-				deallocateChunk(blocksOut[i], nbytes, HK_MEMORY_CLASS_ROOT);
+				deallocateChunk(blocksOut[i], nbytes, cl);
 			}
 		}
 
@@ -37,7 +42,7 @@ class hkMallocMemory : public hkMemory
 			return hkSystemMalloc(nbytes, 16);
 		}
 
-		virtual void deallocateChunk(void* p, int nbytes, HK_MEMORY_CLASS )
+		virtual void deallocateChunk(void* p, int nbytes, HK_MEMORY_CLASS cl)
 		{
 			if(p)
 			{
@@ -87,7 +92,7 @@ class hkMallocMemory : public hkMemory
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

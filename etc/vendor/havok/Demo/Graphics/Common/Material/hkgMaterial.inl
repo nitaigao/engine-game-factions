@@ -14,6 +14,8 @@ hkgMaterial::hkgMaterial()
 	m_specularPower = 20; // for most spec algos this is the normal val (0 to infinity allowq
 	for (int i=0; i < HKG_MAX_TEXTURE_STAGES; ++i)
 		m_textureMode[i] = HKG_TEXTURE_MODULATE;
+
+	m_name = "";
 }
 
 void hkgMaterial::setTexture(int i, hkgTexture* t)
@@ -263,7 +265,7 @@ inline hkgMaterial& hkgMaterial::operator=( const hkgMaterial& other )
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

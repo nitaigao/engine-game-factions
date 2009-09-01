@@ -20,7 +20,7 @@
 	/// Set this define if you want a timer begin and timer end call 
 	/// if a thread has to wait for a critical section
 	/// You also have to call hkCriticalSection::setTimersEnabled()
-#define HK_TIME_CRITICAL_SECTION_LOCKS
+//#define HK_TIME_CRITICAL_SECTION_LOCKS
 
 #if !defined (HK_TIME_CRITICAL_SECTION_LOCKS) && defined(HK_PLATFORM_SIM)
 #	define HK_TIME_CRITICAL_SECTION_LOCKS
@@ -92,7 +92,7 @@ class hkCriticalSection
 #			endif
 #		endif
 
-#	elif defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_UNIX) 
+#	elif defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_UNIX) || defined(HK_PLATFORM_LRB)
 		pthread_mutex_t m_mutex;
 #	else // other threaded platforms:
 		CRITICAL_SECTION  m_section;
@@ -198,7 +198,7 @@ class hkCriticalSection
 #		include <Common/Base/Thread/CriticalSection/Ps3/hkPs3SpuCriticalSection.inl>
 #   elif defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386)
 #		include <Common/Base/Thread/CriticalSection/Mac/hkMacCriticalSection.inl>
-#	elif defined(HK_PLATFORM_UNIX)
+#	elif defined(HK_PLATFORM_UNIX) || defined(HK_PLATFORM_LRB)
 #		include <Common/Base/Thread/Thread/Posix/hkPosixCheck.h>
 #		include <Common/Base/Thread/CriticalSection/Posix/hkPosixCriticalSection.inl>
 #	else
@@ -235,7 +235,7 @@ class hkCriticalSectionLock
 #endif // HKBASE_HK_CRITICAL_SECTION_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

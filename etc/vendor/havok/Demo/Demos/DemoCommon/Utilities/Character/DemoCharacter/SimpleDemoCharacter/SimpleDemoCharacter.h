@@ -23,9 +23,12 @@ class SimpleDemoCharacter : public DemoCharacter
 
 		SimpleDemoCharacter( SimpleDemoCharacterCinfo& info );
 
-		virtual void update( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+		virtual void initUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+		virtual void updateMt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+		virtual void finishUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
 
 		virtual void display( hkReal timestep, hkDemoEnvironment* env );
+		void cleanupGraphics( hkDemoEnvironment* env ) {}
 
 		virtual hkReal getMaxVelocity() const;
 
@@ -41,14 +44,17 @@ class SimpleCharacterFactory : public CharacterFactory
 {
 	public:
 
-		virtual DemoCharacter* createCharacterUsingProxy( CharacterProxy* proxy, const hkVector4& gravity, hkDemoEnvironment* env );
+		virtual DemoCharacter* createCharacterUsingProxy(	CharacterProxy* proxy,
+															const hkVector4& gravity,
+															hkDemoEnvironment* env,
+															CharacterType characterType = MAX_CHARACTER_TYPE );
 };
 
 
 #endif // HK_SIMPLE_DEMO_CHARACTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

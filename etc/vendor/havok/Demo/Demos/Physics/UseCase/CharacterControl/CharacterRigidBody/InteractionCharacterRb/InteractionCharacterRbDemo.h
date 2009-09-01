@@ -15,7 +15,6 @@
 class hkpRigidBody;
 class hkpCharacterRigidBody;
 class hkpCharacterContext;
-struct hkpSurfaceInfo;
 
 class InteractionCharacterRbDemo : public hkDefaultPhysicsDemo
 {
@@ -48,15 +47,12 @@ class InteractionCharacterRbDemo : public hkDefaultPhysicsDemo
 
 		// Interaction objects
 		hkArray<hkpRigidBody*> m_rigidBodies;
-
-		hkpSurfaceInfo*	m_previousGround;
-		hkInt32 m_framesInAir;
 };
 
 #endif // HK_INTERACTION_CHARACTER_RIGIDBODY_DEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

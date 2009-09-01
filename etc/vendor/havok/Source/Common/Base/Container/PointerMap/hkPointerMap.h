@@ -24,7 +24,8 @@ struct hkPointerMapStorage<8>
 	typedef hkUint64 Type; 
 };
 
-/// A class to map between non-zero pointer or integer keys and arbitrary pointer/integer values.
+/// A class to map between pointer or integer keys and arbitrary pointer/integer values.
+/// The key is not allowed to be -1.
 template <typename K, typename V>
 class hkPointerMap
 {
@@ -49,7 +50,7 @@ class hkPointerMap
 		{
 		}
 
-			///	Insert key with associated value val. Keys are unique and non null.
+			///	Insert key with associated value val. Keys are unique and cannot be -1.
 			/// If key already exists it is overwritten. Returns true if the key is new
 			/// and false if an existing key was overwritten.
 		HK_FORCE_INLINE hkBool32 insert( K key, V val )
@@ -211,7 +212,7 @@ class hkPointerMap
 #endif // HKBASE_HKPOINTERMAP_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

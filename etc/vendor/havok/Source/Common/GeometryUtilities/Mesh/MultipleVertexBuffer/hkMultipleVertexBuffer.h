@@ -112,15 +112,6 @@ class hkMultipleVertexBuffer: public hkMeshVertexBuffer
             // hkReferencedObject Implementation
         virtual void calcContentStatistics( hkStatisticsCollector* collector,const hkClass* cls ) const;
 
-    protected:
-			/// ElementInfo
-        struct ElementInfo
-        {
-			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkMultipleVertexBuffer::ElementInfo );
-
-            hkUint8 m_vertexBufferIndex;                            ///
-            hkUint8 m_elementIndex;                                 ///
-        };
 			/// VertexBufferInfo
         struct VertexBufferInfo
         {
@@ -130,6 +121,16 @@ class hkMultipleVertexBuffer: public hkMeshVertexBuffer
             hkRefPtr<hkMeshVertexBuffer> m_vertexBuffer;                ///
             hkMeshVertexBuffer::LockedVertices m_lockedVertices;        ///
             hkBool m_isLocked;											///
+        };
+
+	protected:
+			/// ElementInfo
+        struct ElementInfo
+        {
+			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkMultipleVertexBuffer::ElementInfo );
+
+            hkUint8 m_vertexBufferIndex;                            ///
+            hkUint8 m_elementIndex;                                 ///
         };
 
 			/// LockedElement
@@ -146,6 +147,7 @@ class hkMultipleVertexBuffer: public hkMeshVertexBuffer
 
             hkInt8 m_emulatedIndex;                                 ///
         };
+		
         static HK_FORCE_INLINE bool _less(const LockedElement& a, const LockedElement& b)
         {
             if (a.m_vertexBufferIndex != b.m_vertexBufferIndex)
@@ -189,7 +191,7 @@ class hkMultipleVertexBuffer: public hkMeshVertexBuffer
 #endif // HK_MULTIPLE_VERTEX_BUFFER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

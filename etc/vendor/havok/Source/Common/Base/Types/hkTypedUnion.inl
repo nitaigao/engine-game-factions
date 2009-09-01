@@ -168,7 +168,7 @@ inline hkResult hkTypedUnion::setSimple(const void* orig, const hkClassMember::T
 {
 	HK_ASSERT(0x773e3daa,
 		(type >= hkClassMember::TYPE_BOOL && type <= hkClassMember::TYPE_TRANSFORM)
-		|| (type >= hkClassMember::TYPE_VARIANT && type <= hkClassMember::TYPE_FLAGS) );
+		|| (type >= hkClassMember::TYPE_VARIANT && type <= hkClassMember::TYPE_HALF) );
 	const hkClassMember::TypeProperties& props = hkClassMember::getClassMemberTypeProperties(type);
 	if( unsigned(props.m_size) <= sizeof(m_elem))
 	{
@@ -190,7 +190,7 @@ inline const hkTypedUnion::Storage& hkTypedUnion::getStorage() const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

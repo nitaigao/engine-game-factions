@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="ConsoleExampleMt"
-	ProjectGUID="{7959779A-9C92-4D79-B6D8-B18E46192F16}"
+	ProjectGUID="{48673A36-44EB-468D-95A4-C6B70D19D01D}"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -703,7 +703,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories="..\..,..\..\..\Source,"

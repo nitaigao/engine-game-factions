@@ -39,15 +39,15 @@ class hkpShapeSkinningUtil
                 m_numVertices = 0;
             }
 
-            hkReal m_maxInside;                                 
-            hkReal m_maxOutside;                                
-            hkpCollisionDispatcher* m_collisionDispatcher;      
-            const hkpShape** m_shapes;                          
-            const hkTransform* m_transforms;                    
-            int m_numBones;                                     
-            int m_bonesPerVertex;                               
-            hkVector4* m_vertexPositions;                       
-            int m_numVertices;                                  
+            hkReal m_maxInside;                                 ///
+            hkReal m_maxOutside;                                ///
+            hkpCollisionDispatcher* m_collisionDispatcher;      ///
+            const hkpShape** m_shapes;                          ///
+            const hkTransform* m_transforms;                    ///
+            int m_numBones;                                     ///
+            int m_bonesPerVertex;                               ///
+            hkVector4* m_vertexPositions;                       ///
+            int m_numVertices;                                  ///
         };
 
             /// Find a list of shapes and transforms, finds the one which is closest. If non are in maxDistance range returns -1.
@@ -69,7 +69,7 @@ class hkpShapeSkinningUtil
 #endif // HKP_SHAPE_SKINNING_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

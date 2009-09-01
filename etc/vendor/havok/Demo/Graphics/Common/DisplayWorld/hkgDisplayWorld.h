@@ -14,6 +14,7 @@
 #include <Graphics/Common/hkgObject.h>
 
 class hkgDisplayObject;
+class hkgPseudoInstancedDisplayObject;
 class hkgMaterialManager;
 class hkgLightManager;
 class hkgDisplayContext;
@@ -73,6 +74,7 @@ class hkgDisplayWorld : public hkgReferencedObject
 		/// reached the end. The list is not sorted on the pointer address so this
 		/// search is not fast.
 		int findDisplayObject(hkgDisplayObject* o) const;
+		int findDisplayObject(const char* name) const;
 
 		/// Get the current material manager. This may be null if it was not specified.
 		/// This is const access.
@@ -122,15 +124,21 @@ class hkgDisplayWorld : public hkgReferencedObject
 		/// culling, and then again if you alter geometry that will affect the bounds of held objects.
 		/// It just calls computeBoundingSphere() on held objects so it can be called on a per
 		/// object basis if only a few objects change or culling is only desired on a given set.
-		void recomputeBoundInfo();
-		void getWorldBounds( class hkgAabb& bounds );
-		void getShadowWorldBounds( class hkgAabb& bounds, class hkgCamera& viewCamera );
+		void recomputeBoundInfo() const;
+		void getWorldBounds( class hkgAabb& bounds ) const;
+		void getShadowWorldBounds( class hkgAabb& bounds, const class hkgCamera& viewCamera, const float* lightDir, float distanceLimit = -1.f ) const;
+		
+		void setShadowCasterMaxDistance( float d ); // if you use a large far plane, and have distant casters, use this to limit the influence. < 0 for not limit
 
 		/// Render the held display objects to the current viewport in the context, setting the context
 		/// state for held alpha objects and enabling frustum culling if desired. Once you set
 		/// a viewport as current you can call this function directly.
 		virtual void render(hkgDisplayContext* context, 
 			bool enableFrustumCull = true, bool enableShadows = true, bool inOverdraw = false ) const;
+
+		// Render any objects flagged for final render pass only (so after all post effects)
+		// Typically when SSAO etc done as post effect, particles are done afterwards as a finalRender
+		virtual void finalRender( hkgDisplayContext* context, bool enableFrustumCull = true ) const;
 
 		/// Get the number of objects that are classified as all alpha (transparent).
 		inline int getNumAlphaObjects() const;
@@ -148,7 +156,8 @@ class hkgDisplayWorld : public hkgReferencedObject
 		/// Only call this instead of render() if you know what you are doing.
 		/// Commonly called by multi pass shader demos (prelude then multiple renderobject calls)
 		void renderPrelude(hkgDisplayContext* context) const;
-		void renderObjects(hkgDisplayContext* context, bool enableFrustumCull = true, unsigned int drawObjectFilterBits = 0, unsigned int cullObjectFilterBits = 0) const;
+		void renderObjects(const hkgCamera* c, hkgDisplayContext* context, bool enableFrustumCull = true, unsigned int drawObjectFilterBits = 0, unsigned int cullObjectFilterBits = 0) const;
+		void reflectionPass(hkgDisplayContext* contex, hkgCamera* viewCamera, bool frustumCull) const;
 
 		/// For PlayStation(R)2:
 		void frameEndCleanup() const;
@@ -161,8 +170,10 @@ class hkgDisplayWorld : public hkgReferencedObject
 
 		void setFlagOnAll( unsigned int /*HKG_DISPLAY_OBJECT_STATUS*/  f, bool setOn = true );
 	
-	
-	
+		void setReflections( bool on, float* plane );
+		inline bool getReflectionsEnabled();
+		inline float* getReflectionPlane();
+
 		void lock() const;
 		void unlock() const;
 
@@ -176,6 +187,10 @@ class hkgDisplayWorld : public hkgReferencedObject
 		/// List of pure solid objects, drawn first.
 		hkgArray<hkgDisplayObject*>	m_solidObjects;
 
+		// not a seperate list to the alpha objs etc, just to speed up discovery on update
+		hkgArray<hkgPseudoInstancedDisplayObject*>	m_pseudoInstancedObjects;
+
+
 		/// List of pure alpha objects, drawn last.
 		mutable hkgArray<hkgDisplayObject*>	m_alphaObjects;
 
@@ -183,6 +198,9 @@ class hkgDisplayWorld : public hkgReferencedObject
 		mutable hkgArray<hkgDisplayObject*>	m_mixedObjects;
 
 		mutable hkgArray<hkgDisplayObject*>	m_tempSortBuffer;
+		
+		bool						m_reflections; // just infinite for now. Can clip/stencil if used more generally
+		float						m_reflectionPlane[4];
 
 		hkgMaterialManager*			m_materialManager;
 		hkgLightManager*			m_lightManager;
@@ -193,13 +211,14 @@ class hkgDisplayWorld : public hkgReferencedObject
 		mutable float				m_lastSortedCamTo[3];
 		
 		int							m_iNumShadowCasters;
+		float						m_casterDistanceLimit;
 		mutable int					m_iLastMutableUpdatedIndex;
 		mutable int					m_iMutableUpdatesPerFrame; // defaults to 1
 		hkgArray<hkgDisplayObject*>	m_mutableObjects; // will be held in one of the main lists too.
 
 		mutable hkgArray<hkgDisplayObject*>	m_delayedDeleteBodies;
 		mutable hkUint32					m_currentDelayedDeleteIndex;
-
+		mutable hkgCamera*					m_shadowCastCamera;
 		mutable class hkCriticalSection*	m_worldLock;
 };
 
@@ -208,7 +227,7 @@ class hkgDisplayWorld : public hkgReferencedObject
 #endif //HK_GRAPHICS_DISPLAY_WORLD_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

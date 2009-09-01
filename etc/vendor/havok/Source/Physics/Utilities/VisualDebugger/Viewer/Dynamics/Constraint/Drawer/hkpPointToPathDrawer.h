@@ -17,13 +17,13 @@ class hkpPointToPathDrawer : public hkpConstraintDrawer
 	public:
 		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_VDB, hkpPointToPathDrawer );
 
-		void drawConstraint(hkpConstraintInstance* constraint, hkDebugDisplayHandler* displayHandler, int tag);	
+		void drawConstraint(hkpConstraintInstance* constraint, hkDebugDisplayHandler* displayHandler, int id, int tag);	
 };
 
 #endif //HK_POINTTOPATHDRAWER_H 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

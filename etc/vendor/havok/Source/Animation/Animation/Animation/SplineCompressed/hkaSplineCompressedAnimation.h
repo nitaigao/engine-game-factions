@@ -149,10 +149,10 @@ public:
 	virtual int getNumOriginalFrames() const;
 
 	/// Return the number of chunks of data required to sample a pose at time t
-	virtual int getNumDataChunks(hkReal time) const;
+	virtual int getNumDataChunks(hkUint32 frame, hkReal delta) const;
 
 	/// Return the chunks of data required to sample a pose at time t
-	virtual void getDataChunks(hkReal time, DataChunk* dataChunks, int m_numDataChunks) const;
+	virtual void getDataChunks(hkUint32 frame, hkReal delta, DataChunk* dataChunks, int m_numDataChunks) const;
 
 	/// Return the maximum total size of all combined chunk data which could be returned by getDataChunks for this animation.
 	virtual int getMaxSizeOfCombinedDataChunks() const;
@@ -221,7 +221,7 @@ private:
 
 	static void readNURBSCurve( const hkUint8*& dataInOut, hkUint8 quantizedTime, hkReal frameDuration, hkReal u, hkUint8 mask, TrackCompressionParams::ScalarQuantization scalarQuantizationType, hkVector4& I, hkVector4& out );
 	static void readNURBSQuaternion( const hkUint8*& dataInOut, hkUint8 quantizedTime, hkReal frameDuration, hkReal u, hkUint8 mask, TrackCompressionParams::RotationQuantization type, hkQuaternion& out );
-	static int readKnots( const hkUint8*& dataInOut, int& n, int& p, hkUint8 quantizedTime, hkReal frameDuration, hkReal U[ MAX_DEGREE * 2 ] );
+	static int readKnots( const hkUint8*& dataInOut, int* HK_RESTRICT n, int* HK_RESTRICT p, hkUint8 quantizedTime, hkReal frameDuration, hkReal U[ MAX_DEGREE * 2 ] );
 	static void readPackedQuaternions( const hkUint8*& dataInOut, TrackCompressionParams::RotationQuantization type, int n, int p, int span, hkVector4 P[ MAX_ORDER ] );
 
 	
@@ -231,14 +231,11 @@ private:
 	inline static void evaluate( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
 
 	static void evaluateSimple( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
+	static void evaluateSimple1( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
+	static void evaluateSimple2( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
+	static void evaluateSimple3( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
 
-#if !defined(HK_PLATFORM_SIM)
-	static void evaluateSIMD( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
-#endif
-
-	static void evaluateLinear( hkReal time, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4 & );
-
-	inline void getBlockAndTime( hkReal time, int& blockOut, hkReal& blockTimeOut, hkUint8& quantizedTimeOut ) const;
+	inline void getBlockAndTime( hkUint32 frame, hkReal delta, int& blockOut, hkReal& blockTimeOut, hkUint8& quantizedTimeOut ) const;
 
 
 	// Initialization
@@ -312,7 +309,7 @@ private:
 #endif // HKANIMATION_ANIMATION_SPLINE_HKSPLINEANIMATION_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

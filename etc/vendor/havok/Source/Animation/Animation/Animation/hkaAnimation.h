@@ -115,11 +115,11 @@ class hkaAnimation : public hkReferencedObject
 			}
 		};
 
-			/// Return the number of chunks of data required to sample a pose at time t
-		virtual int getNumDataChunks(hkReal time) const;
+			/// Return the number of chunks of data required to sample a pose at time t, expressed as a frame index and delta to eliminate ambiguity
+		virtual int getNumDataChunks(hkUint32 frame, hkReal delta) const;
 
-			/// Return the chunks of data required to sample a pose at time t
-		virtual void getDataChunks(hkReal time, DataChunk* dataChunks, int m_numDataChunks) const;
+			/// Return the chunks of data required to sample a pose at time t, expressed as a frame index and delta to eliminate ambiguity
+		virtual void getDataChunks(hkUint32 frame, hkReal delta, DataChunk* dataChunks, int m_numDataChunks) const;
 
 			/// Return the maximum total size of all combined chunk data which could be returned by getDataChunks for this animation.
 		virtual int getMaxSizeOfCombinedDataChunks() const;
@@ -204,7 +204,7 @@ class hkaAnimation : public hkReferencedObject
 #endif // HKANIMATION_ANIMATION_HKSKELETALANIMATION_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

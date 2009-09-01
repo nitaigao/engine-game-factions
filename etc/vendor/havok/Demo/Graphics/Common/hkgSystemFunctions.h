@@ -15,6 +15,8 @@ struct hkgSystemCreateFuncs
 	void* m_hkgDisplayWorldCreate;
 	void* m_hkgGeometryCreate; 
 	void* m_hkgDisplayObjectCreate; 
+	void* m_hkgPseudoInstanceCreate;  //7.0
+	
 	void* m_hkgLightManagerCreate; 
 	void* m_hkgMaterialFaceSetCreate; 
 	void* m_hkgMaterialManagerCreate; 
@@ -34,11 +36,15 @@ struct hkgSystemCreateFuncs
 	void* m_hkgViewportCreate; 
 	void* m_hkgShaderCreateVertexShader; 
 	void* m_hkgShaderCreatePixelShader; 
+	void* m_hkgShaderCreateGeomShader; //7.0
 	void* m_hkgBlendMatrixSetCreate; 
 	void* m_hkgInstancedDisplayObjectCreate;  
 	void* m_hkgParticleDisplayObjectCreate; 
+	void* m_hkgBillboardDisplayObjectCreate;  //7.0
 	void* m_hkgCubemapTextureCreate; 
-	
+	void* m_hkgPostEffectCreate;  //7.0
+	void* m_hkgSkinnedInstancedDisplayObjectCreate;  //7.0
+
 	void* m_hkgWindowCreate; 
 
 	int m_maxNumLights;
@@ -50,7 +56,7 @@ void HK_CALL hkgSystemGetCreateFunctions( hkgSystemCreateFuncs& funcs );
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

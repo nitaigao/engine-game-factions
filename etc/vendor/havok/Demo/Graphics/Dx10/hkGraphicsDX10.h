@@ -25,6 +25,7 @@
 #endif // ifndef _WINDOWS_
 
 #include <d3d10.h>
+#include <d3dx10.h>
 
 #include <Graphics/Common/hkGraphics.h> // the source header for the hkg precompiles
 
@@ -37,7 +38,7 @@
 #endif //HK_GRAPHICS_DX10_PRECOMPILE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

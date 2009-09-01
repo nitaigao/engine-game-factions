@@ -138,7 +138,7 @@ hkpPhysicsSystem* VehicleCloning::createVehicle()
 		vehicle->m_suspension		= new hkpVehicleDefaultSuspension;
 		vehicle->m_transmission		= new hkpVehicleDefaultTransmission;
 		vehicle->m_velocityDamper	= new hkpVehicleDefaultVelocityDamper;	
-		vehicle->m_wheelCollide		= new hkpVehicleRaycastWheelCollide;
+		vehicle->m_wheelCollide		= new hkpVehicleRayCastWheelCollide;
 
 		VehicleSetup setup;
 
@@ -158,7 +158,7 @@ hkpPhysicsSystem* VehicleCloning::createVehicle()
 
 		// The wheel collide component performs collision detection. To do this, it needs to create an 
 		// aabbPhantom from the vehicle information that has been set here already.
-		setup.setupWheelCollide( m_world, *vehicle, *static_cast< hkpVehicleRaycastWheelCollide*>(vehicle->m_wheelCollide) );
+		setup.setupWheelCollide( m_world, *vehicle, *static_cast< hkpVehicleRayCastWheelCollide*>(vehicle->m_wheelCollide) );
 
 		setup.setupTyremarks( *vehicle->m_data, *static_cast< hkpTyremarksInfo*>(vehicle->m_tyreMarks) );
 	}
@@ -181,11 +181,19 @@ hkpPhysicsSystem* VehicleCloning::createVehicle()
 
 	vehicle->init();
 
-	// Create a physics system and add the action, rigid body and phantom that comprise the vehicle to it.
+	// Create a physics system and add the action, rigid body and the phantoms that comprise the vehicle to it.
 	hkpPhysicsSystem* vehicleSystem = new hkpPhysicsSystem();
-	vehicleSystem->addAction( vehicle );
-	vehicleSystem->addRigidBody( chassisRigidBody );
-	vehicleSystem->addPhantom( (hkpPhantom*) static_cast<hkpVehicleRaycastWheelCollide*>(vehicle->m_wheelCollide)->m_phantom );
+	{
+		vehicleSystem->addAction( vehicle );
+		vehicleSystem->addRigidBody( chassisRigidBody );
+		hkArray<hkpPhantom*> phantoms;
+		vehicle->getPhantoms( phantoms );
+		const int numPhantoms = phantoms.getSize();
+		for ( int i = 0; i < numPhantoms; ++i )
+		{
+			vehicleSystem->addPhantom( phantoms[i] );
+		}
+	}
 
 	chassisRigidBody->removeReference();
 	chassisShape->removeReference();
@@ -357,7 +365,7 @@ HK_DECLARE_DEMO_VARIANT(VehicleCloning, HK_DEMO_TYPE_PHYSICS                   ,
 HK_DECLARE_DEMO_VARIANT(VehicleCloning, HK_DEMO_TYPE_PHYSICS|HK_DEMO_TYPE_STATS,  g_variants[1].m_name, 1, "", g_variants[1].m_details);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

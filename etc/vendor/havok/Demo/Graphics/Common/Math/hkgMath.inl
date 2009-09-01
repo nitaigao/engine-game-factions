@@ -156,7 +156,7 @@ inline void  hkgVec3TransformNormal( float out[3], const float in[3], const floa
 	out[1] = in[HKG_X]*t[1] + in[HKG_Y]*t[5] + in[HKG_Z]*t[9];
 	out[2] = in[HKG_X]*t[2] + in[HKG_Y]*t[6] + in[HKG_Z]*t[10];
 
-	float w = in[HKG_X]*t[3] + in[HKG_Y]*t[7] + in[HKG_Z]*t[11];
+	float w = in[HKG_X]*t[3] + in[HKG_Y]*t[7] + in[HKG_Z]*t[11] + 1;
 	hkReal invW = 1.0f / w;
 	out[0] *= invW;
 	out[1] *= invW;
@@ -560,7 +560,13 @@ inline void hkgMat4LookAtLH(  float m[16], const float eye[3], const float at[3]
 //
 inline float hkgColor4GetRed( unsigned int argb )
 {
+#if defined( HK_PLATFORM_PSP ) || defined( HK_PLATFORM_GC )
+
+	// The R3000 and GC use ABGR format
+	return (argb & 0x000000ff) / 255.0f;
+#else
 	return ((argb & 0x00ff0000) >> 16) / 255.0f;
+#endif
 }
 
 inline float hkgColor4GetGreen( unsigned int argb )
@@ -570,7 +576,13 @@ inline float hkgColor4GetGreen( unsigned int argb )
 
 inline float hkgColor4GetBlue( unsigned int argb )
 {
+#if defined( HK_PLATFORM_PSP ) || defined( HK_PLATFORM_GC )
+
+	// The R3000 and GC use ABGR format
+	return ((argb & 0x00ff0000) >> 16) / 255.0f;
+#else
 	return (argb & 0x000000ff) / 255.0f;
+#endif
 }
 
 inline float hkgColor4GetAlpha( unsigned int argb )
@@ -580,7 +592,13 @@ inline float hkgColor4GetAlpha( unsigned int argb )
 
 inline hkUint8 hkgColor4GetRedByte( unsigned int argb )
 {
+#if defined( HK_PLATFORM_PSP ) || defined( HK_PLATFORM_GC )
+
+	// The R3000 and GC use ABGR format
+	return (hkUint8)(argb & 0x000000ff);
+#else
 	return (hkUint8)((argb & 0x00ff0000) >> 16);
+#endif
 }
 
 inline hkUint8 hkgColor4GetGreenByte( unsigned int argb )
@@ -590,7 +608,13 @@ inline hkUint8 hkgColor4GetGreenByte( unsigned int argb )
 
 inline hkUint8 hkgColor4GetBlueByte( unsigned int argb )
 {
+#if defined( HK_PLATFORM_PSP ) || defined( HK_PLATFORM_GC )
+
+	// The R3000 and GC use ABGR format
+	return (hkUint8)((argb & 0x00ff0000) >> 16);
+#else
 	return (hkUint8)(argb & 0x000000ff) ;
+#endif
 }
 
 inline hkUint8 hkgColor4GetAlphaByte( unsigned int argb )
@@ -670,7 +694,7 @@ inline void hkgColor4UnpackToVec4( float rgba[4], unsigned int c )
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

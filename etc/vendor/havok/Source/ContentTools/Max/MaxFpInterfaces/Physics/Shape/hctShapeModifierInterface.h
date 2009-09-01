@@ -27,12 +27,13 @@ enum
 	PA_SHAPE_MOD_EXTRA_RADIUS,				// New in 4.0
 	PA_SHAPE_MOD_VERSION_INTERNAL,			// New in 4.0 - INTERNAL
 	PA_SHAPE_MOD_CHANGE_EXTRA_RADIUS,		// New in 4.0
+	PA_SHAPE_MOD_ACCURACY,					// New in 7.0
 };
 
 #endif //INC_HK_SHAPE_MODIFIER_INTERFACE__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -20,11 +20,11 @@ class MotorcycleSetup : public VehicleSetup
 
 		MotorcycleSetup(){}
 
-		virtual void buildVehicle( hkpWorld* world, hkpVehicleInstance& vehicle ); 
+		virtual void buildVehicle( const hkpWorld* world, hkpVehicleInstance& vehicle ); 
 
 	protected:
 
-		virtual void setupVehicleData(hkpWorld* world, hkpVehicleData& data );
+		virtual void setupVehicleData( const hkpWorld* world, hkpVehicleData& data );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultAnalogDriverInput& driverInput );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultSteering& steering );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultEngine& engine );
@@ -34,14 +34,13 @@ class MotorcycleSetup : public VehicleSetup
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultAerodynamics& aerodynamics );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultVelocityDamper& velocityDamper );
 
-		virtual void setupWheelCollide( hkpWorld* world, const hkpVehicleInstance& vehicle, hkpVehicleRaycastWheelCollide& wheelCollide );
-	virtual void setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo& tyremarkscontroller );
+		virtual void setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo& tyremarkscontroller );
 };
 
 #endif // HK_MOTORCYCLE_SETUP_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

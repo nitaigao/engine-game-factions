@@ -18,10 +18,10 @@ class hkDebugDisplayHandler;
 class hkpWorld;
 
 class hkpCollidable;
-#define HK_PROPERTY_DISPLAY_PTR 0x1234
-#define HK_DISPLAY_VIEWER_OPTIONS_CONTEXT "ShapeDisplayViewerOptions"
+#define HK_PROPERTY_DISPLAY_PTR 0x1234 // Shape fore Local viewer, VDB / external viewers not affected
+#define HK_PROPERTY_VDB_DISPLAY_PTR 0x1235 // Shape for the VDB and local viewers, this will affect all viewers
 
-#define HK_PROPERTY_DISPLAY_PTR 0x1234
+#define HK_DISPLAY_VIEWER_OPTIONS_CONTEXT "ShapeDisplayViewerOptions"
 
 	/// Displays all the entities in a world.
 class hkpShapeDisplayViewer :	public hkpWorldViewerBase,
@@ -61,12 +61,20 @@ class hkpShapeDisplayViewer :	public hkpWorldViewerBase,
 		void setAutoColorMode( bool on ); // default: true
 		bool getAutoColorMode( ) const { return m_enableAutoColor; } 
 
+		void setAutoColorModeOverride( bool on ) { m_enableAutoColorOverride = on; } // default: false
+		bool getAutoColorModeOverride( ) const { return m_enableAutoColorOverride; } 
+
 		void setDisplayBodyCachingEnabled( bool on ); // default : false
 		bool getDisplayBodyCachingEnabled( ) const { return m_enableDisplayCaching; } 
 		void clearCache();
 
 		void setAutoGeometryCreation( bool on ); // default : true
 		bool getAutoGeometryCreation( ) const { return m_autoGeometryCreation; } 
+
+		// These will only affect objects added after this call
+		// Only used whene AutoColorMode is true and rb does not have a color prop itself (unless override is on)
+		inline void setMovableObjectColor( hkUint32 c) { m_movableObjectColor = c; }
+		inline void setFixedObjectColor( hkUint32 c) { m_fixedObjectColor = c; }
 
 	public:
 	
@@ -118,7 +126,11 @@ class hkpShapeDisplayViewer :	public hkpWorldViewerBase,
 		hkBool m_enableDisplayCreation;
 		hkBool m_autoGeometryCreation;
 		hkBool m_enableAutoColor;
+		hkBool m_enableAutoColorOverride;
 		hkTime m_timeForDisplay;
+
+		hkUint32 m_fixedObjectColor;
+		hkUint32 m_movableObjectColor;
 
 	public:
 		static inline hkUlong HK_CALL getId( hkpEntity* entity )
@@ -134,7 +146,7 @@ class hkpShapeDisplayViewer :	public hkpWorldViewerBase,
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -110,7 +110,7 @@ HK_PATCH_BEGIN("hkTestC", 2, "hkTestC", 3) // 17
 HK_PATCH_END()
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

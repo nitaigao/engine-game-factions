@@ -119,6 +119,10 @@ class hkgMaterial : public hkgReferencedObject
         virtual const hkClass* getClassType() const { return &hkgMaterialClass; }
         virtual void calcContentStatistics(hkStatisticsCollector* collector, const hkClass* cls) const;
 
+			// name is very handy for debugging shaders etc
+		inline const char* getName() const { return m_name.cString(); }
+		inline void setName( const char* n) { m_name = n; }
+
 	protected:
 
 		inline hkgMaterial();
@@ -137,6 +141,8 @@ class hkgMaterial : public hkgReferencedObject
 		float	m_specularPower;
 
 		hkUlong	m_userData; // +default(0)
+
+		hkString m_name;
 };
 
 #include <Graphics/Common/Material/hkgMaterial.inl>
@@ -144,7 +150,7 @@ class hkgMaterial : public hkgReferencedObject
 #endif //  HK_GRAPHICS_MATERIAL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

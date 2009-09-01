@@ -60,7 +60,8 @@ typedef hkUint8 HKG_VERTEX_STORAGE;
 #define HKG_VERTEX_STORAGE_2F    3  // 2 floats (common for UV coords, for Tex0-3)
 #define HKG_VERTEX_STORAGE_3F    4  // 3 floats (Normals or Pos), and weights
 #define HKG_VERTEX_STORAGE_4F    5  // Color in float form
-#define HKG_VERTEX_STORAGE_8UB   6  // 8 unsigned bytes for blending weights on PSP
+#define HKG_VERTEX_STORAGE_8F    6  // dummy type to represent interleaved PN
+#define HKG_VERTEX_STORAGE_8UB   7  // 8 unsigned bytes for blending weights on PSP
 #define HKG_VERTEX_STORAGE_NUM   (HKG_VERTEX_STORAGE_8UB + 1)
 
 #define HK_VERTEX_DEFAULT_INSTANCING_TCOORD_OFFSET 5 //5,6,7 
@@ -71,7 +72,7 @@ typedef hkUint8 HKG_VERTEX_STORAGE;
 #endif //HK_GRAPHICS_VERTEX_SET_DEFINES__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

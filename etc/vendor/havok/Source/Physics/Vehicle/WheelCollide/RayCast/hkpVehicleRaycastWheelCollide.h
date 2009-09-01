@@ -11,118 +11,132 @@
 #include <Physics/Vehicle/hkpVehicleInstance.h>
 #include <Physics/Vehicle/WheelCollide/hkpVehicleWheelCollide.h>
 #include <Physics/Dynamics/Phantom/hkpPhantomOverlapListener.h>
+#include <Physics/Vehicle/WheelCollide/RejectChassisListener/hkpRejectChassisListener.h>
 
 class hkpAabbPhantom;
-struct hkpWorldRayCastOutput;
 class hkAabb;
+struct hkpShapeRayCastCommand;
+struct hkpWorldRayCastOutput;
 
-/// An hkpPhantomOverlapListener used to ignore the chassis when doing collision detection.
-/// (This inherits from base object so that it can be serialize without
-/// the listener interface declared as reflected.)
-class hkpRejectRayChassisListener : public hkReferencedObject, public hkpPhantomOverlapListener
+/// Default implementation of hkpVehicleWheelCollide which uses raycasts to determine
+/// wheel collision detection.
+/// This component cannot be shared between vehicles.
+/// It supports singlethreaded collision detection through the inherited collideWheels method,
+/// and supports multithreaded raycasting with buildRaycastCommands.
+class hkpVehicleRayCastWheelCollide : public hkpVehicleWheelCollide
 {
 	public:
-	
+		// +version(1)
+
 		HK_DECLARE_CLASS_ALLOCATOR(HK_MEMORY_CLASS_VEHICLE);
 		HK_DECLARE_REFLECTION();
 
 			/// Default constructor
-		hkpRejectRayChassisListener();
+		hkpVehicleRayCastWheelCollide();
 
-		virtual ~hkpRejectRayChassisListener();
+		virtual ~hkpVehicleRayCastWheelCollide();
 		
 		//
 		// Methods
 		//
 		
-			/// 
-		void collidableAddedCallback(const hkpCollidableAddedEvent& event);
-		
-			/// 
-		void collidableRemovedCallback(const hkpCollidableRemovedEvent& event);
-		
-		//
-		// Members
-		//
-	public:
-		
-			/// 
-		const hkpCollidable* m_chassis; //+nosave
-
-	public:
-		hkpRejectRayChassisListener(hkFinishLoadedObjectFlag f) : hkReferencedObject(f) { }
-};
-
-
-/// Default implementation of hkpVehicleWheelCollide - performs a raycast
-/// from the wheels to the ground.  This component cannot be shared between vehicles.
-class hkpVehicleRaycastWheelCollide : public hkpVehicleWheelCollide
-{
-	public:
-
-		HK_DECLARE_REFLECTION();
-
-			/// Default constructor
-		hkpVehicleRaycastWheelCollide();
-
-		~hkpVehicleRaycastWheelCollide();
-		
-		//
-		// Methods
-		//
-		
-			///
 		virtual void init( const hkpVehicleInstance* vehicle );
 
-			/// Calculates information about the effects of colliding the wheels with the ground, on the vehicle.
-		virtual void collideWheels(const hkReal deltaTime, hkpVehicleInstance* vehicle, CollisionDetectionWheelOutput* cdInfoOut);
-		
-			/// Passes back an AABB that encompasses the raycasts. It uses the hardpoints and
-			/// suspension length to determine minimum and maximum extents.
-		virtual void calcWheelsAABB( const hkpVehicleInstance* vehicle, hkAabb& aabbOut);
-		
-			/// Use this method to override the default friction value set by the raycast
-			/// vehicle updateBodies loop. The default value is the friction of the rigidbody
-			/// that the wheel raycast hits Use the hkpWorldRayCastOutput to obtain access to the
-			/// shape hit by the raycast
-		virtual void calcSingleWheelGroundFriction(hkpVehicleInstance* vehicle, hkInt8 wheelInfoNum, const hkpWorldRayCastOutput& worldRayCastOutput, hkReal& frictionOut) const;
-		
-			/// Perform raycast for a single wheel. This implementation performs a castRay call
-			/// on the hkpAabbPhantom.
-		virtual void castSingleWheel(const hkpVehicleInstance::WheelInfo& wheelInfo, hkpVehicleInstance* vehicle, hkpWorldRayCastOutput& output);
-		
-			/// 
-		virtual void updatePhantom(hkpVehicleInstance* vehicle);
-		
-			///
-		virtual hkpVehicleWheelCollide* clone( const hkArray<hkpPhantom*>& newPhantoms ) const;
-
-			///
 		virtual void getPhantoms( hkArray<hkpPhantom*>& phantomsOut );
+
+		virtual void updateBeforeCollisionDetection( const hkpVehicleInstance* vehicle );
+	
+		virtual hkpVehicleWheelCollide* clone( const hkpRigidBody& newChassis, const hkArray<hkpPhantom*>& newPhantoms ) const;
+
+		virtual void addToWorld( hkpWorld* world );
+
+		virtual void removeFromWorld();
+
+			///	Sets the collisionFilterInfo value for both the phantom and the raycasts.
+			/// Note: The change affects the raycasts immediately, but affects the phantom only as
+			/// entities subsequently enter or leave. See hkpWorld::updateCollisionFilterOnPhantom
+			/// for how to update the phantom immediately (particularly if the filter has been made
+			/// more inclusive).
+		virtual void setCollisionFilterInfo( hkUint32 filterInfo );
+
+		//
+		// For singlethreading
+		//
+		
+			/// Implements the singlethreaded approach to wheel collisions by calling
+			/// castSingleWheel and collideSingleWheelFromRaycast for each wheel.
+		virtual void collideWheels( const hkReal deltaTime, const hkpVehicleInstance* vehicle, CollisionDetectionWheelOutput* cdInfoOut );
+	
+		//
+		// For multithreading
+		//
+
+			/// Build raycast commands which can be batched and run multithreaded.
+			/// \param vehicle the owning vehicle.
+			/// \param collisionFilter the collision filter.
+			/// \param filterSize the sizeof the provided collision filter object.
+			/// \param commandStorage a pointer to enough space to hold commands for all the wheels.
+			/// \param outputStorage a pointer to enough space to hold results for all the wheels.
+			/// \return the number of command/result slots used (which will either be the number of wheels or zero).
+		virtual int buildRayCastCommands( const hkpVehicleInstance* vehicle, const hkpCollisionFilter* collisionFilter, hkInt32 filterSize, hkpShapeRayCastCommand* commandStorage, hkpWorldRayCastOutput* outputStorage ) const;
+
+	public:
+			/// Calculates an AABB that encompasses the raycasts. 
+			/// \param vehicle the owning vehicle.
+			/// \param aabbOut the resulting AABB.
+		virtual void calcWheelsAABB( const hkpVehicleInstance* vehicle, hkAabb& aabbOut ) const;
+
+			/// Perform a raycast for a single wheel. This implementation performs a castRay call
+			/// on the hkpAabbPhantom.
+		virtual void castSingleWheel( const hkpVehicleInstance::WheelInfo& wheelInfo, hkpWorldRayCastOutput& output ) const;
+
+			/// Convert raycast results into collision detection results for a single wheel.
+			/// \param vehicle the owning vehicle.
+			/// \param wheelInfoNum the number of the wheel in the vehicle.
+			/// \param raycastOutput the results obtains from raycasting.
+			/// \param output stores the resulting CollisionDecectionWheelOutput obtained from the raycastOutput.
+		virtual void getCollisionOutputFromCastResult( const hkpVehicleInstance* vehicle, hkUint8 wheelInfoNum, const hkpWorldRayCastOutput& raycastOutput, CollisionDetectionWheelOutput& output ) const;
+
+			/// Get collision results when the wheel is not touching the ground.
+			/// \param vehicle the owning vehicle.
+			/// \param wheelNum the number of the wheel in the vehicle.
+			/// \param output stores the resulting CollisionDecectionWheelOutput.
+		virtual void getCollisionOutputWithoutHit( const hkpVehicleInstance* vehicle, hkUint8 wheelNum, CollisionDetectionWheelOutput& output ) const;
+
 
 		//
 		// Members
 		//
 	public:
 		
-		/// Use to disable collision detection with the chassis.
+			/// The collision filter info of the wheels.
+			/// This is initialized to 0 by the constructor. If a different value is needed,
+			/// it should be assigned after construction but before calling init.
+			/// After init, use setCollisionFilterInfo to modify its value.
 		hkUint32 m_wheelCollisionFilterInfo;
 		
-		/// The phantom must be added to the world by the user.
+			/// The phantom which encompasses all the wheel rays.
 		hkpAabbPhantom* m_phantom;
 		
-		/// This hkpPhantomOverlapListener is added to the phantom to ignore the chassis.
-		class hkpRejectRayChassisListener m_rejectRayChassisListener;
+			/// This hkpPhantomOverlapListener is added to the phantom to ignore the chassis.
+		class hkpRejectChassisListener m_rejectRayChassisListener;
 
 	public: 
 
-		hkpVehicleRaycastWheelCollide(hkFinishLoadedObjectFlag f) : hkpVehicleWheelCollide(f), m_rejectRayChassisListener(f) { }
+		hkpVehicleRayCastWheelCollide(hkFinishLoadedObjectFlag f) :
+			hkpVehicleWheelCollide(f), m_rejectRayChassisListener(f)
+		{
+			if( f.m_finishing )
+			{
+				m_type = RAY_CAST_WHEEL_COLLIDE;
+			}
+		}
 };
 
 #endif // HKVEHICLE_COLLISIONDETECTION_DEFAULT_hkVehicleRaycastWheelCollide_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

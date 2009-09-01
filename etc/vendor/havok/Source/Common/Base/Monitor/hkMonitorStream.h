@@ -152,6 +152,12 @@ class hkMonitorStream
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_MONITOR, hkMonitorStream::TimerBeginListCommand );
 			const char* m_nameOfFirstSplit;
 		};
+
+		struct TimerBeginObjectNameCommand : public hkMonitorStream::TimerCommand
+		{
+			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_MONITOR, hkMonitorStream::TimerBeginObjectNameCommand );
+			const char* m_objectName;
+		};
 };
 
 #include <Common/Base/Monitor/hkMonitorStream.inl>
@@ -159,7 +165,7 @@ class hkMonitorStream
 #endif // HKBASE_HKMONITOR_STREAM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

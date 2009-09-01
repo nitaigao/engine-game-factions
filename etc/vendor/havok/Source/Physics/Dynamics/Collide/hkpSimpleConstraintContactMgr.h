@@ -26,7 +26,7 @@ class hkpSimpleConstraintContactMgr: public hkpDynamicsContactMgr
 
 		~hkpSimpleConstraintContactMgr();
 
-		inline hkpSimpleConstraintContactMgr( hkFinishLoadedObjectFlag f ) : hkpDynamicsContactMgr( hkpContactMgr::TYPE_SIMPLE_CONSTRAINT_CONTACT_MGR), m_contactConstraintData(f), m_constraint(f) {}
+		inline hkpSimpleConstraintContactMgr( hkFinishLoadedObjectFlag f ) : hkpDynamicsContactMgr( hkpContactMgr::TYPE_SIMPLE_CONSTRAINT_CONTACT_MGR), m_contactConstraintData(f), m_constraint(f) { m_constraint.m_uid = 0xffffffff; }
 			/// hkpDynamicsContactMgr interface implementation.
 		hkContactPoint* getContactPoint( hkContactPointId id );
 
@@ -108,14 +108,14 @@ class hkpSimpleConstraintContactMgr: public hkpDynamicsContactMgr
 		hkpSimpleContactConstraintData	m_contactConstraintData;
 		hkpConstraintInstance			m_constraint;
 
-		hkUint32					m_pad[2];
+		hkUint32					m_pad[1];
 };
 
 
 #endif // HK_DYNAMICS2_SIMPLE_CONSTRAINT_CONTACT_MGR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

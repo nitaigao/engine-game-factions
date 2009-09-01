@@ -25,7 +25,8 @@ public:
 protected:
 
 	ID3D10Buffer*		m_vertexBuffer;		
-	class hkgMaterial*	m_fontMaterial; 
+
+	int m_lastUsedIndex;
 
 	hkgFontDX10();
 	virtual ~hkgFontDX10();
@@ -35,7 +36,7 @@ protected:
 #endif // HK_GRAPHICS_FONT_DX10_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

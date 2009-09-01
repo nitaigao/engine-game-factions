@@ -34,6 +34,14 @@ class hkgShaderLib : public hkReferencedObject
 		void addSearchPath( const char* path );
 		void clearSearchPaths();
 
+		// force next search to not use precompiled shaders
+		void clearCache();
+
+		// usually we auyto load normal and instanced shaders
+		// use this method to toggle
+		void setAutoLoadShaderTypes( bool instanced, bool skinned );
+		void getAutoLoadShaderTypes( bool& instanced, bool& skinned );
+
 		enum DisplayObjectFlags
 		{
 			NO_FLAGS = 0,
@@ -78,6 +86,8 @@ class hkgShaderLib : public hkReferencedObject
 			virtual bool styleMatch( const char* shaderFileStyle, hkgShaderLib::DisplayObjectFlags objectFlags, hkgShaderLib::ExtraTextureHints textureHints, int numLights ) const = 0;
 		};
 
+		bool m_alphaShadows;
+
 	protected:
 
 		hkgShaderCollection* findShaderMatch( const ShaderMatcher& matchFunc, DisplayObjectFlags objectFlags, ExtraTextureHints textureHints, int numLights );
@@ -89,6 +99,9 @@ class hkgShaderLib : public hkReferencedObject
 		hkObjectArray< hkString > m_searchPaths;
 		hkArray< struct ShaderCacheInfo* > m_shaderCache; // shader pairs already created
 
+		bool m_autoLoadInstanced;
+		bool m_autoLoadSkinned;
+
 		hkgShader* m_toDepthVShader;
 		hkgShader* m_toDepthVShaderInstanced;
 		hkgShader* m_toDepthVShaderSkinned;
@@ -98,7 +111,7 @@ class hkgShaderLib : public hkReferencedObject
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -186,11 +186,11 @@ class hkpEntity : public hkpWorldObject
 			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_IGNORE] [m_simulationIsland,HK_ACCESS_RW] );
 		hkpConstraintInstance* getConstraint( int i );
 
-			/// Returns all constraints of the body in a single array.
+			/// Returns all constraints of the body in a single array. Call sortConstraintsSlavesDeterministically() before this call to ensure a deterministic order of the result.
 			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_IGNORE] [m_simulationIsland,HK_ACCESS_RO] );
 		void getAllConstraints(hkArray<hkpConstraintInstance*>& constraints);
 
-			/// Returns the ith constraint attached to this entity (const version)
+			/// Returns the ith constraint attached to this entity (const version). Call sortConstraintsSlavesDeterministically() before this call to ensure a deterministic order of the result.
 			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_IGNORE] [m_simulationIsland,HK_ACCESS_RO] );
 		const hkpConstraintInstance* getConstraint( int i ) const;
 
@@ -200,8 +200,12 @@ class hkpEntity : public hkpWorldObject
 		/// Returns read write access to the internal constraint master list
 		inline hkSmallArray<struct hkConstraintInternal>&  getConstraintMastersRw();
 
-		/// Returns read only access to the internal constraint master list
+		/// Returns read only access to the internal constraint master list. Call sortConstraintsSlavesDeterministically() before this call to ensure a deterministic order of the result.
 		inline const hkArray<class hkpConstraintInstance*>&  getConstraintSlaves() const;
+
+			/// Constraints for fixed objects might not be deterministically ordered. Call this function to bring the constraints into a deterministic order.
+			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_RW] [m_simulationIsland,HK_ACCESS_RW] );
+		void sortConstraintsSlavesDeterministically();
 
 			// Calculate the memory usage of this entity
 			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_IGNORE] [this,HK_ACCESS_RO] );
@@ -392,7 +396,7 @@ class hkpEntity : public hkpWorldObject
 #endif // HK_DYNAMICS2_ENTITY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

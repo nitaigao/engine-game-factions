@@ -139,6 +139,12 @@ class hkgViewport : public hkgReferencedObject
 			/// Set the desired alpha blend mode (Add or Modulate) for when alpha blend is enabled.
 		inline void setDesiredBlendMode( HKG_BLEND_MODE  m);
 
+		/// A2C
+		inline HKG_ALPHA_SAMPLE_MODE getDesiredAlphaSampleMode() const;
+
+		/// A2C
+		inline void setDesiredAlphaSampleMode( HKG_ALPHA_SAMPLE_MODE  m);
+
 			/// Toggle the states as specified in the bitfield s. Any states enabled in 's' will
 			/// have the corresponding state in this viewports desired state toggled.
 		inline void toggleState(HKG_ENABLED_STATE s);
@@ -254,6 +260,7 @@ class hkgViewport : public hkgReferencedObject
 		HKG_ENABLED_STATE  m_desiredState; 
 		HKG_CULLFACE_MODE  m_desiredCullFaceMode;
 		HKG_BLEND_MODE     m_desiredBlendMode;
+		HKG_ALPHA_SAMPLE_MODE m_desiredAlphaMode;
 
 		int m_speedMousePan;
 		int m_speedMouseWheelZoom;
@@ -273,7 +280,7 @@ class hkgViewport : public hkgReferencedObject
 #endif // HK_GRAPHICS_WINDOW
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

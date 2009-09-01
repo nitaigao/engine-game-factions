@@ -13,6 +13,7 @@ All global identifiers in this file are available as custom attributes.
 """
 
 import attributes
+import string
 
 add_dot_f = lambda s: "%#ff" % s
 
@@ -47,14 +48,20 @@ class RangeInt32Attribute(RangeAttribute):
     default_absmax = "HK_INT32_MAX"
 
 class UiAttribute(Attribute):
-    __keywords = ("visible", "hideInModeler", "label", "group", "endGroup", "endGroup2", "advanced", "isALink", "childedOffRB", "isAChild")
+    __keywords = { "visible":"true", "hideInModeler":"NONE", "label":"", "group":"", "hideBaseClassMembers":"",
+                   "endGroup":"false", "endGroup2":"false", "advanced":"false",
+                   "isALink":None, "childedOffRB":None, "isAChild":None} # these three unused?
+    __template = string.Template('${errors}static const hkUiAttribute $symbol = { $visible, $cppclass::$hideInModeler, ' \
+            '"$label", "$group", "$hideBaseClassMembers", $endGroup, $endGroup2, $advanced };')
     def __call__(self, **kw):
         errors = ""
         for k in kw.keys():
             if not k in self.__keywords:
                 errors += "// Unused arg %s\n" % k
+        args = self.__keywords.copy()
+        args.update(kw)
         if errors: print errors
-        return '%sstatic const hkUiAttribute %s = { %s, %s::%s, "%s", "%s", %s, %s, %s };' % ( errors, self.symbol, str(kw.get("visible","True")).lower(), self.cppclass(), str(kw.get("hideInModeler","NONE")), str(kw.get("label","")), str(kw.get("group","")), str(kw.get("endGroup","False")).lower(), str(kw.get("endGroup2","False")).lower(), str(kw.get("advanced","False")).lower() )
+        return self.__template.substitute( args, errors=errors, symbol=self.symbol, cppclass=self.cppclass() )
 
 class GizmoAttribute(Attribute):
     __keywords = ("visible", "label", "type")
@@ -114,7 +121,7 @@ Documentation = DocumentationAttribute
 
 
 #
-# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 # 
 # Confidential Information of Havok.  (C) Copyright 1999-2009
 # Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -89,6 +89,7 @@ namespace hkSweptTransformUtil
 			// calc the relative angular movement for a reduced step
 		HK_FORCE_INLINE void HK_CALL calcAngularTimInfo( const hkMotionState& ms0, const hkMotionState& ms1, hkReal deltaTime, hkVector4* deltaAngleOut0, hkVector4* deltaAngleOut1 );
 
+		extern const hkQuadReal _stepMotionStateMaxVelf;
 }
 
 #include <Common/Base/Math/SweptTransform/hkSweptTransformUtil.inl>
@@ -96,7 +97,7 @@ namespace hkSweptTransformUtil
 #endif // HK_MATH_SWEPT_TRANSFORM_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

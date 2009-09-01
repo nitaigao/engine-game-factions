@@ -21,6 +21,7 @@ inline hkReal hkpConvexShape::getRadius() const
 inline void hkpConvexShape::setRadius(hkReal radius)
 {
 	HK_ASSERT2(0x20b67de1, radius >= 0, "hkpConvexShape should not have a negative radius");
+	HK_WARN_IF(m_type==HK_SHAPE_CONVEX_VERTICES,4545,"Changing convex radius of that shape after creation can generate inconsistent collisions");
 	m_radius = radius;
 }
 
@@ -51,7 +52,7 @@ void hkpConvexShape::getCentre( hkVector4& centreOut ) const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -21,6 +21,7 @@ public:
 	struct ShaderSet
 	{
 		hkgShader* vertexShader;
+		hkgShader* geomShader;
 		hkgShader* pixelShader;
 	};
 
@@ -28,16 +29,24 @@ public:
 		/// Default create function, use ::create instead.
 	inline static hkgShaderCollection* defaultCreateInternal();
 
-	inline void addShaderGrouping( hkgShader* vshader, hkgShader* pshader );
+	inline void addShaderGrouping( hkgShader* vshader, hkgShader* pshader, hkgShader* gshader = HK_NULL );
 
 	inline void removeShader( hkgShader* shader);
 
 		/// Given a context and the current held set of shaders, return the best fit.
 	bool matchStyle( hkgDisplayContext* context, ShaderSet& shaderSet, HKG_MATERIAL_VERTEX_HINT hints );
+	
+	void merge( const hkgShaderCollection* other );
+	bool supportsMaterialHint( HKG_MATERIAL_VERTEX_HINT hints ) const;
 
-		/// Handy funcs to find a shader to reuse say
-	hkgShader* findPixelShaderByStyle( HKG_SHADER_RENDER_STYLE exactMatch ) const;
+	/// Handy funcs to find a shader to reuse say
 	hkgShader* findVertexShaderByStyle( HKG_SHADER_RENDER_STYLE exactMatch ) const;
+	hkgShader* findGeometryShaderByStyle( HKG_SHADER_RENDER_STYLE exactMatch ) const;
+	hkgShader* findPixelShaderByStyle( HKG_SHADER_RENDER_STYLE exactMatch ) const;
+
+	void replaceVertexShaderByStyle( hkgShader* vertShader ) ;
+	void replaceGeometryShaderByStyle( hkgShader* geomShader ) ;
+	void replacePixelShaderByStyle( hkgShader* pixelShader ) ;
 
 	int getNumShaderSets() const;
 	ShaderSet& getShaderSet(int i);
@@ -62,7 +71,7 @@ protected:
 #endif //HK_GRAPHICS_SHADER_COLLECTION
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

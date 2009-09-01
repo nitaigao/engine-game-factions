@@ -92,6 +92,9 @@ class hkPackfileData : public hkResource
 			// Set top level object.
 		void setContentsWithName(void* topLevelObject, const char* typeName);
 
+			// Set packfile data class name registry.
+		void setPackfileClassNameRegistry(const hkClassNameRegistry* classReg);
+
 			// Return TRUE if objects are finished.
 		hkBool32 finishedObjects() const;
 
@@ -106,6 +109,7 @@ class hkPackfileData : public hkResource
 		char* m_name;
 		TrackedObjectMap m_trackedObjects;
 		mutable TrackedTypeMap m_trackedTypes;
+		hkRefPtr<const hkClassNameRegistry> m_packfileClassRegistry;
 		hkBool32 m_destructorsEnabled;
 		hkArray<void*> m_memory;
 		hkArray<Chunk> m_chunks;
@@ -118,7 +122,7 @@ class hkPackfileData : public hkResource
 #endif // HK_PACKFILE_DATA_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

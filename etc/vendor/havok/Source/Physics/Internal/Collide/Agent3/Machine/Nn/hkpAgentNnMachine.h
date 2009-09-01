@@ -74,7 +74,7 @@ extern "C"
 		// process a track, stops if out of memory
 	void HK_CALL hkAgentNnMachine_ProcessTrack( class hkpConstraintOwner* owner, hkpAgentNnTrack& track,	const hkpProcessCollisionInput& input );
 
-
+	bool HK_CALL hkAgentNnMachine_IsEntryOnTrack(hkpAgentNnTrack& track, hkpAgentEntry* entry);
 
 	void HK_CALL hkAgentNnMachine_InternalDeallocateEntry(hkpAgentNnTrack& track, hkpAgentNnEntry* entry);
 
@@ -85,7 +85,6 @@ extern "C"
 	hkpAgentNnEntry* HK_CALL hkAgentNnMachine_CopyAndRelinkAgentEntry( hkpAgentNnTrack& destTrack, hkpAgentNnEntry* entry );
 
 	hkpAgentNnEntry* HK_CALL hkAgentNnMachine_FindAgent( const hkpLinkedCollidable* collA, const hkpLinkedCollidable* collB );
-
 
 		// activation/deactiation/setPositionOnEntity
 	void HK_CALL hkAgentNnMachine_InvalidateTimInAgent( hkpAgentNnEntry* entry, const hkpCollisionInput& input );
@@ -98,7 +97,6 @@ extern "C"
 	//
 
 	void HK_CALL hkAgentNnMachine_AssertTrackValidity( hkpAgentNnTrack& track );
-
 
 	//
 	// UNDONE
@@ -117,7 +115,7 @@ extern "C"
 #endif // HK_COLLIDE2_AGENT3_COLLECTION_MACHINE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

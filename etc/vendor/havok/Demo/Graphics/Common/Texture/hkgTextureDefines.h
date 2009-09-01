@@ -45,6 +45,11 @@ typedef unsigned short HKG_TEXTURE_FILTER;
 #define HKG_TEXTURE_FILTER_LINEAR      1<<1
 #define HKG_TEXTURE_FILTER_ANISOTROPIC 1<<2
 
+
+typedef unsigned short HKG_TEXTURE_USAGE_HINT;
+#define HKG_TEXTURE_USAGE_UNKOWN	   1
+#define HKG_TEXTURE_USAGE_CUBEMAP	   (1<<1)
+
 typedef unsigned short HKG_DDS_FORMAT_TYPE;
 #define HKG_COMPRESSED_RGBA_DXT1 1
 #define HKG_COMPRESSED_RGB_DXT1  1<<1
@@ -63,7 +68,7 @@ typedef unsigned short HKG_DDS_FORMAT_TYPE;
 #endif //HK_GRAPHICS_TEXTURE_DEFINES__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

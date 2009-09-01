@@ -38,11 +38,13 @@ struct hkpSurfaceInfo
 	/// The average surface velocity
 	hkVector4	m_surfaceVelocity;
 
-	/// The average surface distance
-	hkReal	m_surfaceDistance;
+	/// The excess distance to the surface, which the controller should try to reduce this by applying
+	/// gravity.
+	/// This behavior is not required by the proxy character controller, so it sets the surfaceDistance to 0.
+	hkReal	m_surfaceDistanceExcess;
 
-	/// The type of surface (motion type of contact object).
-	hkpMotion::MotionType	m_surfaceMotionType; 
+	/// Is the surface dynamic (i.e. not fixed or keyframed).
+	hkBool	m_surfaceIsDynamic; 
 
 	/// Constructors
 	hkpSurfaceInfo()
@@ -50,17 +52,17 @@ struct hkpSurfaceInfo
 		m_supportedState = SUPPORTED; 
 		m_surfaceNormal.set(0,0,1,0);
 		m_surfaceVelocity.set(0,0,0,0);
-		m_surfaceDistance = 0;
-		m_surfaceMotionType = hkpMotion::MOTION_FIXED;
+		m_surfaceDistanceExcess = 0;
+		m_surfaceIsDynamic = false;
 	}	
 
-	hkpSurfaceInfo(const hkVector4& up, const hkVector4& velocity = hkVector4::getZero(), const SupportedState state = SUPPORTED, const hkpMotion::MotionType type = hkpMotion::MOTION_FIXED)
+	hkpSurfaceInfo(const hkVector4& up, const hkVector4& velocity = hkVector4::getZero(), const SupportedState state = SUPPORTED, hkBool isDynamic = false )
 	{
 		m_supportedState = state; 
 		m_surfaceNormal = up;
 		m_surfaceVelocity = velocity;
-		m_surfaceDistance = 0;
-		m_surfaceMotionType = type;
+		m_surfaceDistanceExcess = 0;
+		m_surfaceIsDynamic = isDynamic;
 	}	
 
 	/// Set structure from other 
@@ -69,8 +71,8 @@ struct hkpSurfaceInfo
 		m_supportedState = other.m_supportedState;
 		m_surfaceNormal = other.m_surfaceNormal;
 		m_surfaceVelocity = other.m_surfaceVelocity;
-		m_surfaceDistance = other.m_surfaceDistance;
-		m_surfaceMotionType = other.m_surfaceMotionType;
+		m_surfaceDistanceExcess = other.m_surfaceDistanceExcess;
+		m_surfaceIsDynamic = other.m_surfaceIsDynamic;
 
 	}
 };
@@ -96,7 +98,7 @@ struct hkpSurfaceInfoDeprecated
 #endif //HK_CHARACTER_CONTROLLER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

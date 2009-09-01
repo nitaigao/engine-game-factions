@@ -108,7 +108,7 @@ class hkpConstraintInstance : public hkReferencedObject
 
 			/// The fast construction is used by the serialization to
 			/// init the vtables and do any extra init (but ONLY of non-serialized members).
-		hkpConstraintInstance(hkFinishLoadedObjectFlag f) : hkReferencedObject(f) { }
+		hkpConstraintInstance(hkFinishLoadedObjectFlag f) : hkReferencedObject(f), m_uid(0xfffffff0) { }
 
 			/// Clone the constraint, sharing as much as possible (ie: the constraint data
 			/// if it can). In the default CLONE_INSTANCES_ONLY mode, this will NOT allow you to use different 
@@ -344,6 +344,10 @@ class hkpConstraintInstance : public hkReferencedObject
 		hkUlong m_userData; // +default(0)
 
 		struct hkConstraintInternal* m_internal; //+nosave
+
+			// hkpWorld-unique Id
+		hkUint32 m_uid; //+nosave
+
 };
 
 
@@ -433,7 +437,7 @@ HK_CLASSALIGN16(struct) hkConstraintInternal
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -12,34 +12,51 @@
 class hkpConstraintInstance;
 class hkpWorld;
 
+class hkpConstraintTrackerData : public hkReferencedObject
+{
+	public:
+
+		HK_DECLARE_CLASS_ALLOCATOR(HK_MEMORY_CLASS_DYNAMICS);
+
+		virtual void print(hkString& s) const {}
+};
+
 struct hkpConstraintBrokenEvent
 {
-	enum EventSource
-	{
-		EVENT_SOURCE_UNKNOWN,
-		EVENT_SOURCE_BREAKABLE_CONSTRAINT,
-		EVENT_SOURCE_FLEXIBLE_JOINT,
-	};
-
-	hkpConstraintBrokenEvent(hkpWorld* world, hkpConstraintInstance* i, EventSource es)
+	hkpConstraintBrokenEvent(hkpWorld* world, hkpConstraintInstance* i, const hkClass* es = 0, hkpConstraintTrackerData* d = 0)
 	:	m_world(world)
 	,	m_constraintInstance(i)
 	,	m_eventSource(es)
-	,	m_eventSourceDetails(0)
-	,	m_constraintBroken(true)
+	,	m_eventSourceDetails(d)
 	,	m_actualImpulse(0.0f)
-	,	m_impulseLimit(0.0f )
+	,	m_impulseLimit(0.0f)
 	{
 	}
 
 	hkpWorld*			m_world;
 	hkpConstraintInstance* m_constraintInstance;
 
-	hkEnum<EventSource,hkUint8> m_eventSource;	///
-	hkUint8 m_eventSourceDetails;				///
-	hkBool m_constraintBroken;					///
-	hkReal m_actualImpulse;						///
-	hkReal m_impulseLimit;						///
+	const hkClass* m_eventSource;					///
+	hkpConstraintTrackerData* m_eventSourceDetails;	///
+	hkReal m_actualImpulse;							///
+	hkReal m_impulseLimit;							///
+};
+
+struct hkpConstraintRepairedEvent
+{
+	hkpConstraintRepairedEvent(hkpWorld* world, hkpConstraintInstance* i, const hkClass* es = 0, hkpConstraintTrackerData* d = 0)
+	:	m_world(world)
+	,	m_constraintInstance(i)
+	,	m_eventSource(es)
+	,	m_eventSourceDetails(d)
+	{
+	}
+
+	hkpWorld*			m_world;
+	hkpConstraintInstance* m_constraintInstance;
+
+	const hkClass* m_eventSource;					///
+	hkpConstraintTrackerData* m_eventSourceDetails;	///
 };
 
 
@@ -61,13 +78,16 @@ class hkpConstraintListener
 
 			/// Called when a constraint gets broken or repaired (e.g. hkpBreakableConstraintData fires this event)
 		virtual void constraintBreakingCallback( const hkpConstraintBrokenEvent& event ){}
+
+			/// Called when a constraint gets broken or repaired (e.g. hkpBreakableConstraintData fires this event)
+		virtual void constraintRepairedCallback( const hkpConstraintRepairedEvent& event ){}
 };
 
 
 #endif // HK_DYNAMICS2_CONSTRAINT_LISTENER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

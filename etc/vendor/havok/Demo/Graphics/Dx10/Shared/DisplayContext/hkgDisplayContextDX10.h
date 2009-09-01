@@ -28,7 +28,7 @@ public:
 	virtual void setDepthWriteState(bool on);
 	virtual void setCullFaceState(bool on);
 	virtual void setWireframeState(bool on);
-	virtual void setDepthBias(float offset){}
+	virtual void setDepthBias(float offset) { }
 
 	virtual void setLightState(int light, bool on);
 
@@ -55,6 +55,7 @@ public:
 	inline class hkgShaderCollection* getDefaultCollection() const;
 	void setDefaultCollection(hkgShaderCollection* c);
 
+	hkgShaderCollection* getCurrentGlobalShaderCollection() const;
 	inline class hkgStateManagerDX10* getStateManager() const;
 
 	virtual void lock() const;
@@ -62,6 +63,9 @@ public:
 	virtual void unlock() const;
 
 	void reinitTextures();
+
+	void setCurrentInstanceObject(class hkgInstancedDisplayObjectDX10* inst);
+	inline hkgInstancedDisplayObjectDX10* getCurrentInstanceObject() { return m_currentInstance; }
 
 protected:
 
@@ -81,6 +85,7 @@ protected:
 	HKG_IMM_GROUP		m_immMode;
 	hkArray<VertInfo>	m_immVerts; 
 	bool				m_immGroup;
+	int					m_immLastUsedVert;
 	hkArray<float>		m_matrixStack;  // every 16 floats == matrix. 
 	float				m_curNorm[3];
 	float				m_curUV[2];
@@ -93,9 +98,11 @@ protected:
 	HKG_ENABLED_STATE   m_lastSetState;
 	HKG_BLEND_MODE		m_lastBlendMode;
 	HKG_CULLFACE_MODE	m_lastCullFaceMode;
+	HKG_ALPHA_SAMPLE_MODE m_lastAlphaMode;
 
 	hkgStateManagerDX10* m_stateManager;
 	hkgShaderCollection* m_defaultCollection; // a set of standard vs/ps pairs for this dx9 platform
+	hkgInstancedDisplayObjectDX10* m_currentInstance;
 };
 
 #include <Graphics/Dx10/Shared/DisplayContext/hkgDisplayContextDX10.inl>
@@ -104,7 +111,7 @@ protected:
 	
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

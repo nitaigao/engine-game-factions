@@ -11,14 +11,14 @@ inline hkAabb::hkAabb(const hkVector4& min, const hkVector4& max)
 {
 }
 
-hkBool hkAabb::overlaps( const hkAabb& other ) const
+hkBool32 hkAabb::overlaps( const hkAabb& other ) const
 {
 	HK_ASSERT2(0x3f5578fc,  isValid(), "Invalid aabb in hkAabb::overlaps." );
 	HK_ASSERT2(0x76dd800a,  other.isValid(), "Invalid aabb in hkAabb::overlaps.");
 	hkVector4Comparison mincomp = m_min.compareLessThanEqual4(other.m_max);
 	hkVector4Comparison maxcomp = other.m_min.compareLessThanEqual4(m_max);
 	hkVector4Comparison both; both.setAnd( mincomp, maxcomp );
-	return both.allAreSet(hkVector4Comparison::MASK_XYZ) != 0;
+	return both.allAreSet(hkVector4Comparison::MASK_XYZ);
 }
 
 hkBool hkAabb::contains(const hkAabb& other) const
@@ -29,12 +29,12 @@ hkBool hkAabb::contains(const hkAabb& other) const
 	return both.allAreSet(hkVector4Comparison::MASK_XYZ) != 0;
 }
 
-hkBool hkAabb::containsPoint(const hkVector4& other) const
+hkBool32 hkAabb::containsPoint(const hkVector4& other) const
 {
 	hkVector4Comparison mincomp = m_min.compareLessThanEqual4(other);
 	hkVector4Comparison maxcomp = other.compareLessThanEqual4(m_max);
 	hkVector4Comparison both; both.setAnd( mincomp, maxcomp );
-	return both.allAreSet(hkVector4Comparison::MASK_XYZ) != 0;
+	return both.allAreSet(hkVector4Comparison::MASK_XYZ);
 }
 
 hkBool hkAabb::isEmpty() const
@@ -61,6 +61,20 @@ void hkAabb::setEmpty()
 	m_min.setAll(HK_REAL_MAX);
 	m_max.setAll(-HK_REAL_MAX);
 }
+
+void hkAabb::getCenter( hkVector4& c ) const
+{
+	hkVector4 g; g.setAdd4( m_min, m_max );
+	c.setMul4( (const hkVector4&) hkQuadRealHalf, g);
+}
+
+void hkAabb::getHalfExtents( hkVector4& he ) const
+{
+	hkVector4 sub; sub.setSub4( m_max, m_min );
+	he.setMul4( (const hkVector4&) hkQuadRealHalf, sub );
+}
+
+
 
 inline void hkAabbUint32::setInvalid()
 {
@@ -99,7 +113,7 @@ void hkAabbUint32::operator=( const hkAabbUint32& other )
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

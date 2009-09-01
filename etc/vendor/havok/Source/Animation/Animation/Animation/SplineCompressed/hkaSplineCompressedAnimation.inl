@@ -196,14 +196,7 @@ void hkaSplineCompressedAnimation::unpackQuaternion( TrackCompressionParams::Rot
 void hkaSplineCompressedAnimation::evaluate( hkReal u, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4& out )
 {
 	static void (* evaluateFunction[4] )( hkReal u, int p, hkReal U[ MAX_DEGREE * 2 ], hkVector4 P[ MAX_ORDER ], hkVector4& out ) =
-
-
-#if (HK_CONFIG_SIMD == HK_CONFIG_SIMD_ENABLED) && !defined(HK_PLATFORM_SIM)
-		{ HK_NULL, evaluateLinear, evaluateSIMD, evaluateSIMD }
-#else
-		{ HK_NULL, evaluateLinear, evaluateSimple, evaluateSimple }
-#endif
-	;
+		{ HK_NULL, evaluateSimple1, evaluateSimple2, evaluateSimple3 };
 
 	HK_ASSERT2( 0x3aa3eb74,  p >= 1 && p <= 3, "Spline data corrupt." );
 
@@ -237,34 +230,36 @@ int hkaSplineCompressedAnimation::findSpan( int n, int p, hkUint8 u, const hkUin
 	return mid;
 }
 
-
-/// Find the local time within a block and computes the data pointer
+/// Find the local time within a block
+/// Provides an unambiguous result for the blockOut when
+/// multithreading on processors with different numeric precision.
+/// The blockTimeOut may be subject to differences in precision.
+/// This avoids discrepencies in boundary cases where the block
+/// index is computed differently on different processors.
 /// \param time Time to query the animation
 /// \param blockOut Which block the local time lies within
 /// \param blockTimeOut Local time within the block
 /// \param quantizedTimeOut Time expressed as integer within the block
-void hkaSplineCompressedAnimation::getBlockAndTime( hkReal time, int& blockOut, hkReal& blockTimeOut, hkUint8& quantizedTimeOut ) const
+void hkaSplineCompressedAnimation::getBlockAndTime( hkUint32 frame, hkReal delta, int& blockOut, hkReal& blockTimeOut, hkUint8& quantizedTimeOut ) const
 {
-	// Clamp the time requested
-	time = hkMath::max2( 0.0f, time );
-	time = hkMath::min2( m_duration, time );
-
 	// Find the appropriate block
-	blockOut = static_cast< int >( time * m_blockInverseDuration );
+	blockOut = frame / ( m_maxFramesPerBlock - 1 );
 
 	// Clamp the block
 	blockOut = hkMath::max2( blockOut, 0 );
 	blockOut = hkMath::min2( blockOut, m_numBlocks-1 );
 
-	// Find the local time within the block
-	blockTimeOut = time - static_cast< hkReal >( blockOut ) * m_blockDuration;
+	// Find the local time
+	const hkUint32 firstFrameOfBlock = blockOut * ( m_maxFramesPerBlock - 1 );
+	const hkReal realFrame = static_cast< hkReal >( frame - firstFrameOfBlock ) + delta;
+	blockTimeOut = realFrame * m_frameDuration;
 
 	// Find the truncated time
 	quantizedTimeOut = static_cast< hkUint8 >( ( blockTimeOut * m_blockInverseDuration ) * ( m_maxFramesPerBlock - 1 ) );
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

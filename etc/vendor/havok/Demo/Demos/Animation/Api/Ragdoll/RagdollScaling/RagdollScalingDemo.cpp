@@ -64,6 +64,7 @@
 // Debug graphics
 #include <Common/Visualize/hkDebugDisplay.h>
 #include <Common/Visualize/Shape/hkDisplayConvex.h>
+#include <Common/Base/Types/Geometry/hkGeometry.h>
 
 #include <Physics/Dynamics/Constraint/Bilateral/LimitedHinge/hkpLimitedHingeConstraintData.h>
 #include <Physics/Dynamics/Constraint/Bilateral/Ragdoll/hkpRagdollConstraintData.h>
@@ -80,15 +81,13 @@ static const char* ASSET_ANIMATION = "Resources/Animation/HavokGirl/hkRunLoop.hk
 static const char* ASSET_RAGDOLL = "Resources/Animation/Ragdoll/dismemberment_ragdoll.hkx";
 static const char* ASSET_SKIN = "Resources/Animation/Ragdoll/dismemberment_skin.hkx";
 
-
-
 RagdollScalingDemo::RagdollScalingDemo(hkDemoEnvironment* env)
 :	hkDefaultPhysicsDemo(env) 
 {
 	// Setup the camera
 	{
 		hkVector4 from( 0.0f, 5.0f, 1.0f );
-		hkVector4 to  ( 0.0f, 0.0f, 0.0f );
+		hkVector4 to  ( 0.0f, 0.0f, 1.0f );
 		hkVector4 up  ( 0.0f, 0.0f, 1.0f );
 		setupDefaultCameras( env, from, to, up, 0.1f, 100 );
 	}
@@ -235,13 +234,37 @@ RagdollScalingDemo::RagdollScalingDemo(hkDemoEnvironment* env)
 		env->m_sceneConverter->convert( scene );
 	}
 
+	// setup the graphics
+	setupGraphics();
+
+	// Create some geometry for display purposes
+	{
+		m_geometry = new hkGeometry;
+
+		// landscape parameters
+		int side = 3;
+		int numVertices = side * side;
+		m_geometry->m_vertices.setSize( numVertices );
+
+		int numTriangles = 2 * ( side - 1 ) * ( side - 1 );
+		m_geometry->m_triangles.setSize( numTriangles );
+
+		// build the landscape given this above parameters
+		buildLandscape( side, 1.5f );
+
+		m_displayConvex = new hkDisplayConvex( m_geometry ); // owns the geom given.
+		m_geometryArray.pushBack( m_displayConvex );
+
+		// add the geometry to the display manager
+		hkDebugDisplay::getInstance().addGeometry( m_geometryArray, hkTransform::getIdentity(), 0x1001, 0, 0);
+
+		// set the landscape colour to green
+		hkDebugDisplay::getInstance().setGeometryColor( 0xff00a030, 0x1001, 0 );
+	}
 
 	// Create the new controllers
 	m_ragdollRigidBodyController = new hkaRagdollRigidBodyController( m_ragdoll );
 	
-	// setup the graphics
-	setupGraphics();
-
 	m_world->unlock();
 
 	// Disable warning about reposing the ragdoll.
@@ -285,6 +308,16 @@ RagdollScalingDemo::~RagdollScalingDemo()
 	delete m_control;
 
 	delete m_loader;
+
+	// Delete the floor plane
+	{
+		// remove our landscape from the display manager
+		hkDebugDisplay::getInstance().removeGeometry( 0x1001, 0, 0 );
+
+		// delete our geometry
+		m_geometryArray.clear();
+		delete m_displayConvex;
+	}
 }
 
 hkDemo::Result RagdollScalingDemo::stepDemo()
@@ -314,6 +347,9 @@ hkDemo::Result RagdollScalingDemo::stepDemo()
 	{
 		newScale /= fastFactor;
 	}
+
+	// Move the characters vertically (Pelvis of the character is originally at the origin)
+	m_worldFromModel.m_translation.set( 0, 0, 0.82f * newScale, 0 );
 
 	// Test if the user has requested scaling
 	if ( newScale != oldScale )
@@ -434,6 +470,51 @@ hkDemo::Result RagdollScalingDemo::stepDemo()
 	return DEMO_OK;	// original animation demo return
 }
 
+
+// Creates a ground plane from triangles
+void RagdollScalingDemo::buildLandscape( int side, hkReal size )
+{
+	// create a rolling landscape for our character to walk across
+
+	// create the vertices
+	{
+		{
+			for( int i = 0; i < side; i++ )
+			{
+				for( int j = 0; j < side; j++ )
+				{
+					float h = 0.0f;
+
+					m_geometry->m_vertices[ ( i * side + j ) ](0) = ( i * 1.0f - ( side - 1.0f ) * 0.5f ) * size;
+					m_geometry->m_vertices[ ( i * side + j ) ](2) = h;
+					m_geometry->m_vertices[ ( i * side + j ) ](1) = ( j * 1.0f - ( side - 1.0f ) * 0.5f ) * size;
+					m_geometry->m_vertices[ ( i * side + j ) ](3) = 0.0f;
+				}
+			}
+		}
+	}
+
+	// Create the triangles
+	{
+		int index = 0;
+		hkUint16 corner = 0;
+
+		for( int i = 0; i < side - 1; i++ )
+		{
+			for( int j = 0; j < side - 1; j++ )
+			{
+				m_geometry->m_triangles[index].set( hkUint16(corner), hkUint16(corner + side), hkUint16(corner + 1));
+				m_geometry->m_triangles[ index + 1 ].set( hkUint16(corner + 1), hkUint16(corner + side), hkUint16(corner + side + 1) );
+
+				index += 2;
+				corner++;
+			}
+
+			corner++;
+		}
+	}
+}
+
 #if defined(HK_COMPILER_MWERKS)
 #	pragma force_active on
 #	pragma fullpath_file on
@@ -444,7 +525,7 @@ static const char description[] = "ROUS: Ragdolls of unusual size.";
 HK_DECLARE_DEMO( RagdollScalingDemo, HK_DEMO_TYPE_ANIMATION | HK_DEMO_TYPE_SERIALIZE, description, helpString );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -3490,6 +3490,43 @@ HK_PATCH_END()
 
 #endif // USING_HAVOK_PHYSICS
 
+#if defined(USING_HAVOK_ANIMATION) && defined(USING_HAVOK_PHYSICS)
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaKeyFrameHierarchyUtilityControlData", 0)
+	HK_PATCH_MEMBER_ADDED("hierarchyGain", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("velocityDamping", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("accelerationGain", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("velocityGain", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("positionGain", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("positionMaxLinearVelocity", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("positionMaxAngularVelocity", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("snapGain", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("snapMaxLinearVelocity", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("snapMaxAngularVelocity", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("snapMaxLinearDistance", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("snapMaxAngularDistance", TYPE_REAL, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaRagdollInstance", 0)
+	HK_PATCH_PARENT_SET(HK_NULL, "hkReferencedObject")
+	HK_PATCH_MEMBER_ADDED("rigidBodies", TYPE_ARRAY_OBJECT, "hkpRigidBody", 0)
+	HK_PATCH_MEMBER_ADDED("constraints", TYPE_ARRAY_OBJECT, "hkpConstraintInstance", 0)
+	HK_PATCH_MEMBER_ADDED("boneToRigidBodyMap", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("skeleton", TYPE_OBJECT, "hkaSkeleton", 0)
+	HK_PATCH_DEPENDS("hkpRigidBody", 0)
+	HK_PATCH_DEPENDS("hkpEntity", 0)
+	HK_PATCH_DEPENDS("hkBaseObject", 0)
+	HK_PATCH_DEPENDS("hkpWorldObject", 0)
+	HK_PATCH_DEPENDS("hkReferencedObject", 0)
+	HK_PATCH_DEPENDS("hkaSkeleton", 0)
+	HK_PATCH_DEPENDS("hkpConstraintInstance", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaKeyFrameHierarchyUtility", 0)
+HK_PATCH_END()
+
+#endif // USING_HAVOK_ANIMATION && USING_HAVOK_PHYSICS
+
 #if defined(USING_HAVOK_ANIMATION)
 
 HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaSkeletonMapperDataChainMapping", 0)
@@ -3662,21 +3699,6 @@ HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaAnimationPreviewColorContainer", 0)
 	HK_PATCH_DEPENDS("hkaAnimationPreviewColor", 0)
 HK_PATCH_END()
 
-HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaKeyFrameHierarchyUtilityControlData", 0)
-	HK_PATCH_MEMBER_ADDED("hierarchyGain", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("velocityDamping", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("accelerationGain", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("velocityGain", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("positionGain", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("positionMaxLinearVelocity", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("positionMaxAngularVelocity", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("snapGain", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("snapMaxLinearVelocity", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("snapMaxAngularVelocity", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("snapMaxLinearDistance", TYPE_REAL, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("snapMaxAngularDistance", TYPE_REAL, HK_NULL, 0)
-HK_PATCH_END()
-
 HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaSkeletonLocalFrameOnBone", 0)
 	HK_PATCH_MEMBER_ADDED("localFrame", TYPE_OBJECT, "hkLocalFrame", 0)
 	HK_PATCH_MEMBER_ADDED("boneIndex", TYPE_INT, HK_NULL, 0)
@@ -3725,27 +3747,9 @@ HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaAnimation", 0)
 	HK_PATCH_DEPENDS("hkaAnnotationTrack", 0)
 HK_PATCH_END()
 
-HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaRagdollInstance", 0)
-	HK_PATCH_PARENT_SET(HK_NULL, "hkReferencedObject")
-	HK_PATCH_MEMBER_ADDED("rigidBodies", TYPE_ARRAY_OBJECT, "hkpRigidBody", 0)
-	HK_PATCH_MEMBER_ADDED("constraints", TYPE_ARRAY_OBJECT, "hkpConstraintInstance", 0)
-	HK_PATCH_MEMBER_ADDED("boneToRigidBodyMap", TYPE_ARRAY_INT, HK_NULL, 0)
-	HK_PATCH_MEMBER_ADDED("skeleton", TYPE_OBJECT, "hkaSkeleton", 0)
-	HK_PATCH_DEPENDS("hkpRigidBody", 0)
-	HK_PATCH_DEPENDS("hkpEntity", 0)
-	HK_PATCH_DEPENDS("hkBaseObject", 0)
-	HK_PATCH_DEPENDS("hkpWorldObject", 0)
-	HK_PATCH_DEPENDS("hkReferencedObject", 0)
-	HK_PATCH_DEPENDS("hkaSkeleton", 0)
-	HK_PATCH_DEPENDS("hkpConstraintInstance", 0)
-HK_PATCH_END()
-
 HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaAnnotationTrackAnnotation", 0)
 	HK_PATCH_MEMBER_ADDED("time", TYPE_REAL, HK_NULL, 0)
 	HK_PATCH_MEMBER_ADDED("text", TYPE_CSTRING, HK_NULL, 0)
-HK_PATCH_END()
-
-HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaKeyFrameHierarchyUtility", 0)
 HK_PATCH_END()
 
 HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkaDefaultAnimatedReferenceFrame", 0)
@@ -6755,7 +6759,7 @@ HK_PATCH_END()
 #endif // USING_HAVOK_CLOTH
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

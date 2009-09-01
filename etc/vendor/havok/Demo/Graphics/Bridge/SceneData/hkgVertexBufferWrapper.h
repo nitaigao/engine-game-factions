@@ -33,16 +33,20 @@ public:
 
 	class hkgVertexSet* getUnderlyingVertexData();
 
+	void setTopLevelParent( class hkgDisplayObject* p ) { m_parent = p; } // not ref counted
+	class hkgDisplayObject* getTopLevelParent() const { return m_parent; }
+
 protected:
 
 	HKG_LOCK_FLAG m_lockType;
 	hkgFaceSet* m_faceSet;
+	hkgDisplayObject* m_parent;
 };
 
 #endif // HKG_GRAPHICS_BRIDGE2_VERTEX_BUFFER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

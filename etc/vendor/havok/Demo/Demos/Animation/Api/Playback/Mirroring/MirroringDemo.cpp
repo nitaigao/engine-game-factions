@@ -308,7 +308,7 @@ hkDemo::Result MirroringDemo::stepDemo()
 HK_DECLARE_DEMO(MirroringDemo, HK_DEMO_TYPE_ANIMATION | HK_DEMO_TYPE_SERIALIZE, "Mirroring Demo", "Press \221,\222,\223 to ease in / out different animations.\n\221 is a mirrored version of \222.");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -75,8 +75,7 @@ public:
 typedef void (HK_CALL *hkMemoryWalkCallback)(void* start, hk_size_t size,hkBool allocated,int pool,void* param);
 
 	/// All memory allocations in Havok are handled through an instance of this class.
-	/// Note that all allocations greater than 8 bytes should be 16 byte aligned.
-	/// Allocations of 8 bytes or less should be aligned to 8 bytes.
+	/// Note that all allocations should be 16 byte aligned.
 	/// We distinguish between allocations where the size is explicitly
 	/// stored or not stored. See the hkBase user guide for more details.
 
@@ -165,6 +164,13 @@ class hkMemory
             /// free up such pages so they can be used as part of other allocations.
         virtual void garbageCollect() {}
 
+			/// Performs a partial garbage collect. The numBlocks value gives a rough indication on how many 'blocks'
+			/// (a block in this context is generally the memory managers collections of smaller blocks) to garbage collect
+			/// Doing an incremental garbage collection, can be used to split the total processing for a garbage collect
+			/// across many frames. The total cost of all the incremental collects will in general be more expensive than 
+			/// a single garbage collect, but the work can be spread out over many frames, making the work less 'spiky'.
+		virtual void incrementalGarbageCollect(int numBlocks) {}
+
             /// Optimizing allows the memory manager to look the memory usage optimize its usage - for performance
             /// primarily. The process is similar to a garbage collect in terms of finding memory thats free,
             /// an optimize can decide to make this memory available for a commonly used block size for example.
@@ -218,6 +224,9 @@ class hkMemory
             /// Set the limited memory listener. May not be implemented on all implementations - you can check
             /// by doing a get, if it is HK_NULL and you tried to set it to something, support for the listener isn't implemented
             /// on this platform.
+			/// If the listener is set, it becomes the listeners responsibility to try and make memory avaialable. One way to make
+			/// memory available is to call a 'garbageCollect' which will combine small free blocks to make larger allocations
+			/// possible.
         virtual void setLimitedMemoryListener(hkLimitedMemoryListener* listener) {}
             /// Get the limited memory listener. Not all memory systems support listeners.
         virtual hkLimitedMemoryListener* getLimitedMemoryListener() { return HK_NULL; }
@@ -342,7 +351,7 @@ int hkMemory::getMaxNumElemsOnThreadMemoryFreeList() const
 #endif // HKBASE_HKMEMORY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

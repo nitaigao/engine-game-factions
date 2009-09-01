@@ -92,6 +92,11 @@ class hkFreeList
             /// Returns number of blocks found, or <0 if couldn't do the work
         int findGarbage();
 
+			/// Returns the number of blocks examined.
+			/// The free list holds state, so will only examine blocks after ones previously examined.
+			/// Returns true when hits the end of all the blocks, will start on the first block when called again
+		hkBool incrementalFindGarbage(int numBlocks, int& numBlocksOut);
+
             /// Collect
         inline void garbageCollect();
 
@@ -178,6 +183,11 @@ class hkFreeList
 
         hkBool _checkFreeBlocks();
 
+			/// Analyses the block to see if all of its elements are free, if so it moves the block to the m_freeBlocks list, and returns true
+			/// Also in that case removes all the elements from the m_free list
+			/// If they aren't all free, it will reorder the free blocks so they will be returned contiguously from memory
+		hkBool32 _calcBlockFree(Block* block);
+
     protected:
 
             // Singly linked list of free elements. NULL terminated
@@ -185,6 +195,10 @@ class hkFreeList
 
             // The size of a single element
         hk_size_t m_elementSize;
+
+			/// The last block incrementally garbage collected. HK_NULL if at start of list.
+			/// Should only point to used blocks (ie blocks in the m_blocks list)
+		Block* m_lastIncrementalBlock;
 
             // The active blocks
         Block* m_blocks;
@@ -214,7 +228,7 @@ class hkFreeList
 #endif // HK_FREELIST
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

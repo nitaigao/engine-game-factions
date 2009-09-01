@@ -92,7 +92,7 @@ class hkpTriSampledHeightFieldBvTreeShape : public hkpBvTreeShape
 
 	protected:
 		
-		hkBool static HK_CALL getExtentsForQueryAabb(hkAabb& aabb, const hkpTriSampledHeightFieldCollection* collection, hkUint32& minX, hkUint32& maxX, hkUint32& minZ, hkUint32& maxZ);
+		static hkBool HK_CALL getExtentsForQueryAabb(hkAabb& aabb, const hkpTriSampledHeightFieldCollection* collection, hkUint32& minX, hkUint32& maxX, hkUint32& minZ, hkUint32& maxZ);
 
 		class hkpSingleShapeContainer m_childContainer;
 		mutable int	m_childSize;	//+nosave
@@ -108,7 +108,7 @@ class hkpTriSampledHeightFieldBvTreeShape : public hkpBvTreeShape
 #endif // HK_TRI_SAMPLED_HEIGHTFIELD_BVTREE_SHAPE
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

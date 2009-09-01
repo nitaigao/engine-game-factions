@@ -45,14 +45,8 @@
 
 BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 {
-	m_world->lock();
-
-	hkpGroupFilter* groupFilter = new hkpGroupFilter();
-	m_world->setCollisionFilter( groupFilter );
-	groupFilter->removeReference();
-    
     // Create the vehicles
-    {
+
         //
         // Create tractor shape.
         //
@@ -90,8 +84,7 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
                         xSizeFrontMid, ySizeMid, -zSize, 0.0f,	// v9
                 };
                 
-                hkpBoxShape* boxShape = new hkpBoxShape(halfExtents, 0 );
-                boxShape->setRadius(0.05f);
+                hkpBoxShape* boxShape = new hkpBoxShape(halfExtents, 0.05f );
 
 				hkTransform transform;
                 transform.setIdentity();
@@ -101,8 +94,6 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 				boxShape->removeReference();
                 
 				hkpConvexVerticesShape* convexShape;
-				hkArray<hkVector4> planeEquations;
-				hkGeometry geom;
 				{
 					hkStridedVertices stridedVerts;
 					{
@@ -111,17 +102,8 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 						stridedVerts.m_vertices = vertices;
 					}
 
-					hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-					{
-						stridedVerts.m_numVertices = geom.m_vertices.getSize();
-						stridedVerts.m_striding = sizeof(hkVector4);
-						stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-					}
-
-					convexShape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
+					convexShape = new hkpConvexVerticesShape(stridedVerts);
 				}
-                convexShape->setRadius(0.05f);
                 
                 hkArray<hkpShape*> shapeArray;
                 shapeArray.pushBack(transformShape);
@@ -138,7 +120,6 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
         //
         hkpListShape* trailerShape = HK_NULL;
         {
-            
             hkVector4 halfExtents1(5.0f, 1.5f, 1.0f); // Box
             hkVector4 halfExtents2(1.0f, 1.0f, 1.0f); // Tongue
             
@@ -146,11 +127,8 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
             transform.setIdentity();
             
             {						
-                hkpBoxShape* boxShape1 = new hkpBoxShape(halfExtents1, 0 );
-                boxShape1->setRadius(0.05f);
-                
-                hkpBoxShape* boxShape2 = new hkpBoxShape(halfExtents2, 0 );
-                boxShape2->setRadius(0.05f);
+                hkpBoxShape* boxShape1 = new hkpBoxShape(halfExtents1, 0.05f );
+                hkpBoxShape* boxShape2 = new hkpBoxShape(halfExtents2, 0.05f );
                 
                 transform.setTranslation(hkVector4(6.0f, 0.5f, 0.0f));
 				hkpConvexTransformShape* transformShape = new hkpConvexTransformShape(boxShape2, transform);
@@ -166,10 +144,12 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
             }
         }
         
-        
         // Create the tractor vehicles
-		
         {
+		m_world->lock();
+		{
+			HK_ASSERT(0x526edf5d, m_world->getCollisionFilter() && m_world->getCollisionFilter()->m_type == hkpCollisionFilter::HK_FILTER_GROUP);
+			hkpGroupFilter* groupFilter = static_cast<hkpGroupFilter*>(const_cast<hkpCollisionFilter*>(m_world->getCollisionFilter()));
 			m_vehicles.clear();
             for (int vehicleId = 0; vehicleId < m_numVehicles; vehicleId++)
             {
@@ -199,8 +179,6 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 						tractorInfo.m_centerOfMass.set( -1.0f, -0.8f, 0.0f);
                                               
                         tractorRigidBody = new hkpRigidBody(tractorInfo);
-                        
-                        m_world->addEntity(tractorRigidBody);
                     }
 
 					m_vehicles.expandOne();
@@ -231,15 +209,13 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 						trailerInfo.m_centerOfMass.set(-1.0f, -1.0f, 0.0f);
                                               
                         trailerRigidBody = new hkpRigidBody(trailerInfo);
-                        
-                        m_world->addEntity(trailerRigidBody);
-
-						HK_SET_OBJECT_COLOR((hkUlong)trailerRigidBody->getCollidable(), 0x80ff8080);
                     }
                     
 					m_vehicles.expandOne();
 					TrailerSetup tsetup;
 					createTrailerVehicle( tsetup, trailerRigidBody, m_vehicles.getSize()-1);
+
+					HK_SET_OBJECT_COLOR((hkUlong)trailerRigidBody->getCollidable(), 0x80ff8080);
                     
                     trailerRigidBody->removeReference();
                 }
@@ -249,19 +225,13 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
             trailerShape->removeReference();
         }
 		
-    }
-
 	//
 	//	Create the wheels
 	//
-	{
 		createDisplayWheels(0.5f, 0.2f);
-	}
 
 
     // Attach Tractors and Trailers
-	
-    {
         for (int vehicleId = 0; vehicleId < m_vehicles.getSize(); vehicleId+=2)
         {
             hkpRigidBody* tractor = m_vehicles[vehicleId].m_vehicle->getChassis();
@@ -333,6 +303,7 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 				rdc->removeReference();
 			}
         }
+		m_world->unlock();
     }
     
     //
@@ -366,7 +337,6 @@ BigRigDemo::BigRigDemo(hkDemoEnvironment* env) : CarDemo(env, false)
 
 		m_camera.reinitialize( cinfo );
     }
-	m_world->unlock();
 }
 
 hkDemo::Result BigRigDemo::stepDemo()
@@ -464,7 +434,7 @@ static const char helpString[] = "Controls:\n" \
 HK_DECLARE_DEMO(BigRigDemo, HK_DEMO_TYPE_PHYSICS, "Drive a tractor-trailer on a MOPP landscape", helpString );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

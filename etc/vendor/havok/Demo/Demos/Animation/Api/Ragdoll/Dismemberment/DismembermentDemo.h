@@ -35,6 +35,10 @@ class DismembermentDemo : public hkDefaultPhysicsDemo
 
     private:
 
+		bool isFullyDismembered() const;
+		void setupCameraAndShadows();
+		static hkReal HK_CALL floatMod( hkReal numerator, hkReal denominator );
+
 		hkQsTransform m_worldFromModel;
 
 		class hkaAnimationBinding* m_binding;
@@ -63,7 +67,13 @@ class DismembermentDemo : public hkDefaultPhysicsDemo
 
 		bool m_drawRagdoll;
 		bool m_drawSkin;
-		bool m_drawSkeleton;
+		bool m_drawRagdollSkeleton;
+		bool m_drawAnimationSkeleton;
+		bool m_autoDismember;
+		bool m_explode;
+		bool m_useExtractedMotion;
+		int m_currentFrame;
+		int m_actionFrame;
 };
 
 
@@ -116,7 +126,7 @@ class DismembermentDemoRagdollInstanceAndController : public hkReferencedObject
 #endif  // HK_DISMEMBERMENT_DEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

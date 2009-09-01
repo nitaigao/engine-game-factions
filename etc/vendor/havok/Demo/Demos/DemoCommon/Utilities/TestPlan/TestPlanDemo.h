@@ -26,6 +26,7 @@ class TestPlanDemo : public hkDemo
 		// Test plan type
 		enum TestPlanType
 		{
+			DEMOS_LIST,
 			TEST_PLAN_ALL,
 			TEST_PLAN_COMMON_DEMOS,
 			TEST_PLAN_PHYSICS_DEMOS,
@@ -46,7 +47,7 @@ class TestPlanDemo : public hkDemo
 #endif // DEMOS_UTILITIES_TESTPLANDEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

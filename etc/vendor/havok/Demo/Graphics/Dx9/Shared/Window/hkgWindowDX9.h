@@ -163,7 +163,9 @@ public:
 	// some DX9 specific window commands (for shadowing etc)
 	virtual HKG_SHADOWMAP_SUPPORT getShadowMapSupport();
 	virtual void prepareForShadowMap(); // creates depth and render target
-	virtual void beginShadowMapRender(class hkgDisplayWorld* world, class hkgCamera* camera, class hkgLight* light, bool clearMap = true ); // sets the depth and render target to be the current
+	virtual void beginShadowMapRender(class hkgDisplayWorld* world, class hkgCamera* camera, class hkgLight* light); // sets the depth and render target to be the current
+	virtual const class hkgCamera* startShadowMap( int ss, bool clearMap ); // returns the light frustum which is being used to render
+	virtual void endShadowMap( int ss, bool blurMap );
 	virtual int endShadowMapRender(int textureStageForMap, bool shaderDriven); // resets to the normal depth and render target
 	virtual void revertShadowMapState(); // resets to the normal texture modes etc
 	virtual void cleanupShadowMap(); // releases held targets
@@ -179,19 +181,18 @@ public:
 	virtual int getMaxBlendMatrices();
 	virtual int getMaxTextureBlendStages();
 
+	virtual int getVideoMemSizeInMB() const { return 256; } // PC will override this
+	virtual int getMaxTextureWidth() const { return m_d3dCaps.MaxTextureWidth; }
+	virtual int getMaxTextureHeight() const { return m_d3dCaps.MaxTextureHeight; }
+	virtual void getDisplayAdapterDescription(hkString& description) const;
+
 	virtual bool saveFrontFrameBufferToBMP(const char* filename);
 	virtual bool saveFrontFrameBufferToStream(unsigned char * str, int stridebytes, int pixelsize);
 
 	// debug utils
 	void displayShadowMap();
 
-	void cleanupPostEffects();
-	void addPostEffect(hkgPostEffectDX9* e);
-	void removePostEffect(hkgPostEffectDX9* e);
-	void removePostEffect(const char* name);
-	
-	virtual void applyPostEffects();
-	virtual bool applyPreClearEffectCommands();
+	virtual bool msaaEnabled() const { return m_msaa; } // MSAA on for RT
 
 	const D3DPRESENT_PARAMETERS& getPresentParams() const { return m_d3dpp;  }
 
@@ -209,10 +210,9 @@ protected:
 	D3DCAPS9				m_d3dCaps;           // Caps for the device
     DWORD					m_dwCreateFlags;     // Indicate sw or hw vertex processing
 
-	bool					m_fsaa; 
-
-	// Post process effect (FX file etc) support, ordered.
-	hkgArray<hkgPostEffectDX9*>	m_postEffects;
+	bool					m_msaa; 
+	int						m_msaaSamples;
+	int						m_msaaQuality;
 
 	// shadow map support
 	int						m_shadowMapSize;
@@ -251,7 +251,7 @@ protected:
 	
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

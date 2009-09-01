@@ -98,6 +98,15 @@ class hkgLightManager : public hkgReferencedObject
 			/// Get the ambient value for the scene in the form of 3 floats in the range 0-->1 as a pointer to the internal structure.
 		inline float* getSceneAmbientPtr();
 
+		/// Set the ambient value for the scene in the form of 3 floats in the range 0-->1.
+		inline void setSceneRimColor( const float a[3] );
+
+		/// Get the ambient value for the scene in the form of 3 floats in the range 0-->1.
+		inline void getSceneRimColor( float a[3] ) const;
+
+		/// Get the ambient value for the scene in the form of 3 floats in the range 0-->1 as a pointer to the internal structure.
+		inline float* getSceneRimColorPtr();
+
 			/// Create 'numLights', with the given 'distanceFromOrigin', such that they lie on the plane perpendicular to 'up'.
 		void addDefaultLights( float distanceFromOrigin, const float up[3], const float front[3], int numLights);
 
@@ -119,6 +128,7 @@ class hkgLightManager : public hkgReferencedObject
 		int					m_maxActiveSetSize;
 
 		float				m_sceneAmbient[3];
+		float				m_sceneRim[3];
 
 		mutable class hkCriticalSection*	m_lightLock;
 
@@ -129,7 +139,7 @@ class hkgLightManager : public hkgReferencedObject
 #endif // HK_GRAPHICS_LIGHT_MANAGER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

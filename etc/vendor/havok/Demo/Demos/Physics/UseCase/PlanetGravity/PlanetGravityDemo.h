@@ -80,8 +80,6 @@ class PlanetGravityDemo : public hkDefaultPhysicsDemo
 		hkpShape* m_crouchShape;
 
 		hkpCharacterContext * m_characterContext;
-		hkpSurfaceInfo*	m_previousGround;
-		hkInt32 m_framesInAir;
 
 		// Camera's forward vector changed by mouse movement
 		hkVector4 m_cameraForward;
@@ -100,12 +98,15 @@ class PlanetGravityDemo : public hkDefaultPhysicsDemo
 
 		// The world's single light attached to the camera
 		hkgLight* m_flashLight;
+
+		// Listeners list used for cleanup
+		hkArray<hkpCollisionListener*> m_listeners;
 };
 
 #endif // HK_PLANET_GRAVITY_DEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

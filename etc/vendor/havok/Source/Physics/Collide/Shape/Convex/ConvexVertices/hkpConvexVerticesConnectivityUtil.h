@@ -56,9 +56,6 @@ class hkpConvexVerticesConnectivityUtil
             /// Quickly calculates the volume specified in the connectivity with the specified vertices
         static hkReal HK_CALL calculateVolume(const hkArray<hkVector4>& vertices,const hkpConvexVerticesConnectivity* conn);
 
-			/// Calculates the convex hull of the points in stridedVertsIn and returns the vertices used, the plane equations generated, the geometry of hull and the connectivity.
-		static void HK_CALL createConvexGeometry( const hkStridedVertices& stridedVertsIn, hkGeometry& geometryOut, hkArray<hkVector4>& planeEquationsOut, hkpConvexVerticesConnectivity** connectivityOut );
-
 
     public:
 
@@ -96,7 +93,7 @@ class hkpConvexVerticesConnectivityUtil
 #endif // HK_CONVEX_VERTICES_CONNECTIVITY_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -49,6 +49,7 @@ const hkClass* TweakerUtils::getInstanceClass( const hkClass* baseClass, const v
 
 void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* rootData, const class hkClass& rootKlass,
 										class hkTextDisplay& disp, float x, float& y,
+										hkString& currentFullNameIn, hkObjectArray<NameAndDisplayLocation>& nameAndDisplayLocationOut,
 										HideMemberFunc hideMember, hkUint32 selectedColor )
 {
 	if (memberPath.getLength() == 0)
@@ -89,6 +90,10 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 	for (int memberIndex = 0; memberIndex < rootKlass.getNumMembers(); ++memberIndex )
 	{
 		const hkClassMember& member = rootKlass.getMember(memberIndex);
+
+		hkString currentFullName = currentFullNameIn;
+		currentFullName += hkString("/");
+		currentFullName += member.getName();
 
 		if ( hideMember && hideMember(member) )
 		{
@@ -143,7 +148,7 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 		case hkClassMember::TYPE_QUATERNION:
 			{
 				const hkReal* r = reinterpret_cast<const hkReal*>(memberData);
-				str.printf("(%f %f %f %f)", r[0], r[1], r[2], r[3] );
+				str.printf("%s: (%f %f %f %f)", member.getName(), r[0], r[1], r[2], r[3] );
 				break;
 			}
 			break;
@@ -252,6 +257,13 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 			break;
 		}
 
+		{
+			NameAndDisplayLocation nl;
+			nl.m_name = currentFullName;
+			nl.yLocation = y;
+			nameAndDisplayLocationOut.pushBack( nl );
+		}
+
 		disp.outputText(str, x, y, col);
 		y += disp.getFont()->getCharHeight() * 1.2f;
 
@@ -259,7 +271,9 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 		if ((isSelected) && (member.getType() == hkClassMember::TYPE_STRUCT))
 		{
 			const void* ptrAddr = static_cast<const void*>(memberData);
-			displayMemberData(path, ptrAddr, member.getStructClass(), disp, x+20, y, hideMember);
+			displayMemberData(path, ptrAddr, member.getStructClass(), disp, x+20, y, 
+				currentFullName, nameAndDisplayLocationOut,
+				hideMember);
 		}
 
 		// Chase pointers
@@ -272,7 +286,9 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 			{
 				const hkClass* instanceClass = getInstanceClass( &member.getStructClass(), ptrTo );
 
-				displayMemberData(path, ptrTo, *instanceClass, disp, x+20, y, hideMember);
+				displayMemberData(path, ptrTo, *instanceClass, disp, x+20, y,
+					currentFullName, nameAndDisplayLocationOut,
+					hideMember);
 			}
 		}
 
@@ -294,6 +310,13 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 						hkString s;
 						s.printf( "%s[%d]: %f", memberName.cString(), j, value );
 
+						hkString arrayElementName;
+						arrayElementName.printf( "%s[%d]", currentFullName.cString(), j);
+						NameAndDisplayLocation nl;
+						nl.m_name = arrayElementName;
+						nl.yLocation = y;
+						nameAndDisplayLocationOut.pushBack( nl );
+
 						int color = ( j == arrayIndex ? selectedColor : 0xffffffff );
 						disp.outputText(s, x+20, y, color);
 						y += disp.getFont()->getCharHeight() * 1.2f;
@@ -313,6 +336,13 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 
 						hkString s;
 						s.printf( "%s[%d]: %d", memberName.cString(), j, value );
+
+						hkString arrayElementName;
+						arrayElementName.printf( "%s[%d]", currentFullName.cString(), j);
+						NameAndDisplayLocation nl;
+						nl.m_name = arrayElementName;
+						nl.yLocation = y;
+						nameAndDisplayLocationOut.pushBack( nl );
 
 						int color = ( j == arrayIndex ? selectedColor : 0xffffffff );
 						disp.outputText(s, x+20, y, color);
@@ -337,6 +367,13 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 						hkString s;
 						s.printf( "%s[%d] -> <%s>", memberName.cString(), j, instanceClassName );
 
+						hkString arrayElementName;
+						arrayElementName.printf( "%s[%d]", currentFullName.cString(), j);
+						NameAndDisplayLocation nl;
+						nl.m_name = arrayElementName;
+						nl.yLocation = y;
+						nameAndDisplayLocationOut.pushBack( nl );
+
 						if ( j == arrayIndex )
 						{
 							disp.outputText(s, x+20, y, selectedColor);
@@ -344,7 +381,9 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 
 							if ( ptrTo )
 							{
-								displayMemberData(path, ptrTo, *instanceClass, disp, x+40, y, hideMember);
+								displayMemberData(path, ptrTo, *instanceClass, disp, x+40, y, 
+									arrayElementName, nameAndDisplayLocationOut,
+									hideMember);
 							}
 						}
 						else
@@ -368,11 +407,21 @@ void TweakerUtils::displayMemberData(	const hkString& memberPath, const void* ro
 						hkString s;
 						s.printf( "%s[%d]", memberName.cString(), j );
 
+						hkString arrayElementName;
+						arrayElementName.printf( "%s[%d]", currentFullName.cString(), j);
+						NameAndDisplayLocation nl;
+						nl.m_name = arrayElementName;
+						nl.yLocation = y;
+						nameAndDisplayLocationOut.pushBack( nl );
+
 						if ( j == arrayIndex )
 						{
 							disp.outputText(s, x+20, y, selectedColor);
 							y += disp.getFont()->getCharHeight() * 1.2f;
-							displayMemberData(path, arrayPtr->begin() + j*structSz, member.getStructClass(), disp, x+40, y, hideMember );
+
+							displayMemberData(path, arrayPtr->begin() + j*structSz, member.getStructClass(), disp, x+40, y, 
+								arrayElementName, nameAndDisplayLocationOut,
+								hideMember );
 						}
 						else
 						{
@@ -463,6 +512,14 @@ void TweakerUtils::getIndexOfMemberRecursive(	const hkString& memberPath, const 
 		}
 
 		bool isSelected = hkString::strCmp(member.getName(), memberName.cString()) == 0;
+
+		if ((isSelected) && (member.getType() == hkClassMember::TYPE_STRUCT))
+		{
+			const void* memberData = static_cast<const void*>(static_cast<const char*>(rootData) + member.getOffset());
+			const void* ptrAddr = static_cast<const void*>(memberData);
+			y += disp.getFont()->getCharHeight() * 1.2f;
+			getIndexOfMemberRecursive(path, ptrAddr, member.getStructClass(), disp, x+20, y, hideMember);
+		}
 
 		if(isSelected) 
 		{
@@ -938,8 +995,30 @@ void HK_CALL TweakerUtils::displayData(	const hkString& memberPath, const void* 
 								HideMemberFunc hideMember, hkUint32 selectedColor )
 {
 	hkReal yCopy = y;
-	displayMemberData(memberPath, rootData, rootKlass, disp, x, yCopy, hideMember, selectedColor);
+
+	hkString currentFullName;
+	hkObjectArray<NameAndDisplayLocation> nameAndDisplayLocationOut;
+
+	displayMemberData(memberPath, rootData, rootKlass, disp, x, yCopy, 
+		currentFullName, nameAndDisplayLocationOut,
+		hideMember, selectedColor);
 }
+
+
+void HK_CALL TweakerUtils::displayDataAndRecordResults(	const hkString& memberPath, const void* rootData, const class hkClass& rootKlass,
+								class hkTextDisplay& disp, float x, float y,
+								hkObjectArray<NameAndDisplayLocation>& nameAndDisplayLocationOut,
+								HideMemberFunc hideMember, hkUint32 selectedColor )
+{
+	hkReal yCopy = y;
+
+	hkString currentFullName;
+
+	displayMemberData(memberPath, rootData, rootKlass, disp, x, yCopy, 
+		currentFullName, nameAndDisplayLocationOut,
+		hideMember, selectedColor);
+}
+
 
 hkString TweakerUtils::getNextSiblingPath(	const hkString& memberPath, const void* rootData, const class hkClass& rootKlass,
 										HideMemberFunc hideMember )
@@ -1268,7 +1347,7 @@ hkBool TweakerUtils::getTweakInput(hkDemoEnvironment* env,
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

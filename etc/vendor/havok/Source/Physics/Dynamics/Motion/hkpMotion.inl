@@ -106,6 +106,21 @@ void hkpMotion::setAngularDamping( hkReal d )
 	m_motionState.m_angularDamping = d;
 }
 
+/*
+** GRAVITY FACTOR
+*/
+
+hkReal hkpMotion::getGravityFactor()
+{
+	return m_gravityFactor;
+}
+
+void hkpMotion::setGravityFactor( hkReal gravityFactor )
+{
+	m_gravityFactor = gravityFactor;
+}
+
+
 void hkpMotion::setWorldSelectFlagsNeg(int worldFlag0, int worldFlag1, int worldDeactivationIntegrateCounter)
 {
 	HK_ASSERT2(0xad7654df, (worldFlag0 & 0xfffffffc) == 0, "World's deactivation flag must be 0 or 1.");
@@ -159,7 +174,7 @@ void hkpMotion::enableDeactivation( bool value, int randomNumber, int worldFlag0
 	}
 }
 
-bool hkpMotion::isActivationEnabled() const
+bool hkpMotion::isDeactivationEnabled() const
 {
 	return m_deactivationIntegrateCounter != 0xff;
 }
@@ -216,7 +231,7 @@ void hkpMotion::zeroNumInactiveFramesMt(int select, int worldDeactivationNumInac
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

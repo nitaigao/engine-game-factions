@@ -23,7 +23,14 @@ struct hkDemoFrameworkOptions
 	hkBool m_enableShadows;
 	hkBool m_forceNoShadows; // will prevent demos from turning them on 
 	int m_shadowMapRes;
-	hkBool m_enableFsaa;
+	
+	hkBool m_enableMsaa; // Multisampled Anti Aliasing
+	hkUint32 m_msaaSamples; // 4x, 8x, 16x etc
+	hkUint32 m_msaaQuality; // Different quality and sample values can trigger different h/w modes.
+
+	hkBool m_enableVsync; // Vertical Sync (Vblank) support. 
+	hkUint32 m_vsyncInterval; // 1x, 2x, 3x etc on a 60Hkz monitor == 60fps, 30fps, 15fps. 
+ 
 	hkBool m_forceKeyboardGamepad;
 	hkInt32 m_width;
 	hkInt32 m_height;
@@ -41,6 +48,7 @@ struct hkDemoFrameworkOptions
 	hkBool m_industrial;
 
 	int m_lockFps;
+	hkBool m_showFps;
 
 	int m_maxIterations;
 
@@ -88,8 +96,10 @@ struct hkDemoFrameworkOptions
 	hkBool m_runNextDemo;
 
 	hkBool m_anisotropicFiltering;
-
+	hkBool m_edgedFaces;
 	hkUint32 m_reportingLevel;
+
+	hkUint32 m_masterSoundVolume; // Precent, 100 == Default, 200 = double etc
 
 	enum
 	{
@@ -100,12 +110,16 @@ struct hkDemoFrameworkOptions
 
 	int			m_replayType;
 	const char*	m_inputFilename;
+
+	hkBool m_saveMemoryStatistics;
+	
+	hkBool m_enableWiiLockedCache;
 };
 
 #endif //HK_DEMOFRAMEWORK_DEMOFRAMEWORK_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

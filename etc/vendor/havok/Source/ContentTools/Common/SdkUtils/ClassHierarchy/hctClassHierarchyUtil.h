@@ -60,6 +60,7 @@ class hctClassHierarchyUtil
 
 	public:
 
+		static const hkUiAttribute*        getUiAttributes       (const hkClass&       klass);
 		static const hkUiAttribute*        getUiAttributes       (const hkClassMember& member);
 		static const hkGizmoAttribute*     getGizmoAttributes    (const hkClassMember& member);
 		static const hkLinkAttribute*      getLinkAttributes     (const hkClassMember& member);
@@ -104,7 +105,7 @@ class hctClassHierarchyUtil
 #endif // INC_HCT_CLASS_HIERARCHY_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

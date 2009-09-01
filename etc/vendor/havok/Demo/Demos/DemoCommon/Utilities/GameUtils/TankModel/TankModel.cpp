@@ -51,18 +51,8 @@ static hkpShape* createConvexVertsShape( const hkVector4* points, int numPoints,
 			stridedVerts.m_vertices = &verts[0](0);
 		}
 
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		shape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
+		shape = new hkpConvexVerticesShape(stridedVerts);
 	}
-
-	shape->setRadius(0.05f);
 	return shape;
 }
 
@@ -185,7 +175,7 @@ TankModel::TankModel( hkpWorld* world, const hkVector4& position, hkReal mass )
 	hkpRigidBodyCinfo info;
 	info.m_collisionFilterInfo = hkpGroupFilter::calcFilterInfo( 1, 234 );
 	info.m_shape = skiShape;
-	info.m_rigidBodyDeactivatorType = hkpRigidBodyDeactivator::DEACTIVATOR_NEVER;
+	info.m_enableDeactivation = false;
 	info.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 	hkpInertiaTensorComputer::setShapeVolumeMassProperties(skiShape, mass * 0.3f, info);
 
@@ -464,7 +454,7 @@ void TankModel::stepTank( hkDemoEnvironment* environment, hkReal deltaTime )
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

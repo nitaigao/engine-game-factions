@@ -10,6 +10,8 @@
 
 // Register Havok classes.
 #include <Common/Base/KeyCode.h>
+#define INCLUDE_HAVOK_CLOTH_SETUP_CLASSES
+#define INCLUDE_HAVOK_CLOTH_SETUP_ANIMATION_CLASSES
 #define HK_CLASSES_FILE <Common/Serialize/Classlist/hkKeyCodeClasses.h>
 #include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
 
@@ -18,7 +20,7 @@
 #include <Common/Compat/hkCompat_All.cxx>
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

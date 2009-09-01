@@ -13,6 +13,11 @@ hkgShaderContext::hkgShaderContext(hkgDisplayContext* owner)
 	hkgMat4Identity(m_world);
 	hkgMat4Identity(m_view);	
 	hkgMat4Identity(m_proj);
+
+	float minusOne = -1.0f;
+	int val = *(int*)&minusOne;
+	hkString::memSet( &m_lastVMat, val, sizeof(MatCache));
+	hkString::memSet( &m_lastPMat, val, sizeof(MatCache));
 }
 
 inline hkgShaderContext* hkgShaderContext::defaultCreateInternal(hkgDisplayContext* owner)
@@ -94,7 +99,7 @@ inline const hkgLightManager* hkgShaderContext::getLightManager() const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

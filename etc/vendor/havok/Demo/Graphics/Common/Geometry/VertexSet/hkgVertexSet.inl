@@ -246,6 +246,11 @@ inline HKG_MATERIAL_VERTEX_HINT hkgVertexSet::getMaterialHints() const
 		h |= HKG_MATERIAL_VERTEX_HINT_VCOLOR;
 	}
 
+	if (m_context->getRenderPassInfo() & HKG_RENDER_PASS_INSTANCED)
+	{
+		h |= HKG_MATERIAL_VERTEX_HINT_INSTANCED;
+	}
+
 	return h;
 }
 
@@ -346,7 +351,7 @@ inline bool hkgVertexSet::isVertexComponentAligned( HKG_VERTEX_COMPONENT compone
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

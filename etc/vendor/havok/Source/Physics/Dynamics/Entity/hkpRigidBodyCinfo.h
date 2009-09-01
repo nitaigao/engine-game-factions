@@ -10,10 +10,10 @@
 
 #include <Physics/Collide/Agent/Collidable/hkpCollidableQualityType.h>
 #include <Physics/Dynamics/Motion/hkpMotion.h>
-#include <Physics/Dynamics/Entity/hkpRigidBodyDeactivator.h>
 #include <Physics/Dynamics/Entity/hkpEntity.h>
 
 class hkpHandleCollection;
+class hkLocalFrame;
 
 /// A struct containing all the information needed to construct a rigid body.
 class hkpRigidBodyCinfo
@@ -45,7 +45,11 @@ class hkpRigidBodyCinfo
 			/// Default constructor - initializes all default values.
 		hkpRigidBodyCinfo();
 		
+			/// Sets the mass properties
 		void setMassProperties(const struct hkpMassProperties& mp);
+
+			/// Sets position and rotation
+		void setTransform( const hkTransform& transform );
 
 		//
 		// Members
@@ -146,9 +150,9 @@ class hkpRigidBodyCinfo
 			/// This defaults to hkpMotion::MOTION_DYNAMIC
 		hkEnum<hkpMotion::MotionType, hkInt8> m_motionType;
 		
-			/// The initial deactivator type of the body.
-			/// This defaults to hkpRigidBodyDeactivator::DEACTIVATOR_SPATIAL.
-		hkEnum<hkpRigidBodyDeactivator::DeactivatorType, hkInt8> m_rigidBodyDeactivatorType;
+			/// Enables or disables deactivation for the rigid body.
+			/// This defaults to true.
+		hkBool m_enableDeactivation; //+default(true)
 		
 			/// Allows you to enable an extra single object deactivation schema. 
 			/// That means the engine will try to "deactivate" single objects (not just entire islands)
@@ -179,7 +183,7 @@ class hkpRigidBodyCinfo
 #endif // HKDYNAMICS_ENTITY_HKRIGIDBODYCINFO_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

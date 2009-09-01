@@ -20,7 +20,7 @@ class hkgParticleDisplayObject : public hkgDisplayObject
 
 		static hkgParticleDisplayObject* (HK_CALL *create)( hkgDisplayContext* ctx );
 
-		virtual hkgDisplayObject* copy( HKG_DISPLAY_OBJECT_COPY_FLAGS f, hkgDisplayContext* ctx /*only required if doing deeper copies (facesets and/or verts)*/ );
+		virtual hkgDisplayObject* copy( HKG_DISPLAY_OBJECT_COPY_FLAGS f, hkgDisplayContext* ctx /*only required if doing deeper copies (facesets and/or verts)*/ ) const;
 	
 		virtual void setMaxNumParticles( int numParticles, bool allocateBuffers = false ) = 0;
 
@@ -77,7 +77,7 @@ class hkgParticleDisplayObject : public hkgDisplayObject
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

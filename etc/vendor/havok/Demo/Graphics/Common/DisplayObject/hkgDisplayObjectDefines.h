@@ -34,6 +34,14 @@ typedef unsigned int HKG_DISPLAY_OBJECT_STATUS;
 #define HKG_DISPLAY_OBJECT_INSTANCED (1<<12) // the display object is a instanced display object 
 #define HKG_DISPLAY_OBJECT_PARTICLES (1<<13) // the display object is a special particle display object 
 #define HKG_DISPLAY_OBJECT_BILLBOARD (1<<14) // the display object is a special billboard display object 
+#define HKG_DISPLAY_OBJECT_SKINNEDINSTANCED (1<<15) // the display object is a instanced display object, where each instance has its own blend matrix set 
+#define HKG_DISPLAY_OBJECT_PSEUDOINSTANCED (1<<16) // a many to one wrapper for an Instanced display
+
+#define HKG_DISPLAY_OBJECT_FINALRENDERPASS (1<<17) // only render this object after Post processing Effects
+#define HKG_DISPLAY_OBJECT_REFLECTOR (1<<18) // The floor or mirror surface object (to be drawn first before reflections, and not in the reflections)
+#define HKG_DISPLAY_OBJECT_SOLID_ALPHA (1<<19) // Objects that have alpha but should not turn of depth etc (so mainly solid), just turn on alpha
+
+#define HKG_DISPLAY_OBJECT_STATUS_MASK (0xffffffff & (~HKG_DISPLAY_OBJECT_INSTANCED) & (~HKG_DISPLAY_OBJECT_PARTICLES) & (~HKG_DISPLAY_OBJECT_BILLBOARD) & (~HKG_DISPLAY_OBJECT_SKINNEDINSTANCED) & (~HKG_DISPLAY_OBJECT_PSEUDOINSTANCED) )
 
 typedef unsigned int HKG_DISPLAY_OBJECT_COPY_FLAGS;
 #define HKG_DISPLAY_OBJECT_DEEP_COPY  0      // share nothing (other than Textures ptrs, Shader ptrs, etc)
@@ -47,7 +55,7 @@ typedef unsigned int HKG_DISPLAY_OBJECT_COPY_FLAGS;
 #endif // HK_GRAPHICS_DISPLAY_OBJECT_DEFINES__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

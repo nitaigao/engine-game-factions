@@ -29,7 +29,16 @@ class hkDisplayGeometry;
 /// categories so that they can be configured and filtered independently.
 /// For example, each Viewer has one or more unique tags.
 ///
-
+/// The id on the functions for drawing lines, text etc should also be set to
+/// the address of the hkpCollidable if the drawings are annotations to a specific
+/// object. This allows for filtering on object state/picking/etc to avoid
+/// cluttered display. Especially useful for recorded VDB movies. If you cannot
+/// associate the line/text/etc with an object, set the id to zero.
+///
+/// It is expected that an implementation of displayText() and display3dText() manages
+/// to show the text in some manner in any case. The displayAnnotation() however can
+/// have a null implementation. It is used for additional, non operation relevant
+/// debug output only.
 
 class hkDebugDisplayHandler
 {
@@ -62,6 +71,8 @@ class hkDebugDisplayHandler
 
 			HK_UPDATE_BEHAVIOR,	// Added in 6.5
 			HK_LIST_BEHAVIORS,	// Added in 6.5
+
+			HK_DISPLAY_ANNOTATION, // Added in 7.0
 		};
 
 			/// virtual Destructor
@@ -108,32 +119,37 @@ class hkDebugDisplayHandler
 		//
 
 			/// Puts a display point into the display buffer for display in the next frame.
-		virtual hkResult displayPoint(const hkVector4& position, int colour, int tag) = 0;
+		virtual hkResult displayPoint(const hkVector4& position, int colour, int id, int tag) = 0;
 
 			/// Puts a display line into the display buffer for display in the next frame.
-		virtual hkResult displayLine(const hkVector4& start, const hkVector4& end, int color, int tag) = 0;
+		virtual hkResult displayLine(const hkVector4& start, const hkVector4& end, int color, int id, int tag) = 0;
 
 			/// Puts a display triangle into the display buffer for display in the next frame.
-		virtual hkResult displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int colour, int tag) = 0;
+		virtual hkResult displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int colour, int id, int tag) = 0;
 
-			/// Outputs user text to the display.  (The manner in which the text
-			/// is displayed depends on the implementation of the display handler.)
-		virtual hkResult displayText(const char* text, int color, int tag) = 0;
+			/// Outputs user text to the display. The manner in which the text
+			/// is displayed depends on the implementation of the display handler. It is not ok to ignore the data.
+		virtual hkResult displayText(const char* text, int color, int id, int tag) = 0;
 
-			// Outputs 3D text
-		virtual hkResult display3dText(const char* text, const hkVector4& pos, int color, int tag) = 0;
+			/// Outputs 3D text. Same as displayText() but with position.
+		virtual hkResult display3dText(const char* text, const hkVector4& pos, int color, int id, int tag) = 0;
+
+			/// Display general annotation data. It is up to the handler implementation whether this shows up or not 
+			/// in the graphics display or on some other output stream. It is ok to ignore the data.
+		virtual hkResult displayAnnotation(const char* text, int id, int tag) { return HK_SUCCESS; }
 
 			/// Displays the geometries	
-		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int tag) = 0;
+		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int id, int tag) = 0;
 
 			/// Displays the geometries	without transform
-		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int tag) = 0;
+		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int id, int tag) = 0;
 
 
 		// Utility functions (just call displayLine etc above)
-		void displayFrame( const hkQsTransform& worldFromLocal, hkReal size, int tag );
-		void displayFrame( const hkTransform& worldFromLocal, hkReal size, int tag );
-		void displayArrow( const hkVector4& from, const hkVector4& dir, int color, int tag );
+		void displayFrame( const hkQsTransform& worldFromLocal, hkReal size, int id, int tag );
+		void displayFrame( const hkTransform& worldFromLocal, hkReal size, int id, int tag );
+		void displayArrow( const hkVector4& from, const hkVector4& dir, int color, int id, int tag );
+		void displayStar( const hkVector4& position, hkReal scale, int color, int id, int tag );
 
 		//
 		// Statistics functions (ideally these would be in a separate interface to the display handler)
@@ -157,7 +173,7 @@ class hkDebugDisplayHandler
 #endif // HK_VISUALIZE_DISPLAY_HANDLER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

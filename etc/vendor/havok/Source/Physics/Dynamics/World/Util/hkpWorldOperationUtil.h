@@ -71,9 +71,10 @@ class hkpWorldOperationUtil
 			// Island handling
 			//
 
-			/// activate an island. Note this function might merge the island with another island, a valid island is returned
+			/// activate an island. 
+			/// Note that as the result of callback, the island may be destroyed before the function returns.
 			/// ###ACCESS_CHECKS###( [world,HK_ACCESS_RW] );
-		static hkpSimulationIsland* HK_CALL internalActivateIsland  ( hkpWorld* world, hkpSimulationIsland* island, hkBool allowIslandMerges = false );
+		static void HK_CALL internalActivateIsland  ( hkpWorld* world, hkpSimulationIsland* island, hkBool allowIslandMerges = false );
 
 			/// ###ACCESS_CHECKS###( [world,HK_ACCESS_RW] );
 		static void HK_CALL internalDeactivateIsland( hkpWorld* world, hkpSimulationIsland* island );
@@ -86,9 +87,8 @@ class hkpWorldOperationUtil
 			/// ###ACCESS_CHECKS###( [world,HK_ACCESS_RW] );
 		static void HK_CALL mergeIslands    ( hkpWorld* world, hkpEntity* entityA, hkpEntity* entityB);
 
-		static hkpSimulationIsland*
-				/// ###ACCESS_CHECKS###( [world,HK_ACCESS_RW] );
-			HK_CALL internalMergeTwoIslands ( hkpWorld* world, hkpSimulationIsland* islandA, hkpSimulationIsland* islandB );
+			/// ###ACCESS_CHECKS###( [world,HK_ACCESS_RW] );
+		static void	HK_CALL internalMergeTwoIslands ( hkpWorld* world, hkpSimulationIsland* islandA, hkpSimulationIsland* islandB );
 
 			/// ###ACCESS_CHECKS###( [world,HK_ACCESS_RW] );
 		static void HK_CALL removeIsland    ( hkpWorld* world, hkpSimulationIsland* island );
@@ -190,7 +190,7 @@ class hkpWorldOperationUtil
 #endif // HK_DYNAMICS2_WORLD_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

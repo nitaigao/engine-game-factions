@@ -14,16 +14,45 @@ hkgWindowDX9S::hkgWindowDX9S()
 	m_shadowMapSize(0),m_shadowMapQuality(HKG_SHADOWMAP_QUALITY_UNKNOWN), m_shadowMultsampled(false),
 	m_shadowMapSupport(HKG_SHADOWMAP_NOTKNOWN),m_shadowNoClearPass(false),
 	m_pShadowZSurfaceEDRAM(HK_NULL), m_pShadowColorSurfaceEDRAM(HK_NULL),
-	m_pShadowColorMap(HK_NULL), m_pShadowZMap(HK_NULL),
+	m_pShadowZMap(HK_NULL),
 	m_pShadowColorMapBlur(HK_NULL), 
-	m_pShadowColorSurface(HK_NULL), m_pShadowZSurface(HK_NULL), 
+	m_pShadowZSurface(HK_NULL), 
 	m_pShadowColorSurfaceBlur(HK_NULL), 
+	m_pShadowColorSurfaceAA(HK_NULL),
 	m_debugShadowMaps(false),
 	m_debugShadowMapVShader(HK_NULL),m_debugShadowMapPShader(HK_NULL),
 	m_blurShadowMapVShader(HK_NULL), m_blurShadowMapPShader(HK_NULL),
 	m_xboxCopyShadowMapPShader(HK_NULL), m_xboxCopyShadowMapVShader(HK_NULL),
 	m_framebuffer(HK_NULL), m_framebufferSize(0)
 {
+	for (int s=0; s <= HKG_SHADOWMAP_PSVSM_MAX_NUM_SPLITS; ++s )
+	{
+		m_pShadowColorMap[s] = HK_NULL;
+		m_pShadowColorSurface[s] = HK_NULL;
+	}
+
+	m_msaa = false;
+	m_msaaSamples = 4;
+	m_msaaQuality = 0;
+
+	m_vsync = false;
+	m_vsyncInterval = 1;
+
+	m_pLinearDepthRT= HK_NULL;
+	m_pSceneColorRT= HK_NULL;
+	m_pBackBufferRT= HK_NULL;
+	m_pLinearDepthRTAA= HK_NULL;
+	m_pSceneColorRTAA= HK_NULL;
+	m_pSceneColorRTTemp= HK_NULL;
+	m_pSceneDS= HK_NULL;
+
+	m_pLinearDepthTex= HK_NULL;
+	m_pSceneColorTex= HK_NULL;
+	m_pSceneColorTexTemp= HK_NULL;
+
+	m_supportsLinearDepth = true;
+	m_supportsColorTex = true;
+
 }
 
 inline const LPDIRECT3DDEVICE9 hkgWindowDX9S::getDevice() const
@@ -52,7 +81,7 @@ inline LPDIRECT3DTEXTURE9 hkgWindowDX9S::getShadowMap()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

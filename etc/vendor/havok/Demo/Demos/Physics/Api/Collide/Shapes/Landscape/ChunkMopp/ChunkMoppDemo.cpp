@@ -119,10 +119,8 @@ ChunkMoppDemo::ChunkMoppDemo(hkDemoEnvironment* env)
 	hkVector4 halfExtents;
 	hkVector4 centre;
 	{
-		halfExtents.setSub4( m_bounds.m_max, m_bounds.m_min );
-		halfExtents.mul4( 0.5f );
-		centre.setAdd4( m_bounds.m_max, m_bounds.m_min );
-		centre.mul4( 0.5f );
+		m_bounds.getHalfExtents( halfExtents );
+		m_bounds.getCenter( centre );
 
 		m_minIndex = (halfExtents(0) < halfExtents(1)) ? 
 			((halfExtents(0) < halfExtents(2)) ? 0 : 2) :
@@ -390,7 +388,7 @@ static const char helpString[] = "MOPP split into chunks. Artwork (c)2006 Evolut
 HK_DECLARE_DEMO(ChunkMoppDemo, HK_DEMO_TYPE_OTHER|HK_DEMO_TYPE_SERIALIZE, "Mopp with Extended Mesh", helpString ); 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

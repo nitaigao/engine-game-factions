@@ -31,6 +31,18 @@ public:
 		MULTIPLICATIVE
 	};
 
+	// Optional output structure (use displayDataAndRecordResults) which will record the full path and y location of all text output
+	// This can be used to (for example) identify which value a mouse pointer is currently hovering over in screenspace.
+	struct NameAndDisplayLocation
+	{
+	public:
+
+		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_DEMO, NameAndDisplayLocation);
+
+		hkString m_name;
+		float yLocation;
+	};
+
 	typedef hkBool (HK_CALL *HideMemberFunc)(const hkClassMember& m);
 
 		// get the hkClass representing an instance, given the base class.
@@ -66,8 +78,15 @@ public:
 										class hkTextDisplay& disp, float x, float y,
 										HideMemberFunc hideMember=0, hkUint32 selectedColor = 0xffffff00  );
 
+		// Display and also record where each tweakable was displayed to
+	static void HK_CALL displayDataAndRecordResults(	const hkString& memberPath, const void* rootData, const class hkClass& rootKlass, 
+											class hkTextDisplay& disp, float x, float y,
+											hkObjectArray<NameAndDisplayLocation>& nameAndDisplayLocationOut,
+											HideMemberFunc hideMember=0, hkUint32 selectedColor = 0xffffff00  );
+
 	static void HK_CALL displayMemberData(	const hkString& memberPath, const void* rootData, const class hkClass& rootKlass, 
-											class hkTextDisplay& disp, float x, float& y,
+											class hkTextDisplay& disp, float x, float& y, 
+											hkString& currentFullName, hkObjectArray<NameAndDisplayLocation>& nameAndDisplayLocationOut,
 											HideMemberFunc hideMember=0, hkUint32 selectedColor = 0xffffff00 );
 
 	static int HK_CALL getIndexOfMember( const hkString& memberPath, const void* rootData, const class hkClass& rootKlass, 
@@ -81,6 +100,12 @@ public:
 											class hkTextDisplay& disp, const int xOffset, const int xWidth, const int yOffset,
 											hkBool mouseInput, 
 											int &downOut, int &upOut, hkBool &leftOut, hkBool &rightOut);
+
+	static hkBool HK_CALL getTweakInput2(hkDemoEnvironment* env, 
+												const hkString& tweakName, void* tweakee, const class hkClass& klass,
+											class hkTextDisplay& disp, const int xOffset, const int xWidth, const int yOffset,
+												hkBool mouseInput, 
+												int &downOut, int &upOut, hkBool &leftOut, hkBool &rightOut);
 											
 private:
 	static void HK_CALL getIndexOfMemberRecursive( const hkString& memberPath, const void* rootData, const class hkClass& rootKlass, 
@@ -92,7 +117,7 @@ private:
 #endif //HK_DEMO2_TWEAKER_UTILS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

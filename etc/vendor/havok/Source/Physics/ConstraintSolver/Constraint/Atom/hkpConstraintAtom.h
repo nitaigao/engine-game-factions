@@ -250,7 +250,7 @@ struct hkpSimpleContactConstraintAtom : public hkpConstraintAtom
 		hkUint8 m_contactPointPropertiesStriding;
 
 			// Maximum number for contact points. The limitation is driven by buffer size on SPU, and by contactPointProperties size.
-		hkUint16 m_maxNumContactPoints; // -- this will not be cross-platform, and will use problems with contact points saved on PC, and to be loaded on PS3 <ag.todo.b>
+		hkUint16 m_maxNumContactPoints; 
 
 
 		HK_ALIGN16(class hkpSimpleContactConstraintDataInfo m_info);
@@ -902,7 +902,7 @@ struct hkpMassChangerModifierConstraintAtom : public hkpModifierConstraintAtom
 		int getConstraintInfo( hkpConstraintInfo& info ) const
 		{
 			info.m_sizeOfSchemas   += 2 * HK_SIZE_OF_JACOBIAN_SET_MASS_SCHEMA  + HK_SIZE_OF_JACOBIAN_HEADER_SCHEMA;
-			return hkpConstraintAtom::CALLBACK_REQUEST_SETUP_PPU_ONLY;
+			return hkpConstraintAtom::CALLBACK_REQUEST_NONE;
 		}
 
 	public:
@@ -933,8 +933,8 @@ struct hkpCenterOfMassChangerModifierConstraintAtom : public hkpModifierConstrai
 
 		int getConstraintInfo( hkpConstraintInfo& info ) const
 		{
-			info.m_sizeOfSchemas   += 2 * HK_SIZE_OF_JACOBIAN_ADD_ANGULAR_VELOCITY_SCHEMA  + HK_SIZE_OF_JACOBIAN_HEADER_SCHEMA;
-			return hkpConstraintAtom::CALLBACK_REQUEST_NONE;
+			info.m_sizeOfSchemas   += 2 * HK_SIZE_OF_JACOBIAN_SET_CENTER_OF_MASS_SCHEMA  + HK_SIZE_OF_JACOBIAN_HEADER_SCHEMA;
+			return hkpConstraintAtom::CALLBACK_REQUEST_SETUP_PPU_ONLY;
 		}
 
 	public:
@@ -1030,7 +1030,7 @@ public:
 #endif // HK_DYNAMICS2_CONSTRAINT_ATOM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -11,26 +11,36 @@
 
 struct CharacterStepInput
 {
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_DEMO, CharacterStepInput );
+
 	hkReal	m_forwardVelocity;			// in meters per second
 	hkReal	m_turnVelocity;				// in radians per second
-	hkReal	m_straffeLeftRightVelocity; // in meters per second
+	hkReal	m_strafeLeftRightVelocity; // in meters per second
 	hkReal	m_jumpVelocity;
 
 	CharacterStepInput()
 	{
 		m_forwardVelocity = 0.0f;
 		m_turnVelocity = 0.0f;
-		m_straffeLeftRightVelocity = 0.0f;
+		m_strafeLeftRightVelocity = 0.0f;
 		m_jumpVelocity = 0.0f;
 	}
+
+	~CharacterStepInput() {}
 };
 
 struct CharacterActionInfo
 {
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_DEMO, CharacterActionInfo );
+
 	hkBool m_wasDiePressed;
 	hkBool m_wasGetUpPressed;
 	hkBool m_wasJumpPressed;
 	hkBool m_wasDivePressed;
+	hkBool m_wasCrouchPressed;
+	hkBool m_wasTantrumPressed;
+	hkBool m_wasSwatPressed;
+	hkBool m_wasPlantC4Pressed;
 
 	CharacterActionInfo()
 	{
@@ -38,7 +48,12 @@ struct CharacterActionInfo
 		m_wasGetUpPressed = false;
 		m_wasJumpPressed = false;
 		m_wasDivePressed = false;
+		m_wasCrouchPressed = false;
+		m_wasTantrumPressed = false;
+		m_wasSwatPressed = false;
+		m_wasPlantC4Pressed = false;
 	}
+	~CharacterActionInfo() {}
 };
 
 enum CharacterAction
@@ -47,6 +62,10 @@ enum CharacterAction
 	ACTION_GETUP,
 	ACTION_JUMP,
 	ACTION_DIVE,
+	ACTION_CROUCH,
+	ACTION_TANTRUM,
+	ACTION_SWAT,
+	ACTION_PLANT_C4,
 
 	MAX_ACTIONS,
 };
@@ -54,7 +73,7 @@ enum CharacterAction
 #endif // HK_BIPED_CHARACTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

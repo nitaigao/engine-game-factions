@@ -70,10 +70,13 @@
 #define hkNodeLocalFrameID                      0x001052C0 + 0xd2
 #define hkNodeGenericNodeManipID				0x001052C0 + 0xd3
 
+#define hkdSetRigidBodyPropertiesID				0x001052C0 + 0xde
+#define hkdShockWaveActionID					0x001052C0 + 0xdf
+
 #define hkNodeSplitInHalfFractureID				0x001052C0 + 0xe0
 #define hkNodeWoodFractureID					0x001052C0 + 0xe1
 #define hkNodeRandomSplitFractureID				0x001052C0 + 0xe2
-#define hkNodeBreakableBodyBlueprintID			0x001052C0 + 0xe3
+#define hkNodeBreakableBodyBlueprintID			0x001052C0 + 0xe3 // deprecated
 #define hkNodeWoodControllerID					0x001052C0 + 0xe4
 #define hkNodeDeformationControllerID			0x001052C0 + 0xe5
 #define hkNodeBallGunID							0x001052C0 + 0xe6
@@ -98,12 +101,18 @@
 #define hkNodeDebrisFractureID					0x001052C0 + 0xf7
 #define hkdDecorateFractureFaceActionID			0x001052C0 + 0xf8
 #define hkNodeRaycastGunID						0x001052C0 + 0xf9
+#define hkCutOutFractureID						0x001052C0 + 0xfa
+#define hkDecomposeFractureID					0x001052C0 + 0xfc
+#define hkdRemoveDebrisActionID					0x001052C0 + 0xfd
+//#define Cannot be used 						0x001052C0 + 0xfe
+
+
 
 
 #endif // !HK_MAYA_NODE_IDS__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

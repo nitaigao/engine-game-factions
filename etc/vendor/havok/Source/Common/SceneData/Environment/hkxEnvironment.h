@@ -22,6 +22,9 @@ class hkxEnvironment
 		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkxEnvironment );
 		HK_DECLARE_REFLECTION();
 
+		hkxEnvironment();
+		hkxEnvironment(hkFinishLoadedObjectFlag f);
+
 			/// Sets the value of the given variable. If the variable is new, it adds it. If value is HK_NULL, the 
 			/// variable is removed. Returns HK_FAILURE if trying to remove a non-existent variable.
 		hkResult setVariable (const char* name, const char* value);
@@ -73,7 +76,7 @@ class hkxEnvironment
 #endif //HKX_ENVIRONMENT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

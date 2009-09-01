@@ -7,7 +7,7 @@
  */
 
 inline hkgVertexShaderDX9::hkgVertexShaderDX9(hkgDisplayContext* context)
-: m_pDevice( static_cast<hkgDisplayContextDX9*>( context )->getDevice() ), m_pVShader(HK_NULL), m_pConstantTable(HK_NULL), m_bound(false)
+: hkgShader(HKG_VERTEX_SHADER), m_pDevice( static_cast<hkgDisplayContextDX9*>( context )->getDevice() ), m_pVShader(HK_NULL), m_pConstantTable(HK_NULL), m_bound(false)
 {
 
 }
@@ -18,7 +18,7 @@ inline LPDIRECT3DDEVICE9 hkgVertexShaderDX9::getDevice()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

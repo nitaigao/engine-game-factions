@@ -13,12 +13,13 @@
 #include <Physics/Dynamics/World/hkpWorldCinfo.h>
 #include <Physics/Dynamics/Phantom/hkpPhantomOverlapListener.h>
 #include <Physics/Dynamics/World/Listener/hkpWorldDeletionListener.h>
+#include <Physics/Dynamics/World/Listener/hkpWorldPostSimulationListener.h>
 
 class hkpWorld;
 class hkpEntity;
 
 /// This class monitors objects leaving the broadphase.
-class hkpBroadPhaseBorder : public hkReferencedObject, protected hkpWorldDeletionListener, protected hkpPhantomOverlapListener
+class hkpBroadPhaseBorder : public hkReferencedObject, protected hkpWorldDeletionListener, protected hkpPhantomOverlapListener, hkpWorldPostSimulationListener
 {
 	public:
 
@@ -26,7 +27,7 @@ class hkpBroadPhaseBorder : public hkReferencedObject, protected hkpWorldDeletio
 
 			/// Creates an instance and attaches it to the world. It also adds a second reference to it that gets removed when the world gets deleted
 			/// The positions of the border phantoms are derived from the broadphase extents of the hkpWorld
-		hkpBroadPhaseBorder( hkpWorld* world, hkpWorldCinfo::BroadPhaseBorderBehaviour type  = hkpWorldCinfo::BROADPHASE_BORDER_ASSERT );
+		hkpBroadPhaseBorder( hkpWorld* world, hkpWorldCinfo::BroadPhaseBorderBehaviour type  = hkpWorldCinfo::BROADPHASE_BORDER_ASSERT, hkBool postponeAndSortCallbacks = false );
 			
 		virtual ~hkpBroadPhaseBorder();
 
@@ -42,6 +43,10 @@ class hkpBroadPhaseBorder : public hkReferencedObject, protected hkpWorldDeletio
 			/// Callback implementation 
 		virtual void collidableRemovedCallback( const hkpCollidableRemovedEvent& event );
 
+			/// Called at the end of the hkpWorld::simulate call.
+			/// Handles entities exiting broad phase in the last frame.
+		virtual void postSimulationCallback( hkpWorld* world );
+
 	public:
 
 		virtual void worldDeletedCallback( hkpWorld* world );
@@ -52,12 +57,16 @@ class hkpBroadPhaseBorder : public hkReferencedObject, protected hkpWorldDeletio
 
 		hkpWorldCinfo::BroadPhaseBorderBehaviour m_type;
 
+		hkBool m_postponeAndSortCallbacks;
+
+		hkArray<hkpEntity*> m_entitiesExitingBroadPhase;
+
 };
 
 #endif // HK_UTILITIES2_BROAD_PHASE_BORDER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

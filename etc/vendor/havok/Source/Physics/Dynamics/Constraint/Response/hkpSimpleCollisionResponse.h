@@ -27,6 +27,7 @@ class hkpSimpleCollisionResponse
 			hkReal m_velocityKeyframedB;
 		};
 
+		/// This collides 2 objects: This function is called by the TOI solver
 		static void HK_CALL solveSingleContact( const hkContactPoint& cp, hkTime time, hkpSimpleConstraintUtilCollideParams& params,
 												hkpMotion* bodyA, hkpMotion* bodyB,
 												class hkpDynamicsContactMgr* contactMgr, SolveSingleOutput& output );
@@ -38,6 +39,7 @@ class hkpSimpleCollisionResponse
 			hkReal m_impulse;
 		};
 
+		/// This collides 2 object. This function is called by the simple collision response.
 		static void HK_CALL solveSingleContact2( class hkpSimpleContactConstraintData* constraintData,
 												 const hkContactPoint& cp, hkpSimpleConstraintUtilCollideParams& params,
 												 hkpRigidBody* rigidBodyA, hkpRigidBody* rigidBodyB, 
@@ -50,7 +52,7 @@ class hkpSimpleCollisionResponse
 #endif // HK_DYNAMICS2_SIMPLE_COLLISION_RESPONSE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -141,6 +141,8 @@ void hkTextDisplay::displayText(hkgWindow* window)
 	if (state & HKG_ENABLED_ZREAD)
 		ctx->setDepthReadState(false);
 
+	ctx->setLightingState(false);
+
 	//
 	// 2D text
 	//
@@ -234,7 +236,7 @@ void hkTextDisplay::displayText(hkgWindow* window)
 	}
 
 	window->getContext()->setTexture2DState( false );
-
+	
 	float highlightcolor[4] = { 0.75f, 0.75f, 0.75f, 0.5f};
 	float white[4] = { 0.5f, 0.5f, 0.5f, 0.5f};
 	float white2[4] = { 0.2f, 0.2f, 0.5f, 0.5f};
@@ -343,66 +345,82 @@ void hkTextDisplay::displayText(hkgWindow* window)
 //CK:	v->setCamera(cam);
 }
 
-void hkTextDisplay::outputTextWithWrapping(const hkString& str, int x, int y, int wrapX, hkUint32 color, int frames )
+struct AccumulateTextCallback : public hkTextDisplay::TextLayoutCallback
 {
-	// Fill up a string a char at a time
-	int curX = x;
-	int curY = y;
-
-	// Can't draw text that's off screen
-	if (curX > wrapX)
+	virtual void text( const char* p, int n )
 	{
-		return;
+		hkString::memCpy( m_out.expandBy(n), p, n );
 	}
-
-	int startCh = 0;
-	int curCh = 0;
-	int lastSpace = 0;
-	int charWidth = (int)( getFont()->getCharWidth() );
-	while (curCh < str.getLength())
+	virtual void newline()
 	{
-		while ( (curCh < str.getLength()) && ( curX < (wrapX - charWidth) ) && ( str[curCh] != '\n') )
+		m_out.expandOne() = '\n';
+	}
+	hkArray<char> m_out;
+};
+
+void hkTextDisplay::outputTextWithWrapping(const hkString& str, int x, int y, int sizeX, int sizeY, hkUint32 color )
+{
+	AccumulateTextCallback cb;
+	layoutTextWithWrapping(str, sizeX, sizeY, cb);
+	//if( charsLeft ) // show that text is truncated
+	//	outputText("<...>", (float)x, (float)(y + charHeight*(sizeY/charHeight)), 0xffff0000 );
+	cb.m_out.pushBack(0);
+	outputText(cb.m_out.begin(), (float)x, (float)y, color);
+}
+
+void hkTextDisplay::layoutTextWithWrapping(const hkString& str, int sizeX, int sizeY, TextLayoutCallback& cb )
+{
+	int charWidth = int( getFont()->getCharWidth() );
+	int charHeight = int( getFont()->getCharHeight() );
+	int linesLeft = sizeY > 0 ? hkMath::max2( 1, sizeY /  charHeight ) : -1;
+	int charsPerLine = hkMath::max2(1, sizeX / charWidth );
+	const char* cur = str.cString();
+	int charsLeft = str.getLength();
+	while( charsLeft && linesLeft )
+	{
+		int len = charsPerLine+1;
+		if( const char* nl = hkString::strChr( cur, '\n') )
 		{
-			if ( str[curCh] == ' ' )
+			len = hkMath::min2(charsPerLine+1, int(nl - cur) + 1);
+		}
+		if( len > charsPerLine ) // no \n - search for break
+		{
+			if( charsLeft <= charsPerLine ) // last bit, no need to break
 			{
-				lastSpace = curCh+1;
+				len = charsLeft;
+				cb.text( cur,len );
 			}
-			curCh++;
-			curX += (int)( getFont()->getCharWidth() );
-		}
-
-		// If we didn't wrap 
-		if (curX < (wrapX - charWidth))
-		{
-			lastSpace = curCh;
-		}
-
-		// Check for a line break
-		if ( lastSpace == startCh )
-		{
-			// Couldn't wrap properly.
-			if (str[lastSpace] != '\n')
+			else // look for whitespace
 			{
-				break;
+				for( int i = charsPerLine-1; i > 3*charsPerLine/4; --i )
+				{
+					if( cur[i] == ' ' || cur[i] == '\t' )
+					{
+						len = i+1;
+						cb.text( cur,len-1 );
+						break;
+					}
+				}
+				if( len > charsPerLine ) // failed, must hyphenate
+				{
+					len = charsPerLine - 1;
+					cb.text( cur, len );
+					cb.text( "-", 1 );
+				}
 			}
-			// Ignore the \n
-			lastSpace++;
-			//curY += getFont()->getCharHeight() + 2;
-			curX = x;
-			curCh++;
+			cb.newline();
 		}
-
-		if ( lastSpace > startCh )
+		else
 		{
-			// Dump the string
-			hkString s( &str.cString()[startCh], lastSpace - startCh);
-			outputText(s, (float)x, (float)curY, color, frames, -1);
-
-			// Move on...
-			startCh = curCh = lastSpace;
-			curY += (int)( getFont()->getCharHeight() ) + 2;
-			curX = x;
+			cb.text(cur, len);
 		}
+		cur += len;
+		charsLeft -= len;
+		linesLeft -= 1;
+	}
+	if( charsLeft ) // show that text is truncated
+	{
+		cb.text("<...>", 5);
 	}
 }
 
@@ -566,7 +584,7 @@ void hkTextLog::displayLog( hkTextDisplay& display )
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

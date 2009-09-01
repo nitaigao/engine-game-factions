@@ -60,7 +60,8 @@ enum
 	FPI_GetDoNotSplitVertices,
 	FPI_SetDoNotSplitVertices,
 	FPI_ImportScene,
-	FPI_WaitForFilterLoad
+	FPI_WaitForFilterLoad,
+	FPI_GetFilterSetOptions
 };
 
 enum
@@ -149,20 +150,23 @@ class hctSceneExportUtilityFPInterface : public FPStaticInterface
 		virtual BOOL iGetUseOptionsFile() = 0;
 
 		virtual void iSetOptionsFile( TCHAR* optionsFile ) = 0;
-		virtual TCHAR* iGetOptionsFile() = 0;
+		virtual const TCHAR* iGetOptionsFile() = 0;
 
 		virtual void iSetEnvironmentVariables( TCHAR* environmentVars ) = 0;
-		virtual TCHAR* iGetEnvironmentVariables() = 0;
+		virtual const TCHAR* iGetEnvironmentVariables() = 0;
 
 		virtual void iSetDoNotSplitVertices (BOOL doNotSplitVertices) = 0;
 		virtual BOOL iGetDoNotSplitVertices () = 0;
-
 
 		// Returns a string representing the version of the exporter (for example "4.0.0.3 Beta")
 		virtual const TCHAR* iGetVersionString () = 0;
 
 		// Returns an integer representation of the version (for example 0x04000003)
 		virtual int iGetVersionNumber () = 0;
+
+		// Exposed in C++ only, not in script yet. Returns ptr to internal store, so be carefull what u do with it
+		virtual BOOL iGetFilterSetOptions(void** optionsBufferPtr, int* size, int* ver  ) = 0;
+		virtual BOOL iGetExportOptions(struct hctMaxSceneExportOptions* exportOptions ) = 0;
 };
 
 /*
@@ -192,7 +196,7 @@ class hctSceneExportUtilityActions : public FPStaticInterface
 #endif //INC_HK_MAX_SCENE_EXPORT_UTILITY_INTERFACE__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

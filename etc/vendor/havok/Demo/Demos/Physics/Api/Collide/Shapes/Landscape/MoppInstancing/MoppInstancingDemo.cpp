@@ -331,7 +331,7 @@ static const char helpString[] = "Demonstrates how to create scaled instances of
 HK_DECLARE_DEMO(MoppInstancingDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_CRITICAL, "How to create scaled mesh instances.", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

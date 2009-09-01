@@ -56,6 +56,11 @@ inline hkgShader* hkgDisplayContext::getCurrentVertexShader() const
 	return m_currentBoundVertexShader;
 }
 
+inline hkgShader* hkgDisplayContext::getCurrentGeometryShader() const
+{
+	return m_currentBoundGeometryShader;
+}
+
 inline hkgShader* hkgDisplayContext::getCurrentPixelShader() const
 {
 	return m_currentBoundPixelShader;
@@ -111,10 +116,26 @@ inline HKG_COLOR_MODE hkgDisplayContext::getColorMode() const
 	return m_colorMode;
 }
 
+inline void hkgDisplayContext::setAlphaSampleMode( HKG_ALPHA_SAMPLE_MODE m )
+{
+	m_alphaSampleMode = m;
+
+	if (m_currentState & HKG_ENABLED_ALPHABLEND ) 
+		setBlendState(true); // to reflect the change in mode.
+}
+
+inline HKG_ALPHA_SAMPLE_MODE hkgDisplayContext::getAlphaSampleMode() const
+{
+	return m_alphaSampleMode;
+}
+
 inline void hkgDisplayContext::setColorMode( HKG_COLOR_MODE c )
 {
 	// color mode change invalidates current material set
-	setCurrentMaterial(HK_NULL);
+	if (c == HKG_COLOR_MATERIAL)
+	{
+		setCurrentMaterial(HK_NULL);
+	}
 
 	m_colorMode = c;
 }
@@ -144,9 +165,20 @@ inline HKG_TEXTURE_STAGE_LOCK_MODE hkgDisplayContext::getTextureStageLockMode() 
 	return m_textureStageLock;
 }
 
+inline int hkgDisplayContext::getTextureStageLockCount() const
+{
+	return m_textureStageLockCount;
+}
+
+
 inline void hkgDisplayContext::setTextureStageLockMode( HKG_TEXTURE_STAGE_LOCK_MODE l )
 {
 	m_textureStageLock = l;
+}
+
+inline void hkgDisplayContext::setTextureStageLockCount( int c )
+{
+	m_textureStageLockCount = c;
 }
 
 inline void hkgDisplayContext::registerTexture(hkgTexture* t) const
@@ -195,7 +227,7 @@ inline void hkgDisplayContext::unregisterVertexSet(hkgVertexSet* t) const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

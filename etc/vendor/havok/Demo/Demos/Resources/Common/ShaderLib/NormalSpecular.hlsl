@@ -12,6 +12,13 @@
 //
 //:STYLE VertOneLightBumpT1 PixT1Bump LD1 T1 NORMAL0 SPECULAR0
 //:STYLE VertOneLightBumpShadowProjT1 PixShadowSceneT1Bump LD1 T1 SHADOWMAP NORMAL0 SPECULAR0
+//:STYLE VertOneLightBumpT1 PixT1Bump LD2 T1 NORMAL0 SPECULAR0
+//:STYLE VertOneLightBumpShadowProjT1 PixShadowSceneT1Bump LD2 T1 SHADOWMAP NORMAL0 SPECULAR0
+
+//:STYLE VertOneLightBumpT1 PixT1Bump LD1 T1 NORMAL0 SPECULAR0 INSTANCED DEFINE:HKG_INSTANCING
+//:STYLE VertOneLightBumpShadowProjT1 PixShadowSceneT1Bump LD1 T1 SHADOWMAP NORMAL0 SPECULAR0 INSTANCED DEFINE:HKG_INSTANCING
+//:STYLE VertOneLightBumpT1 PixT1Bump LD2 T1 NORMAL0 SPECULAR0 INSTANCED DEFINE:HKG_INSTANCING
+//:STYLE VertOneLightBumpShadowProjT1 PixShadowSceneT1Bump LD2 T1 SHADOWMAP NORMAL0 SPECULAR0 INSTANCED DEFINE:HKG_INSTANCING
 
 #include "CommonHeader.hlslh"
 
@@ -21,24 +28,41 @@ float4x4 g_mWorldView		: WorldView;
 float4x4 g_mProj			: Proj;
 float4x4 g_mViewInv			: ViewInverse;
  
-// Textures, set assignment so that the behaviour is the same no mater what shader is using it 
-sampler g_sSamplerOne  : register(s1);		// T0 if shadows, otherwise T1
-sampler g_sSamplerTwo  : register(s2);		// T1 if shadows, , otherwise T1
-sampler g_sSamplerThree : register(s3);     // T1 if shadows, otherwise T3
-sampler g_sSamplerFour  : register(s4);		// T3 if shadows
-
-
 vertexOutputT1B VertOneLightBumpT1( vertexInputT1B In )
 {
 	vertexOutputT1B Out;
+	
+#ifdef HKG_INSTANCING
+	float3x4 world;
+   	world[0] = In.transformRow0;
+   	world[1] = In.transformRow1;
+   	world[2] = In.transformRow2;
+   	//world[3] = In.transformRow3;
+   	float3 worldVertPos = mul(world , float4(In.position.xyz, 1) ).xyz;
+	float4 viewPos = mul( float4(worldVertPos, 1.0), g_mView);
+	float3 lightVec = mul( g_vLightDir, (float3x3)world );  // rev mult order 
+	float3 lightVec1 = mul( g_vLight1Dir, (float3x3)world );  // rev mult order 
+	float3 eyeVec = g_mViewInv[3].xyz - worldVertPos.xyz; // world space eye vector
+	eyeVec = mul(eyeVec, (float3x3) world );  // transform back to object space
+	
+#else
+	float3 worldVertPos = mul(float4(In.position.xyz , 1.0), g_mWorld).xyz;
+	float4 viewPos = mul( float4(In.position.xyz, 1.0), g_mWorldView);
+	float3 lightVec = mul( g_vLightDir, (float3x3)g_mWorldInv ); 
+	float3 lightVec1 = mul( g_vLight1Dir, (float3x3)g_mWorldInv );  
+	float3 eyeVec = g_mViewInv[3].xyz - worldVertPos.xyz; // world space eye vector
+	eyeVec = mul(eyeVec, (float3x3) g_mWorldInv );  // transform back to object space
+	
+#endif
 
 	// copy texture coordinates
 	    
     Out.texCoord0 = In.texCoord0;
 	
 	// transform position to clip space
-	Out.position = mul(In.position, g_mWorldViewProj);
-
+	Output.position = mul( viewPos, g_mProj);
+	Output.posView = viewPos;
+    
 	// compute the 3x3 tranform from object space to tangent space
 	float3x3 objToTangentSpace;
 	
@@ -48,20 +72,17 @@ vertexOutputT1B VertOneLightBumpT1( vertexInputT1B In )
 	objToTangentSpace[1] = In.binormal * bumpHeight;
 	objToTangentSpace[2] = In.normal;
 	
-    float4 vertexPos = mul(In.position, g_mWorld); // world space position
+	float3 L0 = mul( objToTangentSpace, lightVec ).xyz; // transform from object to tangent space
+	float3 L1 = 0;
+	if (g_iNumLights > 1)
+	{
+		L1 = mul( objToTangentSpace, lightVec1 ).xyz; // transform from object to tangent space
+	}
 
-	// light vector
-	float3 lightVec = mul( g_vLightDir, (float3x3)g_mWorldInv );  // transform back to object space
-	Out.L = mul( objToTangentSpace, lightVec ); // transform from object to tangent space
-	
 	// eye vector
-	float3 eyeVec = g_mViewInv[3].xyz - vertexPos.xyz; // world space eye vector
-	eyeVec = mul(eyeVec, (float3x3) g_mWorldInv );  // transform back to object space
-	eyeVec = normalize(eyeVec);
-	
-	// half-angle vector
-	float3 H = normalize(lightVec + eyeVec);
-	Out.H = mul(objToTangentSpace, H);	// transform to tangent space
+	float3 e = mul( objToTangentSpace, eyeVec );
+
+	packBumpLights( L0, L1, e, viewPos, Out.posView, Out.L0, Out.E );
 
 	return Out;
 }
@@ -71,8 +92,29 @@ vertexOutputShadowT1B VertOneLightBumpShadowProjT1( vertexInputT1B In)
 {
     vertexOutputShadowT1B Output;
     
-    float4 viewPos =  mul( float4(In.position.xyz, 1.0), g_mWorldView);
-    
+  #ifdef HKG_INSTANCING
+	float3x4 world;
+   	world[0] = In.transformRow0;
+   	world[1] = In.transformRow1;
+   	world[2] = In.transformRow2;
+   	//world[3] = In.transformRow3;
+   	float3 worldVertPos = mul(world , float4(In.position.xyz, 1) ).xyz;
+	float4 viewPos = mul( float4(worldVertPos, 1.0), g_mView);
+	float3 lightVec = mul( g_vLightDir, (float3x3)world );  // rev mult order 
+	float3 lightVec1 = mul( g_vLight1Dir, (float3x3)world );  // rev mult order 
+	float3 eyeVec = g_mViewInv[3].xyz - worldVertPos.xyz; // world space eye vector
+	eyeVec = mul(eyeVec, (float3x3) world );  // transform back to object space
+	
+#else
+	float3 worldVertPos = mul(float4(In.position.xyz , 1.0), g_mWorld).xyz;
+	float4 viewPos = mul( float4(In.position.xyz, 1.0), g_mWorldView);
+	float3 lightVec = mul( g_vLightDir, (float3x3)g_mWorldInv ); 
+	float3 lightVec1 = mul( g_vLight1Dir, (float3x3)g_mWorldInv );  
+	float3 eyeVec = g_mViewInv[3].xyz - worldVertPos.xyz; // world space eye vector
+	eyeVec = mul(eyeVec, (float3x3) g_mWorldInv );  // transform back to object space
+	
+#endif
+
     Output.position = mul( viewPos, g_mProj);
     
     Output.texCoord0 = In.texCoord0;
@@ -80,9 +122,12 @@ vertexOutputShadowT1B VertOneLightBumpShadowProjT1( vertexInputT1B In)
 		// project pos into light space
     Output.posLight = mul( viewPos, g_mViewToLightProj );
     
+    Output.posView = viewPos;
     #ifdef HKG_SHADOWS_VSM
-            Output.posWorld =  mul( float4(In.position.xyz, 1.0), g_mWorld);
-   #endif
+   	    Output.posLight1 = mul( viewPos, g_mViewToLightProj1 );
+		Output.posLight2 = mul( viewPos, g_mViewToLightProj2 );
+		Output.posLight3 = mul( viewPos, g_mViewToLightProj3 );
+    #endif
     
 	// compute the 3x3 tranform from object space to tangent space
 	float3x3 objToTangentSpace;
@@ -95,19 +140,17 @@ vertexOutputShadowT1B VertOneLightBumpShadowProjT1( vertexInputT1B In)
 	
     float4 vertexPos = mul(In.position, g_mWorld); // world space position
 
-	// light vector
-	float3 lightVec = mul( g_vLightDir, (float3x3)g_mWorldInv );  // transform back to object space
-	Output.L = mul( objToTangentSpace, lightVec ); // transform from object to tangent space
-	
-	// eye vector
-	float3 eyeVec = g_mViewInv[3].xyz - vertexPos.xyz; // world space eye vector
-	eyeVec = mul(eyeVec, (float3x3) g_mWorldInv );  // transform back to object space
-	eyeVec = normalize(eyeVec);
-	
-	// half-angle vector
-	float3 H = normalize(lightVec + eyeVec);
-	Output.H = mul(objToTangentSpace, H);	// transform to tangent space
+	float3 L0 = mul( objToTangentSpace, lightVec ).xyz; // transform from object to tangent space
+	float3 L1 = 0;
+	if (g_iNumLights > 1)
+	{
+		L1 = mul( objToTangentSpace, lightVec1 ).xyz; // transform from object to tangent space
+	}
 
+	// eye vector
+	float3 e = mul( objToTangentSpace, eyeVec );
+
+	packBumpLights( L0, L1, e, viewPos, Output.posView, Output.L0, Output.E );
 	
 	return Output;
 }
@@ -118,16 +161,18 @@ vertexOutputShadowT1B VertOneLightBumpShadowProjT1( vertexInputT1B In)
  // Pixel shaders
 pixelOutput PixT1Bump( vertexOutputT1B In )
 {
+	clip( g_cDiffuseColor.a - ALPHA_DISCARD_TOLERANCE );
+
 	float3 SpecMap = g_cSpecularColor.rgb;
 	float3 N = float3(0,0,1); 
 	
 #if ENABLE_NORMAL_MAP
-	N = tex2D(g_sSamplerZero, In.texCoord0).xyz*2.0 - 1.0;
+	N = _sample0( In.texCoord0).xyz*2.0 - 1.0;
 	N = normalize(N);
 #endif
 
 #if ENABLE_SPEC_MAP
-	SpecMap *= tex2D(g_sSamplerOne, In.texCoord0).rgb;
+	SpecMap *= _sample1( In.texCoord0).rgb;
 #endif
 
 	In.L = normalize(In.L);
@@ -145,15 +190,25 @@ pixelOutput PixT1Bump( vertexOutputT1B In )
 	pixelOutput Output;
 	Output.color.rgb = (1-light)*g_cAmbientColor.rgb*g_cDiffuseColor.rgb + light*g_cDiffuseColor.rgb + light.www*SpecMap;
 	Output.color.a = g_cDiffuseColor.a; // modulate alpha as is, light doesn't affect it.
-	return Output; 
+	 if ( g_iFogParams.x > 0)
+    {
+		Output.color = computeFog( In.posView.z, Output.color );
+    }
+    
+    Output.pzDepth.rgb = In.posView.z * g_iDepthParams.x;
+    Output.pzDepth.a = Output.color.a;
+
+    return Output; 
 }
 
 pixelOutput PixShadowSceneT1Bump( vertexOutputShadowT1B In )
 {
     pixelOutput Output;
-    
+
+	clip( g_cDiffuseColor.a - ALPHA_DISCARD_TOLERANCE );
+
     #ifdef HKG_SHADOWS_VSM
-		float lightAmount = getLightAmountVSM( In.posLight, In.posWorld );
+		float lightAmount = getLightAmountVSM( In.posLight, In.posLight1, In.posLight2, In.posLight3, In.posView );
   	#else
 		float lightAmount = getLightAmountSM( In.posLight ); 
 	#endif
@@ -162,12 +217,12 @@ pixelOutput PixShadowSceneT1Bump( vertexOutputShadowT1B In )
 	float3 N = float3(0,0,1); 
 		
 #if ENABLE_NORMAL_MAP
-	N = tex2D(g_sSamplerOne, In.texCoord0).xyz*2.0 - 1.0;
+	N = _sample4(In.texCoord0).xyz*2.0 - 1.0;
 	N = normalize(N);
 #endif
 
 #if ENABLE_SPEC_MAP
-	SpecMap *= tex2D(g_sSamplerTwo, In.texCoord0).rgb;
+	SpecMap *= _sample5( In.texCoord0).rgb;
 #endif
 
 	// interp will not preserve length
@@ -187,12 +242,20 @@ pixelOutput PixShadowSceneT1Bump( vertexOutputShadowT1B In )
 	Output.color.rgb = (1-light)*g_cAmbientColor*g_cDiffuseColor.rgb + light.rgb*g_cDiffuseColor.rgb + light.www*SpecMap;
 	Output.color.a = g_cDiffuseColor.a; // modulate alpha as is, shadow doesn't affect it.
 	
+     if ( g_iFogParams.x > 0)
+    {
+		Output.color = computeFog( In.posView.z, Output.color );
+    }
+    
+    Output.pzDepth.rgb = In.posView.z * g_iDepthParams.x;
+    Output.pzDepth.a = Output.color.a;
+
     return Output;
 }
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

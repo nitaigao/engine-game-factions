@@ -36,14 +36,15 @@ class hkpMeshWeldingUtility
 			const hkpBvTreeShape* m_shape;
 		};
 	
-		static hkResult HK_CALL computeWeldingInfo( const hkTransform& meshTransform, hkpExtendedMeshShape* mesh, hkArray< ShapeInfo >& shapes, bool weldOpenEdges, WindingConsistency testConsistency );
+			/// Generate welding information for an extended mesh shape, taking neighboring meshes into account.
+			/// 'allShapes' should include an entry for the mesh being passed in.
+		static hkResult HK_CALL computeWeldingInfo( const hkTransform& meshTransform, hkpExtendedMeshShape* mesh, hkArray< ShapeInfo >& allShapes, bool weldOpenEdges, WindingConsistency testConsistency );
 		
-
-			/// A function to generate welding information for a shape in a mesh. This welding should be
+			/// Generate welding information for a shape in a mesh. This welding should be
 			/// stored by the mesh and set as the welding information in the triangle returned by getChildShape() with that shape key.
 		static hkResult HK_CALL calcWeldingInfoForTriangle( hkpShapeKey shapeKey, const hkpBvTreeShape* bvTreeShape, WindingConsistency testConsistency, hkUint16& info );
 
-			/// A function to check if winding is consistent between a triangle and its neighbors.
+			/// Check if winding is consistent between a triangle and its neighbors.
 		static hkBool HK_CALL isTriangleWindingValid( hkpShapeKey shapeKey, const hkpBvTreeShape* bvTreeShape );
 	
 
@@ -81,7 +82,7 @@ class hkpMeshWeldingUtility
 #endif // HK_MESHWELDINGUTILITY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

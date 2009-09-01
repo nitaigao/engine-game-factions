@@ -44,6 +44,7 @@ CollisionEventsDemo::CollisionEventsDemo( hkDemoEnvironment* env)
 		info.setupSolverInfo(hkpWorldCinfo::SOLVER_TYPE_4ITERS_MEDIUM); 
 		info.setBroadPhaseWorldSize( 100.0f );
 		info.m_simulationType = info.SIMULATION_TYPE_CONTINUOUS;
+		info.m_contactRestingVelocity = .1f;
 
 		// Turn off deactivation so we can see continuous contact point processing
 		info.m_enableDeactivation = false;
@@ -73,6 +74,7 @@ CollisionEventsDemo::CollisionEventsDemo( hkDemoEnvironment* env)
 
 		info.m_shape = fixedBoxShape;
 		info.m_motionType = hkpMotion::MOTION_FIXED;
+		info.m_restitution = 1.0f;
 		info.m_position.setZero4();
 
 		// Add some bounce.
@@ -96,26 +98,38 @@ CollisionEventsDemo::CollisionEventsDemo( hkDemoEnvironment* env)
 	//
 	// Create a moving box
 	//
+	for (int i =0 ; i < 2; i++)
 	{
 		hkpRigidBodyCinfo boxInfo;
-		hkVector4 boxSize( .5f, .5f ,.5f );
+		hkVector4 boxSize( .5f, .1f ,.1f );
 		boxInfo.m_shape = new hkpBoxShape( boxSize , 0 );
 
 
 		// Compute the box inertia tensor
-		hkpInertiaTensorComputer::setShapeVolumeMassProperties( boxInfo.m_shape, 1.0f, boxInfo );
+		hkpInertiaTensorComputer::setShapeVolumeMassProperties( boxInfo.m_shape, .5f, boxInfo );
+		boxInfo.m_mass = 1.0f;
 
 		boxInfo.m_qualityType = HK_COLLIDABLE_QUALITY_DEBRIS;
 		boxInfo.m_motionType = hkpMotion::MOTION_BOX_INERTIA;
 
 		// Place the box so it bounces interestingly
-		boxInfo.m_position.set(0.0f, 5.0f, 0.0f);
-		hkVector4 axis(1.0f, 2.0f, 3.0f);
+		boxInfo.m_position.set(0.0f, 5.1f, 0.0f);
+		if ( i == 0 )
+		{
+			boxInfo.m_position(0) = 3.0f;
+		}
+		hkVector4 axis(.1f, 0.0f, 1.0f);
 		axis.normalize3();
-		boxInfo.m_rotation.setAxisAngle(axis, -0.7f);
+		boxInfo.m_rotation.setAxisAngle(axis, -0.05f);
+
+		if ( i== 0 )
+		{
+			hkQuaternion rot; rot.setAxisAngle(hkTransform::getIdentity().getColumn(1), 0.7f);
+			boxInfo.m_rotation.setMul( rot, boxInfo.m_rotation );
+		}
 
 		// Add some bounce.
-		boxInfo.m_restitution = 0.5f;
+		boxInfo.m_restitution = 0.7f;
 		boxInfo.m_friction = 0.1f;
 
 		hkpRigidBody* boxRigidBody = new hkpRigidBody( boxInfo );
@@ -130,9 +144,7 @@ CollisionEventsDemo::CollisionEventsDemo( hkDemoEnvironment* env)
 		MyCollisionListener* listener = new MyCollisionListener( boxRigidBody );
 		listener->m_reportLevel = m_env->m_reportingLevel;
 	}
-
 	m_world->unlock();
-
 }
 
 // Our myCollisionListener class inherits from both hkpCollisionListener and hkpEntityListener and so implementations for each
@@ -344,7 +356,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(CollisionEventsDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_CRITICAL, "Using Collision Points 'added' and 'processed' callbacks", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

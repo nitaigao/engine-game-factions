@@ -28,12 +28,12 @@ inline void hkaAnimation::samplePartialTracks(hkReal time, hkUint32 maxNumTransf
 #endif
 }
 
-inline int hkaAnimation::getNumDataChunks(hkReal time) const
+inline int hkaAnimation::getNumDataChunks(hkUint32 frame, hkReal delta) const
 {
 	return 0;
 }
 
-inline void hkaAnimation::getDataChunks(hkReal time, DataChunk* dataChunks, int numDataChunks) const
+inline void hkaAnimation::getDataChunks(hkUint32 frame, hkReal delta, DataChunk* dataChunks, int numDataChunks) const
 {
 #ifndef HK_PLATFORM_IS_SPU
 	HK_ERROR(0x54e32124, "getDataChunks not implemented for this type of animation");
@@ -96,7 +96,7 @@ inline void hkaAnimation::sampleSingleFloatTrack( hkReal time, hkInt16 track, hk
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

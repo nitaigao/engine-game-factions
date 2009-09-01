@@ -22,11 +22,25 @@
 
 #include <Demos/DemoCommon/DemoFramework/hkTextDisplay.h>
 
-static const char* detail =
-"This demo shows what happens using memory allocation: "	\
-"Hopefully garbage collection saves the day!";
+static const char helpString[] = \
+"Demo showing memory allocation layout, through memory walk."
+"\nRed - large blocks  Green - Small Blocks";
+
+static const char noCollecthelpString[] = \
+"Demo showing memory allocation layout, through memory walk."
+"\nRed - large blocks  Green - Small Blocks"
+"\nNotice memory fills with freelists (dark green), and therefore large blocks (red) get smaller over time.";
+
+static const MemoryWalkDemo::DemoVariant s_variants[] =
+{
+	// name             filename                 details
+	{ "Normal memory usage, with full garbage collection",  helpString, MemoryWalkDemo::DemoVariant::NORMAL_COLLECT, 0},
+	{ "Incremental garbage collection", helpString, MemoryWalkDemo::DemoVariant::INCREMENTAL_COLLECT, 5},
+	{ "No garbage collection", noCollecthelpString, MemoryWalkDemo::DemoVariant::INCREMENTAL_COLLECT, 0},
+};
 
 MemoryWalkDemo::MemoryWalkDemo(hkDemoEnvironment* env): hkDefaultPhysicsDemo( env ),
+	m_variant(s_variants[env->m_variantId]),
 	m_rand(1000)
 {
     m_numRows = 23;
@@ -36,6 +50,11 @@ MemoryWalkDemo::MemoryWalkDemo(hkDemoEnvironment* env): hkDefaultPhysicsDemo( en
 
     m_server = new hkFixedMemoryBlockServer(m_memoryStart,m_memorySize);
     m_memory = new hkFreeListMemory(m_server);
+
+	m_memory->setMemoryHardLimit(m_memorySize);
+	m_memory->setMemorySoftLimit(m_memorySize);
+
+	m_allocating = true;
 
 	//
 	// Setup the camera
@@ -70,6 +89,15 @@ MemoryWalkDemo::MemoryWalkDemo(hkDemoEnvironment* env): hkDefaultPhysicsDemo( en
 	m_width = m_env->m_window->getWidth();
 	m_height = m_env->m_window->getHeight();
 	m_rowSize = int(m_memorySize/m_numRows);
+
+	if (m_variant.m_operation == DemoVariant::INCREMENTAL_COLLECT)
+	{
+		// With the incremental, start with half of the memory filled
+		_addAllocations(m_memorySize / 2, hkThreadMemory::MEMORY_MAX_SIZE_SMALL_BLOCK + 1);
+
+		// Disable default garbage collection on the hkFreeListMemory, so it doesn't interfer with the the incrementalGarbageCollect
+		m_memory->setLimitedMemoryListener(&m_listener);
+	}
 }
 
 
@@ -282,18 +310,110 @@ void MemoryWalkDemo::_updateAllocations()
     }
 }
 
-
-hkDemo::Result MemoryWalkDemo::stepDemo()
+void MemoryWalkDemo::_addAllocations(hk_size_t maxSize, hk_size_t maxAllocation)
 {
-	//hkReal physicsDeltaTime = 1.0f / 60.0f;
+	while (true)
+	{
+		hk_size_t size = m_rand.getRand32() % maxAllocation; 
 
+		if (size > maxSize)
+		{
+			break;
+		}
+
+		_alloc(size);
+
+		maxSize -= size;
+	}
+}
+
+void MemoryWalkDemo::_normalUpdateAllocations()
+{
 	for (int i=0;i<100;i++)
 	{
 		_updateAllocations();
 	}
+}
+
+void MemoryWalkDemo::_incrementalUpdateAllocations()
+{
+	const int numOps = 10;
+	const int numAlloc = numOps + ((m_allocating) ? 1 : -1);
+	const int numFree = numOps;
+
+	for (int j = 0; j < 10; j++)
+	{
+		// Allocate
+		{
+			hk_size_t size = m_rand.getRand32()%( hkThreadMemory::MEMORY_MAX_SIZE_SMALL_BLOCK + 1 );
+			// do the allocation
+			for (int i = 0; i < numAlloc; i++)
+			{
+				if ((m_rand.getRand32() & 0xff) == 0x7f)
+				{
+					// do a large ish alloc 
+					_alloc(m_rand.getRand32() % 50000);
+				}
+				else
+				{
+					_alloc(size);
+				}
+			}
+		}
+
+		// Free
+		{
+			for (int i = 0; i < numFree; i++)
+			{
+				if (m_blocks.getSize()>0)
+				{
+					_free(m_rand.getRand32()%m_blocks.getSize());
+				}
+			}
+		}
+	}
+
+	if (m_allocating)
+	{
+		if (!m_memory->hasMemoryAvailable(m_memorySize / 4))
+		{
+			m_allocating = false;
+		}
+	}
+	else
+	{
+		if (m_memory->hasMemoryAvailable(m_memorySize - (m_memorySize / 16)))
+		{
+			m_allocating = true;
+		}
+	}
+	
+	// Do the collection
+	if (m_variant.m_numIncrementalBlocks > 0)
+	{
+		m_memory->incrementalGarbageCollect(m_variant.m_numIncrementalBlocks);
+	}
+}
+
+
+hkDemo::Result MemoryWalkDemo::stepDemo()
+{
+	switch (m_variant.m_operation)
+	{
+		case DemoVariant::NORMAL_COLLECT:
+		{
+			_normalUpdateAllocations();
+			break;
+		}
+		case DemoVariant::INCREMENTAL_COLLECT:
+		{
+			_incrementalUpdateAllocations();
+			break;
+		}
+	}
 
     m_allocs.clear();
-    m_memory->walkMemory(_addBlock,this);
+    m_memory->walkMemory(_addBlock, this);
 
 	_drawAllocations();
 
@@ -310,13 +430,10 @@ hkDemo::Result MemoryWalkDemo::stepDemo()
 #	pragma fullpath_file on
 #endif
 
-static const char helpString[] = \
-"Drawing memory allocations.\nRed - large blocks\nGreen - Small Blocks";
-
-HK_DECLARE_DEMO( MemoryWalkDemo, HK_DEMO_TYPE_PRIME, "Memory walk", helpString);
+HK_DECLARE_DEMO_VARIANT_USING_STRUCT( MemoryWalkDemo, HK_DEMO_TYPE_PRIME, MemoryWalkDemo::DemoVariant, s_variants, HK_NULL );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

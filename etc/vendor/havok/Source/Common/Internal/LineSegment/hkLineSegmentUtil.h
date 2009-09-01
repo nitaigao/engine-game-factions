@@ -52,13 +52,38 @@ class hkLineSegmentUtil
 
 		static int HK_CALL closestPointLineSeg( hkVector4Parameter A, hkVector4Parameter B0, hkVector4Parameter B1, ClosestPointLineSegResult& result );
 
+		//
+		// Infinite line / infinite line
+		//
+
+		struct ClosestPointInfLineInfLineResult
+		{
+				/// The minimum distance squared
+			hkPadSpu<hkReal> m_distanceSquared;
+
+				/// The fraction along dA 
+			hkPadSpu<hkReal> m_fractionA;
+
+				/// The fraction along dB
+			hkPadSpu<hkReal> m_fractionB;
+
+				/// The closest point on line A ( equal to A + m_fractionA*dA )
+			hkVector4 m_closestPointA;
+
+				/// The closest point on line B ( equal to B + m_fractionB*dB )
+			hkVector4 m_closestPointB;
+		};
+
+			/// Compute the closest point between two infinite lines (each specified by a point and direction)
+		static hkResult HK_CALL closestPointInfLineInfLine( const hkVector4& A, const hkVector4& dA, const hkVector4& B, const hkVector4& dB, ClosestPointInfLineInfLineResult& result);
+
 };
 
 #endif // HK_INTERNAL_LINE_SEGMENT_UTIL_H
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

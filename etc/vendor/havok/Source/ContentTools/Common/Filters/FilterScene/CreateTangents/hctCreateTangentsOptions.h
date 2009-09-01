@@ -35,13 +35,15 @@ public:
 
 		/// If true, it will detect and split vertices with mirrored UVs (see EXP-582)
 	bool m_splitVertices;
+	bool m_ignoreUnlit;
+
 
 };
 
 #endif // HKFILTERTEXTURES_HKFILTERTEXTURESCREATETANGENTSOPTIONS_HKCLASS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

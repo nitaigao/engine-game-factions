@@ -14,6 +14,7 @@ namespace Script
 		return
 			class_< SoundFacade >( "SoundFacade" )
 				.def( constructor< IScriptComponent* >( ) )
+				.def( "playMusic", &SoundFacade::PlayMusic )
 				.def( "triggerEvent", &SoundFacade::TriggerEvent )
 				.def( "keyOutEvent", &SoundFacade::KeyOutEvent );
 	}

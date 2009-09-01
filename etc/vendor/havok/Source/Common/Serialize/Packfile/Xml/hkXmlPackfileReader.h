@@ -12,7 +12,7 @@
 #include <Common/Base/Container/StringMap/hkStringMap.h>
 
 class hkRelocationInfo;
-class hkDynamicClassNameRegistry;
+class hkChainedClassNameRegistry;
 class hkXmlPackfileUpdateTracker;
 template <typename K, typename V> class hkPointerMap;
 
@@ -59,8 +59,13 @@ class hkXmlPackfileReader : public hkPackfileReader
 
 	protected:
 
-		const hkClass* getClassByName( const char* className, hkDynamicClassNameRegistry& reg, hkStringMap<hkClass*>& partiallyLoadedClasses, hkPointerMap<const hkClass*, int>& offsetsRecomputed, int classVersion, const char* contentsVersion ) const;
+		const hkClassNameRegistry* getClassNameRegistry() const;
+		const hkClass* getClassByName( const char* className, hkStringMap<hkClass*>& partiallyLoadedClasses, hkPointerMap<const hkClass*, int>& offsetsRecomputed, int classVersion, const char* contentsVersion ) const;
 		void handleInterObjectReferences( const char* objName, void* object, const hkRelocationInfo& reloc, const hkStringMap<void*>& nameToObject, hkStringMap<int>& unresolvedReferences );
+
+			/// Replace all hkClass packfile pointers with hkClass
+			/// pointers from the provided registry.
+		void useClassesFromRegistry(const hkClassNameRegistry& registry) const;
 
 	protected:
 
@@ -77,12 +82,15 @@ class hkXmlPackfileReader : public hkPackfileReader
 
 			// Tracker
 		hkXmlPackfileUpdateTracker* m_tracker;
+
+			// Classes
+		mutable hkRefPtr<hkChainedClassNameRegistry> m_packfileClassRegistry;
 };
 
 #endif // HK_XML_PACKFILE_READER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

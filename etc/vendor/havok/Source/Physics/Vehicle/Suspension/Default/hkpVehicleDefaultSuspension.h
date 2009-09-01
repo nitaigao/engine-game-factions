@@ -9,7 +9,6 @@
 #define HKVEHICLE_SUSPENSION_DEFAULT_hkVehicleDefaultSuspension_XML_H
 
 #include <Physics/Vehicle/Suspension/hkpVehicleSuspension.h>
-class hkpVehicleInstance;
 
 /// The hkpVehicleDefaultSuspension class implements a default, spring-based, suspension
 /// module for vehicles.
@@ -60,7 +59,7 @@ class hkpVehicleDefaultSuspension : public hkpVehicleSuspension
 #endif // HKVEHICLE_SUSPENSION_DEFAULT_hkVehicleDefaultSuspension_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

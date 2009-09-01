@@ -31,6 +31,8 @@ class RigidBodyCharacterProxy : public CharacterProxy
 		 
 		virtual void addToWorld( hkpWorld* world ); 
 
+		virtual void removeFromWorld( hkpWorld* world ); 
+
 			// Get the current transform of the character
 		virtual void getTransform( hkTransform& transform ) const;
 
@@ -67,7 +69,7 @@ class RigidBodyCharacterProxy : public CharacterProxy
 #endif // HK_RB_PROXY_CHARACTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -38,12 +38,14 @@ typedef bool (HK_CALL *HKG_USER_FUNC_PAD_BUTTON)(hkgWindow* w, unsigned short pa
 typedef void (HK_CALL *HKG_USER_FUNC_RESIZE)(hkgWindow* w,unsigned int width, unsigned int height, void* userContext);
 typedef bool (HK_CALL *HKG_USER_FUNC_COMMAND)(hkgWindow* w, unsigned int code, unsigned int id, void* nativeHandle, void* userContext);
 
+typedef void (HK_CALL *HKG_USER_FUNC_DROPFILE)(const hkgWindow* w, unsigned int x, unsigned int y, const char* filePath, void* userContext);
+
 
 
 #endif // HK_GRAPHICS_WINDOW_USER_FUNC_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -35,9 +35,6 @@ class BigRigDemo : public CarDemo
 
 	protected:
 			// This demo has vehicles with 6 wheels and vehicles with 4 wheels.
-		int m_numTractorWheels;
-		int m_numTrailerWheels;
-
         void createDisplayWheels(hkReal radius, hkReal thickness);
 
 		void createTractorVehicle( VehicleSetup& vehicleSetup, hkpRigidBody* chassis, int id);
@@ -47,7 +44,7 @@ class BigRigDemo : public CarDemo
 #endif // HK_BIGRIG_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -113,8 +113,23 @@ inline float* hkgLightManager::getSceneAmbientPtr()
 	return m_sceneAmbient;
 }
 
+inline void hkgLightManager::setSceneRimColor( const float a[3] )
+{
+	hkgVec3Copy( m_sceneRim, a );
+}
+
+inline void hkgLightManager::getSceneRimColor( float a[3] ) const
+{
+	hkgVec3Copy( a, m_sceneRim );
+}
+
+inline float* hkgLightManager::getSceneRimColorPtr()
+{
+	return m_sceneRim;
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

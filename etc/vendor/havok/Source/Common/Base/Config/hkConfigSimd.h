@@ -34,7 +34,6 @@
 #			define HK_CONFIG_SIMD HK_CONFIG_SIMD_DISABLED
 #		endif
 
-	// AMD x64
 #else // ifndef HK_CONFIG_SIMD
 #	if (HK_CONFIG_SIMD != HK_CONFIG_SIMD_ENABLED) && (HK_CONFIG_SIMD != HK_CONFIG_SIMD_DISABLED)
 #		error invalid config simd option
@@ -49,7 +48,7 @@
 #endif // HK_BASE_CONFIGSIMD_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

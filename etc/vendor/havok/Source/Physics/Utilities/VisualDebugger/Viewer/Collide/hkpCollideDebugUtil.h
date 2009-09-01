@@ -22,7 +22,7 @@ class hkpCollideDebugUtil
 	public:
 
 			/// Draws an OBB as a series of debug lines.
-		static void HK_CALL drawObbLines(const hkTransform& t, const hkVector4& halfExtents, unsigned int colour, hkDebugDisplayHandler* displayHandler = HK_NULL, int tag = 0)
+		static void HK_CALL drawObbLines(const hkTransform& t, const hkVector4& halfExtents, unsigned int colour, hkDebugDisplayHandler* displayHandler = HK_NULL, int id = 0, int tag = 0)
 		{
 #ifndef HK_DISABLE_DEBUG_DISPLAY
 			// draw the lines
@@ -55,11 +55,11 @@ class hkpCollideDebugUtil
 
 							if(displayHandler)
 							{
-								displayHandler->displayLine(start, end, colour, tag);
+								displayHandler->displayLine(start, end, colour, id, tag);
 							}
 							else
 							{
-								HK_DISPLAY_LINE(start, end, colour);
+								hkDebugDisplay::getInstance().displayLine(start, end, colour, id, tag);
 							}
 						}
 					}
@@ -69,7 +69,7 @@ class hkpCollideDebugUtil
 		}
 
 			/// Draws an array of AABBs as a series of debug lines.
-		static void HK_CALL displayAabbs(hkArray<hkAabb>& aabbs, unsigned int colour, hkDebugDisplayHandler* displayHandler = HK_NULL, int tag = 0)
+		static void HK_CALL displayAabbs(hkArray<hkAabb>& aabbs, unsigned int colour, hkDebugDisplayHandler* displayHandler = HK_NULL, int id = 0, int tag = 0)
 		{
 #ifndef HK_DISABLE_DEBUG_DISPLAY
 			for(int i=0; i<aabbs.getSize(); i++)
@@ -88,7 +88,7 @@ class hkpCollideDebugUtil
 					halfExtents.sub4(aabb.m_min);
 					halfExtents.mul4(0.5f);		
 
-					drawObbLines(t, halfExtents, colour, displayHandler, tag);
+					drawObbLines(t, halfExtents, colour, displayHandler, id, tag);
 				}
 			}
 #endif
@@ -98,7 +98,7 @@ class hkpCollideDebugUtil
 #endif // HK_COLLIDE2_COLLIDE_DEBUG_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

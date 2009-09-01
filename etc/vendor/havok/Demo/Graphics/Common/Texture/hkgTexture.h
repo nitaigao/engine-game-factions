@@ -207,7 +207,7 @@ class hkgTexture : public hkgReferencedObject
 			/// the unswizzled version as well. On PC and Xbox, DirectX manages this extra overhead, and on
 			/// PlayStation(R)2 there is no overhead.
 			/// You can only lock() textures that you create as dynamic
-		virtual bool realize(bool dynamic = false);
+		virtual bool realize(bool dynamic = false, HKG_TEXTURE_USAGE_HINT useHint = HKG_TEXTURE_USAGE_UNKOWN );
 
 			/// Free all platform specific resources. If you free a texture, m_data will still be valid
 			/// on all platforms except GameCube where the m_data pointer will become HK_NULL as it is
@@ -299,7 +299,7 @@ class hkgTexture : public hkgReferencedObject
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

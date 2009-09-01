@@ -6,8 +6,8 @@
  * 
  */
 
-inline hkgShaderDX10::hkgShaderDX10(hkgDisplayContext* context)
-: m_context( static_cast<hkgDisplayContextDX10*>( context ) ), m_inputSignature(HK_NULL), m_byteCode(HK_NULL), m_shaderReflection(HK_NULL)
+inline hkgShaderDX10::hkgShaderDX10(HKG_SHADER_TYPE t, hkgDisplayContext* context)
+: hkgShader( t ), m_context( static_cast<hkgDisplayContextDX10*>( context ) ), m_inputSignature(HK_NULL), m_byteCode(HK_NULL), m_shaderReflection(HK_NULL)
 {
 
 }
@@ -28,7 +28,7 @@ inline ID3D10Blob* hkgShaderDX10::getByteCode() const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

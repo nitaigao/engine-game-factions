@@ -63,10 +63,19 @@ struct hkTestEntry
 
 class TestDemo;
 
+namespace hkMath
+{
+	hkReal HK_CALL rand01();
+	inline hkReal HK_CALL randRange(hkReal minv, hkReal maxv)
+	{
+		return minv + rand01() * (maxv-minv);
+	}
+}
+
 #endif // HK_TEST_UNITTEST_REGISTERTEST_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

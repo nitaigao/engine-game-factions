@@ -17,19 +17,24 @@
 #include <Common/Base/Config/hkConfigVersion.h>
 #include <Common/Base/Algorithm/Sort/hkSort.h>
 #include <Common/Serialize/Version/hkVersionUtil.h>
+#include <Common/Visualize/hkDebugDisplay.h>
 
 #include <Graphics/Common/Window/hkgWindow.h>
 #include <Graphics/Common/Texture/hkgTexture.h>
 
 #include <Demos/DemoCommon/DemoFramework/hkPerformanceCounterUtility.h>
 
-#include <Common/Serialize/Util/hkBuiltinTypeRegistry.h>
+#include <Common/Serialize/Util/hkBuiltinTypeRegistry.h> 
 
 #include <Graphics/Bridge/DisplayHandler/hkgDisplayHandler.h>
 #include <Graphics/Bridge/StatGraph/hkgStatGraph.h>
 #include <Graphics/Bridge/System/hkgSystem.h>
 #include <Graphics/Common/Font/hkgFont.h>
 #include <Common/Visualize/hkProcessFactory.h>
+
+#include <Common/Base/DebugUtil/DeterminismUtil/hkNetworkedDeterminismUtil.h>
+
+
 
 #define HK_UNIT_TESTS
 
@@ -322,10 +327,14 @@ MenuDemo::MenuDemo(hkDemoEnvironment* environment)
 
 	// set the "singleton" menu demo to me
 	m_menuDemo = this;
+
+	hkNetworkedDeterminismUtil::create();
 }
 
 MenuDemo::~MenuDemo()
 {
+	hkNetworkedDeterminismUtil::destroy();
+
 //	writeSimpleMemoryStatistics();
 	if (m_currentDemo)
 	{
@@ -378,25 +387,83 @@ hkDemo::Result MenuDemo::stepVisualDebugger()
 	return hkDemo::DEMO_OK;
 }
 
+namespace {
+
+	struct hkNetworkedDeterminismUtil_ControlInfo
+	{
+		hkgPad m_gamePadA;
+		hkgPad m_gamePadB;
+		hkgKeyboard m_keyboard;
+		hkgMouse m_mouse;
+
+		hkgPad m_gamePadA_nonWindow;
+		hkgPad m_gamePadB_nonWindow;
+
+	};
+
+} // namespace
+
+
 //
 // stepDemo
 //
 hkDemo::Result MenuDemo::stepDemo()
 {
+	hkNetworkedDeterminismUtil::ControlCommand controlCommand;
+	{
+		hkNetworkedDeterminismUtil_ControlInfo info;
+
+		// This actually is false.
+		//HK_ASSERT2(0xad903112, m_env->m_gamePad  == &m_env->m_window->getGamePad(0), "GamePad pointers don't match");
+		//HK_ASSERT2(0xad903112, m_env->m_gamePadB == &m_env->m_window->getGamePad(1), "GamePad pointers don't match");
+	
+		info.m_gamePadA = m_env->m_window->getGamePad(0);
+		info.m_gamePadB = m_env->m_window->getGamePad(1);
+		info.m_keyboard = m_env->m_window->getKeyboard();
+		info.m_mouse    = m_env->m_window->getMouse();
+
+		info.m_gamePadA_nonWindow = *m_env->m_gamePad;
+		info.m_gamePadB_nonWindow = *m_env->m_gamePadB;
+
+		new (&controlCommand) hkNetworkedDeterminismUtil::ControlCommand(&info, sizeof(info));
+	}
+
+	hkNetworkedDeterminismUtil::startStepDemo(controlCommand);
+	if (hkNetworkedDeterminismUtil::isClient())
+	{
+		const hkNetworkedDeterminismUtil_ControlInfo& info = *reinterpret_cast<const hkNetworkedDeterminismUtil_ControlInfo*>(controlCommand.m_data.begin());
+		m_env->m_window->setGamePad(0, info.m_gamePadA);
+		m_env->m_window->setGamePad(1, info.m_gamePadB);
+		m_env->m_window->setKeyboard(info.m_keyboard);
+		m_env->m_window->setMouse(info.m_mouse);
+
+		*m_env->m_gamePad = info.m_gamePadA_nonWindow;
+		*m_env->m_gamePadB = info.m_gamePadB_nonWindow;
+	}
+
+	Result result;
+
 	// run our current demo if present
 	if ( m_currentDemo != HK_NULL )
 	{
-		return stepCurrentDemo();
+		result = stepCurrentDemo();
 	}
 
 	// if we had a default demo then exit
 	else if ( m_defaultDemo != HK_NULL )
 	{
-		return DEMO_STOP;
+		result = DEMO_STOP;
 	}
 
 	// otherwise just run the menu
-	return stepMenuDemo();
+	else
+	{
+		result = stepMenuDemo();
+	}
+
+	hkNetworkedDeterminismUtil::endStepDemo();
+
+	return result;
 }
 
 void MenuDemo::preRenderDisplayWorld(hkgViewport* v)
@@ -443,6 +510,14 @@ void MenuDemo::windowResize(int w, int h)
 	}
 }
 
+void MenuDemo::windowDropFile(const char* filename, int x, int y)
+{
+	if (m_currentDemo)
+	{
+		m_currentDemo->windowDropFile(filename, x, y);
+	}
+}
+
 hkDemo::Result MenuDemo::showPausedMenu( bool handleKeysOnly )
 {
 	if (!handleKeysOnly)
@@ -451,7 +526,7 @@ hkDemo::Result MenuDemo::showPausedMenu( bool handleKeysOnly )
 		int dV = m_env->m_window->getTVDeadZoneV();
 
 		hkString oss;
-		oss.printf("[ Paused ]\n\n%c Resume Demo\n%c Restart Demo\n\n%c Toggle Text Statistics\n%c Toggle Text Statistics\n%c Toggle Camera Info\n%c Settings\n%c Toggle Help\n%c Single Step\n\n%c Quit",
+		oss.printf("[ Paused ]\n\n%c Resume Demo\n%c Restart Demo\n\n%c Toggle Text Statistics\n%c Toggle Graph Statistics\n%c Toggle Camera Info\n%c Settings\n%c Toggle Help\n%c Single Step\n\n%c Quit",
 			// resume,         restart        stats          settings        camera info,      help            step           quit
 			TEXT_BUTTON_START, TEXT_BUTTON_3, TEXT_BUTTON_1, TEXT_BUTTON_R2, TEXT_BUTTON_DOWN, TEXT_BUTTON_R1, TEXT_BUTTON_L1, TEXT_BUTTON_0, TEXT_BUTTON_2);
 
@@ -841,8 +916,7 @@ hkDemo::Result MenuDemo::stepCurrentDemo()
 	}
 
 
-	if( gamePad->wasButtonPressed(HKG_PAD_START) == true
-		|| m_env->m_window->getKeyboard().wasKeyPressed(HKG_VKEY_F1) ) // pause pressed?
+	if( gamePad->wasButtonPressed(HKG_PAD_START) == true )  // pause pressed?
 	{
 		if( m_wantTweak )
 		{
@@ -853,6 +927,10 @@ hkDemo::Result MenuDemo::stepCurrentDemo()
 		{
 			m_paused = !m_paused;
 		}
+	}
+	if( m_env->m_window->getKeyboard().wasKeyPressed(HKG_VKEY_F1) )
+	{
+		m_helpTimeLeft = ( m_helpTimeLeft == HK_REAL_MAX ) ? 0 : HK_REAL_MAX;
 	}
 
 	if ( m_paused && m_newTimersGathered )
@@ -958,25 +1036,41 @@ hkDemo::Result MenuDemo::stepCurrentDemo()
 
 	if(m_helpTimeLeft > 0.0f && !m_wantTweak )
 	{
-		m_helpTimeLeft -= m_timestep;
+		if( m_helpTimeLeft != HK_REAL_MAX )
+		{
+			m_helpTimeLeft -= m_timestep;
+		}
 		int overallindex = hkDemoDatabase::getInstance().findDemo( m_currentPath.cString());
 		if( overallindex >= 0 )
 		{
 			const hkDemoEntry& demo = hkDemoDatabase::getInstance().getDemos()[overallindex];
-			const int winWidth = m_env->m_window->getWidth();
-			const char* help = demo.m_details;
-			if ( !help ){ help = "Unknown Help"; }
-			hkString help2;
-			help2.setCapacity( hkString::strLen(help) + 256 );
+			hkArray<char> helpBuf;
+			hkOstream help(helpBuf);
+			help << (demo.m_details ? demo.m_details : "<No detailed help for this demo>");
 			if( m_currentDemo->getOptions() )
 			{
-				help2.printf("%s\nPress <Tab> or %c %c to tweak this demo", help, TEXT_BUTTON_START, TEXT_BUTTON_R1);
-				help = help2.cString();
+				help.printf("\nPress <Tab> or %c %c to tweak this demo", TEXT_BUTTON_START, TEXT_BUTTON_R1);
+			}
+			const hkArray<KeyPressCallbackInfo>& keys = m_currentDemo->getKeyPressCallbackInfo();
+			hkBitField keyUsed( HKG_KEYBOARD_NUM_VKEYS, 0 );
+			if( keys.getSize() && m_helpTimeLeft == HK_REAL_MAX )
+			{
+				help.printf("\n\nKeyboard shortcuts:\n");
+				for( int i = keys.getSize()-1; i >= 0; i -= 1 )
+				{
+					const KeyPressCallbackInfo& k = keys[i];
+					if( k.description != HK_NULL && keyUsed.get(k.vkey) == false )
+					{
+						keyUsed.set(k.vkey);
+						help.printf("\n\t%8s %s", hkgKeyboard::nameOfVkey(HKG_KEYBOARD_VKEY(k.vkey)), k.description );
+					}
+				}
 			}
 			int dH = m_env->m_window->getTVDeadZoneH();
 			int dV = m_env->m_window->getTVDeadZoneV();
-
-			m_env->m_textDisplay->outputTextWithWrapping(help, 20 + dH, 20 + dV, winWidth-20-dH, TEXT_COLOR_NORMAL);
+			const int winWidth = m_env->m_window->getWidth();
+			m_env->m_textDisplay->outputTextWithWrapping(helpBuf.begin(), 20 + dH, 20 + dV, winWidth-20-dH, -1, TEXT_COLOR_NORMAL);
+			//m_env->m_textDisplay->outputText(helpBuf.begin(), 20 + dH, 20 + dV, TEXT_COLOR_NORMAL);
 		}
 	}
 
@@ -1297,8 +1391,13 @@ void MenuDemo::stopCurrentDemo()
 	m_performanceCounterUtility->saveFileAndReset();
 
 	// memory dump
-	if ( hkMemory::getInstance().isDebugMemory() )
+	if ( m_env->m_options->m_saveMemoryStatistics)
 	{
+		if (!hkMemory::getInstance().isDebugMemory())
+		{
+			HK_WARN(0x180fe74c, "Trying to save memory statistics without debug memory. You should add -c to the command line arguments also.");
+		}
+
 		hkReferencedObject::setLockMode( hkReferencedObject::LOCK_MODE_NONE );
 		writeSimpleMemoryStatistics();
 		hkReferencedObject::setLockMode( hkReferencedObject::LOCK_MODE_NONE );
@@ -1334,8 +1433,17 @@ void MenuDemo::stopCurrentDemo()
 	m_env->m_window->setWantDrawHavokLogo(false);
 }
 
+extern void HK_CALL debugRenderNowNoWait();
 void MenuDemo::startCurrentDemo()
 {
+	{
+		hkTextDisplay& t = *m_env->m_textDisplay;
+		int x = int( 0.5f * (m_env->m_window->getWidth() - 14/*width of msg in chars*/ * t.getFont()->getCharWidth() ) );
+		int y = int( 0.5f * (m_env->m_window->getHeight() - 3/*lines in msg*/ * t.getFont()->getCharHeight() ) );
+		t.wipeText();
+		t.outputText( " \n  Loading...  \n " , x, y);
+		debugRenderNowNoWait();
+	}
 	switch (m_env->m_options->m_replayType)
 	{
 		case hkDemoFrameworkOptions::REPLAY_RECORD:
@@ -1787,7 +1895,7 @@ hkString MenuDemo::getStatus()
 HK_DECLARE_DEMO(MenuDemo, HK_DEMO_TYPE_MENU, "Display a menu of available demos", "I'm the menu demo");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

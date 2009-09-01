@@ -18,6 +18,16 @@ HK_FORCE_INLINE hkUint32 hkBitField::getWord( int wordIndex ) const
 	return m_words[wordIndex];
 }
 
+HK_FORCE_INLINE hkUint32* hkBitField::getWords()
+{
+	return m_words.begin();
+}
+
+HK_FORCE_INLINE const hkUint32* hkBitField::getWords() const
+{
+	return m_words.begin();
+}
+
 HK_FORCE_INLINE void hkBitField::assignAll( int value )
 {
 	HK_ASSERT( 0xa59289bb, value >= 0 && value <= 1 );
@@ -111,7 +121,7 @@ HK_FORCE_INLINE hkBitField::hkBitField( hkFinishLoadedObjectFlag flag ) : m_word
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

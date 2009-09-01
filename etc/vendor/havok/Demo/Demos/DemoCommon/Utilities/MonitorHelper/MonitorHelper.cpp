@@ -21,6 +21,7 @@ MonitorHelper::~MonitorHelper()
 
 void MonitorHelper::init(int size)
 {
+	HK_ASSERT(0x74d2bc62, m_monitorStreamAnalyser == HK_NULL);
 	m_monitorStreamAnalyser = new hkMonitorStreamAnalyzer(size);
 }
 
@@ -47,6 +48,21 @@ hkMonitorStreamAnalyzer::Node* HK_CALL MonitorHelper::findFirstNodeByName( hkMon
 				return n;
 	}
 	return HK_NULL;
+}
+
+void HK_CALL MonitorHelper::findAllNodesWithName ( const hkMonitorStreamAnalyzer::Node* root, const char* childName, hkArray<const hkMonitorStreamAnalyzer::Node*>& nodesOut )
+{
+	if( hkString::strCmp( childName, root->m_name ) == 0 )
+	{
+		nodesOut.pushBack(root);
+	}
+
+	// search children
+	for( int j = 0; j < root->m_children.getSize(); j++ )
+	{
+		findAllNodesWithName(root->m_children[j], childName, nodesOut);
+	}
+
 }
 
 void MonitorHelper::grabAllStats()
@@ -133,7 +149,7 @@ void MonitorHelper::saveSingleFrameStatsToFile(const char* filename)
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

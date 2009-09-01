@@ -75,7 +75,7 @@ hkpPairLinearCastJob::hkpPairLinearCastJob( const hkpProcessCollisionInput* inpu
 			HK_ASSERT2( 0xaf2638e2, command->m_resultsCapacity > 0 && command->m_resultsCapacity <= hkpPairLinearCastCommand::MAXIMUM_RESULTS_CAPACITY,	"hkpPairLinearCastCommand::m_resultsCapacity has to be > 0 and <= " << hkpPairGetClosestPointsCommand::MAXIMUM_RESULTS_CAPACITY << "." );
 
 			// m_startPointResults aren't required. These should still catch uninitialized memory, though.
-			HK_ASSERT2( 0xaf2647fe, ((hkUlong)command->m_startPointResults & 0xf) == 0,																							"hkpPairLinearCastCommand::m_startPointResults has to be 16 byte aligned." );
+			HK_ASSERT2( 0xaf2647fe, ( command->m_startPointResultsCapacity == 0 ) || ( ((hkUlong)command->m_startPointResults & 0xf) == 0 ) , "hkpPairLinearCastCommand::m_startPointResults has to be 16 byte aligned." );
 			HK_ASSERT2( 0xaf2638e2, command->m_startPointResultsCapacity >= 0 && command->m_startPointResultsCapacity <= hkpPairLinearCastCommand::MAXIMUM_RESULTS_CAPACITY,	"hkpPairLinearCastCommand::m_startPointResultsCapacity has to be >= 0 and <= " << hkpPairGetClosestPointsCommand::MAXIMUM_RESULTS_CAPACITY << "." );
 		}
 	}
@@ -100,7 +100,6 @@ hkpPairLinearCastJob::hkpPairLinearCastJob( const hkpProcessCollisionInput* inpu
 	m_commandArray			= commandArray;
 	m_numCommands			= numCommands;
 
-	m_filter				= filter;
 
 	
 	m_maxExtraPenetration					= HK_REAL_EPSILON;
@@ -464,7 +463,6 @@ hkpKdTreeLinearCastJob::hkpKdTreeLinearCastJob( const hkpProcessCollisionInput* 
 
 	m_sharedJobHeaderOnPpu	= jobHeader;
 	m_collisionInput		= input;
-	m_filter				= HK_NULL;
 
 	m_numCommandsPerTask	= numCommandsPerTask;
 	m_semaphore				= semaphore;
@@ -481,7 +479,7 @@ hkpKdTreeLinearCastJob::hkpKdTreeLinearCastJob( const hkpProcessCollisionInput* 
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

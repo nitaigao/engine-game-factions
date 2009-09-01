@@ -21,6 +21,7 @@
 #include <Common/Serialize/Packfile/Xml/hkXmlPackfileReader.h>
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileWriter.h>
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
+#include <Common/Serialize/Util/hkSerializeUtil.h>
 
 // Asset mgt
 #include <Demos/DemoCommon/Utilities/Asset/hkAssetManagementUtil.h>
@@ -120,15 +121,13 @@ Gdc2005Demo::Gdc2005Demo(hkDemoEnvironment* env)
 
 	// Load override settings if present
 	{
-		hkBinaryPackfileReader pw;
-
-		hkIfstream settingsFile("GdcDemoSettingsOverride.bin");
-		if (settingsFile.isOk())
+		hkRefPtr<hkResource> res = hkSerializeUtil::load("GdcDemoSettingsOverride.bin");
+		if (res)
 		{
-			pw.loadEntireFile( settingsFile.getStreamReader() );
-
-			Gdc2005DemoOptions* options = (Gdc2005DemoOptions*)pw.getContents(Gdc2005DemoOptionsClass.getName());
-			m_options = *options;
+			if( Gdc2005DemoOptions* options = res->getContents<Gdc2005DemoOptions>() )
+			{
+				m_options = *options;
+			}
 		}
 	}
 
@@ -899,7 +898,7 @@ static const char helpString[] = "GDC 2005 Demo [Press Select or Shift for optio
 HK_DECLARE_DEMO(Gdc2005Demo, HK_DEMO_TYPE_COMPLETE|HK_DEMO_TYPE_SERIALIZE, "GDC 2005 Demo", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

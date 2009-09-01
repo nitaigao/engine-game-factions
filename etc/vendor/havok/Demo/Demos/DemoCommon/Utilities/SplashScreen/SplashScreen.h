@@ -18,7 +18,8 @@ class SplashScreen: public hkReferencedObject
 		enum SplashType
 		{
 			CLOTH_SPLASH,
-			DESTRUCTION_SPLASH
+			DESTRUCTION_SPLASH,
+			AI_SPLASH
 		};
 	
 		// Create and render immediately a splash screen (usually while a demo is initializing/loading).
@@ -50,6 +51,7 @@ class SplashScreen: public hkReferencedObject
 
 		static const SplashFile m_clothSplashFiles[];
 		static const SplashFile m_destructionSplashFiles[];
+		static const SplashFile m_aiSplashFiles[];
 		
 		SplashFile m_splashFile;
 
@@ -74,7 +76,7 @@ class SplashScreen: public hkReferencedObject
 #endif //INC_HKG_SPLASH_SCREEN_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

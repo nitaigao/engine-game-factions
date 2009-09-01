@@ -115,7 +115,7 @@ struct hkpSolverInfo
 
 	// <os.todo.a> change those counters to be more intuitive.
 	inline void incrementDeactivationFlags() 
-	{                                        // <ag.todo.a> test activation from actions & from outside of step()
+	{
 		m_deactivationIntegrateCounter++;
 		// we need each consecutive bi-flag to be not a negation of the previous one
 		if (((m_deactivationIntegrateCounter+4) & 7) == 0)
@@ -217,7 +217,7 @@ struct hkp3dAngularMotorSolverInfo
 #endif // HK_CONSTRAINTSOLVER2_SOLVER_INFO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

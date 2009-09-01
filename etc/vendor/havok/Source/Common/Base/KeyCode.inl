@@ -51,40 +51,41 @@
 #define HAVOK_DESTRUCTION_KEYCODE ""
 #endif
 
- 
- 
- 
- 
- 
- 
- 
- 
+//
+// AI
+//
+#if defined( HAVOK_AI_KEYCODE )
+#define USING_HAVOK_AI
+#else
+#define HAVOK_AI_KEYCODE ""
+#endif
 
 //
 // Raise an error if no keycodes are set.
 //
-#if !defined(USING_HAVOK_PHYSICS) && !defined(USING_HAVOK_ANIMATION) && !defined(USING_HAVOK_BEHAVIOR) && !defined(USING_HAVOK_CLOTH) && !defined(USING_HAVOK_DESTRUCTION) 
-#error No keycodes found. Please enter your keycode(s) in <Common\Base\KeyCode.h>
+#if !defined(USING_HAVOK_PHYSICS) && !defined(USING_HAVOK_ANIMATION) && !defined(USING_HAVOK_BEHAVIOR) && !defined(USING_HAVOK_CLOTH) && !defined(USING_HAVOK_DESTRUCTION) && !defined(USING_HAVOK_AI)
+#error No keycodes found. Please enter your keycode(s) in <Common/Base/KeyCode.h>
 #endif
 
 //
 // Product dependency checks:
 //
 #if defined(USING_HAVOK_BEHAVIOR) && !defined(USING_HAVOK_PHYSICS)
-#error "Can't use BEHAVIOR without PHYSICS. Please add your PHYSICS keycode to <Common\Base\KeyCode.h>"
+#error "Can't use BEHAVIOR without PHYSICS. Please add your PHYSICS keycode to <Common/Base/KeyCode.h>"
 #endif
 
 #if defined(USING_HAVOK_BEHAVIOR) && !defined(USING_HAVOK_ANIMATION)
-#error "Can't use BEHAVIOR without ANIMATION. Please add your ANIMATION keycode to <Common\Base\KeyCode.h>"
+#error "Can't use BEHAVIOR without ANIMATION. Please add your ANIMATION keycode to <Common/Base/KeyCode.h>"
 #endif
 
 #if defined(USING_HAVOK_DESTRUCTION) && !defined(USING_HAVOK_PHYSICS)
-#error "Can't use DESTRUCTION without PHYSICS. Please add your PHYSICS keycode to <Common\Base\KeyCode.h>"
+#error "Can't use DESTRUCTION without PHYSICS. Please add your PHYSICS keycode to <Common/Base/KeyCode.h>"
 #endif
 
 
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

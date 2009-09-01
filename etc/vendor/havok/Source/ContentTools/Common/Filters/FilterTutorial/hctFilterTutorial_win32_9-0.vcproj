@@ -4,7 +4,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="hctFilterTutorial"
-	ProjectGUID="{{AC68BAD9-E7F1-47F7-AF26-37DCDE501A78}}"
+	ProjectGUID="{{D17F57E2-8DB7-4C18-BE72-55301E53BD4A}}"
 	>
 	<Platforms>
 		<Platform
@@ -687,7 +687,7 @@
 				Name="VCCLCompilerTool"
 			   	AdditionalOptions="/MP"
 				GlobalOptimizations="false"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="TRUE"
 				Optimization="0"
 				FavorSizeOrSpeed="0"

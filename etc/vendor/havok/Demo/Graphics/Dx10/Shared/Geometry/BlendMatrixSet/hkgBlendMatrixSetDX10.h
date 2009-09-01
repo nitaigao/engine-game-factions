@@ -42,13 +42,14 @@ protected:
 
 	hkgDisplayContext* m_context;
 	hkArray<BlendMatrix> m_matrices;
+	int m_maxMatrices;
 
 };
 
 #endif // HK_GRAPHICS_BLEND_MATRIX_SET_DX10
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

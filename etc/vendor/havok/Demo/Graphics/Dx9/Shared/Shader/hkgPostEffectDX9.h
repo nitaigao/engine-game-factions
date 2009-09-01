@@ -9,37 +9,29 @@
 #ifndef HK_GRAPHICS_POST_EFFECT_DX9_H
 #define HK_GRAPHICS_POST_EFFECT_DX9_H
 
-#include <Graphics/Common/Shader/hkgShader.h>
+#include <Graphics/Common/Shader/hkgPostEffect.h>
 
-/// TODO: Generalize and add to the HKG base for all platforms
-/// here just so we can have FX file based post processed (Glow, sepia tone etc) files
-class hkgPostEffectDX9 : public hkgReferencedObject
+class hkgPostEffectDX9 : public hkgPostEffect, public hkgWindowDX9ResetEventHandler
 {
 public:
 		/// Create a blank, platform specific, shader object in the current context as given.
-	static hkgPostEffectDX9* create(hkgDisplayContext* context)
+	static hkgPostEffect* createPostEffectDX9(hkgDisplayContext* context)
 	{
 		return new hkgPostEffectDX9(context);
 	}	
 	
-	void setName(const char* n);
-	const char* getName() const;
+	//class hkgPostEffect:
+	virtual const char* getDefaultFileNameExtension() const { return "fx"; }
+	virtual bool realize(hkIstream& istream);	
+	virtual bool applyPreScene(); 
+	virtual bool applyPostScene();
+	virtual void free();	
 
-		/// Create the data for the shader. Will compile the shader from the given file. Assumes it is a .fx file 
-		/// Call free to release data
-	bool realize(hkIstream& istream, class hkgWindow* owner);	
+	//class hkgWindowDX9ResetEventHandler:
 
-	bool applyPreScene(); // returns if did the clear of the buffers
-
-	bool applyPostScene();
+	virtual void releaseD3D9(); // invalidate
+	virtual void resetD3D9(); // restore
 	
-		/// Free the platform specific resources etc used by the shader. Call realize again 
-		/// if you want to use the shader after this.
-	void free();	
-
-	void invalidateDevice();
-	void restoreDevice();
-
 protected:		
 	
 	bool createResources();
@@ -55,9 +47,7 @@ protected:
 	LPDIRECT3DSURFACE9	m_pOrigRT;
 	LPDIRECT3DSURFACE9	m_pOrigDS;
 	struct ID3DXEffect*	m_pEffect;
-	hkgWindow* m_owner;
 	LPCSTR m_viewportParam;
-	hkString m_name;
 	bool m_haveChangedRT;
 	bool m_haveChangedDS;
 	struct TextureMap
@@ -75,7 +65,7 @@ protected:
 #endif // HK_GRAPHICS_POST_EFFECT_DX9_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -131,6 +131,7 @@ enum SimpleBipedAnimControls
 	JUMP_CONTROL,
 	IN_AIR_CONTROL,
 	LAND_CONTROL,
+	SLOW_WALK_CONTROL,
 	WALK_CONTROL,
 	RUN_CONTROL,
 	DIVE_CONTROL,
@@ -245,7 +246,7 @@ class SimpleBipedStateContext : public hkReferencedObject
 #endif // SIMPLE_BIPED_STATE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

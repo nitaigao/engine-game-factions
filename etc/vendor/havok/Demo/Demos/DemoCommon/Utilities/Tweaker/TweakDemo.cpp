@@ -35,9 +35,7 @@ class TweakDemo : public hkDemo
 		Result stepVisualDebugger(){ return DEMO_OK; }
 		bool visualDebuggerEnabled() { return false; }
 		void makeFakeInput() {}
-
-		hkDemoEnvironment* m_env;
-		
+	
 		hkContainer m_options;
 
 		hkString m_selected;
@@ -110,7 +108,7 @@ hkDemo::Result TweakDemo::stepDemo()
 HK_DECLARE_DEMO(TweakDemo, HK_DEMO_TYPE_OTHER, "Tweak data interactively.", "Use the DPad to navigate and \221 and \222 to tweak");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

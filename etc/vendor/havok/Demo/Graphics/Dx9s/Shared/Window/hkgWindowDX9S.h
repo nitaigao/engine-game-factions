@@ -93,6 +93,24 @@ typedef HRESULT (WINAPI * __D3DXCreateTextureFromFileInMemoryExFUNC)(
 				PALETTEENTRY * pPalette,
 				LPDIRECT3DTEXTURE9 * ppTexture);
 
+typedef HRESULT (WINAPI * __D3DXCreateCubeTextureFromFileInMemoryExFUNC)(
+				LPDIRECT3DDEVICE9 pDevice,
+				LPCVOID pSrcData,
+				UINT SrcDataSize,
+				UINT Size,
+				UINT MipLevels,
+				DWORD Usage,
+				D3DFORMAT Format,
+				D3DPOOL Pool,
+				DWORD Filter,
+				DWORD MipFilter,
+				D3DCOLOR ColorKey,
+				D3DXIMAGE_INFO * pSrcInfo,
+				PALETTEENTRY * pPalette,
+				LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
+				);
+
+
 typedef HRESULT (WINAPI * __D3DXCreateVolumeTextureFromFileInMemoryExFUNC)(
 				LPDIRECT3DDEVICE9 pDevice,
 				LPCVOID pSrcData,
@@ -125,11 +143,35 @@ extern __D3DXCompileShaderFUNC			__D3DXCompileShader;
 extern __D3DXCompileShaderFromFileAFUNC	__D3DXCompileShaderFromFile;
 extern __D3DXCreateEffectFUNC			__D3DXCreateEffect;
 extern __D3DXCreateCubeTextureFromFileInMemoryFUNC	__D3DXCreateCubeTextureFromFileInMemory;
+extern __D3DXCreateCubeTextureFromFileInMemoryExFUNC __D3DXCreateCubeTextureFromFileInMemoryEx;
 extern __D3DXCreateTextureFromFileInMemoryExFUNC	__D3DXCreateTextureFromFileInMemoryEx; 
 extern __D3DXCreateVolumeTextureFromFileInMemoryExFUNC	__D3DXCreateVolumeTextureFromFileInMemoryEx; 
 extern __D3DXGetPixelShaderProfileFUNC  __D3DXGetPixelShaderProfile;
 extern __D3DXGetVertexShaderProfileFUNC __D3DXGetVertexShaderProfile;
 extern __D3DXLoadSurfaceFromSurfaceFUNC __D3DXLoadSurfaceFromSurface;
+
+typedef void (WINAPI * __D3D9SXInputEnableFUNC)(
+	BOOL enable);
+
+typedef DWORD (WINAPI * __D3D9SXInputGetStateFUNC)(
+	DWORD dwUserIndex,
+	XINPUT_STATE* pState);
+
+typedef DWORD (WINAPI * __D3D9SXInputSetStateFUNC)(
+	DWORD dwUserIndex,
+	XINPUT_VIBRATION* pVibration);
+
+typedef DWORD (WINAPI * __D3D9SXInputGetCapabilitiesFUNC)(
+	DWORD dwUserIndex,
+	DWORD dwFlags,
+	XINPUT_CAPABILITIES* pCapabilities);
+
+#if !defined(HK_PLATFORM_XBOX360)
+extern __D3D9SXInputEnableFUNC			__D3D9SXInputEnable;
+extern __D3D9SXInputGetStateFUNC		__D3D9SXInputGetState;
+extern __D3D9SXInputSetStateFUNC		__D3D9SXInputSetState;
+extern __D3D9SXInputGetCapabilitiesFUNC	__D3D9SXInputGetCapabilities;
+#endif
 
 class hkgWindowDX9SResetEventHandler
 {
@@ -138,6 +180,8 @@ public:
 	virtual void releaseD3D9S() = 0;
 	virtual void resetD3D9S() = 0;
 };
+
+#define MAX_DX9_RTS 4
 
 class hkgWindowDX9S : public hkgWindow
 {
@@ -161,32 +205,49 @@ public:
 
 	// some DX9 specific window commands (for shadowing etc)
 	virtual HKG_SHADOWMAP_SUPPORT getShadowMapSupport();
-	virtual void prepareForShadowMap(); // creates depth and render target
-	virtual void beginShadowMapRender(class hkgDisplayWorld* world, class hkgCamera* camera, class hkgLight* light, bool clearMap = true  ); // sets the depth and render target to be the current
+	virtual void prepareForShadowMap(int maxMaps); // creates depth and render target
+	virtual void beginShadowMapRender(class hkgDisplayWorld* world, class hkgCamera* camera, class hkgLight* light  ); // sets the depth and render target to be the current
+	virtual const class hkgCamera* startShadowMap( int ss, bool clearMap ); // returns the light frustum which is being used to render
+	virtual void endShadowMap( int ss, bool blurMap );
 	virtual int endShadowMapRender(int textureStageForMap, bool shaderDriven); // resets to the normal depth and render target
 	virtual void revertShadowMapState(); // resets to the normal texture modes etc
 	virtual void cleanupShadowMap(); // releases held targets
 	virtual void setShadowMapSize(int size); 
 	virtual int getShadowMapSize() const;
 	virtual void enableDebugShadowMapView(bool on) const { m_debugShadowMaps = on; } 
+	virtual void setShadowMapSplits( int numSplits );  // if in PSVSM mode, then this will govern the number of maps to use. Otherwise it will do nothing. 1 Split == 2 maps, 2 Splits == 3 maps. Each map can be a seperate additional pass on top of the render pass.
 
 	void setShadowMapQuality( HKG_SHADOWMAP_QUALITY q );
 	HKG_SHADOWMAP_QUALITY getShadowMapQuality();
 
 	inline LPDIRECT3DTEXTURE9 getShadowMap(); // an F32 texture
-	virtual const float* getComputedShadowMatrix(bool includeCameraViewMatri) const; // get the perspective shadow matrix
-	virtual const float* getComputedShadowTextureMatrix(bool includeCameraViewMatri) const; // get the perspective shadow matrix with the texture lookup and bias baked in
+	virtual const float* getComputedShadowMatrix(bool includeCameraViewMatrix, int i) const; // get the perspective shadow matrix
+	virtual const float* getComputedShadowTextureMatrix(bool includeCameraViewMatrix, int i) const; // get the perspective shadow matrix with the texture lookup and bias baked in
 
 	virtual HKG_MESHBLENDING_SUPPORT getMeshBlendingSupport() { return HKG_MESHBLENDING_NOSUPPORT; }//return HKG_MESHBLENDING_HARDWARE; 
-	virtual int getMaxBlendMatrices() { return 0; } //20
+	virtual int getMaxBlendMatrices() { return 0; } //20 to 50 for sm3, depending 
 
-	virtual int getMaxTextureBlendStages() { return 2; } // usually 8 ort so, but our texture based shaders only use one to two textures so far
+	virtual int getMaxTextureBlendStages() { return m_d3dCaps.MaxTextureBlendStages; } 
 
 	virtual bool saveFrontFrameBufferToBMP(const char* filename);
 	virtual bool saveFrontFrameBufferToStream(unsigned char * str, int stridebytes, int pixelsize);
 
+	virtual int getVideoMemSizeInMB() const { return 256; } // PC will override this
+	virtual int getMaxTextureWidth() const { return m_d3dCaps.MaxTextureWidth; }
+	virtual int getMaxTextureHeight() const { return m_d3dCaps.MaxTextureHeight; }
+	virtual void getDisplayAdapterDescription(hkString& description) const;
+
+		// DX9 does not support MSAA in conjunction with Multiple Render Targets (use DX10 if you want that combo (SSAO with MSAA etc))
+	virtual bool supportsMRT() const { return !m_msaa; }
+	virtual bool msaaEnabled() const { return m_msaa; } // MSAA on for RT
+
+	virtual bool startPostEffects();
+	virtual void endPostEffects() ;
+
 	// debug utils
-	void displayShadowMap();
+	void displayShadowMap(int ss);
+
+	const D3DPRESENT_PARAMETERS& getPresentParams() const { return m_d3dpp;  }
 
 	void addD3DEventHandler( hkgWindowDX9SResetEventHandler* handler );
 	void removeD3DEventHandler( hkgWindowDX9SResetEventHandler* handler );
@@ -200,8 +261,12 @@ public:
 
 	bool m_supports32FBlending;
 	bool m_supports16FBlending;
-
 	
+	bool getCurrentRTisMultisampled() const { return m_currentRtIsMsaa; }
+	void setCurrentRTisMultisampled(bool on) { m_currentRtIsMsaa = on; }
+
+	LPDIRECT3DSURFACE9 getSceneRenderTargetSurface( int i, int effectIndex ) const; // no ref passed (not ref incl, do not call Release())
+	LPDIRECT3DTEXTURE9 getSceneRenderTargetTexture( int i, int effectIndex ) const; // no ref passed (not ref incl, do not call Release())
 
 protected:	
 
@@ -216,7 +281,13 @@ protected:
 	D3DCAPS9				m_d3dCaps;           // Caps for the device
     DWORD					m_dwCreateFlags;     // Indicate sw or hw vertex processing
 
-	bool					m_fsaa; // Antialias enabled
+	bool					m_msaa; // Antialias enabled
+	int						m_msaaQuality;
+	int						m_msaaSamples;
+	bool					m_currentRtIsMsaa;
+
+	bool					m_vsync; // VSync / VBlank enabled
+	int						m_vsyncInterval;
 
 	// shadow map support
 	int						m_shadowMapSize;
@@ -227,21 +298,37 @@ protected:
 
 	LPDIRECT3DSURFACE9      m_pShadowZSurfaceEDRAM;  // may be null
 	LPDIRECT3DSURFACE9      m_pShadowColorSurfaceEDRAM;  // may be null
-	LPDIRECT3DTEXTURE9      m_pShadowColorMap; 
+	LPDIRECT3DTEXTURE9      m_pShadowColorMap[HKG_SHADOWMAP_PSVSM_MAX_NUM_SPLITS + 1]; 
 	LPDIRECT3DTEXTURE9      m_pShadowColorMapBlur; 
 	LPDIRECT3DTEXTURE9      m_pShadowZMap; 
-	LPDIRECT3DSURFACE9      m_pShadowColorSurface;  
+	LPDIRECT3DSURFACE9      m_pShadowColorSurface[HKG_SHADOWMAP_PSVSM_MAX_NUM_SPLITS + 1]; // only when { no AA + PSVSM ] and do we have > 1
+	LPDIRECT3DSURFACE9      m_pShadowColorSurfaceAA;
 	LPDIRECT3DSURFACE9      m_pShadowColorSurfaceBlur;  
 	LPDIRECT3DSURFACE9      m_pShadowZSurface;  
 
-	LPDIRECT3DSURFACE9		m_pOrigRT;
+	LPDIRECT3DSURFACE9		m_pOrigRT[MAX_DX9_RTS];
 	LPDIRECT3DSURFACE9		m_pOrigDS;
+
+	bool					m_supportsLinearDepth;
+	bool					m_supportsColorTex;
+	LPDIRECT3DSURFACE9		m_pLinearDepthRT;
+	LPDIRECT3DSURFACE9		m_pSceneColorRT;
+	LPDIRECT3DSURFACE9		m_pBackBufferRT;
+	LPDIRECT3DSURFACE9		m_pLinearDepthRTAA;
+	LPDIRECT3DSURFACE9		m_pSceneColorRTAA;
+	LPDIRECT3DSURFACE9		m_pSceneColorRTTemp;
+	LPDIRECT3DSURFACE9	    m_pSceneDS; 
+
+	LPDIRECT3DTEXTURE9		m_pLinearDepthTex;
+	LPDIRECT3DTEXTURE9		m_pSceneColorTex;
+	LPDIRECT3DTEXTURE9		m_pSceneColorTexTemp;
 
 	HKG_ENABLED_STATE		m_nonShadowState;
 
 	// to help cull and create the optimal shadow map projection matrices
 	int						m_currentShadowTextureStage;
 	mutable float			m_shadowTexMatrix[16];
+	mutable float			m_shadowLightMatrix[16];
 	mutable bool			m_debugShadowMaps;
 	class hkgPixelShaderDX9S* m_debugShadowMapPShader;
 	class hkgVertexShaderDX9S* m_debugShadowMapVShader;
@@ -264,7 +351,7 @@ protected:
 	
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

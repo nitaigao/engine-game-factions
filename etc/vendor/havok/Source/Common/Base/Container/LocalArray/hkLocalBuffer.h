@@ -32,7 +32,14 @@ class hkFixedArray
 		HK_FORCE_INLINE int getSizeDebug() const { return m_debugSize; }
 #		endif
 
+		HK_FORCE_INLINE	hkFixedArray(T* t, int n)
+			: m_data(t)
+		{
+			HK_ON_DEBUG(m_debugSize = n);
+		}
+
 	protected:
+
 		HK_FORCE_INLINE	hkFixedArray(){}
 
 		hkPadSpu<T*> m_data;
@@ -99,7 +106,7 @@ const T* hkFixedArray<T>::begin() const
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

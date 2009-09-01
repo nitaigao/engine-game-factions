@@ -13,6 +13,7 @@
 #include <Demos/DemoCommon/Utilities/GameUtils/Landscape/LandscapeRepository.h>
 
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
 #include <Physics/Utilities/CharacterControl/StateMachine/hkpDefaultCharacterStates.h>
 #include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h>
 
@@ -35,7 +36,6 @@ MultipleCharacterRbsDemo::MultipleCharacterRbsDemo(hkDemoEnvironment* env)
 		info.setBroadPhaseWorldSize( 350.0f );  
 		info.m_gravity.set(0, -9.8f, 0);
 		info.m_contactPointGeneration = hkpWorldCinfo::CONTACT_POINT_ACCEPT_ALWAYS;
-		info.m_collisionTolerance = 0.1f; // faster, but better 0.01f for accuracy
 		m_world = new hkpWorld( info );
 		m_world->lock();
 
@@ -77,6 +77,8 @@ MultipleCharacterRbsDemo::MultipleCharacterRbsDemo(hkDemoEnvironment* env)
 
 		hkpShape* characterShape = new hkpCapsuleShape(top, bottom, .6f);
 
+		hkpCharacterRigidBodyListener* listener = new hkpCharacterRigidBodyListener();
+
 		// Construct characters
 		for (int i=0; i < numCharacters; i++)
 		{
@@ -93,9 +95,12 @@ MultipleCharacterRbsDemo::MultipleCharacterRbsDemo(hkDemoEnvironment* env)
 			info.m_maxSlope = 90.0f * HK_REAL_DEG_TO_RAD;
 
 			m_characterRigidBodies[i] = new hkpCharacterRigidBody( info );
+			m_characterRigidBodies[i]->setListener( listener );
+
 			m_world->addEntity( m_characterRigidBodies[i]->getRigidBody() );
 
 		}
+		listener->removeReference();
 		characterShape->removeReference();
 	}
 	
@@ -196,12 +201,7 @@ hkDemo::Result MultipleCharacterRbsDemo::stepDemo()
 			input[i].m_velocity = m_characterRigidBodies[i]->getLinearVelocity();
 			input[i].m_position = m_characterRigidBodies[i]->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBodies[i]->checkSupport(stepInfo, ground);
-
-			input[i].m_isSupported = (ground.m_supportedState == hkpSurfaceInfo::SUPPORTED);
-			input[i].m_surfaceNormal = ground.m_surfaceNormal;
-			input[i].m_surfaceVelocity = ground.m_surfaceVelocity;	
+			m_characterRigidBodies[i]->checkSupport(stepInfo, input[i].m_surfaceInfo);
 		}
 	}
 
@@ -248,13 +248,14 @@ hkDemo::Result MultipleCharacterRbsDemo::stepDemo()
 		m_world->unlock();
 	}
 
+	HK_TIMER_END();
+
 	// Step the world
 	{
 		hkDefaultPhysicsDemo::stepDemo();
 	}
 
-	HK_TIMER_END();
-
+	
 	return hkDemo::DEMO_OK;
 }
 
@@ -269,7 +270,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(MultipleCharacterRbsDemo, HK_DEMO_TYPE_PRIME, "CharacterTest", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

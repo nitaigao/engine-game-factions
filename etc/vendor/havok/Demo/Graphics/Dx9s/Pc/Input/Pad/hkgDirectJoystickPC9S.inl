@@ -164,7 +164,7 @@ inline LPDIRECTINPUTDEVICE8& hkgDirectJoystickPC9S::getDevice()
 inline bool hkgDirectJoystickPC9S::hasPS2Caps() const
 {
 	const HKG_DIRECT_JOYSTICK_CAPS ps2Caps = 
-		HKG_DIRECT_JOYSTICK_XAXIS |
+		HKG_DIRECT_JOYSTICK_XAXIS	|
 		HKG_DIRECT_JOYSTICK_YAXIS	| 
 		HKG_DIRECT_JOYSTICK_ZAXIS	|
 		HKG_DIRECT_JOYSTICK_ZROT	|
@@ -173,8 +173,21 @@ inline bool hkgDirectJoystickPC9S::hasPS2Caps() const
 	return ((ps2Caps & m_caps) == m_caps) && (getNumSupportedButtons() >= 12);
 }
 
+inline bool hkgDirectJoystickPC9S::hasXbox360Caps() const
+{
+	const HKG_DIRECT_JOYSTICK_CAPS xbox360Caps = 
+		HKG_DIRECT_JOYSTICK_XAXIS	|
+		HKG_DIRECT_JOYSTICK_YAXIS	|
+		HKG_DIRECT_JOYSTICK_XROT	|
+		HKG_DIRECT_JOYSTICK_YROT	|
+		HKG_DIRECT_JOYSTICK_ZAXIS	|
+		HKG_DIRECT_JOYSTICK_POV0;
+
+	return ((xbox360Caps & m_caps) == m_caps) && (getNumSupportedButtons() == 10);
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

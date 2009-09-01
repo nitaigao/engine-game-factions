@@ -23,7 +23,7 @@ public:
 		/// Create the platform specific data for the shader. Will compile the shader from the given file.
 	virtual bool realize(hkIstream& istream, HKG_SHADER_RENDER_STYLE style);	
 
-	// realizeCompileFromFile inheirted
+	virtual bool realizeCompileFromFile(const char* filename, const char* entryPoint, HKG_SHADER_RENDER_STYLE style, const char* includePath = HK_NULL, const char** defines = HK_NULL);	
 	virtual bool realizeCompile( hkIstream& s, const char* entryPoint, HKG_SHADER_RENDER_STYLE style, const char* includePath, const char** defines = HK_NULL);
 
 		/// Bind the data for the shader, set it as the current active shader program
@@ -50,7 +50,7 @@ protected:
 #endif //HK_GRAPHICS_VERTEX_SHADER_DX10_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

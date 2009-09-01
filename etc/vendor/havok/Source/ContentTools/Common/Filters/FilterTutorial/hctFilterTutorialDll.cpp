@@ -83,7 +83,7 @@ hctFilterTutorialDll::hctFilterTutorialDll (HMODULE dllModule) : hctFilterDll (d
 #include <Common/Compat/hkCompat_None.cxx>
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

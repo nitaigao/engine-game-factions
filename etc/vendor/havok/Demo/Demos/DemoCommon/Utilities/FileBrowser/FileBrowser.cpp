@@ -9,16 +9,15 @@
 #include <Demos/demos.h>
 #include <Demos/DemoCommon/Utilities/FileBrowser/FileBrowser.h>
 
-#include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
-#include <Common/Serialize/Packfile/Xml/hkXmlPackfileReader.h>
-
 #include <Common/Base/System/Io/FileSystem/hkFileSystem.h>
 #include <Graphics/Common/Font/hkgFont.h>
 #include <Common/Serialize/Packfile/Binary/hkPackfileHeader.h>
 #include <Common/Base/System/Io/IStream/hkIStream.h>
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
 #include <Common/Serialize/Packfile/Xml/hkXmlPackfileReader.h>
+#include <Common/Serialize/Tagfile/hkTagfileReader.h>
 #include <Common/Serialize/Util/hkStructureLayout.h>
+
 
 hkBool HK_CALL hkFileFilter_isValidPackfile( const char* p )
 {
@@ -41,6 +40,26 @@ hkBool HK_CALL hkFileFilter_isValidPackfile( const char* p )
 				{
 					return hkString::memCmp( pack.m_layoutRules, &hkStructureLayout::HostLayoutRules, sizeof(hkStructureLayout::HostLayoutRules)) == 0;
 				}
+			}
+		}
+	}
+
+	return false;
+}
+
+hkBool HK_CALL hkFileFilter_isValidTagfile( const char* p )
+{
+	hkString path(p);
+
+	if( path.endsWith(".hkt") )
+	{
+		hkIstream is( path.cString() );
+		if( is.isOk() )
+		{
+			hkTagfileReader::FormatType format = hkTagfileReader::detectFormat(is.getStreamReader());
+			if( format == hkTagfileReader::FORMAT_BINARY )
+			{
+				return true;
 			}
 		}
 	}
@@ -123,7 +142,8 @@ hkBool FileBrowser::parseAndDisplayDirectoryAndFiles(const hkDemoEnvironment* m_
 			}
 			else if( recurse && ents[i].isDir() && m_directoryFilter( ents[i].name ) )
 			{
-				m_toScan.expandOne() = m_toScan[0] + ents[i].name + "/";
+				const hkString	first=m_toScan[0];
+				m_toScan.expandOne() = first + ents[i].name + "/";
 			}
 		}
 		m_toScan.removeAtAndCopy(0);
@@ -210,7 +230,7 @@ hkBool FileBrowser::parseAndDisplayDirectoryAndFiles(const hkDemoEnvironment* m_
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

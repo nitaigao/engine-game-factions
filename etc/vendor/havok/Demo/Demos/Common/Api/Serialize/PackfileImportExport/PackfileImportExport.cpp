@@ -13,18 +13,13 @@
 #include <Common/Base/System/Io/IStream/hkIStream.h>
 #include <Common/Base/System/Io/OStream/hkOStream.h>
 #include <Common/Serialize/Util/hkPointerMultiMap.h>
-#include <Common/Serialize/Packfile/Xml/hkXmlPackfileReader.h>
 #include <Common/Serialize/Packfile/Xml/hkXmlPackfileWriter.h>
+#include <Common/Serialize/Packfile/Xml/hkXmlPackfileReader.h>
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileWriter.h>
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
 #include <Common/Serialize/Util/hkRootLevelContainer.h>
-#include <Common/Serialize/Version/hkVersionRegistry.h>
-#include <Common/Serialize/Version/hkVersionUtil.h>
 #include <Physics/Utilities/Serialize/hkpPhysicsData.h>
-#include <Common/Base/Reflection/Registry/hkVtableClassRegistry.h>
-#include <Common/Serialize/Util/hkBuiltinTypeRegistry.h>
-#include <Common/Serialize/Util/hkChainedClassNameRegistry.h>
-
+#include <Common/Serialize/Util/hkSerializeUtil.h>
 
 //extern "C" int printf(...);
 
@@ -39,23 +34,18 @@ static hkResult loadFile
 {
 	*physicsOut = HK_NULL;
 
-	hkXmlPackfileReader reader;
-	hkIstream infile( name );
-	if( infile.isOk() )
+	hkResource* res = hkSerializeUtil::load(name);
+	if( res )
 	{
-		reader.loadEntireFile(infile.getStreamReader());
-		hkVersionUtil::updateToCurrentVersion( reader, hkVersionRegistry::getInstance() );
-
-		if( hkRootLevelContainer* container = static_cast<hkRootLevelContainer*>(
-					reader.getContents( "hkRootLevelContainer" ) ) )
+		if( hkRootLevelContainer* container = res->getContents<hkRootLevelContainer>() )
 		{
-			hkPackfileData* data = reader.getAllocatedData();
-			data->setName(name);
-			linker.add( data );
+			linker.add( res );
+			res->removeReference();
 			*physicsOut = static_cast<hkpPhysicsData*>( container->findObjectByType("hkpPhysicsData") );
 			return HK_SUCCESS;
 		}
 	}
+	res->removeReference();
 	return HK_FAILURE;
 }
 
@@ -265,7 +255,7 @@ HK_DECLARE_DEMO(PackfileImportExport, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_SERIALIZ
 	"Bring up the tweak menu to change the file format used and the order of loading.\nDebug logging is printed to the console");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

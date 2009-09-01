@@ -47,17 +47,12 @@ class AsymetricCharacterRbDemo : public hkDefaultPhysicsDemo
 		// An array of heighfield values we use for this demo
 		hkReal*	m_data;
 
-		// Previous surface info
-		hkpSurfaceInfo*	m_previousGround;
-		hkInt32 m_framesInAir;
-
-
 };
 
 #endif // HK_ASYMETRIC_CHARACTER_RIGIDBODY_DEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

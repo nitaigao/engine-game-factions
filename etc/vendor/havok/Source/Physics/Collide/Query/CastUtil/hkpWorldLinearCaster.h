@@ -69,7 +69,7 @@ class hkpWorldLinearCaster : public hkpBroadPhaseCastCollector
 #endif //HK_BROAD_PHASE_LINEAR_CASTER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

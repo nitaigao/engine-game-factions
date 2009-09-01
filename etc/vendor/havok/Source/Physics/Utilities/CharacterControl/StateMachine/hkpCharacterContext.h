@@ -12,6 +12,8 @@
 #include <Common/Base/hkBase.h>
 #include <Common/Base/Types/Physics/hkStepInfo.h>
 #include <Physics/Dynamics/Motion/hkpMotion.h>
+#include <Physics/Utilities/CharacterControl/hkpCharacterControl.h>
+#include <Physics/Utilities/CharacterControl/StateMachine/hkpCharacterState.h>
 
 class hkpCharacterStateManager;
 class hkpWorld;
@@ -52,18 +54,8 @@ struct hkpCharacterInput
 	/// Set this if the character is at a ladder and you want it to start to climb
 	hkBool				m_atLadder;			
 
-	/// Set this if the character is standing on a surface
-	hkBool				m_isSupported;		
-
-	/// Set this to represent the normal of the surface we're supported by
-	hkVector4			m_surfaceNormal;	
-
-	/// Set this to represent the velocity of the surface we're supported by
-	hkVector4			m_surfaceVelocity;	
-
-	/// Set this to represent the type of motion of the surface we're supported by
-	hkpMotion::MotionType	m_surfaceMotionType;	
-
+		/// The surface information.
+	hkpSurfaceInfo		m_surfaceInfo;
 
 	//
 	// Simulation info
@@ -166,7 +158,7 @@ class hkpCharacterContext : public hkReferencedObject
 #endif // HK_CHARACTER_CONTEXT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

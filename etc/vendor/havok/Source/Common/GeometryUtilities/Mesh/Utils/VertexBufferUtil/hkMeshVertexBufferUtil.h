@@ -37,29 +37,33 @@ class hkMeshVertexBufferUtil
 
         enum TransformFlag
         {
-            TRANSFORM_NORMALIZE = 0x1,                      
-            TRANSFORM_PRE_NEGATE = 0x2,                     
-            TRANSFORM_POST_NEGATE = 0x4,                    
+            TRANSFORM_NORMALIZE = 0x1,                      ///
+            TRANSFORM_PRE_NEGATE = 0x2,                     ///
+            TRANSFORM_POST_NEGATE = 0x4,                    ///
         };
 
+		typedef hkMeshVertexBuffer::LockedVertices LockedVertices;
+		typedef LockedVertices::Buffer Buffer;
+		typedef hkVertexFormat::Element Element;
+
             /// Extract the buffer as vector4s
-        static hkResult HK_CALL getElementVectorArray(const hkMeshVertexBuffer::LockedVertices::Buffer& buffer, hkVector4* out, int numVertices);
+        static hkResult HK_CALL getElementVectorArray(const Buffer& buffer, hkVector4* out, int numVertices);
 
             /// Get components and store in a hkVector4 array (helper function - calls getElementVectorArray with the appropriate buffer)
-        static hkResult HK_CALL getElementVectorArray(const hkMeshVertexBuffer::LockedVertices& lockedVertices, int bufferIndex, hkVector4* dst);
+        static hkResult HK_CALL getElementVectorArray(const LockedVertices& lockedVertices, int bufferIndex, hkVector4* dst);
 
             /// Set components held in buffer from an array of hkVector4s
-        static hkResult HK_CALL setElementVectorArray(const hkMeshVertexBuffer::LockedVertices::Buffer& buffer, const hkVector4* src, int numVertices);
+        static hkResult HK_CALL setElementVectorArray(const LockedVertices::Buffer& buffer, const hkVector4* src, int numVertices);
 
             /// Set components from a hkVector4 array (helper fucntion - calls setElementVectorArray with the appropritate buffer)
-        static hkResult HK_CALL setElementVectorArray(const hkMeshVertexBuffer::LockedVertices& lockedVertices, int bufferIndex, const hkVector4* src);
+        static hkResult HK_CALL setElementVectorArray(const LockedVertices& lockedVertices, int bufferIndex, const hkVector4* src);
 
 			/// The elements being extracted must have been previously been locked with lock/partialLock.
-		static hkResult HK_CALL getElementIntArray(const hkMeshVertexBuffer::LockedVertices& lockedVertices, int elementIndex, int* dst);
+		static hkResult HK_CALL getElementIntArray(const LockedVertices& lockedVertices, int elementIndex, int* dst);
 
 			/// Sets the elements of an array doing conversions from ints as needed. Converts only integral types.
 			/// The elements being set must have previously have been locked with lock/partialLock.
-		static hkResult HK_CALL setElementIntArray(const hkMeshVertexBuffer::LockedVertices& lockedVertices, int elementIndex, const int* src);
+		static hkResult HK_CALL setElementIntArray(const LockedVertices& lockedVertices, int elementIndex, const int* src);
 
             /// Copy the elements of src to dst of elementSize with the appropriate striding
         static void HK_CALL stridedCopy(const void* srcIn, int srcStride, void* dstIn, int dstStride, int elementSize, int numVertices);
@@ -68,22 +72,22 @@ class hkMeshVertexBufferUtil
         static void HK_CALL stridedZero(void* dstIn, int dstStride, int elementSize, int numVertices);
 
             /// Copy vertex data from srcVertices to dstVertices
-        static void HK_CALL copy(const hkMeshVertexBuffer::LockedVertices& srcVertices, const hkMeshVertexBuffer::LockedVertices& dstVertices);
+        static void HK_CALL copy(const LockedVertices& srcVertices, const LockedVertices& dstVertices);
 
             /// Copy the data from one buffer to the other - they must be the same type (m_type + m_numValues the same)
-        static void HK_CALL copy(const hkMeshVertexBuffer::LockedVertices::Buffer& srcBuffer, const hkMeshVertexBuffer::LockedVertices::Buffer& dstBuffer, int numVertices);
+        static void HK_CALL copy(const Buffer& srcBuffer, const Buffer& dstBuffer, int numVertices);
 
             /// Copy/convert all of the src buffers into the destination buffers.
-        static void HK_CALL convert(const hkMeshVertexBuffer::LockedVertices& srcVertices, const hkMeshVertexBuffer::LockedVertices& dstVertices);
+        static void HK_CALL convert(const LockedVertices& srcVertices, const LockedVertices& dstVertices);
 
 			/// Copys/converts all members of src into dst
 		static void HK_CALL convert(hkMeshVertexBuffer* src, hkMeshVertexBuffer* dst);
 
             /// Copy and convert as necessary
-        static void HK_CALL convert(const hkMeshVertexBuffer::LockedVertices::Buffer& srcBuffer, const hkMeshVertexBuffer::LockedVertices::Buffer& dstBuffer, int numVertices);
+        static void HK_CALL convert(const Buffer& srcBuffer, const Buffer& dstBuffer, int numVertices);
 
             /// Finds out if the locked vertex data is contiguous
-        static hkBool HK_CALL isContiguous(const hkMeshVertexBuffer::LockedVertices& srcVertices, void** start, int& dataSize);
+        static hkBool HK_CALL isContiguous(const LockedVertices& srcVertices, void** start, int& dataSize);
 
             /// Partition the format into shared and non shared (instanced) elements
         static void HK_CALL partitionVertexFormat(const hkVertexFormat& format, hkVertexFormat& sharedFormat, hkVertexFormat& instanceFormat);
@@ -92,7 +96,7 @@ class hkMeshVertexBufferUtil
         static hkResult HK_CALL getElementVectorArray(hkMeshVertexBuffer* vertexBuffer, hkVertexFormat::DataUsage usage, int subUsage, hkArray<hkVector4>& vectorsOut);
 
             /// Transform the content of the buffer
-        static void HK_CALL transform(const hkMeshVertexBuffer::LockedVertices::Buffer& srcBuffer, const hkMatrix4& transform, int transformFlags, int numVertices);
+        static void HK_CALL transform(const Buffer& srcBuffer, const hkMatrix4& transform, int transformFlags, int numVertices);
 
             /// Transform the content of the vertex buffer
         static hkResult HK_CALL transform(hkMeshVertexBuffer* buffer, const hkMatrix4& transform, int transformFlags);
@@ -101,20 +105,24 @@ class hkMeshVertexBufferUtil
         static hkMeshVertexBuffer* HK_CALL concatVertexBuffers(hkMeshSystem* system, hkMeshVertexBuffer** buffers, int numBuffers);
 
             /// Compares two buffers - all values must be equal within the threshold to return true.
-        static hkBool HK_CALL isBufferDataEqual(const hkMeshVertexBuffer::LockedVertices::Buffer& bufferA, const hkMeshVertexBuffer::LockedVertices::Buffer& bufferB, hkReal threshold);
+        static hkBool HK_CALL isBufferDataEqual(const Buffer& bufferA, const Buffer& bufferB, hkReal threshold);
 
 			/// Compare - handle data as a normal (use dot products difference from 1 as measure of error)
-		static hkBool HK_CALL isBufferNormalDataEqual(const hkMeshVertexBuffer::LockedVertices::Buffer& bufferA, const hkMeshVertexBuffer::LockedVertices::Buffer& bufferB, hkReal threshold);
+		static hkBool HK_CALL isBufferNormalDataEqual(const Buffer& bufferA, const Buffer& bufferB, hkReal threshold);
 
             /// Compares an array of buffer data. Uses the thresholds strucuture to determine what is equal based on type
-        static hkBool HK_CALL isBufferDataEqual(const hkMeshVertexBuffer::LockedVertices::Buffer* a, const hkMeshVertexBuffer::LockedVertices::Buffer* b, int numBuffers, const Thresholds& thresholds);
+        static hkBool HK_CALL isBufferDataEqual(const Buffer* a, const Buffer* b, int numBuffers, const Thresholds& thresholds);
+
+			/// Performs a linear interpolation of components. Will normalize 'normal' type components
+			/// If interp is 0, a is output, 1 then b is output. Ie its a * (1-interp) + b * interp
+		static void HK_CALL interpolate(const hkVertexFormat::Element& element, const void* a, const void* b, hkReal interp, void* dst);
 
 };
 
 #endif // HK_VERTEX_BUFFER_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

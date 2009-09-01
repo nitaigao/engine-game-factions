@@ -32,6 +32,9 @@ struct hkgFaceSetPickData
 		/// The 3 indices that make up the triangle (so that you don't have to walk the above information
 		/// if you don't want to). Index into the vertex set with these values to get the vertex positions.
 		int m_verts[3]; 
+
+		/// The normal to the triangle that was hit
+		float m_localNormal[3];
 };
 
 
@@ -78,9 +81,13 @@ struct hkgViewportPickData
 		/// The index into the hkgDisplayWorld of the successful hit object.
 		int							m_objectIndex;	
 
-		/// The world position of the hit object. This is hit point from the hkgFaceSet transformed
-		/// by the hkgDisplayObject.m_transform if one.
+		/// The world position of the hit object. This is the hit point from the hkgFaceSet transformed
+		/// by the hkgDisplayObject.m_trans if one.
 		float						m_worldPos[3];
+
+		/// The world normal of the hit object. This is the hit normal from the hkgFaceSet transformed
+		/// by the hkgDisplayObject.m_trans if one.
+		float						m_worldNormal[3];
 
 		/// The pointer to the world that was used to query for intersection. Stored here for
 		/// convenience.
@@ -97,7 +104,7 @@ struct hkgViewportPickData
 #endif // HK_GRAPHICS_PICK_DATA
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

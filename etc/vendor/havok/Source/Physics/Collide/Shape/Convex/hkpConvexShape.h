@@ -115,7 +115,7 @@ class hkpConvexTransformShapeBase : public hkpConvexShape
 			// The protected constructor which must be supplied with a type and a radius
 		hkpConvexTransformShapeBase( hkpShapeType type, hkReal radius, const hkpConvexShape* childShape, hkpShapeContainer::ReferencePolicy ref );
 
-		hkpConvexTransformShapeBase( class hkFinishLoadedObjectFlag flag ) : hkpConvexShape(flag), m_childShape(flag) { } 
+		hkpConvexTransformShapeBase( class hkFinishLoadedObjectFlag flag ) : hkpConvexShape(flag), m_childShape(flag) { }
 
 	protected:
 
@@ -135,7 +135,7 @@ class hkpConvexTransformShapeBase : public hkpConvexShape
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

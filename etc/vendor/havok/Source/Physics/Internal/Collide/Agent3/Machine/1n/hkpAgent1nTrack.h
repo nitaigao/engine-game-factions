@@ -26,7 +26,7 @@ struct hkpAgent1nSector
 	hkUint32 m_pad1;
 	hkUint32 m_pad2;
 	
-	hkUint8 m_data[512-16]; /*[ NET_SECTOR_SIZE ]*/ // <ag.todo.b> serialization script cannot take enum as array size, and doesn't produce adequate error message.
+	hkUint8 m_data[512-16]; /*[ NET_SECTOR_SIZE ]*/ // Serialization script cannot take enum as array size.
 
 	HK_FORCE_INLINE hkpAgentData* getBegin()
 	{
@@ -70,7 +70,7 @@ struct hkpAgent1nTrack
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -19,7 +19,7 @@
 #include <Physics/Vehicle/Steering/Default/hkpVehicleDefaultSteering.h>
 #include <Physics/Vehicle/Suspension/Default/hkpVehicleDefaultSuspension.h>
 #include <Physics/Vehicle/Transmission/Default/hkpVehicleDefaultTransmission.h>
-#include <Physics/Vehicle/WheelCollide/RayCast/hkpVehicleRaycastWheelCollide.h>
+#include <Physics/Vehicle/WheelCollide/RayCast/hkpVehicleRayCastWheelCollide.h>
 #include <Physics/Vehicle/TyreMarks/hkpTyremarksInfo.h>
 
 	/// This class just holds ALL the vehicle parameters (hardcoded) for an untuned, four
@@ -33,11 +33,11 @@ class VehicleSetup : public hkReferencedObject
 
 		VehicleSetup(){}
 
-		virtual void buildVehicle( hkpWorld* world, hkpVehicleInstance& vehicle ); 
+		virtual void buildVehicle( const hkpWorld* world, hkpVehicleInstance& vehicle ); 
 
 	public:
 
-		virtual void setupVehicleData(hkpWorld* world, hkpVehicleData& data );
+		virtual void setupVehicleData( const hkpWorld* world, hkpVehicleData& data );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultAnalogDriverInput& driverInput );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultSteering& steering );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultEngine& engine );
@@ -47,7 +47,7 @@ class VehicleSetup : public hkReferencedObject
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultAerodynamics& aerodynamics );
 		virtual void setupComponent( const hkpVehicleData& data, hkpVehicleDefaultVelocityDamper& velocityDamper );
 
-		virtual void setupWheelCollide( hkpWorld* world, const hkpVehicleInstance& vehicle, hkpVehicleRaycastWheelCollide& wheelCollide );
+		virtual void setupWheelCollide( const hkpWorld* world, const hkpVehicleInstance& vehicle, hkpVehicleRayCastWheelCollide& wheelCollide );
 		virtual void setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo& tyremarkscontroller );
 };
 
@@ -55,7 +55,7 @@ class VehicleSetup : public hkReferencedObject
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

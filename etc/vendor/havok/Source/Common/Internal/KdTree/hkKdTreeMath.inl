@@ -225,7 +225,7 @@ static HK_FORCE_INLINE hkQuadReal hkGetOneOver65K()
 }
 #endif
 
-void inline hkKdTreeMath::getAabbFromProjectedEntry(const hkKdTreeBuildInput::ProjectedEntry* aabbData, hkAabb& aabb, hkVector4Parameter offset, hkVector4Parameter _scale)
+inline void hkKdTreeMath::getAabbFromProjectedEntry(const hkKdTreeBuildInput::ProjectedEntry* aabbData, hkAabb& aabb, hkVector4Parameter offset, hkVector4Parameter _scale)
 {
 	hkVector4 scale; scale.getQuad() = hkGetOneOver65K();
 	scale.mul4(_scale); 
@@ -240,7 +240,7 @@ void inline hkKdTreeMath::getAabbFromProjectedEntry(const hkKdTreeBuildInput::Pr
 }
 
 // Vectors are output in the order minX, maxX, minY, maxY, minZ, maxZ
-void inline hkKdTreeMath::getAabbVecsFromProjectedEntry(const hkKdTreeBuildInput::ProjectedEntry* aabbData, hkVector4* HK_RESTRICT vecsOut, hkVector4Parameter offset, hkVector4Parameter scaleIn)
+inline void hkKdTreeMath::getAabbVecsFromProjectedEntry(const hkKdTreeBuildInput::ProjectedEntry* aabbData, hkVector4* HK_RESTRICT vecsOut, hkVector4Parameter offset, hkVector4Parameter scaleIn)
 {
 	hkVector4 scale; scale.getQuad() = hkGetOneOver65K();
 	scale.mul4(scaleIn);
@@ -296,7 +296,7 @@ inline void hkKdTreeMath::convertProjectedEntryToHkVector4(const hkKdTreeBuildIn
 // Leave an extra line at the EOF
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

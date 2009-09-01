@@ -26,6 +26,8 @@ class RagdollScalingDemo : public hkDefaultPhysicsDemo
 
     private:
 
+		void buildLandscape( int side, hkReal size );
+
 
         class hkLoader* m_loader;
 
@@ -44,12 +46,19 @@ class RagdollScalingDemo : public hkDefaultPhysicsDemo
 
 		class hkaMeshBinding** m_skinBindings;
 		hkInt32 m_numSkinBindings;
+
+		// Display geometry for the landscape
+		hkGeometry* m_geometry;
+
+		// allows the geometry to be handled by the display manager
+		class hkDisplayConvex* m_displayConvex;
+		hkArray<class hkDisplayGeometry*> m_geometryArray;
 };
 
 #endif  // HK_RAGDOLL_SCALING_DEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

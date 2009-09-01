@@ -127,7 +127,7 @@ static hkBool compareHitArrays(const hkAabb& aabb, const hkPrimitiveId* kdHits, 
 		if (rb)
 		{
 			collB->getShape()->getAabb(rb->getTransform(), 0.0f, colAabb);
-			hkBool aabbOverlap = colAabb.overlaps(aabb);
+			hkBool32 aabbOverlap = colAabb.overlaps(aabb);
 
 			if (aabbOverlap)
 				sapCollidables.pushBack(collB);
@@ -151,7 +151,7 @@ static hkBool compareHitArrays(const hkAabb& aabb, const hkPrimitiveId* kdHits, 
 			hkpRigidBody* rb = hkGetRigidBody(kdCollidable);
 			kdCollidable->getShape()->getAabb(rb->getTransform(), rb->getWorld()->getCollisionInput()->getTolerance(), colAabb);
 			
-			hkBool aabbOverlap = colAabb.overlaps(aabb);
+			hkBool32 aabbOverlap = colAabb.overlaps(aabb);
 			if (!aabbOverlap)
 			{
 				// Something in the list doesn't overlap with the query's aabb
@@ -342,7 +342,9 @@ hkDemo::Result AabbQueryDemo::stepDemo()
 
 	{
 		queryAabbST();
+#if defined(HK_PLATFORM_MULTI_THREAD) && (HK_CONFIG_THREAD == HK_CONFIG_MULTI_THREADED)
 		queryAabbMT();
+#endif
 	}
 	
 	m_world->unmarkForWrite();
@@ -381,7 +383,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(AabbQueryDemo, HK_DEMO_TYPE_PHYSICS, "AABB queries", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

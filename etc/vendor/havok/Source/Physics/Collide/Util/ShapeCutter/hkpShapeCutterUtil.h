@@ -16,6 +16,7 @@
 
 class hkpConvexShape;
 class hkpConvexVerticesShape;
+class hkpCollisionDispatcher;
 
 
 	/// This small utility class allows for testing whether two given shapes are 'connected', i.e. whether
@@ -52,42 +53,73 @@ class hkpShapeCutterUtil
 {
 	public:
 
+		//
+		//		CSG operations
+		//
+
         HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_COLLIDE, hkpShapeCutterUtil );
 
-            /// Will convert input shape into convex vertices shape if it can. If shape is a convex vertices shape,
-            /// will return it with a ref on it. If it is not possible to convert, will return HK_NULL.
-			/// If the shape was a sphere, capsule or a cylinder, it will get \a extraConvexRadius as its extra convex radius.
-            /// Note this method only converts 'terminal' convex shapes such as hkpBoxShape etc, not hkpTransformShape or containers
-        static const hkpConvexVerticesShape* HK_CALL ensureConvexVerticesShape(const hkpConvexShape* shape, hkReal extraConvexRadius = 0.001f);
-
-            /// Create a hkpConvexVerticesShape from an aabb
-        static hkpConvexVerticesShape* HK_CALL createAabbConvexVerticesShape(const hkAabb& aabb);
-
-            /// Create a sphere as a hkpConvexVerticesShape - can then be cut
-        static hkpConvexVerticesShape* HK_CALL createSphereConvexVerticesShape(hkReal radius, int numRows = 10);
-
-			/// Create a cylinder sitting on the z = 0 plane, with height specified and the number of segments making up the surface.
-		static hkpConvexVerticesShape* HK_CALL createCylinderConvexVerticesShape(hkReal radius, hkReal height, int numSegs, const hkTransform& trans);
-
-			/// Create a cylinder with start and end points, and radius with numSegs dividing it up.
-		static hkpConvexVerticesShape* HK_CALL createCylinderConvexVerticesShape(hkReal radius, const hkVector4& v0, const hkVector4& v1, int numSegs);
-
-			/// Create a capsule with the given bottom and top vertices and radius using the specified segmenting.
-		static hkpConvexVerticesShape* HK_CALL createCapsuleConvexVerticesShape(const hkVector4& top, const hkVector4& bottom, hkReal radius, int numSides = 6, int numHeightSegments = 1);
-
-            /// Creates a new shape, which is shape cut by the plane 'plane'. The cut shape returned is the shape
+             /// Creates a new shape, which is shape cut by the plane 'plane'. The cut shape returned is the shape
             /// on the 'inside' of the plane (ie the opposite side to the normal)
             /// If the resulting shape is empty, HK_NULL will be returned
-			/// If the shape was a sphere, capsule or a cylinder, it will get \a extraConvexRadius as its extra convex radius.
+			/// If the input shape is a sphere, capsule or a cylinder, it will get \a extraConvexRadiusForImplicitShapes as its extra convex radius.
             /// If the shape isn't cut at all it will be returned (with reference count incremented)
         static const hkpShape* HK_CALL cut(const hkpShape* shape, const hkVector4& plane, hkReal extraConvexRadiusForImplicitShapes = 0.001f );
 
+
+
             /// Creates potentially two new shapes, one on either side of the plane.
-            /// ShapeAOut will be the shape on the inside of the plane (opposite side to the normal), shapeBOut will be on the outside of the plane
+            /// \a ShapeAOut will be the shape on the inside of the plane (opposite side to the normal), \a shapeBOut will be on the outside of the plane
             /// If the resulting shape is empty, HK_NULL will be returned
 			/// If the shape was a sphere, capsule or a cylinder, it will get \a extraConvexRadius as its extra convex radius.
             /// If the shape isn't cut at all it will be returned (with reference count incremented)
-        static void HK_CALL cut(const hkpShape* shapeIn, const hkVector4& planeIn, hkReal extraConvexRadius, const hkpShape** shapeAOut, const hkpShape** shapeBOut);
+        static void HK_CALL cut(const hkpShape* shapeIn, const hkVector4& planeIn, hkReal extraConvexRadiusForImplicitShapes, const hkpShape** shapeAOut, const hkpShape** shapeBOut);
+
+			/// Input into subtractConvexShape
+		struct SubtractShapeInput
+		{
+			SubtractShapeInput(): m_dispatcher(HK_NULL), m_subtractShape(HK_NULL), m_extraConvexRadiusForImplicitShapes(0.001f), m_allowedPentration(.05f){ m_transform.setIdentity(); }
+
+			hkpCollisionDispatcher* m_dispatcher;			///
+			const hkpConvexVerticesShape* m_subtractShape;	///
+			hkTransform m_transform;						///
+			hkReal m_extraConvexRadiusForImplicitShapes;	///
+			hkReal m_allowedPentration;						///
+		};
+
+			/// Takes an input shape and subtracts a convex shape 
+		static const hkpShape* HK_CALL subtractConvexShape( const hkpShape* shape, const SubtractShapeInput& input );
+ 
+			
+			/// Input to intersectWithConvexShape()
+		struct IntersectShapeInput
+		{
+			IntersectShapeInput(): m_planeEquations(HK_NULL), m_numPlaneEquations(0), m_expandPlaneEquations(0.0f), m_extraConvexRadiusForImplicitShapes(0.001f), m_planesUsedOut(HK_NULL) { m_transform.setIdentity(); }
+
+			const hkVector4* m_planeEquations;			///
+			int m_numPlaneEquations;					///
+			hkTransform m_transform;					///
+			hkReal m_expandPlaneEquations;				///
+			hkReal m_extraConvexRadiusForImplicitShapes; 	///
+			hkBool*		m_planesUsedOut;				///
+		};
+
+
+
+			/// Intersects a physics shape with the plane equations of a convex vertices shape
+		static const hkpShape* HK_CALL intersectWithConvexShape( const hkpShape* shape, const IntersectShapeInput& input );
+
+
+		//
+		//	Convertion functions
+		//
+
+
+			/// Will convert input shape into convex vertices shape if it can. If shape is a convex vertices shape,
+            /// will return it with a ref on it. If it is not possible to convert, will return HK_NULL.
+			/// If the shape was a sphere, capsule or a cylinder, it will get \a extraConvexRadiusForImplicitShapes as its extra convex radius.
+            /// Note this method only converts 'terminal' convex shapes such as hkpBoxShape etc, not hkpTransformShape or containers
+        static const hkpConvexVerticesShape* HK_CALL ensureConvexVerticesShape(const hkpConvexShape* shape, hkReal extraConvexRadius = 0.001f);
 
 			/// For a given sphere radius will return the appropriate amount of rows based on
 			/// a desired edge length for the faces, and a maxRadius.
@@ -97,6 +129,21 @@ class hkpShapeCutterUtil
 
             /// Create a compound shape from the sub shapes with transforms
         static const hkpShape* HK_CALL createCompound(const hkpConvexShape*const* shapes, const hkTransform* transforms, int numShapes);
+
+            /// Create a hkpConvexVerticesShape from an aabb
+        static hkpConvexVerticesShape* HK_CALL createAabbConvexVerticesShape(const hkAabb& aabb, hkReal convexRadius);
+
+            /// Create a sphere as a hkpConvexVerticesShape - can then be cut
+		static hkpConvexVerticesShape* HK_CALL createSphereConvexVerticesShape(hkReal radius, hkReal extraConvexRadius, int numRows = 10);
+
+			/// Create a cylinder sitting on the z = 0 plane, with height specified and the number of segments making up the surface.
+		static hkpConvexVerticesShape* HK_CALL createCylinderConvexVerticesShape(hkReal radius, hkReal extraConvexRadius, hkReal height, int numSegs, const hkTransform& trans);
+
+			/// Create a cylinder with start and end points, and radius with numSegs dividing it up.
+		static hkpConvexVerticesShape* HK_CALL createCylinderConvexVerticesShape(hkReal radius, hkReal extraConvexRadius, const hkVector4& v0, const hkVector4& v1, int numSegs);
+
+			/// Create a capsule with the given bottom and top vertices and radius using the specified segmenting.
+		static hkpConvexVerticesShape* HK_CALL createCapsuleConvexVerticesShape(const hkVector4& top, const hkVector4& bottom, hkReal radius, hkReal  extraConvexRadius, int numSides = 6, int numHeightSegments = 1);
 
 			/// Returns a convex shape which has the new transform. Will try and use the fastest transform shape,
 			/// or no transform at all depending on the transform. <js.todo move this function to hkpTransformCollapseUtil, also try to convert shapes in place without using an extra transform shape (hkCapsuleShapes can easily be transformed)
@@ -111,11 +158,11 @@ class hkpShapeCutterUtil
         static const hkpShape* HK_CALL transformShape(const hkpShape* shape, const hkTransform& transform);
 
             /// Find all of the convex shapes in a shape hierarchy.
-            /// The transforms are the local to world transforms for each of the shapes.
+            /// The transforms are the local to reference transforms for each of the shapes.
             /// NOTE! This method will not work properly with shape hierarchies that have shape collections which do not
             /// return actual shape pointers (as opposed to storage being in the ShapeBuffer) - as the buffers will go
             /// out of scope before the method returns.
-        static hkResult HK_CALL flattenIntoConvexShapes(const hkpShape* shape, const hkTransform& parentToWorld, hkArray<hkTransform>& transforms, hkArray<const hkpConvexShape*>& shapesOut);
+        static hkResult HK_CALL flattenIntoConvexShapes(const hkpShape* shape, const hkTransform& parentToReference, hkArray<const hkpConvexShape*>& shapesOut, hkArray<hkTransform>& localToReferenceTransformsOut );
 
             /// Partitions the shapes, based on which shapes are connected
         static void HK_CALL findConnectedIslands(hkpShapeConnectedCalculator* connected, const hkArray<const hkpConvexShape*>& shapes, const hkArray<hkTransform>& transforms, hkArray<int>& partitionSizes, hkArray<int>& partitions);
@@ -126,29 +173,17 @@ class hkpShapeCutterUtil
 			/// Returns -1 if shape is inside, 0 if on and +1 if outside plane
 		static int HK_CALL findShapeSideOfPlane(const hkpConvexShape* shapeIn, const hkVector4& plane);
 
-    protected:
 
-        enum { INSIDE = 1, OUTSIDE = 2 };
+		static const hkpShape* HK_CALL _subtractConvexShape( const hkpShape* shape, const hkVector4* planes, int numPlanes, hkReal extraConvexRadiusForImplicitShapes = 0.001f );
 
-	protected:
 
-		static hkBool HK_CALL _hasEdge(int* indices, int start, int end);
-
-		static hkBool HK_CALL _hasEitherEdge(int* indices, int start, int end);
-
-        static void HK_CALL _addTriangle(int* indices, hkpConvexVerticesConnectivity* conn, const hkArray<hkVector4>& vertices, hkArray<hkVector4>& planes);
-
-		static void HK_CALL _addQuad(int* indices, hkpConvexVerticesConnectivity* conn, const hkArray<hkVector4>& vertices, hkArray<hkVector4>& planes);
-
-			// Works out the plane specified by the indices 0,1,2 in vertices
-		static void HK_CALL _calculatePlane(int* indices, const hkArray<hkVector4>& vertices, hkVector4& plane);
 };
 
 
 #endif // HK_SHAPE_PLANE_CUT_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

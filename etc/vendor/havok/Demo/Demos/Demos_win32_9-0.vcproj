@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="Demos"
-	ProjectGUID="{513B8576-D665-4459-9199-7FB2EE314044}"
+	ProjectGUID="{A3FB576A-6645-4AA9-AD65-7575D72C9E0C}"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -46,7 +46,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -87,7 +87,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_release_multithreaded.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\release_multithreaded;..\..\Lib\win32_net_9-0\release_multithreaded"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\release_multithreaded;..\..\Lib\win32_net_9-0\release_multithreaded"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -156,7 +156,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -197,7 +197,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_release_multithreaded_dll.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\release_multithreaded_dll;..\..\Lib\win32_net_9-0\release_multithreaded_dll"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\release_multithreaded_dll;..\..\Lib\win32_net_9-0\release_multithreaded_dll"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -266,7 +266,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,_DEBUG,HK_DEBUG,HK_FULLDEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -307,7 +307,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_fulldebug_multithreaded.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\fulldebug_multithreaded;..\..\Lib\win32_net_9-0\debug_multithreaded;..\..\Lib\win32_net_9-0\fulldebug_multithreaded"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\fulldebug_multithreaded;..\..\Lib\win32_net_9-0\debug_multithreaded;..\..\Lib\win32_net_9-0\fulldebug_multithreaded"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -376,7 +376,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,_DEBUG,HK_DEBUG,HK_FULLDEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -417,7 +417,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_fulldebug_multithreaded_dll.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\fulldebug_multithreaded_dll;..\..\Lib\win32_net_9-0\debug_multithreaded_dll;..\..\Lib\win32_net_9-0\fulldebug_multithreaded_dll"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\fulldebug_multithreaded_dll;..\..\Lib\win32_net_9-0\debug_multithreaded_dll;..\..\Lib\win32_net_9-0\fulldebug_multithreaded_dll"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -486,7 +486,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,_DEBUG,HK_DEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -527,7 +527,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_debug_multithreaded.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\debug_multithreaded;..\..\Lib\win32_net_9-0\debug_multithreaded"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\debug_multithreaded;..\..\Lib\win32_net_9-0\debug_multithreaded"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -596,7 +596,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,_DEBUG,HK_DEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -637,7 +637,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_debug_multithreaded_dll.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\debug_multithreaded_dll;..\..\Lib\win32_net_9-0\debug_multithreaded_dll"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\debug_multithreaded_dll;..\..\Lib\win32_net_9-0\debug_multithreaded_dll"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -703,10 +703,10 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/MP"
 				Optimization="0"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories="..,..\..\..\sdks\win32\ogl\include,..\..\..\sdks\win32\cg\include,..\..\..\sdks\win32\dx\Include,..\..\Source,"
+				AdditionalIncludeDirectories="..,..\..\Source,$(HAVOK_SDKS_DIR)/win32/ogl/include,$(HAVOK_SDKS_DIR)/win32/cg/include,$(HAVOK_SDKS_DIR)/win32/dx/Include,"
 				PreprocessorDefinitions="WIN32,HK_DEBUG,_CONSOLE,,"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -747,7 +747,7 @@
 				OutputFile="$(OUTDIR)\Demos_win32-net_9-0_hybrid_multithreaded_dll.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\..\sdks\win32\dbghelp\i386;..\..\..\sdks\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\hybrid_multithreaded_dll;..\..\Lib\win32_net_9-0\hybrid_multithreaded_dll"
+				AdditionalLibraryDirectories="$(HAVOK_SDKS_DIR)\win32\dbghelp\i386;$(HAVOK_SDKS_DIR)\win32\dx\Lib\x86;..\..\Lib\win32_net_9-0\hybrid_multithreaded_dll;..\..\Lib\win32_net_9-0\hybrid_multithreaded_dll"
 				ManifestFile="$(IntDir)\LinkerManifestFile.manifest"
 				IgnoreDefaultLibraryNames=""
 				DelayLoadDLLs="$(NOINHERIT);"
@@ -1547,6 +1547,10 @@
 				Name="DemoFramework"
 				>
 				<File
+					RelativePath=".\DemoCommon\DemoFramework\Callable.h"
+					>
+				</File>
+				<File
 					RelativePath=".\DemoCommon\DemoFramework\hkDefaultAnimationDemo.cpp"
 					>
 				</File>
@@ -1697,6 +1701,66 @@
 						RelativePath=".\DemoCommon\Register\UnitTest\AllTests.h"
 						>
 					</File>
+					<File
+						RelativePath=".\DemoCommon\Register\UnitTest\hkRegisterTests.cxx"
+						>
+						<FileConfiguration
+							Name="Release Multithreaded|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Release Multithreaded DLL|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="FullDebug Multithreaded|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="FullDebug Multithreaded DLL|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug Multithreaded|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Debug Multithreaded DLL|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+						<FileConfiguration
+							Name="Hybrid Multithreaded DLL|Win32"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -1759,6 +1823,18 @@
 					</File>
 					<File
 						RelativePath=".\DemoCommon\Utilities\Bootstrap\BootstrapDemo.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="CameraUtils"
+					>
+					<File
+						RelativePath=".\DemoCommon\Utilities\CameraUtils\CameraUtils.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\DemoCommon\Utilities\CameraUtils\CameraUtils.h"
 						>
 					</File>
 				</Filter>
@@ -2135,6 +2211,182 @@
 					</File>
 				</Filter>
 				<Filter
+					Name="Particles"
+					>
+					<File
+						RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem.h"
+						>
+					</File>
+					<Filter
+						Name="HkgParticleSystem"
+						>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgDebrisParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgDebrisParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgDustParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgDustParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgExplosionParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgExplosionParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgSmokeParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgSmokeParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgSparksParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\HkgParticleSystem\HkgSparksParticleSystem.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Listener"
+						>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Listener\CollisionParticleListener.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Listener\CollisionParticleListener.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Listener\ScrapeParticleListener.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Listener\ScrapeParticleListener.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="ParticleSystem"
+						>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\DebrisParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\DebrisParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\DustParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\DustParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\ExplosionParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\ExplosionParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\SmokeParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\SmokeParticleSystem.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\SparksParticleSystem.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\ParticleSystem\SparksParticleSystem.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Utilities"
+						>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ChimneyEmissionUtil.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ChimneyEmissionUtil.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ContinuousEmissionUtil.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ContinuousEmissionUtil.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\DepthSortParticlesUtil.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\DepthSortParticlesUtil.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\DepthSortParticlesUtil.inl"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\DiskEmissionUtil.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\DiskEmissionUtil.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ParticleCollisionUtil.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ParticleCollisionUtil.h"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ParticleUtils.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\DemoCommon\Utilities\Particles\Utilities\ParticleUtils.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
 					Name="PatchesVersionVerify"
 					>
 					<File
@@ -2163,6 +2415,26 @@
 					</File>
 					<File
 						RelativePath=".\DemoCommon\Utilities\Replay\DemoReplayClass.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="SoundFx"
+					>
+					<File
+						RelativePath=".\DemoCommon\Utilities\SoundFx\Sfx.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\DemoCommon\Utilities\SoundFx\Sfx.h"
+						>
+					</File>
+					<File
+						RelativePath=".\DemoCommon\Utilities\SoundFx\SfxHandler.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\DemoCommon\Utilities\SoundFx\SfxHandler.h"
 						>
 					</File>
 				</Filter>
@@ -2525,6 +2797,18 @@
 							</File>
 							<File
 								RelativePath=".\Physics\Api\Collide\OfflineGeneration\SerializeMopp\SerializeMoppDemo.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="ShapeSubtract"
+							>
+							<File
+								RelativePath=".\Physics\Api\Collide\OfflineGeneration\ShapeSubtract\ShapeSubtractDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\Api\Collide\OfflineGeneration\ShapeSubtract\ShapeSubtractDemo.h"
 								>
 							</File>
 						</Filter>
@@ -3493,6 +3777,18 @@
 							</File>
 						</Filter>
 						<Filter
+							Name="GravityChange"
+							>
+							<File
+								RelativePath=".\Physics\Api\Dynamics\RigidBodies\GravityChange\GravityChangeDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\Api\Dynamics\RigidBodies\GravityChange\GravityChangeDemo.h"
+								>
+							</File>
+						</Filter>
+						<Filter
 							Name="InitialPenetration"
 							>
 							<File
@@ -3632,6 +3928,18 @@
 								>
 							</File>
 						</Filter>
+						<Filter
+							Name="RollingFriction"
+							>
+							<File
+								RelativePath=".\Physics\Api\Dynamics\RigidBodies\RollingFriction\RollingFrictionDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\Api\Dynamics\RigidBodies\RollingFriction\RollingFrictionDemo.h"
+								>
+							</File>
+						</Filter>
 					</Filter>
 					<Filter
 						Name="World"
@@ -3754,6 +4062,18 @@
 						</File>
 					</Filter>
 					<Filter
+						Name="LinearCastVehicle"
+						>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\LinearCastVehicle\LinearCastVehicle.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\LinearCastVehicle\LinearCastVehicle.h"
+							>
+						</File>
+					</Filter>
+					<Filter
 						Name="Motorcycle"
 						>
 						<File
@@ -3770,6 +4090,18 @@
 						</File>
 						<File
 							RelativePath=".\Physics\Api\Vehicle\Motorcycle\MotorcycleSetup.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="SerializedManager"
+						>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\SerializedManager\SerializedManagerDemo.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\SerializedManager\SerializedManagerDemo.h"
 							>
 						</File>
 					</Filter>
@@ -3861,6 +4193,18 @@
 							>
 						</File>
 						<File
+							RelativePath=".\Physics\Api\Vehicle\VehicleApi\FrictionMapVehicleRaycastWheelCollideClass.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\VehicleApi\LinearCastVehicleSetup.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\VehicleApi\LinearCastVehicleSetup.h"
+							>
+						</File>
+						<File
 							RelativePath=".\Physics\Api\Vehicle\VehicleApi\VehicleApiDemo.cpp"
 							>
 						</File>
@@ -3894,6 +4238,18 @@
 						</File>
 						<File
 							RelativePath=".\Physics\Api\Vehicle\VehicleCloning\VehicleCloningDemo.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="VehicleManager"
+						>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\VehicleManager\VehicleManagerDemo.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Physics\Api\Vehicle\VehicleManager\VehicleManagerDemo.h"
 							>
 						</File>
 					</Filter>
@@ -4516,18 +4872,54 @@
 								>
 							</File>
 						</Filter>
+						<Filter
+							Name="StairClimbing"
+							>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxy\StairClimbing\StairClimbingDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxy\StairClimbing\StairClimbingDemo.h"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxy\StairClimbing\StairClimbingDemoClass.cpp"
+								>
+							</File>
+						</Filter>
 					</Filter>
 					<Filter
 						Name="CharacterProxyVsRigidBody"
 						>
-						<File
-							RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\CharacterProxyVsRigidBodyDemo.cpp"
+						<Filter
+							Name="CharacterControlVs"
 							>
-						</File>
-						<File
-							RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\CharacterProxyVsRigidBodyDemo.h"
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\CharacterControlVs\CharacterControlVsDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\CharacterControlVs\CharacterControlVsDemo.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="UnevenTerrainVs"
 							>
-						</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\UnevenTerrainVs\UnevenTerrainVsDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\UnevenTerrainVs\UnevenTerrainVsDemo.h"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterProxyVsRigidBody\UnevenTerrainVs\UnevenTerrainVsDemoClass.cpp"
+								>
+							</File>
+						</Filter>
 					</Filter>
 					<Filter
 						Name="CharacterRigidBody"
@@ -4569,6 +4961,18 @@
 							</File>
 						</Filter>
 						<Filter
+							Name="MovingSupportRb"
+							>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterRigidBody\MovingSupportRb\MovingSupportRbDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterRigidBody\MovingSupportRb\MovingSupportRbDemo.h"
+								>
+							</File>
+						</Filter>
+						<Filter
 							Name="MultipleCharacterRbs"
 							>
 							<File
@@ -4601,6 +5005,22 @@
 							</File>
 							<File
 								RelativePath=".\Physics\UseCase\CharacterControl\CharacterRigidBody\PushedCharacterRbs\PushedCharacterRbsDemo.h"
+								>
+							</File>
+						</Filter>
+						<Filter
+							Name="StairClimbingRb"
+							>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterRigidBody\StairClimbingRb\StairClimbingRbDemo.cpp"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterRigidBody\StairClimbingRb\StairClimbingRbDemo.h"
+								>
+							</File>
+							<File
+								RelativePath=".\Physics\UseCase\CharacterControl\CharacterRigidBody\StairClimbingRb\StairClimbingRbDemoClass.cpp"
 								>
 							</File>
 						</Filter>
@@ -4949,6 +5369,18 @@
 							>
 						</File>
 					</Filter>
+				</Filter>
+				<Filter
+					Name="ParticlesTest"
+					>
+					<File
+						RelativePath=".\Physics\UseCase\ParticlesTest\ParticlesTestDemo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Physics\UseCase\ParticlesTest\ParticlesTestDemo.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="PhantomEyes"

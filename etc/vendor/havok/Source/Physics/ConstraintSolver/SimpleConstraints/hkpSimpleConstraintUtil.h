@@ -10,12 +10,11 @@
 #define HK_CONSTRAINTSOLVER2_SIMPLE_CONSTRAINT_UTIL_H
 
 #include <Common/Base/hkBase.h>
+struct hkpBodyVelocity;
 
 
-/// struct to hold same caches for fast collision resolution
-/// Note: the size is quit big (6*48 = 288 bytes)
-
-
+	/// struct to hold same caches for fast collision resolution
+	/// Note: the size is quit big (6*48 = 288 bytes)
 	/// some cached values, which allow for fast solving of simple 3d constraints
 	/// (e.g. contact constraints for toi handling)
 struct hkpSimpleConstraintInfo
@@ -29,10 +28,13 @@ struct hkpSimpleConstraintInfo
 		hkRotation m_jacT;		// the transposed jacobians, used to get the velocities
 		hkMatrix3 m_invIjac;	// used to apply forces	
 		//hkMatrix3 m_inertia;
-		hkReal m_invMass;
+		hkVector4 m_invMasses;	// the inertia tensor diagonal in local space
 		hkReal m_mass;
 
+		const hkTransform* m_transform;
+
 		hkReal getMass() const { return m_mass; }
+		hkReal getEnergy( const hkpBodyVelocity& vel ) const ;
 	};
 
 	BodyInfo m_bodyInfo[2];
@@ -46,13 +48,13 @@ struct hkpSimpleConstraintInfo
 		/// = m_invMassMatrix^-1
 	hkMatrix3 m_massMatrix;
 
-		/// store the inverted determinint of the invMassMatrix without row and column 1 and 2 
+		/// store the inverted determinant of the invMassMatrix without row and column 1 and 2 
 	hkReal& getMass00(){ return 	m_invMassMatrix.getColumn(0)(3); }
 	hkReal getMass00() const{ return 	m_invMassMatrix.getColumn(0)(3); }
 
-		/// store the inverted determinint of the invMassMatrix without row and column 1 and 2 
-	hkReal& getInvDetM12(){ return 	m_invMassMatrix.getColumn(1)(3); }
-	hkReal getInvDetM12() const { return 	m_invMassMatrix.getColumn(1)(3); }
+		/// store the inverted determinant of the invMassMatrix without row and column 1 and 2 
+	hkReal& getInvDetM12()			{ return 	m_invMassMatrix.getColumn(1)(3); }
+	hkReal  getInvDetM12() const	{ return 	m_invMassMatrix.getColumn(1)(3); }
 
 };
 
@@ -62,8 +64,8 @@ struct hkpSimpleConstraintInfoInitInput
 
 	hkVector4 m_massRelPos;
 	hkMatrix3 m_invInertia;
-	hkReal m_invMass;
-	const hkTransform* m_transform;
+	hkVector4 m_invMasses;			// the inertia in local space. (3) = mass
+	const hkTransform* m_transform;	// the transform of the 'rigid body'. This is used mainly by the constraintModifiers
 };
 
 struct hkpSimpleConstraintUtilCollideParams
@@ -127,7 +129,7 @@ extern "C"
 #endif // HK_CONSTRAINTSOLVER2_SIMPLE_CONSTRAINT_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

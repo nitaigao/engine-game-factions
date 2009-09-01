@@ -12,6 +12,7 @@
 #include <Demos/DemoCommon/DemoFramework/hkDefaultPhysicsDemo.h>
 #include <Demos/DemoCommon/Utilities/FileBrowser/FileBrowser.h>
 
+class hkResource;
 class hkPackfileData;
 class hkRootLevelContainer;
 
@@ -36,7 +37,7 @@ class BrowseDemo : public hkDefaultPhysicsDemo
 	protected:
 
 			// A handle to a deallocator which will deallocate the packfile
-		hkPackfileData* m_packfileData;
+		hkRefPtr<hkResource> m_packfileData;
 
 		hkRootLevelContainer* m_contents;
 
@@ -49,7 +50,7 @@ class BrowseDemo : public hkDefaultPhysicsDemo
 #endif // HK_WORLDSNAPSHOTAPI_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

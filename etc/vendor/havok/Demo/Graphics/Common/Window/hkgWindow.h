@@ -22,6 +22,7 @@
 class hkgDisplayWorld;
 class hkgTexture;
 class hkgDisplayContext;
+class hkgPostEffect;
 
 /// The hkgWindow is the class representing the full renderable window, and can include
 /// multiple viewports. It is designed to be able to coexist with other windows (does
@@ -114,6 +115,8 @@ class hkgWindow : public hkgReferencedObject
 			/// Is the window running in fullscreen mode?
 		inline bool isFullscreen() const;
 
+		virtual bool setFullscreen(bool on, int x, int y) { return false;  }
+
 			/// Is the window displaying in a widescreen (16:9) format?
 		inline bool isWidescreen() const;
 
@@ -193,6 +196,11 @@ class hkgWindow : public hkgReferencedObject
 			/// Get the const reference to the hkgMouse that is kept by this window (if one).
 		inline const hkgMouse& getMouse() const;
 
+			/// Sets state of the mouse.
+			/// This is used by the hkNetworkedDeterminismUtil to copy mouse state from the server to the client app.
+		inline void setMouse(const hkgMouse& value);
+
+
 			/// Set the Mouse Cursor to the position (x,y) in window coordinates.
 		virtual void	setMousePosition(int	x,int	y) ;
 
@@ -201,10 +209,24 @@ class hkgWindow : public hkgReferencedObject
 
 			/// Get the const reference to one of the hkgPad that is kept by this window.(if any).
 		inline const hkgPad& getGamePad(int i) const;	
+
+			/// Sets state of a GamePad.
+			/// This is used by the hkNetworkedDeterminismUtil to copy GamePad state from the server to the client app.
+		inline void setGamePad(int i, const hkgPad& value);
+
 		virtual bool hasGamePads() const { return true; } // only untrue on PC platforms if joystick not found
+
+			/// Set gamepad vibration strength if supported. (Currently only supported for Xbox360 
+			/// style controllers under DX9S). The meaning of param1 and param2 varies on each
+			/// platform. See the platform-specific header for more info.
+		virtual void setGamePadVibrationState(int controller, hkUint16 param1, hkUint16 param2) {}
 
 			/// Get the const reference to the keyboard (if one).
 		inline const hkgKeyboard& getKeyboard() const;
+
+			/// Sets state of the keyboard.
+			/// This is used by the hkNetworkedDeterminismUtil to copy keyboard state from the server to the client app.
+		inline void setKeyboard(const hkgKeyboard& value);
 
 		inline void stepInput(); 
 		
@@ -250,6 +272,12 @@ class hkgWindow : public hkgReferencedObject
 			/// The pad will emulate a mouse on console systems, which can be turned off using the
 			/// setWantVirtualMouse( false ) function.
 		void processPadButton( short pad, HKG_PAD_BUTTON button, bool state);
+
+			/// Process / Handle a game pad analog trigger. Currently only the Xbox360 controller
+			/// has analog triggers. The value of trigger must be either HKG_PAD_LEFT_ANALOG_TRIGGER or
+			/// HKG_PAD_RIGHT_ANALOG_TRIGGER. If two independent analog triggers are not supported (as with
+			/// DirectInput, both triggers will be given the same value (which will be in [-1->1])
+		void processPadAnalogTrigger( short pad, HKG_PAD_BUTTON trigger, float position );
 
 			/// Process / Handle a window system command, This is primarily here for
 			/// Win32 systems where the user has specified a window menu, so see the
@@ -305,6 +333,10 @@ class hkgWindow : public hkgReferencedObject
 			///   bool myCommand(hkgWindow* w, unsigned int code, unsigned int id, void* nativeHandle, void* userContext);
 			/// See processWindowCommand() for more info.
 		inline void setWindowCommandFunction( HKG_USER_FUNC_COMMAND fn, void* userContext = HK_NULL );
+
+		inline void setWindowDropFileFunction( HKG_USER_FUNC_DROPFILE fn, void* userContext = HK_NULL );
+		inline bool hasWindowDropFileFunction() const;
+		inline void handleFileDrop( const char* filename, int x, int y) const;
 
 			/// Set if you want the viewport borders to be rendered to the screen. These are
 			/// rendered as line segments in the ortho view. On by default on most platforms (not PlayStation(R)2).
@@ -366,27 +398,51 @@ class hkgWindow : public hkgReferencedObject
 			/// Some HKG impls (DX9 etc) support
 			/// the concept of shadow maps
 		virtual HKG_SHADOWMAP_SUPPORT getShadowMapSupport() { return HKG_SHADOWMAP_NOSUPPORT; }
-		virtual void prepareForShadowMap(){ } // creates depth and render target
-		virtual void beginShadowMapRender( class hkgDisplayWorld* world, class hkgCamera* camera, class hkgLight* light, bool clearMap = true ){ } // sets the depth and render target to be the current
+		virtual void prepareForShadowMap(int maxMaps){ } // creates depth and render target
+		virtual void beginShadowMapRender( class hkgDisplayWorld* world, class hkgCamera* camera, class hkgLight* light ){ } // sets the depth and render target to be the current
+		virtual const hkgCamera* startShadowMap( int ss, bool clearMap ) { return HK_NULL; } // returns the light frustum which is being used to cull for rendering
+		virtual void endShadowMap( int ss, bool blurMap ){}
 		virtual int endShadowMapRender(int textureStageForMap, bool shaderDriven) { return -1; } // resets to the normal depth and render target. returns the texture stage it actually bound to.
+
 		virtual void revertShadowMapState(){ } // resets to the normal texture modes etc
 		virtual void cleanupShadowMap(){ } // releases held targets
 		virtual void setShadowMapSize(int size) { } // set the dimensions of the current shadow map for this plaform, size will be rounded up to nearest pow of two if required. Use 0 to set default size.
 		virtual int getShadowMapSize() const { return 0; } // get the dimensions of the current shadow map for this plaform
 		virtual const float* getShadowMapStartLocation() { return m_shadowMapUtils.getShadowMapStartLocation(); } 
 		virtual float getShadowMapDistance() const { return m_shadowMapUtils.getShadowMapDistance(); } // get the projection distance of the current shadow map proj
-		virtual const float* getComputedShadowMatrix(bool includeCameraViewMatrix) const { return HK_NULL; } // get the perspective shadow matrix, with or without the initail camera view matrix 
+		virtual const float* getComputedShadowMatrix(bool includeCameraViewMatrix, int i) const { return HK_NULL; } // get the perspective shadow matrix, with or without the initail camera view matrix 
 		virtual void getShadowMapPassStyles (HKG_SHADER_RENDER_STYLE& depthPass0Style, HKG_SHADER_RENDER_STYLE& depthPass1Style);
-
+		
 		virtual void setShadowMapQuality( HKG_SHADOWMAP_QUALITY q ) { } // max quality, may not support that it
 		virtual HKG_SHADOWMAP_QUALITY getShadowMapQuality( ) { return HKG_SHADOWMAP_QUALITY_UNKNOWN; } 
 
-		virtual const float* getComputedShadowTextureMatrix(bool includeCameraViewMatrix) const { return HK_NULL; } // get the perspective shadow matrix with the texture lookup and bias baked in, with or without the initail camera view matrix
-		virtual void setShadowMapMode( HKG_SHADOWMAP_MODE mode, hkgCamera* lightCam = HK_NULL ); // if fixed mode, provide a projection cam for the light. It will directly reference it.
+		virtual const float* getComputedShadowTextureMatrix(bool includeCameraViewMatrix, int i) const { return HK_NULL; } // get the perspective shadow matrix with the texture lookup and bias baked in, with or without the initail camera view matrix
+		virtual void setShadowMapMode( HKG_SHADOWMAP_MODE mode, hkgCamera* lightCam = HK_NULL ); // if fixed mode (or PSVSM), provide a projection cam for the light. It will directly reference it.
+		virtual void setShadowMapSplits( int numSplits );  // if in PSVSM mode, then this will govern the number of maps to use. Otherwise it will do nothing. 1 Split == 2 maps, 2 Splits == 3 maps. Each map can be a seperate additional pass on top of the render pass.
 		virtual void enableDebugShadowMapView(bool on) const { } 
 
+		virtual bool supportsMRT() const { return false; }
+		virtual bool msaaEnabled() const { return false; } // MSAA on for RT
+
+		hkgShadowUtils& getShadowUtil() { return m_shadowMapUtils; }
+
 			/// Some HKG impls support post render window effects
-		virtual void applyPostEffects() { } 
+			// Will be applied in the order you add them
+		virtual void addPostEffect(hkgPostEffect* e);
+		virtual void removePostEffect(hkgPostEffect* e);
+		virtual void removePostEffect(const char* name); // will remove all with this name
+
+		virtual int getNumPostEffects() const;
+		virtual hkgPostEffect* getPostEffects(int i);
+
+		virtual void applyPostEffects();
+		virtual void cleanupPostEffects();
+
+		virtual bool startPostEffects() { return true; } //; internal
+		virtual void endPostEffects() { } //; internal
+		virtual int applyPreClearEffectCommands();//; internal
+		virtual void applyPostClearEffectCommands();//; internal
+
 
 			/// (blending) Hardware skinning / Software skinning / No Skinning support
 		virtual HKG_MESHBLENDING_SUPPORT getMeshBlendingSupport() { return HKG_MESHBLENDING_NOSUPPORT; }
@@ -396,10 +452,20 @@ class hkgWindow : public hkgReferencedObject
 			/// Multiple texture stages support. Usually uised to decided what flavour of asset to load
 		virtual int getMaxTextureBlendStages() { return 1; }
 
+		/// Multiple texture stages support. Usually uised to decided what flavour of asset to load
+		virtual int getVideoMemSizeInMB() const { return -1; }
+		virtual int getMaxTextureWidth() const { return 512; }
+		virtual int getMaxTextureHeight() const { return 512; }
+
 		virtual int getDisplayAdapter() const { return 0; }
+		virtual void getDisplayAdapterDescription(hkString& description) const { description == ""; }
 
 		virtual bool saveFrontFrameBufferToBMP(const char* filename) { return false; }
 		virtual bool saveFrontFrameBufferToStream(unsigned char * str, int stridebytes, int pixelsize) { return false; }
+
+		// Implemented in DX9S (PC) only
+		virtual bool beginRenderToTexture(hkgTexture* texture, float xScale, float yScale) { return false; }
+		virtual bool endRenderToTexture() { return false; }
 
 	protected:
 
@@ -428,6 +494,9 @@ class hkgWindow : public hkgReferencedObject
 		// Little helper to write a block of data (w*h*BGR pixels) to a BMP file.
 		// This method does not use Windows routines.
 		void writeBMP(unsigned int width, unsigned int height, const unsigned char* framebuffer, hkOstream& file) const;
+
+		// Sets the corresponding pad's m_hasIndependentAnalogTriggers to the given value
+		inline void setPadHasIndependentAnalogTriggers( short pad, hkBool hasIndependentTriggers );
 
 		unsigned int	m_width;
 		unsigned int	m_height;
@@ -471,6 +540,8 @@ class hkgWindow : public hkgReferencedObject
 		hkgArray<hkgViewportMouseResize> m_viewportResizeArray; // if size > 0 then in viewport resize mode (no user draw)
 		hkgShadowUtils	m_shadowMapUtils;
 
+		hkgArray<hkgPostEffect*> m_postEffects;
+
 		HKG_USER_FUNC_KEY			m_keyFunc;
 		void*						m_keyFuncUserContext;
 
@@ -495,6 +566,8 @@ class hkgWindow : public hkgReferencedObject
 		HKG_USER_FUNC_COMMAND		m_windowCommandFunc;
 		void*						m_windowCommandFuncUserContext;
 
+		HKG_USER_FUNC_DROPFILE		m_windowDropFileFunc;
+		void*						m_windowDropFileFuncUserContext;
 
 };
 
@@ -503,7 +576,7 @@ class hkgWindow : public hkgReferencedObject
 #endif // HK_GRAPHICS_WINDOW
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

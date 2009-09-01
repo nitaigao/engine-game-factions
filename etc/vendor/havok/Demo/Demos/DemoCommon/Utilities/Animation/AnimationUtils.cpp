@@ -284,20 +284,25 @@ void HK_CALL AnimationUtils::setupNonInterleavedSimdBinding( const hkaVertexDefo
 
 void HK_CALL AnimationUtils::skinMesh(const class hkxMesh& inputMesh, const hkTransform& worldTransform, const class hkTransform* worldCompositeMatrices, class hkgSceneDataConverter& graphicsScene)
 {
-
-	// Find the display obejct that corresponds to this mesh
-	const int displayObjIdx = hkgAssetConverter::findFirstMapping( graphicsScene.m_meshes, &inputMesh );
+	const int displayObjIdx = hkgAssetConverter::findFirstMapping( graphicsScene.m_meshes, &inputMesh ); // Note : will ignore instancing..
 	if ( displayObjIdx >=0 )
 	{
 		// Ste the graphics transform
 		hkgDisplayObject* dObj = (hkgDisplayObject*)graphicsScene.m_meshes[ displayObjIdx ].m_hkgObject;
-		hkTransform t = worldTransform;
-		t.getTranslation()(3) = 1.0f;	// hkTransform makes no guarantees about this entry, but display objects assume all 16 components are used!
-		t.getColumn(0)(3) = 0.0f;
-		t.getColumn(1)(3) = 0.0f;
-		t.getColumn(2)(3) = 0.0f;
-		dObj->setTransform( &t(0,0) );
+		
+		skinMesh( inputMesh, dObj, worldTransform, worldCompositeMatrices, graphicsScene );
 	}
+}
+
+void HK_CALL AnimationUtils::skinMesh(const class hkxMesh& inputMesh, class hkgDisplayObject* dObj, const hkTransform& worldTransform, const class hkTransform* worldCompositeMatrices, class hkgSceneDataConverter& graphicsScene)
+{
+	// Ste the graphics transform
+	hkTransform t = worldTransform;
+	t.getTranslation()(3) = 1.0f;	// hkTransform makes no guarantees about this entry, but display objects assume all 16 components are used!
+	t.getColumn(0)(3) = 0.0f;
+	t.getColumn(1)(3) = 0.0f;
+	t.getColumn(2)(3) = 0.0f;
+	dObj->setTransform( &t(0,0) );
 
 	// Create a deformer
 #if (HK_CONFIG_SIMD == HK_CONFIG_SIMD_ENABLED)
@@ -323,13 +328,23 @@ void HK_CALL AnimationUtils::skinMesh(const class hkxMesh& inputMesh, const hkTr
 		hkxVertexBuffer* vIn = msc.m_vertexBuffer;
 
 		// Find the vertex buffer for display that corresponds to this loaded vertex buffer
-		const int ivOut = hkgAssetConverter::findFirstMapping( graphicsScene.m_vertexBuffers, vIn );
-
-		if (ivOut >=0)
+		hkArray<int> vbInstances;
+		hkgAssetConverter::findAllMappings( graphicsScene.m_vertexBuffers, vIn, vbInstances );
+		if (vbInstances.getSize() >=0)
 		{
-			hkgReferencedObject* hkgObj = graphicsScene.m_vertexBuffers[ ivOut ].m_hkgObject;
-			hkgVertexBufferWrapper* vOut = static_cast<hkgVertexBufferWrapper*> ( hkgObj );
-			
+			hkgVertexBufferWrapper* vOut = HK_NULL;
+			for (int vi=0; vi < vbInstances.getSize(); ++vi)
+			{
+				int idx = vbInstances[vi];
+				hkgReferencedObject* hkgObj = graphicsScene.m_vertexBuffers[ idx ].m_hkgObject;
+				hkgVertexBufferWrapper* vTest = static_cast<hkgVertexBufferWrapper*> ( hkgObj );
+				if ( vTest->getTopLevelParent() == dObj)
+				{
+					vOut = vTest;
+					break;
+				}
+			}
+
 			if (!vOut || !vOut->getVertexData()) 
 				continue;
 
@@ -390,7 +405,7 @@ hkaDefaultAnimationControl* AnimationUtils::loadControl( hkLoader& loader, const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

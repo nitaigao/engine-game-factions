@@ -17,6 +17,9 @@
 #if defined(HK_PLATFORM_PS3_PPU) || defined(HK_PLATFORM_UNIX)
 #		define HK_THREAD_LOCAL(TYPE) __thread TYPE
 #	elif defined(HK_PLATFORM_WIN32)
+
+		#define HK_WIN32_TLS_INVALID ((hkUint32)0xFFFFFFFF)
+
 		extern "C" {
 			__declspec(dllimport) unsigned long _stdcall TlsAlloc(void);
 			__declspec(dllimport) void* _stdcall TlsGetValue( unsigned long dwTlsIndex );		
@@ -27,13 +30,23 @@
 		/// A platform independent wrapper for thread local storage
 		/// We assume we always just store a pointer (or data the same size or smaller than a pointer) 
 		/// ie,  sizeof(T) <= sizeof(char*)
+		/// In debug it will now stop when platform limits are reached as it will soon cause a crash anyway 
+		/// such as threadmem being null etc 
 		template<typename T>
 		class hkThreadLocalData
 		{
 			public:
 
-				hkThreadLocalData() { m_slotID =  TlsAlloc(); }
-				~hkThreadLocalData() { TlsFree(m_slotID); }
+				hkThreadLocalData() 
+				{ 
+					m_slotID = TlsAlloc();
+					HK_ON_DEBUG( if (m_slotID == HK_WIN32_TLS_INVALID) { HK_BREAKPOINT(0xabba3651); } ) 
+				}
+				~hkThreadLocalData() 
+				{ 
+					HK_ON_DEBUG( int r = ) TlsFree(m_slotID);
+					HK_ON_DEBUG( if (r == 0) { HK_BREAKPOINT(0xabba3652); } ) 
+				}
 				HK_FORCE_INLINE T getData() const
 				{
 					return (T)(hkUlong)TlsGetValue(m_slotID) ;
@@ -41,7 +54,8 @@
 				HK_FORCE_INLINE void setData(T p) 
 				{
 					hkUlong v = hkUlong(p);
-					TlsSetValue( m_slotID, (void*)v );
+					HK_ON_DEBUG( int r = ) TlsSetValue( m_slotID, (void*)v );
+					HK_ON_DEBUG( if (r == 0) { HK_BREAKPOINT(0xabba3653); } )
 				}
 				unsigned long m_slotID; 
 		};
@@ -49,9 +63,14 @@
 #		define HK_THREAD_LOCAL(TYPE) hkThreadLocalData<TYPE>
 #		define HK_THREAD_LOCAL_SET(var,value) var.setData(value)
 #		define HK_THREAD_LOCAL_GET(var) var.getData()
-#	elif defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) 
+#	elif defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_LRB)
 
+#		ifdef HK_PLATFORM_LRBSIM
+#		include <common/winpthread.h>
+#		else
 #		include <pthread.h>
+#		endif
+
 			template < typename T > 
 			class hkThreadLocalData
 			{
@@ -94,7 +113,7 @@
 #endif // HKBASE_HK_THREAD_LOCAL_POINTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

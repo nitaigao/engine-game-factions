@@ -23,7 +23,7 @@
 ///		You should inspect the output meshes to make sure that no large errors are introduced.
 /// 2)	The algorithm is CPU and memory intensive. A large mesh may take several seconds to process.
 ///		Thus it should NOT be used at runtime.
-/// 3)	Materials in the mesh are tracked during simplification, but no attempt is made to avoid merging traingles with
+/// 3)	Materials in the mesh are tracked during simplification, but no attempt is made to avoid merging triangles with
 ///		different materials. Support for this will be improved in the future.
 
 /// See MeshSimplificationDemo.cpp for more examples on the usage.
@@ -56,26 +56,48 @@ public:
 		int remapVertices(VertexIndex from, VertexIndex to);
 	};
 
+	struct Vertex
+	{
+		hkVector4 m_position;
+		hkBool m_isConstrained;
+	};
+
 	/// Append the array of vertices to the mesh's vertices. May be called multiple times.
 	void addVertices( const hkArray<hkVector4>& verts );
 
-	/// Add a triangle with the specificed vertex indices. The material for the face defaults to hkUlong(-1)
+	/// Add a triangle with the specified vertex indices. The material for the face defaults to hkUlong(-1)
 	void addTriangle( VertexIndex i, VertexIndex j, VertexIndex k);
 
-	/// Add a triangle with the specificed vertex indices and material index
+	/// Add a triangle with the specified vertex indices and material index
 	void addTriangleWithMaterial( VertexIndex i, VertexIndex j, VertexIndex k, hkUlong mat);
 	
 	void validate() const;
-	
+
+	/// Get the position of the vertex for the specified index
+	const hkVector4& getVertexPosition( int index ) const { return m_vertices[index].m_position; }
+	hkVector4& getVertexPosition( int index ) { return m_vertices[index].m_position; }
+
 	/// Approximates the vertex normal based on the surrounding faces.
 	void calcVertexNormal( VertexIndex vIdx, hkVector4& normalOut) const;
 
 	/// Computes all the vertex normals using calcVertexNormal
 	void getVertexNormals(hkArray<hkVector4>& normals) const;
+
+	/// Approximates the vertex normal based on the surrounding faces.
+	void calcFaceCentroid( FaceIndex fIdx, hkVector4& centroidOut) const;
 	
 	/// Accessor methods
-	const hkArray<hkVector4>& getVertices() const { return m_vertices; }
+	const hkArray<Vertex>& getVertices() const { return m_vertices; }
 	const hkArray<Face>& getFaces() const { return m_faces; }
+
+	/// Vertex constraints
+	hkBool isVertexConstrained( int i ) const { return m_vertices[i].m_isConstrained; }
+	void  setVertexConstrained( int i, hkBool constrained ) { m_vertices[i].m_isConstrained = constrained; }
+
+	void debugDisplay() const;
+	void debugDisplay(hkVector4Parameter scale, hkVector4Parameter offset) const;
+
+	const hkArray<int>& getVertexMap() const { return m_vertexMap; }
 
 
 protected:
@@ -88,7 +110,8 @@ protected:
 	FaceList& getNeighbors(VertexIndex i) { return m_neighorhoods[i]; }
 	const FaceList& getNeighbors(VertexIndex i) const { return m_neighorhoods[i]; }
 
-	void computeContraction(VertexIndex v1, VertexIndex v2, hkQemPairContraction& conx, hkVector4Parameter vNew) const;
+	void computeContraction(VertexIndex v1, VertexIndex v2, hkQemPairContraction& conx, hkVector4Parameter vNew, hkBool checkIfNormalsFlip) const;
+	hkBool checkNormalFlip(VertexIndex v1, VertexIndex v2, hkVector4Parameter vNew, const FaceList& deltaFaces ) const; 
 	int applyContraction(const hkQemPairContraction& conx);
 
 	int unlinkFace(FaceIndex fid);
@@ -110,8 +133,9 @@ protected:
 	// Each neighborhood is sorted to make set operations faster
 	hkObjectArray< hkArray<FaceIndex> > m_neighorhoods;
 
-	hkArray<hkVector4> m_vertices;
+	hkArray<Vertex> m_vertices;
 	hkArray<Face> m_faces;
+	hkArray<int> m_vertexMap; // old index = m_vertexMap[new index]
 };
 
 struct hkQemPairContraction
@@ -128,9 +152,10 @@ struct hkQemPairContraction
 	hkVector4 m_delta2;
 
 	FaceList m_deadFaces;
-	// This is how the thesis implements it. Easier with 2 arrays?
+	
 	FaceList m_deltaFaces;
 	int m_deltaFacesPivot;
+	hkBool m_flipsNormals;
 };
 
 
@@ -143,6 +168,7 @@ struct hkQemVertexPair
 		EDGE_PAIR,		// Edge that existed in the original mesh
 		PROXIMITY_PAIR,	// Artificial edge based on vertex proximity
 	};
+
 	hkQemMutableMesh::VertexIndex m_v1;
 	hkQemMutableMesh::VertexIndex m_v2;
 	hkQemMutableMesh::FaceIndex m_faceIndex; // Only used for constraining boundaries
@@ -230,7 +256,7 @@ public:
 	void initialize( hkQemMutableMesh* mesh );
 
 	/// Remove one edge from the mesh.
-	void doSingleContraction();
+	hkResult doSingleContraction();
 
 	/// Removes redundant vertices from the mesh, and remaps the vertices to their original space
 	void finalize();
@@ -239,29 +265,39 @@ public:
 	void removeFractionOfVertices(hkReal fract);
 	void removeFractionOfFaces(hkReal fract);
 
+	void debugDisplay() const;
+
 	struct Parameters
 	{
-		/// Vertices closer than distance will be considered as candidates for merging. Set negative to disable.
+			/// Vertices closer than distance will be considered as candidates for merging. Set negative to disable.
 		hkReal m_vertexMergeDistance;
 
-		/// Weighting applied to boundary edges, making them less likely to be contracted
+			/// Weighting applied to boundary edges, making them less likely to be contracted
 		hkReal m_boundaryPenalty;
 
-		/// Epsilon value for matrix inversion
+			/// Epsilon value for matrix inversion
 		hkReal m_inversionEpsilon;
 
-		/// New vertices are constrained to be within this distance of the segment containing the original vertices
+			/// New vertices are constrained to be within this distance of the segment containing the original vertices
 		hkReal m_newVertexMaxDistance;
 
-		/// All vertices are remapped to a cube with extents this size
+			/// All vertices are remapped to a cube with extents this size
 		hkReal m_remapExtentSize;
+
+			/// Extra padding added to the remap AABB in order to handle all vertices in the same plane
+		hkReal m_remapAabbPadding;
+
+			/// Whether to allow contractions that flip triangle normals
+		hkBool m_allowTriangleFlips;
 
 		Parameters()
 		:	m_vertexMergeDistance(.1f),
 			m_boundaryPenalty(10000.0f),
 			m_inversionEpsilon(1e-3f),
 			m_newVertexMaxDistance(.1f),
-			m_remapExtentSize(500.0f)
+			m_remapExtentSize(500.0f),
+			m_remapAabbPadding(.1f),
+			m_allowTriangleFlips(true)
 		{
 
 		}
@@ -284,6 +320,7 @@ protected:
 
 	void verifyEdges();
 	void removeEdgeAt(int removeIndex);
+	void cleanupInvalidEdges();
 
 	// Map and unmap vertices to a cube specified by Parameters::m_remapExtentSize
 	void mapVertices();
@@ -327,7 +364,7 @@ protected:
 #endif // HK_MESH_SIMPLIFIER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

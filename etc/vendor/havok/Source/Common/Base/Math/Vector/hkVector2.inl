@@ -31,6 +31,11 @@ inline hkBool32 hkVector2::inCircumcircle( const hkVector2& p0, const hkVector2&
 	return a.dot3( cross ) > -tolerance; // XXX
 }
 
+inline hkBool32 hkVector2::equals( const hkVector2& p0 ) const
+{
+	return x == p0.x && y == p0.y;
+}
+
 inline hkReal hkVector2::dot( const hkVector2& p ) const
 {
 	return x*p.x + y*p.y;
@@ -60,10 +65,17 @@ inline void hkVector2::set( hkReal a, hkReal b )
 	y = b;
 }
 
+inline void hkVector2::load( const hkReal* p )
+{
+	x = p[0];
+	y = p[1];
+}
+
 inline void hkVector2::setPerp( const hkVector2& a )
 {
+	hkReal t = a.x; // alias safe
 	x = -a.y;
-	y =  a.x;
+	y =  t;
 }
 
 inline void hkVector2::setAdd( const hkVector2& a, const hkVector2& b )
@@ -136,13 +148,24 @@ inline hkReal hkVector2::normalizeWithLength()
 	return 1.0f / n;
 }
 
+inline hkReal hkVector2::length() const
+{
+	hkReal n = hkMath::sqrtInverse(x*x + y*y);
+	return 1.0f / n;
+}
+
 inline void hkVector2::setZero()
 {
 	x = y = 0;
 }
 
+inline hkBool32 hkVector2::lexLess( const hkVector2& v )
+{
+	return (x<v.x) || (x==v.x && y<v.y);
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

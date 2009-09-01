@@ -393,9 +393,11 @@ inline void HK_CALL hkVector4Util::invertSymmetric( const hkMatrix3& in, hkReal 
     hkVector4 r1; r1.setCross( in.getColumn(2), in.getColumn(0) );
     hkVector4 r2; r2.setCross( in.getColumn(0), in.getColumn(1) );
 
-    hkSimdReal determinant = HK_SIMD_REAL(eps*eps*eps) + in.getColumn(0).dot3(r0);
+	hkSimdReal eps3 = HK_SIMD_REAL(eps*eps*eps);
+    hkSimdReal determinant = in.getColumn(0).dot3(r0);
+	hkSimdReal_setMax( determinant, eps3, determinant );
 
-	hkSimdReal dinv = HK_SIMD_REAL(1.0f) / determinant;
+	hkSimdReal dinv = ((const hkSimdReal&)hkQuadReal1111) / determinant;
 	out.getColumn(0).setMul4(dinv, r0);
 	out.getColumn(1).setMul4(dinv, r1);
 	out.getColumn(2).setMul4(dinv, r2);
@@ -505,7 +507,7 @@ void hkVector4Util::memClear16( void *dest, int numQuads )
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

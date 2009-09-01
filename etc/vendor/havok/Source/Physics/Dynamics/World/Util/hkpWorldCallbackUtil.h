@@ -15,6 +15,7 @@ struct hkpContactPointRemovedEvent;
 struct hkpContactProcessEvent;
 struct hkpContactPointConfirmedEvent;
 struct hkpConstraintBrokenEvent;
+struct hkpConstraintRepairedEvent;
 class hkStepInfo;
 class hkpPhantom;
 class hkpContactImpulseLimitBreachedListener;
@@ -39,6 +40,7 @@ class hkpWorldCallbackUtil
 		static void HK_CALL fireConstraintAdded(   hkpWorld* world, hkpConstraintInstance* constraint ) ;
 		static void HK_CALL fireConstraintRemoved( hkpWorld* world, hkpConstraintInstance* constraint ) ;
 		static void HK_CALL fireConstraintBroken( hkpWorld* world, const hkpConstraintBrokenEvent& event ) ;
+		static void HK_CALL fireConstraintRepaired( hkpWorld* world, const hkpConstraintRepairedEvent& event ) ;
 
 		static void HK_CALL fireContactPointAdded( hkpWorld* world, hkpContactPointAddedEvent& event);
 		static void HK_CALL fireContactPointConfirmed( hkpWorld* world, hkpContactPointConfirmedEvent& event );
@@ -69,7 +71,7 @@ class hkpWorldCallbackUtil
 #endif // HK_DYNAMICS2_WORLD_CALLBACK_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

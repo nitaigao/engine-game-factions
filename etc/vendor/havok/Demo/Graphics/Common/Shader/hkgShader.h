@@ -36,14 +36,18 @@ public:
 
 	static hkgShader* (HK_CALL* createVertexShader)(hkgDisplayContext* context);
 	static hkgShader* (HK_CALL* createPixelShader)(hkgDisplayContext* context);
+	static hkgShader* (HK_CALL* createGeometryShader)(hkgDisplayContext* context);
 
 		/// Create a blank, platform specific, pixel or vertex shader object in the current context as given.
 	static hkgShader* HK_CALL create(HKG_SHADER_TYPE type, hkgDisplayContext* context)
 	{
-		if ( type == HKG_VERTEX_SHADER) return createVertexShader(context);
+		if ( type == HKG_GEOMETRY_SHADER) return createGeometryShader(context);
+		else if ( type == HKG_VERTEX_SHADER) return createVertexShader(context);
 		else return createPixelShader(context);
 	}
 
+	virtual HKG_SHADER_TYPE getShaderType() const { return m_type; }
+	
 		/// before you realize() a dx8 shader, you will need to specify the filename
 		/// so that the realize can find the vsh with the constant defs in it
 		/// on all other implementations this does nothing
@@ -107,10 +111,15 @@ public:
     virtual const hkClass* getClassType() const { return &hkgShaderClass; }
     virtual void calcContentStatistics(hkStatisticsCollector* collector, const hkClass* cls) const {}
 
+	inline const char* getName() const { return m_name.cString(); }
+	inline void setName( const char* n )  { m_name = n; }
+
 protected:
 
-	inline hkgShader();
+	inline hkgShader(HKG_SHADER_TYPE type);
 	virtual ~hkgShader() {}
+
+	HKG_SHADER_TYPE m_type;
 
 	hkgArray<ShaderInput> m_inputOrder;
 	HKG_SHADER_INPUT_CONSTANT m_allNormalInputs; // a quick bit mask to identify if the shader requires specific info without having to iterate the inputs
@@ -127,6 +136,8 @@ protected:
 		int expectedSize; // in floats
 	};
 	static WellKnownNames s_wellKnownNames[]; // terminated by (0,0)
+
+	hkString m_name;
 };
 
 #include <Graphics/Common/Shader/hkgShader.inl>
@@ -134,7 +145,7 @@ protected:
 #endif //_SHADER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

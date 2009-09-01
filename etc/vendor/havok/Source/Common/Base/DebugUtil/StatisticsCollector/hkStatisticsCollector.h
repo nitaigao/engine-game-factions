@@ -116,7 +116,7 @@ class hkStatisticsCollector: public hkReferencedObject
 
         enum Flag
         {
-            EXCLUDE_OBJECT_MEMORY = 0x1,        
+            EXCLUDE_OBJECT_MEMORY = 0x1,        ///
         };
 
             /// Add an object derived from hkReferencedObject. The field name and obj can be HK_NULL as necessary
@@ -193,6 +193,35 @@ class hkStatisticsCollector: public hkReferencedObject
                 addChunk( MEM_ARRAY, name, array.begin(), array.getSize() * hkSizeOf(T), allocated );
 			}
 		}
+		
+		template<typename T>
+		HK_FORCE_INLINE void addRefObjectArrayAndRecurseOnItems (const char* name, const hkArray<T>& array)
+		{
+			pushDir(name);
+
+			addArray("array", array);
+
+			for (int i=0; i<array.getSize(); ++i)
+			{
+				addReferencedObject(name, array[i]);
+			}
+			popDir();
+
+		}
+
+		template<typename T>
+		HK_FORCE_INLINE void addRefObjectArrayAndRecurseOnNamedItems (const char* arrayName, const hkArray<T>& array)
+		{
+			pushDir(arrayName);
+			addArray("array", array);
+
+			for (int i=0; i<array.getSize(); ++i)
+			{
+				addReferencedObject(array[i]->m_name ? array[i]->m_name : "unnamed", array[i]);
+			}
+			popDir();
+
+		}
 
 		template<typename KEY, typename VALUE>
         HK_FORCE_INLINE void addPointerMap( const char* name, const hkPointerMap<KEY,VALUE>& map )
@@ -236,7 +265,7 @@ class hkStatisticsCollector: public hkReferencedObject
 #endif // HKBASE_HKMONITOR_STATISTICS_COLLECTOR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

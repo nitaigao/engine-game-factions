@@ -23,12 +23,35 @@ struct hkStridedVertices
 		/// and the next float triple (so usually 12 or 16 or greater).
 	int m_striding;
 
+	
+	/// Initialize as empty
+	hkStridedVertices() : m_numVertices(0)	{}
+	
+	/// Initialize with an array of hkVector4
+	hkStridedVertices(const hkArray<hkVector4>& vertices) { set(vertices); }
+	
+	/// Initialize with a pointer to hkVector4
+	hkStridedVertices(const hkVector4* vertices, int count) { set(vertices,count); }
+	
+	inline void set(const hkArray<hkVector4>& vertices)
+	{
+		set(vertices.begin(),vertices.getSize());
+	}
+
+	template <typename T>
+	inline void set(const T* vertices, int numVertices)
+	{
+		m_vertices		=	(const float*)vertices;
+		m_numVertices	=	numVertices;
+		m_striding		=	sizeof(T);
+	}
+
 };
 
 #endif // HK_MATH_STRIDEDVERTICES
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

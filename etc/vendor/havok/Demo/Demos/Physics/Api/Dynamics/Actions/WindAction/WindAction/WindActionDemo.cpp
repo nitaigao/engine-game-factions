@@ -8,15 +8,20 @@
 
 #include <Demos/demos.h>
 
+#include <Common/Internal/ConvexHull/hkGeometryUtility.h>
+#include <Common/Visualize/hkDebugDisplay.h>
+#include <Common/Visualize/Shape/hkDisplayBox.h>
+#include <Common/Base/Types/Color/hkColor.h>
 
-#include <Demos/Physics/Api/Dynamics/Actions/WindAction/WindAction/WindActionDemo.h>
+#include <Common/Base/Algorithm/PseudoRandom/hkPseudoRandomGenerator.h>
+#include <Common/Base/DebugUtil/DeterminismUtil/hkCheckDeterminismUtil.h>
+
 
 #include <Physics/Utilities/Actions/Wind/hkpWindAction.h>
 #include <Physics/Utilities/Actions/Wind/hkpPrevailingWind.h>
 
 #include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h>
 #include <Physics/Collide/Shape/Convex/Cylinder/hkpCylinderShape.h>
-#include <Common/Internal/ConvexHull/hkGeometryUtility.h>
 #include <Physics/Collide/Shape/Compound/Collection/List/hkpListShape.h>
 #include <Physics/Collide/Shape/Misc/Transform/hkpTransformShape.h>
 #include <Physics/Collide/Shape/Convex/ConvexVertices/hkpConvexVerticesConnectivity.h>
@@ -24,12 +29,8 @@
 
 #include <Demos/DemoCommon/Utilities/GameUtils/GameUtils.h>
 
-#include <Common/Visualize/hkDebugDisplay.h>
-#include <Common/Visualize/Shape/hkDisplayBox.h>
-#include <Common/Base/Types/Color/hkColor.h>
 
-#include <Common/Base/Algorithm/PseudoRandom/hkPseudoRandomGenerator.h>
-#include <Common/Base/DebugUtil/DeterminismUtil/hkCheckDeterminismUtil.h>
+#include <Demos/Physics/Api/Dynamics/Actions/WindAction/WindAction/WindActionDemo.h>
 
 hkpRigidBody* HK_CALL createCylindricalGeometry( const hkReal radius, const hkReal height, const hkReal mass, const hkVector4& position, const int numVerticesAtEnd )
 {
@@ -50,42 +51,21 @@ hkpRigidBody* HK_CALL createCylindricalGeometry( const hkReal radius, const hkRe
 		}
 	}
 
-	hkStridedVertices stridedVerts;
-	{
-		stridedVerts.m_numVertices = vertices.getSize();
-		stridedVerts.m_striding = sizeof(hkVector4);
-		stridedVerts.m_vertices = &(vertices[0](0));
-	}
-
-	// create a convexVerticesShape from this
-	hkpConvexVerticesShape* cvs;
-	hkArray<hkVector4> planeEquations;
-	hkGeometry geom;
-	{
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		cvs = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-	}
-
-	cvs->setRadius(0.05f);	// This helps to avoid the penetration depth algorithm which is costly
+	hkpConvexVerticesShape::BuildConfig config;
+	config.m_convexRadius = 0.01f;
+	hkpMassProperties					massProperties;	
+	hkpConvexVerticesShape*				cvs = new hkpConvexVerticesShape( vertices, config);
+	hkpInertiaTensorComputer::computeConvexHullMassProperties(vertices, cvs->getRadius(), massProperties);
 
 	hkpRigidBodyCinfo convexInfo;
 
 	convexInfo.m_shape = cvs;
 	if(mass != 0.0f)
 	{
-		hkpMassProperties massProperties;
-		hkpInertiaTensorComputer::computeVertexHullVolumeMassProperties( stridedVerts.m_vertices, stridedVerts.m_striding, stridedVerts.m_numVertices, mass, massProperties );
 		convexInfo.m_mass = mass;
-		convexInfo.m_centerOfMass = massProperties.m_centerOfMass;
+		convexInfo.m_centerOfMass  = massProperties.m_centerOfMass;
 		convexInfo.m_inertiaTensor = massProperties.m_inertiaTensor;
-		convexInfo.m_motionType = hkpMotion::MOTION_BOX_INERTIA;
+		convexInfo.m_motionType    = hkpMotion::MOTION_BOX_INERTIA;
 	}
 	else
 	{
@@ -298,7 +278,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(WindActionDemo, HK_DEMO_TYPE_PRIME, "This demo shows the effect of drag on different types of rigid bodies", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

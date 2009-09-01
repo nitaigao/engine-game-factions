@@ -15,18 +15,28 @@
 	#include <Common/Base/Thread/Thread/hkThreadLocalData.h>
 	#include <Common/Base/System/Io/IStream/hkIStream.h>
 	#include <Common/Base/System/Io/OStream/hkOStream.h>
-#	define HK_ON_DETERMINISM_CHECKS_ENABLED(code) code
+	#define HK_ON_DETERMINISM_CHECKS_ENABLED(code) code
+	#define HK_ENABLE_INTERNAL_DATA_RANDOMIZATION // this may be useful when debugging multithreading non-determinism issues
+	#define HK_ON_ENABLE_INTERNAL_DATA_RANDOMIZATION(x) x
+	//#define HK_DETERMINISM_CHECK_SIZES
+	//#define HK_ENABLE_DETERMINISM_CHECKS_FOR_SOLVER
 #else
-#	define HK_ON_DETERMINISM_CHECKS_ENABLED(code)
+	#	define HK_ON_DETERMINISM_CHECKS_ENABLED(code)
+	#	define HK_ON_ENABLE_INTERNAL_DATA_RANDOMIZATION(x)
 #endif
+
 
 extern struct hkCheckDeterminismUtil* g_checkDeterminismUtil;
 
 
+#if defined(HK_DETERMINISM_CHECK_SIZES)
+#	include <Common/Base/Container/PointerMap/hkPointerMap.h>
+#endif
+
 class hkIstream;
 class hkOstream;
 class hkCriticalSection;
-
+class hkMemoryTrack;
 
 
 
@@ -61,22 +71,28 @@ struct hkCheckDeterminismUtil
 	public:
 		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_BASE_CLASS, hkCheckDeterminismUtil );
 
-			// <ag.todo.a> documentation here ..
 			// Frame-unique ID
+			//
+			// This id has to be unique for a job in the scope of a single frame.
+			// It is made up of the hkpSimulationIslands's unite tag, job type, job task's sequential id, and one another counter (hmm).
+			// See hkCheckDeterminismUtil::Fuid hkpDynamicsJob::getFuid().
 		struct Fuid
 		{
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_BASE_CLASS, hkCheckDeterminismUtil::Fuid );
-			hkUint32 m_0, m_1, m_2, m_3;
+			hkUint32 m_0;
+			hkUint8 m_1;
+			hkUint16 m_2;
+			hkUint32 m_3, m_4;
 
 			static Fuid& getZeroFuid();
 
 			hkBool operator==(const Fuid& f)
 			{
-				return m_0 == f.m_0 && m_1 == f.m_1 && m_2 == f.m_2 && m_3 == f.m_3;
+				return m_0 == f.m_0 && m_1 == f.m_1 && m_2 == f.m_2 && m_3 == f.m_3 && m_4 == f.m_4;
 			}
 			hkBool operator!=(const Fuid& f)
 			{
-				return m_0 != f.m_0 || m_1 != f.m_1 || m_2 != f.m_2 || m_3 != f.m_3;
+				return m_0 != f.m_0 || m_1 != f.m_1 || m_2 != f.m_2 || m_3 != f.m_3 || m_4 != f.m_4;
 			}
 		};
 
@@ -88,10 +104,6 @@ struct hkCheckDeterminismUtil
 		static void HK_CALL createInstance() { HK_ASSERT2(0xad8655d3, !g_checkDeterminismUtil, "Instance already created."); g_checkDeterminismUtil = new hkCheckDeterminismUtil(); }
 
 		static void HK_CALL destroyInstance() { delete g_checkDeterminismUtil; g_checkDeterminismUtil = HK_NULL; }
-
-			/// Starts the utility in write or check mode, depending on if the data file exists.
-			/// Make sure to call finish() at the end.
-		void start(const char* filename = "hkDeterminismCheckfile.bin");
 
 			/// Sets this utility to write mode. Call at startup of your test
 			/// Make sure to call finish() at the end.
@@ -106,13 +118,18 @@ struct hkCheckDeterminismUtil
 		//
 
 #	if defined (HK_ENABLE_DETERMINISM_CHECKS)
+
+		/// check an array, but only check the crc number of the whole array
+		template<typename TYPE> 
+		static HK_ALWAYS_INLINE void HK_CALL checkMtCrc( int id, const TYPE* object, int numObjects = 1 ) { getInstance().checkCrcImpl( id, object, sizeof(TYPE ) * numObjects ); }
+
 		/// check an array of objects
 		template<typename TYPE>
-		static HK_FORCE_INLINE void HK_CALL checkMt( const TYPE* object, int numObjects = 1 ) { getInstance().checkImpl( object, sizeof(TYPE ) * numObjects ); }
+		static HK_FORCE_INLINE void HK_CALL checkMt( int id, const TYPE* object, int numObjects = 1 ) { getInstance().checkImpl( id, object, sizeof(TYPE ) * numObjects ); }
 
 		/// check a simple type object
 		template<typename TYPE>
-		static HK_FORCE_INLINE void HK_CALL checkMt( const TYPE& object ) { getInstance().checkImpl( &object, sizeof(TYPE )); }
+		static HK_FORCE_INLINE void HK_CALL checkMt( int id, const TYPE& object ) { getInstance().checkImpl( id, &object, sizeof(TYPE )); }
 
 		static void HK_CALL initThread()							{ initThreadImpl(); }
 		static void HK_CALL quitThread()							{ quitThreadImpl(); }
@@ -125,8 +142,9 @@ struct hkCheckDeterminismUtil
 		static void HK_CALL extractRegisteredJobs()					{ getInstance().extractRegisteredJobsImpl(); }
 		static void HK_CALL clearRegisteredJobs()					{ getInstance().clearRegisteredJobsImpl(); }
 #	else
-		template<typename TYPE> static HK_ALWAYS_INLINE void HK_CALL checkMt( const TYPE* object, int numObjects = 1 ) { }
-		template<typename TYPE> static HK_ALWAYS_INLINE void HK_CALL checkMt( const TYPE& object ) { }
+		template<typename TYPE> static HK_ALWAYS_INLINE void HK_CALL checkMtCrc( int id, const TYPE* object, int numObjects = 1 ) { }
+		template<typename TYPE> static HK_ALWAYS_INLINE void HK_CALL checkMt( int id, const TYPE* object, int numObjects = 1 ) { }
+		template<typename TYPE> static HK_ALWAYS_INLINE void HK_CALL checkMt( int id, const TYPE& object ) { }
 
 		static HK_ALWAYS_INLINE void HK_CALL initThread()							{  }
 		static HK_ALWAYS_INLINE void HK_CALL quitThread()							{  }
@@ -143,7 +161,6 @@ struct hkCheckDeterminismUtil
 
 		static void HK_CALL initThreadImpl();
 		static void HK_CALL quitThreadImpl();
-		void synchStreamsImpl();
 		void workerThreadStartFrameImpl(hkBool isPrimaryWorkerThread);
 		void workerThreadFinishFrameImpl();
 
@@ -155,10 +172,17 @@ struct hkCheckDeterminismUtil
 		void  clearRegisteredJobsImpl();
 
 
-		void checkImpl(const void* object, int size);
+		void checkImpl( int id, const void* object, int size);
+
+		void checkCrcImpl( int id, const void* object, int size);
 
 			/// Call this function at the end of your write/check run. This closes the open files
 		void finish();
+
+		void flushWrite();
+
+		static void setCurrentJobFuid(Fuid jobFuid);
+		static Fuid getCurrentJobFuid();
 
 	public:
 
@@ -171,6 +195,8 @@ struct hkCheckDeterminismUtil
 		Mode m_mode;
 
 		hkBool m_inSingleThreadedCode;
+
+		hkMemoryTrack* m_memoryTrack;	///
 
 		hkIstream* m_sharedInputStream;
 		hkOstream* m_sharedOutputStream;
@@ -188,22 +214,33 @@ struct hkCheckDeterminismUtil
 
 				// This is the data. In multi threaded mode, the thread-local m_input/outputStreams connect to the corresponding hkArray.
 				// This array is resizable, therefore it has to point to the data array.
-			hkArray<char>* m_data; // for write
+			hkMemoryTrack* m_data; // for write
 
 			hkBool		  m_isOpen;
 		};
 
 		hkArray<JobInfo> m_registeredJobs;
 
+#if defined(HK_DETERMINISM_CHECK_SIZES)
+		hkPointerMap<int,int> m_sizePerId;
+#endif
 		hkBool m_writingStFromWorker;
 
 };
 
+#	if defined (HK_ENABLE_DETERMINISM_CHECKS)
+	extern int hkCheckDeterminismUtil_id;
+	extern float* hkCheckDeterminismUtil_reference;
+	extern float* hkCheckDeterminismUtil_object;
+	extern int hkCheckDeterminismUtil_size;
+	extern float* hkCheckDeterminismUtil_crcObject;
+#endif
 
 #endif // HKBASE_HKDEBUGUTIL_CHECK_DETERMINISM_UTIL_H
+         
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

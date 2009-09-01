@@ -97,7 +97,7 @@ class hkpUserShapeDisplayBuilder : public hkReferencedObject, public hkSingleton
 #endif // HK_COLLIDE2_SHAPE_DISPLAY_BUILDER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

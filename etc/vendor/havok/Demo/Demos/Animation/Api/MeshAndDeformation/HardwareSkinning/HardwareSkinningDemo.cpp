@@ -80,7 +80,7 @@ HardwareSkinningDemo::HardwareSkinningDemo( hkDemoEnvironment* env )
 	m_canSkin = (hkgSystem::g_RendererType != hkgSystem::HKG_RENDERER_NULL); 
 	if (hkgSystem::g_RendererType != hkgSystem::HKG_RENDERER_CONSOLE)
 	{
-		m_canSkin = m_env->m_window->shaderSupportGreaterOrEqualTo(1); // has shaders..
+		m_canSkin = m_env->m_window->shaderSupportGreaterOrEqualTo(2); // has 2.0 shaders..
 	}
 	env->m_sceneConverter->setAllowHardwareSkinning(m_canSkin);
 
@@ -256,8 +256,9 @@ hkgShaderCollection* HardwareSkinningDemo::compileShader()
 	hkString shaderFile("./Resources/Animation/Shaders/SimpleSkinningShader"); 
 	shaderFile += hkString(vertexShader->getDefaultFileNameExtension());
 
-	vertexShader->realizeCompileFromFile( shaderFile.cString(), "mainVS", HK_NULL, HK_NULL, HK_NULL);
-	pixelShader->realizeCompileFromFile( shaderFile.cString(), "mainPS", HK_NULL, HK_NULL, HK_NULL);
+	HKG_SHADER_RENDER_STYLE style = HKG_SHADER_RENDER_1LIGHTS | HKG_SHADER_RENDER_BLENDING; 
+	vertexShader->realizeCompileFromFile( shaderFile.cString(), "mainVS", style, HK_NULL, HK_NULL);
+	pixelShader->realizeCompileFromFile( shaderFile.cString(), "mainPS", style, HK_NULL, HK_NULL);
 
 	ret = hkgShaderCollection::create();
 	ret->addShaderGrouping(vertexShader, pixelShader);	
@@ -364,7 +365,7 @@ void HardwareSkinningDemo::setShader( const hkxMesh* refMesh, hkgShaderCollectio
 HK_DECLARE_DEMO(HardwareSkinningDemo, HK_DEMO_TYPE_ANIMATION | HK_DEMO_TYPE_SERIALIZE, "HardwareSkinning", "Play back a skinned mesh in available hardware.");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

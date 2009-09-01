@@ -146,7 +146,7 @@ void RopeBridgeDemo::createObstacleCourse()
 			// this will keep the bridge from being springy
 			info.m_linearDamping  = 0.5f;			
 			info.m_angularDamping = 2.0f;			
-			info.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA; //hkpMotion::MOTION_STABILIZED_SPHERE_INERTIA;
+			info.m_motionType = hkpMotion::MOTION_SPHERE_INERTIA;
 
 			rb = new hkpRigidBody(info);
 			rb->setCollisionFilterInfo( hkpGroupFilter::calcFilterInfo( BRIDGE_LAYER ) );
@@ -330,7 +330,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(RopeBridgeDemo, HK_DEMO_TYPE_PRIME, "Rope Bridge", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

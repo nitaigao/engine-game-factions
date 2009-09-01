@@ -80,6 +80,9 @@ class hkxSceneUtils
 			/// Also if the mesh name can be found in extraNodesToFind, the node will be returned.
 		static void HK_CALL findAllGraphicsNodes(bool collectShapes, bool ignorePShapes, const hkStringMap<int>& extraNodesToFind, hkxNode* node, hkArray<GraphicsNode>& nodesOut);
 
+			/// finds all nodes under node 
+		static void HK_CALL findAllNodes(hkxNode* node, hkArray<hkxNode*>& nodes );
+
 			/// finds all nodes under node, which have a mesh attached
 		static void HK_CALL findAllMeshNodes(hkxScene* scene, hkxNode* node, hkArray<hkxNode*>& nodes );
 
@@ -140,7 +143,7 @@ class hkxSceneUtils
 #endif // HK_SCENE_UTILS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

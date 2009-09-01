@@ -24,15 +24,45 @@ DemoCharacter::~DemoCharacter( )
 	m_characterProxy->removeReference(); 
 }
 
+bool DemoCharacter::isCrouching() const
+{
+	State state;
+	getState( state );
+	return state.m_isCrouching;
+}
+
+bool DemoCharacter::isDying() const
+{
+	State state;
+	getState( state );
+	return state.m_isDying;
+}
+
 // access to the proxy
 CharacterProxy* DemoCharacter::getProxy() const 
 { 
 	return m_characterProxy; 
 }
 
-DemoCharacter* CharacterFactory::createCharacter( const hkVector4& position, const hkQuaternion& rotation, const hkVector4& gravity, int filterInfo, hkDemoEnvironment* env )
+void DemoCharacter::update( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo /*= HK_NULL */ )
 {
-	return createCharacterUsingProxy( createProxy( position, rotation, gravity, filterInfo ), gravity, env );
+	initUpdateSt(timestep, world, input, actionInfo);
+	updateMt(timestep, world, input, actionInfo);
+	finishUpdateSt(timestep, world, input, actionInfo);
+}
+
+DemoCharacter* CharacterFactory::createCharacter(	const hkVector4& position,
+													const hkQuaternion& rotation,
+													const hkVector4& gravity,
+													int filterInfo,
+													hkDemoEnvironment* env,
+													CharacterType characterType )
+{
+	CharacterProxy* proxy = createProxy( position, rotation, gravity, filterInfo );
+	DemoCharacter* character = createCharacterUsingProxy( proxy, gravity, env, characterType );
+	proxy->removeReference();
+
+	return character;
 }
 
 CharacterProxy* HK_CALL CharacterFactory::createProxy( const hkVector4& position, const hkQuaternion& rotation, const hkVector4& gravity, int filterInfo )
@@ -51,8 +81,10 @@ CharacterProxy* HK_CALL CharacterFactory::createProxy( const hkVector4& position
 	return proxy;
 }
 
+
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

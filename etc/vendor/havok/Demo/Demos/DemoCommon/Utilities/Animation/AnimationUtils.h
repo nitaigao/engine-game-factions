@@ -24,7 +24,8 @@ class AnimationUtils
 		
 		/// Skinning utility. N.B. 4th row of worldTransform is not used (assumed == (0,0,0,1))
 		static void HK_CALL skinMesh(const class hkxMesh& inputMesh, const class hkTransform& worldTransform, const class hkTransform* worldCompositeMatrices, class hkgSceneDataConverter& graphicsScene);
-
+		static void HK_CALL skinMesh(const class hkxMesh& inputMesh, class hkgDisplayObject* dObj, const hkTransform& worldTransform, const class hkTransform* worldCompositeMatrices, class hkgSceneDataConverter& graphicsScene);
+		
 		/// Draw utils
 		static void HK_CALL drawPose( const hkaPose& pose, const hkQsTransform& worldFromModel, int color=0x7fffffff, hkReal size = 0.25f, hkBool showRootTranslation = false );
 		static void HK_CALL drawPoseModelSpace( const hkaSkeleton& skeleton, const hkQsTransform* poseModelSpace, const hkQsTransform& worldFromModel, int color=0x7fffffff, hkReal size = 0.25f, hkBool showRootTranslation = false );
@@ -47,7 +48,7 @@ class AnimationUtils
 #endif // ANIMATION_UTILS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

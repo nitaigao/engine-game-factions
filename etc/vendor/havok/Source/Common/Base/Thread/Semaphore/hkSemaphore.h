@@ -15,6 +15,12 @@
 #	include <sys/synchronization.h>	
 #endif
 
+#if (defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_UNIX) || defined(HK_PLATFORM_LRBXENSIM) ) && (HK_CONFIG_THREAD == HK_CONFIG_MULTI_THREADED)
+#	include <pthread.h>
+#endif
+#if defined(HK_PLATFORM_LRBSIM)
+#	include <common/winpthread.h>
+#endif
 
 	/// A wrapper class for a semaphore.
 	/// Semaphores are about 10 times slower than critical sections, but
@@ -61,7 +67,7 @@ class hkSemaphore
 			sys_cond_t	cond;
 		} m_semaphore;
 
-#elif (defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_UNIX)) && (HK_CONFIG_THREAD == HK_CONFIG_MULTI_THREADED)
+#elif (defined(HK_PLATFORM_MACPPC) || defined(HK_PLATFORM_MAC386) || defined(HK_PLATFORM_UNIX) || defined(HK_PLATFORM_LRB)) && (HK_CONFIG_THREAD == HK_CONFIG_MULTI_THREADED)
 
 		//Mutex used to simulate the Semaphore
 		struct hkSemaphorePosix
@@ -83,7 +89,7 @@ class hkSemaphore
 #endif // HKBASE_HK_SEMAPHORE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

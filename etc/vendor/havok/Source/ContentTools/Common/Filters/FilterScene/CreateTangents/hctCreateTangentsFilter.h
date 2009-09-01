@@ -35,6 +35,7 @@ class hctCreateTangentsFilter : public hctFilterInterface
 		HWND m_optionsDialog;
 
 		bool m_splitVertices;
+		bool m_ignoreUnlit;
 		hkObjectArray< hkString > m_meshList; // the name of the nodes that reference specific meshes.
 
 		// A buffer for storing the options in XML form.
@@ -50,7 +51,7 @@ class hctCreateTangentsFilterDesc : public hctFilterDescriptor
 		/*virtual*/ FilterBehaviour getFilterBehaviour() const { return HK_DATA_MUTATES_INPLACE; }
 		/*virtual*/ const char* getShortName() const { return "Create Tangents"; }
 		/*virtual*/ const char* getLongName() const { return "Using a given set of texture coordinates, auto generate the tangents and binormals for selected meshes."; }
-		/*virtual*/ unsigned int getFilterVersion() const { return HCT_FILTER_VERSION(1,0,2); }
+		/*virtual*/ unsigned int getFilterVersion() const { return HCT_FILTER_VERSION(1,0,3); }
 		/*virtual*/ hctFilterInterface* createFilter(const class hctFilterManagerInterface* ownerInstance) const { return new hctCreateTangentsFilter(ownerInstance); }
 
 		/*virtual*/ HavokComponentMask getRequiredHavokComponents () const { return HK_COMPONENT_COMMON; }
@@ -61,7 +62,7 @@ extern hctCreateTangentsFilterDesc g_createTangentsDesc;
 #endif // HAVOK_FILTER_TEXTURES_CREATE_TANGENTS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

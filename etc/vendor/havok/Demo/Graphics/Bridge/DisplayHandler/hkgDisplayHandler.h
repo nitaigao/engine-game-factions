@@ -17,6 +17,7 @@
 #include <Common/Base/Container/PointerMap/hkPointerMap.h>
 
 #include <Common/Visualize/hkDebugDisplayHandler.h>
+#include <Common/Base/Algorithm/PseudoRandom/hkPseudoRandomGenerator.h>
 
 static const int HKG_DISPLAY_HANDLER_DEFAULT_GRID_SPAN = 200;
 static const int HKG_DISPLAY_HANDLER_DEFAULT_GRID_BASE = 10;
@@ -46,6 +47,7 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 		virtual hkResult addGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, hkUlong id, int tag, hkUlong shapeIdHint);
 		virtual hkResult addGeometryInstance(hkUlong originalInstanceId, const hkTransform& transform, hkUlong id, int tag, hkUlong shapeIdHint);
 		virtual hkResult setGeometryColor( int color, hkUlong id, int tag);
+		virtual hkResult setGeometryColor(int color, hkgDisplayObject* displayObject);
 		virtual hkResult updateGeometry(const hkTransform& transform, hkUlong id, int tag);
 		virtual hkResult removeGeometry(hkUlong id, int tag, hkUlong shapeIdHint);
 
@@ -53,15 +55,16 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 		virtual hkResult updateBehavior(hkArray<int>& wordVarIdx, hkArray<int>& wordStack, hkArray<int>& quadVarIdx, hkArray<hkVector4>& quadStack,
 			 hkArray<char*>& activeNodes, hkArray<int>& activeStateIds, hkArray<int>& activeTransitions, hkArray<hkQsTransform>& transforms);
 
-		virtual hkResult displayPoint(const hkVector4& position, int colour, int tag);
-		virtual hkResult displayLine(const hkVector4& start, const hkVector4& end, int colour, int tag);
-		virtual hkResult displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int colour, int tag);
+		virtual hkResult displayPoint(const hkVector4& position, int colour, int id, int tag);
+		virtual hkResult displayLine(const hkVector4& start, const hkVector4& end, int colour, int id, int tag);
+		virtual hkResult displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int colour, int id, int tag);
 
-		virtual hkResult displayText(const char* text, int color, int tag);
-		virtual hkResult display3dText(const char* text, const hkVector4& pos, int color, int tag);
+		virtual hkResult displayText(const char* text, int color, int id, int tag);
+		virtual hkResult display3dText(const char* text, const hkVector4& pos, int color, int id, int tag);
+		virtual hkResult displayAnnotation(const char* text, int id, int tag);
 
-		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int tag);
-		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int tag);
+		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int id, int tag);
+		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int id, int tag);
 
 		virtual hkResult sendMemStatsDump(const char* data, int length);
 
@@ -73,6 +76,9 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 
 		void drawImmediate(); // draw
 		void clear(); // clear the lists
+
+		void setImmediateModeEnabled(bool on); // starts of enabled, but sometimes it is ahndy to just chop ouit 
+		bool getImmediateModeEnabled() const { return m_allowImmediateMode; }
 
 		//
 		// Functions specific to the hkg display handler
@@ -86,6 +92,7 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 			// will not hold ref to obj
 			// Note that the id at the moment is the addr of the collidable for the obj
 		void addPrecreatedDisplayObject( hkUlong id, hkgDisplayObject* obj );
+		hkgDisplayObject* getPrecreatedDisplayObject( hkUlong id );
 		void removePrecreatedDisplayObject( hkUlong id );
 
 		hkgDisplayObject* findDisplayObject( hkUlong id );
@@ -99,6 +106,7 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 			/// create an ugly but usefull display version for it.
 			/// You can turn this off with this flag.
 		void setAutoDisplayCreationState( bool on );
+		bool getAutoDisplayCreationState();
 
 		void setAutoInstancingSizeHint( int numObjectsPerGeom );
 		int getAutoInstancingSizeHint() const;
@@ -132,6 +140,7 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 		float m_textureMapScale;
 		bool m_textureMapLocal;
 		bool m_fixedMapMode;
+		bool m_allowImmediateMode;
 
 		hkUint32 m_instanceSizeHint;
 
@@ -191,6 +200,8 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 
 		mutable class hkCriticalSection* m_dataLock;
 
+		hkPseudoRandomGenerator m_rand;
+
 		hkBool m_useDepthRead;
 		hkBool m_useDepthWrite;
 
@@ -199,7 +210,7 @@ class hkgDisplayHandler : public hkReferencedObject, public hkDebugDisplayHandle
 #endif // HKG_DISPLAY_HANDLER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

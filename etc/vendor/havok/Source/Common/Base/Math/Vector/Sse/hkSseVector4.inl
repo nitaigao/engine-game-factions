@@ -155,6 +155,28 @@ inline void hkVector4::setMul4(hkSimdRealParameter r, const hkVector4& v1)
 	m_quad = _mm_mul_ps( r.broadcast(), v1.m_quad);
 }
 
+inline void hkVector4::setDiv4(hkVector4Parameter a, hkVector4Parameter b)
+{
+	m_quad = _mm_div_ps( a.m_quad, b.m_quad );
+}
+
+inline void hkVector4::div4(hkVector4Parameter a)
+{
+	m_quad = _mm_div_ps( m_quad, a.m_quad );
+}
+
+inline void hkVector4::setDiv4fast(hkVector4Parameter a, hkVector4Parameter b)
+{
+	const hkQuadReal t = _mm_rcp_ps(b.m_quad);
+	m_quad = _mm_mul_ps(a.m_quad, t);
+}
+
+inline void hkVector4::div4fast(hkVector4Parameter a)
+{
+	const hkQuadReal t = _mm_rcp_ps(a.m_quad);
+	m_quad = _mm_mul_ps(m_quad, t);
+}
+
 inline void hkVector4::addMul4(hkSimdRealParameter r, const hkVector4& v1)
 {
 	m_quad = _mm_add_ps( m_quad,
@@ -681,7 +703,7 @@ inline void hkVector4::load4(const hkReal* p)
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

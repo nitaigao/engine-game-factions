@@ -19,7 +19,9 @@ extern const class hkClass hkaAnimationPreviewColorContainerClass;
 class hkaAnimationPreviewColor
 {
 public:
+	// +version(0)
 
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_ANIM_DATA, hkaAnimationPreviewColor);
 	HK_DECLARE_REFLECTION();
 
 	hkaAnimationPreviewColor( hkUint32 color );
@@ -31,8 +33,11 @@ public:
 // Utility class to store hkaAnimationPreviewColor objects
 class hkaAnimationPreviewColorContainer
 {
-public:
 
+public:
+	// +version(0)
+
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_ANIM_DATA, hkaAnimationPreviewColorContainer);
 	HK_DECLARE_REFLECTION();
 
 	hkaAnimationPreviewColorContainer();
@@ -44,12 +49,14 @@ public:
 	// Storage for hkaAnimationPreviewColor objects
 	class hkaAnimationPreviewColor** m_previewColor;
 	hkInt32 m_numPreviewColor;
+
+	hkBool m_allocatedPreviewColor; //+nosave
 };
 
 #endif // HK_ANIMATION_PREVIEW_COLOR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

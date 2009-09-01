@@ -145,11 +145,6 @@ class hkpConstraintConstructionKit
 			/// Adds a callback to hkpConstraintModifier::modify to the constraint
 		void addConstraintModifierCallback( hkpConstraintModifier *cm, int userData );
 
-		//	/// Adds a callback to hkpConstraintModifier::modifyRhs to the constraint
-		//	/// which modifies the Rhs ( error term ) for the previously constrained Degree Of Freedom 
-		//void addRhsModifierCallback( hkpConstraintModifier *cm, int userData );
-		
-
 		//
 		// commands
 		//
@@ -180,7 +175,7 @@ class hkpConstraintConstructionKit
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

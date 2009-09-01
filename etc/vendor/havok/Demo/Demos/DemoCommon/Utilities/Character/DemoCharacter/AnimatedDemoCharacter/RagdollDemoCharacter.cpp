@@ -17,6 +17,7 @@
 
 #include <Common/Visualize/hkDebugDisplay.h>
 #include <Graphics/Bridge/SceneData/hkgSceneDataConverter.h>
+#include <Graphics/Bridge/SceneData/hkgVertexBufferWrapper.h>
 
 // Serialization
 #include <Common/Base/Reflection/hkClass.h>
@@ -75,12 +76,29 @@
 #include <Graphics/Common/Shader/hkgShader.h>
 #include <Graphics/Common/Shader/hkgShaderCollection.h>
 #include <Graphics/Common/DisplayObject/hkgDisplayObject.h>
+#include <Graphics/Common/Geometry/hkgGeometry.h>
+#include <Graphics/Common/Geometry/hkgMaterialFaceSet.h>
+#include <Graphics/Common/Geometry/VertexSet/hkgVertexSet.h>
+#include <Graphics/Common/DisplayWorld/hkgDisplayWorld.h>
 
+namespace
+{
+	// debug visualization
+	bool DRAW_PROXY = false;
+	bool DRAW_RAGDOLL = false;
+}
 
 RagdollCharacterFactory::RagdollCharacterFactory( CharacterType defaultType )
 :	AnimatedCharacterFactory( defaultType )
 {
+	hkError::getInstance().setEnabled(0x9fe65234, false); // "Unsupported simulation type..."
+	hkError::getInstance().setEnabled(0x651f7aa5, false); // "removing deprecated object of type..."
+
 	loadRagdollAnimations( m_type );
+
+	hkError::getInstance().setEnabled(0x651f7aa5, true);
+	hkError::getInstance().setEnabled(0x9fe65234, true);
+
 
 	m_proxyNoCollideCollisionFilterInfo = hkpGroupFilter::calcFilterInfo(LAYER_COLLIDE_NONE);
 	m_proxyGettingUpCollisionFilterInfo = hkpGroupFilter::calcFilterInfo(LAYER_GET_UP);
@@ -88,10 +106,16 @@ RagdollCharacterFactory::RagdollCharacterFactory( CharacterType defaultType )
 
 }
 
-DemoCharacter* RagdollCharacterFactory::createCharacterUsingProxy( CharacterProxy* proxy, const hkVector4& gravity, hkDemoEnvironment* env )
+DemoCharacter* RagdollCharacterFactory::createCharacterUsingProxy(	CharacterProxy* proxy,
+																	const hkVector4& gravity,
+																	hkDemoEnvironment* env,
+																	CharacterType characterType )
 {
-	proxy->getWorldObject()->removeProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR);
-	proxy->getWorldObject()->addProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR, 0x00FFFFFF);
+	if ( !DRAW_PROXY )
+	{
+		proxy->getWorldObject()->removeProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR);
+		proxy->getWorldObject()->addProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR, 0x00FFFFFF);
+	}
 
 	// Ragdoll Character
 	RagdollDemoCharacterCinfo info;
@@ -117,8 +141,14 @@ DemoCharacter* RagdollCharacterFactory::createCharacterUsingProxy( CharacterProx
 	info.m_proxyGettingUpCollisionFilterInfo = m_proxyGettingUpCollisionFilterInfo;
 
 	RagdollDemoCharacter* ragdollCharacter = new RagdollDemoCharacter( info );
-	ragdollCharacter->loadSkin( m_loader, env, m_type );
-	proxy->removeReference();
+	if (m_display[m_type].m_numSkinBindings > 0)	
+	{
+		ragdollCharacter->cloneSkin( env, m_display[m_type] );
+	}
+	else
+	{
+		ragdollCharacter->loadSkin( m_loader, env, m_type, m_display[m_type] );
+	}
 
 	return ragdollCharacter;
 	
@@ -132,7 +162,10 @@ void RagdollCharacterFactory::loadRagdollAnimations( CharacterType type )
 
 	switch (type)
 	{
-	case FIREFIGHTER:
+	case CHARACTER_TYPE_FIREFIGHTER:
+	case CHARACTER_TYPE_JUNGLE_FIGHTER:
+	case CHARACTER_TYPE_DESERT_FIGHTER:
+	case CHARACTER_TYPE_SNOW_FIGHTER:
 		// Load the ragdoll-specific animations
 		{
 			set->m_die	 = AnimationUtils::loadAnimation( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkDie.hkx" );
@@ -144,7 +177,7 @@ void RagdollCharacterFactory::loadRagdollAnimations( CharacterType type )
 			ragdollContainer =  m_animSet[type].m_rigContainer;
 		}
 		break;
-	case HAVOK_GIRL:
+	case CHARACTER_TYPE_HAVOK_GIRL:
 		// Load the ragdoll-specific animations
 		{
 			set->m_die	 = AnimationUtils::loadAnimation( *m_loader, "Resources/Animation/HavokGirl/hkProtect.hkx" );
@@ -202,12 +235,15 @@ void RagdollCharacterFactory::loadRagdollAnimations( CharacterType type )
 
 	switch (type)
 	{
-	case FIREFIGHTER:
+	case CHARACTER_TYPE_FIREFIGHTER:
+	case CHARACTER_TYPE_JUNGLE_FIGHTER:
+	case CHARACTER_TYPE_DESERT_FIGHTER:
+	case CHARACTER_TYPE_SNOW_FIGHTER:
 		set->m_poseMatchingBones[0] = hkaSkeletonUtils::findBoneWithName( *set->m_ragdollInstance->getSkeleton(), "Biped_Root");
 		set->m_poseMatchingBones[1] = hkaSkeletonUtils::findBoneWithName( *set->m_ragdollInstance->getSkeleton(), "Biped_Head");
 		set->m_poseMatchingBones[2] = hkaSkeletonUtils::findBoneWithName( *set->m_ragdollInstance->getSkeleton(), "Biped_RightShoulder");
 		break;
-	case HAVOK_GIRL:
+	case CHARACTER_TYPE_HAVOK_GIRL:
 		set->m_poseMatchingBones[0] = hkaSkeletonUtils::findBoneWithName( *set->m_ragdollInstance->getSkeleton(), "Ragdoll Head");
 		set->m_poseMatchingBones[1] = hkaSkeletonUtils::findBoneWithName( *set->m_ragdollInstance->getSkeleton(), "HavokBipedRig Pelvis");
 		set->m_poseMatchingBones[2] = hkaSkeletonUtils::findBoneWithName( *set->m_ragdollInstance->getSkeleton(), "Ragdoll R Clavicle");
@@ -286,6 +322,11 @@ RagdollDemoCharacter::~RagdollDemoCharacter()
 {
 	delete m_poseMatchingSystem->m_poseMatchUtils;
 
+	for (int i=0; i<m_skins.getSize(); i++)
+	{
+		
+	}
+
 	for (int i=0; i<m_poseMatchingSystem->m_mixerControls.getSize(); i++)
 	{
 		m_poseMatchingSystem->m_mixerControls[i]->removeReference();
@@ -316,25 +357,46 @@ void AnimatedDemoCharacter_setSkinningShader( hkgShaderCollection* shader, hkgDi
 hkgShaderCollection* AnimatedDemoCharacter_loadSkinningShader(hkDemoEnvironment* env);
 bool AnimatedDemoCharacter_supportsHardwareSkinning(hkDemoEnvironment* env);
 
-void RagdollDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env, AnimatedCharacterFactory::CharacterType choice )
+void RagdollDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env, CharacterFactory::CharacterType type, AnimatedDemoCharacterDisplay& displayInfoCache )
 {
 	m_hardwareSkinning = AnimatedDemoCharacter_supportsHardwareSkinning(env);
 
 	hkString assetFile;
-
-	switch ( choice )
+	const char* texturePath = HK_NULL;
+	switch ( type )
 	{
-	case AnimatedCharacterFactory::HAVOK_GIRL:
+	case CharacterFactory::CHARACTER_TYPE_HAVOK_GIRL:
 		assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/HavokGirl/hkLowResSkinWithEyes.hkx");
 		m_hardwareSkinning = false;
 		break;
-	case AnimatedCharacterFactory::FIREFIGHTER:
+	case CharacterFactory::CHARACTER_TYPE_FIREFIGHTER:
 		{
-			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/Showcase/Gdc2005/Model/Firefighter_Skin.hkx"); 
-			break;
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/Firefighter_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
 		}
 		break;
-	default: 
+	case CharacterFactory::CHARACTER_TYPE_JUNGLE_FIGHTER:
+		{
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/JungleJoe_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
+		}
+		break;
+	case CharacterFactory::CHARACTER_TYPE_DESERT_FIGHTER:
+		{
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/DesertDan_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
+		}
+		break;
+	case CharacterFactory::CHARACTER_TYPE_SNOW_FIGHTER:
+		{
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/SnowSam_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
+		}
+		break;
+	default:
+		{
+			HK_ASSERT2(0x0, 0, "Invalid character type");
+		}
 		break;
 	}
 
@@ -348,10 +410,19 @@ void RagdollDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env,
 	m_numSkinBindings = ac->m_numSkins;
 	m_skinBindings = ac->m_skins;
 
+	displayInfoCache.m_hardwareSkinning = m_hardwareSkinning;
+	displayInfoCache.m_numSkinBindings = m_numSkinBindings;
+	displayInfoCache.m_skinBindings = m_skinBindings;
+
 	hkxScene* scene = reinterpret_cast<hkxScene*>( rootContainer->findObjectByType( hkxSceneClass.getName() ));
 	HK_ASSERT2(0x27343435, scene , "No scene loaded");
 
 	int numPrevSkins = env->m_sceneConverter->m_addedSkins.getSize();
+
+	if (texturePath && !env->m_sceneConverter->hasTextureSearchPath(texturePath))
+	{
+		env->m_sceneConverter->addTextureSearchPath(texturePath);
+	}
 
 	// Make graphics output buffers for the skins
 	env->m_sceneConverter->setAllowHardwareSkinning( m_hardwareSkinning ); // will enable the added blend info in the vertex buffers
@@ -368,7 +439,6 @@ void RagdollDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env,
 				reinterpret_cast<hkgAssetConverter::IndexMapping*>( skinBinding->m_mappings ),
 				skinBinding->m_numMappings, (hkInt16)skinBinding->m_skeleton->m_numBones ) ) 
 			{
-
 				HK_WARN_ALWAYS( 0x4327defe, "Could not setup the blend matrices for a skin. Will not be able to skin in h/w.");
 			}
 		}
@@ -382,8 +452,105 @@ void RagdollDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env,
 			{
 				AnimatedDemoCharacter_setSkinningShader(shaderSet, env->m_sceneConverter->m_addedSkins[s]->m_skin);
 			}
+			shaderSet->removeReference();
 		}
 
+	}
+
+	for (int ms=0; ms < m_numSkinBindings; ++ms)
+	{
+		hkaMeshBinding* skinBinding = m_skinBindings[ms];
+		int mindex = hkgAssetConverter::findFirstMapping( env->m_sceneConverter->m_meshes, skinBinding->m_mesh); 
+		if (mindex >= 0) 
+		{
+			hkgDisplayObject* dispObj = (hkgDisplayObject*)( env->m_sceneConverter->m_meshes[mindex].m_hkgObject );
+			displayInfoCache.m_skinDisplay.pushBack( dispObj );
+
+			m_skins.pushBack( dispObj );
+		}
+	}
+}
+
+void RagdollDemoCharacter::cloneSkin( hkDemoEnvironment* env, AnimatedDemoCharacterDisplay& displayInfo )
+{
+	hkgSceneDataConverter* sc = env->m_sceneConverter;
+	hkgDisplayContext* context = sc->m_context;
+
+	m_hardwareSkinning = displayInfo.m_hardwareSkinning;
+	m_skinsLoaded = true;
+	m_skinBindings = displayInfo.m_skinBindings;
+	m_numSkinBindings = displayInfo.m_numSkinBindings;
+
+
+	if (m_hardwareSkinning)
+	{
+		for (int ms=0; ms < displayInfo.m_numSkinBindings; ++ms)
+		{
+			hkaMeshBinding* skinBinding = displayInfo.m_skinBindings[ms];
+			hkgDisplayObject* origDisplayObject = displayInfo.m_skinDisplay[ms];
+
+			// XX Once merged with the Head, this will be faster with the Instanced HW Skin object
+			// For now just clone the meshes as the blend matrices can't be shared in the face sets
+			hkgDisplayObject* newDisplayObject = origDisplayObject->copy( HKG_DISPLAY_OBJECT_SHARE_MATERIALS, context );
+
+			bool allowCulling = false;
+
+			hkgAssetConverter::SkinPaletteMap* smap = hkgAssetConverter::setupHardwareSkin(context, 
+				newDisplayObject, 
+				reinterpret_cast<hkgAssetConverter::IndexMapping*>( skinBinding->m_mappings ), 
+				skinBinding->m_numMappings, 
+				(hkInt16)skinBinding->m_skeleton->m_numBones,
+				allowCulling  );
+
+			if (smap)
+			{
+				env->m_sceneConverter->m_addedSkins.pushBack( smap );
+			}
+
+			env->m_displayWorld->addDisplayObject( newDisplayObject );
+			m_skins.pushBack( newDisplayObject );
+			newDisplayObject->removeReference();
+		}
+	}
+	else
+	{
+		for (int ms=0; ms < displayInfo.m_numSkinBindings; ++ms)
+		{
+			hkgDisplayObject* origDisplayObject = displayInfo.m_skinDisplay[ms];
+			hkxMesh* origMesh = displayInfo.m_skinBindings[ms]->m_mesh;
+
+			// can't copy vertex buffers as they are cpu skinned into so can't instance them
+			hkgDisplayObject* newDisplayObject = origDisplayObject->copy( HKG_DISPLAY_OBJECT_SHARE_MATERIALS, context );
+
+			int curSection = 0;
+			for (int gi=0; gi < newDisplayObject->getNumGeometry(); ++gi)
+			{
+				hkgGeometry* geom = newDisplayObject->getGeometry(gi);
+				for (int mi=0; mi < geom->getNumMaterialFaceSets(); ++mi)
+				{
+					for (int fsi=0; fsi < geom->getMaterialFaceSet(mi)->getNumFaceSets(); ++fsi)
+					{
+						hkgFaceSet* faceSet = geom->getMaterialFaceSet(mi)->getFaceSet(fsi);
+						hkgVertexSet* faceVerts = faceSet->getVertexSet();
+
+						hkgVertexBufferWrapper* buf = new hkgVertexBufferWrapper(HKG_LOCK_WRITEONLY);
+						buf->setVertexDataPtr( (void*)0x1, faceVerts->getNumVerts() );
+						buf->setVertexDesc( hkgAssetConverter::constructVertexDesc(faceVerts) );
+						buf->setFaceSet(faceSet);
+						buf->setTopLevelParent(newDisplayObject);
+						hkgAssetConverter::Mapping* mMap = &sc->m_vertexBuffers.expandOne();
+						mMap->m_hkgObject = buf;
+						mMap->m_origObject = curSection < origMesh->m_numSections? origMesh->m_sections[curSection]->m_vertexBuffer : HK_NULL ;
+
+						++curSection;
+					}
+				}
+			}
+
+			env->m_displayWorld->addDisplayObject( newDisplayObject );
+			m_skins.pushBack( newDisplayObject );
+			newDisplayObject->removeReference();
+		}
 	}
 
 }
@@ -472,7 +639,7 @@ void RagdollDemoCharacter::initAnimation( const RagdollDemoCharacterAnimationSet
 		// WALK_CONTROL
 		control = new hkaDefaultAnimationControl( HK_NULL );
 		control->easeOut(0.0f);
-		control->setMasterWeight(0.01f);
+		control->setMasterWeight(HK_REAL_EPSILON);
 		m_animatedSkeleton->addAnimationControl( control );
 		control->removeReference();
 
@@ -497,6 +664,12 @@ void RagdollDemoCharacter::initAnimation( const RagdollDemoCharacterAnimationSet
 		// LAND_CONTROL
 		control = new hkaDefaultAnimationControl( set->m_land );
 		control->easeOut(0.0f);
+		m_animatedSkeleton->addAnimationControl( control );
+		control->removeReference();
+
+		// SLOWWALK_CONTROL
+		control = new hkaDefaultAnimationControl( set->m_idle ); 
+		control->setMasterWeight( 0.0f );
 		m_animatedSkeleton->addAnimationControl( control );
 		control->removeReference();
 
@@ -570,8 +743,46 @@ void RagdollDemoCharacter::initAnimation( const RagdollDemoCharacterAnimationSet
 	m_animatedSkeleton->sampleAndCombineAnimations(m_currentAnimationPose->accessUnsyncedPoseLocalSpace().begin(), HK_NULL);
 }
 
+hkReal s_currentZeroOneParameterizationOfCycle[3];
+
+
+static void debugCurrentBlendSyncs(hkaDefaultAnimationControl* slowWalkControl, hkaDefaultAnimationControl* walkControl, hkaDefaultAnimationControl* runControl )
+{
+	hkReal t0 = slowWalkControl->getLocalTime();
+	hkReal t1 = walkControl->getLocalTime();
+	hkReal t2 = runControl->getLocalTime();
+
+	hkReal d0 = slowWalkControl->getAnimationBinding()->m_animation->m_duration;
+	hkReal d1 = walkControl->getAnimationBinding()->m_animation->m_duration;
+	hkReal d2 = runControl->getAnimationBinding()->m_animation->m_duration;
+
+	s_currentZeroOneParameterizationOfCycle[0] = t0 / d0;
+	s_currentZeroOneParameterizationOfCycle[1] = t1 / d1;
+	s_currentZeroOneParameterizationOfCycle[2] = t2 / d2;
+	//[2] = t2 / runControl->getAnimationBinding()->m_animation->m_duration;
+	hkReal runT = t2;
+	runT -= 17.0f / 60.0f;
+	if( runT < 0.0f )
+	{
+		runT += runControl->getAnimationBinding()->m_animation->m_duration;
+	}
+	s_currentZeroOneParameterizationOfCycle[2] = runT / runControl->getAnimationBinding()->m_animation->m_duration;
+}
+
+static void debugCurrentBlendSyncs(hkaAnimatedSkeleton* animatedSkeleton, SimpleBipedAnimControls slowEnum, SimpleBipedAnimControls walkEnum, SimpleBipedAnimControls runEnum)
+{
+	hkaDefaultAnimationControl* slowWalkControl = (hkaDefaultAnimationControl*)animatedSkeleton->getAnimationControl( slowEnum );
+	hkaDefaultAnimationControl* walkControl = (hkaDefaultAnimationControl*)animatedSkeleton->getAnimationControl( walkEnum );
+	hkaDefaultAnimationControl* runControl = (hkaDefaultAnimationControl*)animatedSkeleton->getAnimationControl( runEnum );
+
+	debugCurrentBlendSyncs( slowWalkControl, walkControl, runControl );
+}
+
 void RagdollDemoCharacter::updatePosition( hkReal timestep, const CharacterStepInput& input, bool& isSupportedOut )
 {
+	//debugCurrentBlendSyncs( m_animatedSkeleton, SLOW_WALK_CONTROL, WALK_CONTROL, RUN_CONTROL);
+
+	/*
 	// Synchronize walk and run so it transitions smoothly
 	{
 		hkaDefaultAnimationControl* walkControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( WALK_CONTROL );
@@ -592,41 +803,84 @@ void RagdollDemoCharacter::updatePosition( hkReal timestep, const CharacterStepI
 		const hkReal controlWeight = control->getWeight() / control->getMasterWeight();
 		runControl->setMasterWeight( forwardWalkRunBlend * controlWeight );
 		walkControl->setMasterWeight( (1.0f - forwardWalkRunBlend) * controlWeight );
-	}	
-
-	/*
-	// Map forward speed to blend between walk and run animations
-	hkReal forwardWalkRunBlend = hkMath::clamp( (( input.m_forwardVelocity - m_walkVelocity) / (m_runVelocity - m_walkVelocity)), 0.f, 1.f);
-
-
-	// Synchronize walk and run so it transitions smoothly
-	{
-		hkaDefaultAnimationControl* walkControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( WALK_CONTROL );
-		hkaDefaultAnimationControl* runControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( RUN_CONTROL );
-
-		const hkReal runWeight = forwardWalkRunBlend;
-		const hkReal walkWeight = 1.0f - forwardWalkRunBlend;
-
-		// Sync playback speeds
-		{
-			const hkReal totalW = runWeight+walkWeight+1e-6f;
-			const hkReal walkP = walkWeight / totalW;
-			const hkReal runP = runWeight / totalW;
-			const hkReal runWalkRatio = runControl->getAnimationBinding()->m_animation->m_duration / walkControl->getAnimationBinding()->m_animation->m_duration;
-			runControl->setPlaybackSpeed( (1-runP) * runWalkRatio + runP );
-			walkControl->setPlaybackSpeed( (1-walkP) * (1.0f / runWalkRatio) + walkP );
-		}
-
-		const hkaDefaultAnimationControl* control = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( MOVE_CONTROL );
-		const hkReal controlWeight = control->getWeight() / control->getMasterWeight();
-		runControl->setMasterWeight( runWeight * controlWeight );
-		walkControl->setMasterWeight( walkWeight * controlWeight );
 	}
 	*/
 
+	{
+		hkaDefaultAnimationControl* slowWalkControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( SLOW_WALK_CONTROL );
+		hkaDefaultAnimationControl* walkControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( WALK_CONTROL );
+		hkaDefaultAnimationControl* runControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( RUN_CONTROL );
+
+		hkReal slowWalkWeight;
+		hkReal walkWeight;
+		hkReal runWeight;
+
+		// <dg.todo.aa> If the 'slow' walk is (as is currently set up) an idel, then we do not need to sync with
+		// the others: so we do not set slowWalkControl->setPlaybackSpeed( x) here.
+		// However, if we really do have a *SLOW WALK* then we need to sync properly.
+#ifdef HK_DEBUG
+		hkQsTransform slowWalkMotion;
+		slowWalkControl->getAnimationBinding()->m_animation->getExtractedMotionReferenceFrame(slowWalkControl->getAnimationBinding()->m_animation->m_duration, slowWalkMotion );
+		HK_ASSERT2(0x564dcc75, slowWalkMotion.getTranslation().length3() < 0.1f, "We appear to have a non-idle animation representing our slow walk - need to sync this");
+#endif
+
+		hkReal runToWalkPlaybackRatio = -1.0f;
+		if (input.m_forwardVelocity < m_walkVelocity)
+		{
+			hkReal dampedForwardSpeed = input.m_forwardVelocity/m_walkVelocity;
+			walkWeight = dampedForwardSpeed;
+			slowWalkWeight = 1.0f - dampedForwardSpeed;
+			runWeight = 0.0f;
+			walkControl->setPlaybackSpeed( 1.0f );
+
+			// sync the run even though it's weight is zero, so the walk and run stay in sync
+			{
+				const hkReal runDur = runControl->getAnimationBinding()->m_animation->m_duration;
+				const hkReal walkDur = walkControl->getAnimationBinding()->m_animation->m_duration;
+				const hkReal runWalkRatio = runDur / walkDur;
+
+				runControl->setPlaybackSpeed( runWalkRatio );
+			}
+		
+			runToWalkPlaybackRatio = runControl->getPlaybackSpeed() / 1.0f;
+		}
+		else
+		{
+			hkReal walkSpeed, runSpeed;
+			CharacterUtils::computeBlendParams( input.m_forwardVelocity, m_walkVelocity, m_runVelocity, 
+				walkControl->getAnimationBinding()->m_animation->m_duration, 
+				runControl->getAnimationBinding()->m_animation->m_duration,
+				runWeight,
+				walkSpeed,
+				runSpeed);
+
+			slowWalkWeight = 0.0f;
+			walkWeight =  1.0f - runWeight;
+			runControl->setPlaybackSpeed( runSpeed );
+			walkControl->setPlaybackSpeed( walkSpeed );
+
+			runToWalkPlaybackRatio = runSpeed / walkSpeed;
+		}
+
+		//const hkaDefaultAnimationControl* control = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( MOVE_CONTROL );
+		//const hkReal controlWeight = control->getWeight() / control->getMasterWeight();
+		const hkReal controlWeight = 1.0f;
+		slowWalkControl->setMasterWeight( slowWalkWeight * controlWeight );
+		walkControl->setMasterWeight( walkWeight * controlWeight );
+		runControl->setMasterWeight( runWeight * controlWeight );
+
+		//debugCurrentBlendSyncs( m_animatedSkeleton, SLOW_WALK_CONTROL, WALK_CONTROL, RUN_CONTROL);
+	}
+
+
 	// Advance the active animations
 	m_animatedSkeleton->stepDeltaTime( timestep );
+
+	//debugCurrentBlendSyncs( m_animatedSkeleton, SLOW_WALK_CONTROL, WALK_CONTROL, RUN_CONTROL);
+
 	updatePoseMatchWeights();
+
+	//debugCurrentBlendSyncs( m_animatedSkeleton, SLOW_WALK_CONTROL, WALK_CONTROL, RUN_CONTROL);
 
 	const hkUint32 currentAnimationState = m_wrapperStateMachine->getCurrentState();
 
@@ -747,6 +1001,8 @@ void RagdollDemoCharacter::updateDisplay( int numBones, const hkQsTransform* pos
 
 void RagdollDemoCharacter::display( hkReal timestep, hkDemoEnvironment* env )
 {
+	HK_TIMER_BEGIN( "RagdollDemoCharacter::display", HK_NULL );
+
 	// If it makes sense, grab the ragdoll's pose and use that for skinning.
 	// Otherwise, we'll end up using the last sampled pose.
 	if(m_ragdollInstance->getWorld())
@@ -755,7 +1011,28 @@ void RagdollDemoCharacter::display( hkReal timestep, hkDemoEnvironment* env )
 	}
 
 	updateDisplay( getSkeleton()->m_numBones, m_currentAnimationPose->getSyncedPoseModelSpace().begin(),  env);
+
+	HK_TIMER_END();
 }
+
+void RagdollDemoCharacter::cleanupGraphics( hkDemoEnvironment* env )
+{
+	for (int i=0; i<m_skins.getSize(); i++)
+	{
+		hkgDisplayObject* displayObj = m_skins[i];
+
+		if (env->m_displayWorld->removeDisplayObject(displayObj))
+		{
+			//displayObj->removeReference();
+		}
+	}
+
+	if( m_ragdollInstance->getWorld() )
+	{
+		removeRagdollFromWorld();
+	}
+}
+
 
 
 void RagdollDemoCharacter::updateAnimation( hkReal timestep, hkQsTransform* poseLS )
@@ -784,9 +1061,21 @@ void RagdollDemoCharacter::updatePoseFromRagdoll(hkaPose& pose)
 }
 
 
-void RagdollDemoCharacter::update( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
+void RagdollDemoCharacter::initUpdateSt( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
 {
-	bool isSupported;
+	// Nothing for now
+}
+
+void RagdollDemoCharacter::updateMt( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
+{
+	// Nothing for now
+}
+
+void RagdollDemoCharacter::finishUpdateSt( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
+{
+	HK_TIMER_BEGIN( "RagdollDemoCharacter::update", HK_NULL );
+
+	bool isSupported = true;
 
 	hkUint32 oldState = m_wrapperStateMachine->getCurrentState();
 	hkBool deadOrDying = (oldState == DYING_STATE) || (oldState == DEAD_STATE);
@@ -887,6 +1176,7 @@ void RagdollDemoCharacter::update( hkReal timestep, hkpWorld* world, const Chara
 		stopGetUp();
 	}
 
+	HK_TIMER_END();
 }
 
 
@@ -900,7 +1190,7 @@ void RagdollDemoCharacter::doSkinning (const int boneCount, const hkQsTransform*
 	// Skin the meshes
 	for (int i=0; i < m_numSkinBindings; i++)
 	{
-		const hkxMesh* inputMesh = m_skinBindings[i]->m_mesh;
+		const hkxMesh* inputMesh = m_skinBindings[i]->m_mesh;			
 
 		// assumes either a straight map (null map) or a single one (1 palette)
 		hkInt16* usedBones = m_skinBindings[i]->m_mappings? m_skinBindings[i]->m_mappings[0].m_mapping : HK_NULL;
@@ -915,13 +1205,39 @@ void RagdollDemoCharacter::doSkinning (const int boneCount, const hkQsTransform*
 		}
 
 		// use FPU skinning
-		AnimationUtils::skinMesh( *inputMesh, worldFromModel, compositeWorldInverse.begin(), *env->m_sceneConverter );
+		hkgDisplayObject* dispObjForSkin = m_skins[i];
+		if (!m_hardwareSkinning)
+		{
+			// FPU or SIMD skining
+			AnimationUtils::skinMesh( *inputMesh, dispObjForSkin, worldFromModel, compositeWorldInverse.begin(), *env->m_sceneConverter );
+		}
+		else // shader/VU/blend based skinning
+		{
+			int dindex = hkgAssetConverter::findFirstMapping( env->m_sceneConverter->m_addedSkins, dispObjForSkin );
+			hkArray< hkgBlendMatrixSet* >& palettes = env->m_sceneConverter->m_addedSkins[dindex]->m_palettes;
+			if (palettes.getSize() < 1)
+			{
+				HK_WARN( 0x0, "Trying to update a skin with no matrix palettes.");
+			}
+			hkgAssetConverter::updateSkin( dispObjForSkin, compositeWorldInverse, palettes, worldFromModel, HK_NULL );
+		}
 	}
 }
+
+
 
 hkReal RagdollDemoCharacter::getMaxVelocity() const
 {
 	return m_runVelocity;
+}
+
+void RagdollDemoCharacter::getState( State& state ) const
+{
+	hkUint32 smState = m_wrapperStateMachine->getCurrentState();
+
+	state.m_isDying = ( ( smState == DYING_STATE ) || ( smState == DEAD_STATE ) );
+	state.m_isGettingUp = ( smState == GETTING_UP_STATE );
+	state.m_isCrouching = false;
 }
 
 // BEGIN Ragdoll handling code
@@ -932,6 +1248,7 @@ void RagdollDemoCharacter::initRagdoll(int  ragdollLayer, hkReal force, hkReal t
 	const hkArray<hkpRigidBody*>& bodies = m_ragdollInstance->getRigidBodyArray();
 	for (int i=0; i<bodies.getSize(); i++)
 	{
+		bodies[i]->addProperty( RAGDOLL_BONE, hkpPropertyValue(true) );
 		hkUint32 oldFilterInfo = bodies[i]->getCollisionFilterInfo();
 		hkUint32 newFilterInfo = hkpGroupFilter::calcFilterInfo(ragdollLayer, hkpGroupFilter::getSystemGroupFromFilterInfo(oldFilterInfo),
 			hkpGroupFilter::getSubSystemIdFromFilterInfo(oldFilterInfo), hkpGroupFilter::getSubSystemDontCollideWithFromFilterInfo(oldFilterInfo) );
@@ -1019,9 +1336,12 @@ void RagdollDemoCharacter::addRagdollToWorld(hkReal timestep, hkpWorld* world, h
 
 	m_ragdollInstance->addToWorld( world, false);
 
-	for (int i=0 ; i < m_ragdollInstance->getRigidBodyArray().getSize(); i++)
+	if ( !DRAW_RAGDOLL )
 	{
-		HK_SET_OBJECT_COLOR( (hkUlong)m_ragdollInstance->getRigidBodyArray()[i]->getCollidable(), 0x0);
+		for (int i=0 ; i < m_ragdollInstance->getRigidBodyArray().getSize(); i++)
+		{
+			HK_SET_OBJECT_COLOR( (hkUlong)m_ragdollInstance->getRigidBodyArray()[i]->getCollidable(), 0x0);
+		}
 	}
 
 	hkaRagdollPoweredConstraintController::startMotors( m_ragdollInstance );
@@ -1226,6 +1546,10 @@ void RagdollDemoCharacter::updateRagdollDriving(hkReal timestep)
 		hkTransform t; getProxy()->getTransform(t);
 		t.setTranslation(m_ragdollInstance->getRigidBodyOfBone(0)->getTransform().getTranslation());
 		getProxy()->setTransform(t);
+
+		hkVector4 velocity = m_ragdollInstance->getRigidBodyOfBone(0)->getLinearVelocity();
+		getProxy()->setLinearVelocity( velocity );
+		getProxy()->setTurnVelocity( 0.0f );
 	}
 }
 
@@ -1371,7 +1695,7 @@ void RagdollDemoCharacter::doGetup ( const hkVector4& characterPosition, hkaPose
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

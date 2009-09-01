@@ -6,11 +6,7 @@
  * 
  */
 
-hkgWindowDX10::hkgWindowDX10()
-: hkgWindow(), m_device(HK_NULL), m_swapChain(HK_NULL), m_renderTargetView(HK_NULL), m_depthStencil(HK_NULL), m_depthStencilView(HK_NULL)
-{
 
-}
 
 inline const ID3D10Device* hkgWindowDX10::getDevice() const
 {
@@ -63,7 +59,7 @@ inline ID3D10DepthStencilView* hkgWindowDX10::getDepthStencilView()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

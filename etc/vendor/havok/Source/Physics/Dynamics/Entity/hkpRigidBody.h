@@ -12,12 +12,12 @@
 #include <Physics/Dynamics/World/hkpWorld.h>
 #include <Physics/Dynamics/Entity/hkpEntity.h>
 #include <Physics/Dynamics/Entity/hkpRigidBodyCinfo.h>
-#include <Physics/Dynamics/Entity/hkpRigidBodyDeactivator.h>
 
 extern const hkClass hkpRigidBodyClass;
 
 /// Helper function that returns a hkpRigidBody if the collidable's broadphase handle is of type hkpWorldObject::BROAD_PHASE_ENTITY
 inline class hkpRigidBody* hkGetRigidBody( const hkpCollidable* collidable );
+inline class hkpRigidBody* hkGetRigidBodyUnchecked( const hkpCollidable* collidable );
 
 
 	/// This is the basic rigid body class. Rigid bodies are objects whose shape never changes.
@@ -294,11 +294,12 @@ class hkpRigidBody : public hkpEntity
 		// DEACTIVATION
 		//
 
-			/// Sets the deactivator for this rigid body using a enum hkpRigidBodyDeactivator::DeactivatorType.
+			/// Enables or disabled deactivation for this rigid body.
 			/// ###ACCESS_CHECKS###( [getWorld(),HK_ACCESS_RO] [this,HK_ACCESS_RW] );
-		void setDeactivator( hkpRigidBodyDeactivator::DeactivatorType rigidBodyDeactivatorType );
+		void enableDeactivation( bool _enableDeactivation );
 
-		hkpRigidBodyDeactivator::DeactivatorType getDeactivatorType() const;
+			/// Checks if deactivation is enabled.
+		bool isDeactivationEnabled() const ;
 
 	
 		//
@@ -442,8 +443,7 @@ class hkpRigidBody : public hkpEntity
 		// LAZY CONSTRUCTION
 		//
 
-			/// Calls hkpEntity::setShape(), setMotionDeltaAngleMultiplier() and 
-			/// setDeactivatorRadiusSqrd(). 
+			/// Sets shape and recalculates cached data. 
 			/// NB: This function is NOT intended to be called at runtime i.e. after
 			/// the hkpRigidBody has been added to an hkpWorld. It is intended as
 			/// a feature for use during setup e.g. if a complex toolchain makes
@@ -510,7 +510,7 @@ class hkpRigidBody : public hkpEntity
 #endif // HK_DYNAMICS2_RIGID_BODY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

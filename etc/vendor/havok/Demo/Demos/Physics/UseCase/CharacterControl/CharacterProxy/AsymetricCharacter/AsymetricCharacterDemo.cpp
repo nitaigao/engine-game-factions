@@ -297,9 +297,7 @@ hkDemo::Result AsymetricCharacterDemo::stepDemo()
 			hkpSurfaceInfo ground;
 			m_characterProxy->checkSupport(down, ground);
 
-			input.m_isSupported = ground.m_supportedState == hkpSurfaceInfo::SUPPORTED;
-			input.m_surfaceNormal = ground.m_surfaceNormal;
-			input.m_surfaceVelocity = ground.m_surfaceVelocity;
+			input.m_surfaceInfo = ground;
 		}
 
 		// Apply the character state machine
@@ -359,7 +357,7 @@ hkDemo::Result AsymetricCharacterDemo::stepDemo()
 			hkVector4& col2 = rotation.getColumn(2);
 
 			hkVector4 surfaceNorm;
-			surfaceNorm = input.m_isSupported ? input.m_surfaceNormal : up;
+			surfaceNorm = ( input.m_surfaceInfo.m_supportedState != hkpSurfaceInfo::UNSUPPORTED ) ? input.m_surfaceInfo.m_surfaceNormal : up;
 			m_normal.addMul4( 0.1f, surfaceNorm );
 			m_normal.normalize3();
 
@@ -453,7 +451,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(AsymetricCharacterDemo, HK_DEMO_TYPE_PRIME, "AsymetricCharacter", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -359,14 +359,14 @@ template <typename TYPE>	HK_FORCE_INLINE void HK_CALL hkDeallocateStack(TYPE* pt
 #   define HK_DECLARE_CLASS_ALLOCATOR(TYPE) \
         HK_FORCE_INLINE const hkReferencedObject* iMustBeDerivedFromReferencedObject() const { return static_cast<const hkReferencedObject*>(this); } \
         HK_DECLARE_CLASS_ALLOCATOR_UNCHECKED(TYPE)
-#   define HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(TYPE,THIS_CLASS) \
+#   define HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(MEMORY_CLASS,THIS_CLASS) \
         HK_FORCE_INLINE void iShouldNotHaveVtable() const { int m_memSizeAndFlags = 0; m_memSizeAndFlags--; /* if you get this error, you derive from hkReferencedObject! */ } \
-        HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR_BY_SIZE_UNCHECKED(TYPE, sizeof(THIS_CLASS))
+        HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR_BY_SIZE_UNCHECKED(MEMORY_CLASS, sizeof(THIS_CLASS))
 #else
 #   define HK_DECLARE_CLASS_ALLOCATOR(TYPE) \
 		HK_DECLARE_CLASS_ALLOCATOR_UNCHECKED(TYPE)
-#   define HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(TYPE,THIS_CLASS) \
-        HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR_BY_SIZE_UNCHECKED(TYPE, sizeof(THIS_CLASS))
+#   define HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(MEMORY_CLASS,THIS_CLASS) \
+        HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR_BY_SIZE_UNCHECKED(MEMORY_CLASS, sizeof(THIS_CLASS))
 #endif
 
 /// Convenience inline function to allocate memory of the correct type
@@ -424,7 +424,7 @@ extern void HK_CALL HK_ASSERT_OBJECT_SIZE_OK_FUNC(hk_size_t nbytes);
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

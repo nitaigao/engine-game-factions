@@ -9,13 +9,18 @@
 #ifndef LOADER_H
 #define LOADER_H
 
-#include <Common/Serialize/Packfile/hkPackfileData.h>
-
 class hkTypeInfoRegistry;
 class hkClassNameRegistry;
+class hkStreamReader;
+class hkPackfileData;
+class hkRootLevelContainer;
+class hkStatisticsCollector;
 class hkVersionRegistry;
 
-/// Utility class to load and manage packfiles.
+/// Utility class to simplify loading packfiles and tagfiles.
+/// This class is mainly useful for demo code where it keeps a reference
+/// to all the resources it loads and cleans them up on destruction.
+/// If you need more control, use hkSerializeUtil instead.
 class hkLoader : public hkReferencedObject
 {
 	public:
@@ -25,53 +30,57 @@ class hkLoader : public hkReferencedObject
 			/// Releases the references to all loaded memory
 		~hkLoader();
 
-			/// Loads from a file, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
 			/// Implicitly uses the built-in registry
-		class hkRootLevelContainer* load( const char* filename );
+		virtual hkRootLevelContainer* load( const char* filename );
 
-			/// Loads from a stream, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
-			/// Implicitly uses the built-in registry
-		class hkRootLevelContainer* load( class hkStreamReader* reader );
+			/// Implicitly uses the built-in registry.
+		virtual hkRootLevelContainer* load( hkStreamReader* reader );
 
-			/// Loads from a file, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
-			/// The hkVersionRegistry may be null which disables versioning.
-			/// Uses the registries passed explicitly.
-		class hkRootLevelContainer* load( const char* filename, hkTypeInfoRegistry* finish, hkVersionRegistry* version );
+			/// Uses the hkTypeInfoRegistry passed explicitly.
+		virtual hkRootLevelContainer* load( const char* filename, hkTypeInfoRegistry* finish );
 
-			/// Loads from a stream, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
-			/// The hkVersionRegistry may be null which disables versioning.
-			/// Uses the registries passed explicitly.
-		class hkRootLevelContainer* load( class hkStreamReader* reader, hkTypeInfoRegistry* finish, hkVersionRegistry* version );
+			/// Uses the hkTypeInfoRegistry passed explicitly.
+		virtual hkRootLevelContainer* load( hkStreamReader* reader, hkTypeInfoRegistry* finish );
 
-			/// Loads from a file, Explicitly allocates and keeps a handle to the memory allocated 
-			/// This method is usually called multiple times to load several different assets.
-			/// Does not assume that the hkRoootLevelContainer is the top level class.
-			/// Implicitly uses the built-in registry
-		void* load( const char* filename, const hkClass& expectedTopLevelClass );
-
-			/// Loads from a stream, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
 			/// Does not assume that the hkRoootLevelContainer is the top level class.
-			/// Implicitly uses the built-in registry
-		void* load( class hkStreamReader* reader, const hkClass& expectedTopLevelClass );
+			/// Implicitly uses the built-in registry.
+		virtual void* load( const char* filename, const hkClass& expectedTopLevelClass );
 
-			/// Loads from a file, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
 			/// Does not assume that the hkRoootLevelContainer is the top level class.
-			/// The hkVersionRegistry may be null which disables versioning.
-			/// Uses the registries passed explicitly.
-		void* load( const char* filename, const hkClass& expectedTopLevelClass, hkTypeInfoRegistry* finish, hkVersionRegistry* version );
+			/// Implicitly uses the built-in registry.
+		virtual void* load( hkStreamReader* reader, const hkClass& expectedTopLevelClass );
 
-			/// Loads from a stream, Explicitly allocates and keeps a handle to the memory allocated 
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
 			/// This method is usually called multiple times to load several different assets.
 			/// Does not assume that the hkRoootLevelContainer is the top level class.
-			/// The hkVersionRegistry may be null which disables versioning.
-			/// Uses the registries passed explicitly.
-		void* load( class hkStreamReader* reader, const hkClass& expectedTopLevelClass, hkTypeInfoRegistry* finish, hkVersionRegistry* version );
+			/// Uses the hkTypeInfoRegistry passed explicitly.
+		virtual void* load( const char* filename, const hkClass& expectedTopLevelClass, hkTypeInfoRegistry* finish );
+
+			/// Loads from a packfile or tagfile, applies versioning steps if needed,
+			/// explicitly allocates and keeps a handle to the memory allocated.
+			/// This method is usually called multiple times to load several different assets.
+			/// Does not assume that the hkRoootLevelContainer is the top level class.
+			/// Uses the hkTypeInfoRegistry passed explicitly.
+		virtual void* load( hkStreamReader* reader, const hkClass& expectedTopLevelClass, hkTypeInfoRegistry* finish );
 
 
 		virtual void calcContentStatistics( hkStatisticsCollector* collector, const hkClass* cls ) const;
@@ -84,7 +93,7 @@ class hkLoader : public hkReferencedObject
 #endif // LOADER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

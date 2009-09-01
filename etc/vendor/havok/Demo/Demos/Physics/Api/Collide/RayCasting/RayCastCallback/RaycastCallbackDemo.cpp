@@ -279,7 +279,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(RaycastCallbackDemo, HK_DEMO_TYPE_PRIME, "Using user raycast callbacks (filters) to customise ray tests\n\nAll broadphase objects hit are coloured yellow, however\n only spheres are tested for exact intersections (coloured red)", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

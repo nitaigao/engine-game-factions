@@ -254,7 +254,7 @@ hkDemo::Result BackfacesCulledRayHitCollectorDemo::stepDemo()
 HK_DECLARE_DEMO(BackfacesCulledRayHitCollectorDemo, HK_DEMO_TYPE_PRIME, "Shows a custom backface-culling raycast collector.", "Yellow arrow = BackfacesCulledRayHitCollector\nGreen arrow = hkpAllRayHitCollector\nHighlighted triangles have been accepted by the collectors.");
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

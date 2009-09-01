@@ -301,7 +301,7 @@ hkResult BreakOffPartsDemo::breakOffSubPart( const ContactImpulseLimitBreachedEv
 			rigidBodyCinfo.m_shape = newShape;
 			rigidBodyCinfo.m_position        = breakingBody->getPosition();
 			rigidBodyCinfo.m_rotation        = breakingBody->getRotation();
-			rigidBodyCinfo.m_linearVelocity  = breakingBody->getLinearVelocity(); 
+			rigidBodyCinfo.m_linearVelocity  = breakingBody->getLinearVelocity();
 			rigidBodyCinfo.m_angularVelocity = breakingBody->getAngularVelocity();	
 			rigidBodyCinfo.m_mass = 10.0f;
 			rigidBodyCinfo.m_qualityType = (variant.m_type == BREAK_OFF_PARTS_DEMO_TOI) ? HK_COLLIDABLE_QUALITY_MOVING : HK_COLLIDABLE_QUALITY_DEBRIS;
@@ -355,7 +355,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( BreakOffPartsDemo, HK_DEMO_TYPE_PHYSICS, BreakOffPartsVariant, g_variants, helpString );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -10,7 +10,9 @@
 
 #include <Demos/Physics/UseCase/CharacterControl/CharacterRigidBody/InteractionCharacterRb/InteractionCharacterRbDemo.h>
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
 #include <Physics/Utilities/CharacterControl/StateMachine/hkpDefaultCharacterStates.h>
+#include <Physics/Utilities/CharacterControl/StateMachine/hkpCharacterContext.h>
 
 // Used for character controller code
 #include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h> 
@@ -48,7 +50,6 @@ InteractionCharacterRbDemo::InteractionCharacterRbDemo(hkDemoEnvironment* env)
 		info.m_contactPointGeneration = hkpWorldCinfo::CONTACT_POINT_ACCEPT_ALWAYS;
 		info.setBroadPhaseWorldSize( 350.0f );  
 		info.m_gravity.set(0,0,-9.8f);
-		info.m_collisionTolerance = 0.01f;
 		
 		m_world = new hkpWorld( info );
 		m_world->lock();
@@ -279,6 +280,11 @@ InteractionCharacterRbDemo::InteractionCharacterRbDemo(hkDemoEnvironment* env)
 
 
 		m_characterRigidBody = new hkpCharacterRigidBody( info );
+		{
+			hkpCharacterRigidBodyListener* listener = new hkpCharacterRigidBodyListener();
+			m_characterRigidBody->setListener( listener );
+			listener->removeReference();
+		}
 		m_world->addEntity( m_characterRigidBody->getRigidBody() );
 
 
@@ -307,7 +313,7 @@ InteractionCharacterRbDemo::InteractionCharacterRbDemo(hkDemoEnvironment* env)
 		manager->registerState( state,	HK_CHARACTER_CLIMBING);
 		state->removeReference();
 
-		m_characterContext = new hkpCharacterContext(manager, HK_CHARACTER_ON_GROUND);
+		m_characterContext = new hkpCharacterContext( manager, HK_CHARACTER_ON_GROUND );
 		manager->removeReference();
 		
 		// Set character type and smaller velocity output filter parameters 
@@ -323,10 +329,6 @@ InteractionCharacterRbDemo::InteractionCharacterRbDemo(hkDemoEnvironment* env)
 	// Init actual time
 	m_time = 0.0f;
 
-	// Initialize hkpSurfaceInfo for previous ground info keeping
-	m_previousGround = new hkpSurfaceInfo();
-	m_framesInAir = 0;
-
 	m_world->unlock();
 }
 
@@ -336,8 +338,6 @@ InteractionCharacterRbDemo::~InteractionCharacterRbDemo()
 
 	m_characterRigidBody->removeReference();
 	m_characterContext->removeReference();
-
-	delete m_previousGround;
 
 	m_world->unlock();	
 }
@@ -370,9 +370,6 @@ hkDemo::Result InteractionCharacterRbDemo::stepDemo()
 	{
 		m_world->lock();
 
-		hkpCharacterInput input;
-		hkpCharacterOutput output;
-
 		// Display masses of interaction rigid bodies
 		for (int i = 0; i < m_rigidBodies.getSize(); ++i)
 		{
@@ -392,6 +389,8 @@ hkDemo::Result InteractionCharacterRbDemo::stepDemo()
 		}
 
 		// Prepare input for character
+		hkpCharacterInput input;
+		hkpCharacterOutput output;
 		{
 			input.m_inputLR = posX;
 			input.m_inputUD = posY;
@@ -414,66 +413,14 @@ hkDemo::Result InteractionCharacterRbDemo::stepDemo()
 			input.m_velocity = m_characterRigidBody->getRigidBody()->getLinearVelocity();
 			input.m_position = m_characterRigidBody->getRigidBody()->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBody->checkSupport(stepInfo, ground);
-
-			// Avoid accidental state changes (Smooth movement on stairs)
-			// During transition supported->unsupported continue to return N-frames hkpSurfaceInfo data from previous supported state
-			{
-
-				// Number of frames to skip (continue with previous hkpSurfaceInfo data)
-				const int skipFramesInAir = 3;
-
-				if (input.m_wantJump)
-				{
-					m_framesInAir = skipFramesInAir;
-				}
-
-				if ( ground.m_supportedState != hkpSurfaceInfo::SUPPORTED )
-				{
-					if (m_framesInAir < skipFramesInAir)
-					{
-						input.m_isSupported = true;
-						input.m_surfaceNormal = m_previousGround->m_surfaceNormal;
-						input.m_surfaceVelocity = m_previousGround->m_surfaceVelocity;
-						input.m_surfaceMotionType = m_previousGround->m_surfaceMotionType;
-					}
-					else
-					{
-						input.m_isSupported = false;
-						input.m_surfaceNormal = ground.m_surfaceNormal;
-						input.m_surfaceVelocity = ground.m_surfaceVelocity;	
-						input.m_surfaceMotionType = ground.m_surfaceMotionType;
-					}			
-
-					m_framesInAir++;
-
-				}
-				else
-				{
-					input.m_isSupported = true;
-					input.m_surfaceNormal = ground.m_surfaceNormal;
-					input.m_surfaceVelocity = ground.m_surfaceVelocity;
-					input.m_surfaceMotionType = ground.m_surfaceMotionType;
-
-					m_previousGround->set(ground);
-
-
-					// Reset framesInAir
-					if (m_framesInAir > skipFramesInAir)
-					{
-						m_framesInAir = 0;
-					}			
-
-				}
-			}
+			m_characterRigidBody->checkSupport( stepInfo, input.m_surfaceInfo );
 		}
 
 		// Apply the character state machine
 		{
 			HK_TIMER_BEGIN( "update character state", HK_NULL );
 
-			m_characterContext->update(input, output);			
+			m_characterContext->update( input, output );			
 
 			HK_TIMER_END();
 		}
@@ -648,7 +595,7 @@ HK_DECLARE_DEMO(InteractionCharacterRbDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_CR
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

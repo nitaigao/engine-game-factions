@@ -23,6 +23,8 @@
 
 #include <Common/Visualize/hkDebugDisplay.h>
 
+#include <Common/Base/DebugUtil/DeterminismUtil/hkCheckDeterminismUtil.h>
+
 
 static ragdollVsMoppDemo::Parameter Variants[] =
 {
@@ -151,7 +153,15 @@ ragdollVsMoppDemo::ragdollVsMoppDemo(hkDemoEnvironment* env): hkDefaultPhysicsDe
 		setupGraphics();
 	}
 
+#if ! defined HK_ENABLE_DETERMINISM_CHECKS
 	setTransformAndVelocityFromCamera( m_ragdoll );
+#else
+	hkTransform t;
+	t.getRotation().setIdentity();
+	t.getTranslation().set(-3.45f, 1.80f, 2.76f);
+	hkVector4 dir(6.21f, -0.82f, -4.97f);
+	setTransformAndVelocity( t, dir, m_ragdoll );
+#endif
 
 	m_world->unlock();
 }
@@ -374,7 +384,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( ragdollVsMoppDemo, HK_DEMO_TYPE_PHYSICS, ragdollVsMoppDemo::Parameter, Variants, HK_NULL );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

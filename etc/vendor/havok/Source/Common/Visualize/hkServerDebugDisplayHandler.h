@@ -36,15 +36,16 @@ class hkServerDebugDisplayHandler : public hkReferencedObject, public hkDebugDis
 		virtual hkResult updateBehavior(hkArray<int>& wordVarIdx, hkArray<int>& wordStack, hkArray<int>& quadVarIdx, hkArray<hkVector4>& quadStack,
 			 hkArray<char*>& activeNodes, hkArray<int>& activeStateIds, hkArray<int>& activeTransitions, hkArray<hkQsTransform>& transforms);
 
-		virtual hkResult displayPoint(const hkVector4& position, int colour, int tag);
-		virtual hkResult displayLine(const hkVector4& start, const hkVector4& end, int color, int tag);
-		virtual hkResult displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int color, int tag);
+		virtual hkResult displayPoint(const hkVector4& position, int colour, int id, int tag);
+		virtual hkResult displayLine(const hkVector4& start, const hkVector4& end, int color, int id, int tag);
+		virtual hkResult displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int color, int id, int tag);
 
-		virtual hkResult displayText(const char* text, int length, int tag);
-		virtual hkResult display3dText(const char* text, const hkVector4& pos, int length, int tag);
+		virtual hkResult displayText(const char* text, int color, int id, int tag);
+		virtual hkResult display3dText(const char* text, const hkVector4& pos, int color, int id, int tag);
+		virtual hkResult displayAnnotation(const char* text, int id, int tag);
 
-		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int tag);
-		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int tag);
+		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int id, int tag);
+		virtual hkResult displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int id, int tag);
 
 		virtual hkResult sendMemStatsDump(const char* data, int length);
 
@@ -65,7 +66,7 @@ class hkServerDebugDisplayHandler : public hkReferencedObject, public hkDebugDis
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

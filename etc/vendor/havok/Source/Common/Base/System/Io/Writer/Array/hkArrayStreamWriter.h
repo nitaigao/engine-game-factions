@@ -10,6 +10,154 @@
 
 #include <Common/Base/System/Io/Writer/hkStreamWriter.h>
 
+
+/// Class which handles large memory streams in memory
+class hkMemoryTrack
+{
+	public:
+
+		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_BASE_CLASS, hkMemoryTrack );
+
+		/// Ctor
+		hkMemoryTrack( int numBytesPerSector = 512 );
+
+		~hkMemoryTrack();
+
+		/// clear the stream
+		void clear();
+
+		/// append numBytes to the stream
+		void write ( const void* data, int numBytes );
+
+		/// Append other stream to this one, will free the memory used in the other track
+		void appendByMove( hkMemoryTrack* other );
+
+		// returns the number of bytes
+		int getSize() const 
+		{
+			return (m_sectors.getSize() - 1) * m_numBytesPerSector + m_numBytesLastSector;
+		}
+
+		/// read numBytes from offset
+		void read( void* data, int numBytes, int offset ) const ;
+
+
+		//
+		//	Member variables
+		//
+	public:
+		int m_numBytesPerSector;	///
+		int m_numBytesLastSector;	///
+
+		hkArray<hkUint8*> m_sectors;	///
+};
+
+
+/// Writer which uses an hkMemoryTrack as its storage.
+class hkMemoryTrackStreamWriter : public hkStreamWriter
+{
+	public:
+
+		enum TrackOwnership
+		{
+			TRACK_TAKE,
+			TRACK_BORROW
+		};
+
+
+		/// Create an hkMemoryTrackStreamWriter which writes in to the memory track m_track.
+		/// If o is TRACK_TAKE, this object owns the array and will destroy
+		/// it in this objects destructor. If o is TRACK_BORROW, the track
+		/// will not be deleted.
+		hkMemoryTrackStreamWriter(hkMemoryTrack* track, TrackOwnership o)
+			: m_track(track), m_ownerShip(o)
+		{
+		}
+
+
+		~hkMemoryTrackStreamWriter()
+		{
+			if( m_ownerShip == TRACK_TAKE )
+			{
+				delete m_track;
+			}
+		}
+
+		virtual void clear();
+
+		virtual int write(const void* mem, int size);
+
+		virtual hkBool isOk() const
+		{
+			return true;
+		}
+
+		virtual hkBool seekTellSupported() const {	return false;	}
+		virtual hkResult seek(int offset, SeekWhence whence){ return HK_FAILURE; }
+		virtual int tell() const{	return m_track->getSize();	}
+
+	protected:
+
+		hkMemoryTrack* m_track;
+		TrackOwnership m_ownerShip;
+};
+
+
+
+#include <Common/Base/System/Io/Reader/hkStreamReader.h>
+
+/// Wraps a reader around a memory track.
+class hkMemoryTrackStreamReader : public hkStreamReader
+	{
+	public:
+
+		///
+		enum MemoryType
+		{
+			MEMORY_COPY,
+			MEMORY_TAKE,
+			MEMORY_INPLACE
+		};
+
+		/// Create a stream from the specified track.
+		/// MEMORY_TAKE will take ownership of the memory (which was
+		/// allocated with hkAllocate) and hkDeallocate it on destruction.
+		/// MEMORY_INPLACE will use the memory in place
+		/// and must exist for the lifetime of this object.
+		hkMemoryTrackStreamReader(const hkMemoryTrack* track, MemoryType t);
+
+		~hkMemoryTrackStreamReader();
+
+		virtual int read(void* buf, int nbytes);
+
+		virtual int skip( int nbytes){ m_offset += nbytes; return nbytes; }
+
+		virtual hkBool isOk() const{ return m_offset <= m_track->getSize(); }
+
+		/// Marks up to buffer size are supported.
+		virtual hkBool markSupported() const{ return false; }
+
+		/// Marks up to buffer size are supported.
+		virtual hkResult setMark(int markLimit){ return HK_FAILURE; }
+
+		/// Marks up to buffer size are supported.
+		virtual hkResult rewindToMark(){ return HK_FAILURE; }
+
+		/// Seek/tell is supported.
+		virtual hkBool seekTellSupported() const{ return false; }
+
+		virtual hkResult seek(int offset, SeekWhence whence){ return HK_FAILURE; }
+
+		virtual int tell() const{ return m_offset; }
+
+	protected:
+
+		const hkMemoryTrack* m_track;
+		int m_offset;
+		MemoryType m_memType; // owned or referenced
+};
+
+
 /// Writer which uses an hkArray as its storage.
 /// The written buffer area is from [0, hkArray.getSize()]
 /// This class maintains a single null byte directly after
@@ -54,35 +202,9 @@ class hkArrayStreamWriter : public hkStreamWriter
 			}
 		}
 
-		virtual void clear()
-		{
-			m_arr->clear();
-			m_offset = 0;
-			nullTerminate();
-		}
+		virtual void clear();
 
-		virtual int write(const void* mem, int size)
-		{
-			HK_ASSERT2( 0x170ce358, m_offset <= m_arr->getSize(),
-				"Array size has changed without a call to seek" );
-			int spaceLeft = m_arr->getSize() - m_offset;
-			if( size > spaceLeft )
-			{
-				int newSize = size + m_arr->getSize() - spaceLeft;
-				m_arr->reserve( 1 + newSize );
-				m_arr->setSizeUnchecked( newSize );
-				m_arr->begin()[ newSize ] = 0;
-			}
-			else if( m_arr->getCapacity() > m_arr->getSize() )
-			{
-				m_arr->begin()[ m_arr->getSize() ] = 0;
-			}
-			char* p = m_arr->begin() + m_offset;
-			hkString::memCpy(p, mem, size);
-			m_offset += size;
-
-			return size;
-		}
+		virtual int write(const void* mem, int size);
 
 		virtual hkBool isOk() const
 		{
@@ -94,36 +216,7 @@ class hkArrayStreamWriter : public hkStreamWriter
 			return true;
 		}
 
-		virtual hkResult seek(int offset, SeekWhence whence)
-		{
-			int absOffset = m_offset;
-			switch( whence )
-			{
-				case STREAM_SET:
-					absOffset = offset;
-					break;
-				case STREAM_CUR:
-					absOffset = m_offset + offset;
-					break;
-				case STREAM_END:
-					absOffset = m_arr->getSize() - offset;
-					break;
-				default:
-					HK_ASSERT2(0x55f1b803, 0, "Bad 'whence' passed to seek()");
-					break;
-			}
-			if( absOffset >= 0 )
-			{
-				if( absOffset > m_arr->getSize() )
-				{
-					m_arr->setSize( absOffset+1, 0 ); // zero filled space, null terminated
-					m_arr->setSizeUnchecked( absOffset );
-				}
-				m_offset = absOffset;
-				return HK_SUCCESS;
-			}
-			return HK_FAILURE;
-		}
+		virtual hkResult seek(int offset, SeekWhence whence);
 
 		virtual int tell() const
 		{
@@ -141,7 +234,7 @@ class hkArrayStreamWriter : public hkStreamWriter
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

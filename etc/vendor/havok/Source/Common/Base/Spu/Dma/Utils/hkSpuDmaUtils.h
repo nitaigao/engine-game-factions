@@ -37,7 +37,7 @@ struct hkSpuDmaUtils
 	static void HK_CALL setFloat32InMainMemory( HK_CPU_PTR(float*) dstInMainMemory, hkReal f, int dmaGroupId = HK_SPU_DMA_GROUP_STALL );
 
 		/// put a half float to main memory & wait for completion
-	//static void HK_CALL setFloat16InMainMemory( HK_CPU_PTR(hkHalf*) dstInMainMemory, hkReal f, int dmaGroupId = HK_SPU_DMA_GROUP_STALL );
+	static void HK_CALL setFloat16InMainMemory( HK_CPU_PTR(hkHalf*) dstInMainMemory, hkReal f, int dmaGroupId = HK_SPU_DMA_GROUP_STALL );
 
 		/// put a char to main memory & wait for completion
 	static void HK_CALL setChar8InMainMemory( HK_CPU_PTR(hkChar*) dstInMainMemory, hkChar c, int dmaGroupId = HK_SPU_DMA_GROUP_STALL );
@@ -50,7 +50,7 @@ struct hkSpuDmaUtils
 #endif // HK_SPU_DMA_UTILS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

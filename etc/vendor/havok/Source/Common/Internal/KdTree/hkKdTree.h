@@ -142,7 +142,7 @@ namespace hkKdTreeBuildInput
 		hkSplitType				m_max[3];
 		hkHalfPointer			m_primIdLow;
 
-#if (HK_POINTER_SIZE == 4)
+#if (HK_POINTER_SIZE == 4) && !(defined(HK_PLATFORM_RVL) || defined(HK_PLATFORM_PSP))
 		void operator=(const ProjectedEntry& other)
 		{
 			*(hkQuadReal*)this = *(const hkQuadReal*)&other;
@@ -270,7 +270,7 @@ protected:
 #endif // HK_KDTREE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

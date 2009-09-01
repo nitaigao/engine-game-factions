@@ -6,6 +6,12 @@
  * 
  */
 
+inline void hkgSceneDataConverter::setAutoPseudoInstancing( hkBool on, hkBool allowHwAccel  )
+{
+	m_bAllowPseudoInstancing = on;
+	m_bAllowPseudoInstancingHardwareAccel = allowHwAccel;
+}
+
 inline void hkgSceneDataConverter::setAllowMeshSharing( hkBool on )
 {
 	m_bAllowMeshSharing = on;
@@ -59,6 +65,8 @@ inline void hkgSceneDataConverter::setShaderLibraryEnabled( hkBool on )
 inline void hkgSceneDataConverter::revertToDefaultSettings()
 {
 	m_bAllowHardwareSkinning = false;
+	m_bAllowPseudoInstancing = false;
+	m_bAllowPseudoInstancingHardwareAccel = false;
 	m_bAllowMaterialSharing = true;
 	m_bAllowTextureSharing = true;
 	m_bAllowTextureMipMaps = true;
@@ -69,6 +77,8 @@ inline void hkgSceneDataConverter::revertToDefaultSettings()
 	m_bAllowMeshSharing = true;
 	m_bMeshMaterialCreation = true;
 	m_bEnableShaderLibLookup = false;
+
+	clearTextureSearchPaths();
 }
 
 inline void hkgSceneDataConverter::addTextureSearchPath(const char* path)
@@ -76,8 +86,33 @@ inline void hkgSceneDataConverter::addTextureSearchPath(const char* path)
 	m_materialCache.m_searchPaths.pushBack(path);
 }
 
+inline int hkgSceneDataConverter::getNumTextureSearchPaths() const
+{
+	return m_materialCache.m_searchPaths.getSize();
+}
+
+inline void hkgSceneDataConverter::clearTextureSearchPaths()
+{
+	m_materialCache.m_searchPaths.setSize(0);
+}
+
+inline void hkgSceneDataConverter::addTextureSearchOrder(const char* path)
+{
+	m_materialCache.m_searchOrder.pushBack(path);
+}
+
+inline int hkgSceneDataConverter::getNumTextureSearchOrder() const
+{
+	return m_materialCache.m_searchOrder.getSize();
+}
+
+inline void hkgSceneDataConverter::clearTextureSearchOrder()
+{
+	m_materialCache.m_searchOrder.setSize(0);
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

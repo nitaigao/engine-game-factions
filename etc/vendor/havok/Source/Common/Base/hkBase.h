@@ -59,6 +59,7 @@
 #include <Common/Base/Math/hkMath.h>
 
 #include <Common/Base/Container/String/hkString.h>		/* <todo> remove, move static functions elsewhere */
+#include <Common/Base/Container/String/hkStringPtr.h>
 
 
 #include <Common/Base/Memory/hkThreadMemory.inl>
@@ -69,7 +70,7 @@
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

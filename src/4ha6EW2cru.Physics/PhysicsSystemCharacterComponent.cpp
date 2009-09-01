@@ -139,27 +139,24 @@ namespace Physics
 			{
 				if (m_framesInAir < skipFramesInAir)
 				{
-					m_characterInput.m_isSupported = true;
-					m_characterInput.m_surfaceNormal = m_previousGround->m_surfaceNormal;
-					m_characterInput.m_surfaceVelocity = m_previousGround->m_surfaceVelocity;
-					m_characterInput.m_surfaceMotionType = m_previousGround->m_surfaceMotionType;
+					m_characterInput.m_surfaceInfo.m_supportedState = hkpSurfaceInfo::SUPPORTED;
+					m_characterInput.m_surfaceInfo.m_surfaceNormal = m_previousGround->m_surfaceNormal;
+					m_characterInput.m_surfaceInfo.m_surfaceVelocity = m_previousGround->m_surfaceVelocity;
 				}
 				else
 				{
-					m_characterInput.m_isSupported = false;
-					m_characterInput.m_surfaceNormal = ground.m_surfaceNormal;
-					m_characterInput.m_surfaceVelocity = ground.m_surfaceVelocity;	
-					m_characterInput.m_surfaceMotionType = ground.m_surfaceMotionType;
+					m_characterInput.m_surfaceInfo.m_supportedState = hkpSurfaceInfo::UNSUPPORTED;
+					m_characterInput.m_surfaceInfo.m_surfaceNormal = ground.m_surfaceNormal;
+					m_characterInput.m_surfaceInfo.m_surfaceVelocity = ground.m_surfaceVelocity;	
 				}			
 
 				m_framesInAir++;
 			}
 			else
 			{
-				m_characterInput.m_isSupported = true;
-				m_characterInput.m_surfaceNormal = ground.m_surfaceNormal;
-				m_characterInput.m_surfaceVelocity = ground.m_surfaceVelocity;
-				m_characterInput.m_surfaceMotionType = ground.m_surfaceMotionType;
+				m_characterInput.m_surfaceInfo.m_supportedState = hkpSurfaceInfo::SUPPORTED;
+				m_characterInput.m_surfaceInfo.m_surfaceNormal = ground.m_surfaceNormal;
+				m_characterInput.m_surfaceInfo.m_surfaceVelocity = ground.m_surfaceVelocity;
 
 				m_previousGround->set(ground);
 

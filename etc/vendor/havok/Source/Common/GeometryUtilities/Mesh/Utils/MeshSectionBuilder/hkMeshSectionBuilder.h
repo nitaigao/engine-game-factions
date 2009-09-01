@@ -70,13 +70,13 @@ class hkMeshSectionBuilder
             /// Get the number of primitives
         HK_FORCE_INLINE int getNumSections() const { return m_sections.getSize(); }
 
-		static hkBool canConcatPrimitives(hkMeshSection::PrimitiveType b, hkMeshSection::PrimitiveType a);
+		static bool canConcatPrimitives(hkMeshSection::PrimitiveType b, hkMeshSection::PrimitiveType a);
 
     protected:
 
 		hkUint32* _addIndices32(int numIndices);
 		hkUint16* _addIndices16(int numIndices);
-		hkBool _canConcatPrimitive(hkMeshSection::PrimitiveType primType);
+		bool _canConcatPrimitive(hkMeshSection::PrimitiveType primType);
 		void _makeIndices32();
 		void _concatIndices(int vertexStartIndex, int numIndices);
 		void _concatIndices(const hkUint16* srcIndices, int numIndices, int indexBase = 0);
@@ -86,7 +86,7 @@ class hkMeshSectionBuilder
 		hkResult _concatPrimitives(hkMeshSection::PrimitiveType primType, const hkUint16* indices, int numIndices, int indexBase);
 		hkResult _concatPrimitives(hkMeshSection::PrimitiveType primType, const hkUint32* indices, int numIndices, int indexBase);
 
-		static hkBool HK_CALL _needsIndices32(const hkUint16* srcIndices, int numIndices, int indexBase);
+		static bool HK_CALL _needsIndices32(const hkUint16* srcIndices, int numIndices, int indexBase);
 		
 		int m_indexBase16;									
 		int m_indexBase32;									
@@ -99,7 +99,7 @@ class hkMeshSectionBuilder
 #endif // HK_MESH_SECTION_BUILDER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -14,51 +14,40 @@
 #	define KEYCODE_ATTRIBUTES
 #endif
 
-static int hkGetKeyValue(const char* keyCode)
-{
-	char keyValue[11];
-	int i=0;
-	for (; (i < 10) && keyCode[i] && (keyCode[i] != ':'); i++)
-		keyValue[i] = keyCode[i];
-	keyValue[i] = '\0';
-
-	return hkString::atoi(keyValue, 16);
-}
-
 //
 // PHYSICS
 //
 extern const char         HK_PHYSICS_KEYCODE[] KEYCODE_ATTRIBUTES = HAVOK_PHYSICS_KEYCODE;
-extern const unsigned int HK_PHYSICS_KEYVALUE  KEYCODE_ATTRIBUTES = hkGetKeyValue(HAVOK_PHYSICS_KEYCODE);
 
 //
 // ANIMATION
 //
 extern const char         HK_ANIMATION_KEYCODE[] KEYCODE_ATTRIBUTES = HAVOK_ANIMATION_KEYCODE;
-extern const unsigned int HK_ANIMATION_KEYVALUE  KEYCODE_ATTRIBUTES = hkGetKeyValue(HAVOK_ANIMATION_KEYCODE);
 
 //
 // BEHAVIOR
 //
 extern const char         HK_BEHAVIOR_KEYCODE[] KEYCODE_ATTRIBUTES = HAVOK_BEHAVIOR_KEYCODE;
-extern const unsigned int HK_BEHAVIOR_KEYVALUE  KEYCODE_ATTRIBUTES = hkGetKeyValue(HAVOK_BEHAVIOR_KEYCODE);
 
 //
 // CLOTH
 //
 extern const char         HK_CLOTH_KEYCODE[] KEYCODE_ATTRIBUTES = HAVOK_CLOTH_KEYCODE;
-extern const unsigned int HK_CLOTH_KEYVALUE  KEYCODE_ATTRIBUTES = hkGetKeyValue(HAVOK_CLOTH_KEYCODE);
 
 //
 // DESTRUCTION
 //
 extern const char         HK_DESTRUCTION_KEYCODE[] KEYCODE_ATTRIBUTES = HAVOK_DESTRUCTION_KEYCODE;
-extern const unsigned int HK_DESTRUCTION_KEYVALUE  KEYCODE_ATTRIBUTES = hkGetKeyValue(HAVOK_DESTRUCTION_KEYCODE);
+
+//
+// AI
+//
+extern const char         HK_AI_KEYCODE[] KEYCODE_ATTRIBUTES = HAVOK_AI_KEYCODE;
 
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

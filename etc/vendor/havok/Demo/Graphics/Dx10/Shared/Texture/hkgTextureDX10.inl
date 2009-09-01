@@ -8,13 +8,13 @@
 
 hkgTextureDX10::hkgTextureDX10(hkgDisplayContext* context)
 : hkgTexture(context), m_texture( HK_NULL ), m_textureShaderView(HK_NULL), m_device( static_cast<hkgDisplayContextDX10*>( context )->getDevice() ),
-  m_bIsManaged(true)
+  m_bIsManaged(true), m_ddsSize(0)
 {
 }
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -21,15 +21,15 @@ HK_TEST_DECLARE(broadphaseBatchAddTest_main)
 HK_TEST_DECLARE(broadphaseLinearcast_main)
 HK_TEST_DECLARE(broadphaseRaycast_main)
 HK_TEST_DECLARE(bundle_raycast_test)
-HK_TEST_DECLARE( test_get_shape_type_name )
-HK_TEST_DECLARE( hkMeshShape_degenerate_test )
+HK_TEST_DECLARE(test_get_shape_type_name)
+HK_TEST_DECLARE(hkMeshShape_degenerate_test)
 HK_TEST_DECLARE(raycast_test)
 HK_TEST_DECLARE(SphereCast_test)
 HK_TEST_DECLARE(TriangleCompressorTest_test)
 HK_TEST_DECLARE(tricontainspoint_main)
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -62,15 +62,23 @@ class hkTextDisplay : public hkReferencedObject
 		int getNumVisibleLines(const hkgWindow* win) const;
 
 			/// Request 'str' to be rendered at absolute screen position x,y.
-			/// If the text runs over wrapX it automtically moves to the next line.
+			/// If the text runs over sizeX it automtically wraps to the next line.
+			/// If the text runs over sizeY it is truncated. Negative sizeY disables truncation.
 			/// The method also breaks word appropriately on spaces rather than in the middle.
-		virtual void outputTextWithWrapping(const hkString& str, int x, int y, int wrapX, hkUint32 color = 0xffffffffU, int frames = 1 );
+		virtual void outputTextWithWrapping(const hkString& str, int x, int y, int sizeX, int sizeY, hkUint32 color = 0xffffffffU );
 
+		struct TextLayoutCallback
+		{
+			virtual void text(const char* p, int len) = 0;
+			virtual void newline() = 0;
+			virtual ~TextLayoutCallback() {}
+		};
+		virtual void layoutTextWithWrapping(const hkString& str, int sizeX, int sizeY, TextLayoutCallback& cb);
 
 		struct OutputString
 		{
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_DEMO_FRAMEWORK, OutputString);
-				hkString str;
+			hkString str;
 			int frames;
 			int highlightLine;
 			float x;
@@ -81,7 +89,7 @@ class hkTextDisplay : public hkReferencedObject
 		struct OutputString3D
 		{
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_DEMO_FRAMEWORK, OutputString3D);
-				hkString str;
+			hkString str;
 			int frames;
 			float x;
 			float y;
@@ -127,7 +135,7 @@ class hkTextLog : public hkReferencedObject
 #endif // HK_TEXT_DISPLAY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -12,6 +12,15 @@
 #include <Common/Base/Types/Color/hkColor.h>
 #include <Common/Visualize/hkDebugDisplayHandler.h>
 
+/// Options for debugRenderNow (in Demo\Demos\DemoCommon\DemoFramework\hkDemoFramework.cpp)
+struct hkDebugRenderNowOptions
+{
+	int m_dummy;
+};
+
+/// Call the rendering system right now!
+extern int HK_CALL debugRenderNow(const char *title = HK_NULL, hkDebugRenderNowOptions* options = HK_NULL);
+
 class hkDisplayGeometry;
 
 /// A helper class, which enable the display of debug points and lines
@@ -81,78 +90,78 @@ class hkDebugDisplay : public hkReferencedObject, public hkSingleton<hkDebugDisp
 								hkArray<char*>& activeNodes, hkArray<int>& activeStateIds, hkArray<int>& activeTransitions, hkArray<hkQsTransform>& transforms);
 
 			/// Displays a debug point. Please use the HK_DISPLAY_POINT macro instead of calling this function directly.
-		void displayPoint(const hkVector4& position, int color, int tag);
+		void displayPoint(const hkVector4& position, int color, int id, int tag);
 
 			/// Display a debug line. Please use the HK_DISPLAY_LINE macro instead of calling this function directly.
-		void displayLine(const hkVector4& start, const hkVector4& end, int color, int tag);
+		void displayLine(const hkVector4& start, const hkVector4& end, int color, int id, int tag);
 
 			/// Display a debug line. Please use the HK_DISPLAY_LINE macro instead of calling this function directly.
-		void displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int color, int tag);
+		void displayTriangle(const hkVector4& a, const hkVector4& b, const hkVector4& c, int color, int id, int tag);
 
 			/// Display a debug line using model coordinate endpoints.  
 			/// Please use the HK_DISPLAY_LINE_MODEL macro instead of calling this function directly.
-		void displayLineModelSpace(const hkQsTransform& worldFromModel, const hkVector4& start, const hkVector4& end, int color, int tag);
+		void displayLineModelSpace(const hkQsTransform& worldFromModel, const hkVector4& start, const hkVector4& end, int color, int id, int tag);
 
 			/// Display a debug line using model coordinate endpoints.  
 			/// Please use the HK_DISPLAY_LINE_MODEL macro instead of calling this function directly.
-		void displayLineModelSpace(const hkTransform& worldFromModel, const hkVector4& start, const hkVector4& end, int color, int tag);
+		void displayLineModelSpace(const hkTransform& worldFromModel, const hkVector4& start, const hkVector4& end, int color, int id, int tag);
 
 			/// Display a debug line specified as a start and direction (not necessarily normalized).
 			/// Please use the HK_DISPLAY_RAY macro instead of calling this function directly.
-		void displayRay(const hkVector4& start, const hkVector4& direction, int color, int tag);
+		void displayRay(const hkVector4& start, const hkVector4& direction, int color, int id, int tag);
 
 			/// Display a debug ray in model coordinates.
 			/// Please use the HK_DISPLAY_RAY_MODEL macro instead of calling this function directly.
-		void displayRayModelSpace(const hkQsTransform& worldFromModel, const hkVector4& start, const hkVector4& direction, int color, int tag);
+		void displayRayModelSpace(const hkQsTransform& worldFromModel, const hkVector4& start, const hkVector4& direction, int color, int id, int tag);
 
 			/// Display a debug ray in model coordinates.
 			/// Please use the HK_DISPLAY_RAY_MODEL macro instead of calling this function directly.
-		void displayRayModelSpace(const hkTransform& worldFromModel, const hkVector4& start, const hkVector4& direction, int color, int tag);
+		void displayRayModelSpace(const hkTransform& worldFromModel, const hkVector4& start, const hkVector4& direction, int color, int id, int tag);
 
 			/// Display a debug arrow. Please use the HK_DISPLAY_ARROW macro
 			/// instead of calling this function directly.
-		void displayArrow(const hkVector4& start, const hkVector4& dir, int color, int tag);
+		void displayArrow(const hkVector4& start, const hkVector4& dir, int color, int id, int tag);
 
 			/// Display a debug star. Please use the HK_DISPLAY_STAR macro
 			/// instead of calling this function directly.
-		void displayStar(const hkVector4& position, hkReal scale, int color, int tag);
+		void displayStar(const hkVector4& position, hkReal scale, int color, int id, int tag);
 
 			/// Display a debug star in model coordinates.
 			/// Please use the HK_DISPLAY_STAR_MODEL macro instead of calling this function directly.
-		void displayStarModelSpace(const hkQsTransform& worldFromModel, const hkVector4& position, hkReal scale, int color, int tag);
+		void displayStarModelSpace(const hkQsTransform& worldFromModel, const hkVector4& position, hkReal scale, int color, int id, int tag);
 
 			/// Display a debug star in model coordinates.
 			/// Please use the HK_DISPLAY_STAR_MODEL macro instead of calling this function directly.
-		void displayStarModelSpace(const hkTransform& worldFromModel, const hkVector4& position, hkReal scale, int color, int tag);
+		void displayStarModelSpace(const hkTransform& worldFromModel, const hkVector4& position, hkReal scale, int color, int id, int tag);
 		
 			/// Display a debug plane. Please use the HK_DISPLAY_PLANE macro
 			/// instead of calling this function directly.
-		void displayPlane(const hkVector4& plane, const hkVector4& offset, hkReal scale, int color, int tag);
+		void displayPlane(const hkVector4& plane, const hkVector4& offset, hkReal scale, int color, int id, int tag);
 
 			/// Outputs user text to the display.  (The manner in which the text is displayed depends on the 
 			/// implementation of the display handler.)
-		void displayText(const char* text, int color, int tag);
+		void displayText(const char* text, int color, int id, int tag);
 
 			/// Outputs user text to the display at the coordinates in world space
-		void display3dText(const char* text, const hkVector4& pos, int color, int tag);
+		void display3dText(const char* text, const hkVector4& pos, int color, int id, int tag);
 
 			/// Display a debug frame of reference, with the axes colored X=red, Y=green, Z=blue
 			/// Please use the HK_DISPLAY_FRAME macro instead of calling this function directly.
-		void displayFrame( const hkQsTransform& worldFromLocal, hkReal size, int tag );
+		void displayFrame( const hkQsTransform& worldFromLocal, hkReal size, int id, int tag );
 
 			/// Display a debug frame of reference, with the axes colored X=red, Y=green, Z=blue
 			/// Please use the HK_DISPLAY_FRAME macro instead of calling this function directly.
-		void displayFrame( const hkTransform& worldFromLocal, hkReal size, int tag );
+		void displayFrame( const hkTransform& worldFromLocal, hkReal size, int id, int tag );
 
 			/// Displays the geometries	for one frame in immediate mode.
-		void displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int tag);
+		void displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, const hkTransform& transform, int color, int id, int tag);
 
 			/// Displays the geometries	without transform for one frame in immediate mode.
-		void displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int tag);
+		void displayGeometry(const hkArray<hkDisplayGeometry*>& geometries, int color, int id, int tag);
 
 			/// Display a wireframe AABB.
 			/// Please use the HK_DISPLAY_BOUNDING_BOX macro instead of calling this function directly.
-		void displayAabb(const class hkAabb& aabb, int color, int tag);
+		void displayAabb(const class hkAabb& aabb, int color, int id, int tag);
 
 	protected:
 
@@ -196,22 +205,22 @@ class hkDebugDisplay : public hkReferencedObject, public hkSingleton<hkDebugDisp
 #	define HK_UPDATE_GEOMETRY(transform, id) hkDebugDisplay::getInstance().updateGeometry(transform, id, 0)
 #	define HK_REMOVE_GEOMETRY(id) hkDebugDisplay::getInstance().removeGeometry(id, 0, 0)
 #	define HK_UPDATE_CAMERA(from, to, up, nearPlane, farPlane, fov, name) hkDebugDisplay::getInstance().updateCamera(from, to, up, nearPlane, farPlane, fov, name)
-#	define HK_DISPLAY_POINT(position, color) hkDebugDisplay::getInstance().displayPoint(position, color, 0)
-#	define HK_DISPLAY_LINE(start, end, color) hkDebugDisplay::getInstance().displayLine(start, end, color, 0)
-#	define HK_DISPLAY_TRIANGLE(a, b, c, color) hkDebugDisplay::getInstance().displayTriangle(a,b,c, color, 0)
-#	define HK_DISPLAY_LINE_MODEL(worldFromModel, start, end, color ) hkDebugDisplay::getInstance().displayLineModelSpace(worldFromModel, start, end, color, 0)
-#	define HK_DISPLAY_RAY(start, dir, color) hkDebugDisplay::getInstance().displayRay(start, dir, color, 0)
-#	define HK_DISPLAY_RAY_MODEL(worldFromModel, start, dir, color) hkDebugDisplay::getInstance().displayRayModelSpace(worldFromModel, start, dir, color, 0)
-#	define HK_DISPLAY_ARROW(start, direction, color) hkDebugDisplay::getInstance().displayArrow(start, direction, color, 0)
-#	define HK_DISPLAY_STAR(pos, scale, color) hkDebugDisplay::getInstance().displayStar(pos, scale, color, 0)
-#	define HK_DISPLAY_STAR_MODEL(worldFromModel, pos, scale, color) hkDebugDisplay::getInstance().displayStarModelSpace(worldFromModel, pos, scale, color, 0)
-#	define HK_DISPLAY_PLANE(plane, offset, scale, color) hkDebugDisplay::getInstance().displayPlane(plane, offset, scale, color, 0)
-#	define HK_DISPLAY_TEXT(text, color) hkDebugDisplay::getInstance().displayText(text, color, 0)
-#	define HK_DISPLAY_3D_TEXT(text, pos, color) hkDebugDisplay::getInstance().display3dText(text, pos, color, 0)
-#   define HK_DISPLAY_FRAME(worldFromLocal, size) hkDebugDisplay::getInstance().displayFrame( worldFromLocal, size, 0 )
-#	define HK_DISPLAY_GEOMETRY(geometries, color) hkDebugDisplay::getInstance().displayGeometry(geometries, color, 0)
-#	define HK_DISPLAY_GEOMETRY_WITH_TRANSFORM(geometeries, transform, color) hkDebugDisplay::getInstance().displayGeometry(geometeries, transform, color, 0)
-#	define HK_DISPLAY_BOUNDING_BOX(aabb, color) hkDebugDisplay::getInstance().displayAabb(aabb, color, 0)
+#	define HK_DISPLAY_POINT(position, color) hkDebugDisplay::getInstance().displayPoint(position, color, 0, 0)
+#	define HK_DISPLAY_LINE(start, end, color) hkDebugDisplay::getInstance().displayLine(start, end, color, 0, 0)
+#	define HK_DISPLAY_TRIANGLE(a, b, c, color) hkDebugDisplay::getInstance().displayTriangle(a,b,c, color, 0, 0)
+#	define HK_DISPLAY_LINE_MODEL(worldFromModel, start, end, color ) hkDebugDisplay::getInstance().displayLineModelSpace(worldFromModel, start, end, color, 0, 0)
+#	define HK_DISPLAY_RAY(start, dir, color) hkDebugDisplay::getInstance().displayRay(start, dir, color, 0, 0)
+#	define HK_DISPLAY_RAY_MODEL(worldFromModel, start, dir, color) hkDebugDisplay::getInstance().displayRayModelSpace(worldFromModel, start, dir, color, 0, 0)
+#	define HK_DISPLAY_ARROW(start, direction, color) hkDebugDisplay::getInstance().displayArrow(start, direction, color, 0, 0)
+#	define HK_DISPLAY_STAR(pos, scale, color) hkDebugDisplay::getInstance().displayStar(pos, scale, color, 0, 0)
+#	define HK_DISPLAY_STAR_MODEL(worldFromModel, pos, scale, color) hkDebugDisplay::getInstance().displayStarModelSpace(worldFromModel, pos, scale, color, 0, 0)
+#	define HK_DISPLAY_PLANE(plane, offset, scale, color) hkDebugDisplay::getInstance().displayPlane(plane, offset, scale, color, 0, 0)
+#	define HK_DISPLAY_TEXT(text, color) hkDebugDisplay::getInstance().displayText(text, color, 0, 0)
+#	define HK_DISPLAY_3D_TEXT(text, pos, color) hkDebugDisplay::getInstance().display3dText(text, pos, color, 0, 0)
+#   define HK_DISPLAY_FRAME(worldFromLocal, size) hkDebugDisplay::getInstance().displayFrame( worldFromLocal, size, 0, 0)
+#	define HK_DISPLAY_GEOMETRY(geometries, color) hkDebugDisplay::getInstance().displayGeometry(geometries, color, 0, 0)
+#	define HK_DISPLAY_GEOMETRY_WITH_TRANSFORM(geometeries, transform, color) hkDebugDisplay::getInstance().displayGeometry(geometeries, transform, color, 0, 0)
+#	define HK_DISPLAY_BOUNDING_BOX(aabb, color) hkDebugDisplay::getInstance().displayAabb(aabb, color, 0, 0)
 
 #endif // HK_DISABLE_DEBUG_DISPLAY
 
@@ -221,7 +230,7 @@ class hkDebugDisplay : public hkReferencedObject, public hkSingleton<hkDebugDisp
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

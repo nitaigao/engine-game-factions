@@ -30,10 +30,14 @@
 #	define INCLUDE_HAVOK_DESTRUCTION_CLASSES
 #endif
 
+#ifdef USING_HAVOK_AI
+#	define INCLUDE_HAVOK_AI_CLASSES
+#endif
+
 #include <Common/Serialize/Classlist/hkClasses.h>
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

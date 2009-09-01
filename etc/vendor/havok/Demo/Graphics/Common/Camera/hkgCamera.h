@@ -38,6 +38,8 @@ class hkgCamera : public hkgReferencedObject
 			/// creating as no values are guaranteed.. All cameras are perspective mode by default.
 		static hkgCamera* (HK_CALL *create)();
 
+		void copy(const hkgCamera& source);
+
 			/// When you change To,From,Up, you could easily end up with a non orthogonal basis for
 			/// the camera. This method will adjust the up vector so that it is orthogonal to the 
 			/// computed Right vector and the Direction of the camera.
@@ -280,13 +282,15 @@ class hkgCamera : public hkgReferencedObject
 
 			/// There are 6 frustum planes, in the order Top,Bottom,Left,Right.Near,Far. Each plane is of the form (A,B,C,D) where D is distance and ABC is the normal.
 			/// Will automatically compute the planes if the dirty flag is set, so the data should always be correct.
-		inline float* getFrustumPlane(unsigned int i); 
+		inline const float* getFrustumPlane(unsigned int i) const; 
 
 			/// Returns whether the given sphere at world position c and radius r has a point within the 6 frustum planes.
 			/// Will automatically compute the planes if the dirty flag is set, so the data should always be correct.
 			/// This can be used for simple bounding sphere visibility tests. Each of the possible planes tests requires a
 			/// dot product and a float sub and compare, so is not too slow.
 		inline bool sphereVisible(const float c[3], float radius) const; // in world space
+
+		void fitNearFarToBounds( const float* mmin, const float* mmax, float fitTolerance);
 
 			/// Set the camera's name.
 		inline void setCameraName( const char* name );
@@ -300,12 +304,14 @@ class hkgCamera : public hkgReferencedObject
 		virtual float* getPlatformViewMatrix();
 		virtual float* getPlatformProjectionMatrix();
 
+			/// Get the points, in world space, that correspond to the maximum regions viewable
+			/// Can be used to commute a AABB of interest, or projected into a shadow map light space etc
+		void getCornerPoints( float p[8][3] ) const;
+
 			// Util funcs
-		static hkgCamera* HK_CALL createFixedShadowFrustumCamera( const class hkgLight& light, const class hkgAabb& areaOfInterest, bool tightProjection = true, float extraNear = 0, float extraFar = 0);
+		static hkgCamera* HK_CALL createFixedShadowFrustumCamera( const class hkgLight& light, const class hkgAabb& areaOfInterest, bool tightProjection = true, float extraNear = 0, float extraFar = 0, int preferedUpAxis = -1);
 
 	protected:
-
-		friend class ExplodingRagdollsDemo;
 
 		inline hkgCamera(const float* from, const float* to, const float* up, float fov);
 		virtual ~hkgCamera();
@@ -330,7 +336,7 @@ class hkgCamera : public hkgReferencedObject
 
 		float		m_trackballVec[3];
 
-		char*		m_cameraName;
+		hkString	m_cameraName;
 
 		HK_ALIGN16( float m_viewMat[16] );
 		HK_ALIGN16( float m_projMat[16] );
@@ -354,7 +360,7 @@ class hkgCamera : public hkgReferencedObject
 #endif // HK_GRAPHICS_CAMERA_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

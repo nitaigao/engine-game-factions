@@ -12,6 +12,21 @@
 #include <Graphics/Common/Shader/hkgShader.h>
 #include <Graphics/Dx10/Shared/DisplayContext/hkgDisplayContextDX10.h>
 
+class hkgShaderDX10InclHandler : public ID3D10Include
+{
+	public:
+
+		hkgShaderDX10InclHandler( const char* inclPath, const char* filename = HK_NULL );
+
+		STDMETHOD(Open)( D3D10_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID *ppData, UINT *pBytes );
+		STDMETHOD(Close)( LPCVOID pData );
+
+	protected:
+
+		HRESULT readFile(class hkIstream& s, LPCVOID *ppData, UINT *pBytes);
+		hkString m_inclPath;
+};
+
 class hkgShaderDX10 : public hkgShader
 {
 public:
@@ -31,6 +46,8 @@ public:
 
 	virtual const char* getDefaultFileNameExtension() { return ".hlsl"; }
 
+	void setConstantDataRaw( int constBuffer, int byteOffset, void* data, int numBytes);
+
 protected:		
 	
 	void setupInputSignature(void* shaderByteCode, hkUint32 bufSize);
@@ -39,7 +56,7 @@ protected:
 	void setupConstantBuffers();
 	void updateConstantBuffers();
 
-	inline hkgShaderDX10(hkgDisplayContext* context); 
+	inline hkgShaderDX10(HKG_SHADER_TYPE t, hkgDisplayContext* context); 
 	virtual ~hkgShaderDX10();
 
 	hkgDisplayContextDX10*  m_context;
@@ -65,7 +82,7 @@ protected:
 #endif // HK_GRAPHICS_SHADER_DX10_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

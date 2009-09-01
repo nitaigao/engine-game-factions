@@ -10,10 +10,12 @@
 #include <Common/Base/Container/LocalArray/hkLocalArray.h>
 
 #include <Demos/Physics/UseCase/CharacterControl/CharacterRigidBody/ControlCharacterRb/ControlCharacterRbDemo.h>
+#include <Physics/Utilities/CharacterControl/StateMachine/hkpCharacterContext.h>
 
 // Used for
 // character rigid body
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
 // character proxy
 #include <Physics/Utilities/CharacterControl/CharacterProxy/hkpCharacterProxy.h>
 // state machine
@@ -96,17 +98,7 @@ ControlCharacterRbDemo::ControlCharacterRbDemo(hkDemoEnvironment* env)
 		m_world->lock();
 
 		hkpAgentRegisterUtil::registerAllAgents(m_world->getCollisionDispatcher());
-		// The world has the default collision tolerance of 0.1f. Decreasing the collision tolerance between characters
-		// and fixed entities as follows improves character rigid bodies' ability to climb stairs smoothly.
-		{
-			const hkReal characterTolerance = 0.01f;
-			hkpCollisionQualityInfo& characterCollisionQuality = m_world->m_collisionDispatcher->m_collisionQualityInfo[ hkpCollisionDispatcher::COLLISION_QUALITY_CHARACTER ];
-			characterCollisionQuality.m_manifoldTimDistance = characterTolerance;
-			characterCollisionQuality.m_createContact = characterTolerance;
-			characterCollisionQuality.m_keepContact = characterTolerance;
-			characterCollisionQuality.m_create4dContact = characterTolerance;
-		}
-
+		
 		setupGraphics();
 	}
 
@@ -229,10 +221,13 @@ ControlCharacterRbDemo::ControlCharacterRbDemo(hkDemoEnvironment* env)
 		info.m_up = UP;
 		info.m_position.set(10.0f, 0.0f, -6.0f);
 		info.m_maxSlope = 70.0f * HK_REAL_DEG_TO_RAD;
-		info.m_supportDistance = 0.01f;
-
-
+		
 		m_characterRigidBody = new hkpCharacterRigidBody( info );
+		{
+			hkpCharacterRigidBodyListener* listener = new hkpCharacterRigidBodyListener();
+			m_characterRigidBody->setListener( listener );
+			listener->removeReference();
+		}
 		m_world->addEntity( m_characterRigidBody->getRigidBody() );
 
 	}
@@ -258,7 +253,7 @@ ControlCharacterRbDemo::ControlCharacterRbDemo(hkDemoEnvironment* env)
 		manager->registerState( state,	HK_CHARACTER_CLIMBING);
 		state->removeReference();
 
-		m_characterContext = new hkpCharacterContext(manager, HK_CHARACTER_ON_GROUND);
+		m_characterContext = new hkpCharacterContext( manager, HK_CHARACTER_ON_GROUND );
 		manager->removeReference();
 
 		// Set character type
@@ -324,14 +319,18 @@ hkDemo::Result ControlCharacterRbDemo::stepDemo()
 		// Process all collisions points to see if there is a collision at a ladder. This could be done in a callback, however
 		// it is done this way here to ensure compatibility with SPU simulation.
 		hkpLinkedCollidable* coll = m_characterRigidBody->getRigidBody()->getLinkedCollidable();
-		for ( int i = 0; i < coll->m_collisionEntries.getSize(); ++i )
+		hkArray<struct hkpLinkedCollidable::CollisionEntry> collisionEntriesTmp;
+		coll->getCollisionEntriesSorted(collisionEntriesTmp);
+		const hkArray<struct hkpLinkedCollidable::CollisionEntry>& collisionEntries = collisionEntriesTmp;
+
+		for ( int i = 0; i < collisionEntries.getSize(); ++i )
 		{
-			hkpRigidBody* rb = hkGetRigidBody( coll->m_collisionEntries[i].m_partner );
+			hkpRigidBody* rb = hkGetRigidBody( collisionEntries[i].m_partner );
 			if ( rb != HK_NULL && rb->hasProperty(HK_OBJECT_IS_LADDER) ) 
 			{
-				if ( coll->m_collisionEntries[i].m_agentEntry->m_contactMgr->m_type == hkpContactMgr::TYPE_SIMPLE_CONSTRAINT_CONTACT_MGR )
+				if ( collisionEntries[i].m_agentEntry->m_contactMgr->m_type == hkpContactMgr::TYPE_SIMPLE_CONSTRAINT_CONTACT_MGR )
 				{
-					hkpSimpleConstraintContactMgr* mgr = (hkpSimpleConstraintContactMgr*)(coll->m_collisionEntries[i].m_agentEntry->m_contactMgr);
+					hkpSimpleConstraintContactMgr* mgr = (hkpSimpleConstraintContactMgr*)(collisionEntries[i].m_agentEntry->m_contactMgr);
 					if (mgr->m_contactConstraintData.getNumContactPoints() > 0)
 					{
 						atLadder = true;
@@ -370,7 +369,10 @@ hkDemo::Result ControlCharacterRbDemo::stepDemo()
 			input.m_velocity = m_characterRigidBody->getRigidBody()->getLinearVelocity();
 			input.m_position = m_characterRigidBody->getRigidBody()->getPosition();
 
-			if (atLadder)
+			m_characterRigidBody->checkSupport(stepInfo, input.m_surfaceInfo);
+
+			// Only climb the ladder when the character is either unsupported or wants to go up.
+			if ( atLadder && ( ( input.m_inputUD < 0 ) || ( input.m_surfaceInfo.m_supportedState != hkpSurfaceInfo::SUPPORTED ) ) )
 			{
 				hkVector4 right, ladderUp;
 				right.setCross( UP, ladderNorm );
@@ -386,74 +388,25 @@ hkDemo::Result ControlCharacterRbDemo::stepDemo()
 				input.m_forward.add4( ladderUp );
 				input.m_forward.normalize3();
 
-				input.m_surfaceNormal = ladderNorm;
-				input.m_surfaceVelocity = ladderVelocity;
+				input.m_surfaceInfo.m_supportedState = hkpSurfaceInfo::UNSUPPORTED;
+				input.m_surfaceInfo.m_surfaceNormal = ladderNorm;
+				input.m_surfaceInfo.m_surfaceVelocity = ladderVelocity;
+				
+				HK_SET_OBJECT_COLOR( (hkUlong) m_characterRigidBody->getRigidBody()->getCollidable(), hkColor::rgbFromChars( 255, 255, 0, 100 ) );
 			}
 			else
 			{
-
-				hkpSurfaceInfo ground;
-				m_characterRigidBody->checkSupport(stepInfo, ground);
-
 				// Change character rigid body color according to its state
-				if( ground.m_supportedState == hkpSurfaceInfo::SUPPORTED )
+				if( input.m_surfaceInfo.m_supportedState == hkpSurfaceInfo::SUPPORTED )
 				{
-					HK_SET_OBJECT_COLOR( (hkUlong) m_characterRigidBody->getRigidBody()->getCollidable(), hkColor::GREEN );
+					HK_SET_OBJECT_COLOR( (hkUlong) m_characterRigidBody->getRigidBody()->getCollidable(), hkColor::rgbFromChars( 0, 255, 0, 100 ) );
 				}
 				else
 				{
 					HK_SET_OBJECT_COLOR( (hkUlong) m_characterRigidBody->getRigidBody()->getCollidable(), hkColor::BLUE );
 				}
 
-				// Avoid accidental state changes (Smooth movement on stairs)
-				// During transition supported->unsupported continue to return N-frames hkpSurfaceInfo data from previous supported state
-				{
-					// Number of frames to skip (continue with previous hkpSurfaceInfo data)
-					const int skipFramesInAir = 3;
-
-					if (input.m_wantJump)
-					{
-						m_framesInAir = skipFramesInAir;
-					}
-
-					if ( ground.m_supportedState != hkpSurfaceInfo::SUPPORTED )
-					{
-						if (m_framesInAir < skipFramesInAir)
-						{
-							input.m_isSupported = true;
-							input.m_surfaceNormal = m_previousGround->m_surfaceNormal;
-							input.m_surfaceVelocity = m_previousGround->m_surfaceVelocity;
-							input.m_surfaceMotionType = m_previousGround->m_surfaceMotionType;
-						}
-						else
-						{
-							input.m_isSupported = false;
-							input.m_surfaceNormal = ground.m_surfaceNormal;
-							input.m_surfaceVelocity = ground.m_surfaceVelocity;
-							input.m_surfaceMotionType = ground.m_surfaceMotionType;
-						}			
-
-						m_framesInAir++;
-					}
-					else
-					{
-						input.m_isSupported = true;
-						input.m_surfaceNormal = ground.m_surfaceNormal;
-						input.m_surfaceVelocity = ground.m_surfaceVelocity;
-						input.m_surfaceMotionType = ground.m_surfaceMotionType;
-
-						m_previousGround->set(ground);
-
-						// reset old number of frames
-						if (m_framesInAir > skipFramesInAir)
-						{
-							m_framesInAir = 0;
-						}			
-
-					}
-				}
 			}
-
 			HK_TIMER_END();
 		}
 
@@ -461,8 +414,8 @@ hkDemo::Result ControlCharacterRbDemo::stepDemo()
 		{
 			HK_TIMER_BEGIN( "update character state", HK_NULL );
 
-			m_characterContext->update(input, output);
-			
+			m_characterContext->update( input, output );
+
 			HK_TIMER_END();
 		}
 
@@ -581,7 +534,7 @@ void ControlCharacterRbDemo::cameraHandling()
 
 	hkVector4 dir;
 	dir.setMul4( height, UP );
-	dir.addMul4( -4.f, forward);
+	dir.addMul4( -5.f, forward);
 
 	from.setAdd4(to, dir);
 
@@ -648,7 +601,7 @@ HK_DECLARE_DEMO(ControlCharacterRbDemo, HK_DEMO_TYPE_PRIME, "CharacterTest", hel
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

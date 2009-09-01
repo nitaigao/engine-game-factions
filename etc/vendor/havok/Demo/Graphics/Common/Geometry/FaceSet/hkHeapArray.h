@@ -65,7 +65,7 @@ class hkHeapArray
 
     HK_FORCE_INLINE void adjust(hkUint32 i);
     HK_FORCE_INLINE void swap(hkUint32 a, hkUint32 b);
-    HK_FORCE_INLINE hkBool less(const Linker & a, const Linker & b);
+    HK_FORCE_INLINE hkBool32 less(const Linker & a, const Linker & b);
 
     LinkedHeap m_heap;
     Finder     m_finder;
@@ -78,7 +78,7 @@ class hkHeapArray
 #endif // HKBASE_HKHEAPARRAY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -14,8 +14,7 @@
 #include <Demos/DemoCommon/DemoFramework/hkDemoFramework.h>
 #include <Common/Base/System/Io/FileSystem/hkFileSystem.h>
 #include <Demos/DemoCommon/Utilities/Asset/hkAssetManagementUtil.h>
-
-
+#include <Common/Base/Container/BitField/hkBitField.h>
 #include <Common/Base/Spu/Util/hkSpuUtil.h>
 
 hkDemoEnvironment::hkDemoEnvironment()	:
@@ -151,7 +150,7 @@ void hkDemo::setDemoName(hkString& name )
 	m_name = name;
 }
 
-void HK_CALL hkDemo::scanDirectoryAndCreateDemosForHkxFiles(hkString path, hkDemoEntry& thisEntry, hkArray<hkDemoEntry*>& entriesOut )
+void HK_CALL hkDemo::scanDirectoryAndCreateDemosForHavokFiles(hkString path, hkString ending, hkDemoEntry& thisEntry, hkBool recurseFolders, hkArray<hkDemoEntry*>& entriesOut )
 {
 	hkFileSystem& fs =  hkFileSystem::getInstance();
 
@@ -160,16 +159,16 @@ void HK_CALL hkDemo::scanDirectoryAndCreateDemosForHkxFiles(hkString path, hkDem
 
 	const hkArray<hkFileSystem::Entry>& entries = listing.getEntries();
 
-	hkString ending;
+	hkString fileEnding;
 
 	// enable this if you want to filter for Havok specific layout based filename rules
-	//hkAssetManagementUtil::getFileEnding( ending, hkStructureLayout::HostLayoutRules );
-	ending += ".hkx";
+	//hkAssetManagementUtil::getFileEnding( fileEnding, hkStructureLayout::HostLayoutRules );
+	fileEnding += ending;
 
 	for (int i =0; i < entries.getSize(); i++ )
 	{
 		const hkFileSystem::Entry& entry = entries[i];
-		if ( entry.isDir() )
+		if ( entry.isDir() && recurseFolders )
 		{
 			hkDemoEntry a;
 			a = thisEntry;
@@ -178,12 +177,12 @@ void HK_CALL hkDemo::scanDirectoryAndCreateDemosForHkxFiles(hkString path, hkDem
 			hkString childPath = path;
 			childPath += entry.name;
 			childPath += "/";
-			scanDirectoryAndCreateDemosForHkxFiles( childPath, a, entriesOut );
+			scanDirectoryAndCreateDemosForHavokFiles( childPath, ending, a, true, entriesOut );
 			continue;
 		}
 
 		hkString fileName( entry.name );
-		if ( !fileName.endsWith(ending))
+		if ( !fileName.endsWith(fileEnding))
 		{
 			continue;
 		}
@@ -196,8 +195,64 @@ void HK_CALL hkDemo::scanDirectoryAndCreateDemosForHkxFiles(hkString path, hkDem
 	}
 }	
 
+hkDemo::Result hkDemo::stepDemo()
+{
+	// later bindings override previous ones
+	hkBitField keyUsed( HKG_KEYBOARD_NUM_VKEYS, 0 );
+	for( int i = m_keyPressCallbacks.getSize()-1; i >= 0; --i )
+	{
+		int vkey = m_keyPressCallbacks[i].vkey;
+		if( keyUsed.get(vkey) == 0 && m_env->m_window->getKeyboard().wasKeyPressed(HKG_KEYBOARD_VKEY(vkey)) )
+		{
+			keyUsed.set(vkey);
+			m_keyPressCallbacks[i].cb.call();
+		}
+	}
+	return DEMO_OK;
+}
+
+int hkDemo::bindKeyPressed(int vkey, const char* descr, const KeyPressCallback& cb )
+{
+	int id = m_keyPressCallbacks.getSize();
+	KeyPressCallbackInfo& k = m_keyPressCallbacks.expandOne();
+	k.vkey = vkey;
+	k.cb = cb;
+	k.description = descr;
+	return id;
+}
+
+int hkToggleBooleanValue(hkBool* b)
+{
+	*b = !*b;
+	return 0;
+}
+
+int hkIncrementIntegerValue( int* i )
+{
+	*i = *i+1;
+	return 0;
+}
+
+int hkDecrementIntegerValue( int* i )
+{
+	*i = *i-1;
+	return 0;
+}
+
+int hkDecrementIntegerValueNonNegative( int* i )
+{
+	*i = hkMath::max2( *i-1, 0 );
+	return 0;
+}
+
+int hkDecrementPositiveIntegerValue( int* i )
+{
+	*i = hkMath::max2( *i-1, 1 );
+	return 0;
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

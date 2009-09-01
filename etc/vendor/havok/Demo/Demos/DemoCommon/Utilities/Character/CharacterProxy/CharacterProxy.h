@@ -9,6 +9,9 @@
 #ifndef HK_CHARACTER_PROXY_CHARACTER_H
 #define HK_CHARACTER_PROXY_CHARACTER_H
 
+class hkpWorld;
+class hkpWorldObject;
+
 struct CharacterProxyCinfo
 {
 	hkVector4	m_forwardLocal;
@@ -24,6 +27,8 @@ class CharacterProxy : public hkReferencedObject
 		CharacterProxy( CharacterProxyCinfo& info );
 
 		virtual void addToWorld( hkpWorld* world ) = 0; 
+
+		virtual void removeFromWorld( hkpWorld* world ) = 0; 
 
 			// Get the current transform of the character
 		virtual void getTransform( hkTransform& transform ) const = 0;
@@ -43,7 +48,7 @@ class CharacterProxy : public hkReferencedObject
 			// Get the angular velocity of the proxy
 		virtual hkReal getTurnVelocity() const;
 
-			// Set the linear velocity of the proxy
+			// Set the angular velocity of the proxy
 		virtual void setTurnVelocity( const hkReal turnVelocity );
 	
 			// Return true if the proxy is supported
@@ -80,7 +85,7 @@ class CharacterProxy : public hkReferencedObject
 #endif // HK_CHARACTER_PROXY_CHARACTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

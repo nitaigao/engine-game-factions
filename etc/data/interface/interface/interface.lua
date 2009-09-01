@@ -15,7 +15,7 @@ function Interface.initialize( )
 
 	system:print( 'Loading Interface' )
 	
-	--sfx:triggerEvent( 'game/ux/title_loaded' )
+	--sfx:playMusic( 'game/ux/title_loaded' )
 	
 	script:unregisterEventHandler( Interface.onEvent )
 	ux:showMouse( )

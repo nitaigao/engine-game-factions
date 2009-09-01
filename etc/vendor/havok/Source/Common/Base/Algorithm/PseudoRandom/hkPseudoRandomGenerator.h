@@ -53,7 +53,7 @@ public:
 		return m_current;
 	}
 
-			// Get random integer in range [0-X) as unsigned int, suitable for small values
+		// Get random integer in range [0-X) as unsigned int, with X<=256. Suitable for small values.
 	hkUint32 getRandChar(int x)
 	{
 		HK_ASSERT(0x777504aa,  x > 0 && x <= 256 );
@@ -64,6 +64,20 @@ public:
 		temp = temp % x;
 
 		HK_ASSERT(0x3443045a, temp < 256 );
+		return temp;
+	}
+
+		// Get random integer in range [0-X) as unsigned int, with X<=65536. Suitable for medium values.
+	hkUint32 getRandInt16(int x)
+	{
+		HK_ASSERT(0x777504ab,  x > 0 && x <= 65536 );
+		m_current = 1664525L * m_current + 1013904223L;	
+
+		hkUint32 temp = (hkUint32)m_current;
+		temp >>= 11;
+		temp = temp % x;
+
+		HK_ASSERT(0x3443045b, temp < 65536 );
 		return temp;
 	}
 
@@ -144,7 +158,7 @@ private:
 #endif // HK_MATH_PSEUDORANDOMGENERATOR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

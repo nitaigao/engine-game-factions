@@ -11,6 +11,7 @@
 #include <Common/Base/hkBase.h>
 
 class hkStreamReader;
+class hkMemoryTrack;
 
 /// Text formatted data reader. Provides functionality similar to std::istream.
 /// All the usual operators are provided plus operators
@@ -32,6 +33,10 @@ class hkIstream : public hkReferencedObject
 			/// An istream which is connected to an existing buffer.
 			/// The buffer must exist for the lifetime of this istream.
 		explicit hkIstream(const void* mem, int memSize);
+
+			/// An istream which is connected to an existing memory track.
+			/// The buffer must exist for the lifetime of this istream.
+		explicit hkIstream(const hkMemoryTrack* track );
 
 			/// Destroys the stream
 			/// Removes a reference to its reader.
@@ -109,7 +114,7 @@ typedef hkIstream hkIfstream;
 #endif // HKBASE_HKISTREAM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -23,7 +23,7 @@
 #define HK_BASE_CONFIGVERSION_H
 
 #define HAVOK_SDK_VERSION_MAJOR 6
-#define HAVOK_SDK_VERSION_MINOR 5
+#define HAVOK_SDK_VERSION_MINOR 6
 #define HAVOK_SDK_VERSION_POINT 0
 // release id must be less than 3 chars to fit in binary packfile header.
 // Use the following ids:
@@ -49,12 +49,12 @@
 // define HAVOK version string
 #define HAVOK_SDK_VERSION_STRING HAVOK_SDK_VERSION_STRING_SPEC(HAVOK_SDK_VERSION_MAJOR,HAVOK_SDK_VERSION_MINOR,HAVOK_SDK_VERSION_POINT,HAVOK_SDK_VERSION_RELEASE)
 
-#define HAVOK_BUILD_NUMBER 20090216
+#define HAVOK_BUILD_NUMBER 20090704
 
 #endif // HK_BASE_CONFIGVERSION_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

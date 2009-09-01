@@ -52,11 +52,12 @@ class hkpStorageExtendedMeshShape : public hkpExtendedMeshShape
 
 		struct Material : public hkpMeshMaterial
 		{
+			// +version(1)
 			HK_DECLARE_REFLECTION();
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_CDINFO, Material);
 
-			class hkHalf m_restitution;
-			class hkHalf m_friction;
+			hkHalf m_restitution;
+			hkHalf m_friction;
 
 			hkUlong m_userData;
 		};
@@ -116,7 +117,7 @@ class hkpStorageExtendedMeshShape : public hkpExtendedMeshShape
 #endif //HK_STORAGEEXTENDEDMESHSHAPE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -69,7 +69,7 @@ namespace hkSceneExportUtils
 	{
 		const int totalNodes = scene->m_rootNode ? (1 + scene->m_rootNode->getNumDescendants()) : 0;
 
-		HK_REPORT ("Exported "<<totalNodes<<" nodes, "<<scene->m_numSelectionSets<<" node selection sets, "
+		HK_REPORT2 (0xabba1441, "Exported "<<totalNodes<<" nodes, "<<scene->m_numSelectionSets<<" node selection sets, "
 			<<scene->m_numMaterials<<" materials, " <<scene->m_numMeshes<<" meshes, "
 			<<scene->m_numLights<<" lights, "<<scene->m_numCameras<<" cameras, "<<scene->m_numSkinBindings<<" skin bindings.");
 
@@ -80,7 +80,7 @@ namespace hkSceneExportUtils
 #endif //HK_SCENE_EXPORT_UTILS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

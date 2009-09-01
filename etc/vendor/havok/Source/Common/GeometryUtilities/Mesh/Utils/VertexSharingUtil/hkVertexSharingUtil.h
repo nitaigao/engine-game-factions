@@ -53,7 +53,7 @@ class hkVertexSharingUtil
         HK_FORCE_INLINE const hkVertexFormat& getVertexFormat() const { return m_format; }
 
             /// Must be called before any other operation
-        void begin(const hkVertexFormat& format);
+        void begin(const hkVertexFormat& format, int numVerticesEstimate = 1024);
 
             /// Get the work vertex
         HK_FORCE_INLINE hkUint8* getWorkVertex() { return m_workVertex.begin(); }
@@ -126,7 +126,7 @@ class hkVertexSharingUtil
 #endif // HK_VERTEX_SHARING_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

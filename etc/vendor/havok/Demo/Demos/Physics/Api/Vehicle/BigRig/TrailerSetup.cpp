@@ -27,7 +27,7 @@ void TrailerSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
 	vehicle.m_aerodynamics		= new hkpVehicleDefaultAerodynamics;
 	vehicle.m_velocityDamper	= new hkpVehicleDefaultVelocityDamper;
 
-	// For illustrative purposes we use a custom hkpVehicleRaycastWheelCollide
+	// For illustrative purposes we use a custom hkpVehicleRayCastWheelCollide
 	// which implements varying 'ground' friction in a very simple way.
 	vehicle.m_wheelCollide		= new FrictionMapVehicleRaycastWheelCollide;
 
@@ -45,7 +45,7 @@ void TrailerSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
 	setupComponent( *vehicle.m_data, *static_cast< hkpVehicleDefaultAerodynamics*>(vehicle.m_aerodynamics) );
 	setupComponent( *vehicle.m_data, *static_cast< hkpVehicleDefaultVelocityDamper*>(vehicle.m_velocityDamper) );
 
-	setupWheelCollide( world, vehicle, *static_cast< hkpVehicleRaycastWheelCollide*>(vehicle.m_wheelCollide) );
+	setupWheelCollide( world, vehicle, *static_cast< hkpVehicleRayCastWheelCollide*>(vehicle.m_wheelCollide) );
 	//setupCamera( vehicle.m_camera );
 	setupTyremarks( *vehicle.m_data, *static_cast< hkpTyremarksInfo*>(vehicle.m_tyreMarks) );
 
@@ -89,12 +89,6 @@ void TrailerSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
 	//
 
 	vehicle.init();
-
-	//
-	// The phantom for collision detection needs to be explicitly added to the world
-	//
-
-	world->addPhantom( (hkpPhantom*)(static_cast< hkpVehicleRaycastWheelCollide*>(vehicle.m_wheelCollide)->m_phantom) );
 }
 
 void TrailerSetup::setupVehicleData( hkpWorld* world, hkpVehicleData& data )
@@ -312,10 +306,6 @@ void TrailerSetup::setupComponent( const hkpVehicleData& data, hkpVehicleDefault
 	velocityDamper.m_collisionThreshold   = 4.0f; 
 }
 
-void TrailerSetup::setupWheelCollide( hkpWorld* world, const hkpVehicleInstance& vehicle, hkpVehicleRaycastWheelCollide& wheelCollide )
-{
-	wheelCollide.m_wheelCollisionFilterInfo = vehicle.getChassis()->getCollidable()->getCollisionFilterInfo();
-}
 
 void TrailerSetup::setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo& tyreMarks ) 
 {
@@ -325,7 +315,7 @@ void TrailerSetup::setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo&
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

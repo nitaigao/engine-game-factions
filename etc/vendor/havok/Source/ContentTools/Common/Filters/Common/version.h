@@ -10,11 +10,11 @@
 #define INC_VERSION_H
 
 #define HCT_VERSION_MAJOR 6
-#define HCT_VERSION_MINOR 5
+#define HCT_VERSION_MINOR 6
 #define HCT_VERSION_POINT 0
 #define HCT_VERSION_BUILD 2
-#define HCT_CURRENT_VERSION_STRING		"6.5.0.2 (6.5.0 RC1)"
-#define HCT_CURRENT_VERSION_UNICODE		L"6.5.0.2 (6.5.0 RC1)"
+#define HCT_CURRENT_VERSION_STRING		"6.6.0.2 (6.6.0 RC1)"
+#define HCT_CURRENT_VERSION_UNICODE		L"6.6.0.2 (6.6.0 RC1)"
 
 #define HCT_MAKE_VERSION(major, minor ,point, build) ( ((major) << 24) | ((minor) << 16) | ((point)<<8) | (build) )
 #define HCT_CURRENT_VERSION HCT_MAKE_VERSION( HCT_VERSION_MAJOR, HCT_VERSION_MINOR, HCT_VERSION_POINT, HCT_VERSION_BUILD )
@@ -23,13 +23,13 @@
 #define HCT_IS_MINOR_COMPATIBLE(thisVer, otherVer) ( (thisVer & ~0x0ffff) == (otherVer & ~0x0ffff) )
 #define HCT_IS_POINT_COMPATIBLE(thisVer, otherVer) ( (thisVer & ~0x0ff) == (otherVer & ~0x0ff) )
 
-#define ENVVAR_FILTER_ROOT "HAVOK_EXPORT_FILTERS_ROOT"
+#define ENVVAR_FILTER_ROOT "HAVOK_TOOLS_ROOT"
 
 #endif // INC_VERSION_H
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -103,10 +103,10 @@ class hkaDeltaCompressedAnimation : public hkaAnimation
 		virtual int getNumOriginalFrames() const;
 
 			/// Return the number of chunks of data required to sample the tracks at time t
-		virtual int getNumDataChunks(hkReal time) const;
+		virtual int getNumDataChunks(hkUint32 frame, hkReal delta) const;
 
 			/// Return the chunks of data required to sample the track at time t
-		virtual void getDataChunks(hkReal time, DataChunk* dataChunks, int numDataChunks) const;
+		virtual void getDataChunks(hkUint32 frame, hkReal delta, DataChunk* dataChunks, int numDataChunks) const;
 
 			/// Return the maximum total size of all combined chunk data which could be returned by getDataChunks for this animation.
 		virtual int getMaxSizeOfCombinedDataChunks() const;
@@ -217,7 +217,7 @@ class hkaDeltaCompressedAnimation : public hkaAnimation
 #endif // HKANIMATION_ANIMATION_DELTACOMPRESSED_HKDELTACOMPRESSEDANIMATION_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

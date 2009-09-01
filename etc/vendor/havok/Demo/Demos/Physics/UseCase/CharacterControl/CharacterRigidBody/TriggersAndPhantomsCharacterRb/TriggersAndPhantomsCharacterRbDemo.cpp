@@ -60,14 +60,18 @@ static const hkVector4 UP(0,0,1);
 void getRbTriggerInfo( hkpRigidBody* characterRb, hkArray<hkpRigidBody*>& triggerObjectsHit, hkArray<hkContactPoint>& hitContacts )
 {
 	hkpLinkedCollidable* coll = characterRb->getLinkedCollidable();
-	for ( int i = 0; i < coll->m_collisionEntries.getSize(); ++i )
+	hkArray<struct hkpLinkedCollidable::CollisionEntry> collisionEntriesTmp;
+	coll->getCollisionEntriesSorted(collisionEntriesTmp);
+	const hkArray<struct hkpLinkedCollidable::CollisionEntry>& collisionEntries = collisionEntriesTmp;
+
+	for ( int i = 0; i < collisionEntries.getSize(); ++i )
 	{
-		hkpRigidBody* rb = hkGetRigidBody( coll->m_collisionEntries[i].m_partner );
+		hkpRigidBody* rb = hkGetRigidBody( collisionEntries[i].m_partner );
 		if ( rb != HK_NULL && rb->hasProperty(HK_OBJECT_IS_TRIGGER) ) 
 		{
-			if ( coll->m_collisionEntries[i].m_agentEntry->m_contactMgr->m_type == hkpContactMgr::TYPE_SIMPLE_CONSTRAINT_CONTACT_MGR )
+			if ( collisionEntries[i].m_agentEntry->m_contactMgr->m_type == hkpContactMgr::TYPE_SIMPLE_CONSTRAINT_CONTACT_MGR )
 			{
-				hkpSimpleConstraintContactMgr* mgr = (hkpSimpleConstraintContactMgr*)(coll->m_collisionEntries[i].m_agentEntry->m_contactMgr);
+				hkpSimpleConstraintContactMgr* mgr = (hkpSimpleConstraintContactMgr*)(collisionEntries[i].m_agentEntry->m_contactMgr);
 				if (mgr->m_contactConstraintData.getNumContactPoints() > 0)
 				{
 					hkContactPoint* contactPoints = mgr->m_contactConstraintData.m_atom->getContactPoints();
@@ -155,7 +159,6 @@ TriggersAndPhantomsCharacterRbDemo::TriggersAndPhantomsCharacterRbDemo(hkDemoEnv
 		hkpWorldCinfo info;
 		info.setBroadPhaseWorldSize( 500.0f );  
 		info.m_gravity.set(0,0,-9.8f);
-		info.m_collisionTolerance = 0.01f;		
 		info.m_contactPointGeneration = hkpWorldCinfo::CONTACT_POINT_ACCEPT_ALWAYS;
 		m_world = new hkpWorld( info );
 		m_world->lock();
@@ -342,7 +345,7 @@ TriggersAndPhantomsCharacterRbDemo::TriggersAndPhantomsCharacterRbDemo(hkDemoEnv
 			// Some of them set as trigger
 			if(m_generator.getRandRange(0.0f, 1.0f) < 0.5f)
 			{
-				// Now just set a user property on this boyo, and change its color to make it easy to see
+				// Now just set a user property, and change its color to make it easy to see
 				triggerifyWorldObject(trigger, PHANTOM_TRIGGER_COLOR);
 			}
 			else
@@ -483,13 +486,7 @@ hkDemo::Result TriggersAndPhantomsCharacterRbDemo::stepDemo()
 			input.m_velocity = m_characterRigidBody->getLinearVelocity();
 			input.m_position = m_characterRigidBody->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBody->checkSupport(stepInfo,ground);
-
-			input.m_isSupported = (ground.m_supportedState == hkpSurfaceInfo::SUPPORTED);
-			input.m_surfaceNormal = ground.m_surfaceNormal;
-			input.m_surfaceVelocity = ground.m_surfaceVelocity;
-
+			m_characterRigidBody->checkSupport(stepInfo,input.m_surfaceInfo);
 		}
 
 		// Apply the character state machine
@@ -716,27 +713,12 @@ hkpShape* TriggersAndPhantomsCharacterRbDemo::getRandomShape()
 			
 
 			hkpConvexVerticesShape* shape;
-			hkArray<hkVector4> planeEquations;
-			hkGeometry geom;
-			{
-				hkStridedVertices stridedVerts;
-				{
-					stridedVerts.m_numVertices = numVertices;
-					stridedVerts.m_striding = stride;
-					stridedVerts.m_vertices = vertices;
-				}
-
-				hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-				{
-					stridedVerts.m_numVertices = geom.m_vertices.getSize();
-					stridedVerts.m_striding = sizeof(hkVector4);
-					stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-				}
-
-				shape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-			}
-
+			hkStridedVertices stridedVerts;
+			stridedVerts.m_numVertices = numVertices;
+			stridedVerts.m_striding = stride;
+			stridedVerts.m_vertices = vertices;
+			shape = new hkpConvexVerticesShape(stridedVerts);
+			
 			return(shape);
 		}
 
@@ -821,7 +803,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(TriggersAndPhantomsCharacterRbDemo, HK_DEMO_TYPE_PRIME, "Character 'picking up' objects marked as triggers.", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

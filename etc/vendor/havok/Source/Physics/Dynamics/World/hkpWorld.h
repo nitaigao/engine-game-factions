@@ -477,7 +477,9 @@ class hkpWorld : public hkReferencedObject
 			/// checks the current state of the engine using the hkCheckDeterminismUtil
 			/// ###ACCESS_CHECKS###( [island->m_world,HK_ACCESS_RO] [island,HK_ACCESS_RW] );
 		void checkDeterminism();
-
+			
+			/// Checks determinism of isolated broadphase information for a single island.
+		void checkDeterminismOfIslandBroadPhase(const hkpSimulationIsland* island);
 
 			/// Get the memory "watch dog" used by the world. By default this is HK_NULL, i.e. the memory
 			/// for the world is not checked. If this is set, hkpWorldMemoryWatchDog::watchMemory will be
@@ -844,7 +846,7 @@ class hkpWorld : public hkReferencedObject
 			/// Integrate and solve constraints between all bodies.
 			/// Using this call instead of stepDeltaTime() allows you to distribute your
 			/// physics computation for a single physics step between multiple game steps.
-			/// Normally this returns HK_STEP_RESULT_SUCCES, but may return a failure code on memory failure.
+			/// Normally this returns HK_STEP_RESULT_SUCCESS, but may return a failure code on memory failure.
 			/// In this case memory should be freed (by removing objects from the world) and the function should be called again.
 			///	Please consult the user guide for more details.
 		hkpStepResult integrate( hkReal physicsDeltaTime );
@@ -852,7 +854,7 @@ class hkpWorld : public hkReferencedObject
 			/// Perform collision detection.
 			/// Using this call instead of stepDeltaTime() allows you to distribute your
 			/// physics computation for a single physics step between multiple game steps.
-			/// Normally this returns HK_STEP_RESULT_SUCCES, but may return a failure code on memory failure.
+			/// Normally this returns HK_STEP_RESULT_SUCCESS, but may return a failure code on memory failure.
 			/// In this case memory should be freed (by removing objects from the world) and the function should be called again.
 			///	Please consult the user guide for more details.
 		hkpStepResult collide();
@@ -865,7 +867,7 @@ class hkpWorld : public hkReferencedObject
 			/// This call is also used for asynchronous simulation:
 			/// It will advance the time to the next PSI step, unless
 			/// an earlier frame timer marker has been set (see setFrameTimeMarker).
-			/// Normally this returns HK_STEP_RESULT_SUCCES, but may return a failure code on memory failure.
+			/// Normally this returns HK_STEP_RESULT_SUCCESS, but may return a failure code on memory failure.
 			/// In this case memory should be freed (by removing objects from the world) and the function should be called again.
 			///	Please consult the user guide for more details.
 		hkpStepResult advanceTime();
@@ -1117,6 +1119,13 @@ class hkpWorld : public hkReferencedObject
 		static void HK_CALL checkDeterminismInAgentNnTracks(const class hkpSimulationIsland* island);
 #	endif 
 
+#	if defined HK_ENABLE_INTERNAL_DATA_RANDOMIZATION
+		// This function randomizes internal state of the engine. 
+		// This may be useful when searching for multithreading non-determinism issues.
+			/// ###ACCESS_CHECKS###( [this,HK_ACCESS_RW] );
+		void randomizeInternalState(); 
+#	endif
+
 
 	public:
 
@@ -1239,9 +1248,11 @@ class hkpWorld : public hkReferencedObject
 	protected:
 			// World-unique ids are assigned to entities. They're used to sort constraints deterministically when using hkMultithreadedSimulation.
 		hkUint32 m_lastEntityUid;
-
-
+			// This is only needed when using determinism checks.
+		hkUint32 m_lastIslandUid;
 	public:
+		hkUint32 m_lastConstraintUid;
+
 		friend class hkpWorldOperationUtil;
 		friend class hkpWorldCallbackUtil;
 		friend class hkpSimulation;
@@ -1298,7 +1309,7 @@ class hkpWorld : public hkReferencedObject
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -13,6 +13,8 @@
 #include <Common/Base/Reflection/hkInternalClassMember.h>
 #include <Common/Base/Reflection/hkTypeInfo.h>
 #include <Demos/Physics/UseCase/Snake/SnakeDemo.h>
+#define True true
+#define False false
 
 
 
@@ -71,7 +73,7 @@ const hkClass SnakeDemoOptionsClass(
 HK_REFLECTION_DEFINE_SCOPED_SIMPLE(SnakeDemo,Options);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

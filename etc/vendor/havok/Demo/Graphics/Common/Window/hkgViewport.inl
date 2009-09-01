@@ -46,6 +46,17 @@ inline void hkgViewport::setDesiredBlendMode( HKG_BLEND_MODE  m)
 	m_desiredBlendMode = m;
 }
 
+inline HKG_ALPHA_SAMPLE_MODE hkgViewport::getDesiredAlphaSampleMode() const
+{
+	return m_desiredAlphaMode; 
+}
+
+inline void hkgViewport::setDesiredAlphaSampleMode( HKG_ALPHA_SAMPLE_MODE  m)
+{
+	m_desiredAlphaMode = m;
+}
+
+
 inline void hkgViewport::setExtentsAbsolute( int ll_x, int ll_y, int ur_x, int ur_y )
 {
 	m_winLL[0] = ll_x;
@@ -241,7 +252,7 @@ inline HKG_MOUSE_CONVENTION hkgViewport::getMouseConvention() const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

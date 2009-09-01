@@ -25,6 +25,7 @@
 #include <Graphics/Common/Window/hkgWindow.h>
 #include <Graphics/Common/DisplayWorld/hkgDisplayWorld.h>
 #include <Graphics/Common/Light/hkgLightManager.h>
+#include <Graphics/Common/Material/hkgMaterial.h>
 
 #include <Graphics/Bridge/System/hkgSystem.h>
 #include <Graphics/Bridge/DisplayHandler/hkgDisplayHandler.h>
@@ -53,6 +54,8 @@
 #include <Demos/DemoCommon/DemoFramework/hkDemoFilesystem.h>
 
 #include <Common/Serialize/Version/hkVersionPatchManager.h>
+
+#include <Demos/DemoCommon/Utilities/CameraUtils/CameraUtils.h>
 
 #if defined (HK_PLATFORM_PS3_PPU)
 //#define ENABLE_SN_TUNER
@@ -144,7 +147,11 @@ hkDemoFrameworkOptions::hkDemoFrameworkOptions()
 	m_enableShadows(false), // disable by default (even on PC as some lower Nvidia cards claim to suppot fully but don't quite)
 	m_forceNoShadows(false), // allow demos to turn them on if they like, even if m_enableShadows if off generally.
 	m_shadowMapRes(0), // 0 == use default platform size
-	m_enableFsaa(true),
+	m_enableMsaa(false), // Multisampled Anti Aliasing
+	m_msaaSamples(4), // 4x, 8x, 16x etc
+	m_msaaQuality(0), // Different quality and sample values can trigger different h/w modes. 0 == default
+	m_enableVsync(false), // Vertical Sync (Vblank) support. 
+	m_vsyncInterval(1),
 	m_forceKeyboardGamepad(false), // if true, on pc, even if gamepad found, use keyboard to fake one.
 	m_width(640),
 	m_height(480),
@@ -160,6 +167,7 @@ hkDemoFrameworkOptions::hkDemoFrameworkOptions()
 	#else
 	m_lockFps(60),
 	#endif
+	m_showFps(false),
 	m_maxIterations(-1),
 	m_defaultDemo(HK_NULL),
 	m_windowTitle("Havok"),
@@ -187,8 +195,12 @@ hkDemoFrameworkOptions::hkDemoFrameworkOptions()
 	m_runLastDemo(false),
 	m_runNextDemo(false),
 	m_anisotropicFiltering(false),
+	m_edgedFaces(false),	
+	m_masterSoundVolume(100),
 	m_replayType(REPLAY_NONE),
-	m_inputFilename(HK_NULL)
+	m_inputFilename(HK_NULL),
+	m_saveMemoryStatistics(false),
+	m_enableWiiLockedCache(false)
 {
 	hkHardwareInfo info;
 	hkGetHardwareInfo(info);
@@ -287,32 +299,41 @@ void hkDemoFrameworkOptions::parse(int argc, const char** argv, int firstArg)
 					printf("\t\t -shadows      Force shadows on (using shadow maps) in all applicable demos on \n");
 					printf("\t\t -smapXXX      Set shadow map resolution to XXX \n");
 					printf("\t\t -noshadows    Force shadows off\n");
-					printf("\t\t -fsaa		   Force antialiasing on \n");
-					printf("\t\t -nofsaa       Force antialiasing off \n");
+					printf("\t\t -msaa		   Force MSAA on \n");
+					printf("\t\t -msaaQualityXX  Turn MSAA on with Quality set to XX \n");
+					printf("\t\t -msaaSamplesXX	 Turn MSAA on with Samples set to XX \n");
+					printf("\t\t -nomsaa       Force MSAAoff \n");
+					printf("\t\t -vsync        Force VSYNC on \n");
+					printf("\t\t -vsyncIntervalXX   Turn VSYNC on with Interval of XX (usually 1..4)\n");
+					printf("\t\t -novsync      Force VSYNC off \n");
 					printf("\t\t -aniso        Turn anisotropic texture filtering on\n");
 					printf("\t\t -sli          Use multiple GPUs if available\n");
 					printf("\t\t -fakegamepad  Force keyboard input to override gamepad (fake gamepad)[PC]\n");
 					printf("\t\t -record FILE   Record all input to FILE.\n");
 					printf("\t\t -playback FILE Playback input from FILE\n");
 					printf("\t\t -lDDD         Force demo not to exceed DDD Hz (lock framerate) using a software wait[PC]\n");
-					printf("\t\t -x DDD         Set the window width(DDD pixels) [PC]\n");
-					printf("\t\t -y DDD         Set the window height(DDD pixels) [PC]\n");
-					printf("\t\t -xp DDD        Set the window x position (DDD pixels of the virtual screen) [PC]\n");
-					printf("\t\t -yp DDD        Set the window y position (DDD pixels of the virtual screen) [PC]\n");
+					printf("\t\t -fps          Show the fps in thw upper left corner\n");
+					printf("\t\t -xDDD        Set the window width(DDD pixels) (no space) [PC]\n");
+					printf("\t\t -yDDD        Set the window height(DDD pixels)  (no space) [PC]\n");
+					printf("\t\t -xpDDD       Set the window x position (DDD pixels of the virtual screen)  (no space) [PC]\n");
+					printf("\t\t -ypDDD       Set the window y position (DDD pixels of the virtual screen)  (no space) [PC]\n");
 					printf("\t\t -i (num)      Run the demo for (num) iterations.\n");
 					printf("\t\t -b            Don't reboot the IOP [PS2]\n");
 					printf("\t\t -m Filename   Set the master resource file for demos [PS2]\n");
+					printf("\t\t -st           force the demo(s) to run in single-threaded simulation mode\n");
 					printf("\t\t -mt           force the demo(s) to run in multi-threaded simulation mode\n");
 					printf("\t\t -mtr          force the demo(s) to run in multi-threaded simulation mode, in parallel with rendering\n");
 					printf("\t\t -spu(num)     Set the number of SPUs used to (num). -mt must be set for SPUs to be used. \n");
 					printf("\t\t -sputhread	   Use spuThreads instead of SPURS. \n");
 					printf("\t\t -c	           Run using the debug mem manager [Debug only, not in GCC or GameCube builds, not in hkdemo.cfg]\n");
+					printf("\t\t -memstat      Save memory statistics after demo is finished. -c must be set also. \n");
 					printf("\t\t -p{i,d,l,f}   Enable performance counter and set it to count instruction cache(i), d cache(d), load-hit-store(l), and instr flushed (f), or combo of them.\n");
 					printf("\t\t               or dcache (pd) misses [PS2]\n");
 					printf("\t\t -h{VGA,480p,480i,576p,576i,720p,720i,1080p,1080i}  Set the display hint \n");
 					printf("\t\t -device{0,1,2,3} Set the display device (adapter) to use on multi monitor PCs \n");
 					printf("\t\t -rl(0,1,2,3,4,5) Set the reporting level 0 = NONE, 5 = ALL");
 					printf("\t\t -video        Dump all displayed frames to disk\n");
+					printf("\t\t -volumeXXX    Set Master sound volume (100 == Normal)\n");
 					printf("\t\t -wiifw        Enable filewriter (cannot use VDB if enabled) [Wii]\n");
 					break;
 				}
@@ -386,9 +407,9 @@ void hkDemoFrameworkOptions::parse(int argc, const char** argv, int firstArg)
 					{
 						m_forceCpu = true;
 					}
-					else if ( argv[i][2] && (argv[i][2] == 's') ) // fsaa
+					else if ( argv[i][2] && (argv[i][2] == 'p') ) // fps
 					{
-						m_enableFsaa = true;
+						m_showFps = true;
 					}
 					else // assume -f or -fullscreen etc
 					{
@@ -458,6 +479,27 @@ void hkDemoFrameworkOptions::parse(int argc, const char** argv, int firstArg)
 							m_renderParallelWithSimulation = true;
 						}
 					}
+					else if ( argv[i][2] == 's' )
+					{
+						m_enableMsaa = true;
+						if ((argv[i][3] == 'a') && (argv[i][4] == 'a') && argv[i][5] )
+						{ 
+							if ( (argv[i][5] == 'Q') || ( argv[i][5] == 'q') )
+							{
+								// -msaaQualityXX
+								m_msaaQuality =  hkString::atoi(argv[i]+12);
+							}
+							else if ( (argv[i][5] == 'S') || ( argv[i][5] == 's') )
+							{
+								// -msaaSamplesXX
+								m_msaaSamples =  hkString::atoi(argv[i]+12);
+							}
+						}
+					}
+					else if ( argv[i][2] == 'e' ) // -memstat
+					{
+						m_saveMemoryStatistics = true;
+					}
 					else // assume -m
 					{
 						if(++i < argc)
@@ -477,9 +519,13 @@ void hkDemoFrameworkOptions::parse(int argc, const char** argv, int firstArg)
 					{
 						m_repositionConsole = false;
 					}
-					else if ( argv[i][2] && argv[i][3] && (argv[i][3] == 'f') ) // -nofsaa
+					else if ( argv[i][2] && argv[i][3] && (argv[i][3] == 'm') ) // -nomsaa
 					{
-						m_enableFsaa = false;
+						m_enableMsaa = false;
+					}
+					else if ( argv[i][2] && argv[i][3] && (argv[i][3] == 'v') ) // -novsync
+					{
+						m_enableVsync = false;
 					}
 					else if ( argv[i][2] && argv[i][3] && (argv[i][3] == 's') )// -noshadows
 					{
@@ -702,7 +748,23 @@ void hkDemoFrameworkOptions::parse(int argc, const char** argv, int firstArg)
 				}
 			case 'v':  // -video
 				{
-					m_saveFrames = true;
+					if (argv[i][2] &&  argv[i][2] == 'i')
+					{
+						m_saveFrames = true;
+					}
+					else if (argv[i][2] &&  argv[i][2] == 'o') // -volumeXXX
+					{
+						m_masterSoundVolume = hkString::atoi(argv[i]+7);
+					}
+					else if (argv[i][2] && argv[i][2] == 's') // -vsync
+					{
+						m_enableVsync = true;
+						if ( (argv[i][6] == 'I') || ( argv[i][6] == 'i') )
+						{
+							// -vsyncIntervalXX
+							m_vsyncInterval =  hkString::atoi(argv[i]+14);
+						}
+					}
 					break;
 				}
 			case 'w': 
@@ -789,6 +851,15 @@ static void HK_CALL _demoResizeNotify(hkgWindow* w,unsigned int width, unsigned 
 	}
 }
 
+
+static void HK_CALL _demoDropFiles(const hkgWindow* w, unsigned int x, unsigned int y, const char* filename, void* userContext )
+{
+	if (userContext)
+	{
+		((hkDemo*)userContext)->windowDropFile(filename, x, y);
+	}
+}
+
 static void render(hkgWindow* window, const hkDemoEnvironment& env, hkDemo* demo )
 {
 	HKG_TIMER_BEGIN_LIST("_Render", "render");
@@ -853,8 +924,61 @@ static void render(hkgWindow* window, const hkDemoEnvironment& env, hkDemo* demo
 			HKG_TIMER_SPLIT_LIST("DisplayWorld");
 			if (dw)
 			{
+				
 				// can't alter the world in the middle of a render pass, so it will lock itself
-				dw->render( window->getContext(), true, env.m_options->m_enableShadows ); // culled with shadows (if any setup)
+				dw->render( ctx, true, env.m_options->m_enableShadows ); // culled with shadows (if any setup)
+			
+				if (env.m_options->m_edgedFaces)
+				{
+
+					HKG_COLOR_MODE origColorMode = ctx->getColorMode();
+					HKG_BLEND_MODE origBlendMode = ctx->getBlendMode();
+					HKG_ENABLED_STATE origEnabledState = ctx->getEnabledState();
+
+					ctx->setWireframeState(true);
+					ctx->setDepthReadState(true);
+					ctx->setDepthWriteState(false);
+					ctx->setLightingState(false);
+					ctx->setTexture2DState(false);
+					ctx->setBlendState(true);
+
+					// Most assets will be loaded using the ShaderLib
+					// Currently that lib only supports lit senarios
+					// wheras here we want the wireframe to be unlit etc.
+					// So we will enforce no per material shader (not required as default shaders will be ok for most things, except particles etc)
+
+					// Render white wireframe with low alpha
+					hkgMaterial* globalWireMaterial = hkgMaterial::create();
+					globalWireMaterial->setDiffuseColor(1,1,1,0.1f);
+					ctx->setCurrentMaterial(globalWireMaterial, HKG_MATERIAL_VERTEX_HINT_NONE); // Global mat
+					globalWireMaterial->removeReference();
+
+					ctx->setColorMode( HKG_COLOR_GLOBAL | HKG_COLOR_GLOBAL_SHADER_COLLECTION );
+
+					hkgCamera* curCamera = v->getCamera();
+					float origFrom[3];
+					curCamera->getFrom(origFrom);
+					float* currentTo = curCamera->getToPtr();
+
+					float newFrom[3];
+					hkgVec3Sub( newFrom, currentTo, origFrom);
+					hkgVec3Scale( newFrom, 1.0e-3f );
+					hkgVec3Add( newFrom, origFrom);
+					curCamera->setFrom( newFrom );
+					curCamera->computeModelView(false);
+					curCamera->setAsCurrent(ctx);
+
+					// Render from this shifted POV
+					dw->render( ctx, true, false ); 
+
+					// Reset context mode
+					ctx->setColorMode(origColorMode);
+					ctx->matchState(origEnabledState, ctx->getCullfaceMode(), origBlendMode, ctx->getAlphaSampleMode());
+					curCamera->setFrom(origFrom);
+					curCamera->computeModelView(false);
+					curCamera->setAsCurrent(ctx);
+
+				}
 			}
 
 			HKG_TIMER_SPLIT_LIST("DemoPostRenderWorld");
@@ -868,9 +992,17 @@ static void render(hkgWindow* window, const hkDemoEnvironment& env, hkDemo* demo
 			env.m_displayHandler->drawImmediate();
 		}
 	}
+	// Some settings we don't want to presist into post effects etc
+	window->getContext()->setFogState(false);
 
+	
 	HKG_TIMER_SPLIT_LIST("PostEffects");
 	window->applyPostEffects();
+	HKG_TIMER_SPLIT_LIST("Final Pass Objects");
+	if ( dw ) 
+	{
+		dw->finalRender(ctx, true /* frustum cull */);
+	}
 	HKG_TIMER_SPLIT_LIST("DisplayText");
 	env.m_textDisplay->displayText(window);
 	HKG_TIMER_SPLIT_LIST("SwapBuffers");
@@ -923,54 +1055,43 @@ static hkMemory* newMemoryManager(int argc, const char** argv, hkMemoryBlockServ
 
 HWND GetConsoleHwnd(void)
 {
-#define MY_BUFSIZE 1024 // Buffer size for console window titles.
-	HWND hwndFound;         // This is what is returned to the caller.
-	char pszNewWindowTitle[MY_BUFSIZE]; // Contains fabricated
-	// WindowTitle.
-	char pszOldWindowTitle[MY_BUFSIZE]; // Contains original
-	// WindowTitle.
-	// Fetch current window title.
-	GetConsoleTitle(pszOldWindowTitle, MY_BUFSIZE);
-
-	// Format a "unique" NewWindowTitle.
-	wsprintf(pszNewWindowTitle,"%d/%d",
-		GetTickCount(),
-		GetCurrentProcessId());
-
-	// Change current window title.
-	SetConsoleTitle(pszNewWindowTitle);
-
-	// Ensure window title has been updated.
-	Sleep(40);
-
-	// Look for NewWindowTitle.
-	hwndFound=FindWindow(NULL, pszNewWindowTitle);
-
-	// Restore original window title.
-	SetConsoleTitle(pszOldWindowTitle);
-
-	return(hwndFound);
+	// Win2K or higher:
+	return GetConsoleWindow();
 }
 
 
 static hkgWindow* s_debugWindowHandle = HK_NULL;
 static hkDemoEnvironment* s_debugEnvironmentHandle = HK_NULL;
 
+
 // A utility function useful for debugging inner loops
-int HK_CALL debugRenderNow()
+// Declared in Source\Common\Visualize\hkDebugDisplay.h
+int HK_CALL debugRenderNow(const char *title, hkDebugRenderNowOptions* options)
 {
-	int returnCode=0;
+	int returnCode = 0;
 
 	HK_ASSERT(0, s_debugWindowHandle != HK_NULL);
 	HK_ASSERT(0, s_debugEnvironmentHandle != HK_NULL);
 
 	s_debugEnvironmentHandle->m_textDisplay->m_holdTextForDebug = true;
-	s_debugEnvironmentHandle->m_textDisplay->outputText("Debug display", 20, 0);
+	if( title )
+	{
+		s_debugEnvironmentHandle->m_textDisplay->outputText(title, 20, 0);
+	}
+	else
+	{
+		s_debugEnvironmentHandle->m_textDisplay->outputText("Debug display", 20, 0);
+	}
+
 	while ( s_debugWindowHandle->peekMessages() == HKG_WINDOW_MSG_CONTINUE )
 	{
 		render(s_debugWindowHandle, *s_debugEnvironmentHandle, HK_NULL );
 		s_debugWindowHandle->clearBuffers();
 		const hkgKeyboard& key = s_debugEnvironmentHandle->m_window->getKeyboard();
+		if ( key.wasKeyPressed('7') )
+		{
+			CameraUtils::spewCameraDetailsToConsole( s_debugEnvironmentHandle );
+		}
 		if( key.wasKeyPressed(HKG_VKEY_SPACE) || key.getKeyState(HKG_VKEY_SHIFT) )
 		{
 			returnCode = 1;
@@ -1034,6 +1155,7 @@ extern void HK_CALL registerPatches(hkVersionPatchManager&);
 int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo);
 int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 {
+
 	// We start initializing hkBaseSystem
 	hkMemoryBlockServer* server = HK_NULL;
 	hkMemory* memoryManager = newMemoryManager(options.m_argc, options.m_argv, server);
@@ -1057,8 +1179,6 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 
 	registerPatches(hkVersionPatchManager::getInstance());
  
-	// Create a 2 Megabyte buffer for collecting statistics
-
 	{
 		if(options.m_masterFile != HK_NULL)
 		{
@@ -1169,6 +1289,43 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 
 	int exitCode = 0;
 
+	// Muck with console before init of hkg to stop interference with fullscreen mode (Esp in DX10)
+
+	RECT visible;
+	::SystemParametersInfo(SPI_GETWORKAREA, 0, &visible, 0);
+	if ( !options.m_windowed || (options.m_windowed && options.m_repositionConsole) )
+	{
+		HWND consoleWindow = GetConsoleHwnd();
+		while(!consoleWindow)
+		{
+			::Sleep(10);
+			consoleWindow = GetConsoleHwnd();
+		}
+
+		while (!::ShowWindow(consoleWindow, SW_HIDE)) // wait until the console actual apeared, then hide it
+		{
+			Sleep(10);
+		}
+
+		// Now set our actual state:
+		if (options.m_windowed && options.m_repositionConsole)
+		{
+			int consoleTop = visible.top + options.m_yPos + options.m_height + 10;
+			SetWindowPos( GetConsoleHwnd(), NULL,
+				visible.left + options.m_xPos, consoleTop,
+				options.m_width, visible.bottom - consoleTop, 0 );
+			ShowWindow(consoleWindow, SW_SHOWNORMAL);
+		}
+		else if (!options.m_windowed)
+		{
+		//	ShowWindow(consoleWindow, SW_HIDE);
+		}
+		else
+		{
+			ShowWindow(consoleWindow, SW_SHOWNORMAL);
+		}
+	}	
+
 	// Now initialize the graphics, using hkgSystem
 	hkgSystem::init(options.m_renderer);
 	if (hkgSystem::g_RendererType != hkgSystem::HKG_RENDERER_CONSOLE)
@@ -1179,52 +1336,59 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 	}
 
 	{
-		RECT visible;
-		::SystemParametersInfo(SPI_GETWORKAREA, 0, &visible, 0);
-		if (options.m_windowed && options.m_repositionConsole)
-		{
-			int consoleTop = visible.top + options.m_yPos + options.m_height + 10;
-			SetWindowPos( GetConsoleHwnd(), NULL,
-				visible.left + options.m_xPos, consoleTop,
-				options.m_width, visible.bottom - consoleTop, 0 );
-		}
-		else if (!options.m_windowed)
-		{
-			ShowWindow(GetConsoleHwnd(), SW_HIDE);
-		}
+
 
 		hkgWindow* window = hkgWindow::create();
 		s_debugWindowHandle = window;
 		window->setShadowMapSize( options.m_shadowMapRes );
-		window->initialize( 
-			getWindowDeviceFlag( options.m_graphicsDevice ) | 
-			(options.m_enableFsaa ? HKG_WINDOW_FSAA : 0) | 
+
+		HKG_WINDOW_CREATE_FLAG windowFlags = getWindowDeviceFlag( options.m_graphicsDevice ) | 
 			(options.m_windowed ? HKG_WINDOW_WINDOWED : HKG_WINDOW_FULLSCREEN) | 
-			options.m_windowHint,
+			options.m_windowHint;
+		
+		if (options.m_enableMsaa)
+		{
+			windowFlags = windowFlags | HKG_WINDOW_MSAA | 
+				(HKG_WINDOW_HINT_MSAASAMPLES & (options.m_msaaSamples << HKG_WINDOW_HINT_MSAASAMPLES_SHIFT)) |
+				(HKG_WINDOW_HINT_MSAAQUALITY & (options.m_msaaQuality << HKG_WINDOW_HINT_MSAAQUALITY_SHIFT));
+		}
+
+		if (options.m_enableVsync)
+		{
+			windowFlags = windowFlags | HKG_WINDOW_VSYNC | 
+				(HKG_WINDOW_HINT_VSYNCINTERVAL & (options.m_vsyncInterval << HKG_WINDOW_HINT_VSYNCINTERVAL_SHIFT));
+		}
+
+		window->initialize( windowFlags,
 			HKG_WINDOW_BUF_COLOR | HKG_WINDOW_BUF_DEPTH32, options.m_width, options.m_height,
 			options.m_windowTitle);
 
 		// check that render is actually ok (shader drivern and platform has shaders for instance)
-		if ((hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX9S) || (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_OGLS))
+		bool shaderLibDriven = (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX10) ||
+			(hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX9S) || 
+			(hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_OGLS);
+
+		if (shaderLibDriven)
 		{
 			if (!window->shaderSupportGreaterOrEqualTo(2))
 			{
 				printf("HKG: Changing to fixed function renderer as current hardware does not support shader model 2 or higher.\n");
 				
+				const char* fixedFunc = hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_OGLS? "ogl" : "d3d9" ;
+
 				window->release();
-			
+				
+				hkgSystem::quit();
+				hkgSystem::init( fixedFunc );
+
 				window = hkgWindow::create();
 				s_debugWindowHandle = window;
 				window->setShadowMapSize( options.m_shadowMapRes );
-				window->initialize( 
-					getWindowDeviceFlag( options.m_graphicsDevice ) | 
-					(options.m_enableFsaa ? HKG_WINDOW_FSAA : 0) | 
-					(options.m_windowed ? HKG_WINDOW_WINDOWED : HKG_WINDOW_FULLSCREEN) | 
-					options.m_windowHint,
+				window->initialize( windowFlags,
 					HKG_WINDOW_BUF_COLOR | HKG_WINDOW_BUF_DEPTH32, options.m_width, options.m_height,
 					options.m_windowTitle);
 			}
-			else if (window->shaderSupportGreaterOrEqualTo(3) && (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX9S) )
+			else if (window->shaderSupportGreaterOrEqualTo(3) && ((hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX9S) || (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX10)) )
 			{
 				// then dealling with a good graphics card, so we can assume shadows etc unlesss told otherwise
 				if (!options.m_forceNoShadows)
@@ -1309,6 +1473,7 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 		hkDemo* demo = database.createDemo(startUpDemo, &environment);
 
 		window->setWindowResizeFunction( _demoResizeNotify, demo );
+		window->setWindowDropFileFunction( _demoDropFiles, demo );
 
 		const int MAX_FRAMES = 10;
 		int frameTimes[MAX_FRAMES] = {0};
@@ -1387,7 +1552,7 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 
 			if ( step != hkDemo::DEMO_STOP && step != hkDemo::DEMO_RESTART )
 			{
-				if(options.m_lockFps)
+				if( (options.m_lockFps > 0) || options.m_showFps )
 				{
 					if (options.m_lockFps != previousFpsLimit)
 					{
@@ -1396,14 +1561,14 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 						previousFpsLimit = options.m_lockFps;
 					}
 
-
-// 					HKG_TIMER_BEGIN_LIST("_Render", "SoftwareFrameLock");
-
-					hkUint64 ticks = ticksSoFar.getElapsedTicks();
-
-					while ( minSecondsFrame - ticksSoFar.getElapsedSeconds() > 0 )
+ 					HKG_TIMER_BEGIN_LIST("_Render", "SoftwareFrameLock");
+					
+					while ( (options.m_lockFps > 0) && (minSecondsFrame - ticksSoFar.getElapsedSeconds() > 0 ))
 					{
+							
 					}
+					
+					hkUint64 ticks = ticksSoFar.getElapsedTicks();
 
 					frameTimes[curFrame++] = static_cast<int>(ticks);
 					curFrame = curFrame % MAX_FRAMES;
@@ -1419,15 +1584,19 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 							minTime = frameTimes[i];
 						}
 					}
+					
+					HKG_TIMER_END_LIST();
+				
+					if (options.m_showFps)
+					{
+						int fps = 1 + int(hkStopwatch::getTicksPerSecond() / (minTime+1));
+						hkString str; str.printf("%i", fps);
+						int x  = window->getWidth() - window->getTVDeadZoneH() - 100;
+						int y  = window->getTVDeadZoneV() + 16;
+						environment.m_textDisplay->outputText(str, x-1, y+1, 0x7f000000);
+						environment.m_textDisplay->outputText(str, x, y, 0x7fffffff);
 
-					// Comment this in to display the frame rate in the top left corner
-
-					//					int fps = 1 + int(hkStopwatch::getTicksPerSecond()/(minTime+1));
-					//					hkString str; str.printf("%i", fps);
-					//					environment.m_textDisplay->outputText(str, 0,0);
-
-// 					HKG_TIMER_END_LIST();
-
+					}
 				}
 
 				// Render the views
@@ -1459,8 +1628,15 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 
 		delete pad0;
 		delete pad1;
+
+		window->setWindowResizeFunction( HK_NULL, HK_NULL );
+		
 		delete demo;
+
 		window->getContext()->lock();
+
+		window->setFullscreen(false,window->getWidth(), window->getHeight());
+		
 		delete environment.m_textDisplay;
 		delete environment.m_displayHandler;
 		environment.m_sceneConverter->release();
@@ -1485,12 +1661,12 @@ int HK_CALL hkFrameworkMain (hkDemoFrameworkOptions& options, char* startUpDemo)
 	/// If we have a server we can delete it
 	delete server;
 
-
 	return exitCode | res;
+
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

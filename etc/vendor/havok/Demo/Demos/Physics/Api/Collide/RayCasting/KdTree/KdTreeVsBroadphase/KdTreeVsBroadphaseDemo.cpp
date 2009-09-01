@@ -338,7 +338,7 @@ HK_DECLARE_DEMO_VARIANT(KdTreeVsBroadphaseDemo, HK_DEMO_TYPE_PHYSICS, "Raycast c
 HK_DECLARE_DEMO_VARIANT(KdTreeVsBroadphaseDemo, HK_DEMO_TYPE_PHYSICS, "Linear cast comparison", 1, "Linear cast comparison", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

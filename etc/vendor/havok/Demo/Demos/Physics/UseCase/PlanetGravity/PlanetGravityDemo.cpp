@@ -334,56 +334,7 @@ hkDemo::Result PlanetGravityDemo::stepDemo()
 
 		input.m_velocity = m_characterRigidBody->getRigidBody()->getLinearVelocity();
 		input.m_position = m_characterRigidBody->getRigidBody()->getPosition();
-		{
-			hkpSurfaceInfo ground;
-			m_characterRigidBody->checkSupport( stepInfo, ground );
-
-			// Avoid accidental state changes (Smooth movement on stairs)
-			// During transition supported->unsupported continue to return N-frames hkpSurfaceInfo data from previous supported state
-			{
-				// Number of frames to skip (continue with previous hkpSurfaceInfo data)
-				const int skipFramesInAir = 6;
-
-				if( input.m_wantJump )
-				{
-					m_framesInAir = skipFramesInAir;
-				}
-
-				hkpSurfaceInfo* currInfo;
-				if( ground.m_supportedState != hkpSurfaceInfo::SUPPORTED )
-				{
-					if( m_framesInAir < skipFramesInAir )
-					{
-						input.m_isSupported = true;
-						currInfo = m_previousGround;
-					}
-					else
-					{
-						input.m_isSupported = false;
-						currInfo = &ground;
-					}
-
-					m_framesInAir++;
-				}
-				else
-				{
-					input.m_isSupported = true;
-					currInfo = &ground;
-
-					m_previousGround->set( ground );
-
-					// reset old number of frames
-					if( m_framesInAir > skipFramesInAir )
-					{
-						m_framesInAir = 0;
-					}			
-				}
-
-				input.m_surfaceNormal = currInfo->m_surfaceNormal;
-				input.m_surfaceVelocity = currInfo->m_surfaceVelocity;
-				input.m_surfaceMotionType = currInfo->m_surfaceMotionType;
-			}
-		}
+		m_characterRigidBody->checkSupport( stepInfo, input.m_surfaceInfo );
 
 		HK_TIMER_END();
 	}
@@ -616,7 +567,7 @@ PlanetGravityDemo::PlanetGravityDemo( hkDemoEnvironment* env )
 : hkDefaultPhysicsDemo(env)
 {
 	hkString filename; // We have a different binary file depending on the compiler and platform
-	filename.printf( "Resources/Physics/Levels/planetgravity_L%d%d%d%d.hkx",
+	filename.printf( "Resources/Physics/levels/planetgravity_L%d%d%d%d.hkx",
 					 hkStructureLayout::HostLayoutRules.m_bytesInPointer,
 					 hkStructureLayout::HostLayoutRules.m_littleEndian ? 1 : 0,
 					 hkStructureLayout::HostLayoutRules.m_reusePaddingOptimization? 1 : 0,
@@ -633,10 +584,6 @@ PlanetGravityDemo::PlanetGravityDemo( hkDemoEnvironment* env )
 	{
 		m_worldUp.set( 0.0f, 0.0f, 1.0f );
 		m_characterForward.set( 1.0f, 0.0f, 0.0f );
-
-		// Initialize hkpSurfaceInfo for storing the old ground info
-		m_previousGround = new hkpSurfaceInfo();
-		m_framesInAir = 0;
 
 		m_cameraForward.set( 1.0f, 0.0f, 0.0f );
 		m_cameraUp = m_cameraForward;
@@ -761,6 +708,7 @@ PlanetGravityDemo::PlanetGravityDemo( hkDemoEnvironment* env )
 
 					// Add a collision listener to the launchpad so it can apply forces to colliding rbs
 					LaunchPadListener* launchPadListener = new LaunchPadListener( target->getPosition() );
+					m_listeners.pushBack( launchPadListener );
 					bodies[j]->addCollisionListener( launchPadListener );
 					bodies[j]->setMotionType( hkpMotion::MOTION_FIXED );
 
@@ -773,6 +721,7 @@ PlanetGravityDemo::PlanetGravityDemo( hkDemoEnvironment* env )
 				{
 					LaunchPadListener* launchPadListener = new LaunchPadListener( bodies[j]->getMass() );
 					bodies[j]->addCollisionListener( launchPadListener );
+					m_listeners.pushBack( launchPadListener );
 					bodies[j]->setMotionType( hkpMotion::MOTION_FIXED );
 
 					HK_SET_OBJECT_COLOR( reinterpret_cast<hkUlong>( bodies[j]->getCollidable() ), hkColor::RED );
@@ -811,7 +760,7 @@ PlanetGravityDemo::PlanetGravityDemo( hkDemoEnvironment* env )
 
 					// Do not allow the turret's simulation island deactivate.
 					//  If it does, it will stop spinning.
-					turret.turretRigidBody->setDeactivator( hkpRigidBodyDeactivator::DEACTIVATOR_NEVER );
+					turret.turretRigidBody->enableDeactivation(false);
 				}
 
 				// Update collision filter so that needless CollColl3 agents are not created.
@@ -835,6 +784,15 @@ PlanetGravityDemo::PlanetGravityDemo( hkDemoEnvironment* env )
 
 void PlanetGravityDemo::cleanupWorld()
 {
+	for ( int j = 0; j < m_listeners.getSize(); ++j )
+	{
+		if ( m_listeners[j] != HK_NULL )
+		{
+			delete m_listeners[j];
+			m_listeners[j] = HK_NULL;
+		}
+	}
+
 	m_world->markForWrite();
 	m_world->removeReference();
 	m_world = HK_NULL;
@@ -852,7 +810,6 @@ PlanetGravityDemo::~PlanetGravityDemo()
 	m_crouchShape->removeReference();
 
 	delete m_characterContext;
-	delete m_previousGround;
 
 	m_world->unmarkForWrite();
 	m_flashLight->release();
@@ -885,7 +842,7 @@ static const char helpString[] = "This demo shows how to use the rigid body char
 HK_DECLARE_DEMO( PlanetGravityDemo, HK_DEMO_TYPE_PHYSICS, "Shows how to create local gravity fields.", helpString );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

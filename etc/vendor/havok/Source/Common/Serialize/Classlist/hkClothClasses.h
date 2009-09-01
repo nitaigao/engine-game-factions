@@ -7,10 +7,17 @@
  */
 
 #include <Cloth/Cloth/Classes/hclClothClasses.h>	
+#ifdef INCLUDE_HAVOK_CLOTH_SETUP_CLASSES // define this if you are going to use Cloth Setup serialized objects rather than runtime osbjects
 #include <Cloth/Setup/Classes/hclSetupClasses.h>	
+#endif
+#ifdef INCLUDE_HAVOK_ANIMATION_CLASSES
+#	ifdef INCLUDE_HAVOK_CLOTH_SETUP_ANIMATION_CLASSES 
+#		include <Cloth/AnimationBridge/Classes/hclAnimationBridgeClasses.h>	
+#	endif
+#endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

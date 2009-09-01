@@ -11,7 +11,7 @@
 
 #include <Graphics/Common/Window/hkgWindow.h>
 
-#define HKG_STATE_MANAGER_MAX_DESC 8
+#define HKG_STATE_MANAGER_MAX_DESC 16
 	
 class hkgShaderDX10;
 
@@ -22,7 +22,7 @@ class hkgStateManagerDX10 : public hkgReferencedObject
 public:
 
 		/// Get the DX10 Input Layout for a given vertex layout and shader combo
-	ID3D10InputLayout* getInputLayout( D3D10_INPUT_ELEMENT_DESC* vertexLayout, hkUint32 numVertexComponents, hkgShaderDX10* shader );									
+	ID3D10InputLayout* getInputLayout( const D3D10_INPUT_ELEMENT_DESC* vertexLayout, hkUint32 numVertexComponents, hkgShaderDX10* shader );									
 	void removeShader( hkgShaderDX10* s );
 
 	/// Get the DX10 Texture sampler state for a give HKG texture state (shared between textures)
@@ -31,7 +31,7 @@ public:
 	/// State objects
 	ID3D10RasterizerState* getRasterState( const HKG_ENABLED_STATE state, const HKG_CULLFACE_MODE cullfaceMode);
 	ID3D10DepthStencilState* getDepthStencilState( const HKG_ENABLED_STATE state);
-	ID3D10BlendState* getBlendState( const HKG_ENABLED_STATE state, const HKG_BLEND_MODE blendMode );
+	ID3D10BlendState* getBlendState( const HKG_ENABLED_STATE state, const HKG_BLEND_MODE blendMode, const HKG_ALPHA_SAMPLE_MODE sampleMode );
 
 protected:
 
@@ -63,7 +63,7 @@ protected:
 	
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

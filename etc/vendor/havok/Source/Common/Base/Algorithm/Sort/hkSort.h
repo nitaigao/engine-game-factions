@@ -41,7 +41,7 @@ namespace hkAlgorithm
 	{
 		public:
 
-			HK_FORCE_INLINE hkBool operator() ( const T& a, const T& b )
+			HK_FORCE_INLINE hkBool32 operator() ( const T& a, const T& b )
 			{
 				return ( a < b );
 			}
@@ -54,7 +54,7 @@ namespace hkAlgorithm
 	{
 	public:
 
-		HK_FORCE_INLINE hkBool operator() ( const T& a, const T& b )
+		HK_FORCE_INLINE hkBool32 operator() ( const T& a, const T& b )
 		{
 			return ( a > b );
 		}
@@ -142,7 +142,7 @@ namespace hkAlgorithm
 #endif // HKBASE_HKALGORITHM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

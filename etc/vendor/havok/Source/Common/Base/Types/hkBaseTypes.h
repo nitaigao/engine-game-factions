@@ -12,7 +12,9 @@
 // compiler
 //
 
-#if defined(_MSC_VER)
+#if defined(__INTEL_COMPILER)
+#	define HK_COMPILER_INTEL
+#elif defined(_MSC_VER) // Intel compiler defines this too
 #	define HK_COMPILER_MSVC
 #elif defined(__SNC__)
 #	define HK_COMPILER_SNC
@@ -20,8 +22,6 @@
 #	define HK_COMPILER_GCC
 #elif defined(__MWERKS__)
 #	define HK_COMPILER_MWERKS
-#elif defined(__INTEL_COMPILER)
-#	define HK_COMPILER_INTEL
 #else
 #	error Could not detect compiler
 #endif
@@ -49,11 +49,41 @@
 // platform
 //
 
+#if defined(_WIN32) && !defined(HK_PLATFORM_LRB)
 #	define HK_PLATFORM_WIN32
 #	if defined(_WIN64)
 #		define HK_PLATFORM_X64
 #	endif
 #	define HK_PLATFORM_IS_CONSOLE 0
+#elif (!defined( R3000 )) && (!defined( __R4000__ )) && (defined( __mips__ ) || defined( __MIPS__ ))
+#	define HK_PLATFORM_PS2
+#	define HK_PS2
+#	define HK_PLATFORM_IS_CONSOLE 1
+#elif (defined(__unix__) || defined(__linux__)) && !defined(HK_PLATFORM_LRB)
+#	define HK_PLATFORM_UNIX
+#	define HK_PLATFORM_IS_CONSOLE 0
+#elif defined(GEKKO) || defined(__PPCGEKKO__) //Also have custom added HK_REVOLUTION compiler switch
+#	define HK_PLATFORM_GC
+#	if defined(RVL_OS)
+#		define HK_PLATFORM_RVL
+#	endif
+#	define HK_PLATFORM_IS_CONSOLE 1
+#elif defined( R3000 ) || defined( __R4000__ )
+#	define HK_PLATFORM_PSP
+#	define HK_PLATFORM_IS_CONSOLE 1
+#elif defined(__PPU__) && defined(__CELLOS_LV2__)
+#	define HK_PLATFORM_PS3_PPU
+#	define HK_PLATFORM_IS_CONSOLE 1
+#elif defined(__SPU__) && defined(__CELLOS_LV2__)
+#	define HK_PLATFORM_PS3_SPU
+#	define HK_PLATFORM_SPU
+#	define HK_PLATFORM_IS_CONSOLE 1
+#elif defined(HK_PLATFORM_LRB) 
+#	define HK_PLATFORM_IS_CONSOLE 1
+#		define HK_PLATFORM_LRBSIM 1
+#else
+#	error Could not autodetect target platform.
+#endif
 
 //
 // types
@@ -193,7 +223,11 @@ enum hkResult
 #		define HK_ALIGN(DECL, ALIGNMENT) __declspec(align(ALIGNMENT)) DECL
 #		define HK_ALIGN16(DECL) __declspec(align(16)) DECL
 #		define HK_ALIGN128(DECL) __declspec(align(128)) DECL
-#		define HK_FORCE_INLINE __forceinline
+#		if !defined(HK_COMPILER_INTEL)
+#			define HK_FORCE_INLINE __forceinline
+#		else // ICC has no force inline intrinsic
+#			define HK_FORCE_INLINE inline
+#		endif
 #		define HK_CLASSALIGN(DECL, ALIGNMENT) HK_ALIGN(DECL, ALIGNMENT)
 #		define HK_CLASSALIGN16(DECL) HK_ALIGN16(DECL)
 		typedef unsigned __int64 hkUint64;
@@ -206,13 +240,20 @@ enum hkResult
 #		endif
 #		define HK_COMPILER_HAS_INTRINSICS_IA32
 // calling convention
-#	define HK_CALL __cdecl
-#	define HK_FAST_CALL __fastcall
+#	ifndef HK_COMPILER_INTEL
+#		define HK_CALL __cdecl
+#		define HK_FAST_CALL __fastcall
+#	else
+#		define HK_CALL 
+#		define HK_FAST_CALL 
+#	endif
 // deprecation
 #	if defined(HK_PLATFORM_WIN32) && (_MSC_VER >= 1300) && !defined(MIDL_PASS)
 #		define HK_DEPRECATED __declspec(deprecated)
+#		define HK_DEPRECATED2(MSG) __declspec(deprecated(MSG))
 #	else
 #		define HK_DEPRECATED /* nothing */
+#		define HK_DEPRECATED2(MSG) /* nothing */
 #	endif
 
 	// *************************************
@@ -313,9 +354,9 @@ HK_ALWAYS_INLINE TYPE HK_CALL hkAddByteOffsetCpuPtrConst( TYPE base, hkLong offs
 
 	/// If you have a pair of pointers and you have one pointer, than this function allows you to quickly get the other pointer of the pair.
 template <typename TYPE>
-HK_ALWAYS_INLINE TYPE* HK_CALL hkSelectOther( TYPE* a, TYPE* pairA, TYPE* pairB )
+HK_ALWAYS_INLINE TYPE HK_CALL hkSelectOther( TYPE a, TYPE pairA, TYPE pairB )
 {
-	return reinterpret_cast<TYPE*>( hkUlong(a) ^ hkUlong(pairA) ^ hkUlong(pairB) );
+	return (TYPE)( hkUlong(a) ^ hkUlong(pairA) ^ hkUlong(pairB) );
 }
 
 /// If you have a pair of pointers and you have one pointer, than this function allows you to quickly get the other pointer of the pair.
@@ -380,6 +421,10 @@ class hkBool
 {
 	public:
 
+			// used in compile time asserts
+		typedef char CompileTimeTrueType;
+		typedef int CompileTimeFalseType;
+
 		inline hkBool()
 		{
 		}
@@ -420,8 +465,6 @@ class hkBool
 class hkHalf
 {
     public:
-		HK_DECLARE_REFLECTION();
-
 	    inline hkHalf() { }
     
 	    inline hkHalf(const float& f)
@@ -726,7 +769,7 @@ struct hkCountOfBadArgCheck
 #endif // HKBASE_HKBASETYPES_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

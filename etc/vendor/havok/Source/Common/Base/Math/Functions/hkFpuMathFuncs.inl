@@ -189,15 +189,9 @@ namespace hkMath
 		return (v & (v - 1)) == 0;
 	}
 
-	hkReal HK_CALL rand01();
 	inline hkReal HK_CALL atan2fApproximation( hkReal sina, hkReal cosa )
 	{
 		return hkMath_atan2fApproximation(sina, cosa);
-	}
-
-	inline hkReal HK_CALL randRange(hkReal minv, hkReal maxv)
-	{
-		return minv + rand01() * (maxv-minv);
 	}
 
 #ifndef HK_MATH_fselectGreaterEqualZero
@@ -241,7 +235,7 @@ namespace hkMath
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

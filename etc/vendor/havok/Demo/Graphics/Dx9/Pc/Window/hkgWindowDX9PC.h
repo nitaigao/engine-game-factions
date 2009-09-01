@@ -94,6 +94,8 @@ public:
 
 	virtual HKG_WINDOW_DX9_OPERATING_SYSTEM getOperatingSystem() const;
 
+	int getVideoMemSizeInMB() const;
+
 	virtual	bool setAsCurrent(); // only need to call this if you have > 1 window
 	virtual bool clearBuffers();
 	virtual bool swapBuffers();
@@ -135,6 +137,7 @@ protected:
 	hkArray<D3DAdapterInfo9>	m_Adapters;
     DWORD					m_dwNumAdapters;
     DWORD					m_dwAdapter;
+	mutable int				m_videoRamSize;
 
 	DWORD					m_dwWindowStyle;     // Saved window style for mode switches
     RECT					m_rcWindowBounds;    // Saved window bounds for mode switches
@@ -180,7 +183,7 @@ LRESULT CALLBACK hkgWindowProcDX9PC(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
 #endif //HK_GRAPHICS_WINDOW_DX9_PC_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

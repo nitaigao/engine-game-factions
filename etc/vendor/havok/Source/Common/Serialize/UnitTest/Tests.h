@@ -10,6 +10,9 @@
 //
 HK_TEST_DECLARE(base64Test_main)
 HK_TEST_DECLARE(classDump)
+HK_TEST_DECLARE(contentsBinaryTest)
+HK_TEST_DECLARE(contentsXmlTest)
+HK_TEST_DECLARE(contentsTagTest)
 HK_TEST_DECLARE(dataClass)
 HK_TEST_DECLARE(dataObject)
 HK_TEST_DECLARE(loadFileInplace)
@@ -17,19 +20,22 @@ HK_TEST_DECLARE(MultiMap)
 HK_TEST_DECLARE(patchesVersioningCheck)
 HK_TEST_DECLARE(reflectionCheck)
 HK_TEST_DECLARE(showOffsets)
+HK_TEST_DECLARE(stringArrayTest)
 HK_TEST_DECLARE(testStructureLayout)
 HK_TEST_DECLARE(versioningCheck)
 HK_TEST_DECLARE(xmlEntityTest_main)
 HK_TEST_DECLARE(binaryPackfileReader)
 HK_TEST_DECLARE(DefaultCopy)
+HK_TEST_DECLARE(NestedCopy)
 HK_TEST_DECLARE(EnumCopy)
 HK_TEST_DECLARE(NullNameTest)
 HK_TEST_DECLARE(patchDataObject)
 HK_TEST_DECLARE(RoundTrip)
 HK_TEST_DECLARE(SaveAsZero)
+HK_TEST_DECLARE(TestArrayNulls_HVK3369)
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

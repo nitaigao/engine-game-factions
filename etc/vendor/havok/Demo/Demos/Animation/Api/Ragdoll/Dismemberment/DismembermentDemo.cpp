@@ -64,6 +64,13 @@
 #include <Common/Visualize/Shape/hkDisplayConvex.h>
 
 
+// Asset paths
+static const char* ANIMATION_FILE = "Resources/Animation/Ragdoll/zombie_dismemberment_agrowalk.hkx";
+static const char* SCENE_FILE = "Resources/Animation/Ragdoll/zombie_scene.hkx";
+static const char* RAGDOLL_FILE = "Resources/Animation/Ragdoll/zombie_dismemberment_ragdoll.hkx";
+
+static const char* SKIN_FILE = "Resources/Animation/Ragdoll/zombie_dismemberment_skin.hkx";
+
 
 struct DismembermentDemoVariant
 {
@@ -73,8 +80,12 @@ struct DismembermentDemoVariant
 };
 
 static const char helpString[] =
-"\220 Dismember a random limb\n"
-"\221 Toggle draw mode";
+"\221 Dismember random limb\n"
+"\222 Explode\n"
+"\223 Automatic mode\n"
+"\224 Toggle forward motion\n"
+"\225 Toggle draw mode";
+	
 
 static const DismembermentDemoVariant g_variants[] =
 {
@@ -88,15 +99,31 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 {
 	m_drawRagdoll = false;
 	m_drawSkin = true;
-	m_drawSkeleton = false;
-	m_randomizer = new hkPseudoRandomGenerator( 10 );
+	m_drawRagdollSkeleton = false;
+	m_drawAnimationSkeleton = false;
+	m_autoDismember = false;
+	m_explode = false;
+	m_useExtractedMotion = true;
+	m_currentFrame = 0;
+	m_actionFrame = -1;
+	m_randomizer = new hkPseudoRandomGenerator( 7 );
+	m_worldFromModel.setIdentity();
 
-	// Setup the camera
+	// Load the data
+	m_loader = new hkLoader();
+
+	// Load the floor graphics
 	{
-		hkVector4 from( 1.0f, 5.0f, 1.0f );
-		hkVector4 to  ( 0.0f, 0.0f, -1.0f );
-		hkVector4 up  ( 0.0f, 0.0f, 1.0f );
-		setupDefaultCameras( env, from, to, up, 0.1f, 100 );
+		hkString assetFile = hkAssetManagementUtil::getFilePath( SCENE_FILE );
+		hkRootLevelContainer* container = m_loader->load( assetFile.cString() );
+		HK_ASSERT2( 0x1e6392b6, container != HK_NULL , "Could not load asset" );
+		hkxScene* scene = reinterpret_cast<hkxScene*>( container->findObjectByType( hkxSceneClass.getName() ) );
+
+		removeLights( m_env );
+		static const hkReal ambient[ 3 ] = { 0.5f, 0.5f, 0.5f };
+		env->m_displayWorld->getLightManager()->setSceneAmbient( ambient );
+		HK_ASSERT2( 0x1a05a938, scene, "No scene loaded" );
+		env->m_sceneConverter->convert( scene );
 	}
 
 	// Create physical world
@@ -111,13 +138,20 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 		m_world->lock();
 
 		hkpAgentRegisterUtil::registerAllAgents(m_world->getCollisionDispatcher());
+
+		// We want to see backfacing polygons (esp for characters with loose 2-sided clothing)
+		setGraphicsState( HKG_ENABLED_CULLFACE, false );
+
+		// We want to see shadows in this demo
+		forceShadowState( true );
+
+		setupGraphics();
 	}
 
 	// Create the floor
-	for ( int i = 0; i < 4; i++ )
 	{
-		// Data specific to this shape.
-		hkVector4 halfExtents( 5.0f, 5.0f, 0.1f );
+		// Create the rigid body just a touch below the floor graphics
+		hkVector4 halfExtents( 25.0f, 25.0f, 0.099f );
 
 		hkpBoxShape* shape = new hkpBoxShape( halfExtents, 0 );
 
@@ -125,7 +159,7 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 		hkpRigidBodyCinfo rigidBodyInfo;
 
 		rigidBodyInfo.m_shape = shape;
-		rigidBodyInfo.m_position.set( 0.0f, 0.0f, -0.92f );
+		rigidBodyInfo.m_position.set( 0.0f, 0.0f, -0.1f );
 		rigidBodyInfo.m_rotation.setIdentity();
 		rigidBodyInfo.m_motionType = hkpMotion::MOTION_FIXED;
 
@@ -134,10 +168,9 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 		shape->removeReference();
 		m_world->addEntity(rigidBody);
 		rigidBody->removeReference();
-	}
 
-	// Load the data
-	m_loader = new hkLoader();
+		HK_SET_OBJECT_COLOR( (hkUlong)( rigidBody->getCollidable() ), hkColor::rgbFromChars( 255, 255, 0 ) );
+	}
 
 	// setup layer collision
 	{
@@ -154,7 +187,7 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 	// load ragdoll rig, create ragdoll instance
 	{
 		// penetration_rig.hkx - highRes and lowRes  skeletons, ragdoll, mappers
-		hkString assetFile = hkAssetManagementUtil::getFilePath( "Resources/Animation/Ragdoll/dismemberment_ragdoll.hkx" );
+		hkString assetFile = hkAssetManagementUtil::getFilePath( RAGDOLL_FILE );
 		hkRootLevelContainer* dataContainerRig = m_loader->load( assetFile.cString() );
 		HK_ASSERT2(0x27343437, dataContainerRig != HK_NULL , "Could not load data asset");
 
@@ -168,6 +201,17 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 		// This makes both ragdoll controllers lees sensitive to angular effects and hence more effective
 		const hkArray<hkpConstraintInstance*>& constraints = m_originalRagdoll->getConstraintArray();
 		hkpInertiaTensorComputer::optimizeInertiasOfConstraintTree( constraints.begin(), constraints.getSize(), m_originalRagdoll->getRigidBodyOfBone(0) );
+
+		// Adjust the rotational damping of the bodies to stop excessive rolling
+		{
+			const hkArray< hkpRigidBody* >& rigidBodies = m_originalRagdoll->getRigidBodyArray();
+
+			for ( int i = 0; i < rigidBodies.getSize(); i++ )
+			{
+				rigidBodies[ i ]->setLinearDamping( 0.05f );
+				rigidBodies[ i ]->setAngularDamping( 2.0f );
+			}
+		}
 
 		// Add the ragdoll to the world
 		m_originalRagdoll->addToWorld( m_world, true );
@@ -199,7 +243,7 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 				// Find the next object of this type
 				objectFound = dataContainerRig->findObjectByType( hkaSkeletonMapperClass.getName(), objectFound );
 			}
-			
+
 			HK_ASSERT2( 0, m_animationFromRagdoll, "Couldn't load high-to-ragdoll mapping" );
 			HK_ASSERT2( 0, m_ragdollFromAnimation, "Couldn't load ragdoll-to-high mapping" );
 		}
@@ -207,7 +251,7 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 
 	// Get the animation and the binding
 	{
-		hkString assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/HavokGirl/hkRunLoop.hkx");
+		hkString assetFile = hkAssetManagementUtil::getFilePath( ANIMATION_FILE );
 		hkRootLevelContainer* container = m_loader->load( assetFile.cString() );
 		HK_ASSERT2(0x27343437, container != HK_NULL , "Could not load asset");
 		hkaAnimationContainer* ac = reinterpret_cast<hkaAnimationContainer*>( container->findObjectByType( hkaAnimationContainerClass.getName() ));
@@ -222,19 +266,9 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 	{
 		m_character = new hkaAnimatedSkeleton( m_animationSkeleton );
 		m_control = new hkaDefaultAnimationControl( m_binding, true );
-		
 		m_character->addAnimationControl( m_control );
 	}
 
-	// setup the graphics
-	setupGraphics();
-
-	// init pose as necessary
-	{
-		m_worldFromModel.setIdentity();
-		m_worldFromModel.m_rotation.set( 0,0,1,0 );
-	}
-	
 	// display ragdoll transparent
 	for ( int i = 0; i < m_originalRagdoll->getNumBones(); i++)
 	{
@@ -274,9 +308,7 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 
 	// Convert the skins
 	{
-		const char* skinFile = "Resources/Animation/Ragdoll/dismemberment_skin.hkx";
-
-		hkString assetFile = hkAssetManagementUtil::getFilePath( skinFile );
+		hkString assetFile = hkAssetManagementUtil::getFilePath( SKIN_FILE );
 		hkRootLevelContainer* container = m_loader->load( assetFile.cString() );
 		HK_ASSERT2(0x27343437, container != HK_NULL , "Could not load asset");
 
@@ -341,8 +373,30 @@ DismembermentDemo::DismembermentDemo(hkDemoEnvironment* env)
 
 	m_world->unlock();
 
+	// Improved graphics on win32
+	m_env->m_sceneConverter->setShaderLibraryEnabled( true );
+	m_env->m_window->setShadowMapSize( 1024 );
+
+	// Setup the camera
+	setupCameraAndShadows();
+
 	// Disable warning about reposing the ragdoll.
 	hkError::getInstance().setEnabled(0x71C72FE7, false);
+
+	// Unlock hip bones
+	{
+		const char* boneName[] = { "Ragdoll_HavokBipedRig L Thigh", "Ragdoll_HavokBipedRig R Thigh", "Bip01 L Thigh", "Bip01 R Thigh" };
+		const hkaSkeleton* skeleton[] = { m_ragdollSkeleton, m_ragdollSkeleton, m_animationSkeleton, m_animationSkeleton };
+
+		for ( int i = 0; i < 4; i++ )
+		{
+			const hkInt16 bone = hkaSkeletonUtils::findBoneWithName( *skeleton[ i ], boneName[ i ] );
+
+			HK_ASSERT2( 0x1be9c1bd, bone >= 0, "Bone " << boneName << " not found." );
+
+			skeleton[ i ]->m_bones[ bone ]->m_lockTranslation = false;
+		}
+	}
 }
 
 DismembermentDemo::~DismembermentDemo()
@@ -394,10 +448,6 @@ DismembermentDemo::~DismembermentDemo()
 
 hkDemo::Result DismembermentDemo::stepDemo()
 {
-	hkgAabb shadowAabb;
-	m_env->m_displayWorld->getShadowWorldBounds(shadowAabb, *m_env->m_window->getCurrentViewport()->getCamera() );
-    hkDefaultDemo::setupFixedShadowFrustum(m_env, *m_env->m_displayWorld->getLightManager()->getLight(0), shadowAabb );
-
 	// Sample the animation and drive the ragdolls to the desired pose
 	hkaPose animationPose( m_animationSkeleton );
 	hkaPose ragdollPose( m_ragdollSkeleton );
@@ -405,6 +455,17 @@ hkDemo::Result DismembermentDemo::stepDemo()
 
 		// Sample the character's current animated pose
 		m_character->sampleAndCombineAnimations( animationPose.accessUnsyncedPoseLocalSpace().begin(), HK_NULL );
+
+		// Sample the extracted motion
+		if ( m_useExtractedMotion )
+		{
+			hkQsTransform deltaMotion;
+			m_character->getDeltaReferenceFrame( m_timestep, deltaMotion );
+			m_worldFromModel.setMulEq( deltaMotion );
+
+			// Update the camera to follow the character
+			setupCameraAndShadows();
+		}
 
 		// Convert the animation pose to a ragdoll pose
 		m_ragdollFromAnimation->mapPose( animationPose.getSyncedPoseModelSpace().begin(), m_ragdollSkeleton->m_referencePose, ragdollPose.accessUnsyncedPoseModelSpace().begin(), hkaSkeletonMapper::CURRENT_POSE );
@@ -419,45 +480,76 @@ hkDemo::Result DismembermentDemo::stepDemo()
 
 		m_world->unlock();
 	}
-
-
+	
 	// Handle button presses...
-
-	if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_1 ) )
 	{
-		if ( m_drawSkin )
+		// Immediate dismemberment
+		if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_1 ) )
 		{
-			m_drawSkin = false;
-			m_drawRagdoll = true;
-			m_drawSkeleton = false;
+			m_actionFrame = m_currentFrame;
 		}
-		else if ( m_drawRagdoll )
+
+		// Dismember several limbs at once
+		if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_2 ) )
 		{
-			m_drawSkin = false;
-			m_drawRagdoll = false;
-			m_drawSkeleton = true;
+			m_explode = !isFullyDismembered();
+			m_actionFrame = m_currentFrame;
+			m_autoDismember = false;
 		}
-		else
+
+		// Automatically dismember a limb every second or so
+		if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_3 ) )
 		{
-			m_drawSkin = true;
-			m_drawRagdoll = false;
-			m_drawSkeleton = false;
+			m_autoDismember = !m_autoDismember;
+			m_actionFrame = m_autoDismember ? m_currentFrame : m_currentFrame - 1;
+			m_explode = false;
+		}
+
+		// Extracted motion
+		if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_DPAD_UP ) )
+		{
+			m_useExtractedMotion = !m_useExtractedMotion;
+		}
+		
+		// Drawing mode
+		if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_DPAD_DOWN ) )
+		{
+			if ( m_drawSkin )
+			{
+				m_drawSkin = false;
+				m_drawRagdoll = true;
+				m_drawRagdollSkeleton = false;
+				m_drawAnimationSkeleton = false;
+			}
+			else if ( m_drawRagdoll )
+			{
+				m_drawSkin = false;
+				m_drawRagdoll = false;
+				m_drawRagdollSkeleton = true;
+				m_drawAnimationSkeleton = false;
+			}
+			else if ( m_drawRagdollSkeleton )
+			{
+				m_drawSkin = false;
+				m_drawRagdoll = false;
+				m_drawRagdollSkeleton = false;
+				m_drawAnimationSkeleton = true;
+			}
+			else
+			{
+				m_drawSkin = true;
+				m_drawRagdoll = false;
+				m_drawRagdollSkeleton = false;
+				m_drawAnimationSkeleton = false;
+			}
 		}
 	}
-
-	if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_2 ) )
-	{
-	}
-
-	if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_3 ) )
-	{
-	}
-
-	// Test if the user has pressed the dismember button
-	if ( m_env->m_gamePad->wasButtonPressed( HKG_PAD_BUTTON_0 ) )
+	
+	// Test if dismemberment should occur on this frame
+	if ( m_actionFrame == m_currentFrame )
 	{
 		// Test if the ragdoll is to be split or reassembled
-		if ( m_ragdolls.back()->getType() == DismembermentDemoRagdollInstanceAndController::KEYFRAMED )
+		if ( !isFullyDismembered() )
 		{
 			// Split the ragdoll
 
@@ -539,6 +631,15 @@ hkDemo::Result DismembermentDemo::stepDemo()
 				m_originalRagdoll->m_constraints[ i ]->enable();
 			}
 
+			// Reset the character position (nice-to-have)
+			for ( int i = 0; i < 3; i++ )
+			{
+				// Place the character near the origin, but keep the
+				// decimal part of the offset so that the repeating
+				// texture looks the same from the camera
+				m_worldFromModel.m_translation( i ) = floatMod( m_worldFromModel.m_translation( i ), 2.0f );
+			}
+			
 			// Reset the pose of the ragdoll
 			m_originalRagdoll->setPoseModelSpace( ragdollPose.getSyncedPoseModelSpace().begin(), m_worldFromModel );
 
@@ -555,6 +656,32 @@ hkDemo::Result DismembermentDemo::stepDemo()
 			copy->removeReference();
 
 			m_world->unlock();
+
+			// Reset the camera
+			setupCameraAndShadows();
+		}
+
+		// Determine when the next action should occur
+		{
+			if ( m_autoDismember )
+			{
+				const int ticks = 45;
+				const int ticksForReassemble = 150;
+
+				m_actionFrame += !isFullyDismembered() ? ticks : ticksForReassemble;
+			}
+
+			if ( m_explode )
+			{
+				if ( !isFullyDismembered() )
+				{
+					m_actionFrame++;
+				}
+				else
+				{
+					m_explode = false;
+				}
+			}
 		}
 	}
 
@@ -588,10 +715,11 @@ hkDemo::Result DismembermentDemo::stepDemo()
 		m_ragdolls[ ragdoll ]->getPoseWorldSpace( inputWS, pose.begin() );
 		
 		// Draw the pose
-		if ( m_drawSkeleton )
+		if ( m_drawRagdollSkeleton )
 		{
 			AnimationUtils::drawPoseModelSpace( *m_ragdollSkeleton, pose.begin(), hkQsTransform::getIdentity(), 0x400080FF );
 		}
+
 
 		hkLocalArray< hkQsTransform > animationPoseMS( m_animationSkeleton->m_numBones );
 		animationPoseMS.setSize( m_animationSkeleton->m_numBones );
@@ -609,6 +737,12 @@ hkDemo::Result DismembermentDemo::stepDemo()
 			{
 				animationPoseMS[ i ].setMul( m_worldFromModel, animationPose.getSyncedPoseModelSpace()[ i ] );
 			}
+		}
+
+		// Draw the skeleton
+		if ( m_drawAnimationSkeleton )
+		{
+			AnimationUtils::drawPoseModelSpace( *m_animationSkeleton, animationPoseMS.begin(), hkQsTransform::getIdentity(), 0x80FF80FF );
 		}
 
 		const int boneCount = m_animationSkeleton->m_numBones;
@@ -652,14 +786,57 @@ hkDemo::Result DismembermentDemo::stepDemo()
 		}
 	}
 
-
 	// Step the animation
 	m_character->stepDeltaTime( m_timestep );
 
 	// Step the physics
 	hkDefaultPhysicsDemo::stepDemo();
 
+	// Increment the frame count
+	m_currentFrame++;
+
 	return DEMO_OK;	// original animation demo return
+}
+
+bool DismembermentDemo::isFullyDismembered() const
+{
+	// If the ragdoll is fully dismembered, no controllers will be keyframed
+	return m_ragdolls.back()->getType() != DismembermentDemoRagdollInstanceAndController::KEYFRAMED;
+}
+
+void DismembermentDemo::setupCameraAndShadows()
+{
+	// Setup the camera
+	{
+		hkVector4 from( m_worldFromModel.m_translation( 0 ) - 1.0f, m_worldFromModel.m_translation( 1 ) - 3.5f, 2.5f );
+		hkVector4 to  ( m_worldFromModel.m_translation( 0 ) + 0.0f, m_worldFromModel.m_translation( 1 ) + 0.0f, 0.5f );
+		hkVector4 up  ( 0.0f, 0.0f, 1.0f );
+		setupDefaultCameras( m_env, from, to, up, 0.1f, 100.0f );
+	}
+		
+	// Setup the shadow map frustum
+	{
+		hkgAabb shadowAabb;
+		const hkgLight* l=  m_env->m_displayWorld->getLightManager()->getBestShadowCaster();
+		m_env->m_displayWorld->getShadowWorldBounds( shadowAabb, *m_env->m_window->getCurrentViewport()->getCamera(), l->getDirectionPtr() );
+
+		for ( int i = 0; i < 3; i++ )
+		{
+			hkReal pos = m_worldFromModel.m_translation( i );
+			shadowAabb.m_max[ i ] = pos + 1.1f;
+			shadowAabb.m_min[ i ] = pos - 1.1f;
+		}
+
+		hkDefaultDemo::setupFixedShadowFrustum(m_env, *l, shadowAabb );
+	}
+}
+
+hkReal DismembermentDemo::floatMod( hkReal numerator, hkReal denominator )
+{
+	const hkReal quotient = hkMath::floor( numerator / denominator );
+	const hkReal remainder = numerator - quotient * denominator;
+
+	return remainder;
 }
 
 DismembermentDemoRagdollInstanceAndController::DismembermentDemoRagdollInstanceAndController( hkaRagdollInstance* ragdollInstance, const hkaRagdollInstance* originalRagdollInstance, ControllerType type ):
@@ -881,7 +1058,7 @@ static const char description[] = "This demo shows a ragdoll character being dis
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( DismembermentDemo, HK_DEMO_TYPE_ANIMATION | HK_DEMO_TYPE_SERIALIZE, DismembermentDemoVariant, g_variants, description );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

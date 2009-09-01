@@ -57,6 +57,11 @@ void RigidBodyCharacterProxy::addToWorld( hkpWorld* world )
 	world->addEntity( m_characterRb->getRigidBody() );
 }
 
+void RigidBodyCharacterProxy::removeFromWorld( hkpWorld* world )
+{
+	world->removeEntity( m_characterRb->getRigidBody() );
+}
+
 
 // Get the current transform of the character
 void RigidBodyCharacterProxy::getTransform( hkTransform& transform ) const
@@ -104,8 +109,11 @@ bool RigidBodyCharacterProxy::isSupported( hkReal timestep ) const
 void RigidBodyCharacterProxy::setCollisionFilterInfo(hkUint32 filterInfo)
 {
 	m_characterRb->getRigidBody()->setCollisionFilterInfo(filterInfo);
-	m_characterRb->getRigidBody()->getWorld()->updateCollisionFilterOnEntity( m_characterRb->getRigidBody(),
-		HK_UPDATE_FILTER_ON_ENTITY_FULL_CHECK,	HK_UPDATE_COLLECTION_FILTER_IGNORE_SHAPE_COLLECTIONS	);
+	if( m_characterRb->getRigidBody()->getWorld() )
+	{
+		m_characterRb->getRigidBody()->getWorld()->updateCollisionFilterOnEntity( m_characterRb->getRigidBody(),
+			HK_UPDATE_FILTER_ON_ENTITY_FULL_CHECK,	HK_UPDATE_COLLECTION_FILTER_IGNORE_SHAPE_COLLECTIONS	);
+	}
 }
 
 hkUint32 RigidBodyCharacterProxy::getCollisionFilterInfo( )
@@ -120,7 +128,7 @@ hkpWorldObject* RigidBodyCharacterProxy::getWorldObject()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

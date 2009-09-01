@@ -13,7 +13,7 @@
 #include <Demos/Physics/Api/Vehicle/VehicleApi/VehicleSetup.h>
 #include <Demos/Physics/Api/Vehicle/VehicleApi/FrictionMapVehicleRaycastWheelCollide.h>
 
-void VehicleSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
+void VehicleSetup::buildVehicle( const hkpWorld* world, hkpVehicleInstance& vehicle )
 {
 	//
 	// All memory allocations are made here.
@@ -29,7 +29,7 @@ void VehicleSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
 	vehicle.m_aerodynamics		= new hkpVehicleDefaultAerodynamics;
 	vehicle.m_velocityDamper	= new hkpVehicleDefaultVelocityDamper;
 
-	// For illustrative purposes we use a custom hkpVehicleRaycastWheelCollide
+	// For illustrative purposes we use a custom hkpVehicleRayCastWheelCollide
 	// which implements varying 'ground' friction in a very simple way.
 	vehicle.m_wheelCollide		= new FrictionMapVehicleRaycastWheelCollide;
 
@@ -47,10 +47,7 @@ void VehicleSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
 	setupComponent( *vehicle.m_data, *static_cast< hkpVehicleDefaultAerodynamics*>(vehicle.m_aerodynamics) );
 	setupComponent( *vehicle.m_data, *static_cast< hkpVehicleDefaultVelocityDamper*>(vehicle.m_velocityDamper) );
 
-
-	// The wheel collide component performs collision detection. To do this, it needs to create an 
-	// aabbPhantom from the vehicle information that has been set here already.
-	setupWheelCollide( world, vehicle, *static_cast< hkpVehicleRaycastWheelCollide*>(vehicle.m_wheelCollide) );
+	setupWheelCollide( world, vehicle, *static_cast< hkpVehicleRayCastWheelCollide*>(vehicle.m_wheelCollide) );
 
 	setupTyremarks( *vehicle.m_data, *static_cast< hkpTyremarksInfo*>(vehicle.m_tyreMarks) );
 
@@ -93,15 +90,9 @@ void VehicleSetup::buildVehicle(hkpWorld* world, hkpVehicleInstance& vehicle )
 	// Don't forget to call init! (This function is necessary to set up derived data)
 	//
 	vehicle.init();
-
-	//
-	// The phantom for collision detection needs to be explicitly added to the world
-	//
-
-	world->addPhantom( (hkpPhantom*)(static_cast< hkpVehicleRaycastWheelCollide*>(vehicle.m_wheelCollide)->m_phantom) );
 }
 
-void VehicleSetup::setupVehicleData( hkpWorld* world, hkpVehicleData& data )
+void VehicleSetup::setupVehicleData( const hkpWorld* world, hkpVehicleData& data )
 {
 	data.m_gravity = world->getGravity();
 
@@ -332,7 +323,7 @@ void VehicleSetup::setupComponent( const hkpVehicleData& data, hkpVehicleDefault
 	// Caution: setting negative damping values will add energy to system. 
 	// Setting the value to 0 will not affect the angular velocity. 
 
-	// Damping the change of the chassis’ angular velocity when below m_collisionThreshold. 
+	// Damping the change of the chassis angular velocity when below m_collisionThreshold. 
 	// This will affect turning radius and steering.
 	velocityDamper.m_normalSpinDamping    = 0.0f; 
 
@@ -345,9 +336,10 @@ void VehicleSetup::setupComponent( const hkpVehicleData& data, hkpVehicleDefault
 	velocityDamper.m_collisionThreshold   = 1.0f; 
 }
 
-void VehicleSetup::setupWheelCollide( hkpWorld* world, const hkpVehicleInstance& vehicle, hkpVehicleRaycastWheelCollide& wheelCollide )
+void VehicleSetup::setupWheelCollide( const hkpWorld* world, const hkpVehicleInstance& vehicle, hkpVehicleRayCastWheelCollide& wheelCollide )
 {
-	wheelCollide.m_wheelCollisionFilterInfo = vehicle.getChassis()->getCollidable()->getCollisionFilterInfo();
+	// Set the wheels to have the same collision filter info as the chassis.
+	wheelCollide.m_wheelCollisionFilterInfo = vehicle.getChassis()->getCollisionFilterInfo();
 }
 
 void VehicleSetup::setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo& tyreMarks ) 
@@ -358,7 +350,7 @@ void VehicleSetup::setupTyremarks( const hkpVehicleData& data, hkpTyremarksInfo&
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -102,8 +102,10 @@ class hkStructureLayout
 		static const LayoutRules Gcc151PspLayoutRules;
 			/// GCC 2.95 Linux
 		static const LayoutRules Gcc295LinuxLayoutRules;
-			/// GCC 3.3 Linux
+			/// GCC 3.3 Linux x86
 		static const LayoutRules Gcc33LinuxLayoutRules;
+			/// GCC 3.3 Linux x64
+		static const LayoutRules Gcc33Amd64LinuxLayoutRules;
 
 			/// SN 3.1 PlayStation(R)2
 		static const LayoutRules Sn31Ps2LayoutRules;
@@ -131,7 +133,7 @@ class hkStructureLayout
 #endif // HK_SERIALIZE_STRUCTURELAYOUT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

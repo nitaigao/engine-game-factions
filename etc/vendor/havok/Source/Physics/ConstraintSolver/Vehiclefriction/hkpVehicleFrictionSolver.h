@@ -14,7 +14,6 @@
 
 /// The class hkVehicleFrictionSolver is used is an input and output to the vehicle dynamics.
 /// It holds all values which change every frame.
-/// See hkRaycastVehicle for more details.
 struct hkpVehicleFrictionSolverAxleParams
 {
 
@@ -49,7 +48,7 @@ struct hkpVehicleFrictionSolverAxleParams
 			/// The purpose of this parameter is to control the slip angle of the wheel:
 			/// Assume you want to have a slip angle of 0.1 radians for a car cornering with 0.6g while driving 
 			/// at 20 meters/second. In this case you set m_slipVelocityFactor to (sin(0.1f) * 20.0f)/0.6g
-			/// This parameter only works if the velocity of the car is bigger than params.m_maxVelocityForPositionalFriction
+			/// This parameter only works if the velocity of the car is greater than params.m_maxVelocityForPositionalFriction
 		hkReal  m_slipVelocityFactor;
 
 		//
@@ -57,7 +56,7 @@ struct hkpVehicleFrictionSolverAxleParams
 		//
 		hkUint8	m_wheelFixed;
 
-			/// Initialises all data members to default values.
+			/// Initializes all data members to default values.
 		inline void initialize();
 };
 
@@ -116,7 +115,7 @@ extern "C"
 #endif //HK2VEHICLEFRICTIONSOLVER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

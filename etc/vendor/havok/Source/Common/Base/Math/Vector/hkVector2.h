@@ -29,6 +29,9 @@ class hkVector2
 			/// Returns true if the point is inside the circumcircle of the triangle p0, p1, p2 (wound CCW)
 		inline hkBool32 inCircumcircle( const hkVector2& p0, const hkVector2& p1, const hkVector2& p2, hkReal tolerance = .01f ) const;
 
+			/// Test for exact equality.
+		inline hkBool32 equals( const hkVector2& p0 ) const;
+
 			/// Return the dot product of this and p.
 		inline hkReal dot( const hkVector2& p ) const;
 
@@ -40,6 +43,9 @@ class hkVector2
 		
 			/// Set both elements.
 		inline void setAll( hkReal a );
+
+			/// Load from address.
+		inline void load( const hkReal* p );
 
 			/// Set both elements.
 		inline void set( hkReal a, hkReal b );
@@ -83,8 +89,15 @@ class hkVector2
 			/// Normalize and return the original length.
 		inline hkReal normalizeWithLength();
 
+			/// Length.
+		inline hkReal length() const;
+
 			/// Set both elements to zero.
 		inline void setZero();
+
+			/// Return true if this is lexicographically less than v.
+			/// The x components are compared and the y component used to break a tie if any.
+		inline hkBool32 lexLess( const hkVector2& v );
 
 	public:
 
@@ -99,7 +112,7 @@ class hkVector2
 #endif //HKMATH_MATH2D_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

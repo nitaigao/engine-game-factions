@@ -25,7 +25,7 @@ class hkDataRefCounted
 		HK_DECLARE_CLASS_ALLOCATOR_UNCHECKED(HK_MEMORY_CLASS_SERIALIZE);
 
 		virtual ~hkDataRefCounted() { HK_ASSERT(0x6ee903de, (m_count&~1)==0 ); }
-		hkDataRefCounted() : m_count(0), m_externalCount(0) {}
+		hkDataRefCounted() : m_externalCount(0), m_count(0) {}
 		void addReference() const
 		{
 			HK_ASSERT(0x5557d721, m_count >= 0);
@@ -64,8 +64,8 @@ class hkDataRefCounted
 
 	private:
 		mutable hkUint16 m_memSize;
-		mutable hkInt16 m_count;
 		mutable hkInt16 m_externalCount;
+		mutable hkInt32 m_count;
 };
 
 
@@ -96,6 +96,7 @@ class hkDataArrayImpl : public hkDataRefCounted
 			ITEM_ACCESSOR(const hkReal*, Vec, ra);
 			ITEM_ACCESSOR(const char*, String, s);
 			ITEM_ACCESSOR(hkReal, Real, r);
+			ITEM_ACCESSOR(hkHalf, Half, r);
 			ITEM_ACCESSOR(int, Int, i);
 			ITEM_ACCESSOR(hkInt64, Int64, i);
 			ITEM_ACCESSOR(hkDataObjectImpl*, Object, o);
@@ -114,6 +115,7 @@ class hkDataArrayImpl : public hkDataRefCounted
 			ARRAY_SET(hkInt64);
 			ARRAY_SET(hkUint64);
 			ARRAY_SET(hkReal);
+			ARRAY_SET(hkHalf);
 #		undef ARRAY_SET
 
 		void set( int index, hkDataObject::Value val )
@@ -216,6 +218,7 @@ class hkDataObjectImpl : public hkDataRefCounted
 		virtual void assign( const char* name, hkDataArrayImpl* value ) = 0;
 		virtual void assign( const char* name, const char* value ) = 0;
 		virtual void assign( const char* name, hkReal r ) = 0;
+		virtual void assign( const char* name, hkHalf r ) = 0;
 		virtual void assign( const char* name, const hkReal* r, int nreal ) = 0;
 		virtual void assign( const char* name, hkInt64 valueIn ) = 0;
 };
@@ -223,7 +226,7 @@ class hkDataObjectImpl : public hkDataRefCounted
 #endif // HK_SERIALISE_DATAOBJECT_IMPL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

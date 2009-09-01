@@ -38,6 +38,8 @@ class hkgInstancedDisplayObjectDX9S : public hkgInstancedDisplayObject, public h
 
 		virtual void setTransform( const float* transform, int objectIdx );
 
+		virtual void setTransforms( const float* allTransforms, int numTransforms, int startTransform );
+
 		virtual const float* getTransform( int objectIdx ) const;
 
 			// take the transforms form an externaly created vertex buf source.
@@ -88,7 +90,7 @@ class hkgInstancedDisplayObjectDX9S : public hkgInstancedDisplayObject, public h
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

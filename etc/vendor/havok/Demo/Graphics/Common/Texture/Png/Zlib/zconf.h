@@ -12,7 +12,7 @@
  * For conditions of distribution and use, see copyright notice in zlib.h 
  */
 
-/* @(#) $Id: zconf.h,v 1.5 2004/09/09 16:17:01 andrew.bowell Exp $ */
+/* @(#) $Id: //depot/Release/660/660_Release/Demo/Graphics/Common/Texture/Png/Zlib/zconf.h#1 $ */
 
 #ifndef _ZCONF_H
 #define _ZCONF_H
@@ -293,7 +293,7 @@ typedef uLong FAR uLongf;
 #endif /* _ZCONF_H */
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -45,7 +45,7 @@ class hkgBillboardDisplayObject : public hkgDisplayObject
 
 		static hkgBillboardDisplayObject* (HK_CALL *create)( hkgDisplayContext* ctx );
 
-		virtual hkgDisplayObject* copy( HKG_DISPLAY_OBJECT_COPY_FLAGS f, hkgDisplayContext* ctx /*only required if doing deeper copies (facesets and/or verts)*/ );
+		virtual hkgDisplayObject* copy( HKG_DISPLAY_OBJECT_COPY_FLAGS f, hkgDisplayContext* ctx /*only required if doing deeper copies (facesets and/or verts)*/ ) const;
 
 		void setPosition( const float* position );
 		inline const float* getPosition( ) const { return m_position; }
@@ -106,7 +106,7 @@ class hkgBillboardDisplayObject : public hkgDisplayObject
 #endif // HK_GRAPHICS_BILLBOARD_DISPLAY_OBJECT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

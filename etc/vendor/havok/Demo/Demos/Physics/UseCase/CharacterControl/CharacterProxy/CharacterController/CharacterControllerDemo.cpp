@@ -305,8 +305,12 @@ hkDemo::Result CharacterDemo::stepDemo()
 			input.m_velocity = m_characterProxy->getLinearVelocity();
 			input.m_position = m_characterProxy->getPosition();
 
-			if (m_listener->m_atLadder)
-			{
+			hkVector4 down;	down.setNeg4(up);
+			m_characterProxy->checkSupport(down, input.m_surfaceInfo);
+
+			// Only climb the ladder when the character is either unsupported or wants to go up.
+			if ( m_listener->m_atLadder && ( ( input.m_inputUD < 0 ) || ( input.m_surfaceInfo.m_supportedState != hkpSurfaceInfo::SUPPORTED ) ) )
+				{
 				hkVector4 right, ladderUp;
 				right.setCross( up, m_listener->m_ladderNorm );
 				ladderUp.setCross( m_listener->m_ladderNorm, right );
@@ -321,18 +325,9 @@ hkDemo::Result CharacterDemo::stepDemo()
 				input.m_forward.add4( ladderUp );
 				input.m_forward.normalize3();
 
-				input.m_surfaceNormal = m_listener->m_ladderNorm;
-				input.m_surfaceVelocity = m_listener->m_ladderVelocity;
-			}
-			else 
-			{
-				hkVector4 down;	down.setNeg4(up);
-				hkpSurfaceInfo ground;
-				m_characterProxy->checkSupport(down, ground);
-				input.m_isSupported = ground.m_supportedState == hkpSurfaceInfo::SUPPORTED;
-
-				input.m_surfaceNormal = ground.m_surfaceNormal;
-				input.m_surfaceVelocity = ground.m_surfaceVelocity;
+				input.m_surfaceInfo.m_supportedState = hkpSurfaceInfo::UNSUPPORTED;
+				input.m_surfaceInfo.m_surfaceNormal = m_listener->m_ladderNorm;
+				input.m_surfaceInfo.m_surfaceVelocity = m_listener->m_ladderVelocity;
 			}
 		}
 
@@ -502,7 +497,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(CharacterDemo, HK_DEMO_TYPE_PRIME, "CharacterTest", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

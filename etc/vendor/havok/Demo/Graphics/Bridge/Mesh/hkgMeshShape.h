@@ -75,6 +75,7 @@ class hkgMeshShape: public hkMeshShape
 			hkUint8                      m_dspGeomMfsFs;     ///
 		};
 
+		mutable hkArray<class hkgMeshBody*>	m_referencingBodies;		///
         hkgDisplayObject*		m_displayObject;			///
 		hkgDisplayContext*		m_context;					///
         hkObjectArray<Section>	m_sections;                 ///
@@ -83,7 +84,7 @@ class hkgMeshShape: public hkMeshShape
 #endif // HKG_MESH_SHAPE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

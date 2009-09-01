@@ -65,27 +65,7 @@ hkpShape* PinionDemo::createPinionShape()
 
 
 	hkpConvexVerticesShape* shape;
-	hkArray<hkVector4> planeEquations;
-	hkGeometry geom;
-	{
-		hkStridedVertices stridedVerts;
-		{
-			stridedVerts.m_numVertices = vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(vertices[0](0));
-		}
-
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		shape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-	}
-
+	shape = new hkpConvexVerticesShape(vertices);
 	
 	hkpShape* shapes[ NUM_TEETH ];
 	for (int kk=0;kk<NUM_TEETH  ;kk++)
@@ -269,7 +249,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(PinionDemo, HK_DEMO_TYPE_PRIME, "Pinion", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

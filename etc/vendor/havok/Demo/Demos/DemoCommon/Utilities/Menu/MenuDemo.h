@@ -38,6 +38,7 @@ class MenuDemo : public hkDefaultDemo
 		virtual Result stepVisualDebugger();
 
 		virtual void windowResize(int w, int h);
+		virtual void windowDropFile(const char* filename, int x, int y); // window has a file dropped. The const char is temporary, strDup if you want to keep it.
 
 		struct Empty
 		{
@@ -56,8 +57,6 @@ class MenuDemo : public hkDefaultDemo
 		// get a menu demo (kinda like a singleton)
 		static MenuDemo* getMenuDemo();
 
-	private:
-
 		struct Entry
 		{
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_DEMO, Entry);
@@ -70,6 +69,8 @@ class MenuDemo : public hkDefaultDemo
 			: m_name(name), m_fullPath(fullPath), m_help(help), m_index(index) {}
 			hkBool isDir() { return m_help == HK_NULL; }
 		};
+
+	private:
 
 		Result stepMenuDemo();
 		Result stepCurrentDemo();
@@ -101,7 +102,7 @@ class MenuDemo : public hkDefaultDemo
 		hkDemo* m_currentDemo;		// current demo if it exists
 
 		hkReal m_helpTimeMax;		// how long do we want help for (in seconds)
-		hkReal m_helpTimeLeft;		// number of seconds left to show help. zero means help is off.
+		hkReal m_helpTimeLeft;		// number of seconds left to show help. zero means help is off. HK_REAL_MAX means show keys
 		hkString m_statusLine;		// status text
 		hkString m_searchString;	// quicksearch
 
@@ -160,7 +161,7 @@ class MenuDemo : public hkDefaultDemo
 #endif // DEMOS_UTILITIES_MENUDEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -10,6 +10,7 @@
 inline hkgPad::hkgPad()
 : m_curButtonState(0),
   m_prevButtonState(0),
+  m_hasIndependentAnalogTriggers(false),
   m_valid(false)
 {
 }
@@ -95,8 +96,37 @@ inline const hkgPad::Stick& hkgPad::getStickState(int stick) const
 	return m_stick[stick];
 }
 
+inline bool hkgPad::hasIndependentAnalogTriggers() const
+{
+	return m_hasIndependentAnalogTriggers;
+}
+
+inline float hkgPad::getTriggerPos( int trigger ) const
+{
+	HK_ASSERT2(0, (trigger == HKG_PAD_LEFT_ANALOG_TRIGGER) || 
+		   (trigger == HKG_PAD_RIGHT_ANALOG_TRIGGER), "Invalid trigger.");
+
+	return m_trigger[trigger].m_cur;
+}
+
+inline float hkgPad::getPrevTriggerPos( int trigger ) const
+{
+	HK_ASSERT2(0, (trigger == HKG_PAD_LEFT_ANALOG_TRIGGER) || 
+		   (trigger == HKG_PAD_RIGHT_ANALOG_TRIGGER), "Invalid trigger.");
+
+	return m_trigger[trigger].m_prev;
+}
+
+inline bool hkgPad::hasTriggerPosChanged(int trigger, float tolerance /* = 0.05f */ ) const
+{
+	HK_ASSERT2(0, (trigger == HKG_PAD_LEFT_ANALOG_TRIGGER) || 
+		   (trigger == HKG_PAD_RIGHT_ANALOG_TRIGGER), "Invalid trigger.");
+
+	return hkg_fabs( m_trigger[trigger].m_cur - m_trigger[trigger].m_prev ) >= tolerance;
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

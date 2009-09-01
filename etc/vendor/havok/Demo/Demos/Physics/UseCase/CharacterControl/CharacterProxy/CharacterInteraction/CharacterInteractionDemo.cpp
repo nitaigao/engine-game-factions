@@ -465,9 +465,7 @@ hkDemo::Result CharacterInteractionDemo::stepDemo()
 			hkpSurfaceInfo ground;
 			m_characterProxy->checkSupport(down, ground);
 
-			input.m_isSupported = ground.m_supportedState == hkpSurfaceInfo::SUPPORTED;
-			input.m_surfaceNormal = ground.m_surfaceNormal;
-			input.m_surfaceVelocity = ground.m_surfaceVelocity;
+			input.m_surfaceInfo = ground;
 		}
 
 		// Apply the character state machine
@@ -603,7 +601,7 @@ HK_DECLARE_DEMO(CharacterInteractionDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_CRIT
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

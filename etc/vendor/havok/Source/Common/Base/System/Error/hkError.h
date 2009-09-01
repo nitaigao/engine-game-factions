@@ -26,7 +26,7 @@ class hkError : public hkReferencedObject, public hkSingleton<hkError>
 			MESSAGE_ERROR
 		};
 
-			/// Return value indicates whether or not to trigger an HK_BREAKPOINT
+			/// Return value indicates whether or not to trigger an HK_BREAKPOINT for errors and asserts.
 		virtual int message(Message m, int id, const char* description, const char* file, int line) = 0;
 
 			/// Enables/disables diagnostic by id.
@@ -56,14 +56,31 @@ typedef void (HK_CALL *hkErrorReportFunction)(const char* s, void* errorReportOb
 
 namespace hkCompileError
 {
+		// Generic compile time failure
 	template <bool b> struct COMPILE_ASSERTION_FAILURE;
 	template <> struct COMPILE_ASSERTION_FAILURE<true>{ };
+
+		// The reflection parser and the compile time check disagree about whether a class has a vtable.
+		// The script may not have detected that a class has a vtable. e.g. no virtual methods
+		// declared in the body. In this case add //+virtual(true) at the start of the class definition.
+		// Otherwise, the compile time vtable check may have failed if the object does not inherit from hkBaseObject.
+		// In this case, you can mark the base class as virtual by adding the declaration
+		// "hkBool::YesType hkIsVirtual(MyClass*);" after the class definition. A function body is not needed.
+	template <bool b> struct REFLECTION_PARSER_VTABLE_DETECTION_FAILED;
+	template <> struct REFLECTION_PARSER_VTABLE_DETECTION_FAILED<true>{ };
 }
 
-// compile time asserts and errors are always enabled
-// Note: Use this only in c++ files, not header files.
+/// Cause a compile error if the assert fails.
+/// Note: Use this only in c++ files, not header files as this macro introduces a symbol based on the line number.
 #define HK_COMPILE_TIME_ASSERT(a) enum { HK_PREPROCESSOR_JOIN_TOKEN(compile_time_assert_, __LINE__) \
 										= sizeof(hkCompileError::COMPILE_ASSERTION_FAILURE<bool(a)>) }
+
+/// Compile time assert with an error message.
+/// The MSG argument should give a hint about why the assert failed as the cause may not be apparent
+/// from the compile error. MSG should be defined in the hkCompileError namespace
+/// Note: Use this only in c++ files, not header files as this macro introduces a symbol based on the line number.
+#define HK_COMPILE_TIME_ASSERT2(a,MSG) enum { HK_PREPROCESSOR_JOIN_TOKEN(compile_time_assert_, __LINE__) \
+										= sizeof(hkCompileError::MSG<bool(a)>) }
 
 #define HK_REPORT_SECTION_BEGIN(id, name)	hkError::getInstance().sectionBegin(id, name);
 
@@ -82,15 +99,6 @@ namespace hkCompileError
 	HK_MULTILINE_MACRO_END
 
 
-// produce an error message which will not break (usefull for the filter pipeline)
-#	define HK_ERROR_NOBREAK(id, TEXT)		HK_MULTILINE_MACRO_BEGIN																						\
-	char assertBuf[512];																							\
-	hkErrStream ostr(assertBuf, sizeof(assertBuf));																	\
-	ostr << TEXT;																									\
-	hkError::getInstance().message(hkError::MESSAGE_ERROR, id, assertBuf, __FILE__, __LINE__);					\
-	HK_MULTILINE_MACRO_END
-
-
 #	define HK_ERROR(id, TEXT)			HK_MULTILINE_MACRO_BEGIN																						\
 										char assertBuf[512];																							\
 										hkErrStream ostr(assertBuf,sizeof(assertBuf));																	\
@@ -106,6 +114,13 @@ namespace hkCompileError
 										hkErrStream ostr(reportBuf,sizeof(reportBuf));																	\
 										ostr << TEXT;																									\
 										hkError::getInstance().message(hkError::MESSAGE_REPORT, -1, reportBuf, __FILE__, __LINE__);						\
+										HK_MULTILINE_MACRO_END
+
+#	define HK_REPORT2(id, TEXT)			HK_MULTILINE_MACRO_BEGIN																						\
+										char reportBuf[512];																							\
+										hkErrStream ostr(reportBuf,sizeof(reportBuf));																	\
+										ostr << TEXT;																									\
+										hkError::getInstance().message(hkError::MESSAGE_REPORT, id, reportBuf, __FILE__, __LINE__);						\
 										HK_MULTILINE_MACRO_END
 
 #	if defined HK_DEBUG // NOSPU + DEBUG
@@ -163,14 +178,14 @@ namespace hkCompileError
 
 #	define HK_WARN_ALWAYS(id, TEXT)	HK_ERROR_FORWARD( hkError::MESSAGE_WARNING, id, hkUlong(0) )
 
-#	define HK_ERROR_NOBREAK(id, TEXT)	HK_ERROR_FORWARD( hkError::MESSAGE_WARNING, id, hkUlong(0) )
-
 #	define HK_ERROR(id, TEXT)		HK_MULTILINE_MACRO_BEGIN \
 										HK_ERROR_FORWARD( hkError::MESSAGE_ERROR, id, hkUlong(0) ); \
 										HK_BREAKPOINT(id);				\
 										HK_MULTILINE_MACRO_END
 
 #	define HK_REPORT(TEXT)			HK_ERROR_FORWARD( hkError::MESSAGE_REPORT, 0, hkUlong(TEXT) )
+
+#	define HK_REPORT2(id, TEXT)		HK_ERROR_FORWARD( hkError::MESSAGE_REPORT, id, hkUlong(TEXT) )
 
 #	if defined (HK_DEBUG) // SPU+DEBUG
 
@@ -243,7 +258,7 @@ namespace hkCompileError
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

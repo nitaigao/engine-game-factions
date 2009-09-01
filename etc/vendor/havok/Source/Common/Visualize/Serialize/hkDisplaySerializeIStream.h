@@ -50,7 +50,7 @@ class hkDisplaySerializeIStream : public hkIArchive
 #endif //  HK_VISUALIZE_DISPLAY_SERIALIZE_I_STREAM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

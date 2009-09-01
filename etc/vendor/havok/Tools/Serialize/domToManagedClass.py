@@ -62,6 +62,7 @@ classPropertySpecDict = { ### propertySpecKey : (propertySpecPostfix, propertySp
                             "enum" : ("_ENUM", "(%s,%s,%s,%s)"),
                             "flags" : ("_FLAG", "(%s,%s,%s,%s)"),
                             "cstring" : ("_STRING","(%s,%s)"),
+                            "stringptr" : ("_STRINGPTR","(%s,%s)"),
                             "plain_havok" : ("_PROXY","(%s,%s,%s)"),
                             "variant" : ("_VARIANT","(%s,%s)"),
                             "struct" : ("_STRUCT","(%s,%s,%s)"), ### copy by value
@@ -76,6 +77,7 @@ classPropertySpecDict = { ### propertySpecKey : (propertySpecPostfix, propertySp
                             "simplearray_pointer" : ("_SIMPLEARRAY_CLASS","(%s,%s,%s)"),
                             "array" : ("_ARRAY","(%s,%s,%s)"),
                             "array_cstring" : ("_ARRAY_STRING","(%s,%s)"),
+                            "array_stringptr" : ("_ARRAY_STRINGPTR","(%s,%s)"),
                             "array_plain_havok" : ("_ARRAY_PROXY","(%s,%s,%s)"),
                             "array_variant" : ("_ARRAY_VARIANT","(%s,%s)"),
                             "array_struct" : ("_ARRAY_STRUCT","(%s,%s,%s)"),
@@ -120,6 +122,8 @@ typeToClassPropertySpecKeyDict = {
                                     "TYPE_ULONG" : "plain",
                                     "TYPE_VARIANT" : "variant", ### void* and hkClass*
                                     "TYPE_FLAGS" : "flags", ### named bitfield
+                                    "TYPE_HALF" : "plain", ### hkHalf, 16-bit float
+                                    "TYPE_STRINGPTR" : "stringptr", ### hkStringPtr, c-string wrapper
                                 }
 
 classEnumDeclSpec = ("HK_MANAGED_ENUM", "(%s)")
@@ -139,13 +143,19 @@ classCtorSpecDict = {   ### classCtorSpecKey : (classCtorSpecPostfix, classCtorS
                     "end" : ("","()")       ### HK_MANAGED_CLASS_CTOR_SCOPED
                 }
 
+def isUnsupportedReflection(havokType):
+    return havokType in ["hkClassMember::TYPE_VOID", "hkClassMember::TYPE_ZERO", "TYPE_VOID", "TYPE_ZERO"]
+
+def isUnsupportedDataType(dataType):
+    return dataType in ["void", "UNKNOWN", "HK_NULL"]
+
 def getInternalSpecKey(havokType, havokSubtype):
     specKey1 = typeToClassPropertySpecKeyDict[ havokType.replace("hkClassMember","").replace(":","") ]
     specKey2 = typeToClassPropertySpecKeyDict[ havokSubtype.replace("hkClassMember","").replace(":","") ]
     if specKey2=="none":
         specKey2=""
     else:
-        if specKey1=="pointer" or specKey2 in [ "pointer", "cstring", "variant", "struct", "plain_havok" ]:
+        if specKey1=="pointer" or specKey2 in [ "pointer", "cstring", "stringptr", "variant", "struct", "plain_havok" ]:
             specKey2="_"+specKey2
         else:
             specKey2=""
@@ -292,7 +302,7 @@ class ManagedMemberInfo:
         self.visibility = domMember.visibility
         self.description = domMember.description
         self.name = "m_%s" % domMember.name
-        self.dataType = domToClass.removeFromDeclarationSpaced( domMember.type, ("mutable","const") )
+        self.dataType = domToClass.removeFromDeclarationSpaced( domMember.overridetype or domMember.type, ("mutable","const") )
         self.externalDataType = False
         self.isStruct = False
         self.hasDefault = domMember.default != None
@@ -307,12 +317,12 @@ class ManagedMemberInfo:
         if not domMember.serialized:
             return
 
-        if domMember.overridetype and domToClass._typecode(domMember.overridetype) == "hkClassMember::TYPE_ZERO":
-            return
-
         # extract real type and subtype
         self.havokType = domToClass._typecode(self.dataType)
         self.size = 0
+
+        if isUnsupportedReflection(self.havokType):
+            return
 
         # Get cstyle array size
         if self.dataType.find("[") != -1:
@@ -504,7 +514,7 @@ def domToManagedClass(dom, debug=0, collectAll=False, pchfile=""):
     def getPropertySpecInfo(memInfo):
         args = [memInfo.dataType, memInfo.name]
         specKey = getInternalSpecKey(memInfo.havokType, memInfo.havokSubtype)
-        if specKey.count("cstring") or specKey.count("variant") or specKey=="zero":
+        if specKey.count("cstring") or specKey.count("stringptr") or specKey.count("variant") or specKey=="zero":
             del args[0]
         if specKey in [ "enum", "flags" ]:
             args.append(memInfo.typeSize)
@@ -517,7 +527,12 @@ def domToManagedClass(dom, debug=0, collectAll=False, pchfile=""):
         specResult += "".join( [specItem for specItem in classPropertySpecDict[specInfo[0]]] )
         ### add class names base on spec
         specInfo[1].append(genAttributes(className,memInfo, propertyIndex))
-        specResult = specResult % tuple(specInfo[1])
+        try:
+            specResult = specResult % tuple(specInfo[1])
+        except:
+            print specResult
+            print specInfo[1]
+            pass
         specResult += ";"
         return specResult
 
@@ -967,7 +982,7 @@ if __name__=="__main__":
     
 
 #
-# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 # 
 # Confidential Information of Havok.  (C) Copyright 1999-2009
 # Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -103,7 +103,7 @@ void Gdc2005Demo::initAnimation()
 
 		// Get the rig
 		{
-			hkString assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/Showcase/Gdc2005/Model/Firefighter_Rig.hkx");
+			hkString assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/Firefighter_Rig.hkx");
 			m_rigContainer = m_loader->load( assetFile.cString() );
 			HK_ASSERT2(0x27343437, m_rigContainer != HK_NULL , "Could not load asset");
 			hkaAnimationContainer* ac = reinterpret_cast<hkaAnimationContainer*>( m_rigContainer->findObjectByType( hkaAnimationContainerClass.getName() ));
@@ -118,9 +118,9 @@ void Gdc2005Demo::initAnimation()
 		{
 			hkString assetFile;
 			if (m_bUseHardwareSkinning)
-				assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/Showcase/Gdc2005/Model/Firefighter_PS2_18Bones_Skin.hkx");
+				assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/Firefighter_PS2_18Bones_Skin.hkx");
 			else
-				assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/Showcase/Gdc2005/Model/Firefighter_Skin.hkx");
+				assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/Firefighter_Skin.hkx");
 
 			hkRootLevelContainer* rootContainer = m_loader->load( assetFile.cString() );
 			HK_ASSERT2(0x27343437, rootContainer != HK_NULL , "Could not load asset");
@@ -167,45 +167,45 @@ void Gdc2005Demo::initAnimation()
 			control->removeReference();
 
 			// GDC_IDLE_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkIdle1.hkx" );
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkIdle1.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
 			// GDC_JUMP_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkRunJump.hkx" );
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkRunJump.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
 			// GDC_IN_AIR_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkInAir.hkx" );
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkInAir.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
 			// GDC_LAND_CONTROL
-			control = AnimationUtils::loadControl( *m_loader,"Resources/Animation/Showcase/Gdc2005/Animations/hkHardLand.hkx" );
+			control = AnimationUtils::loadControl( *m_loader,"Resources/Animation/ShowCase/Gdc2005/Animations/hkHardLand.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
 			// GDC_DYING_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkDie.hkx" );
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkDie.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
 			// GDC_GET_UP_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkKnockdown2.hkx" );
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkKnockdown2.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->setPlaybackSpeed(0.0f);
 			control->removeReference();
 
 			// GDC_WALK_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkWalk.hkx");
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkWalk.hkx");
 			control->setMasterWeight( 0.0f );
 			control->easeIn( 0.0f );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
 			// GDC_RUN_CONTROL
-			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/Showcase/Gdc2005/Animations/hkRun.hkx");
+			control = AnimationUtils::loadControl( *m_loader, "Resources/Animation/ShowCase/Gdc2005/Animations/hkRun.hkx");
 			// To sync with walk
 			control->setLocalTime( 17.0f / 60.0f );
 			control->setMasterWeight( 0.0f );
@@ -214,7 +214,7 @@ void Gdc2005Demo::initAnimation()
 			control->removeReference();
 
 			// GDC_DIVE_CONTROL
-			control = AnimationUtils::loadControl( *m_loader,"Resources/Animation/Showcase/Gdc2005/Animations/hkDive.hkx" );
+			control = AnimationUtils::loadControl( *m_loader,"Resources/Animation/ShowCase/Gdc2005/Animations/hkDive.hkx" );
 			m_animatedSkeleton->addAnimationControl( control );
 			control->removeReference();
 
@@ -253,7 +253,7 @@ void Gdc2005Demo::initAnimation()
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

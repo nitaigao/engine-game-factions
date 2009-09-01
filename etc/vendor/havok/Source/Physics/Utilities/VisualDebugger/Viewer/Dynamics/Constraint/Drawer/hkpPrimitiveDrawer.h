@@ -35,16 +35,16 @@ class hkpPrimitiveDrawer
 		void setDisplayHandler(hkDebugDisplayHandler* displayHandler);
 
 			/// Displays an oriented point.
-		void displayOrientedPoint(const hkVector4& position,const hkRotation& rot,hkReal size, int color, int tag);
+		void displayOrientedPoint(const hkVector4& position,const hkRotation& rot,hkReal size, int color, int id, int tag);
 
 			/// Displays an arrow.
-		void displayArrow (const hkVector4& startPos, const hkVector4& arrowDirection, const hkVector4& perpDirection, int color, hkReal scale, int tag);
+		void displayArrow (const hkVector4& startPos, const hkVector4& arrowDirection, const hkVector4& perpDirection, int color, hkReal scale, int id, int tag);
         
 			/// Displays a cone.
-		void displayCone (hkReal cone_angle, const hkVector4& startPos, const hkVector4& coneAaxis, const hkVector4& perpVector, int numSegments, int color, hkReal coneSize, int tag);
+		void displayCone (hkReal cone_angle, const hkVector4& startPos, const hkVector4& coneAaxis, const hkVector4& perpVector, int numSegments, int color, hkReal coneSize, int id, int tag);
 
 			/// Displays a plane.
-		void displayPlane(const hkVector4& startPos, const hkVector4& planeNormal, const hkVector4& vectorOnPlane, int color, hkReal scale, int tag);
+		void displayPlane(const hkVector4& startPos, const hkVector4& planeNormal, const hkVector4& vectorOnPlane, int color, hkReal scale, int id, int tag);
 
 			/// Draws a semi circle.
 			/// \center The position of the center in world space.
@@ -52,14 +52,14 @@ class hkpPrimitiveDrawer
 			/// \param startPerp An orthogonal axis to the normal which defines the start of the sweep.
 		void drawSemiCircle(const hkVector4& center, hkVector4& normal, 
 						    hkVector4& startPerp, hkReal thetaMin, hkReal thetaMax,
-							hkReal radius,int numSegments, int color, int tag);
+							hkReal radius,int numSegments, int color, int id, int tag);
 };
 
 #endif // HK_PRIMITIVEDRAWER_H
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

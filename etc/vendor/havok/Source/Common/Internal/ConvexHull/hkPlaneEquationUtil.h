@@ -101,13 +101,25 @@ class hkPlaneEquationUtil
 			/// The guts of the algorithm - this performs a flood-fill over the intersection lines of the planeEquations.
 			/// This function is called recursively and finishes when it cannot find any more new visitedEdges.
 		static void HK_CALL walkAlongEdge( VisitedEdge& v, const hkArray<hkVector4>& planeEquations, hkArray<VisitedEdge>& visitedEdges, hkArray<hkVector4>& vertexCloudOut );
+	private:
+		
+		/// Former hkGeomConvexHullBuilder member, duplicated here to remove coupling
+		static hkBool HK_FORCE_INLINE vectorLessAndMergeCoordinates( hkVector4& v1, hkVector4& v2 )
+		{
+			if ( v1(0) < v2(0) )												return true;
+			else if ( (v1(0) == v2(0)) && (v1(1) < v2(1)) )						return true;
+			else if ( (v1(0) == v2(0)) && (v1(1) == v2(1)) && (v1(2) < v2(2)) )	return true;
+			else																return false;
+		}
+		/// Former hkGeomConvexHullBuilder member, duplicated here to remove coupling
+		static void HK_CALL weldXsortedVertices( hkReal weldTolerance, hkArray<hkVector4>& verts, int& numVertices );
 };
 
 
 #endif	// HK_PLANEEQUATION_UTIL
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

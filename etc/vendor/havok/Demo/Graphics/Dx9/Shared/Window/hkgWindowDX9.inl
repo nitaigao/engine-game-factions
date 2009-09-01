@@ -7,7 +7,7 @@
  */
 
 hkgWindowDX9::hkgWindowDX9()
-: hkgWindow(), m_pd3dDevice(HK_NULL), m_pD3D(NULL), m_dwCreateFlags(0), m_fsaa(false), m_shadowMapSize(0), m_shadowMapSupport(HKG_SHADOWMAP_NOTKNOWN),
+: hkgWindow(), m_pd3dDevice(HK_NULL), m_pD3D(NULL), m_dwCreateFlags(0), m_msaa(false), m_shadowMapSize(0), m_shadowMapSupport(HKG_SHADOWMAP_NOTKNOWN),
 m_pShadowColorMap(HK_NULL), m_pShadowZMap(HK_NULL), m_pShadowColorSurface(HK_NULL), m_pShadowZSurface(HK_NULL),
 m_pOrigRT(HK_NULL), m_pOrigDS(HK_NULL), m_origDepthBias(0), m_origDepthBiasSlope(0), m_debugShadowMaps(false),
 m_debugShadowMapVShader(HK_NULL),m_debugShadowMapPShader(HK_NULL),
@@ -42,7 +42,7 @@ inline LPDIRECT3DTEXTURE9 hkgWindowDX9::getShadowMap()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

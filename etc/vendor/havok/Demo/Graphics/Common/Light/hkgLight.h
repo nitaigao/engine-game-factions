@@ -76,7 +76,8 @@ class hkgLight : public hkgReferencedObject
 			/// Get the direction of the light as a pointer to the internal structure.
 			/// Used for spot and directional lights.
 		inline float* getDirectionPtr();
-			
+		inline const float* getDirectionPtr() const;
+
 			/// Set the direction of the light. Used for spot and directional lights.
 		inline void   setDirection(const float p[3]);
 
@@ -185,7 +186,7 @@ class hkgLight : public hkgReferencedObject
 #endif //  HK_GRAPHICS_LIGHT_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

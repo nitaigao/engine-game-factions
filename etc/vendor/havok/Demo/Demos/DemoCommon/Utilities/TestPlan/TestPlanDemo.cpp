@@ -19,6 +19,7 @@ struct TestPlanVariant
 
 static const TestPlanVariant g_variants[] =
 {
+	{ "DemosList",			TestPlanDemo::DEMOS_LIST,                "Generates a text file listing all demos and tests."},
 	{ "AllDemosAndTests",   TestPlanDemo::TEST_PLAN_ALL,             "Generates a test plan spreadsheet for all the demos and tests."},
 	{ "CommonDemos",        TestPlanDemo::TEST_PLAN_COMMON_DEMOS,    "Generates a test plan spreadsheet for the common demos."},
 	{ "PhysicsDemos",       TestPlanDemo::TEST_PLAN_PHYSICS_DEMOS,   "Generates a test plan spreadsheet for the physics demos."},
@@ -45,7 +46,14 @@ TestPlanDemo::TestPlanDemo(hkDemoEnvironment* env)
 hkDemo::Result TestPlanDemo::stepDemo()
 {
 	hkString testPlanFilename;
-	testPlanFilename.printf( "%s_%i_%sReport.csv", HAVOK_SDK_VERSION_STRING, HAVOK_BUILD_NUMBER, m_testPlanFilename );
+	if( m_testPlanType == DEMOS_LIST )
+	{
+		testPlanFilename.printf( "%s.txt", m_testPlanFilename );
+	}
+	else
+	{
+		testPlanFilename.printf( "%s_%i_%sReport.csv", HAVOK_SDK_VERSION_STRING, HAVOK_BUILD_NUMBER, m_testPlanFilename );
+	}
 
 	if( m_step == 0 )
 	{
@@ -55,7 +63,7 @@ hkDemo::Result TestPlanDemo::stepDemo()
 		{
 			ostr.printf( "%s,\n", unitTestCols );
 		}
-		else
+		else if( m_testPlanType != DEMOS_LIST )
 		{
 			ostr.printf( "%s,\n", demoCols );
 		}
@@ -78,51 +86,64 @@ hkDemo::Result TestPlanDemo::stepDemo()
 			// Skip demos based on their location in the demos tree.
 			switch (m_testPlanType)
 			{
+			case DEMOS_LIST:
+				// Simply print out the demo name, skipping the path processing after the switch.
+				ostr.printf( "\"%s\"\n", demoName.cString() );
+				continue;
+
+			case TEST_PLAN_ALL:
+				// Don't skip any demos.
+				break;
+
 			case TEST_PLAN_COMMON_DEMOS:
 				if ( demoName.substr(0,6) != hkString("Common") || unitTest )
 				{
 					continue;
 				}
 				break;
+
 			case TEST_PLAN_PHYSICS_DEMOS:
 				if ( demoName.substr(0,7) != hkString("Physics") || unitTest )
 				{
 					continue;
 				}
 				break;
+
 			case TEST_PLAN_ANIMATION_DEMOS:
 				if ( demoName.substr(0,9) != hkString("Animation") || unitTest )
 				{
 					continue;
 				}
 				break;
+
 			case TEST_PLAN_BEHAVIOR_DEMOS:
 				if ( demoName.substr(0,8) != hkString("Behavior") || unitTest )
 				{
 					continue;
 				}
 				break;
+
 			case TEST_PLAN_SERIALIZE_DEMOS:
 				if( (entry.m_demoTypeFlags & HK_DEMO_TYPE_SERIALIZE) == 0 )
 				{
 					continue;
 				}
 				break;
+
 			case TEST_PLAN_UNIT_TESTS:
 				if( !unitTest )
 				{
 					continue;
 				}
 				break;
+
 			case TEST_PLAN_VISUAL_TESTS:
 				if( demoName.substr( demoName.indexOf('/')+1, 4 ) != "Test"  || unitTest )
 				{
 					continue;
 				}
 				break;
-			case TEST_PLAN_ALL:
-				// Don't skip any demos.
-				break;
+
 			default:
 				break;
 			}
@@ -191,7 +212,7 @@ TestPlanDemo::~TestPlanDemo()
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( TestPlanDemo, HK_DEMO_TYPE_OTHER, TestPlanVariant, g_variants, "Generate Test Plans" );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

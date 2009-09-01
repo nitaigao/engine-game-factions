@@ -7,14 +7,14 @@
  */
 
 inline hkgPixelShaderDX10::hkgPixelShaderDX10(hkgDisplayContext* context)
-: hkgShaderDX10(context), m_pixelShader(HK_NULL), m_bound(false)
+: hkgShaderDX10(HKG_PIXEL_SHADER, context), m_pixelShader(HK_NULL), m_bound(false)
 {
 
 }
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

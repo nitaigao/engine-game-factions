@@ -90,7 +90,7 @@ VehicleApiDemo::VehicleApiDemo(hkDemoEnvironment* env)
 		// No longer need reference to shape as the hkpRigidBody holds one.
 		chassisShape->removeReference();
 
-		m_world->addEntity(chassisRigidBody);
+		//m_world->addEntity(chassisRigidBody);
 	}
 	///>
 	/// In this example, the chassis is added to the Vehicle Kit in the createVehicle() method.
@@ -126,9 +126,7 @@ VehicleApiDemo::~VehicleApiDemo( )
 	}
 
 
-	// Remove the vehicle phantom from the world.	
-	m_world->removePhantom( (hkpPhantom*)(static_cast< hkpVehicleRaycastWheelCollide*>(m_vehicle->m_wheelCollide)->m_phantom) );
-
+	m_vehicle->removeFromWorld();
 	m_vehicle->removeReference();
 	m_world->unlock();
 }
@@ -262,12 +260,12 @@ void VehicleApiDemo::buildLandscape()
 
 void VehicleApiDemo::createVehicle(hkpRigidBody* chassis)
 {
-
 	// Create the basic vehicle.
 	m_vehicle = new hkpVehicleInstance( chassis );
 	VehicleSetup setup;
 	setup.buildVehicle( m_world, *m_vehicle );
 
+	m_vehicle->addToWorld( m_world );
 
 	///[integrationWithSDK]
 	/// Actions are the interface between user controllable behavior of the physical simulation and the Havok core. 
@@ -287,7 +285,7 @@ void VehicleApiDemo::createVehicle(hkpRigidBody* chassis)
 
 ///[createDisplayWheels]
 /// Adding wheels to your vehicle is another area where you need to be careful when using the Vehicle Kit.
-/// The default wheel collide vehicle component, hkpVehicleRaycastWheelCollide, calculates its wheel positions 
+/// The default wheel collide vehicle component, hkpVehicleRayCastWheelCollide, calculates its wheel positions 
 /// using raycasting - the wheels themselves are not physically simulated by the core physical simulation.
 ///
 /// Here, the car's wheels are first created as rigid bodies using the demo's createDisc() helper function, 
@@ -354,7 +352,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(VehicleApiDemo, HK_DEMO_TYPE_PHYSICS | HK_DEMO_TYPE_CRITICAL, "A vehicle on a box", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

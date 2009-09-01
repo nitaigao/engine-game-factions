@@ -191,7 +191,6 @@ struct hkpPairLinearCastJob : public hkpCollisionQueryJob
 	public:
 
 		hkReal								m_tolerance;			//
-		const hkpShapeCollectionFilter*		m_filter;				// Filter to be used when searching for the closest point(s)
 
 		// Linear cast tolerances
 		hkReal								m_maxExtraPenetration;
@@ -640,8 +639,6 @@ public:
 	int								m_numCommandsPerTask;	// maximum # of commands per task; once this limit is breached a subjob is spawned
 	hkpWorldLinearCastCommand*		m_commandArray;
 	int								m_numCommands;
-	const hkpProcessCollisionInput*	m_collisionInput;
-	hkpCollisionFilter*				m_filter;
 
 	int m_numTrees;
 	const class hkKdTree*			m_trees[MAX_NUM_TREES];
@@ -653,7 +650,7 @@ public:
 #endif // HK_COLLISION_JOBS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

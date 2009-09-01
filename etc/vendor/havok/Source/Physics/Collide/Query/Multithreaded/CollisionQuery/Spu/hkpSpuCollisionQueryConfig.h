@@ -41,7 +41,7 @@ enum { HK_SPU_COLLIDE_MOPP_CACHE_NUM_ROWS		= HK_SPU_COLLIDE_MOPP_CACHE_SIZE	/ (4
 #endif // HK_COLLIDE_SPU_CONFIG_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -28,6 +28,7 @@
 
 BroadphaseAddRemoveDemo::BroadphaseAddRemoveDemo(hkDemoEnvironment* env)
 :	hkDefaultPhysicsDemo(env),
+	m_rndgen(180673),
 	m_timer(0)
 {
 	
@@ -37,7 +38,6 @@ BroadphaseAddRemoveDemo::BroadphaseAddRemoveDemo(hkDemoEnvironment* env)
 	m_count		=	64;
 	m_maxbodies	=	10000;
 	m_removeat	=	0;
-	m_rndgen	=	new hkPseudoRandomGenerator(180673);
 	//
 	// Create world
 	//
@@ -94,6 +94,8 @@ BroadphaseAddRemoveDemo::BroadphaseAddRemoveDemo(hkDemoEnvironment* env)
 
 BroadphaseAddRemoveDemo::~BroadphaseAddRemoveDemo()
 {
+	m_shape->removeReference();
+
 	m_world->lock();
 	
 	m_world->unlock();
@@ -106,7 +108,7 @@ void			BroadphaseAddRemoveDemo::spawnFirework()
 	infos.m_motionType			=	hkpMotion::MOTION_SPHERE_INERTIA;		
 	//infos.m_collisionFilterInfo	=	hkpGroupFilter::calcFilterInfo(1);
 	hkVector4			position;
-	m_rndgen->getRandomVector11(position);
+	m_rndgen.getRandomVector11(position);
 	position.mul4(5);
 	m_bodies.reserve(m_bodies.getSize()+m_count);
 	hkArray<hkpEntity*>	batch;
@@ -115,7 +117,7 @@ void			BroadphaseAddRemoveDemo::spawnFirework()
 	for(int i=0;i<m_count;++i)
 	{
 		hkVector4			direction;
-		m_rndgen->getRandomVector11(direction);
+		m_rndgen.getRandomVector11(direction);
 		infos.m_position=position;
 		infos.m_position.addMul4(1.0f, direction);
 
@@ -127,13 +129,20 @@ void			BroadphaseAddRemoveDemo::spawnFirework()
 		if(m_useBatch)
 			batch.pushBack(body);
 		else
+		{
 			m_world->addEntity(body);
+			body->removeReference();
+		}
 
 		direction.mul4(10);
 		body->applyLinearImpulse(direction);
 		m_bodies.pushBack(body);
 	}
-	if(batch.getSize()) m_world->addEntityBatch(&batch[0],batch.getSize());
+	if(batch.getSize())
+	{
+		m_world->addEntityBatch(&batch[0],batch.getSize());
+		hkReferencedObject::removeReferences(batch.begin(), batch.getSize());
+	}
 }
 
 void			BroadphaseAddRemoveDemo::flushFirework()
@@ -216,7 +225,7 @@ static const char helpString[] =	"Broadphase.\r\n"
 HK_DECLARE_DEMO(BroadphaseAddRemoveDemo, HK_DEMO_TYPE_PHYSICS, helpString, helpString );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

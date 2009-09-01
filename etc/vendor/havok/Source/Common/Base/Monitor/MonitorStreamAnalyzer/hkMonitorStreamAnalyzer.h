@@ -20,6 +20,9 @@ struct hkMonitorStreamStringMap
 	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_MONITOR, hkMonitorStreamStringMap);
 	HK_DECLARE_REFLECTION();
 
+	hkMonitorStreamStringMap();
+	hkMonitorStreamStringMap(hkFinishLoadedObjectFlag f);
+
 	struct StringMap
 	{
 		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_BASE_CLASS, hkMonitorStreamStringMap::StringMap );
@@ -411,7 +414,7 @@ class hkMonitorStreamAnalyzer
 #endif // HKBASE_MONITOR_STREAM_ANALYZER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -21,7 +21,7 @@ extern const class hkClass hkpWorldCinfoClass;
 class hkpWorldCinfo : public hkReferencedObject
 {
 	public:
-		// +version(2)
+		// +version(3)
 
 		HK_DECLARE_REFLECTION();
 
@@ -184,17 +184,22 @@ class hkpWorldCinfo : public hkReferencedObject
 			/// The velocity which defines when two objects are assumed to be
 			/// in resting contact. If the approaching velocity of the two objects
 			/// at a point of contact is higher than this value, a special more accurate collision
-			/// restitution algorithm is called. By default this value is HK_REAL_MAX
-			/// which thus disables this algorithm (though more accurate, this algorithm can, as a side-effect,
-			/// cause instabilites for long thin bodies). If you want to enable this algorithm
-			/// and are aware of the possible artifacts mentioned above, you can set this value to 0.2f
-			/// (the value used in Havok 3.1.0 and 3.1.1).
+			/// restitution algorithm is called. By default this value is 1.
 		hkReal m_contactRestingVelocity;
 
 			/// Tell the system what should happen if an objects leaves the
 			/// extents of the broadphase. Read BroadPhaseBorderBehaviour for more details.
 			/// This value defaults to BROADPHASE_BORDER_ASSERT
 		hkEnum<BroadPhaseBorderBehaviour,hkInt8> m_broadPhaseBorderBehaviour;
+
+			/// Tell the system to sort broadphase border callbacks.
+			/// In multithreaded simulation the border callbacks may be triggered in random
+			/// order. Enabling this flag postpones the callbacks till the end of the simulation
+			/// frame, then orders the callbacks deterministically and triggers them.
+			/// This may be necessary for deterministic behavior. However also this also prevents 
+			/// you from getting immediate callbacks, which may be nesessary e.g. when using
+			/// broadphase shifting.
+		hkBool m_mtPostponeAndSortBroadPhaseBorderCallbacks; //+default(false)
 
 			/// Defines the area dealt with by the collision detection broadphase. The size
 			/// specified is a cuboid in world units - this cuboid defines the broadphase
@@ -492,7 +497,7 @@ class hkpWorldCinfo : public hkReferencedObject
 #endif // HKDYNAMICS_WORLD_HKWORLDCINFO_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

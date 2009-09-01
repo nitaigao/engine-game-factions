@@ -12,9 +12,10 @@
 
 #include <Demos/Physics/UseCase/CharacterControl/CharacterRigidBody/AsymetricCharacterRb/AsymetricCharacterRbDemo.h>
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
 #include <Physics/Utilities/CharacterControl/StateMachine/hkpDefaultCharacterStates.h>
 
-// Used for a terrain heigtfield (taken from character proxy demo)
+// Used for a terrain heightfield (taken from character proxy demo)
 #include <Demos/Physics/UseCase/CharacterControl/CharacterProxy/MultipleCharacters/TerrainHeightFieldShape.h>
 
 #include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h>
@@ -38,7 +39,6 @@ AsymetricCharacterRbDemo::AsymetricCharacterRbDemo(hkDemoEnvironment* env)
 		hkpWorldCinfo info;
 		info.setBroadPhaseWorldSize( 350.0f );  
 		info.m_gravity.set(0, -9.8f, 0);
-		info.m_collisionTolerance = 0.01f;		
 		info.m_contactPointGeneration = hkpWorldCinfo::CONTACT_POINT_ACCEPT_ALWAYS;
 		m_world = new hkpWorld( info );
 		m_world->lock();
@@ -216,6 +216,11 @@ AsymetricCharacterRbDemo::AsymetricCharacterRbDemo(hkDemoEnvironment* env)
 
 
 		m_characterRigidBody = new hkpCharacterRigidBody( info );
+		{
+			hkpCharacterRigidBodyListener* listener = new hkpCharacterRigidBodyListener();
+			m_characterRigidBody->setListener( listener );
+			listener->removeReference();
+		}
 		m_world->addEntity( m_characterRigidBody->getRigidBody() );
 
 		capsule->removeReference();
@@ -251,11 +256,6 @@ AsymetricCharacterRbDemo::AsymetricCharacterRbDemo(hkDemoEnvironment* env)
 		m_characterContext->setCharacterType(hkpCharacterContext::HK_CHARACTER_RIGIDBODY);
 		m_characterContext->setFilterParameters(0.9f,12.0f,200.0f);
 	}
-
-	// Initialize hkpSurfaceInfo of ground from previous frame
-	// Specific case (character is in the air, UP is Y)
-	m_previousGround = new hkpSurfaceInfo(UP,hkVector4::getZero(),hkpSurfaceInfo::UNSUPPORTED);
-	m_framesInAir = 0;
 	
 	// Current camera angle about up
 	m_currentAngle = 0.0f;
@@ -275,8 +275,6 @@ AsymetricCharacterRbDemo::~AsymetricCharacterRbDemo()
 
 	m_characterRigidBody->removeReference();
 	m_characterContext->removeReference();
-
-	delete m_previousGround;
 
 	m_world->unlock();
 
@@ -329,58 +327,7 @@ hkDemo::Result AsymetricCharacterRbDemo::stepDemo()
 			input.m_velocity = m_characterRigidBody->getLinearVelocity();
 			input.m_position = m_characterRigidBody->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBody->checkSupport( stepInfo, ground);
-		
-			// Avoid accidental state changes (Smooth movement on stairs)
-			// During transition supported->unsupported continue to return N-frames hkpSurfaceInfo data from previous supported state
-			{
-
-				// Number of frames to skip (continue with previous hkpSurfaceInfo data)
-				const int skipFramesInAir = 5;
-
-				if (input.m_wantJump)
-				{
-					m_framesInAir = skipFramesInAir;
-				}
-
-				if ( ground.m_supportedState != hkpSurfaceInfo::SUPPORTED )
-				{
-					if (m_framesInAir < skipFramesInAir)
-					{
-						input.m_isSupported = true;
-						input.m_surfaceNormal = m_previousGround->m_surfaceNormal;
-						input.m_surfaceVelocity = m_previousGround->m_surfaceVelocity;
-						input.m_surfaceMotionType = m_previousGround->m_surfaceMotionType;
-					}
-					else
-					{
-						input.m_isSupported = false;
-						input.m_surfaceNormal = ground.m_surfaceNormal;
-						input.m_surfaceVelocity = ground.m_surfaceVelocity;
-						input.m_surfaceMotionType = ground.m_surfaceMotionType;
-					}			
-
-					m_framesInAir++;
-				}
-				else
-				{
-					input.m_isSupported = true;
-					input.m_surfaceNormal = ground.m_surfaceNormal;
-					input.m_surfaceVelocity = ground.m_surfaceVelocity;
-					input.m_surfaceMotionType = ground.m_surfaceMotionType;
-
-					m_previousGround->set(ground);
-
-					// Reset old number of frames
-					if (m_framesInAir > skipFramesInAir)
-					{
-						m_framesInAir = 0;
-					}			
-
-				}
-			}			
-	
+			m_characterRigidBody->checkSupport( stepInfo, input.m_surfaceInfo );
 		}
 
 		// Apply the character state machine
@@ -413,7 +360,7 @@ hkDemo::Result AsymetricCharacterRbDemo::stepDemo()
 
 			// Smoothed surface normal
 			hkVector4 surfaceNorm;
-			surfaceNorm = input.m_isSupported ? input.m_surfaceNormal : (hkVector4)UP;
+			surfaceNorm = ( input.m_surfaceInfo.m_supportedState != hkpSurfaceInfo::UNSUPPORTED ) ? input.m_surfaceInfo.m_surfaceNormal : (hkVector4)UP;
 			m_rigidBodyNormal.addMul4( 0.05f, surfaceNorm );
 			m_rigidBodyNormal.normalize3();
 
@@ -535,7 +482,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(AsymetricCharacterRbDemo, HK_DEMO_TYPE_PRIME, "Asymetric Character Rigid Body", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -32,8 +32,11 @@ float Script : STANDARDSGLOBAL
 	string ScriptOutput = "color";
 	
 	// We just call a script in the main technique.
+#ifdef HKG_DX10
+	string Script = "Technique=Bloom10;";
+#else
 	string Script = "Technique=Bloom;";
-
+#endif
 > = 0.8;
 
 ///////////////////////////////////////////////////////////
@@ -46,7 +49,7 @@ float SceneIntensity <
     float UIMin = 0.0f;
     float UIMax = 2.0f;
     float UIStep = 0.1f;
-> = 0.5f;
+> = 1.0f;
 
 float GlowIntensity <
     string UIName = "Glow intensity";
@@ -54,7 +57,7 @@ float GlowIntensity <
     float UIMin = 0.0f;
     float UIMax = 2.0f;
     float UIStep = 0.1f;
-> = 0.5f;
+> = 0.3f;
 
 float HighlightThreshold <
     string UIName = "Highlight threshold";
@@ -62,7 +65,7 @@ float HighlightThreshold <
     float UIMin = 0.0f;
     float UIMax = 1.0f;
     float UIStep = 0.1f;
-> = 0.9f;
+> = 0.95f;
 
 float HighlightIntensity <
     string UIName = "Highlight intensity";
@@ -70,7 +73,7 @@ float HighlightIntensity <
     float UIMin = 0.0f;
     float UIMax = 10.0f;
     float UIStep = 0.1f;
-> = 0.5f;
+> = 2.0f;
 
 ///////////////////////////////////////////////////////////
 ///////////////////////////// Render-to-Texture Data //////
@@ -88,15 +91,8 @@ float BlurWidth <
 > = 2.0f;
 
 texture SceneMap : RENDERCOLORTARGET
-< 
-    float2 ViewportRatio = { 1.0, 1.0 };
-    int MIPLEVELS = 1;
-    string format = "X8R8G8B8";
->;
-texture DepthMap : RENDERDEPTHSTENCILTARGET
 <
-    float2 ViewportRatio = { 1.0, 1.0 };
-    string format = "D24S8";
+	string source = "SCENE";
 >;
 
 sampler SceneSampler = sampler_state 
@@ -105,9 +101,10 @@ sampler SceneSampler = sampler_state
     AddressU  = CLAMP;        
     AddressV  = CLAMP;
     AddressW  = CLAMP;
-    MIPFILTER = NONE;
-    MINFILTER = LINEAR;
-    MAGFILTER = LINEAR;
+	FILTER = MIN_MAG_MIP_POINT;
+//   MIPFILTER = NONE;
+//    MINFILTER = POINT;
+//    MAGFILTER = POINT;
 };
 
 texture DownsampleMap : RENDERCOLORTARGET
@@ -123,9 +120,10 @@ sampler DownsampleSampler = sampler_state
     AddressU  = CLAMP;        
     AddressV  = CLAMP;
     AddressW  = CLAMP;
-    MIPFILTER = NONE;
-    MINFILTER = LINEAR;
-    MAGFILTER = LINEAR;
+	FILTER = MIN_MAG_LINEAR_MIP_POINT;
+//  MIPFILTER = NONE;
+//  MINFILTER = LINEAR;
+//  MAGFILTER = LINEAR;
 };
 
 texture HBlurMap : RENDERCOLORTARGET
@@ -141,9 +139,10 @@ sampler HBlurSampler = sampler_state
     AddressU  = CLAMP;        
     AddressV  = CLAMP;
     AddressW  = CLAMP;
-    MIPFILTER = NONE;
-    MINFILTER = LINEAR;
-    MAGFILTER = LINEAR;
+	FILTER = MIN_MAG_LINEAR_MIP_POINT;
+//  MIPFILTER = NONE;
+//  MINFILTER = LINEAR;
+//  MAGFILTER = LINEAR;
 };
 
 texture FinalBlurMap : RENDERCOLORTARGET
@@ -159,9 +158,10 @@ sampler FinalBlurSampler = sampler_state
     AddressU  = CLAMP;        
     AddressV  = CLAMP;
     AddressW  = CLAMP;
-    MIPFILTER = NONE;
-    MINFILTER = LINEAR;
-    MAGFILTER = LINEAR;
+	FILTER = MIN_MAG_LINEAR_MIP_POINT;
+//  MIPFILTER = NONE;
+//  MINFILTER = LINEAR;
+//  MAGFILTER = LINEAR;
 };
 
 ///////////////////////////////////////////////////////////
@@ -171,7 +171,10 @@ sampler FinalBlurSampler = sampler_state
 struct VS_OUTPUT_BLUR
 {
     float4 Position   : POSITION;
-    float2 TexCoord[8]: TEXCOORD0;
+    float2 TexCoord0 : TEXCOORD0;
+    float4 TexCoord12: TEXCOORD1;
+    float4 TexCoord34: TEXCOORD2;
+    float4 TexCoord56: TEXCOORD3;
 };
 
 struct VS_OUTPUT
@@ -184,7 +187,10 @@ struct VS_OUTPUT
 struct VS_OUTPUT_DOWNSAMPLE
 {
     float4 Position   : POSITION;
-    float2 TexCoord[4]: TEXCOORD0;
+    float2 TexCoord0  : TEXCOORD0;
+    float2 TexCoord1  : TEXCOORD1;
+    float2 TexCoord2  : TEXCOORD2;
+    float2 TexCoord3  : TEXCOORD3;
 };
 
 ////////////////////////////////////////////////////////////
@@ -196,13 +202,21 @@ VS_OUTPUT_DOWNSAMPLE VS_Downsample(float4 Position : POSITION,
 								   float2 TexCoord : TEXCOORD0)
 {
 	VS_OUTPUT_DOWNSAMPLE OUT;
-	float2 texelSize = downsampleScale / WindowSize;
-	float2 s = TexCoord;
+	float2 texelSize = 1 / WindowSize; // WindowSize == downsampled target here
+
 	OUT.Position = Position;
-	OUT.TexCoord[0] = s;
-	OUT.TexCoord[1] = s + float2(2, 0)*texelSize;
-	OUT.TexCoord[2] = s + float2(2, 2)*texelSize;
-	OUT.TexCoord[3] = s + float2(0, 2)*texelSize;	
+	
+#ifndef HKG_DX10
+	float2 dxHalfTexel = float2( -texelSize.x, texelSize.y );
+	OUT.Position.xy += (dxHalfTexel * 1);
+#endif
+
+	
+	float2 s = TexCoord; 
+	OUT.TexCoord0 = s;
+	OUT.TexCoord1 = s + float2(1, 0)*texelSize*downsampleScale;
+	OUT.TexCoord2 = s + float2(1, 1.0)*texelSize*downsampleScale;
+	OUT.TexCoord3 = s + float2(0, 1.0)*texelSize*downsampleScale;	
 	return OUT;
 }
 
@@ -214,12 +228,26 @@ VS_OUTPUT_BLUR VS_Blur(float4 Position : POSITION,
 					   )
 {
     VS_OUTPUT_BLUR OUT = (VS_OUTPUT_BLUR)0;
-    OUT.Position = Position;
-	float2 texelSize = BlurWidth / WindowSize;
-    float2 s = TexCoord - texelSize*(nsamples-1)*0.5*direction;
-    for(int i=0; i<nsamples; i++) {
-    	OUT.TexCoord[i] = s + texelSize*i*direction;
-    }
+	float2 texelSize = 1 / WindowSize;
+
+	OUT.Position = Position;
+	
+#ifdef HKG_DX10
+	// DX9 has hald texel offset already (so we get some linear bluring)
+	// DX10 is centered, so we can offset the lookup texels 
+	TexCoord.xy += direction*float2( -texelSize.x, -texelSize.y)*0.5 ;
+#endif
+
+	float2 blurDir = BlurWidth*texelSize*direction;
+    float2 s = TexCoord - (nsamples-1)*0.5*blurDir;
+   
+	OUT.TexCoord0 = s;
+	OUT.TexCoord12.xy = s + (blurDir*1);
+    OUT.TexCoord12.zw = s + (blurDir*2);
+    OUT.TexCoord34.xy = s + (blurDir*3);
+    OUT.TexCoord34.zw = s + (blurDir*4);
+    OUT.TexCoord56.xy = s + (blurDir*5);
+    OUT.TexCoord56.zw = s + (blurDir*6);
     return OUT;
 }
 
@@ -227,12 +255,19 @@ VS_OUTPUT VS_Quad(float4 Position : POSITION,
 				  float2 TexCoord : TEXCOORD0)
 {
     VS_OUTPUT OUT;
+	OUT.Position = Position; 
+
 	float2 texelSize = 1.0 / WindowSize;
-    OUT.Position = Position;
-    // don't want bilinear filtering on original scene:
-    OUT.TexCoord0 = TexCoord + texelSize*0.5;
-    OUT.TexCoord1 = TexCoord + texelSize*0.5/downsampleScale;
-    return OUT;
+
+#ifndef HKG_DX10
+	float2 dxHalfTexelPos = float2( -texelSize.x, texelSize.y ); // [-1,1] -> WindowSize  ==  2/WindowSize,  so half texel = 1/windowize
+	OUT.Position.xy += (dxHalfTexelPos * 1);
+#endif
+	
+	OUT.TexCoord0 = TexCoord;
+    OUT.TexCoord1 = TexCoord;
+ 	
+	return OUT;
 }
 
 //////////////////////////////////////////////////////
@@ -259,10 +294,10 @@ half4 PS_Downsample(VS_OUTPUT_DOWNSAMPLE IN,
 	c = tex2D(tex, IN.TexCoord[0]);
 #else
 	// box filter
-	c = tex2D(tex, IN.TexCoord[0]) * 0.25;
-	c += tex2D(tex, IN.TexCoord[1]) * 0.25;
-	c += tex2D(tex, IN.TexCoord[2]) * 0.25;
-	c += tex2D(tex, IN.TexCoord[3]) * 0.25;
+	c  = tex2D(tex, IN.TexCoord0) * 0.25;
+	c += tex2D(tex, IN.TexCoord1) * 0.25;
+	c += tex2D(tex, IN.TexCoord2) * 0.25;
+	c += tex2D(tex, IN.TexCoord3) * 0.25;
 #endif
 
 	// store hilights in alpha
@@ -300,10 +335,15 @@ half4 PS_Blur7(VS_OUTPUT_BLUR IN,
 			   ) : COLOR
 {
     half4 c = 0;
-    // this loop will be unrolled by compiler
-    for(int i=0; i<7; i++) {
-    	c += tex2D(tex, IN.TexCoord[i]) * weight[i];
-   	}
+    
+	c += tex2D(tex, IN.TexCoord0) * weight[0];
+   	c += tex2D(tex, IN.TexCoord12.xy) * weight[1];
+   	c += tex2D(tex, IN.TexCoord12.zw) * weight[2];
+   	c += tex2D(tex, IN.TexCoord34.xy) * weight[3];
+   	c += tex2D(tex, IN.TexCoord34.zw) * weight[4];
+   	c += tex2D(tex, IN.TexCoord56.xy) * weight[5];
+   	c += tex2D(tex, IN.TexCoord56.zw) * weight[6];
+   	
     return c;
 } 
 
@@ -311,7 +351,7 @@ half4 PS_Blur7(VS_OUTPUT_BLUR IN,
 half4 PS_Display(VS_OUTPUT IN,
 			  uniform sampler2D tex) : COLOR
 {   
-	return tex2D(tex, IN.TexCoord1);
+	return tex2D(tex, IN.TexCoord0);
 }
 
 half4 PS_Comp(VS_OUTPUT IN,
@@ -328,27 +368,13 @@ half4 PS_Comp(VS_OUTPUT IN,
 ////////////////////////////////////////////////////////////
 technique Bloom
 <
-	string Script = "ClearSetDepth=ClearDepth;"
-	      	"RenderColorTarget=SceneMap;"
-	        "RenderDepthStencilTarget=DepthMap;"
-	        	"ClearSetColor=ClearColor;"
-	        	"ClearSetDepth=ClearDepth;"
-   				"Clear=Color;"
-				"Clear=Depth;"
-	        	"ScriptSignature=color;"
-	        	"ScriptExternal=;"
-	        "Pass=DownSample;"
-	        "Pass=GlowH;"
-	        "Pass=GlowV;"
-	        "Pass=FinalComp;";
+	string Script = "";
 >
 {
     pass DownSample
     <
 		string Script = "RenderColorTarget0=DownsampleMap;"
-								"ClearSetColor=ClearColor;"
-								"Clear=Color;"
-								"Draw=Buffer;";
+						"Draw=Buffer;";
 	>
     {
 		cullmode = none;
@@ -360,9 +386,7 @@ technique Bloom
     pass GlowH
     <
     	string Script = "RenderColorTarget0=HBlurMap;"
-	        	"ClearSetColor=ClearColor;"
-	        	"Clear=Color;"
-	        	"Draw=Buffer;";
+	        			"Draw=Buffer;";
 	>
     {
 		cullmode = none;
@@ -375,9 +399,7 @@ technique Bloom
 	pass GlowV
 	<
 		string Script = "RenderColorTarget0=FinalBlurMap;"
-	        						"ClearSetColor=ClearColor;"
-	        						"Clear=color;"
-	        						"Draw=Buffer;";
+	        			"Draw=Buffer;";
 	>
 	{
 		cullmode = none;
@@ -388,9 +410,8 @@ technique Bloom
 	}
 	pass FinalComp
 	<
-		string Script = "RenderColorTarget=;"
-	         					"RenderDepthStencilTarget=;"
-	        					"Draw=Buffer;";        	
+		string Script = "RenderColorTarget0=;"
+						"Draw=Buffer;";        	
 	>
 	{
 		cullmode = none;
@@ -400,3 +421,90 @@ technique Bloom
 		PixelShader  = compile ps_2_0 PS_Comp(SceneSampler, FinalBlurSampler);
 	}
 }
+
+RasterizerState DisableCulling
+{
+    CullMode = NONE;
+	MultisampleEnable = FALSE;
+};
+
+DepthStencilState DepthEnabling
+{
+	DepthEnable = FALSE;
+	DepthWriteMask = ZERO;
+};
+
+BlendState DisableBlend
+{
+	BlendEnable[0] = FALSE;
+};
+
+technique10 Bloom10
+<
+	string Script = "";
+>
+{
+ 
+	 pass DownSample
+    <
+		string Script = "RenderColorTarget0=DownsampleMap;"
+						"Draw=Buffer;";
+	>
+    {
+		SetVertexShader( CompileShader( vs_4_0, VS_Downsample() ) );
+        SetGeometryShader( NULL );
+        SetPixelShader( CompileShader( ps_4_0, PS_Downsample(SceneSampler) ) );
+
+		SetRasterizerState(DisableCulling);       
+		SetDepthStencilState(DepthEnabling, 0);
+		SetBlendState(DisableBlend, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF);
+    }
+
+    pass GlowH
+    <
+    	string Script = "RenderColorTarget0=HBlurMap;"
+	        			"Draw=Buffer;";
+	>
+    {
+
+		SetVertexShader( CompileShader( vs_4_0, VS_Blur(7, float2(1, 0)) ) );
+        SetGeometryShader( NULL );
+        SetPixelShader( CompileShader( ps_4_0, PS_Blur7(DownsampleSampler, weights7) ) );
+		
+		SetRasterizerState(DisableCulling);       
+		SetDepthStencilState(DepthEnabling, 0);
+		SetBlendState(DisableBlend, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF);
+	}
+
+	pass GlowV
+	<
+		string Script = "RenderColorTarget0=FinalBlurMap;"
+	        			"Draw=Buffer;";
+	>
+	{
+		SetVertexShader( CompileShader( vs_4_0, VS_Blur(7, float2(0, 1)) ) );
+        SetGeometryShader( NULL );
+        SetPixelShader( CompileShader( ps_4_0,  PS_Blur7(HBlurSampler, weights7) ));
+
+		SetRasterizerState(DisableCulling);       
+		SetDepthStencilState(DepthEnabling, 0);
+		SetBlendState(DisableBlend, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF);
+	}
+
+	pass FinalComp
+	<
+		string Script = "RenderColorTarget0=;"
+						"Draw=Buffer;";        	
+	>
+	{
+		SetVertexShader( CompileShader( vs_4_0, VS_Quad() ) );
+        SetGeometryShader( NULL );
+        SetPixelShader( CompileShader( ps_4_0, PS_Comp(SceneSampler, FinalBlurSampler)) );
+
+		SetRasterizerState(DisableCulling);       
+		SetDepthStencilState(DepthEnabling, 0);
+		SetBlendState(DisableBlend, float4( 0.0f, 0.0f, 0.0f, 0.0f ), 0xFFFFFFFF);
+  
+	}
+}
+

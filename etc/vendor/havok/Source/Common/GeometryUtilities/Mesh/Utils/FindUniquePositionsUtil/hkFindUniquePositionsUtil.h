@@ -31,8 +31,8 @@ class hkFindUniquePositionsUtil
     public:
         HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkFindUniquePositionsUtil );
 
-            /// Remove all entries
-        void clear();
+			/// Remove all entries and reserve space for next adding
+		void reset(int sizeEstimate = 1024);
 
             /// Returns the unique position index
         int addPosition(const hkVector4& pos);
@@ -46,9 +46,9 @@ class hkFindUniquePositionsUtil
             /// Work out a reasonable hash value for a vector4
         HK_FORCE_INLINE static hkUint32 hashVector(const hkVector4& vec)
         {
-            hkUint32 v0 = *(hkUint32*)&vec(0);
-            hkUint32 v1 = *(hkUint32*)&vec(1);
-            hkUint32 v2 = *(hkUint32*)&vec(2);
+            const hkUint32 v0 = *(hkUint32*)&vec(0);
+            const hkUint32 v1 = *(hkUint32*)&vec(1);
+            const hkUint32 v2 = *(hkUint32*)&vec(2);
 
             // The bottom bit is removed to stop it ever being 0xffffffff
             hkUint32 hash = (v0 ^ ((v1 >> 16) | (v1 << 16)) ^ ((v2 >> 3) | (v2 << 29))) & ~hkUint32(1);
@@ -70,7 +70,7 @@ class hkFindUniquePositionsUtil
 #endif // HK_FIND_UNIQUE_POSITIONS_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

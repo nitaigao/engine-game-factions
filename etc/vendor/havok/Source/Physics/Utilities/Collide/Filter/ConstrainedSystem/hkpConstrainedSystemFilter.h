@@ -12,6 +12,8 @@
 #include <Physics/Collide/Filter/hkpCollisionFilter.h>
 #include <Physics/Dynamics/Constraint/hkpConstraintListener.h>
 
+extern const hkClass hkpConstrainedSystemFilterClass;
+
 	/// This filter disables collisions between two rigid bodies if they are connected by a constraint (other than a contact constraint);
 	/// otherwise, it forwards to another (optional) filter.
 	///
@@ -54,6 +56,8 @@ class hkpConstrainedSystemFilter : public hkpCollisionFilter, public hkpConstrai
 			// Called when a constraint is removed from the world.
 		virtual void constraintRemovedCallback( hkpConstraintInstance* constraint );
 
+			// hkReferencedObject Implementation
+		virtual const hkClass* getClassType() const { return &hkpConstrainedSystemFilterClass; }
 
 	public:
 
@@ -68,7 +72,7 @@ class hkpConstrainedSystemFilter : public hkpCollisionFilter, public hkpConstrai
 #endif //INC_HKCONSTRAINEDSYSTEML_FILTER
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

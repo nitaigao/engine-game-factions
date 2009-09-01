@@ -38,8 +38,7 @@ enum
 enum
 {
 	PA_CONVEX_HULL_UTILITY_MAXVERTS,
-	PA_CONVEX_HULL_UTILITY_SAMPLES,
-	PA_CONVEX_HULL_UTILITY_STEPS,
+	PA_CONVEX_HULL_UTILITY_ENCLOSE_INPUTS,
 	PA_CONVEX_HULL_UTILITY_MIN_WEIGHT,
 };
 
@@ -60,10 +59,8 @@ enum
 	FPI_CreateSkinMultiHull,
 	FPI_GetMaxVerts,
 	FPI_SetMaxVerts,
-	FPI_GetSamples,
-	FPI_SetSamples,
-	FPI_GetSteps,
-	FPI_SetSteps,
+	FPI_GetEncloseInputs,
+	FPI_SetEncloseInputs,
 
 	FPI_GetMinWeight,
 	FPI_SetMinWeight,
@@ -83,11 +80,8 @@ class hctConvexHullUtilityFPInterface : public FPStaticInterface
 		virtual void iSetMaxVerts (int maxVerts) = 0;
 		virtual int iGetMaxVerts () = 0;
 
-		virtual void iSetSamples (int samples) = 0;
-		virtual int iGetSamples () = 0;
-
-		virtual void iSetSteps (int steps ) = 0;
-		virtual int iGetSteps () = 0;
+		virtual void iSetEncloseInputs (BOOL encloseInputs) = 0;
+		virtual BOOL iGetEncloseInputs () = 0;
 
 		virtual void iSetMinWeight (float minWeight) = 0;
 		virtual float iGetMinWeight () = 0;
@@ -124,7 +118,7 @@ class hctConvexHullUtilityActions : public FPStaticInterface
 #endif //INC_HK_MAX_CONVEX_HULL_UTILITY_INTERFACE__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

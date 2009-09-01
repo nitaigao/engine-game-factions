@@ -32,9 +32,12 @@ class RagdollCharacterFactory : public AnimatedCharacterFactory
 {
 	public:
 
-		RagdollCharacterFactory( CharacterType defaultType = FIREFIGHTER );
+		RagdollCharacterFactory( CharacterType defaultType = CHARACTER_TYPE_FIREFIGHTER );
 
-		virtual DemoCharacter* createCharacterUsingProxy( CharacterProxy* proxy, const hkVector4& gravity, hkDemoEnvironment* env );
+		virtual DemoCharacter* createCharacterUsingProxy(	CharacterProxy* proxy,
+															const hkVector4& gravity,
+															hkDemoEnvironment* env,
+															CharacterType characterType = MAX_CHARACTER_TYPE );
 
 		void loadRagdollAnimations( CharacterType type );
 
@@ -106,11 +109,17 @@ class RagdollDemoCharacter : public DemoCharacter
 		~RagdollDemoCharacter();
 
 		// Update the character position
-		void update( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo );
+		virtual void initUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+		virtual void updateMt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+		virtual void finishUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+
 
 		virtual void display( hkReal timestep, hkDemoEnvironment* env );
+		virtual void cleanupGraphics( hkDemoEnvironment* env );
 
 		virtual hkReal getMaxVelocity() const;
+
+		virtual void getState( State& state ) const;
 
 			// Sample animations
 		void updateAnimation( hkReal timestep, hkQsTransform* poseLS );
@@ -132,8 +141,8 @@ class RagdollDemoCharacter : public DemoCharacter
 
 		const hkaSkeleton* getSkeleton() const;
 
-			
-		void loadSkin( hkLoader* loader, hkDemoEnvironment* env , AnimatedCharacterFactory::CharacterType choice );
+		void loadSkin( hkLoader* loader, hkDemoEnvironment* env, AnimatedCharacterFactory::CharacterType type, AnimatedDemoCharacterDisplay& displayInfoCache );
+		void cloneSkin( hkDemoEnvironment* env, AnimatedDemoCharacterDisplay& displayInfo );
 
 		void getWorldFromModel(hkQsTransform& tOut) const;
 		void getWorldFromModel(hkTransform& tOut) const;
@@ -238,10 +247,14 @@ class RagdollDemoCharacter : public DemoCharacter
 		hkReal					m_timeUnsupported;
 
 			// For skinning
+		// For skinning
 		hkBool					m_skinsLoaded;
 		hkBool					m_hardwareSkinning;
+
 		class hkaMeshBinding**	m_skinBindings;
 		hkInt32					m_numSkinBindings;
+		hkArray<class hkgDisplayObject*> m_skins;
+
 		hkBool					m_bUseHardwareSkinning;
 		hkBool					m_bUseWorldHardwareSkinning;
 
@@ -257,7 +270,7 @@ class RagdollDemoCharacter : public DemoCharacter
 #endif // HK_RAGDOLL_DEMO_CHARACTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -726,12 +726,237 @@ HK_PATCH_BEGIN("hkbDampingModifier", 0, "hkbDampingModifier", 1)
 HK_PATCH_END()
 
 HK_PATCH_BEGIN("hkbVariableBindingSet", 1, "hkbVariableBindingSet", 2)
-        HK_PATCH_MEMBER_ADDED("indexOfBindingToEnable", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("indexOfBindingToEnable", TYPE_INT, HK_NULL, 0)
 	HK_PATCH_FUNCTION(hkbVariableBindingSet_1_to_2)
 HK_PATCH_END()
 
+//==========
+// post-6.5
+//==========
+
+// Note that these targetting modifiers are being versioned but the behavior graphs
+// That used them will not work.  In particular, there may be variables bound to the members
+// that were removed.  If we really want to version such behavior graphs we'll have
+// to change some of the variable types from int to hkbTarget* and change the
+// bindings to point to the new members.
+
+HK_PATCH_BEGIN("hkbMoveBoneTowardTargetModifier", 1, "hkbMoveBoneTowardTargetModifier", 2)
+	HK_PATCH_MEMBER_REMOVED("target", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("clearTargetData", TYPE_BYTE, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("currentBoneIsValidIn", TYPE_BYTE, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("behaviorTarget", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_ADDED("targetIn", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbFaceTargetModifier", 0, "hkbFaceTargetModifier", 1)
+	HK_PATCH_MEMBER_REMOVED("target", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("behaviorTarget", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_ADDED("targetIn", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbPoweredRagdollModifierKeyframeInfo", 0, "hkbPoweredRagdollModifierKeyframeInfo", 1)
+	HK_PATCH_MEMBER_REMOVED("isValidOut", TYPE_BYTE, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbReachTowardTargetModifier", 0, "hkbReachTowardTargetModifier", 1)
+	HK_PATCH_MEMBER_REMOVED("target", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("clearTargetData", TYPE_BYTE, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("behaviorTarget", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_ADDED("targetIn", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbTargetRigidBodyModifier", 1, "hkbTargetRigidBodyModifier", 2)
+	HK_PATCH_MEMBER_REMOVED("target", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("targetIn", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("targetOut", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_ADDED("isCloseToTargetOut", TYPE_BYTE, HK_NULL, 0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbConstrainRigidBodyModifier", 0, "hkbConstrainRigidBodyModifier", 1)
+	HK_PATCH_MEMBER_REMOVED("target", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("behaviorTarget", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_ADDED("targetIn", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbTargetRigidBodyModifier", 2, "hkbTargetRigidBodyModifier", 3)
+	HK_PATCH_MEMBER_REMOVED("behaviorTarget", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_REMOVED("closeToTargetEventHasBeenSent", TYPE_BYTE, HK_NULL, 0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbTarget", 0, "hkbTarget", 1)
+	HK_PATCH_PARENT_SET("hkReferencedObject", HK_NULL)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbClimbMountingCondition", 0, HK_NULL, HK_CLASS_REMOVED)
+	HK_PATCH_PARENT_SET("hkbCondition", HK_NULL)
+	HK_PATCH_MEMBER_REMOVED("maxTargetDistance", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("sensingForLeftHand", TYPE_OBJECT, "hkbTargetRigidBodyModifier", 0)
+	HK_PATCH_MEMBER_REMOVED("sensingForRightHand", TYPE_OBJECT, "hkbTargetRigidBodyModifier", 0)
+	HK_PATCH_MEMBER_REMOVED("targetForLeftHand", TYPE_OBJECT, "hkbTarget", 0)
+	HK_PATCH_MEMBER_REMOVED("targetForRightHand", TYPE_OBJECT, "hkbTarget",	0)
+	HK_PATCH_DEPENDS("hkbTarget", 0)
+	HK_PATCH_DEPENDS("hkbNode", 1)
+	HK_PATCH_DEPENDS("hkBaseObject", 0)
+	HK_PATCH_DEPENDS("hkbTargetRigidBodyModifier", 3)
+	HK_PATCH_DEPENDS("hkbModifier", 0)
+	HK_PATCH_DEPENDS("hkbBindable", 0)
+	HK_PATCH_DEPENDS("hkReferencedObject", 0)
+	HK_PATCH_DEPENDS("hkbCondition", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbBlenderGeneratorChild", 1, "hkbBlenderGeneratorChild", 2)
+	HK_PATCH_MEMBER_REMOVED("operandType", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbBlenderGenerator", 0, "hkbBlenderGenerator", 1)
+	HK_PATCH_MEMBER_ADDED("subtractLastChild", TYPE_BYTE, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbGeneratorOutputTrackHeader", 0, "hkbGeneratorOutputTrackHeader", 1)
+	HK_PATCH_MEMBER_REMOVED("format", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("isPoseAdditive", TYPE_BYTE, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbStateMachineStateInfo", 2, "hkbStateMachineStateInfo", 3)
+	HK_PATCH_MEMBER_ADDED("probability", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_FUNCTION(hkbStateMachineStateInfo_2_to_3)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbCharacterStringData", 1, "hkbCharacterStringData", 2)
+	HK_PATCH_MEMBER_ADDED("behaviorFilename", TYPE_CSTRING, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbDemoConfigCharacterInfo", 0, "hkbDemoConfigCharacterInfo", 1)
+	HK_PATCH_MEMBER_REMOVED("rigFilename", TYPE_CSTRING, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("skinFilenames", TYPE_ARRAY_CSTRING, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("behaviorFilename", TYPE_CSTRING, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("attachmentsFilename", TYPE_CSTRING, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbRagdollDriverModifier", 0, "hkbRagdollDriverModifier", 1)
+	HK_PATCH_MEMBER_ADDED("blendRagdollPoseFraction", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_FUNCTION(hkbRagdollDriverModifier_0_to_1)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbSimpleCharacter", 0, "hkbSimpleCharacter", 1)
+	HK_PATCH_MEMBER_ADDED("ragdollWorldFromModel", TYPE_VEC_12, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkbDefaultMessageLog", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkbMessageLog", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbEvaluateHandleModifier", 1, "hkbEvaluateHandleModifier", 2)
+	HK_PATCH_MEMBER_ADDED("handleChangeSpeed", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("handleChangeMode", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_FUNCTION(hkbEvaluateHandleModifier_1_to_2)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbRagdollDriverModifier", 1, "hkbRagdollDriverModifier", 2)
+	HK_PATCH_MEMBER_REMOVED("isRagdollForceModifierActive", TYPE_BYTE, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("ragdollBlendOutTime", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_FUNCTION(hkbRagdollDriverModifier_1_to_2)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkbEventsFromRangeModifier", 0)
+	HK_PATCH_PARENT_SET(HK_NULL, "hkbModifier")
+	HK_PATCH_MEMBER_ADDED("inputValue", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("lowerBound", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("eventRanges", TYPE_OBJECT, "hkbEventRangeDataArray", 0)
+	HK_PATCH_DEPENDS("hkbNode", 1)
+	HK_PATCH_DEPENDS("hkBaseObject", 0)
+	HK_PATCH_DEPENDS("hkbModifier", 0)
+	HK_PATCH_DEPENDS("hkbBindable", 0)
+	HK_PATCH_DEPENDS("hkReferencedObject", 0)
+	HK_PATCH_DEPENDS("hkbEventRangeDataArray", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkbEventRangeData", 0)
+	HK_PATCH_MEMBER_ADDED("upperBound", TYPE_REAL, HK_NULL, 0)
+	HK_PATCH_MEMBER_ADDED("event", TYPE_STRUCT, "hkbEventProperty", 0)
+	HK_PATCH_MEMBER_ADDED("eventMode", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_DEPENDS("hkbEventProperty", 0)
+	HK_PATCH_DEPENDS("hkbEvent", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN(HK_NULL, HK_CLASS_ADDED, "hkbEventRangeDataArray", 0)
+	HK_PATCH_PARENT_SET(HK_NULL, "hkReferencedObject")
+	HK_PATCH_MEMBER_ADDED("eventData", TYPE_ARRAY_STRUCT, "hkbEventRangeData", 0)
+	HK_PATCH_DEPENDS("hkBaseObject", 0)
+	HK_PATCH_DEPENDS("hkReferencedObject", 0)
+	HK_PATCH_DEPENDS("hkbEventRangeData", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbBalanceControllerModifier", 0, "hkbBalanceControllerModifier" , 1)
+	HK_PATCH_MEMBER_ADDED("pelvisIndex", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_FUNCTION(hkbBalanceControllerModifier_0_to_1)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbCharacterData", 2, "hkbCharacterData", 3)
+	HK_PATCH_MEMBER_REMOVED("animationBoneInfo", TYPE_STRUCT, "hkbCharacterBoneInfo", 0)
+	HK_PATCH_MEMBER_REMOVED("ragdollBoneInfo", TYPE_STRUCT, "hkbCharacterBoneInfo", 0)
+	HK_PATCH_DEPENDS("hkbCharacterBoneInfo", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbReachTowardTargetModifierHand", 0, "hkbReachTowardTargetModifierHand", 1)
+	HK_PATCH_MEMBER_REMOVED("handIndex", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbCatchFallModifierHand", 0, "hkbCatchFallModifierHand", 1)
+	HK_PATCH_MEMBER_REMOVED("handIndex", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbFootIkModifierLeg", 1, "hkbFootIkModifierLeg", 2)
+	HK_PATCH_MEMBER_REMOVED("legIndex", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbHandIkModifierHand", 1, "hkbHandIkModifierHand", 2)
+	HK_PATCH_MEMBER_REMOVED("handIndex", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbCharacterBoneInfo", 0, HK_NULL, HK_CLASS_REMOVED)
+	HK_PATCH_MEMBER_REMOVED("clavicleIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("shoulderIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("elbowIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("wristIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("hipIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("kneeIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("ankleIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("spineIndex", TYPE_ARRAY_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("pelvisIndex", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("neckIndex", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("headIndex", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("poseMatchingRootBoneIndex", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_MEMBER_REMOVED("poseMatchingOtherBoneIndex", TYPE_INT, HK_NULL,  0)
+	HK_PATCH_MEMBER_REMOVED("poseMatchingAnotherBoneIndex", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbBehaviorGraphData", 1, "hkbBehaviorGraphData", 2)
+	HK_PATCH_MEMBER_ADDED("wordMinVariableValues", TYPE_ARRAY_STRUCT, "hkbVariableValue", 0)
+	HK_PATCH_MEMBER_ADDED("wordMaxVariableValues", TYPE_ARRAY_STRUCT, "hkbVariableValue", 0)
+	HK_PATCH_DEPENDS("hkbVariableValue", 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbDetectCloseToGroundModifier", 1, "hkbDetectCloseToGroundModifier", 2)
+	HK_PATCH_MEMBER_ADDED("animBoneIndex", TYPE_INT, HK_NULL, 0)
+	HK_PATCH_FUNCTION(hkbDetectCloseToGroundModifier_1_to_2)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkbKeyframeBonesModifier", 1, "hkbKeyframeBonesModifier", 2)
+	HK_PATCH_MEMBER_REMOVED("keyframedBones", TYPE_STRUCT, "hkBitField", 0)
+	HK_PATCH_DEPENDS("hkBitField", 0)
+HK_PATCH_END()
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

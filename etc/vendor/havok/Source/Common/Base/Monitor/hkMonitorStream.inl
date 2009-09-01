@@ -43,6 +43,7 @@ void hkMonitorStream::TimerCommand::setTime()
 #define HK_MONITOR_COMMAND_PUSH_DIR "Pd"
 #define HK_MONITOR_COMMAND_POP_DIR "pd"
 #define HK_MONITOR_COMMAND_BEGIN_TIMER "T"
+#define HK_MONITOR_COMMAND_BEGIN_OBJECT_NAME "O"
 
 #define HK_MONITOR_COMMAND_END_TIMER "E"
 #define HK_MONITOR_COMMAND_BEGIN_LIST "L"
@@ -84,8 +85,20 @@ void hkMonitorStream::TimerCommand::setTime()
 			 mStream.setEnd( (char*)(h+1) );						\
 		} }
 
+#	define HK_TIMER_BEGIN_OBJECT_NAME(OBJECT_NAME) {				\
+	hkMonitorStream& mStream = hkMonitorStream::getInstance();			\
+	if ( mStream.memoryAvailable() )										\
+	{																	\
+		hkMonitorStream::TimerBeginObjectNameCommand* h = reinterpret_cast<hkMonitorStream::TimerBeginObjectNameCommand*>(mStream.getEnd());	\
+		h->m_commandAndMonitor = HK_MONITOR_COMMAND_BEGIN_OBJECT_NAME HK_MONITOR_TYPE_TIMER;	\
+		h->m_objectName = OBJECT_NAME; \
+		h->setTime();													\
+		mStream.setEnd( (char*)(h+1) );						\
+	} }
+
 #	define HK_TIMER_BEGIN( NAME, OBJECT )	HK_TIMER_INTERN( NAME, HK_MONITOR_COMMAND_BEGIN_TIMER, OBJECT	)
 #	define HK_TIMER_END(  )	HK_TIMER_INTERN( "", HK_MONITOR_COMMAND_END_TIMER, HK_NULL	)
+
 
 	/// Timer end call which also checks for matching timer begin call
 #	define HK_TIMER_NAMED_END( NAME )	HK_TIMER_INTERN( NAME, HK_MONITOR_COMMAND_END_TIMER, HK_NULL	)
@@ -136,6 +149,7 @@ class HK_POSSIBLY_UNUSED hkTimeFunctionHelper
 #	define HK_MONITOR_NOP()
 
 #	define HK_TIMER_BEGIN( NAME, OBJECT )
+#	define HK_TIMER_BEGIN_OBJECT_NAME (OBJECT_NAME)
 #	define HK_TIMER_END()
 #	define HK_TIMER_NAMED_END(NAME)
 #	define HK_TIMER_BEGIN_LIST( NAME, OBJECT )
@@ -165,7 +179,7 @@ class HK_POSSIBLY_UNUSED hkTimeFunctionHelper
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

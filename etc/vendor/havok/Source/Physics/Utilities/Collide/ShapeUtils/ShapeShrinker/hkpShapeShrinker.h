@@ -57,14 +57,14 @@ class hkpShapeShrinker
 		static hkpCylinderShape* HK_CALL shrinkCylinderShape( hkpCylinderShape* cylinderShape, hkReal relShrinkRadius, hkReal allowedDisplacement );
 
 			/// Internal helper to shrink convex vertices shape 
-		static hkpConvexVerticesShape* HK_CALL shrinkConvexVerticesShape( hkpConvexVerticesShape* boxShape, hkReal relShrinkRadius, hkReal allowedDisplacement );
+		static hkpConvexVerticesShape* HK_CALL shrinkConvexVerticesShape( hkpConvexVerticesShape* convexShape, hkReal relShrinkRadius, hkReal allowedDisplacement, const char* shapeName = HK_NULL );
 };
 
 
 #endif // HK_UTILS_SHAPE_SHRINKER__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

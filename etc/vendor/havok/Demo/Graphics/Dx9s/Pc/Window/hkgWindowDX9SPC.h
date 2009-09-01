@@ -83,6 +83,8 @@ struct D3DAdapterInfo9
 
 class hkgDirectJoystickPC9S;
 
+class hkgXInputPad9S;
+
 class hkgWindowDX9SPC : public hkgWindowDX9S
 {
 public:
@@ -93,6 +95,8 @@ public:
 	virtual bool initializeContext();
 
 	virtual HKG_WINDOW_DX9S_OPERATING_SYSTEM getOperatingSystem() const;
+
+	virtual int getVideoMemSizeInMB() const;
 
 	virtual	bool setAsCurrent(); // only need to call this if you have > 1 window
 	virtual bool clearBuffers();
@@ -109,7 +113,11 @@ public:
 
 	inline HINSTANCE getInstanceHandle() const;
 
-	virtual bool hasGamePads() const { return m_directJoysticks[0]!=HK_NULL; }
+	virtual bool hasGamePads() const { return (m_directJoysticks[0]!=HK_NULL) || (m_XInputPads[0] != HK_NULL); }
+
+	/// Set gamepad vibration strength if supported. (Currently only supported for Xbox360 
+	/// style controllers under DX9S). 
+	virtual void setGamePadVibrationState(int pad, hkUint16 lowFrequencyStrength, hkUint16 highFrequencyStrength);
 
 	virtual int getDisplayAdapter() const { return m_dwAdapter; }
 
@@ -136,6 +144,7 @@ protected:
 	hkArray<D3DAdapterInfo9>	m_Adapters;
     DWORD					m_dwNumAdapters;
     DWORD					m_dwAdapter;
+	mutable int				m_videoRamSize;
 
 	DWORD					m_dwWindowStyle;     // Saved window style for mode switches
     RECT					m_rcWindowBounds;    // Saved window bounds for mode switches
@@ -170,6 +179,8 @@ protected:
 	bool					m_ownHWND; // did it create the hwnd?
 
 	hkgDirectJoystickPC9S*	m_directJoysticks[2];
+
+	hkgXInputPad9S*			m_XInputPads[2];
 						
 };
 
@@ -181,7 +192,7 @@ LRESULT CALLBACK hkgWindowProcDX9SPC(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 #endif //HK_GRAPHICS_WINDOW_DX9S_PC_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

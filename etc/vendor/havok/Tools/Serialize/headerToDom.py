@@ -467,7 +467,8 @@ class CppParser:
                         newbody = body[methodEnd:]
                 elif item == self.re_classMember:
                     bits = self.re_constInDecl.sub(" ", match.group().rstrip(";"))
-                    bits = self.re_whitespaceInArray.sub(r"[\1]", bits).split()
+                    bits = self.re_whitespaceInArray.sub(r"[\1]", bits)
+                    bits = re.sub("\s*\*\s*", "* ", bits).split()
                     if bits[0] not in ("friend", "static", "typedef"):
                         mtype, mname = " ".join(bits[:-1]), bits[-1]
                         k = klass #todo: should lookup parent first, but often don't have definition
@@ -655,7 +656,7 @@ if __name__=="__main__":
     main()
 
 #
-# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 # 
 # Confidential Information of Havok.  (C) Copyright 1999-2009
 # Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

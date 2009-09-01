@@ -9,6 +9,8 @@
 #ifndef HK_GRAPHICS_BRIDGE_ASSET_CONV_H
 #define HK_GRAPHICS_BRIDGE_ASSET_CONV_H
 
+#include <Common/SceneData/Material/hkxMaterial.h>
+
 class hkgMaterial;
 class hkgShaderLib;
 
@@ -21,16 +23,24 @@ class hkgAssetConverter
 		{
 			CONVERT_ALL = 0,
 			NO_MESHES = 1,
-			NO_LIGHTS = 2,
-			NO_MATERIALS = 4,
-			NO_TEXTURES = 8,
-			NO_CAMERAS = 16,
-			NO_SHADOW_CAST = 32,
-			NO_VERTEX_COLORS = 64,
-			FORCE_VERTEX_COLORS = 128,
-			FORCE_DYNAMIC_VBS = 256,
-			FORCE_DIFFUSE_MAT_ONLY = 512,
-			FORCE_WHITE_DIFFUSE_COLOR = 1024
+			NO_LIGHTS = 1<<1,
+			NO_MATERIALS = 1<<2,
+			NO_TEXTURES = 1<<3,
+			NO_CAMERAS = 1<<4,
+			NO_SHADOW_CAST = 1<<5,
+			NO_VERTEX_COLORS = 1<<6,
+			FORCE_VERTEX_COLORS = 1<<7,
+			FORCE_DYNAMIC_VBS = 1<<8,
+			FORCE_DIFFUSE_MAT_ONLY = 1<<9,
+			FORCE_WHITE_DIFFUSE_COLOR = 1<<10,
+			FORCE_BLACK_SPECULAR_COLOR = 1<<11,
+			// For the shader lib, so it can pixck the correct # lights
+			// 1 and 2 lights are default / normal, so only 0 or > 2 are required normally as hints 
+			HINT_0RENDERLIGHT = 1<<12,
+			HINT_1RENDERLIGHT = 1<<13,
+			HINT_2RENDERLIGHTS = 1<<14,
+			HINT_3RENDERLIGHTS = 1<<15,
+			HINT_4RENDERLIGHTS = 1<<16
 		};
 
 		struct Mapping
@@ -70,13 +80,21 @@ class hkgAssetConverter
 		{
 			HKG_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( MaterialCache);
 
-			MaterialCache() : m_manager(HK_NULL), m_supportsShaders(false) { }
+			MaterialCache() : m_manager(HK_NULL), m_supportsShaders(false) { m_searchOrder.pushBack(HK_NULL); m_searchOrder.pushBack("DDS"); m_searchOrder.pushBack("png"); m_searchOrder.pushBack("PNG"); }
 			~MaterialCache();
 			class hkgMaterialManager* m_manager;
 			bool m_supportsShaders;
 			hkgArray<Mapping> m_materials;	
 			hkgArray<Mapping> m_textures;
 			hkgArray<const char*> m_searchPaths;
+			hkgArray<const char*> m_searchOrder;
+		};
+
+		enum MaterialVariants
+		{
+			MAT_NORMAL,
+			MAT_SKIN,
+			MAT_INSTANCE
 		};
 
 		struct MeshConvertInput
@@ -84,8 +102,9 @@ class hkgAssetConverter
 			HKG_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( MeshConvertInput);
 
 			MeshConvertInput() : m_enableLighting(true), m_allowMaterialSharing(true), m_allowTextureSharing(true), m_allowTextureMipmaps(true),
-								   m_allowTextureCompression(false), m_allowTextureAnisotropicFilter(false), m_invertNormalMapGreenChannel(false), m_allowHardwareSkinning(true), m_convMask(CONVERT_ALL), 
-									m_context(HK_NULL), m_materialCache(HK_NULL), m_meshCache(HK_NULL), m_skinVertexBufferCache(HK_NULL), m_shaderLib(HK_NULL)
+								   m_allowTextureCompression(false), m_allowTextureAnisotropicFilter(false), m_invertNormalMapGreenChannel(false), 
+								   m_allowHardwareSkinning(true), m_allowPseudoInstancing(false), m_allowPseudoInstancingHardwareAccel(false), m_convMask(CONVERT_ALL), 
+								   m_context(HK_NULL), m_materialCache(HK_NULL), m_meshCache(HK_NULL), m_nodeCache(HK_NULL), m_skinVertexBufferCache(HK_NULL), m_shaderLib(HK_NULL)
 			{
 				m_worldTransform.setIdentity();
 			}
@@ -98,12 +117,17 @@ class hkgAssetConverter
 			hkBool m_invertNormalMapGreenChannel;
 			hkBool m_allowHardwareSkinning;
 			hkBool m_forceVertexColors;
+			hkBool m_allowPseudoInstancing; 
+			hkBool m_allowPseudoInstancingHardwareAccel; 
 			ConvertMask m_convMask;
 
 			class hkgDisplayContext* m_context; 
-			MaterialCache*		m_materialCache;				///
-			hkgArray<Mapping>*	m_meshCache;				///
-			hkgArray<Mapping>*	m_skinVertexBufferCache; ///
+			class hkgDisplayWorld* m_world; // for pseudo instances, we may need to replace already added objects 
+
+			MaterialCache*			m_materialCache;			///
+			hkgArray<Mapping>*		m_meshCache;				///
+			hkgArray<NodeMapping>*	m_nodeCache;				///
+			hkgArray<Mapping>*		m_skinVertexBufferCache;	///
 
 			hkMatrix4 m_worldTransform;
 
@@ -123,14 +147,14 @@ class hkgAssetConverter
 
 		static int HK_CALL convertMaterial( const class hkxMaterial* material, hkgDisplayContext* context, MaterialCache& materialCache,
 											hkBool allowMatSharing, hkBool allowTexSharing, hkBool doMipmaps, hkBool doCompression, hkBool doAniso, 
-											hkBool invertNormalMaps, hkBool diffuseOnly, hkBool forceWhiteDiffuse,
-											hkgShaderLib* shaderLib);
+											hkBool invertNormalMaps, hkBool diffuseOnly, hkBool forceWhiteDiffuse, hkBool forceBlackSpecular,
+											hkgShaderLib* shaderLib, int forNumLights, MaterialVariants matVariant );
 
-		static int HK_CALL convertTexture(  const class hkxTextureInplace* texture, hkgDisplayContext* context,
+		static int HK_CALL convertTexture(  const class hkxTextureInplace* texture, hkgDisplayContext* context, hkxMaterial::TextureType tHint, 
 											MaterialCache& materialCache, hkBool allowTexSharing, hkBool doMipmaps, hkBool doCompression, hkBool doAniso, hkBool invertNormalMaps   );
 
-		static int HK_CALL convertTexture(  const class hkxTextureFile* texture, hkgDisplayContext* context, MaterialCache& materialCache,
-											hkBool allowTexSharing, hkBool doMipmaps, hkBool doCompression, hkBool doAniso, hkBool invertNormalMaps   );
+		static int HK_CALL convertTexture(  const class hkxTextureFile* texture, hkgDisplayContext* context, hkxMaterial::TextureType tHint,
+											MaterialCache& materialCache, hkBool allowTexSharing, hkBool doMipmaps, hkBool doCompression, hkBool doAniso, hkBool invertNormalMaps   );
 
 		static class hkgLight* HK_CALL convertLight( const class hkxLight* l, class hkgLightManager* manager );
 
@@ -151,8 +175,6 @@ class hkgAssetConverter
 		static void HK_CALL findAllMappings( const hkgArray<Mapping>& inList, const void* original, hkgArray<int>& mappedEntries);
 		static void HK_CALL findAllMappings( const hkgArray<SkinPaletteMap*>& inList, const void* original, hkgArray<int>& mappedEntries);
 
-	protected:
-
 			// A dscription of the vertex format for our graphics library
 		static class hkxVertexDescription* HK_CALL constructVertexDesc(class hkgVertexSet* v);
 };
@@ -160,7 +182,7 @@ class hkgAssetConverter
 #endif // HK_GRAPHICS_BRIDGE_ASSET_CONV_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -49,19 +49,13 @@
 #include <Physics/Dynamics/Constraint/hkpConstraintInstanceClass.cpp>
 #include <Physics/Dynamics/Entity/hkpBreakableBodyClass.cpp>
 #include <Physics/Dynamics/Entity/hkpEntityClass.cpp>
-#include <Physics/Dynamics/Entity/hkpEntityDeactivatorClass.cpp>
-#include <Physics/Dynamics/Entity/hkpFakeRigidBodyDeactivatorClass.cpp>
 #include <Physics/Dynamics/Entity/hkpRigidBodyClass.cpp>
-#include <Physics/Dynamics/Entity/hkpRigidBodyDeactivatorClass.cpp>
-#include <Physics/Dynamics/Entity/hkpSpatialRigidBodyDeactivatorClass.cpp>
 #include <Physics/Dynamics/Motion/Rigid/ThinBoxMotion/hkpThinBoxMotionClass.cpp>
 #include <Physics/Dynamics/Motion/Rigid/hkpBoxMotionClass.cpp>
 #include <Physics/Dynamics/Motion/Rigid/hkpCharacterMotionClass.cpp>
 #include <Physics/Dynamics/Motion/Rigid/hkpFixedRigidMotionClass.cpp>
 #include <Physics/Dynamics/Motion/Rigid/hkpKeyframedRigidMotionClass.cpp>
 #include <Physics/Dynamics/Motion/Rigid/hkpSphereMotionClass.cpp>
-#include <Physics/Dynamics/Motion/Rigid/hkpStabilizedBoxMotionClass.cpp>
-#include <Physics/Dynamics/Motion/Rigid/hkpStabilizedSphereMotionClass.cpp>
 #include <Physics/Dynamics/Motion/hkpMotionClass.cpp>
 #include <Physics/Dynamics/Phantom/hkpAabbPhantomClass.cpp>
 #include <Physics/Dynamics/Phantom/hkpCachingShapePhantomClass.cpp>
@@ -76,7 +70,7 @@
 #include <Physics/Dynamics/World/hkpWorldObjectClass.cpp>
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

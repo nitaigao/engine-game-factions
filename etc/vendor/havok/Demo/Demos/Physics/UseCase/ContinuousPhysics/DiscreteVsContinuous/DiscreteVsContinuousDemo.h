@@ -18,12 +18,7 @@
 	/// carried out at discrete timesteps. For example, between one timestep and 
 	/// the next, a fast moving object can move entirely from one side of the wall 
 	/// to the other. This is also known as the "bullet through paper" problem. 
-	/// There are two mechanisms in Havok that you can use to prevent this problem.	
-	/// The first is known as pairwise backstepping, which is a simple backstepping 
-	/// algorithm which works out the exact collision point between pairs of objects 
-	/// in the collision detector. The second is the hkConvexSweepShape which is used 
-	/// to limit the velocities of objects when they collide.
-	/// This game utilises and demonstrates both approaches.
+	/// Havok offers continuous physics solution to prevent this problem.	
 class DiscreteVsContinuousDemo: public hkDefaultPhysicsDemo
 {
 	public:
@@ -71,7 +66,7 @@ class DiscreteVsContinuousDemo: public hkDefaultPhysicsDemo
 #endif // HK_BULLET_VS_PAPER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

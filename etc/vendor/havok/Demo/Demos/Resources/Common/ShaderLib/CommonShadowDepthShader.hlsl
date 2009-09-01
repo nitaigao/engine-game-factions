@@ -17,21 +17,30 @@
 	{
 		vertexOutputShadowDepthVSM Output;
 		
-		float3 worldVertPos = mul(float4(In.position,1), g_mWorld).xyz;
+		#ifdef HKG_INSTANCING
+			float3x4 world;
+   			world[0] = In.transformRow0;
+   			world[1] = In.transformRow1;
+   			world[2] = In.transformRow2;
+   			float3 worldVertPos = mul(world , float4(In.position, 1) );
+		#else
+			float3 worldVertPos = mul(float4(In.position,1), g_mWorld).xyz;
+		#endif
+		
 		Output.position = mul(float4(worldVertPos,1), g_mViewProj); // Light VP in this case
+		
 		#ifdef ENABLE_ALPHA_SHADOWS
 			Output.texCoord0 = In.texCoord0;
 		#endif
+		
 		Output.posWorld = worldVertPos;
 		return Output;
 	}
 
-	pixelOutput PixShadowDepth( vertexOutputShadowDepthVSM In )
+	float4 PixShadowDepth( vertexOutputShadowDepthVSM In ) : COLOR
 	{
-		pixelOutput Output;
-	    
 	    #ifdef ENABLE_ALPHA_SHADOWS
-	    if (g_fShadowMapDistance < 100)
+	    if (g_iDepthParams.g > 0)
 	    {
 			float4 tex = tex2D( g_sSamplerZero, In.texCoord0 );
 			clip(tex.a - 0.75f); // will be neg for <75 and will discard pixel
@@ -39,18 +48,17 @@
 	    #endif
 	    
 		float4 depth;
-		float3 lightDir = g_vLightShadowStartPos - In.posWorld;
-		depth.x = dot(lightDir,g_vLightDir) / g_fShadowMapDistance; 
-		depth.y = depth.x * depth.x;
+		float3 lightDir = g_vLightShadowStartPosWorld - In.posWorld;
+		depth.r = dot(lightDir,g_vLightDir) / g_fShadowMapDistance; 
+		depth.g = depth.x * depth.x;
 		#ifdef HKG_SHADOWS_DISTRIBUTE_16F_OUTPUTS 
-			depth.zw = frac(depth.xy * SHADOW_16F_DISTRIBUTE_FACTOR);
-			depth.xy = depth.xy - (depth.zw / SHADOW_16F_DISTRIBUTE_FACTOR);
+			depth.ba = frac(depth.rg * SHADOW_16F_DISTRIBUTE_FACTOR);
+			depth.rg = depth.rg - (depth.ba / SHADOW_16F_DISTRIBUTE_FACTOR);
 		#else
-			depth.zw = depth.xy;
+			depth.ba = depth.rg;
 		#endif
 		
-		Output.color = depth;
-		return Output;
+		return depth;
 	}
 	
 #else
@@ -59,7 +67,17 @@
 	vertexOutputShadowDepth VertShadowDepth( vertexInputShadowDepth In)
 	{
 		vertexOutputShadowDepth Output;
-		Output.position = mul(float4(In.position,1), g_mWorldViewProj); // Light WVP in this case
+		#ifdef HKG_INSTANCING
+			float3x4 world;
+   			world[0] = In.transformRow0;
+   			world[1] = In.transformRow1;
+   			world[2] = In.transformRow2;
+   			float3 worldVertPos = mul(world , float4(In.position, 1) );
+		#else
+			float3 worldVertPos = mul(float4(In.position,1), g_mWorld).xyz;
+		#endif
+			
+		Output.position = mul(float4(worldVertPos,1), g_mViewProj); // Light VP in this case
 		Output.depthZZZW = float4(Output.position.zzz, Output.position.w);
 		#ifdef ENABLE_ALPHA_SHADOWS
 			Output.texCoord0 = In.texCoord0;
@@ -67,12 +85,10 @@
 		return Output;
 	}
 	
-	pixelOutput PixShadowDepth( vertexOutputShadowDepth In )
+	float4 PixShadowDepth( vertexOutputShadowDepth In ) : COLOR
 	{
-		pixelOutput Output;
-		
 		#ifdef ENABLE_ALPHA_SHADOWS
-	    if (g_fShadowMapDistance < 100)
+	    if (g_iDepthParams.g)
 	    {
 			float4 tex = tex2D( g_sSamplerZero, In.texCoord0 );
 			clip( tex.a - 0.2 );
@@ -80,13 +96,12 @@
 	    #endif
 	    
 		float depth = (In.depthZZZW.b / In.depthZZZW.a);
-		Output.color = float4( depth.xxx, 1.0f );
-		return Output;
+		return float4( depth.xxx, 1.0f );
 	}
 
 #endif
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -32,7 +32,7 @@ class hkMeshSectionLockSet
             /// Will add and lock all of the sections in shape in order
         void addMeshSections(const hkMeshShape* shape, hkUint8 accessFlags);
 
-            /// Add a mesh section (not the reference will be invalidated if any other sections are added, or clear is called)
+            /// Add a mesh section (note that the reference will be invalidated if any other sections are added, or clear is called)
         const hkMeshSection& addMeshSection(const hkMeshShape* shape, int index, hkUint8 accessFlags);
 
             /// Remove all of the current locked sections
@@ -65,7 +65,7 @@ class hkMeshSectionLockSet
 #endif // HK_MESH_SECTION_LOCK_SET_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

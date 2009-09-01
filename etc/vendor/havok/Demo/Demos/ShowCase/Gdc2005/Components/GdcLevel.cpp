@@ -213,7 +213,7 @@ void Gdc2005Demo::initLevel()
 	// See if we have to load a vertex color based baked shadow or can load a lightmap
 	if (m_env->m_window->getMaxTextureBlendStages() > 1 )
 	{
-		loadSceneWithPhysics( "Resources/Animation/Showcase/Gdc2005/Level/hkGdcLevel_Lightmap.hkx", hkgAssetConverter::ConvertMask(hkgAssetConverter::NO_LIGHTS | hkgAssetConverter::NO_CAMERAS), LAYER_LANDSCAPE);
+		loadSceneWithPhysics( "Resources/Animation/ShowCase/Gdc2005/Level/hkGdcLevel_Lightmap.hkx", hkgAssetConverter::ConvertMask(hkgAssetConverter::NO_LIGHTS | hkgAssetConverter::NO_CAMERAS), LAYER_LANDSCAPE);
 
 		if (m_env->m_sceneConverter->m_meshes.getSize() > 0)
 		{
@@ -225,7 +225,7 @@ void Gdc2005Demo::initLevel()
 	// Vertex Color version (so we can toggle)
 	// Include the lights, cameras etc from this one or the physics one.
 	// For reduced texture size too, use hkGdcLevel_VertexColors_64.hkx (PSP(R) (PlayStation(R)Portable) etc)
-	loadSceneWithPhysics( "Resources/Animation/Showcase/Gdc2005/Level/hkGdcLevel_VertexColors.hkx", hkgAssetConverter::CONVERT_ALL, LAYER_LANDSCAPE);
+	loadSceneWithPhysics( "Resources/Animation/ShowCase/Gdc2005/Level/hkGdcLevel_VertexColors.hkx", hkgAssetConverter::CONVERT_ALL, LAYER_LANDSCAPE);
 	if (m_env->m_sceneConverter->m_meshes.getSize() > 0)
 	{
 		m_vertexColorDisplay = (hkgDisplayObject*) m_env->m_sceneConverter->m_meshes.back().m_hkgObject;
@@ -243,10 +243,10 @@ void Gdc2005Demo::initLevel()
 
 	// Physics (reduced colision mesh). Can be included in one of the above files if you wanted
 	// Vertex Color version (so we can toggle)
-	loadSceneWithPhysics( "Resources/Animation/Showcase/Gdc2005/Level/hkGdcLevel.hkx", hkgAssetConverter::NO_LIGHTS, LAYER_LANDSCAPE);
+	loadSceneWithPhysics( "Resources/Animation/ShowCase/Gdc2005/Level/hkGdcLevel.hkx", hkgAssetConverter::NO_LIGHTS, LAYER_LANDSCAPE);
 
 	// See-saw
-	loadSceneWithPhysics( "Resources/Animation/Showcase/Gdc2005/Level/hkGdcSeesaw.hkx", hkgAssetConverter::ConvertMask(hkgAssetConverter::NO_LIGHTS | hkgAssetConverter::NO_CAMERAS), LAYER_MOVABLE_ENVIRONMENT, 1);
+	loadSceneWithPhysics( "Resources/Animation/ShowCase/Gdc2005/Level/hkGdcSeesaw.hkx", hkgAssetConverter::ConvertMask(hkgAssetConverter::NO_LIGHTS | hkgAssetConverter::NO_CAMERAS), LAYER_MOVABLE_ENVIRONMENT, 1);
 
 	// Brick walls
 	initBrickWall();
@@ -364,7 +364,7 @@ void Gdc2005Demo::initBrickWall()
 
 	// Load the bricks
 	int beforeNum = m_env->m_sceneConverter->m_meshes.getSize();
-	loadSceneWithPhysics( "Resources/Animation/Showcase/Gdc2005/Objects/hkGdcBricks.hkx", hkgAssetConverter::ConvertMask(hkgAssetConverter::NO_LIGHTS | hkgAssetConverter::NO_CAMERAS), LAYER_MOVABLE_ENVIRONMENT);
+	loadSceneWithPhysics( "Resources/Animation/ShowCase/Gdc2005/Objects/hkGdcBricks.hkx", hkgAssetConverter::ConvertMask(hkgAssetConverter::NO_LIGHTS | hkgAssetConverter::NO_CAMERAS), LAYER_MOVABLE_ENVIRONMENT);
 
 	// find the two we are expecting
 	int afterNum = m_env->m_sceneConverter->m_meshes.getSize();
@@ -417,7 +417,7 @@ void Gdc2005Demo::initDynamicObjects()
 {
 	m_env->m_displayHandler->setAutoDisplayCreationState(false);
 
-	hkString assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/Showcase/Gdc2005/Objects/Objects_Default.hkx");
+	hkString assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Objects/Objects_Default.hkx");
 	hkRootLevelContainer* container = m_loader->load( assetFile.cString() );
 	HK_ASSERT2(0x27343437, container != HK_NULL , "Could not load asset");
 
@@ -769,7 +769,7 @@ void Gdc2005Demo::quitLevel()
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

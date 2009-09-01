@@ -9,13 +9,18 @@
 #ifndef HCT_FILTER_DIALOG_UTILS_H
 #define HCT_FILTER_DIALOG_UTILS_H
 
+#include <ContentTools/Common/SceneExport/Error/hctSceneExportError.h> 
+
 // This functions is used by filter Dialogs to display ToolTips
 BOOL CreateToolTip(int toolID, HWND hDlg, HINSTANCE hInst, hkString toolText);
+
+// This function will print (incl. formatting) the LogEntry to the provided RichEdit control.
+void hctPrintLogEntryToRichEditControl(const hctSceneExportError::LogEntry& entry, HWND richEditControl);
 
 #endif	// HCT_FILTER_DIALOG_UTILS_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

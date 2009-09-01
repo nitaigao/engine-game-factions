@@ -109,6 +109,22 @@ class hkVector4
 			/// Sets this hkVector4 to be the product of the real value r and the vector b. All four components are modified.
 		HK_ALWAYS_INLINE void setMul4(hkSimdRealParameter r, const hkVector4& a);
 
+			/// Sets this hkVector4 to be the component-wise quotient of vector a and vector b. All four components are modified.
+			/// After the call, the components of this hkVector4 are: { a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w }
+		HK_ALWAYS_INLINE void setDiv4(hkVector4Parameter a, hkVector4Parameter b);
+
+			/// Modifies this hkVector4 by setting it to the component-wise quotient of itself and vector a. Each component of this vector is divided
+			/// by the corresponding component in vector a.
+		HK_ALWAYS_INLINE void div4(hkVector4Parameter a);
+
+			/// Faster, less precise version of setDiv4. Calls divf4fast on the PLAYSTATION(R)3 and on other platforms finds the approximate reciprocal of vector b and
+			/// multiplies component-wise by vector a.
+		HK_ALWAYS_INLINE void setDiv4fast(hkVector4Parameter a, hkVector4Parameter b);
+
+			/// Faster, less precise version of div4. Calls divf4fast on the PLAYSTATION(R)3 and on other platforms multiplies this vector by the approximate reciprocal 
+			/// of vector a.
+		HK_ALWAYS_INLINE void div4fast(hkVector4Parameter a);
+
 			/// Modifies this hkVector4 by adding the product of real r and vector a to it.  All four components are modified.
 		HK_ALWAYS_INLINE void addMul4(hkSimdRealParameter r, const hkVector4& a);
 
@@ -298,6 +314,9 @@ class hkVector4
 		HK_FORCE_INLINE hkSimdReal lengthInverse3() const;
 			/// Returns the length of the distance between this point and the point p.
 		HK_FORCE_INLINE hkSimdReal distanceTo3( hkVector4Parameter p ) const;
+			/// Returns the length of the distance squared between this point and the point p.
+		HK_FORCE_INLINE hkSimdReal distanceToSquared3( hkVector4Parameter p ) const;
+
 
 			/// Returns the length of the 4-vector represented by the x, y, z and w components.
 		HK_FORCE_INLINE hkSimdReal length4() const;
@@ -450,7 +469,7 @@ class hkVector4
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

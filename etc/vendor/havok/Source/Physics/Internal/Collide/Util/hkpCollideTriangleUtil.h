@@ -89,6 +89,13 @@ class hkpCollideTriangleUtil
 		static inline int HK_CALL getNextModulo3( int i ) { return vertexToEdgeLut[i+2]; }
 		static inline int HK_CALL getPrevModulo3( int i ) { return vertexToEdgeLut[i]; }
 
+
+		// Evaluate (i+1) mod 3 with i>=0 && i<=2
+		//static HK_FORCE_INLINE int getNextModulo3(int i) { return((0x09>>(i<<1))&3); }
+		
+		// Evaluate (i-1) mod 3 with i>=0 && i<=2
+		//static HK_FORCE_INLINE int getPrevModulo3(int i) { return((0x12>>(i<<1))&3); }
+
 	protected:
 
 		hkpCollideTriangleUtil();
@@ -100,7 +107,7 @@ class hkpCollideTriangleUtil
 #endif // HK_GEOMETRY2_TRIANGLEUTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

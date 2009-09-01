@@ -13,6 +13,8 @@
 #include <Common/Base/Reflection/hkInternalClassMember.h>
 #include <Common/Base/Reflection/hkTypeInfo.h>
 #include <Demos/Common/Api/Serialize/Versioning/CustomClassVersioning/CustomClass.h>
+#define True true
+#define False false
 
 
 
@@ -106,7 +108,7 @@ const hkClass CustomClassClass(
 	0, // flags
 	0 // version
 	);
-HK_REFLECTION_DEFINE_NONVIRTUAL(CustomClass);
+HK_REFLECTION_DEFINE_VIRTUAL(CustomClass);
 
 //
 // Class CustomClass2
@@ -134,7 +136,7 @@ const hkClass CustomClass2Class(
 HK_REFLECTION_DEFINE_NONVIRTUAL(CustomClass2);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

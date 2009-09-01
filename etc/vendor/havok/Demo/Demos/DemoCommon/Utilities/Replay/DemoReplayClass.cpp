@@ -13,6 +13,8 @@
 #include <Common/Base/Reflection/hkInternalClassMember.h>
 #include <Common/Base/Reflection/hkTypeInfo.h>
 #include <Demos/DemoCommon/Utilities/Replay/DemoReplay.h>
+#define True true
+#define False false
 
 
 
@@ -165,7 +167,7 @@ const hkClass hkDemoReplayUtilityClass(
 HK_REFLECTION_DEFINE_SIMPLE(hkDemoReplayUtility);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

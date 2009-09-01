@@ -14,6 +14,7 @@ class hkStreamReader;
 class hkPackfileHeader;
 class hkPackfileSectionHeader;
 class hkTypeInfoRegistry;
+class hkChainedClassNameRegistry;
 class hkPackfileObjectUpdateTracker;
 typedef hkPackfileObjectUpdateTracker hkBinaryPackfileUpdateTracker;
 
@@ -55,6 +56,8 @@ class hkBinaryPackfileReader : public hkPackfileReader
 		virtual const char* getContentsClassName() const;
 
 			/// Implements hkPackfileReader::getPackfileData().
+			/// Return packfile data with all the hkClass signatures checked
+			/// and updated hkVariant class pointers.
 			/// For packfiles with metadata, all hkClass pointers are replaced
 			/// with corresponding hkClass from hkBuiltinTypeRegistry.
 		virtual hkPackfileData* getPackfileData() const;
@@ -140,6 +143,10 @@ class hkBinaryPackfileReader : public hkPackfileReader
 
 		void* getOriginalContents() const;
 		const char* getOriginalContentsClassName() const;
+			/// Return class name registry that may contain hkClass objects from packfile.
+			/// The class name registry may be invalidated if versioning was applied
+			/// to packfile contents, so this function must be called again to return
+			/// the up to date registry.
 		const hkClassNameRegistry* getClassNameRegistry() const;
 		struct PackfileObject
 		{
@@ -149,10 +156,12 @@ class hkBinaryPackfileReader : public hkPackfileReader
 
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SERIALIZE, hkBinaryPackfileReader::PackfileObject );
 		};
+			/// Get original metadata hkClass locations in the packfile sections.
+			/// Any versioning steps previously applied to the packfile contents are ignored.
 		void findClassLocations( hkArray<PackfileObject>& objectsOut ) const;
 
 			/// Replace all hkClass packfile pointers with hkClass
-			/// pointers from provided registry.
+			/// pointers from the provided registry.
 		void useClassesFromRegistry(const hkClassNameRegistry& registry) const;
 
 	private:
@@ -180,13 +189,13 @@ class hkBinaryPackfileReader : public hkPackfileReader
 			// Lazily create the tracker if needed.
 		mutable hkBinaryPackfileUpdateTracker* m_tracker;
 			//
-		mutable hkArray<hkClass*> m_classes;
+		mutable hkRefPtr<hkChainedClassNameRegistry> m_packfileClassRegistry;
 };
 
 #endif // HK_BINARY_PACKFILE_READER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -85,7 +85,7 @@
 
 
 #if defined HK_PLATFORM_PS3_PPU
-#include <Common/Base/Memory/PlattformUtils/Spu/hkSpuMemoryInternal.h>
+#include <Common/Base/Memory/PlatformUtils/Spu/hkSpuMemoryInternal.h>
 #define	SPURS_THREAD_GROUP_PRIORITY 250
 #define SPURS_HANDLER_THREAD_PRIORITY 1
 #endif
@@ -378,7 +378,11 @@ hkDemo::Result hkDefaultPhysicsDemo::stepDemo()
 		else
 #endif
 		{
+			hkCheckDeterminismUtil::workerThreadStartFrame(true);
+
 			m_world->stepDeltaTime(m_timestep);
+
+			hkCheckDeterminismUtil::workerThreadFinishFrame();
 		}
 
 		//	updateDisplay( m_world );
@@ -497,10 +501,12 @@ hkBool hkDefaultPhysicsDemo::objectPicked( const hkgDisplayObject* displayObject
 					const hkReal objectDamping = 0.95f;
 
 					mouseWorld->lock();
+					{
 						m_mouseSpring = new hkpMouseSpringAction( positionAinA, worldPosition, springDamping, springElasticity, objectDamping, rb, &m_mouseSpringAppliedCallbacks );
 						m_mouseSpring->setMaxRelativeForce(m_mouseSpringMaxRelativeForce);
 
  						mouseWorld->addAction( m_mouseSpring );
+					}
 					mouseWorld->unlock();
 				}
 
@@ -684,29 +690,84 @@ static hkxNode* _findMeshNodeByName(hkxNode* node, const char* name)
 	for(int ni=0; ni < node->m_numChildren; ++ni)
 	{
 		hkxNode* m = _findMeshNodeByName( node->m_children[ni], name );
-		if (m) return m;
+		if (m)
+			return m;
 	}
 	return HK_NULL;
 }
 
-static hkgDisplayObject* _findDisplayObject( hkxMesh* mesh, hkgArray<hkgAssetConverter::Mapping>& mappings)
+static hkgDisplayObject* _findDisplayObject( hkxNode* node, hkgArray<hkgAssetConverter::NodeMapping>& mappings)
 {
 	for (int mi=0; mi < mappings.getSize(); ++mi)
 	{
-		if (mappings[mi].m_origObject == mesh)
+		if (mappings[mi].m_origNode == node)
 			return (hkgDisplayObject*)( mappings[mi].m_hkgObject );
 	}
 	return HK_NULL;
 }
 
-static void _mergeCompoundNodes(hkgDisplayObject* dispObj, hkxNode* node, hkgArray<hkgAssetConverter::Mapping>& meshes, const hkArray<hkpRigidBody*>& rbs )
+static bool _isProxy( hkxNode* node )
+{
+	bool isRb= false;
+	bool isShape = false;
+	for (int gi=0; gi < node->m_numAttributeGroups; ++gi)
+	{
+		hkxAttributeGroup* group = &node->m_attributeGroups[gi];
+		if ( group->m_numAttributes > 0 )
+		{
+			if (hkString::strCmp( group->m_name, "hkRigidBody") == 0)
+			{
+				isRb = true;
+			}
+			else if (hkString::strCmp( group->m_name, "hkShape") == 0)
+			{
+				isShape = true;
+			}
+		}
+	}
+
+	return isRb && !isShape;
+}
+
+
+static void _hidePhysicsNodes(hkxNode* node, hkgArray<hkgAssetConverter::NodeMapping>& nodes, hkgDisplayWorld* world)
 {
 	// See if it is in itself an rb or not. If it is then return.
 	int gi;
 	for (gi=0; gi < node->m_numAttributeGroups; ++gi)
 	{
 		hkxAttributeGroup* group = &node->m_attributeGroups[gi];
-		if ( (group->m_numAttributes > 0) && (hkString::strCmp( group->m_name, "hkpRigidBody") == 0) )
+		if ( (group->m_numAttributes > 0) && (hkString::strCmp( group->m_name, "hkRigidBody") == 0) )
+			return; // it is an rb, not a shape or ramdom mesh
+	}
+	
+	if ( hkString::strCmp( node->m_object.m_class->getName(), hkxMeshClass.getName()) == 0 )
+	{
+		hkgDisplayObject* toBeRemoved = _findDisplayObject( node, nodes );
+		if (toBeRemoved)
+		{
+			if (world->removeDisplayObject(toBeRemoved) != HK_NULL)
+			{
+				toBeRemoved->removeReference(); // world ref
+			}
+		}
+	}
+
+	// recurse
+	for (int ci=0; ci < node->m_numChildren; ++ci)
+	{
+		_hidePhysicsNodes(node->m_children[ci], nodes, world);
+	}
+}
+
+static void _mergeCompoundNodes(hkgDisplayObject* dispObj, hkxNode* node, hkgArray<hkgAssetConverter::NodeMapping>& nodes, const hkArray<hkpRigidBody*>& rbs )
+{
+	// See if it is in itself an rb or not. If it is then return.
+	int gi;
+	for (gi=0; gi < node->m_numAttributeGroups; ++gi)
+	{
+		hkxAttributeGroup* group = &node->m_attributeGroups[gi];
+		if ( (group->m_numAttributes > 0) && (hkString::strCmp( group->m_name, "hkRigidBody") == 0) )
 			return; // it is an rb, not a shape or ramdom mesh
 	}
 
@@ -724,8 +785,7 @@ static void _mergeCompoundNodes(hkgDisplayObject* dispObj, hkxNode* node, hkgArr
 	// merge the mesh (if it is a mesh) into the rb, transforming it as required.
 	if ( hkString::strCmp( node->m_object.m_class->getName(), hkxMeshClass.getName()) == 0 )
 	{
-		hkxMesh* theMesh = (hkxMesh*)node->m_object.m_object;
-		hkgDisplayObject* toBeMerged = _findDisplayObject( theMesh, meshes );
+		hkgDisplayObject* toBeMerged = _findDisplayObject( node, nodes);
 
 		const float* tA = toBeMerged->getTransform();
 		const float* tB = dispObj->getTransform();
@@ -747,7 +807,7 @@ static void _mergeCompoundNodes(hkgDisplayObject* dispObj, hkxNode* node, hkgArr
 	// recurse
 	for (int ci=0; ci < node->m_numChildren; ++ci)
 	{
-		_mergeCompoundNodes(dispObj, node->m_children[ci], meshes, rbs );
+		_mergeCompoundNodes(dispObj, node->m_children[ci], nodes, rbs );
 	}
 }
 
@@ -801,42 +861,60 @@ int hkDefaultPhysicsDemo::addPrecreatedDisplayObjectsByName( const hkArray<hkpRi
 	{
 		const char* name = rbs[rbi]->getName();
 		hkxNode* meshNode = _findMeshNodeByName(scene->m_rootNode, name);
-		hkgDisplayObject* dispObj = HK_NULL;
-		if (meshNode)
-		{
-			hkxMesh* mesh = (hkxMesh*)( meshNode->m_object.m_object );
-			dispObj = _findDisplayObject( mesh, m_env->m_sceneConverter->m_meshes );
-		}
-
+		hkgDisplayObject* dispObj = _findDisplayObject( meshNode, m_env->m_sceneConverter->m_meshNodes );
+		
 		if (dispObj)
 		{
 			hkUlong id = (hkUlong)( rbs[rbi]->getCollidable() );
 			// set flag before adding to help internal state (esp for shadow casters)
-			if ( (castShadows) && ( !rbs[rbi]->isFixed() ) ) // make it a shadow caster.
+			if ( !rbs[rbi]->isFixed() ) 
 			{
 				int idx = m_env->m_displayWorld->findDisplayObject(dispObj);
 				if (idx >= 0)
 				{
 					m_env->m_window->getContext()->lock();
 
-
-					for (int ci=0; ci < meshNode->m_numChildren; ++ci)
+					bool isProxy = _isProxy( meshNode );
+					if (isProxy) // just hide physics children
 					{
-						_mergeCompoundNodes(dispObj, meshNode->m_children[ci], m_env->m_sceneConverter->m_meshes, rbs );
+						for (int ci=0; ci < meshNode->m_numChildren; ++ci)
+						{
+							_hidePhysicsNodes( meshNode->m_children[ci], m_env->m_sceneConverter->m_meshNodes, m_env->m_displayWorld );
+						}	
+					}
+					else // may be compund
+					{
+						for (int ci=0; ci < meshNode->m_numChildren; ++ci)
+						{
+							_mergeCompoundNodes(dispObj, meshNode->m_children[ci], m_env->m_sceneConverter->m_meshNodes, rbs );
+						}
 					}
 
-					m_env->m_displayWorld->removeDisplayObject(idx);// gives back ref
-					dispObj->setStatusFlags( dispObj->getStatusFlags() | HKG_DISPLAY_OBJECT_DYNAMIC | HKG_DISPLAY_OBJECT_SHADOW );
+					bool removedObj = false;
+					if (castShadows || !isProxy)
+					{
+						HK_ON_DEBUG(hkgDisplayObject* ret = ) m_env->m_displayWorld->removeDisplayObject( dispObj );// gives back ref
+						HK_ASSERT(0x0, ret);
+
+						removedObj = true;
+						if ( castShadows )
+						{
+							dispObj->setStatusFlags( dispObj->getStatusFlags() | HKG_DISPLAY_OBJECT_DYNAMIC | HKG_DISPLAY_OBJECT_SHADOW );
+						}
+					}
 
 					dispObj->computeAABB();
+					
+					if (removedObj)
+					{
+						m_env->m_displayWorld->addDisplayObject(dispObj);
+						dispObj->release();
+					}
+
 					m_env->m_window->getContext()->unlock();
 
-					m_env->m_displayWorld->addDisplayObject(dispObj);
-					dispObj->release();
-
-
 				}
-				}
+			}
 
 			if (createdDisplayObjects)
 			{
@@ -872,18 +950,14 @@ hkgDisplayObject* hkDefaultPhysicsDemo::findMeshDisplay( const char* meshName, c
 	if (meshName)
 	{
 		hkxNode* node = _findMeshNodeByName(scene->m_rootNode, meshName);
-		if (node && node->m_object.m_object)
-		{
-			hkxMesh* mesh = (hkxMesh*)( node->m_object.m_object );
-			hkgDisplayObject* dispObj = _findDisplayObject( mesh, m_env->m_sceneConverter->m_meshes );
-			return dispObj;
-		}
+		hkgDisplayObject* dispObj = _findDisplayObject( node, m_env->m_sceneConverter->m_meshNodes );
+		return dispObj;
 	}
 	return HK_NULL;
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

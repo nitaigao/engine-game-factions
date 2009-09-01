@@ -25,7 +25,7 @@ extern const hkClass hkpMotionClass;
 class hkpMotion : public hkReferencedObject
 {
 public:
-	// +version(1)
+	// +version(3)
 
 	HK_DECLARE_REFLECTION();
 
@@ -48,22 +48,12 @@ public:
 			/// inertia tensor is used as the spherical inertia.
 		MOTION_SPHERE_INERTIA,
 
-			/// This is the same as MOTION_SPHERE_INERTIA, except that simulation of the rigid
-			/// body is "softened", which produces more stable results in large constrained
-			/// systems.
-		MOTION_STABILIZED_SPHERE_INERTIA,
-
 			/// Simulation is performed using a box inertia tensor. The non-diagonal elements
 			/// of the inertia tensor are set to zero. This is slower than the
 			/// MOTION_SPHERE_INERTIA motions, however it can produce more accurate results,
 			/// especially for long thin objects.
 		MOTION_BOX_INERTIA,
 
-			/// This is the same as MOTION_BOX_INERTIA, except that simulation of 	the rigid
-			/// body is "softened", which produces more stable results in large constrained
-			/// systems.
-
-		MOTION_STABILIZED_BOX_INERTIA,
 			/// Simulation is not performed as a normal rigid body. During a simulation step,
 			/// the velocity of the rigid body is used to calculate the new position of the
 			/// rigid body, however the velocity is NOT updated. The user can keyframe a rigid
@@ -246,6 +236,17 @@ public:
 	/// Naive momentum damping.
 	inline void setAngularDamping( hkReal d );
 
+
+	//
+	// GRAVITY FACTOR
+	//
+
+	/// Get the current gravity factor.
+	inline hkReal getGravityFactor();
+
+	/// Set the gravity factor.
+	inline void setGravityFactor( hkReal gravityFactor );
+
 	//
 	//	SOLVER DEACTIVATION SETTINGS
 	//
@@ -259,7 +260,7 @@ public:
 		/// This helps to evenly distribute the workload over several frames
 	inline void enableDeactivation( bool value, int randomNumber = 0, int worldFlag0 = 0, int worldFlag1 = 0, int worldDeactivationIntegrateCounter = 0);
 
-	inline bool isActivationEnabled() const;
+	inline bool isDeactivationEnabled() const;
 public:
 
 
@@ -334,7 +335,7 @@ public:
 	hkUint16 m_savedQualityTypeIndex;
 
 	// Scale the world gravity to disable gravity or reverse the direction
-	class hkHalf m_gravityFactor;
+	hkHalf m_gravityFactor;
 
 };
 
@@ -349,7 +350,7 @@ class hkpRigidMotion: public hkpMotion
 #endif // HK_DYNAMICS2_MOTION_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

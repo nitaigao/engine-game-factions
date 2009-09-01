@@ -8,6 +8,7 @@
 #define IDD_TANGENT_OPTIONS             108
 #define IDD_ALIGN_SCENE_TO_NODE_DIALOG  109
 #define IDD_CONVERTPNG_DIALOG           110
+#define IDD_REMOTEUPDATEOPTIONS         111
 #define IDC_PRESET_COMBO                1001
 #define IDC_EDIT_MAT00                  1002
 #define IDC_EDIT_MAT01                  1003
@@ -45,6 +46,8 @@
 #define IDC_ADD_MESH_FROM_SCENE         1035
 #define IDC_CB_SplitVertices            1036
 #define IDC_FLOATCHANNELS_CHECK         1037
+#define IDC_CB_SplitVertices2           1037
+#define IDC_CB_IgnoreUnlit              1037
 #define IDC_ALIGN_SCENE_TO_NODE_PICK_EDIT 1038
 #define IDC_ALIGN_SCENE_TO_NODE_PICK_BUTTON 1039
 #define IDC_ALIGN_SCENE_TO_NODE_INVERT  1040
@@ -59,14 +62,20 @@
 #define IDC_FORMAT_TAGFILE              1049
 #define IDC_FORMAT_PACKFILE             1050
 #define IDC_STATIC_PLATFORM             1053
+#define IDC_EDIT_IPADDR                 1054
+#define IDC_EDIT_PORT                   1055
+#define IDC_EDIT_ATTEMPTS               1056
+#define IDC_EDIT_TIMEOUT                1057
+#define IDC_CHECK1                      1058
+#define IDC_CHECK_LAUNCH                1058
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        111
+#define _APS_NEXT_RESOURCE_VALUE        112
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1054
+#define _APS_NEXT_CONTROL_VALUE         1059
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

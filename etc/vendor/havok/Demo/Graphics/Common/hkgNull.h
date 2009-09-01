@@ -16,9 +16,13 @@
 #include <Graphics/Common/Camera/hkgCamera.h>
 #include <Graphics/Common/DisplayObject/hkgDisplayObject.h>
 #include <Graphics/Common/DisplayObject/hkgInstancedDisplayObject.h>
+#include <Graphics/Common/DisplayObject/hkgBillboardDisplayObject.h>
+#include <Graphics/Common/DisplayObject/hkgPseudoInstancedDisplayObject.h>
+#include <Graphics/Common/DisplayObject/hkgSkinnedInstancedDisplayObject.h>
 #include <Graphics/Common/DisplayObject/hkgParticleDisplayObject.h>
 #include <Graphics/Common/Geometry/FaceSet/hkgFaceSet.h>
 #include <Graphics/Common/Shader/hkgShader.h>
+#include <Graphics/Common/Shader/hkgPostEffect.h>
 #include <Graphics/Common/Geometry/BlendMatrixSet/hkgBlendMatrixSet.h>
 #include <Graphics/Common/Geometry/VertexSet/hkgVertexSet.h>
 #include <Graphics/Common/DisplayContext/hkgDisplayContext.h>
@@ -77,6 +81,9 @@ class hkgDisplayContextNull : public hkgDisplayContext
 		void setCullFaceState(bool) {}
 		void setWireframeState(bool) {}
 		void setLightState(int,bool) {}
+		void setFogState(bool on) {}
+		void setLinearFogParameters(float fnear, float ffar ) {}
+		void setExpFogParameters(HKG_FOG_MODE fogMode, float density  ) {}
 		void setDepthBias(float offset){}
 		void pushMatrix() {}
 		void popMatrix() {}
@@ -190,7 +197,7 @@ class hkgShaderNull : public hkgShader
 {
 	protected:
 
-		hkgShaderNull()
+		hkgShaderNull() : hkgShader(HKG_NULL_SHADER)
 		{
 		}
 
@@ -202,6 +209,23 @@ class hkgShaderNull : public hkgShader
 		}
 
 		virtual void setFloatInputIndex( int i, const float* v) { }
+};
+
+
+class hkgPostEffectNull : public hkgPostEffect
+{
+protected:
+
+	hkgPostEffectNull(hkgDisplayContext* c) : hkgPostEffect( c )
+	{
+	}
+
+public:
+
+	static hkgPostEffect* HK_CALL createPostEffectNull(hkgDisplayContext* context)
+	{
+		return new hkgPostEffectNull(context);
+	}
 };
 
 class hkgBlendMatrixSetNull : public hkgBlendMatrixSet
@@ -313,7 +337,7 @@ class hkgInstancedDisplayObjectNull : public hkgInstancedDisplayObject
 		{
 		}
 
-		virtual void setMaxNumObjects( int numObjects, bool allocateBuffers = true ) { }
+		virtual void setMaxNumObjects( int numObjects, bool allocateBuffers = true ) { m_maxNumObjects = numObjects; }
 		virtual void setTransform( const float* transform, int objectIdx ) { }
 		virtual const float* getTransform( int objectIdx ) const { return m_trans; }
 		virtual void setRenderMode( HKG_INSTANCED_DISPLAY_MODE m ) { m_renderMode = m; }
@@ -323,6 +347,45 @@ class hkgInstancedDisplayObjectNull : public hkgInstancedDisplayObject
 		}
 };
 
+class hkgBillboardDisplayObjectNull : public hkgBillboardDisplayObject
+{
+public:		
+
+	hkgBillboardDisplayObjectNull() 
+		: hkgBillboardDisplayObject()
+	{
+	}
+
+	static hkgBillboardDisplayObject* HK_CALL createBillboardDisplayObjectNull( hkgDisplayContext* context)
+	{
+		return new hkgBillboardDisplayObjectNull();
+	}
+};
+
+
+class hkgSkinnedInstancedDisplayObjectNull : public hkgSkinnedInstancedDisplayObject
+{
+	public:		
+
+		hkgSkinnedInstancedDisplayObjectNull() 
+			: hkgSkinnedInstancedDisplayObject()
+		{
+
+		}
+
+		virtual void setMaxNumObjects( int numObjects, bool allocateBuffers = true ) { }
+		virtual void setTransform( const float* transform, int objectIdx ) { }
+		virtual const float* getTransform( int objectIdx ) const { return m_trans; }
+		virtual void setRenderMode( HKG_INSTANCED_DISPLAY_MODE m ) { m_renderMode = m; }
+
+		virtual void setBlendMatrices( int instance, int subFaceSet, hkgBlendMatrixSet* matrices ) { } 
+		virtual hkgBlendMatrixSet* getBlendMatrices( int instance, int subFaceSet ) { return HK_NULL; }
+
+		static hkgSkinnedInstancedDisplayObject* HK_CALL createSkinnedInstancedDisplayObjectNull( hkgDisplayContext* context)
+		{
+			return new hkgSkinnedInstancedDisplayObjectNull();
+		}
+};
 
 class hkgParticleDisplayObjectNull : public hkgParticleDisplayObject
 {
@@ -345,7 +408,7 @@ class hkgParticleDisplayObjectNull : public hkgParticleDisplayObject
 #endif // HK_GRAPHICS_NULL
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

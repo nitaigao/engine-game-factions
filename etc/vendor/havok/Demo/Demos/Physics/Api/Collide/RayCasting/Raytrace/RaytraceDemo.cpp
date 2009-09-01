@@ -486,7 +486,7 @@ HK_DECLARE_DEMO_VARIANT( RayTraceDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_STATS, 
 HK_DECLARE_DEMO_VARIANT( RayTraceDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_STATS, g_variants[2].m_name, 2, helpString, g_variants[2].m_details);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

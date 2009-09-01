@@ -28,6 +28,9 @@ public:
 	virtual void setDepthWriteState(bool on);
 	virtual void setCullFaceState(bool on);
 	virtual void setWireframeState(bool on);
+	virtual void setFogState(bool on);
+	virtual void setLinearFogParameters(float fnear, float ffar );
+	virtual void setExpFogParameters(HKG_FOG_MODE fogMode, float density  );
 
 	virtual void setLightState(int light, bool on);
 
@@ -72,7 +75,7 @@ public:
 	float getDepthBias( );
 	float getDepthBiasSlope( );
 
-	inline void setCurrentInstanceObject(class hkgInstancedDisplayObjectDX9* inst) { m_currentInstance = inst; }
+	void setCurrentInstanceObject(class hkgInstancedDisplayObjectDX9* inst);
 	inline hkgInstancedDisplayObjectDX9* getCurrentInstanceObject() { return m_currentInstance; }
 
 	void invalidateDynamicTextures();
@@ -119,7 +122,7 @@ protected:
 	
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

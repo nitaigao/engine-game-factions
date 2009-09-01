@@ -28,7 +28,6 @@ typedef unsigned int HKG_DIRECT_JOYSTICK_CAPS;
 #define HKG_DIRECT_JOYSTICK_POV2	1<<10
 #define HKG_DIRECT_JOYSTICK_POV3	1<<11
 
-
 typedef unsigned int HKG_DIRECT_JOYSTICK_TYPE;
 // can be a combination depending on the actual device caps
 #define HKG_DIRECT_JOYSTICK_TYPE_UNKNOWN		0
@@ -52,7 +51,9 @@ public:
 	hkgDirectJoystickPC9S(HWND owner, LPDIRECTINPUTDEVICE8 device);
 	~hkgDirectJoystickPC9S();
 
-	static void createJoysticks( HWND owner, hkgDirectJoystickPC9S** joysticks, int numDesired, int& numCreated );
+	// Creates up to numDesired DirectInput joystick interfaces. No interface is created for attached Xinput devices,
+	// but createJoysticks does return the number of Xinput devices encountered.
+	static int createJoysticks( HWND owner, hkgDirectJoystickPC9S** joysticks, int numDesired, int& numCreated );
 	static void destroyDI();
 
 	inline bool isValid();
@@ -138,6 +139,7 @@ public:
 	inline HKG_DIRECT_JOYSTICK_TYPE getType() const;
 
 	inline bool hasPS2Caps() const;
+	inline bool hasXbox360Caps() const;
 
 	// 
 	// For _internal_ enumeration only.
@@ -168,7 +170,7 @@ protected:
 #endif // HK_GRAPHICS_DIRECT_JOYSTICK_PC9S_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

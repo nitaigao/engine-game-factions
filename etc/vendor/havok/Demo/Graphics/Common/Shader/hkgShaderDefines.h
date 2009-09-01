@@ -12,9 +12,13 @@
 // two types of shaders, pixel and vertex, although the input data
 // in terms of the graphics engine constants is the same for both
 typedef unsigned short HKG_SHADER_TYPE;
+#define HKG_NULL_SHADER 0
 #define HKG_VERTEX_SHADER 1
 #define HKG_PIXEL_SHADER 2
-#define HKG_GEOMETRY_SHADER 3
+#define HKG_GEOMETRY_SHADER 3	//DX10 
+#define HKG_HULL_SHADER 4		//DX11
+#define HKG_DOMAIN_SHADER 5     //DX11
+#define HKG_COMPUTE_SHADER 6    //DX11
 
 // semantics for inputs (imply sizes)
 typedef unsigned int HKG_SHADER_MAT_INPUT_CONSTANT;
@@ -44,8 +48,11 @@ typedef unsigned int HKG_SHADER_MAT_INPUT_CONSTANT;
 #define HKG_SHADER_MAT_INPUT_WORLD_INV_TRANSPOSE	(1<<17)
 
 #define HKG_SHADER_MAT_INPUT_VIEW_TO_LIGHTPROJ		(1<<18) // for shadow map projection (includes texture coord offsets)
-#define HKG_SHADER_MAT_INPUT_4x4					(1<<19) // generic 4x4 matrix. Use setFloatInputIndex with known index to set.
-#define HKG_SHADER_MAT_INPUT_3x4					(1<<20) // generic 3x4 matrix. Use setFloatInputIndex with known index to set.
+#define HKG_SHADER_MAT_INPUT_VIEW_TO_LIGHTPROJ1		(1<<19) // for shadow map projection (includes texture coord offsets)
+#define HKG_SHADER_MAT_INPUT_VIEW_TO_LIGHTPROJ2		(1<<20) // for shadow map projection (includes texture coord offsets)
+#define HKG_SHADER_MAT_INPUT_VIEW_TO_LIGHTPROJ3		(1<<21) // for shadow map projection (includes texture coord offsets)
+#define HKG_SHADER_MAT_INPUT_4x4					(1<<22) // generic 4x4 matrix. Use setFloatInputIndex with known index to set.
+#define HKG_SHADER_MAT_INPUT_3x4					(1<<23) // generic 3x4 matrix. Use setFloatInputIndex with known index to set.
 
 
 typedef unsigned int HKG_SHADER_INPUT_CONSTANT;
@@ -62,14 +69,22 @@ typedef unsigned int HKG_SHADER_INPUT_CONSTANT;
 #define HKG_SHADER_INPUT_SHADOWMAP_DISTANCE     (1<<6) // dimensions of the current shadow map (for no hw based shadow bilerp)
 #define HKG_SHADER_INPUT_SHADOWMAP_VSM_BIAS     (1<<7)
 #define HKG_SHADER_INPUT_SHADOWMAP_VSM_EPSILON  (1<<8)
+#define HKG_SHADER_INPUT_SHADOWMAP_PSVSM_SPLIT_DISTANCES (1<<9)
 
-#define HKG_SHADER_INPUT_LIGHT_POS				(1<<9) // assumes that light pos or dir, if seen indicates a new light.
-#define HKG_SHADER_INPUT_LIGHT_DIR				(1<<10) 
-#define HKG_SHADER_INPUT_LIGHT_COLOR			(1<<11) // assumes spec == diffuse color
-#define HKG_SHADER_INPUT_LIGHT_SPOT			 	(1<<12) 
-#define HKG_SHADER_INPUT_LIGHT_SHADOW_START     (1<<13)
+#define HKG_SHADER_INPUT_LIGHT_POS				(1<<10) // assumes that light pos or dir, if seen indicates a new light.
+#define HKG_SHADER_INPUT_LIGHT_DIR				(1<<11) 
+#define HKG_SHADER_INPUT_LIGHT_DIR_VIEWSPACE    (1<<12) 
+#define HKG_SHADER_INPUT_LIGHT_COLOR			(1<<13) // assumes spec == diffuse color
+#define HKG_SHADER_INPUT_LIGHT_RIMCOLOR			(1<<14)
+#define HKG_SHADER_INPUT_LIGHT_SPOT			 	(1<<15) 
+#define HKG_SHADER_INPUT_LIGHT_SHADOW_START_WORLD (1<<16)
+#define HKG_SHADER_INPUT_LIGHT_SHADOW_START_VIEW  (1<<17)
 
-#define HKG_SHADER_INPUT_NUM_LIGHTS				(1<<14) // the current active num lights
+#define HKG_SHADER_INPUT_NUM_LIGHTS				(1<<18) // the current active num lights
+
+#define HKG_SHADER_INPUT_FOG_COLOR				(1<<19) 
+#define HKG_SHADER_INPUT_FOG_PARAMS             (1<<20) //.x == 0 == none, 1 = linear, 2 == exp, 3 == exp2  : .y = near : .z = far : .w = density
+#define HKG_SHADER_INPUT_DEPTH_PARAMS           (1<<21) //.x == linear depth scale (0 or 1 normally)
 
 #define HKG_SHADER_CAMERA_MASK					(0x00007FFF) // first 15 bits
 #define HKG_SHADER_WVP_MASK					    (0x0003FFFF) // first 18 bits
@@ -101,19 +116,21 @@ typedef unsigned int HKG_SHADER_RENDER_STYLE;
 #define HKG_SHADER_RENDER_VERTEX_COLOR      (1<<12) // per vertex color source supported
 #define HKG_SHADER_RENDER_BLENDING          (1<<13) // per vertex weights and indices supported
 #define HKG_SHADER_RENDER_TANGENTS          (1<<14) // per vertex tangent and binormal supported
-#define HKG_SHADER_RENDER_MATERIAL_HINT_MASK (0x07 << 12) // all the above 3 flags
+#define HKG_SHADER_RENDER_INSTANCING_USING_TCOORDS          (1<<15) // per vertex world transform (instancing) supported
+#define HKG_SHADER_RENDER_MATERIAL_HINT_MASK (0x0f << 12) // all the above 4 flags
 
-#define HKG_SHADER_RENDER_INSTANCING_USING_TCOORDS (1<<15) // shader can handle transform as set via tcoords (for instancing)
 #define HKG_SHADER_RENDER_TO_DEPTHMAP			(1<<16) // can do first pass of shadow map render
 #define HKG_SHADER_RENDER_TO_DEPTHMAP_VSM		(1<<17) // can do first pass of shadow map render, stores variance aswell as a normalized depth
 #define HKG_SHADER_RENDER_BASED_ON_DEPTHMAP		(1<<18) // assumes it has to do PCF (precentage closer filtering) itself and r/q
 #define HKG_SHADER_RENDER_BASED_ON_DEPTHMAP_HW	(1<<19) // assumes it h/w will do r/q etc for it and the p.c.f.
 #define HKG_SHADER_RENDER_BASED_ON_DEPTHMAP_VSM	(1<<20) // assumes it has a two component texture, meant for Variance Shadow Maps
 
+#define HKG_SHADER_RENDER_SKYBOX				(1<<21) // assumes this shader will be used on skyboxes: one tex, no light, no shadow
+
 #endif // HK_GRAPHICS_SHADER_DEFINES__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

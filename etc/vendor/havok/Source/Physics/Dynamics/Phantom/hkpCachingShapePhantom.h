@@ -65,8 +65,8 @@ class hkpCachingShapePhantom : public hkpShapePhantom
 			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_RO] [this,HK_ACCESS_RW] );
 		void getClosestPoints( hkpCdPointCollector& collector, const hkpCollisionInput* input = HK_NULL );
 
-			// Implementation of hkpShapePhantom::ensureDeterministicOrder.
-		virtual void ensureDeterministicOrder();
+			/// This sorts the  m_collisionDetails list.
+        virtual void ensureDeterministicOrder(); 
 
 			/// Implementation of hkpShapePhantom::getPenetrations
 			/// ###ACCESS_CHECKS###( [m_world,HK_ACCESS_RO] [this,HK_ACCESS_RW] );
@@ -135,7 +135,7 @@ class hkpCachingShapePhantom : public hkpShapePhantom
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

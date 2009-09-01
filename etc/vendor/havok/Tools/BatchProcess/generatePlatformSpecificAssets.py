@@ -28,7 +28,7 @@ def getFilesByPattern( srcDir, filePattern, recurse ):
     return fileList
 
 
-def createAssetCcs( assetList, srcDir, destDir, targetBinaryLayoutRulesList, assetNamingConvention, overwriteRule, useVersioning, assetCcExes ):
+def createAssetCcs( assetList, srcDir, destDir, targetBinaryLayoutRulesList, assetNamingConvention, overwriteRule, useVersioning, assetCcExes, excludeMetadata ):
     """
     Create copies of the specified assets using the specified binary layout rules.
     """
@@ -49,6 +49,9 @@ def createAssetCcs( assetList, srcDir, destDir, targetBinaryLayoutRulesList, ass
                 # and that the desired output filename is: hkAssetName_L<target_layout_rules>.hkx.
                 # e.g. hkRig_L4101.hkx -> hkRig_L8011.hkx
                 outfile = asset[:-8] + layoutRules + '.hkx'
+            elif assetNamingConvention == 'in_place':
+                # Use the same filename as the existing asset
+                outfile = asset
             else:
                 # Simply append _<target_layout_rules> to the filename, e.g. testRig.hkx -> testRig_8011.hkx
                 splitName = os.path.splitext(asset)
@@ -73,13 +76,18 @@ def createAssetCcs( assetList, srcDir, destDir, targetBinaryLayoutRulesList, ass
                 print outfile
                 if not os.path.isdir( os.path.dirname(outfile) ):
                     os.makedirs(os.path.dirname(outfile))
+                    
+                stripMetaData = ""
+                if excludeMetadata:
+                    stripMetaData = "-s"
                 
-                assetCommand = '%s -r%s %s %s' % (assetCcExecutable, layoutRules, infile, outfile)
+                assetCommand = '%s %s -r%s %s %s' % (assetCcExecutable, stripMetaData, layoutRules, infile, outfile)
+                    
                 if os.sys.platform == 'darwin':
                     assetCommand = "./%s" % (assetCommand)
 
                 # Run the command
-                errorCode = os.system(assetCommand)
+                errorCode = os.system(assetCommand)                
                 if errorCode:
                     print 'ERROR: AssetCc was unable to convert %s.' % infile
 
@@ -116,9 +124,10 @@ if len(sys.argv) < 2:
     print "  binaryLayoutRulesList : Platforms to convert to. Multiple platforms should be semicolon-delimited, e.g. 8011;4111;4011.         [default = 4101]"
     print "  recurse               : Whether to recurse or not. Should be 1 or 0.                                                            [default = 1]"
     print "  destDir               : Where to put generated files. The directory structure is mirrored if recurse is enabled.                [default = srcDir]"
-    print "  namingConvention      : How to name created files. Only 'default' and 'havok_default' are currently supported.                  [default = havok_default]"
+    print "  namingConvention      : How to name created files. Only 'default', 'havok_default' and 'in_place' are currently supported.      [default = havok_default]"
     print "  overwrite             : Whether to overwrite existing files. Can be 'yes', 'no' or 'if_newer'                                   [default = if_newer]"
     print "  useVersioning         : Whether to update generated files to the current version. Should be 1 or 0.                             [default = 1]"
+    print "  excludeMetadata       : Whether to exclude metadata when generating new files                                                   [default = 0]"
     print "  targetExes            : The executables to use when generating assets. This neeed only be modified by non-win32 users.          [default = AssetCc1.exe,AssetCc2.exe]"
     print ""
     print "If named, optional parameters can be listed in any order, e.g. generatePlatformSpecificAssets.py C:/assets useVersioning=0 binaryLayoutRulesList=4011,8011"
@@ -140,7 +149,8 @@ scriptArgs = {
     'namingConvention':'havok_default',
     'overwrite':'if_newer',
     'useVersioning':1,
-    'targetExes':'AssetCc1.exe,AssetCc2.exe',
+    'excludeMetadata':0,
+    'targetExes':'AssetCc1.exe,AssetCc2.exe',    
     }
 
 # Overwrite any user-specified parameters with their new values.
@@ -157,6 +167,7 @@ for sysArg in sys.argv[2:]:
 scriptArgs['recurse'] = int(scriptArgs['recurse'])
 scriptArgs['useVersioning'] = int(scriptArgs['useVersioning'])
 scriptArgs['binaryLayoutRulesList'] = scriptArgs['binaryLayoutRulesList'].split(',')
+scriptArgs['excludeMetadata'] = int(scriptArgs['excludeMetadata'])
 scriptArgs['targetExes'] = scriptArgs['targetExes'].split(',')
 
 # Platform check.
@@ -175,12 +186,12 @@ assetsToCc = getFilesByPattern( srcDir, scriptArgs['filePattern'], scriptArgs['r
 
 if len(assetsToCc) > 0:
     # Convert the assets.
-    createAssetCcs( assetsToCc, srcDir, scriptArgs['destDir'], scriptArgs['binaryLayoutRulesList'], scriptArgs['namingConvention'], scriptArgs['overwrite'], scriptArgs['useVersioning'], scriptArgs['targetExes'] )
+    createAssetCcs( assetsToCc, srcDir, scriptArgs['destDir'], scriptArgs['binaryLayoutRulesList'], scriptArgs['namingConvention'], scriptArgs['overwrite'], scriptArgs['useVersioning'], scriptArgs['targetExes'], scriptArgs['excludeMetadata'] )
 else:
     print "No assets found..."
 
 #
-# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 # 
 # Confidential Information of Havok.  (C) Copyright 1999-2009
 # Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

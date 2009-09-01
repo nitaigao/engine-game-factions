@@ -11,6 +11,7 @@
 class hkOstream;
 class hkStreamWriter;
 class hkString;
+class hkMemoryTrack;
 template<typename T> class hkArray;
 
 namespace hkOstreamManip
@@ -52,6 +53,10 @@ class hkOstream : public hkReferencedObject
 			/// Create an ostream connected to a growable memory buffer.
 			/// The buffer must exist for the lifetime of this object.
 		explicit hkOstream( hkArray<char>& buf );
+
+			/// Create an ostream connected to a memory track.
+			/// The buffer must exist for the lifetime of this object.
+		explicit hkOstream( hkMemoryTrack* track );
 
 			/// Destroys the stream.
 		~hkOstream();
@@ -143,7 +148,7 @@ typedef hkOstream hkOfstream;
 #endif // HKBASE_HKOSTREAM_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

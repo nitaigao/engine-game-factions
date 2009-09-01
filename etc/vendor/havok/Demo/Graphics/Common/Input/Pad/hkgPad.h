@@ -21,7 +21,7 @@
 /// and not the base class for an actual implementation.
 class hkgPad
 {
-		friend class hkgWindow;
+	friend class hkgWindow;
 
 	public:
 
@@ -34,6 +34,17 @@ class hkgPad
 			}
 			float m_cur[2];
 			float m_prev[2];
+		};
+
+		struct Trigger
+		{
+			Trigger()
+			{
+				m_cur = 0;
+				m_prev = 0;
+			}
+			float m_cur;
+			float m_prev;
 		};
 
 	public:
@@ -98,6 +109,26 @@ class hkgPad
 		
 		const Stick& getStickState(int stick) const;
 
+			/// Two analog triggers are supported, but they may not be independent.
+			/// (On Xbox360 controllers w/ DirectInput the triggers aren't independent
+			/// and can only register in the range (-1.0, 1.0), so pressing 
+			/// both triggers yields the same result as not pressing either trigger)
+		inline bool hasIndependentAnalogTriggers() const;
+
+			/// Get the trigger position for the trigger number. There are two triggers
+			/// supported per pad, but if they are not independent then they will both 
+			/// contain identical data.
+		inline float getTriggerPos(int trigger) const;
+
+			/// Get the previous trigger position for the trigger number.
+			/// Valid values of "trigger" are HKG_PAD_LEFT_ANALOG_TRIGGER and
+			/// HKG_PAD_RIGHT_ANALOG_TRIGGER
+		inline float getPrevTriggerPos(int trigger) const;
+
+			/// Has the position of the given trigger changed (with tolerance)
+			/// from the last state?
+		inline bool hasTriggerPosChanged(int trigger, float tolerance = 0.05f ) const;
+
 	protected:
 
 		inline void cycleState(); 
@@ -106,6 +137,10 @@ class hkgPad
 		HKG_PAD_BUTTON	m_prevButtonState;
 		
 		Stick m_stick[2];
+
+		Trigger m_trigger[2];
+
+		bool m_hasIndependentAnalogTriggers;
 
 		bool m_valid;
 
@@ -116,7 +151,7 @@ class hkgPad
 #endif // HK_GRAPHICS_PAD
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

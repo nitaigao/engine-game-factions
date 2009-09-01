@@ -21,9 +21,23 @@ SimpleDemoCharacter::SimpleDemoCharacter( SimpleDemoCharacterCinfo& info )
 	m_maxVelocity = info.m_maxVelocity;
 }
 
-void SimpleDemoCharacter::update( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
+void SimpleDemoCharacter::initUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo)
+{
+
+}
+
+void SimpleDemoCharacter::updateMt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo)
+{
+
+}
+
+
+void SimpleDemoCharacter::finishUpdateSt( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
 {
 	hkVector4 desiredVelocityWS;desiredVelocityWS.setZero4();
+
+	//CharacterStepInput& newInput = (CharacterStepInput&) input;
+	//newInput.m_forwardVelocity *= 0.9f;
 
 	hkVector4 characterLinearVelocity;
 	m_characterProxy->getLinearVelocity( characterLinearVelocity );
@@ -98,7 +112,10 @@ hkReal SimpleDemoCharacter::getMaxVelocity() const
 	return m_maxVelocity;
 }
 
-DemoCharacter* SimpleCharacterFactory::createCharacterUsingProxy( CharacterProxy* proxy, const hkVector4& gravity, hkDemoEnvironment* env )
+DemoCharacter* SimpleCharacterFactory::createCharacterUsingProxy(	CharacterProxy* proxy,
+																	const hkVector4& gravity,
+																	hkDemoEnvironment* env,
+																	CharacterType characterType )
 {
 	// Simple Character only
 	SimpleDemoCharacterCinfo sinfo;
@@ -111,7 +128,7 @@ DemoCharacter* SimpleCharacterFactory::createCharacterUsingProxy( CharacterProxy
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

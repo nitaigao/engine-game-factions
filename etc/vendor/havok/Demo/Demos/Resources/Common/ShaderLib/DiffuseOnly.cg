@@ -12,6 +12,8 @@
 //:STYLE VertOneLightShadowProjT0 PixShadowSceneT0 LD1 T0 SHADOWMAP
 //:STYLE VertOneLightT1 PixT1 LD1 T1 DIFFUSE0
 //:STYLE VertOneLightShadowProjT1 PixShadowSceneT1 LD1 T1 SHADOWMAP DIFFUSE0
+//:STYLE VertOneLightT1 PixT1 LD1 T1 DIFFUSE0 SPECULAR0 DEFINE:USE_SPEC 
+//:STYLE VertOneLightShadowProjT1 PixShadowSceneT1 LD1 T1 SHADOWMAP DIFFUSE0 SPECULAR0 DEFINE:USE_SPEC 
 //:STYLE VertOneLightT2 PixT2 LD1 T2 DIFFUSE0 DIFFUSE1 1L
 //:STYLE VertOneLightShadowProjT2 PixShadowSceneT2 LD1 T2 SHADOWMAP DIFFUSE0 DIFFUSE1
 
@@ -189,9 +191,14 @@ pixelOutput PixShadowSceneT1( vertexOutputShadowT1 In )
 		float lightAmount = getLightAmountSM( In.posLight ); 
 	#endif
 	
+	float4 SpecMap = 1;
+#ifdef USE_SPEC 
+    SpecMap = tex2D(g_sSamplerTwo, In.texCoord0); 
+#endif
+
     float4 texel = tex2D( g_sSamplerOne, In.texCoord0 );
 	texel.rgb *= In.diffAmbColor.rgb;
-    Output.color.rgb = (1-lightAmount)*texel.rgb*0.3 + lightAmount*texel.rgb + lightAmount*In.specCol.rgb;
+    Output.color.rgb = (1-lightAmount)*texel.rgb*0.3 + lightAmount*texel.rgb + lightAmount*In.specCol.rgb*SpecMap.rgb;
     Output.color.a = texel.a * In.diffAmbColor.a; // modulate alpha as is, shadow doesn't affect it.
     return Output;
 }
@@ -227,9 +234,16 @@ pixelOutput PixT0( vertexOutputT0 In )
 pixelOutput PixT1( vertexOutputT1 In ) 
 { 
     pixelOutput Output;
-    float4 texel = tex2D(g_sSamplerZero, In.texCoord0); 
-    Output.color.rgb = texel.rgb * In.diffAmbColor.rgb + In.specCol.rgb;
+
+	float4 SpecMap = 1;
+#ifdef USE_SPEC 
+    SpecMap = tex2D(g_sSamplerOne, In.texCoord0); 
+#endif
+
+	float4 texel = tex2D(g_sSamplerZero, In.texCoord0); 
+    Output.color.rgb = texel.rgb * In.diffAmbColor.rgb + In.specCol.rgb*SpecMap.rgb;
     Output.color.a = texel.a * In.diffAmbColor.a;
+
     return Output;
 }
 
@@ -244,7 +258,7 @@ pixelOutput PixT2( vertexOutputT2 In )
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -21,10 +21,12 @@ class hkaFootstepAnalysisInfo
 public:
 
 	HK_DECLARE_REFLECTION();
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_ANIMATION, hkaFootstepAnalysisInfo);
 
 	// Constructor
 	hkaFootstepAnalysisInfo( int numFrames, hkReal duration, hkReal posTol, hkReal velTol,
 							 const char* name, const char* nameStrike, const char* nameLift, const char* nameLock, const char* nameUnlock );
+	hkaFootstepAnalysisInfo(hkFinishLoadedObjectFlag f);
 	~hkaFootstepAnalysisInfo();
 
 	// Update state information for a given frame
@@ -67,6 +69,7 @@ class hkaFootstepAnalysisInfoContainer
 public:
 
 	HK_DECLARE_REFLECTION();
+	HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR(HK_MEMORY_CLASS_ANIMATION, hkaFootstepAnalysisInfoContainer);
 
 	hkaFootstepAnalysisInfoContainer();
 	~hkaFootstepAnalysisInfoContainer();
@@ -83,7 +86,7 @@ public:
 #endif // HK_FOOTSTEP_ANALYSIS_INFO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

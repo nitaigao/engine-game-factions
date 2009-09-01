@@ -76,6 +76,11 @@ class hkBitField
 			/// Assignment operator.
 		HK_FORCE_INLINE void operator = ( const hkBitField& bitField );
 
+			/// Get the words 
+		HK_FORCE_INLINE hkUint32* getWords();
+			/// Get the words, read only access
+		HK_FORCE_INLINE const hkUint32* getWords() const;
+
 	private:
 
 			// an array of words which hold the bits
@@ -99,7 +104,7 @@ class hkBitField
 #endif // HKBASE_HKBITFIELD_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

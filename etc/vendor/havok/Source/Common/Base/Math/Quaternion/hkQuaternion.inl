@@ -122,30 +122,31 @@ inline void hkQuaternion::mul(const hkQuaternion& q)
 
 inline void hkQuaternion::setMulInverse(const hkQuaternion& q0, const hkQuaternion& q1)
 {
-	hkVector4 h; h.setCross(q1.getImag(), q0.getImag());
-	h.subMul4(q0.m_vec.getSimdAt(3), q1.getImag());
-	h.addMul4(q1.m_vec.getSimdAt(3), q0.getImag());
+	hkVector4 xyz; xyz.setCross(q1.getImag(), q0.getImag());
+	xyz.subMul4(q0.m_vec.getSimdAt(3), q1.getImag());
+	xyz.addMul4(q1.m_vec.getSimdAt(3), q0.getImag());
 #if HK_CONFIG_SIMD == HK_CONFIG_SIMD_ENABLED
 	hkVector4 w; w.setAll( q0.m_vec.dot4(q1.m_vec) );
-	m_vec.setXYZW(h, w);
+	m_vec.setXYZW(xyz, w);
 #else
-	m_vec.setXYZ( h );
-	m_vec(3) = q0.m_vec.dot4(q1.m_vec);
+	const hkReal w = q0.m_vec.dot4(q1.m_vec);
+	m_vec.setXYZ( xyz );
+	m_vec(3) = w;
 #endif
 }
 
 inline void hkQuaternion::setInverseMul(const hkQuaternion& q0, const hkQuaternion& q1)
 {
-	hkVector4 vec;
-	vec.setCross(q1.getImag(), q0.getImag());
-	vec.addMul4(q0.m_vec.getSimdAt(3), q1.getImag());
-	vec.subMul4(q1.m_vec.getSimdAt(3), q0.getImag());
+	hkVector4 xyz; xyz.setCross(q1.getImag(), q0.getImag());
+	xyz.addMul4(q0.m_vec.getSimdAt(3), q1.getImag());
+	xyz.subMul4(q1.m_vec.getSimdAt(3), q0.getImag());
 #if HK_CONFIG_SIMD == HK_CONFIG_SIMD_ENABLED
 	hkVector4 w; w.setAll( q0.m_vec.dot4(q1.m_vec) );
-	m_vec.setXYZW(vec,w);
+	m_vec.setXYZW(xyz,w);
 #else
-	m_vec.setXYZ( vec );
-	m_vec(3) = q0.m_vec.dot4(q1.m_vec);
+	const hkReal w = q0.m_vec.dot4(q1.m_vec);
+	m_vec.setXYZ( xyz );
+	m_vec(3) = w;
 #endif
 }
 
@@ -365,7 +366,7 @@ inline void hkQuaternion::setShortestRotationDamped(hkReal gain, const hkVector4
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

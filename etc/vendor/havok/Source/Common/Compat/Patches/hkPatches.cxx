@@ -277,8 +277,16 @@ HK_PATCH_BEGIN("hkUiAttribute", 0, "hkUiAttribute", 1)
 	HK_PATCH_MEMBER_ADDED("endGroup2", TYPE_BYTE, HK_NULL, 0)
 HK_PATCH_END()
 
+HK_PATCH_BEGIN("hkHalf", 0, HK_NULL, HK_CLASS_REMOVED)
+	HK_PATCH_MEMBER_REMOVED("value", TYPE_INT, HK_NULL, 0)
+HK_PATCH_END()
+
+HK_PATCH_BEGIN("hkUiAttribute", 1, "hkUiAttribute", 2)
+	HK_PATCH_MEMBER_ADDED("hideBaseClassMembers", TYPE_CSTRING, HK_NULL, 0)
+HK_PATCH_END()
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

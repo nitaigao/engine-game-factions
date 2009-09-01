@@ -14,6 +14,8 @@
 
 #include <Physics/Dynamics/World/Util/hkpBodyOperation.h>
 
+#include <Common/Base/DebugUtil/DeterminismUtil/hkCheckDeterminismUtil.h>
+
 class hkAabb;
 class hkpRigidBody;
 class hkpWorldObject;
@@ -105,6 +107,10 @@ namespace hkWorldOperation
 
 		BaseOperation(Type type) : m_type(type) {}
 		hkEnum<Type, hkUint8> m_type;
+
+#		if defined (HK_ENABLE_DETERMINISM_CHECKS)
+		hkCheckDeterminismUtil::Fuid m_jobFuid;
+#		endif
 
 	private:
 		BaseOperation();
@@ -456,6 +462,7 @@ class hkpWorldOperationQueue
 		~hkpWorldOperationQueue();
 
 		void queueOperation(const hkWorldOperation::BaseOperation& operation);
+
 						void executeAllPending();
 
 		HK_FORCE_INLINE void purgeAllPending() { m_pending.clear(); }
@@ -534,7 +541,7 @@ struct hkpDebugInfoOnPendingOperationQueues
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

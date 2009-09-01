@@ -1,7 +1,7 @@
 
 @ECHO OFF
 
-REM %1 == HAVOK_EXPORT_FILTERS_ROOT (taken from environment variable)
+REM %1 == HAVOK_TOOLS_ROOT (taken from environment variable)
 REM %2 == TARGET_PATH (full path to DLL)
 
 setlocal
@@ -23,7 +23,7 @@ endlocal
 :failure
 
 echo Couldn't copy files to %1... 
-echo Make sure DLLs are not in use and that HAVOK_EXPORT_FILTERS_ROOT is defined
+echo Make sure DLLs are not in use and that HAVOK_TOOLS_ROOT is defined
 
 REM Return an ErrorLevel of 1
 exit /b 1

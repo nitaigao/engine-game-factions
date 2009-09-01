@@ -49,6 +49,12 @@ HK_FORCE_INLINE hkObjectArray<T>::hkObjectArray( int initialSize )
 }
 
 template <typename T>
+HK_FORCE_INLINE hkObjectArray<T>::hkObjectArray( hkFinishLoadedObjectFlag f )
+	: m_array(f)
+{
+}
+
+template <typename T>
 HK_FORCE_INLINE hkObjectArray<T>::hkObjectArray( int initialSize, const T& tinit )
 	: m_array( initialSize )
 {
@@ -377,7 +383,7 @@ hkOstream& operator<< (hkOstream& os, const hkObjectArray<T>& a)
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

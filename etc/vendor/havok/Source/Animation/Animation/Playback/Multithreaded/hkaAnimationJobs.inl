@@ -218,14 +218,14 @@ hkBool hkaAnimationSampleAndCombineJob::ControlData::isValid() const
 	// Test frame delta
 	{
 		valid = valid && ((m_frameDelta >= 0.0f) && (m_frameDelta <= 1.0f));
-		HK_ASSERT2(0x0, valid, "m_frameDelta not in range [0.0f, 1.0f]");
+		HK_ASSERT2(0x652a900b, valid, "m_frameDelta not in range [0.0f, 1.0f]");
 		if(!valid) return false;
 	}
 
 	// Test chunks
 	{
 		valid = valid && (m_numValidChunks <= HK_MAX_NUM_DATA_CHUNKS);
-		HK_ASSERT2(0x0, valid, "Num valid chunks is > HK_MAX_NUM_DATA_CHUNKS");
+		HK_ASSERT2(0x23b2c9ed, valid, "Num valid chunks is > HK_MAX_NUM_DATA_CHUNKS");
 		if(!valid) return false;
 
 		for(int i = 0; i < m_numValidChunks; i++)
@@ -293,7 +293,7 @@ hkBool hkaAnimationSampleAndCombineJob::ControlData::isValid() const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

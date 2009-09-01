@@ -36,7 +36,9 @@ public:
 	
 		/// Merge the 'log' of another handler with this one
 	void merge( const hctSceneExportError* otherHandler );
-	
+
+	void clearLog();
+
 		/// Structure which represents an entry in the log
 	struct LogEntry
 	{
@@ -58,7 +60,7 @@ protected:
 #endif //HK_SCENE_EXPORT_ERROR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

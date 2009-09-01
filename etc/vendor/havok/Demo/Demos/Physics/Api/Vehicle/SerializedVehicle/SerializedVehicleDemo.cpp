@@ -17,7 +17,7 @@
 // Includes for default vehicle implementation (including camera).
 // 
 #include <Physics/Vehicle/hkpVehicleInstance.h>
-#include <Physics/Vehicle/WheelCollide/RayCast/hkpVehicleRaycastWheelCollide.h>
+#include <Physics/Vehicle/WheelCollide/RayCast/hkpVehicleRayCastWheelCollide.h>
 #include <Physics/Vehicle/DriverInput/Default/hkpVehicleDefaultAnalogDriverInput.h>
 
 #include <Physics/Vehicle/Camera/hkp1dAngularFollowCam.h>
@@ -90,7 +90,7 @@ SerializedVehicle::~SerializedVehicle( )
 	m_loadedDataVehicle->removeReference();
 
 	// remove the wheel collision detection phantom from the world.
-	//m_world->removePhantom( (hkpPhantom*)(static_cast< hkpVehicleRaycastWheelCollide*>(getVehicle()->m_wheelCollide)->m_phantom) );
+	//m_world->removePhantom( (hkpPhantom*)(static_cast< hkpVehicleRayCastWheelCollide*>(getVehicle()->m_wheelCollide)->m_phantom) );
 
 	m_world = HK_NULL;
 }
@@ -314,7 +314,7 @@ static const char helpString[] =	\
 HK_DECLARE_DEMO(SerializedVehicle, HK_DEMO_TYPE_PHYSICS | HK_DEMO_TYPE_SERIALIZE, "Drive a serialized vehicle on a MOPP landscape", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

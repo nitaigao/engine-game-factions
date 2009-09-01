@@ -183,24 +183,13 @@ ConvexBvTreeQueryDemo::ConvexBvTreeQueryDemo(hkDemoEnvironment* env)
 	hkpConvexVerticesShape* shape = HK_NULL;
 	{	
 		int stride = sizeof(float) * 4;
-		hkArray<hkVector4> planeEquations;
-		hkGeometry geom;
-
 		hkStridedVertices stridedVerts;
 		{
 			stridedVerts.m_numVertices = g_numVertices;
 			stridedVerts.m_striding = stride;
 			stridedVerts.m_vertices = g_vertices;
 		}
-
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-			stridedVerts.m_striding = hkSizeOf(hkVector4);
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-		}
-		shape = new hkpConvexVerticesShape( stridedVerts, planeEquations);
+		shape = new hkpConvexVerticesShape( stridedVerts);
 	}
 
 	// As you can see from the above code snippets, the actually geometry that is passed to the two different shape
@@ -546,7 +535,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(ConvexBvTreeQueryDemo, HK_DEMO_TYPE_PRIME, "Two methods to identify triangles hit by a convex shape raycast", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

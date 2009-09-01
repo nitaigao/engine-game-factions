@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hkoptions>
+	<hkobject class="hctConfigurationSetData">
+		<hkparam name="filterManagerVersion">65536</hkparam>
+		<hkparam name="activeConfiguration">0</hkparam>
+	</hkobject>
+	<hkobject class="hctConfigurationData">
+		<hkparam name="configurationName">Default</hkparam>
+		<hkparam name="numFilters">6</hkparam>
+	</hkobject>
+	<hkobject name="Transform Scene" class="hctFilterData">
+		<hkparam name="id">2860016997</hkparam>
+		<hkparam name="ver">66049</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Transform Scene" class="hctSceneTransformOptions">
+		<hkparam name="preset">SCALE_CMS_TO_METERS</hkparam>
+		<hkparam name="applyToNodes">true</hkparam>
+		<hkparam name="applyToBuffers">true</hkparam>
+		<hkparam name="applyToFloatChannels">true</hkparam>
+		<hkparam name="applyToLights">true</hkparam>
+		<hkparam name="applyToCameras">true</hkparam>
+		<hkparam name="flipWinding">false</hkparam>
+		<hkparam name="matrix">(0.010000 0.000000 0.000000 0.000000)(0.000000 0.010000 0.000000 0.000000)(0.000000 0.000000 0.010000 0.000000)(0.000000 0.000000 0.000000 1.000000)</hkparam>
+	</hkobject>
+	<hkobject name="Create Skeletons" class="hctFilterData">
+		<hkparam name="id">769831784</hkparam>
+		<hkparam name="ver">66056</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Create Skeletons" class="hctCreateSkeletonOptions">
+		<hkparam name="moveToOrigin">true</hkparam>
+		<hkparam name="automatic">false</hkparam>
+		<hkparam name="rigNodes">position;reference;root;LeftHip;LeftHip_Roll;LeftKnee;LeftKnee_Roll;LeftAnkle;LFoot;LFoot_End;RightHip;RightHip_Roll;RightKnee;RightKnee_Roll;RightAnkle;RFoot;RFoot_End;spine;spine1;spine2;spine3;LeftCollar;LeftShoulder;LeftShoulder_Roll;LeftElbow;LeftElbow_Roll;LeftWrist;LeftWrist_End;neck;head;head_end;RightCollar;RightShoulder;RightShoulder_Roll;RightElbow;RightElbow_Roll;RightWrist;RightWrist_End;</hkparam>
+		<hkparam name="rigFile">.\firefighter_rig.txt</hkparam>
+		<hkparam name="selected">false</hkparam>
+		<hkparam name="skinBindings">false</hkparam>
+		<hkparam name="floatSlots"></hkparam>
+		<hkparam name="useOrderInFile">false</hkparam>
+		<hkparam name="substringMatch">false</hkparam>
+		<hkparam name="skeletonName"></hkparam>
+		<hkparam name="useRootBoneNameAsSkeletonName">true</hkparam>
+	</hkobject>
+	<hkobject name="Create Animations" class="hctFilterData">
+		<hkparam name="id">769831785</hkparam>
+		<hkparam name="ver">66054</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Create Animations" class="hctCreateAnimationsOptions">
+		<hkparam name="moveToOriginX">true</hkparam>
+		<hkparam name="moveToOriginY">true</hkparam>
+		<hkparam name="moveToOriginZ">true</hkparam>
+		<hkparam name="animationStartNodes">This member is no longer in use.</hkparam>
+		<hkparam name="subAnimation">false</hkparam>
+		<hkparam name="subAnimationStartFrame">0</hkparam>
+		<hkparam name="subAnimationEndFrame">0</hkparam>
+		<hkparam name="selected">false</hkparam>
+		<hkparam name="manual">false</hkparam>
+		<hkparam name="rigFilename">&#9216;</hkparam>
+		<hkparam name="partialAnimationNodes"></hkparam>
+		<hkparam name="nameAnimationTracks">true</hkparam>
+		<hkparam name="previewColor">4286545791</hkparam>
+		<hkparam name="floatTracks"></hkparam>
+	</hkobject>
+	<hkobject name="Extract Motion" class="hctFilterData">
+		<hkparam name="id">355779994</hkparam>
+		<hkparam name="ver">66048</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Extract Motion" class="hctExtractMotionOptions">
+		<hkparam name="allowUpDown">false</hkparam>
+		<hkparam name="allowFrontBack">true</hkparam>
+		<hkparam name="allowRightLeft">true</hkparam>
+		<hkparam name="allowTurning">true</hkparam>
+		<hkparam name="customNumSamples">false</hkparam>
+		<hkparam name="numSamples">-1</hkparam>
+		<hkparam name="upAxis">AXIS_Y</hkparam>
+		<hkparam name="forwardAxis">AXIS_Z</hkparam>
+		<hkparam name="alternateReferenceFrame">&#9216;</hkparam>
+		<hkparam name="useFrameRange">false</hkparam>
+		<hkparam name="startFrame">0</hkparam>
+		<hkparam name="endFrame">0</hkparam>
+	</hkobject>
+	<hkobject name="Prune Types" class="hctFilterData">
+		<hkparam name="id">2496164476</hkparam>
+		<hkparam name="ver">65797</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Prune Types" class="hctPruneTypesOptions">
+		<hkparam name="pruneSceneData">true</hkparam>
+		<hkparam name="pruneMeshData">true</hkparam>
+		<hkparam name="pruneSkeletonData">true</hkparam>
+		<hkparam name="pruneAnimationData">false</hkparam>
+		<hkparam name="customClasses"></hkparam>
+		<hkparam name="pruneAllSceneData">true</hkparam>
+		<hkparam name="pruneEnvironmentData">false</hkparam>
+		<hkparam name="pruneAnimationTracks">false</hkparam>
+		<hkparam name="pruneAnnotations">false</hkparam>
+		<hkparam name="pruneIdentityBindingIndices">false</hkparam>
+		<hkparam name="pruneAttributes">false</hkparam>
+		<hkparam name="pruneMeshUserChannels">false</hkparam>
+		<hkparam name="pruneAttachments">true</hkparam>
+		<hkparam name="pruneSelectionSets">false</hkparam>
+		<hkparam name="selectionSets"></hkparam>
+		<hkparam name="selectionDeletionMode">HK_SELECTION_DELETE_SELECTED</hkparam>
+	</hkobject>
+	<hkobject name="Write to Platform" class="hctFilterData">
+		<hkparam name="id">2876798309</hkparam>
+		<hkparam name="ver">65792</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Write to Platform" class="hctPlatformWriterOptions">
+		<hkparam name="filename">$(asset)_L4101.hkx</hkparam>
+		<hkparam name="tagfile">false</hkparam>
+		<hkparam name="preset">MSVC_WIN32</hkparam>
+		<hkparam name="bytesInPointer">4</hkparam>
+		<hkparam name="littleEndian">1</hkparam>
+		<hkparam name="reusePaddingOptimized">0</hkparam>
+		<hkparam name="emptyBaseClassOptimized">1</hkparam>
+		<hkparam name="removeMetadata">false</hkparam>
+		<hkparam name="userTag">0</hkparam>
+		<hkparam name="saveEnvironmentData">false</hkparam>
+	</hkobject>
+	<hkobject class="hctConfigurationData">
+		<hkparam name="configurationName">PS2</hkparam>
+		<hkparam name="numFilters">4</hkparam>
+	</hkobject>
+	<hkobject name="Transform Scene" class="hctFilterData">
+		<hkparam name="id">2860016997</hkparam>
+		<hkparam name="ver">66049</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Transform Scene" class="hctSceneTransformOptions">
+		<hkparam name="preset">SCALE_CMS_TO_METERS</hkparam>
+		<hkparam name="applyToNodes">true</hkparam>
+		<hkparam name="applyToBuffers">true</hkparam>
+		<hkparam name="applyToFloatChannels">false</hkparam>
+		<hkparam name="applyToLights">true</hkparam>
+		<hkparam name="applyToCameras">true</hkparam>
+		<hkparam name="flipWinding">false</hkparam>
+		<hkparam name="matrix">(0.010000 0.000000 0.000000 0.000000)(0.000000 0.010000 0.000000 0.000000)(0.000000 0.000000 0.010000 0.000000)(0.000000 0.000000 0.000000 1.000000)</hkparam>
+	</hkobject>
+	<hkobject name="Create Skeletons" class="hctFilterData">
+		<hkparam name="id">769831784</hkparam>
+		<hkparam name="ver">66055</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Create Skeletons" class="hctCreateSkeletonOptions">
+		<hkparam name="moveToOrigin">true</hkparam>
+		<hkparam name="automatic">false</hkparam>
+		<hkparam name="rigNodes">position;reference;root;LeftHip;LeftHip_Roll;LeftKnee;LeftKnee_Roll;LeftAnkle;LFoot;LFoot_End;RightHip;RightHip_Roll;RightKnee;RightKnee_Roll;RightAnkle;RFoot;RFoot_End;spine;spine1;spine2;spine3;LeftCollar;LeftShoulder;LeftShoulder_Roll;LeftElbow;LeftElbow_Roll;LeftWrist;LeftWrist_End;neck;head;head_end;RightCollar;RightShoulder;RightShoulder_Roll;RightElbow;RightElbow_Roll;RightWrist;RightWrist_End;</hkparam>
+		<hkparam name="rigFile">.\firefighter_rig.txt</hkparam>
+		<hkparam name="selected">false</hkparam>
+		<hkparam name="skinBindings">false</hkparam>
+		<hkparam name="floatSlots"></hkparam>
+		<hkparam name="useOrderInFile">false</hkparam>
+		<hkparam name="skeletonName"></hkparam>
+		<hkparam name="useRootBoneNameAsSkeletonName">true</hkparam>
+	</hkobject>
+	<hkobject name="Create Skins" class="hctFilterData">
+		<hkparam name="id">385768003</hkparam>
+		<hkparam name="ver">65539</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Create Skins" class="hctCreateSkinOptions">
+		<hkparam name="simplifyBindings">true</hkparam>
+		<hkparam name="moveMeshesToSkeletonSpace">false</hkparam>
+		<hkparam name="boneLimit">256</hkparam>
+		<hkparam name="ignoreBonesInSkin">false</hkparam>
+	</hkobject>
+	<hkobject name="Write to Platform" class="hctFilterData">
+		<hkparam name="id">2876798309</hkparam>
+		<hkparam name="ver">65537</hkparam>
+		<hkparam name="hasOptions">true</hkparam>
+	</hkobject>
+	<hkobject name="Write to Platform" class="hctPlatformWriterOptions">
+		<hkparam name="filename">.\Firefighter_Skin_PS2_18Bones_L4101.hkx</hkparam>
+		<hkparam name="preset">MSVC_WIN32</hkparam>
+		<hkparam name="bytesInPointer">4</hkparam>
+		<hkparam name="littleEndian">1</hkparam>
+		<hkparam name="reusePaddingOptimized">0</hkparam>
+		<hkparam name="emptyBaseClassOptimized">1</hkparam>
+		<hkparam name="removeMetadata">false</hkparam>
+		<hkparam name="userTag">0</hkparam>
+		<hkparam name="saveEnvironmentData">false</hkparam>
+	</hkobject>
+</hkoptions>

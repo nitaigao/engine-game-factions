@@ -24,7 +24,7 @@ public:
 		// assumes filename will inlcude a %s to replace with
 		// posx, negx, etc
 	virtual bool loadFromFile(const char* filename, void * hinstance = HK_NULL); 
-	virtual bool realize(bool dynamic = false);	
+	virtual bool realize(bool dynamic = false, HKG_TEXTURE_USAGE_HINT useHint = HKG_TEXTURE_USAGE_UNKOWN );	
 	virtual void free();		
 
 	virtual HKG_TEXTURE_PIXEL_FORMAT getPixelFormat() const;
@@ -51,7 +51,7 @@ protected:
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

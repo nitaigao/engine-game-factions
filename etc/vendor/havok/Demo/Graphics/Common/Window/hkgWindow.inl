@@ -39,7 +39,9 @@ inline hkgWindow::hkgWindow()
 	m_windowResizeFunc( HK_NULL ),
 	m_windowResizeFuncUserContext( HK_NULL ),
 	m_windowCommandFunc( HK_NULL ),
-	m_windowCommandFuncUserContext( HK_NULL )
+	m_windowCommandFuncUserContext( HK_NULL ),
+	m_windowDropFileFunc( HK_NULL ),
+	m_windowDropFileFuncUserContext( HK_NULL )
 {
 	m_clearColor[0] = 0.3f;
 	m_clearColor[1] = 0.3f;
@@ -176,15 +178,33 @@ inline const hkgMouse& hkgWindow::getMouse() const
 	return m_mouse;
 }
 
+inline void hkgWindow::setMouse(const hkgMouse& value)
+{
+	m_mouse = value;
+}
+
+
 inline const hkgPad& hkgWindow::getGamePad(int i) const
 {
 	HK_ASSERT(0x5af001e9,  i < 2 );
 	return m_pad[i];
 }
 
+inline void hkgWindow::setGamePad(int i, const hkgPad& value)
+{
+	HK_ASSERT(0x5af001e9,  i < 2 );
+	m_pad[i] = value;
+}
+
+
 inline const hkgKeyboard& hkgWindow::getKeyboard() const
 {
 	return m_keyboard;
+}
+
+inline void hkgWindow::setKeyboard(const hkgKeyboard& value)
+{
+	m_keyboard = value;
 }
 
 inline void hkgWindow::stepInput()
@@ -242,6 +262,26 @@ inline void hkgWindow::setWindowCommandFunction( HKG_USER_FUNC_COMMAND fn, void*
 	m_windowCommandFunc = fn;
 	m_windowCommandFuncUserContext = userContext;
 }
+
+inline void hkgWindow::setWindowDropFileFunction( HKG_USER_FUNC_DROPFILE fn, void* userContext )
+{
+	m_windowDropFileFunc = fn;
+	m_windowDropFileFuncUserContext = userContext;
+}
+
+inline bool hkgWindow::hasWindowDropFileFunction() const
+{
+	return m_windowDropFileFunc != HK_NULL;
+}
+
+inline void hkgWindow::handleFileDrop( const char* filename, int x, int y) const
+{
+	if (m_windowDropFileFunc)
+	{
+		m_windowDropFileFunc(this, x, y, filename, m_windowDropFileFuncUserContext);
+	}
+}
+
 
 inline void hkgWindow::setWantViewportBorders(bool on)
 {
@@ -311,8 +351,13 @@ inline void hkgWindow::setVirtualMousePos(int x, int y)
 	m_virtualMousePos[1] = y;
 }
 
+inline void hkgWindow::setPadHasIndependentAnalogTriggers( short pad, hkBool hasIndependentTriggers )
+{
+	m_pad[pad].m_hasIndependentAnalogTriggers = hasIndependentTriggers;
+}
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

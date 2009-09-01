@@ -22,7 +22,11 @@ public:
 		return new hkgTextureDX10(context);
 	}	
 
-	virtual bool realize(bool dynamic = false);	
+
+	virtual bool loadFromFile(const char* filename, void * hinstance);
+	virtual bool loadFromDDS(hkIstream& s); 
+
+	virtual bool realize(bool dynamic = false, HKG_TEXTURE_USAGE_HINT useHint = HKG_TEXTURE_USAGE_UNKOWN );	
 	virtual void free();		
 
 	virtual HKG_TEXTURE_PIXEL_FORMAT getPixelFormat() const;
@@ -42,6 +46,7 @@ protected:
 	ID3D10Device*				m_device;
 
 	bool m_bIsManaged;
+	unsigned int m_ddsSize;
 
 	inline hkgTextureDX10(hkgDisplayContext* context);
 	virtual ~hkgTextureDX10();
@@ -53,7 +58,7 @@ protected:
 #endif // HK_GRAPHICS_TEXTURE_DX10_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

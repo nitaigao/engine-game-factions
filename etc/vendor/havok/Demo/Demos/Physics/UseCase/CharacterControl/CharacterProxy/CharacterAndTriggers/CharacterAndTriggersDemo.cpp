@@ -445,10 +445,7 @@ hkDemo::Result CharacterAndTriggersDemo::stepDemo()
 			hkpSurfaceInfo ground;
 			m_characterProxy->checkSupport(down, ground);
 
-			input.m_isSupported = ground.m_supportedState == hkpSurfaceInfo::SUPPORTED;
-			input.m_surfaceNormal = ground.m_surfaceNormal;
-			input.m_surfaceVelocity = ground.m_surfaceVelocity;
-
+			input.m_surfaceInfo = ground;
 		}
 
 
@@ -732,27 +729,12 @@ hkpShape* CharacterAndTriggersDemo::getRandomShape()
 			
 
 			hkpConvexVerticesShape* shape;
-			hkArray<hkVector4> planeEquations;
-			hkGeometry geom;
-			{
-				hkStridedVertices stridedVerts;
-				{
-					stridedVerts.m_numVertices = numVertices;
-					stridedVerts.m_striding = stride;
-					stridedVerts.m_vertices = vertices;
-				}
-
-				hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-				{
-					stridedVerts.m_numVertices = geom.m_vertices.getSize();
-					stridedVerts.m_striding = sizeof(hkVector4);
-					stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-				}
-
-				shape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-			}
-
+			hkStridedVertices stridedVerts;
+			stridedVerts.m_numVertices = numVertices;
+			stridedVerts.m_striding = stride;
+			stridedVerts.m_vertices = vertices;
+			shape = new hkpConvexVerticesShape(stridedVerts);
+			
 			return(shape);
 		}
 
@@ -834,7 +816,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(CharacterAndTriggersDemo, HK_DEMO_TYPE_PRIME, "Character 'picking up' objects marked as triggers.", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

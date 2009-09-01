@@ -35,6 +35,9 @@ class HK_FORCE_ALIGN16 hkRotation : public hkMatrix3
 			/// Check if this rotation orthonormal to the given epsilon.
 		hkBool isOrthonormal( hkReal epsilon = 1e-3f ) const;
 
+			/// Checks for bad values (denormals or infinities) and orthogonality.
+		hkBool isOk() const;
+
 			/// Renormalize a drifted rotation.
 		void renormalize();
 };
@@ -44,7 +47,7 @@ class HK_FORCE_ALIGN16 hkRotation : public hkMatrix3
 #endif //HK_MATH_ROTATION_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

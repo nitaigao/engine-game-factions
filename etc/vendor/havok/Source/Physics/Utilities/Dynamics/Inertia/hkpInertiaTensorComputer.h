@@ -16,6 +16,7 @@ class hkpShape;
 class hkpRigidBodyCinfo;
 class hkpRigidBody;
 class hkpConstraintInstance;
+struct hkStridedVertices;
 
 /// This structure holds the "mass and volume" properties of an object, and is filled in by each of the
 /// hkpInertiaTensorComputer methods.
@@ -124,6 +125,11 @@ class hkpInertiaTensorComputer
 		// Geometric/vertex-based calculations
 		///////////////////////////////////////
 
+			/// Calculate mass properties of a convex hull specified by its vertices.
+			/// The convex hull might by expanded by 'radius' or automaticaly if the convex hull is not a volue.
+			/// Returns HK_FAILURE only if no vertices are provided, else always compute a valid mass properties and HK_SUCCESS
+		static hkResult HK_CALL	computeConvexHullMassProperties(const hkStridedVertices& vertices, hkReal radius, hkpMassProperties& result);
+
 			/// Creates mass properties given a point cloud, using the convex hull of the cloud, considered as a volume of uniform density.
 			/// Returns HK_FAILURE on failure (vertices coplanar, mass invalid), otherwise returns HK_SUCCESS.
 		static hkResult HK_CALL computeVertexHullVolumeMassProperties(const hkReal* vertexIn, int striding, int numVertices, hkReal mass, hkpMassProperties &result);
@@ -170,12 +176,12 @@ class hkpInertiaTensorComputer
 		///////////////////////////////////////
 
 			/// Computes the inertia tensor and the center of mass given a total mass for a hkpShape (using "volume" methods).
-			/// N.B. Every child shape of the shape passed in MUST have a volume. Triangles are automatically given a thickness of 0.01f
+			/// N.B. Every child shape of the shape passed in MUST have a volume. Triangles are given a minimum thickness of 0.01f
 		static void HK_CALL computeShapeVolumeMassProperties(const hkpShape* shape, hkReal mass, hkpMassProperties &result);
 
 			/// "Shape" calculation and assignment to a hkpRigidBodyCinfo (using "volume" methods).
 			/// Useful for 1-line RigidBody mass property calculation.
-			/// N.B. Every child shape of the shape passed in MUST have a volume. Triangles are automatically given a thickness of 0.01f
+			/// N.B. Every child shape of the shape passed in MUST have a volume. Triangles are given a minimum thickness of 0.01f
 		static void HK_CALL setShapeVolumeMassProperties(const hkpShape* shape, hkReal mass, hkpRigidBodyCinfo& bodyInfo);
 
 			/// assignment to a hkpRigidBodyCinfo (using "volume" methods).
@@ -243,7 +249,7 @@ class hkpInertiaTensorComputer
 #endif // HK_DYNAMICS2_INERTIA_TENSOR_COMPUTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

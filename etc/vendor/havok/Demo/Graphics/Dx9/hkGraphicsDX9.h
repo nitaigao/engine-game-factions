@@ -32,8 +32,6 @@
 #undef WINVER	
 #define WINVER 0x0500	      // win2000
 
-#define DIRECT3D_VERSION         0x0900
-#define DIRECTINPUT_VERSION		 0x0800
 #if (_MSC_VER >= 1400)
 #	define _CRT_SECURE_NO_DEPRECATE 1
 #	define _CRT_NONSTDC_NO_DEPRECATE 1
@@ -44,7 +42,6 @@
 
 #define DIRECT3D_VERSION         0x0900
 #define DIRECTINPUT_VERSION              0x0800
-
 #include <d3d9.h>
 
 #endif
@@ -54,7 +51,7 @@
 #endif //HK_GRAPHICS_DX9_PRECOMPILE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -105,6 +105,7 @@ HK_FORCE_INLINE hkArray<T>::hkArray(int n)
 		m_size(n),
 		m_capacityAndFlags(n)
 {
+	HK_ASSERT2(0x23483be5, n >= 0, "Array size must be non-negative." );
 }
 
 template <typename T>
@@ -113,6 +114,7 @@ HK_FORCE_INLINE hkArray<T>::hkArray(int n, const T& t)
 		m_size(n),
 		m_capacityAndFlags(n)
 {
+	HK_ASSERT2(0x23483be5, n >= 0, "Array size must be non-negative." );
 	for(int i = 0; i < n; ++i)
 	{
 		m_data[i] = t;
@@ -141,6 +143,7 @@ template <typename T>
 void hkArray<T>::useExternalArray(T* buf, int capacity)
 {
 	HK_ASSERT(0x32f5348d, (m_data==HK_NULL) || (m_capacityAndFlags&DONT_DEALLOCATE_FLAG) );
+	HK_ASSERT2(0x23483be5, capacity >= 0, "Array capacity must be non-negative." );
 	m_data = static_cast<T*>(buf);
 	m_size = 0;
 	m_capacityAndFlags = capacity | DONT_DEALLOCATE_FLAG;
@@ -219,6 +222,7 @@ HK_FORCE_INLINE hkArray<T>::hkArray(T* ptr, int size, int capacity)
 		m_size(size),
 		m_capacityAndFlags(capacity | DONT_DEALLOCATE_FLAG)
 {
+	HK_ASSERT2(0x23483be5, size >= 0 && capacity >= 0, "Array size and capacity must be non-negative." );
 }
 
 template <typename T>
@@ -475,7 +479,17 @@ void hkArray<T>::insertAt(int index, const T* p, int numtoinsert)
 	spliceInto(index, 0, p, numtoinsert);
 }
 
-
+template <typename T>
+void hkArray<T>::append(const T* a, int numtoinsert)
+{
+	const int newsize = m_size + numtoinsert;
+	if(newsize > getCapacity())
+	{
+		reserve(newsize);
+	}
+	copy( m_data + m_size, a, numtoinsert );
+	m_size = newsize;
+}
 
 template <typename T>
 HK_FORCE_INLINE T* hkArray<T>::expandAt(int index, int numtoinsert)
@@ -624,7 +638,7 @@ void hkArray<T>::setOwnedData(T* ptr, int size, int capacity)
 #undef HK_COMPUTE_OPTIMIZED_CAPACITY
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

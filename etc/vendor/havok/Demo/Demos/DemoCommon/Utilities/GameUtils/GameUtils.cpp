@@ -1322,36 +1322,13 @@ hkpRigidBody* HK_CALL GameUtils::createRandomConvexGeometric(const hkReal radius
 		vertices.reserve(numVertices);
 		for(int i = 0; i < numVertices; i++)
 		{
-			vertices.pushBack( createRandomVertex( hkSphere( hkVector4(0,0,0), radius ), generator ));
+			vertices.pushBackUnchecked( createRandomVertex( hkSphere( hkVector4(0,0,0), radius ), generator ));
 		}
 	}
 
 	// create a convexVerticesShape from this
-	hkpConvexVerticesShape* cvs;
-	hkArray<hkVector4> planeEquations;
-	hkGeometry geom;
-	{
-		hkStridedVertices stridedVerts;
-		{
-			stridedVerts.m_numVertices = vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(vertices[0](0));
-		}
-
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		cvs = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-	}
-
-
-	cvs->setRadius(0.05f);	// This helps to avoid the penetration depth algorithm which is costly
-
+	hkpConvexVerticesShape* cvs=new hkpConvexVerticesShape(vertices);
+	
 	hkpRigidBodyCinfo convexInfo;
 
 	convexInfo.m_shape = cvs;
@@ -1390,31 +1367,10 @@ hkpRigidBody* HK_CALL GameUtils::createConvexGeometricPrism(const hkArray<hkVect
 	}
 
 	// create a convexVerticesShape from this
-	hkpConvexVerticesShape* cvs;
-	hkArray<hkVector4> planeEquations;
-	hkGeometry geom;
-	{
-		hkStridedVertices stridedVerts;
-		{
-			stridedVerts.m_numVertices = vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(vertices[0](0));
-		}
-
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		cvs = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-	}
-
-
-	cvs->setRadius(radius);	// This helps to avoid the penetration depth algorithm which is costly
-
+	hkpConvexVerticesShape::BuildConfig config;
+	config.m_convexRadius	=	radius;
+	hkpConvexVerticesShape* cvs = new hkpConvexVerticesShape(vertices, config);
+	
 	hkpRigidBodyCinfo convexInfo;
 
 	convexInfo.m_shape = cvs;
@@ -1474,30 +1430,8 @@ hkpRigidBody* HK_CALL GameUtils::createRandomConvexGeometricFromBox(const hkVect
 	}
 
 	// convert it to a convex vertices shape
-	hkpConvexVerticesShape* cvs;
-	hkArray<hkVector4> planeEquations;
-	hkGeometry geom;
-	{
-		hkStridedVertices stridedVerts;
-		{
-			stridedVerts.m_numVertices = vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(vertices[0](0));
-		}
-
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		cvs = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-	}
-
-	cvs->setRadius(0.05f);	// This helps to avoid the penetration depth algorithm which is costly
-
+	hkpConvexVerticesShape* cvs = new hkpConvexVerticesShape(vertices);
+	
 	hkpRigidBodyCinfo convexInfo;
 
 	convexInfo.m_shape = cvs;
@@ -1525,31 +1459,8 @@ hkpRigidBody* HK_CALL GameUtils::createRandomConvexGeometricFromBox(const hkVect
 hkpRigidBody* HK_CALL GameUtils::createConvexGeometric( hkGeometry* geometryIn, const hkReal mass, const hkVector4& position )
 {
 	// convert it to a convex vertices shape
-	hkpConvexVerticesShape* cvs;
-	hkArray<hkVector4> planeEquations;
-	hkGeometry geom;
-	{
-		hkStridedVertices stridedVerts;
-		{
-			stridedVerts.m_numVertices = geometryIn->m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geometryIn->m_vertices[0])(0);
-		}
-
-		hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-		{
-			stridedVerts.m_numVertices = geom.m_vertices.getSize();
-			stridedVerts.m_striding = sizeof(hkVector4);
-			stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-		}
-
-		cvs = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-	}
-
-
-	cvs->setRadius(0.05f);	// This helps to avoid the penetration depth algorithm which is costly
-
+	hkpConvexVerticesShape* cvs = new hkpConvexVerticesShape(geometryIn->m_vertices);
+	
 	hkpRigidBodyCinfo bob;
 
 	bob.m_shape = cvs;
@@ -2223,7 +2134,7 @@ new GameUtilesRemapIdListener( world );
 */
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

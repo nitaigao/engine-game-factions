@@ -35,14 +35,14 @@ class hkClassMemberAccessor
 
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_BASE_CLASS, hkClassMemberAccessor::SimpleArray );
 		};
-        struct HomogeneousArray
-        {
-            hkClass* klass;
-            void* data;
-            int size;
+		struct HomogeneousArray
+		{
+			hkClass* klass;
+			void* data;
+			int size;
 
 			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_BASE_CLASS, hkClassMemberAccessor::HomogeneousArray );
-        };
+		};
 
 			/// Access the given member. Always succeeds.
 		hkClassMemberAccessor( void* object, const hkClassMember* member );
@@ -69,11 +69,17 @@ class hkClassMemberAccessor
 			/// Access this member as a c-style string.
 		Cstring& asCstring(int index=0) const;
 
+			/// Access this member as a hkStringPtr string.
+		hkStringPtr& asStringPtr(int index=0) const;
+
 			/// Access this member as an hkBool.
 		hkBool& asBool(int index=0) const;
 
 			/// Access this member as an hkReal.
 		hkReal& asReal(int index=0) const;
+
+			/// Access this member as an hkHalf.
+		hkHalf& asHalf(int index=0) const;
 
 			/// Access this member as a 32 bit integer.
 		hkInt32& asInt32(int index=0) const;
@@ -231,7 +237,7 @@ void* hkClassAccessor::getAddress() const
 #endif // HK_BASE_CLASS_MEMBER_ACCESSOR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

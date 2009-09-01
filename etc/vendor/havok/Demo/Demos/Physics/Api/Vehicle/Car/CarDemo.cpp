@@ -67,10 +67,21 @@ CarDemo::CarDemo(hkDemoEnvironment* env, hkBool createWorld, int numWheels, int 
 	// Setup a skybox
 	//setupSkyBox(m_env);
 
-	if (!createWorld)
+	if( createWorld )
 	{
-		return;
+		setupVehicles();
+
+		//
+		// Create the camera.
+		//
+		{
+			VehicleApiUtils::createCamera( m_camera );
+		}
 	}
+}
+
+void CarDemo::setupVehicles()
+{
 	m_world->lock();
 	VehicleSetup setup;
 	{
@@ -109,10 +120,10 @@ CarDemo::CarDemo(hkDemoEnvironment* env, hkBool createWorld, int numWheels, int 
 					chassisInfo.m_collisionFilterInfo = hkpGroupFilter::calcFilterInfo( chassisLayer, 0 );
 
 					chassisRigidBody = new hkpRigidBody(chassisInfo);
-
-					m_world->addEntity(chassisRigidBody, HK_ENTITY_ACTIVATION_DO_ACTIVATE );
 				}
-
+				m_vehicles[vehicleId].m_vehicle = createVehicle( setup, chassisRigidBody);
+				m_vehicles[vehicleId].m_lastRPM = 0.0f;
+ 
 				// This hkpAction flips the car upright if it turns over. 	 
 				if (vehicleId == 0) 	 
 				{ 	 
@@ -121,22 +132,11 @@ CarDemo::CarDemo(hkDemoEnvironment* env, hkBool createWorld, int numWheels, int 
 					m_reorientAction = new hkpReorientAction(chassisRigidBody, rotationAxis, upAxis); 	 
 				}
 
-				m_vehicles[vehicleId].m_vehicle = createVehicle( setup, chassisRigidBody);
-				m_vehicles[vehicleId].m_lastRPM = 0.0f;
- 
 				chassisRigidBody->removeReference();
 			}
 		}
 		chassisShape->removeReference();
 	} 
-
-	//
-	// Create the camera.
-	//
-	{
-		VehicleApiUtils::createCamera( m_camera );
-	}
-
 	m_world->unlock();
 }
 
@@ -152,8 +152,8 @@ CarDemo::~CarDemo( )
 			m_env->m_displayHandler->removeGeometry(m_displayWheelId[vehicleId][wheelNum], m_tag, 0);
 		}
 
-		// remove the wheel collision detection phantom from the world.
-		m_world->removePhantom( (hkpPhantom*)(static_cast< hkpVehicleRaycastWheelCollide*>(m_vehicles[vehicleId].m_vehicle->m_wheelCollide)->m_phantom) );
+		m_world->removeAction( m_vehicles[vehicleId].m_vehicle );
+		m_vehicles[vehicleId].m_vehicle->removeFromWorld();
 		m_vehicles[vehicleId].m_vehicle->removeReference();
 	}
 
@@ -436,40 +436,40 @@ void CarDemo::buildLandscape()
 		box->removeReference();
 	}
 	//
-	//	Create a moving plattform
+	//	Create a moving platform
 	//
 	if(0)
 	{
-		hkpRigidBodyCinfo plattformInfo;
+		hkpRigidBodyCinfo platformInfo;
 
 		hkVector4 halfExtents( 5.0f, 0.1f, 5.0f );
-		plattformInfo.m_shape = new hkpBoxShape( halfExtents, 0.01f);
+		platformInfo.m_shape = new hkpBoxShape( halfExtents, 0.01f);
 		{
-			plattformInfo.m_motionType = hkpMotion::MOTION_DYNAMIC;
-			plattformInfo.m_mass = 1500.0f;
-			const hkReal d = plattformInfo.m_mass * hkReal(halfExtents.length3());
-			plattformInfo.m_inertiaTensor.setDiagonal( d, d, d);
-			plattformInfo.m_friction = 2.0f;
-			plattformInfo.m_position.set( 30, -4.8f, 0 );
-			plattformInfo.m_angularVelocity.set( 0,0,.1f);
+			platformInfo.m_motionType = hkpMotion::MOTION_DYNAMIC;
+			platformInfo.m_mass = 1500.0f;
+			const hkReal d = platformInfo.m_mass * hkReal(halfExtents.length3());
+			platformInfo.m_inertiaTensor.setDiagonal( d, d, d);
+			platformInfo.m_friction = 2.0f;
+			platformInfo.m_position.set( 30, -4.8f, 0 );
+			platformInfo.m_angularVelocity.set( 0,0,.1f);
 
 
-			hkpRigidBody* plattform = new hkpRigidBody(plattformInfo);
-			m_world->addEntity(plattform);
+			hkpRigidBody* platform = new hkpRigidBody(platformInfo);
+			m_world->addEntity(platform);
 
 			//
 			//	Create a point to point constraint
 			//
 			{
 				hkBallAndSocketConstraintDataCinfo bsi;
-				bsi.setInWorldSpace( plattform, m_world->getFixedRigidBody(), plattformInfo.m_position);
+				bsi.setInWorldSpace( platform, m_world->getFixedRigidBody(), platformInfo.m_position);
 				m_world->addConstraint(new hkpBallAndSocketConstraintData( bsi ))->removeReference();
 			}
-			plattform->removeReference();
+			platform->removeReference();
 
 		}
 
-		plattformInfo.m_shape->removeReference();
+		platformInfo.m_shape->removeReference();
 
 	}
 	*/
@@ -529,7 +529,6 @@ void CarDemo::createDodgeBoxes(hkUint16 num, hkVector4& halfExtents, hkVector4& 
 //
 // Create a grid of ragdolls
 //
-
 void CarDemo::createRagdollGrid( hkpWorld* world, int x_size, int y_size, hkReal xStep, hkReal yStep, hkArray<hkRagdoll*>&	ragdollsOut)
 {
 	int systemGroup = 2;
@@ -640,6 +639,12 @@ hkpVehicleInstance* CarDemo::createVehicle( VehicleSetup& vehicleSetup, hkpRigid
 		vehicle = new hkpVehicleInstance( chassis );
 		vehicleSetup.buildVehicle( m_world, *vehicle );
 	}
+	//
+	// Add the vehicle's entities and phantoms to the world
+	//
+	{
+		vehicle->addToWorld( m_world );
+	}
 
 	//
 	// The vehicle is an action
@@ -698,7 +703,7 @@ static const char helpString[] = "Controls:\n" \
 HK_DECLARE_DEMO(CarDemo, HK_DEMO_TYPE_PHYSICS, "Drive a car on a MOPP landscape", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

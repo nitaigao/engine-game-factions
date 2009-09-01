@@ -10,12 +10,12 @@
 //
 HK_TEST_DECLARE(hkSkeletalAnimation_test)
 HK_TEST_DECLARE(hkChunkCache_test)
-HK_TEST_DECLARE( hkaPose_test)
-HK_TEST_DECLARE( hkIndividualTrackSampling_test)
+HK_TEST_DECLARE(hkaPose_test)
+HK_TEST_DECLARE(hkIndividualTrackSampling_test)
 HK_TEST_DECLARE(hkAnalyze_Track_test)
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

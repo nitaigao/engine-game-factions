@@ -190,7 +190,7 @@ hkHeapArray<T,CmpT>::swap(hkUint32 a, hkUint32 b)
 }
 
 template <class T, class CmpT>
-HK_FORCE_INLINE hkBool 
+HK_FORCE_INLINE hkBool32
 hkHeapArray<T,CmpT>::less(const Linker & a, const Linker & b) 
 { 
 	return m_compare(a.m_elem, b.m_elem); 
@@ -212,7 +212,7 @@ hkHeapArray<T,CmpT>::Linker::~Linker()
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

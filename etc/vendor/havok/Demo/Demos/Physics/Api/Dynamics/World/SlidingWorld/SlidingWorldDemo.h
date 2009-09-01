@@ -55,9 +55,6 @@ class SlidingWorldDemo : public hkDefaultPhysicsDemo
 
 	protected:		
 
-			/// We need to update the AABBs for all objects in the world after recentering the broadphase.
-		void recalcAabbsAfterBroadphaseRecenter( hkpWorld* world );
-
 			/// This is the core method for coordinate changing.
 			/// Translate all objects in the world silently (without informing dependent objects or raising callbacks).
 			///    - no calls to updateAabb
@@ -96,7 +93,7 @@ class SlidingWorldDemo : public hkDefaultPhysicsDemo
 #endif	// HK_SLIDINGWORLDDEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

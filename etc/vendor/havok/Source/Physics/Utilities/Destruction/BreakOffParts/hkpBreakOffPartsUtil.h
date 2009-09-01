@@ -32,17 +32,16 @@ public:
 	struct ContactImpulseLimitBreachedEvent
 	{
 		HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_UTILITIES, hkpBreakOffPartsListener::ContactImpulseLimitBreachedEvent );
-		//ContactImpulseLimitBreachedEvent()  { }
 
 		struct PointInfo
 		{
 			hkpRigidBody* m_collidingBody;
 			hkpShapeKey   m_brokenShapeKey;
-			hkBool        m_isContact;
+			hkBool        m_isContact;				///
 			hkReal		  m_contactPointDirection; // either +1 or -1
 			const hkContactPoint* m_contactPoint;
 			const hkpContactPointProperties* m_properties;
-			const hkpSimpleConstraintContactMgr* m_internalContactMgr;
+			const hkpSimpleConstraintContactMgr* m_internalContactMgr;	///
 		};
 
 		hkpRigidBody*						 m_breakingBody;
@@ -66,7 +65,8 @@ public:
 	///   - There should only be one instance of this class per hkpWorld.
 	///   - This only works if you can identify a sub piece using a single hkpShapeKey, that means
 	///     only one hkMoppShape is allowed per rigid body (e.g. hkpExtendedMeshShape)
-	///   - If you use this class on the PLAYSTATION(R)3 SPU, the default implementation on the SPU will put the shape key into the materials userData
+	///   - If you use this class on the PLAYSTATION(R)3 SPU, the default implementation on the SPU will put
+	///     the shape key into the materials userData
 class hkpBreakOffPartsUtil: public hkReferencedObject, public hkpContactImpulseLimitBreachedListener, hkpEntityListener, 
 								hkpWorldDeletionListener, hkpConstraintListener
 {
@@ -75,7 +75,7 @@ class hkpBreakOffPartsUtil: public hkReferencedObject, public hkpContactImpulseL
 
 			/// Creates an instance of this class and add itself to the world. You only need one per world. 
 			/// It automatically calls hkpWorld::addContactImpulseLimitBreachedListener(this) and adds a reference
-			/// to itself as long as the world is valid.
+			/// to itself, which gets removed when the world is deleted.
 			/// The hkpBreakOffPartsListener is used to decide on the destruction details and needs
 			/// to be implemented by the user
 		hkpBreakOffPartsUtil( hkpWorld* world, hkpBreakOffPartsListener* listenerInterface );
@@ -186,7 +186,7 @@ class hkpBreakOffPartsUtil: public hkReferencedObject, public hkpContactImpulseL
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

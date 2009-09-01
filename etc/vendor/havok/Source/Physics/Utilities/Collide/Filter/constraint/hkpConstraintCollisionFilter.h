@@ -52,6 +52,9 @@ class hkpConstraintCollisionFilter : public hkpPairCollisionFilter, public hkpCo
 			/// Called when a constraint gets broken (e.g. hkpBreakableConstraintData)
 		virtual void constraintBreakingCallback( const hkpConstraintBrokenEvent& event );
 
+			/// Called when a constraint gets broken (e.g. hkpBreakableConstraintData)
+		virtual void constraintRepairedCallback( const hkpConstraintRepairedEvent& event );
+
 			// called by the world operation delay queue
 		void _constraintBreakingCallbackImmediate( hkpConstraintInstance* instance, hkBool constraintBroken );
 
@@ -61,7 +64,7 @@ class hkpConstraintCollisionFilter : public hkpPairCollisionFilter, public hkpCo
 #endif // HK_COLLIDE2_CONSTRAINT_COLLISION_FILTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

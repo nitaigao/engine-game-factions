@@ -93,9 +93,9 @@ struct hkVertexFormat
 		/// Sharing hints
     enum SharingType
     {
-        SHARING_ALL_SHARED,                     
-        SHARING_ALL_NOT_SHARED,                 
-        SHARING_MIXTURE                         
+        SHARING_ALL_SHARED,                     ///
+        SHARING_ALL_NOT_SHARED,                 ///
+        SHARING_MIXTURE                         ///
     };
 
 		/// An element describes one component of a vertex
@@ -324,7 +324,7 @@ class hkMeshVertexBuffer: public hkReferencedObject
 #endif	// HK_MESH_VERTEX_BUFFER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

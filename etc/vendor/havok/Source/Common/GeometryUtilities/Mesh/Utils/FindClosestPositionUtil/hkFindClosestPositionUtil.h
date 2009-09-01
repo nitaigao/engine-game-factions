@@ -34,6 +34,9 @@ class hkFindClosestPositionUtil
             /// Get the positions
         const hkArray<hkVector4>& getPoints() const { return m_positions; }
 
+			/// Remove the point
+		void removePoint( hkVector4Parameter point );
+
             /// Called when all points are added
         void end();
 
@@ -81,6 +84,8 @@ class hkFindClosestPositionUtil
         void _findClosest(const IntCoord& coord, const hkVector4& point, hkReal& closestDistInOut, int& closestIndexInOut) const;
         HK_FORCE_INLINE void _calculateIntCoord(const hkVector4& p, IntCoord& coord) const;
 
+		hkResult _findEntry(hkVector4Parameter point, Box*& boxOut, int& indexOut, int& boxIndexOut);
+
         hkFreeList m_boxFreeList;					///
         hkPointerMap<hkUint32, Box*> m_hashMap;     ///
 
@@ -94,7 +99,7 @@ class hkFindClosestPositionUtil
 #endif // HK_FIND_CLOSEST_POSITION_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

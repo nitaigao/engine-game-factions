@@ -6,7 +6,7 @@
  * 
  */
 inline hkgFaceSetDX9S::hkgFaceSetDX9S(hkgDisplayContext* context)
-: hkgFaceSet(), m_pIB(HK_NULL), m_numIndices(0), m_hardwareIB(true), m_device( static_cast<hkgDisplayContextDX9S*>( context )->getDevice() )
+: hkgFaceSet(), m_pIB(HK_NULL), m_numIndices(0), m_numIndexedPrimsThisFrame(0), m_hardwareIB(true), m_device( static_cast<hkgDisplayContextDX9S*>( context )->getDevice() )
 {
 }
 
@@ -21,7 +21,7 @@ inline const LPDIRECT3DDEVICE9 hkgFaceSetDX9S::getDevice() const
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

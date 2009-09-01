@@ -104,9 +104,6 @@ void HK_CALL hkSweptTransformUtil::_clipVelocities( const hkMotionState& motionS
 }
 
 
-// Has to be outside of inline function as gcc won't inline functions with statics in them.
-static hkQuadReal _stepMotionStateMaxVelf = HK_QUADREAL_CONSTANT(1e6f,1e6f,1e6f,1e6f);
-
 void HK_CALL hkSweptTransformUtil::_stepMotionState( const hkStepInfo& info,
 											 hkVector4& linearVelocity, hkVector4& angularVelocity,
 											 hkMotionState& motionState )
@@ -132,9 +129,9 @@ void HK_CALL hkSweptTransformUtil::_stepMotionState( const hkStepInfo& info,
 		if ( (mask & hkVector4Comparison::MASK_XYZ) != hkVector4Comparison::MASK_XYZ )
 		{
 			// velocity to a 'random' non zero velocity
+			HK_WARN(0xf0123244, "Nan velocity or velocity > 1e6f detected, something is seriously wrong (probably bad inertia tensors ");
 			linearVelocity  = hkTransform::getIdentity().getColumn(0);
 			angularVelocity = hkTransform::getIdentity().getColumn(0);
-			HK_WARN(0xf0123244, "Nan velocity or velocity > 1e6f detected, something is seriously wrong (probably bad inertia tensors ");
 		}
 	}
 
@@ -286,7 +283,7 @@ void HK_CALL hkSweptTransformUtil::getVelocity( const hkMotionState& ms, hkVecto
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

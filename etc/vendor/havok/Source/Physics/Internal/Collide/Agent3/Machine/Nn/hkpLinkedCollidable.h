@@ -9,6 +9,7 @@
 #ifndef HK_COLLIDE2_LINKED_COLLIDABLE_H
 #define HK_COLLIDE2_LINKED_COLLIDABLE_H
 
+#include <Common/Base/DebugUtil/MultiThreadCheck/hkMultiThreadCheck.h>
 #include <Physics/Collide/Agent/Collidable/hkpCollidable.h>
 
 struct hkpAgentNnEntry;
@@ -45,7 +46,25 @@ class hkpLinkedCollidable: public hkpCollidable
 			hkpLinkedCollidable*	m_partner;
 		};
 
+			/// Returns a deterministically ordered copy of the collision entries
+		void getCollisionEntriesSorted(hkArray<struct CollisionEntry>& entries) const ;
+
+			/// returns the array of collision entries where we know that they are deterministically ordered (e.g. we know its a non fixed object)
+		const hkArray<struct CollisionEntry>& getCollisionEntriesDeterministicUnchecked() const;
+
+		hkArray<struct CollisionEntry>& getCollisionEntriesDeterministicUnchecked();
+
+		hkArray<struct CollisionEntry>& getCollisionEntriesNonDeterministic(){ return m_collisionEntries; }
+
+		const hkArray<struct CollisionEntry>& getCollisionEntriesNonDeterministic()  const { return m_collisionEntries; }
+
+			/// ###ACCESS_CHECKS###( [hkGetRigidBody(this)->getWorld(),HK_ACCESS_RW] );
+		void sortEntries();
+
+
+	protected:
 		hkArray<struct CollisionEntry> m_collisionEntries; //+nosave
+
 };
 
 #	include <Physics/Internal/Collide/Agent3/Machine/Nn/hkpLinkedCollidable.inl>
@@ -53,7 +72,7 @@ class hkpLinkedCollidable: public hkpCollidable
 #endif // HK_COLLIDE2_LINKED_COLLIDABLE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

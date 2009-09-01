@@ -33,23 +33,27 @@ struct AnimatedDemoCharacterAnimationSet
 	class hkRootLevelContainer* m_rigContainer;
 };
 
+struct AnimatedDemoCharacterDisplay
+{
+	bool m_hardwareSkinning;
+	
+	class hkaMeshBinding**	m_skinBindings; // a 
+	hkInt32					m_numSkinBindings;
+
+	hkArray<class hkgDisplayObject*> m_skinDisplay; // assert on   size == m_numSkinBindings
+};
+
 class AnimatedCharacterFactory : public CharacterFactory
 {
 	public:
 
-		enum CharacterType
-		{
-			HAVOK_GIRL,
-			FIREFIGHTER,
-			MAX_CHARACTER_TYPE
-		};
-
-	public:
-
-		AnimatedCharacterFactory( CharacterType defaultType = FIREFIGHTER );
+		AnimatedCharacterFactory( CharacterType defaultType = CHARACTER_TYPE_FIREFIGHTER );
 		~AnimatedCharacterFactory();
 
-		virtual DemoCharacter* createCharacterUsingProxy( CharacterProxy* proxy, const hkVector4& gravity, hkDemoEnvironment* env );
+		virtual DemoCharacter* createCharacterUsingProxy(	CharacterProxy* proxy,
+															const hkVector4& gravity,
+															hkDemoEnvironment* env,
+															CharacterType characterType = MAX_CHARACTER_TYPE );
 
 		void loadBasicAnimations( CharacterType type );
 
@@ -58,10 +62,10 @@ class AnimatedCharacterFactory : public CharacterFactory
 		hkLoader* m_loader;
 
 		CharacterType m_type;
+		
 		AnimatedDemoCharacterAnimationSet m_animSet[MAX_CHARACTER_TYPE];
+		AnimatedDemoCharacterDisplay m_display[MAX_CHARACTER_TYPE];
 };
-
-
 
 
 struct AnimatedDemoCharacterCinfo : public DemoCharacterCinfo
@@ -85,9 +89,14 @@ class AnimatedDemoCharacter : public DemoCharacter
 		~AnimatedDemoCharacter();
 
 		// Update the character position
-		void update( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo );
+		//   All of the update is multithreading-friendly, so the init and finish stages don't need to do anything
+		virtual void initUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL ) {}
+		virtual void updateMt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL );
+		virtual void finishUpdateSt( hkReal timestep, hkpWorld* world, const struct CharacterStepInput& input, struct CharacterActionInfo* actionInfo = HK_NULL ) {}
 
 		virtual void display( hkReal timestep, hkDemoEnvironment* env );
+
+		void cleanupGraphics( hkDemoEnvironment* env ) {} 
 
 		virtual hkReal getMaxVelocity() const;
 
@@ -105,8 +114,8 @@ class AnimatedDemoCharacter : public DemoCharacter
 
 		const hkaSkeleton* getSkeleton() const;
 
-			
-		void loadSkin( hkLoader* loader, hkDemoEnvironment* env, AnimatedCharacterFactory::CharacterType type);
+		void loadSkin( hkLoader* loader, hkDemoEnvironment* env, AnimatedCharacterFactory::CharacterType type, AnimatedDemoCharacterDisplay& displayInfoCache );
+		void cloneSkin( hkDemoEnvironment* env, AnimatedDemoCharacterDisplay& displayInfo );
 
 	public:
 
@@ -147,20 +156,28 @@ class AnimatedDemoCharacter : public DemoCharacter
 
 		class hkaMeshBinding**	m_skinBindings;
 		hkInt32					m_numSkinBindings;
+		hkArray<class hkgDisplayObject*> m_skins;
+
 		hkBool					m_bUseHardwareSkinning;
 		hkBool					m_bUseWorldHardwareSkinning;
 
 			// For locomotion
 		hkReal	m_walkVelocity;
 		hkReal	m_runVelocity;
+
+			// For stop state
+		hkReal		m_idleVelocity;
+		hkReal		m_idleVelocityInterval;
+
+		hkReal		m_idleCumulativeAngle;
+		hkVector4	m_idleCumulativePosition;			
+
 };
-
-
 
 #endif // HK_ANIMATED_DEMO_CHARACTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -63,7 +63,7 @@ VS_OUTPUT mainVS(VS_INPUT i)
     o.Pos = mul(g_mWorldViewProj, float4(Pos.xyz, 1.0f) );
 
     // normalize normals
-    Normal = mul(g_mWorldInvTranspose, float4(Normal.xyz, 1.0f) );
+    Normal = mul(g_mWorldInvTranspose, float4(Normal.xyz, 1.0f) ).xyz;
     Normal = normalize(Normal);
 
     // Shade (Ambient + etc.)

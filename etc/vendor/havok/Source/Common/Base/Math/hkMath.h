@@ -54,6 +54,8 @@ extern const hkQuadReal hkQuadReal0001;
 extern const hkQuadReal hkQuadReal3333;
 extern const hkQuadReal hkQuadRealHalf;
 extern const hkQuadReal hkQuadRealMinusHalf;
+extern const hkQuadReal hkQuadRealMax;
+extern const hkQuadReal hkQuadRealEps;
 
 #if HK_CONFIG_SIMD == HK_CONFIG_SIMD_ENABLED
 #	define hkSimdReal0 hkSimdReal(hkQuadReal0000)
@@ -82,10 +84,10 @@ class hkQsTransform;
 #	if defined(HK_COMPILER_HAS_INTRINSICS_IA32)
 #		include <Common/Base/Math/Vector/Sse/hkSseVector4.inl>
 #	elif defined(HK_COMPILER_HAS_INTRINSICS_PS2)
-#		include <Common/Base/Math/Vector/Ps2/hkPs2Vector4.inl>
+#		include <Common/Base/Math/Vector/Ps2/hkPs2Vector4.inl> 
 #	elif defined(HK_PS2)
-		// to work around inlining issues, Ps2AsmVector4 is split into a and b parts
-#		include <Common/Base/Math/Vector/Ps2/hkPs2AsmVector4a.inl>
+		// To work around inlining issues, Ps2AsmVector4 is split into a and b parts.
+#		include <Common/Base/Math/Vector/Ps2/hkPs2AsmVector4a.inl> 
 #	elif defined( HK_PLATFORM_PSP )
 #		error simd should be disabled
 #	elif defined(HK_PLATFORM_XBOX360)
@@ -121,7 +123,7 @@ class hkQsTransform;
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

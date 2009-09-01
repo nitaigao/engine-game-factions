@@ -52,6 +52,15 @@ class hkDefaultMeshMaterialRegistry: public hkMeshMaterialRegistry
             // hkReferencedObject Implementation
         virtual void calcContentStatistics( hkStatisticsCollector* collector,const hkClass* cls ) const;
 
+			/// A material entry
+        struct Entry
+        {
+			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkDefaultMeshMaterialRegistry::Entry );
+			
+            hkString m_name;						///
+            hkRefPtr<hkMeshMaterial> m_material;	///
+        };
+
     protected:
 
 		int _findEntryIndex(const char* name) const;
@@ -62,22 +71,14 @@ class hkDefaultMeshMaterialRegistry: public hkMeshMaterialRegistry
 		//
 
 	protected:
-			/// A material entry
-        struct Entry
-        {
-			HK_DECLARE_NONVIRTUAL_CLASS_ALLOCATOR( HK_MEMORY_CLASS_SCENE_DATA, hkDefaultMeshMaterialRegistry::Entry );
-
-            hkString m_name;						///
-            hkRefPtr<hkMeshMaterial> m_material;	///
-        };
-
+	
         hkObjectArray<Entry> m_entries;	///
 };
 
 #endif // HK_DEFAULT_MESH_MATERIAL_REGISTRY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

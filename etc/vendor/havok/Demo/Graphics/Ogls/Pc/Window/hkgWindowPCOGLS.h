@@ -46,6 +46,10 @@ class hkgWindowPCOGLS : public hkgWindowOGLS
 
 		virtual int getDisplayAdapter() const { return m_adapter; }
 
+		virtual int getVideoMemSizeInMB() const;
+		virtual int getMaxTextureWidth() const;
+		virtual int getMaxTextureHeight() const;
+		virtual void getDisplayAdapterDescription(hkString& description) const;
 
 		// Internal
 
@@ -60,7 +64,7 @@ class hkgWindowPCOGLS : public hkgWindowOGLS
 		HGLRC	m_hglrc;	// GL Context
 		HDC		m_dc;		// Device Context
 		bool    m_active;   // in a minimized state
-		
+		mutable int m_videoRamSize;
 		int		m_adapter;
 		bool    m_ownHWND; // did it create the hwnd?
 
@@ -77,7 +81,7 @@ LRESULT CALLBACK hkgWindowProcOGLSPC(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

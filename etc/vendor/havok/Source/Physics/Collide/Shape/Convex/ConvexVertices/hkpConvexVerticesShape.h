@@ -21,6 +21,8 @@ class hkpConvexVerticesConnectivity;
 /// can be computed using the hkGeometryUtility::createConvexGeometry function (see the SimpleShapesDemo for an example).
 class hkpConvexVerticesShape : public hkpConvexShape
 {
+	//+version(1)
+
 	public:
 
 		HK_DECLARE_REFLECTION();
@@ -35,6 +37,18 @@ class hkpConvexVerticesShape : public hkpConvexShape
 			hkVector4 m_x;
 			hkVector4 m_y;
 			hkVector4 m_z;
+		};
+
+		/// Build configuration
+		struct BuildConfig
+		{
+			BuildConfig();
+			hkBool	m_createConnectivity;							///
+			hkBool	m_shrinkByConvexRadius;							///
+			hkReal	m_convexRadius;									///
+			int		m_maxVertices;									///
+			hkReal	m_maxRelativeShrink;							///
+			hkReal	m_maxShrinkingVerticesDisplacement;				///
 		};
 
 	public:
@@ -53,9 +67,14 @@ class hkpConvexVerticesShape : public hkpConvexShape
 			/// number of FourVectors structures.
 		hkpConvexVerticesShape( FourVectors* rotatedVertices, int numVertices,
 				hkVector4* planes, int numPlanes,
-				const hkAabb& aabb, hkReal radius = hkConvexShapeDefaultRadius );
+				const hkAabb& aabb, hkReal radius = hkConvexShapeDefaultRadius );			
 
-		hkpConvexVerticesShape( hkFinishLoadedObjectFlag flag ) : hkpConvexShape(flag), m_rotatedVertices(flag), m_planeEquations(flag) { m_type = HK_SHAPE_CONVEX_VERTICES; }
+			/// Create a shape from the given vertices, automatically set planes equations and connectivity.
+			/// Also shrink the shape vertices so that physics and raycast are consistent.
+			/// Notes: This is the recommended way to create a convex vertices shape.
+		hkpConvexVerticesShape(	const hkStridedVertices& vertices, const BuildConfig& config=BuildConfig());
+
+		hkpConvexVerticesShape( hkFinishLoadedObjectFlag flag );
 
 			/// Dtor
 		~hkpConvexVerticesShape();
@@ -75,7 +94,9 @@ class hkpConvexVerticesShape : public hkpConvexShape
 		void transformVerticesAndPlaneEquations( const hkTransform& t );
 		void scaleVerticesAndPlaneEquations( hkReal scale );
 
-
+			/// Overwrite only the convex radius without caring about plane equations or shape shrinking.
+		void setRadiusUnchecked( hkReal radius ) { m_radius = radius; }
+		
 		//
 		// hkpConvexShape implementation
 		//
@@ -88,6 +109,7 @@ class hkpConvexVerticesShape : public hkpConvexShape
 
 			// hkpConvexShape interface implementation.
 		HKP_SHAPE_VIRTUAL void getCentreImpl( HKP_SHAPE_VIRTUAL_THIS hkVector4& centreOut ) HKP_SHAPE_VIRTUAL_CONST;
+			
 
 		//
 		// hkpSphereRepShape implementation
@@ -116,7 +138,7 @@ class hkpConvexVerticesShape : public hkpConvexShape
 
 			// Set the connectivity. Setting to HK_NULL will remove connectivity information.
             // The connectivity information is a 'cache' of information - so can be used to modify a const shape
-        void setConnectivity(const hkpConvexVerticesConnectivity* connect);
+        void setConnectivity(const hkpConvexVerticesConnectivity* connect, bool sort=true);
 
 		//
 		// hkpShape implementation
@@ -140,10 +162,12 @@ class hkpConvexVerticesShape : public hkpConvexShape
 
 		void sortPlanes(void);
 
-	protected:
+	public:
 
 		hkVector4	m_aabbHalfExtents;
 		hkVector4	m_aabbCenter;
+
+	protected:
 
 		//hkInplaceArray<FourVectors, 3> m_rotatedVertices;
 		hkArray<struct FourVectors> m_rotatedVertices;
@@ -162,7 +186,7 @@ class hkpConvexVerticesShape : public hkpConvexShape
 #endif // HK_COLLIDE2_CONVEX_VERTICES_SHAPE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

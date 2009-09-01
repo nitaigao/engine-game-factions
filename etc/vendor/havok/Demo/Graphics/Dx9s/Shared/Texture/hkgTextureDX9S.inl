@@ -7,14 +7,14 @@
  */
 
 hkgTextureDX9S::hkgTextureDX9S(hkgDisplayContext* context)
-: hkgTexture(context), m_texture( HK_NULL ), m_volumeTexture( HK_NULL ), m_device( static_cast<hkgDisplayContextDX9S*>( context )->getDevice() ),
+: hkgTexture(context), m_texture( HK_NULL ), m_cubeTexture( HK_NULL ), m_volumeTexture( HK_NULL ), m_device( static_cast<hkgDisplayContextDX9S*>( context )->getDevice() ),
   m_bIsManaged(true), m_bSupportsAniso( static_cast<hkgWindowDX9S*>(context->getOwner())->getCaps().MaxAnisotropy > 1 ), m_ddsSize(0)
 {
 }
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

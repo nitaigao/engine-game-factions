@@ -57,7 +57,7 @@ class CarDemo : public hkDefaultPhysicsDemo
 			// list of parameters (stored in the VehicleSetup object).
 		hkpVehicleInstance* createVehicle( VehicleSetup& vehicleSetup, hkpRigidBody* chassis);
 
-		void createDisplayWheels(hkReal radius = 0.4f, hkReal thickness = 0.2f);
+		virtual void createDisplayWheels(hkReal radius = 0.4f, hkReal thickness = 0.2f);
 
 		void createDodgeBoxes(hkUint16 num, hkVector4& halfExtents, hkVector4& startPos, hkVector4& diffPos);
 
@@ -93,12 +93,14 @@ class CarDemo : public hkDefaultPhysicsDemo
 
 		hkArray<hkRagdoll*>	m_ragdolls;
 
+	private:
+		void setupVehicles();
 };
 
 #endif // HK_CAR_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

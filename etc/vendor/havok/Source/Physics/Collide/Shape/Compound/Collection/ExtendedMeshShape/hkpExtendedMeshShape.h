@@ -324,14 +324,16 @@ class hkpExtendedMeshShape: public hkpShapeCollection
 		inline void setRadius(hkReal r );
 
 		//
-		// hkpShape Collection interface 
+		// hkpShape Container interface 
 		//
 
+			/// The number of child shapes. The default implementation just iterates over all keys and is really slow
+		virtual int getNumChildShapes() const;
 
 			/// Get the first child shape key.
 		virtual hkpShapeKey getFirstKey() const;
 
-			/// This function implements hkpShapeCollection::getNextKey
+			/// This function implements hkpShapeContainer::getNextKey
 			/// NOTE: This function calls hkpTriangleUtil::isDegenerate to make sure no keys for degenerate triangles are returned
 			/// If you are implementing your own mesh shape, your getNextKey function must make sure that it similarly does
 			/// not return keys for degenerate triangles. You can use the hkpTriangleUtil::isDegenerate utility function to check whether
@@ -429,7 +431,7 @@ class hkpExtendedMeshShape: public hkpShapeCollection
 #endif // HK_COLLIDE2_EXTENDED_MESH2_SHAPE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

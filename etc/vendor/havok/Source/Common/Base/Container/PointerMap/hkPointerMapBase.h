@@ -81,7 +81,8 @@ class hkPointerMapBase
 			/// Return if the iterator has not reached the end.
 		hkBool isValid( Iterator i ) const;
 
-			/// Insert key with associated value val. Keys are unique and non zero.
+			/// Insert key with associated value val. Keys are unique and by default 
+			/// (if using hkPointerMapOperations) cannot be -1.
 			/// If key already exists it is overwritten.
 		hkBool32 insert( KEY key, VAL val );
 
@@ -234,7 +235,7 @@ inline hkBool hkPointerMapBase<KEY,VAL,OPS>::isValid( Iterator it ) const
 #endif // HKBASE_HKPOINTERMAPBASE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

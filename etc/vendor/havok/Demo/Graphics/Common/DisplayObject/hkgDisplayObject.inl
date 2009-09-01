@@ -6,25 +6,6 @@
  * 
  */
 
-hkgDisplayObject::~hkgDisplayObject()
-{
-	int ng;
-	int i;
-
-	ng = m_solidGeoms.getSize();
-	for (i =0; i < ng;++i)
-		m_solidGeoms[i]->release();
-
-	ng = m_alphaGeoms.getSize();
-	for (i =0; i < ng;++i)
-		m_alphaGeoms[i]->release();
-
-	ng = m_mixedGeoms.getSize();
-	for (i =0; i < ng;++i)
-		m_mixedGeoms[i]->release();
-
-}
-
 inline void hkgDisplayObject::setStatusFlags( HKG_DISPLAY_OBJECT_STATUS f)
 {
 	m_status = f;
@@ -102,6 +83,8 @@ inline void hkgDisplayObject::addGeometry(hkgGeometry* g)
 			m_mixedGeoms.pushBack(g);
 			break;
 	}
+
+	onGeometryChange();
 }
 
 inline int hkgDisplayObject::getNumGeometry() const
@@ -167,6 +150,8 @@ inline hkgGeometry* hkgDisplayObject::removeGeometry(int i, bool preserveOrder)
 	if (ga->getSize() == 0)
 		computeTransparency();
 
+	onGeometryChange();
+
 	return g;
 }
 
@@ -179,6 +164,11 @@ inline void hkgDisplayObject::setGeometry(int i, hkgGeometry* g)
 
 	hkgGeometry* oldGeom = (*ga)[index];
 	oldGeom->release();
+
+	if (g != oldGeom)
+	{
+		onGeometryChange();
+	}
 
 	(*ga)[index] = g;
 }
@@ -201,6 +191,8 @@ inline hkgGeometry* hkgDisplayObject::searchAndRemoveByName( hkgArray<hkgGeometr
 
 			if (geomArray->getSize() == 0)
 				computeTransparency();
+
+			onGeometryChange();
 
 			return g;
 		}
@@ -321,6 +313,10 @@ inline hkgDisplayObject::hkgDisplayObject()
 	setOffsetToZero();
 	m_drawLocalFrame = false;
 	m_drawAABB = false;
+
+	hkgVec3Set( m_aabbCent, 0,0,0);
+	hkgVec3Set( m_aabbExtent, 1,1,1);
+
 }
 
 inline hkgDisplayObject* hkgDisplayObject::defaultCreateInternal()
@@ -362,7 +358,7 @@ inline int hkgDisplayObject::getUserPointerType() const
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

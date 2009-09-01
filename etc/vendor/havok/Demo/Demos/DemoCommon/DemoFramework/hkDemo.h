@@ -12,8 +12,8 @@
 #include <Common/Base/hkBase.h>
 #include <Demos/DemoCommon/DemoFramework/hkTextDisplay.h>
 #include <Graphics/Common/Input/Keyboard/hkgKeyboard.h>
-
 #include <Common/Base/Thread/Job/ThreadPool/hkJobThreadPool.h>
+#include <Demos/DemoCommon/DemoFramework/Callable.h>
 
 struct hkDemoEntry;
 class hkgWindow;
@@ -129,7 +129,7 @@ class hkDemo : public hkReferencedObject
 		virtual void preDeleteDemo() { ; }
 
 		// Run a single step of the demo
-		virtual Result stepDemo() = 0;
+		virtual Result stepDemo();
 
 		virtual void waitForStepCompletion() {}
 
@@ -158,11 +158,12 @@ class hkDemo : public hkReferencedObject
 		virtual void mouseDrag() {}	// Mouse has been dragged
 
 		virtual void windowResize(int w, int h) {} // window has resize. Handy to redo some 2d graphs etc
+		virtual void windowDropFile(const char* filename, int x, int y) {} // window has a file dropped. The const char is temporary, strDup if you want to keep it.
 
 		void setDemoName(hkString& name);
 
 			/// Recursively scan a directory for hkx files and create a demo for each found entry
-		static void HK_CALL scanDirectoryAndCreateDemosForHkxFiles(hkString path, hkDemoEntry& thisEntry, hkArray<hkDemoEntry*>& entriesOut );
+		static void HK_CALL scanDirectoryAndCreateDemosForHavokFiles(hkString path, hkString ending, hkDemoEntry& thisEntry, hkBool recurseFolders, hkArray<hkDemoEntry*>& entriesOut );
 
 		// Called by the BootstrapDemo
 		// Artificial input when running in bootstrap mode
@@ -175,15 +176,52 @@ class hkDemo : public hkReferencedObject
 		// Number of times to the demo will be stepped by the bootstrapper
 		int m_bootstrapIterations; // +default(100)
 
+		typedef Callable0<int> KeyPressCallback;
+			/// Bind a vkey to a callback.
+			/// If the description is null, the key will not be listed by menudemo.
+			/// Note that vkey codes are not exactly ascii codes. In particular, lower case
+			/// ascii values do not correspond to vkeys.
+		int bindKeyPressed(int vkey, const char* descr, const KeyPressCallback& cb );
+
 	protected:
 
 		hkString m_error;
 		hkString m_name;
+
+		struct KeyPressCallbackInfo
+		{
+			KeyPressCallbackInfo() : description(HK_NULL), vkey(0)/*, cb(0,0)*/ {}
+			const char* description;
+			int vkey;
+			KeyPressCallback cb;
+		};
+		hkArray<KeyPressCallbackInfo> m_keyPressCallbacks;
+
+	public:
+
+		const hkArray<KeyPressCallbackInfo>& getKeyPressCallbackInfo() const { return m_keyPressCallbacks; }
 };
 
+//
+// A few utility functions for binding to keys
+// Usage:
+//	 bindKeyPressed(HKG_VKEY_F5, "Toggle testBool", KeyPressCallback::BoundFunction(&hkToggleBooleanValue, &m_testBool) );
+//
 
+// b = !b
+int hkToggleBooleanValue( hkBool* b );
 
+// i++
+int hkIncrementIntegerValue( int* i );
 
+// i--
+int hkDecrementIntegerValue( int* i );
+
+// i = max(i-1, 0)
+int hkDecrementIntegerValueNonNegative( int* i );
+
+// i = max(i-1, 1)
+int hkDecrementPositiveIntegerValue( int* i );
 
 // Error demo
 class ErrorDemo : public hkDemo
@@ -218,7 +256,7 @@ class ErrorDemo : public hkDemo
 #endif // HK_DEMOFRAMEWORK_DEMO_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

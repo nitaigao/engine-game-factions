@@ -66,11 +66,11 @@ public:
 		// GEOMETRY CONVEXITY AND CREATION FUNCTIONS
 		//
 
-		/// Calculates the convex hull of the points in stridedVertsIn and returns the vertices used and the geometry of hull.
-	static void HK_CALL createConvexGeometry( const hkStridedVertices& stridedVertsIn, hkGeometry& geometryOut, hkGeomConvexHullMode mode = HK_GEOM_CONVEXHULL_MODE_FAST );
+		/// Calculates the convex hull of the points in stridedVertsIn.
+	static void HK_CALL createConvexGeometry( const hkStridedVertices& stridedVertsIn, hkGeometry& geometryOut);
 
 		/// Calculates the convex hull of the points in stridedVertsIn and returns the vertices used, the plane equations generated and the geometry of hull.
-	static void HK_CALL createConvexGeometry( const hkStridedVertices& stridedVertsIn, hkGeometry& geometryOut, hkArray<hkVector4>& planeEquationsOut, hkGeomConvexHullMode mode = HK_GEOM_CONVEXHULL_MODE_FAST );
+	static void HK_CALL createConvexGeometry( const hkStridedVertices& stridedVertsIn, hkGeometry& geometryOut, hkArray<hkVector4>& planeEquationsOut);
 
 		/// Calculates the vertices of the convex hull at the inner intersection of the specified plane equations.  Only one hull is found, and
 		/// more plane equations than the minimum necessary can be specified.
@@ -110,16 +110,12 @@ public:
 		/// the w component (D) of each of the plane equations by the given amount (can be negative to shrink)
 	static void HK_CALL expandPlanes(  hkArray<hkVector4>& planeEquations, hkReal byDistance );
 
-
-		// INTERNAL
-	static void getConvexHullFromStriding( const hkStridedVertices& stridedVertsIn, hkGeomHull& hullOut, hkArray<hkVector4>& usedVerticesOut, hkGeomConvexHullMode mode );
-
 };
 
 #endif // HK_GEOMETRYUTILITY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

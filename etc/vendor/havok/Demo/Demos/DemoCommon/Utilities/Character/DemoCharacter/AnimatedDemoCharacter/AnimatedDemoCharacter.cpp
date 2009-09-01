@@ -16,6 +16,7 @@
 
 #include <Common/Visualize/hkDebugDisplay.h>
 #include <Graphics/Bridge/SceneData/hkgSceneDataConverter.h>
+#include <Graphics/Bridge/SceneData/hkgVertexBufferWrapper.h>
 
 // Serialization
 #include <Common/Base/Reflection/hkClass.h>
@@ -57,10 +58,21 @@
 #include <Graphics/Common/Shader/hkgShader.h>
 #include <Graphics/Common/Shader/hkgShaderCollection.h>
 #include <Graphics/Common/DisplayObject/hkgDisplayObject.h>
-
+#include <Graphics/Common/Geometry/hkgGeometry.h>
+#include <Graphics/Common/Geometry/hkgMaterialFaceSet.h>
+#include <Graphics/Common/Geometry/VertexSet/hkgVertexSet.h>
+#include <Graphics/Common/DisplayWorld/hkgDisplayWorld.h>
 
 #include <Demos/DemoCommon/Utilities/Character/CharacterProxy/RigidBodyCharacterProxy/RigidBodyCharacterProxy.h>
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+
+namespace
+{
+	hkReal FORWARD_VELOCITY_SCALAR = 1.0f;
+
+	// debug visualization
+	bool DRAW_PROXY = false;
+}
 
 AnimatedCharacterFactory::AnimatedCharacterFactory( CharacterType defaultType )
 {
@@ -70,6 +82,8 @@ AnimatedCharacterFactory::AnimatedCharacterFactory( CharacterType defaultType )
 	for (int i = 0; i < MAX_CHARACTER_TYPE; ++i)
 	{
 		m_animSet[i].m_skeleton = HK_NULL;
+		m_display[i].m_numSkinBindings = 0;
+		m_display[i].m_skinBindings = HK_NULL;
 	}
 
 	loadBasicAnimations( m_type );
@@ -80,10 +94,16 @@ AnimatedCharacterFactory::~AnimatedCharacterFactory()
 	m_loader->removeReference();
 }
 
-DemoCharacter* AnimatedCharacterFactory::createCharacterUsingProxy( CharacterProxy* proxy, const hkVector4& gravity, hkDemoEnvironment* env )
+DemoCharacter* AnimatedCharacterFactory::createCharacterUsingProxy(	CharacterProxy* proxy,
+																	const hkVector4& gravity,
+																	hkDemoEnvironment* env,
+																	CharacterType characterType )
 {
-	proxy->getWorldObject()->removeProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR);
-	proxy->getWorldObject()->addProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR, 0x00FFFFFF);
+	if ( !DRAW_PROXY )
+	{
+		proxy->getWorldObject()->removeProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR);
+		proxy->getWorldObject()->addProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR, 0x00FFFFFF);
+	}
 
 	// Animated Character
 	AnimatedDemoCharacterCinfo info;
@@ -94,7 +114,16 @@ DemoCharacter* AnimatedCharacterFactory::createCharacterUsingProxy( CharacterPro
 	info.m_animationSet = &m_animSet[m_type];
 
 	AnimatedDemoCharacter* animCharacter = new AnimatedDemoCharacter( info );
-	animCharacter->loadSkin( m_loader, env, m_type );
+	
+	if (m_display[m_type].m_numSkinBindings > 0)	
+	{
+		animCharacter->cloneSkin( env, m_display[m_type] );
+	}
+	else
+	{
+		animCharacter->loadSkin( m_loader, env, m_type, m_display[m_type] );
+	}
+	
 	return animCharacter;	
 }
 
@@ -113,7 +142,7 @@ void AnimatedCharacterFactory::loadBasicAnimations( CharacterType type )
 
 	switch (type)
 	{
-		case HAVOK_GIRL:
+		case CHARACTER_TYPE_HAVOK_GIRL:
 			{
 				rigFile = hkAssetManagementUtil::getFilePath("Resources/Animation/HavokGirl/hkRig.hkx");
 				refBone = "reference";
@@ -134,12 +163,15 @@ void AnimatedCharacterFactory::loadBasicAnimations( CharacterType type )
 				set->m_animUpLocal.set(0,0,1);
 			}
 			break;
-		case FIREFIGHTER:
+		case CHARACTER_TYPE_FIREFIGHTER:
+		case CHARACTER_TYPE_JUNGLE_FIGHTER:
+		case CHARACTER_TYPE_DESERT_FIGHTER:
+		case CHARACTER_TYPE_SNOW_FIGHTER:
 			{
 				rigFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/Firefighter_Rig.hkx");
 				refBone = "reference";
 				rootBone = "root";
-				set->m_walkRunSyncOffset = 17.0f;
+				set->m_walkRunSyncOffset = 17.0f / 60.0f;
 
 				// Load the animations
 				{
@@ -164,13 +196,17 @@ void AnimatedCharacterFactory::loadBasicAnimations( CharacterType type )
 
 	// Get the rig
 	{
+
 		hkError::getInstance().setEnabled(0x9fe65234, false); // "Unsupported simulation type..."
+		hkError::getInstance().setEnabled(0x651f7aa5, false); // "removing deprecated object of type..."
 		set->m_rigContainer = m_loader->load( rigFile.cString() );
 		HK_ASSERT2(0x27343437, set->m_rigContainer != HK_NULL , "Could not load asset");
 		hkaAnimationContainer* ac = reinterpret_cast<hkaAnimationContainer*>( set->m_rigContainer->findObjectByType( hkaAnimationContainerClass.getName() ));
 		HK_ASSERT2(0x27343435, ac && (ac->m_numSkeletons > 0), "No skeleton loaded");
 		set->m_skeleton = ac->m_skeletons[0];
+		hkError::getInstance().setEnabled(0x651f7aa5, true);
 		hkError::getInstance().setEnabled(0x9fe65234, true);
+
 	}
 
 
@@ -194,35 +230,45 @@ void AnimatedCharacterFactory::loadBasicAnimations( CharacterType type )
 }
 
 
+void computeProxyFromAnimation(	const hkVector4& animUp,
+								const hkVector4& animForward,
+								const hkVector4& proxyUp,
+								const hkVector4& proxyForward,
+								hkRotation& proxyFromAnimation )
+{
+	hkVector4 right; right.setCross( animForward, animUp );
+	hkRotation animRot;	animRot.setCols( animUp, animForward, right );
+	animRot.transpose();
+
+	HK_ASSERT( 0, proxyUp.dot3(proxyForward) == 0 );
+
+	hkVector4 proxyRight; proxyRight.setCross( proxyForward, proxyUp );
+	hkRotation proxyRot; proxyRot.setCols( proxyUp, proxyForward, proxyRight );
+
+	proxyFromAnimation.setMul( proxyRot, animRot );
+}
+
 AnimatedDemoCharacter::AnimatedDemoCharacter( AnimatedDemoCharacterCinfo& info )
 : DemoCharacter(info)
 {
 	m_gravity = info.m_gravity;
 
 	//
-	// Setup the proxyFromAnimation transform
+	// Setup the m_characterFromAnimation transform
 	//
 	m_animationUpLocal = info.m_animationUpLocal;
 	m_animationForwardLocal = info.m_animationForwardLocal;
 
-	hkVector4 right; right.setCross( m_animationForwardLocal, m_animationUpLocal );
-	hkRotation animRot;	animRot.setCols(m_animationUpLocal, m_animationForwardLocal, right );
-	animRot.transpose();
-
-	hkVector4 characterUpLocal = m_characterProxy->getUpLocal();
-	hkVector4 characterForwardLocal = m_characterProxy->getForwardLocal();
-	HK_ASSERT( 0, characterUpLocal.dot3(characterForwardLocal) == 0);
-
-	hkVector4 charRight; charRight.setCross( characterForwardLocal, characterUpLocal );
-	hkRotation charRot;	charRot.setCols(characterUpLocal, characterForwardLocal, charRight);
-
-	m_characterFromAnimation.setMul( charRot, animRot );
+	computeProxyFromAnimation(	m_animationUpLocal,
+								m_animationForwardLocal,
+								m_characterProxy->getUpLocal(),
+								m_characterProxy->getForwardLocal(),
+								m_characterFromAnimation );
 
 	m_skinsLoaded = false;
 	m_hardwareSkinning = false;
 
 	initAnimation( info.m_animationSet );
-
 }
 
 AnimatedDemoCharacter::~AnimatedDemoCharacter()
@@ -239,9 +285,14 @@ const hkaSkeleton* AnimatedDemoCharacter::getSkeleton() const
 bool AnimatedDemoCharacter_supportsHardwareSkinning(hkDemoEnvironment* env)
 {
 
+#if defined( HK_PLATFORM_PS2 ) || defined( HK_PLATFORM_XBOX360 ) || defined( HK_PLATFORM_PS3_PPU ) 
+
+	return true;
+
+#elif defined (HK_PLATFORM_WIN32)
 
 	// Only reason not supported in DX10 is just because I haven't written the hkgBlendMatrixSet for them, which is easy if required.
-	bool hardwareSkinning = (hkgSystem::g_RendererType != hkgSystem::HKG_RENDERER_DX10) && (hkgSystem::g_RendererType != hkgSystem::HKG_RENDERER_NULL);
+	bool hardwareSkinning = (hkgSystem::g_RendererType != hkgSystem::HKG_RENDERER_NULL);
 	if (hardwareSkinning )
 	{
 		// check if it has enough shader support to run. We will assume we require 2.0 (so get 256 vshader constants to do fast skinning), not unreasonable, may run on 1.1
@@ -249,28 +300,77 @@ bool AnimatedDemoCharacter_supportsHardwareSkinning(hkDemoEnvironment* env)
 	}
 	return hardwareSkinning;
 
+#else 
+	
+	// Xbox(can, but have to load compiled shaders, see the h/w skinning demo, can add here if required)
+	// GCN (no, could do like PSP(R) (PlayStation(R)Portable)?)
+	// WII (no, could do like PSP(R)?) 
+	// OglMac, OglLinux, (again just because no Cg shader funcs setup yet, very easy)
+	return false; 
+
+#endif
+
 }
 
 hkgShaderCollection* AnimatedDemoCharacter_loadSkinningShader(hkDemoEnvironment* env)
 {
-	bool shouldCompileShaders = (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_OGL) || (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX9) || (hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_DX9S);
-	hkgShaderCollection* ret  = HK_NULL;
+	hkBool shouldCompileShaders = env->m_window->supportsShaderCompilation();
+
+	hkgShaderCollection* ret = HK_NULL;
 	if (shouldCompileShaders)
 	{
-		const char* shaderFile;
-		if ( hkgSystem::g_RendererType == hkgSystem::HKG_RENDERER_OGL ) // PC, (.. PS3(with different render type), Linux, Mac)
-			shaderFile = "./Resources/Animation/Shaders/SimpleSkinningShader.cg"; 
-		else // 360 and PC 
-			shaderFile = "./Resources/Animation/Shaders/SimpleSkinningShader.hlsl";
+		hkString shaderFile = "./Resources/Animation/Shaders/SimpleSkinningShader"; 
 		
-		hkgShader* vertexShader = hkgShader::createVertexShader( env->m_window->getContext() );
-		hkgShader* pixelShader = hkgShader::createPixelShader( env->m_window->getContext() );
+		hkgDisplayContext* ctx = env->m_window->getContext();
 
-		vertexShader->realizeCompileFromFile( shaderFile, "mainVS", HK_NULL, HK_NULL, HK_NULL);
-		pixelShader->realizeCompileFromFile( shaderFile, "mainPS", HK_NULL, HK_NULL, HK_NULL);
+		hkgShader* vertexShader = hkgShader::createVertexShader( ctx );
+		hkgShader* pixelShader = hkgShader::createPixelShader( ctx );
+		hkgShader* vertexShaderS0 = HK_NULL; 
+		hkgShader* pixelShaderS0 = HK_NULL;
+		hkgShader* vertexShaderS1 = HK_NULL; 
+		hkgShader* pixelShaderS1 = HK_NULL; 
+
+		shaderFile += hkString(vertexShader->getDefaultFileNameExtension());
+
+		hkArray<const char*> defines;
+		env->m_window->buildCommonShaderDefines( defines);
+
+		HKG_SHADER_RENDER_STYLE basicStyle = HKG_SHADER_RENDER_1LIGHTS | HKG_SHADER_RENDER_MODULATE_TEXTURE0 | HKG_SHADER_RENDER_BLENDING;
+		vertexShader->realizeCompileFromFile( shaderFile.cString(), "mainVS", basicStyle, HK_NULL, defines.begin());
+		pixelShader->realizeCompileFromFile( shaderFile.cString(), "mainPS",basicStyle, HK_NULL, defines.begin());
+
+		if ( env->m_window->getShadowMapSupport() > HKG_SHADOWMAP_NOSUPPORT ) 
+		{
+			vertexShaderS0 = hkgShader::createVertexShader( ctx );
+			pixelShaderS0 = hkgShader::createPixelShader( ctx );
+			vertexShaderS1 = hkgShader::createVertexShader( ctx );
+			pixelShaderS1 = hkgShader::createPixelShader( ctx );
+
+			HKG_SHADER_RENDER_STYLE toDepthStyle;
+			HKG_SHADER_RENDER_STYLE withDepthStyle;
+			env->m_window->getShadowMapPassStyles(toDepthStyle, withDepthStyle);
+
+			vertexShaderS0->realizeCompileFromFile( shaderFile.cString(), "mainVS_ToDepth", toDepthStyle | basicStyle , HK_NULL, defines.begin());
+			pixelShaderS0->realizeCompileFromFile( shaderFile.cString(), "mainPS_ToDepth", toDepthStyle | basicStyle, HK_NULL, defines.begin());
+
+			vertexShaderS1->realizeCompileFromFile( shaderFile.cString(), "mainVS_Shadow", withDepthStyle | basicStyle, HK_NULL, defines.begin());
+			pixelShaderS1->realizeCompileFromFile( shaderFile.cString(), "mainPS_Shadow", withDepthStyle | basicStyle, HK_NULL, defines.begin());
+		}
 
 		ret = hkgShaderCollection::create();
 		ret->addShaderGrouping(vertexShader, pixelShader);	
+		pixelShader->removeReference();
+		vertexShader->removeReference();
+		
+		if (vertexShaderS0)
+		{
+			ret->addShaderGrouping(vertexShaderS0, pixelShaderS0);	
+			ret->addShaderGrouping(vertexShaderS1, pixelShaderS1);	
+			pixelShaderS0->removeReference();
+			vertexShaderS0->removeReference();
+			pixelShaderS1->removeReference();
+			vertexShaderS1->removeReference();
+		}
 	}
 	return ret;
 }
@@ -291,21 +391,101 @@ void AnimatedDemoCharacter_setSkinningShader( hkgShaderCollection* shader, hkgDi
 	}
 }
 
-void AnimatedDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env, AnimatedCharacterFactory::CharacterType type )
+void convertSkin(	hkaMeshBinding** skinBindings,
+					hkInt32 numSkinBindings,
+					hkxScene* scene,
+					hkDemoEnvironment* env,
+					bool hardwareSkinning,
+					const char* texturePath,
+					hkArray<hkgDisplayObject*>& displayObjectsOut )
+{
+	int numPrevSkins = env->m_sceneConverter->m_addedSkins.getSize();
+	
+	if (texturePath && !env->m_sceneConverter->hasTextureSearchPath(texturePath))
+	{
+		env->m_sceneConverter->addTextureSearchPath(texturePath);
+	}
+
+	// Make graphics output buffers for the skins
+	env->m_sceneConverter->setAllowHardwareSkinning( hardwareSkinning ); // will enable the added blend info in the vertex buffers
+	env->m_sceneConverter->convert( scene );
+		
+	if (hardwareSkinning)
+	{
+		for (int ms=0; ms < numSkinBindings; ++ms)
+		{
+			hkaMeshBinding* skinBinding = skinBindings[ms];
+			if ( !env->m_sceneConverter->setupHardwareSkin( env->m_window->getContext(), skinBinding->m_mesh,
+				reinterpret_cast<hkgAssetConverter::IndexMapping*>( skinBinding->m_mappings ),
+				skinBinding->m_numMappings, (hkInt16)skinBinding->m_skeleton->m_numBones ) ) 
+			{
+				HK_WARN_ALWAYS( 0x4327defe, "Could not setup the blend matrices for a skin. Will not be able to skin in h/w.");
+			}
+		}
+
+		int numSkins = env->m_sceneConverter->m_addedSkins.getSize();
+
+		if (hardwareSkinning && (numPrevSkins < numSkins) )
+		{
+			hkgShaderCollection* shaderSet = AnimatedDemoCharacter_loadSkinningShader(env);
+			for (int s=numPrevSkins; hardwareSkinning && (s < numSkins); ++s )
+			{
+				AnimatedDemoCharacter_setSkinningShader(shaderSet, env->m_sceneConverter->m_addedSkins[s]->m_skin);
+			}
+			if (shaderSet)
+			{
+				shaderSet->removeReference();
+			}
+		}
+
+	}
+
+	for (int ms=0; ms < numSkinBindings; ++ms)
+	{
+		hkaMeshBinding* skinBinding = skinBindings[ms];
+		int mindex = hkgAssetConverter::findFirstMapping( env->m_sceneConverter->m_meshes, skinBinding->m_mesh); 
+		if (mindex >= 0) 
+		{
+			hkgDisplayObject* dispObj = (hkgDisplayObject*)( env->m_sceneConverter->m_meshes[mindex].m_hkgObject );
+			displayObjectsOut.pushBack( dispObj );
+		}
+	}
+}
+
+void AnimatedDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env, AnimatedCharacterFactory::CharacterType type, AnimatedDemoCharacterDisplay& displayInfoCache )
 {
 	m_hardwareSkinning = AnimatedDemoCharacter_supportsHardwareSkinning(env);
 
 	hkString assetFile;
-
+	const char* texturePath = HK_NULL;
 	switch ( type )
 	{
-	case AnimatedCharacterFactory::HAVOK_GIRL:
+	case CharacterFactory::CHARACTER_TYPE_HAVOK_GIRL:
 			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/HavokGirl/hkLowResSkinWithEyes.hkx");
 			m_hardwareSkinning = false;
 		break;
-	case AnimatedCharacterFactory::FIREFIGHTER:
+	case CharacterFactory::CHARACTER_TYPE_FIREFIGHTER:
 		{
-			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/Showcase/Gdc2005/Model/Firefighter_Skin.hkx"); 
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/Firefighter_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
+		}
+		break;
+	case CharacterFactory::CHARACTER_TYPE_JUNGLE_FIGHTER:
+		{
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/JungleJoe_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
+		}
+		break;
+	case CharacterFactory::CHARACTER_TYPE_DESERT_FIGHTER:
+		{
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/DesertDan_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
+		}
+		break;
+	case CharacterFactory::CHARACTER_TYPE_SNOW_FIGHTER:
+		{
+			assetFile = hkAssetManagementUtil::getFilePath("Resources/Animation/ShowCase/Gdc2005/Model/SnowSam_Skin.hkx"); 
+			texturePath = "Resources/Animation/ShowCase/Gdc2005/Model";
 		}
 		break;
 	default:
@@ -314,7 +494,6 @@ void AnimatedDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env
 		}
 		break;
 	}
-
 
 	hkRootLevelContainer* rootContainer = m_loader->load( assetFile.cString() );
 	HK_ASSERT2(0x27343437, rootContainer != HK_NULL , "Could not load asset");
@@ -325,46 +504,115 @@ void AnimatedDemoCharacter::loadSkin( hkLoader* m_loader, hkDemoEnvironment* env
 	m_numSkinBindings = ac->m_numSkins;
 	m_skinBindings = ac->m_skins;
 
+	displayInfoCache.m_hardwareSkinning = m_hardwareSkinning;
+	displayInfoCache.m_numSkinBindings = m_numSkinBindings;
+	displayInfoCache.m_skinBindings = m_skinBindings;
+
 	hkxScene* scene = reinterpret_cast<hkxScene*>( rootContainer->findObjectByType( hkxSceneClass.getName() ));
 	HK_ASSERT2(0x27343435, scene , "No scene loaded");
 
-	int numPrevSkins = env->m_sceneConverter->m_addedSkins.getSize();
-	
-	// Make graphics output buffers for the skins
-	env->m_sceneConverter->setAllowHardwareSkinning( m_hardwareSkinning ); // will enable the added blend info in the vertex buffers
-	env->m_sceneConverter->convert( scene );
-	
+	convertSkin(	m_skinBindings,
+					m_numSkinBindings,
+					scene,
+					env,
+					m_hardwareSkinning,
+					texturePath,
+					displayInfoCache.m_skinDisplay );
+
+	// use the loaded display objects for this (the first) character
+	m_skins = displayInfoCache.m_skinDisplay;
+
 	m_skinsLoaded = true;
+}
+
+void cloneSkinDisplayObjects(	hkDemoEnvironment* env,
+								AnimatedDemoCharacterDisplay& displayIn,
+								hkArray<hkgDisplayObject*>& displayObjectsOut )
+{
+	hkgSceneDataConverter* sc = env->m_sceneConverter;
+	hkgDisplayContext* context = sc->m_context;
 	
-	if (m_hardwareSkinning)
+	if ( displayIn.m_hardwareSkinning )
 	{
-		for (int ms=0; ms < m_numSkinBindings; ++ms)
+		for (int ms=0; ms < displayIn.m_numSkinBindings; ++ms)
 		{
-			hkaMeshBinding* skinBinding = m_skinBindings[ms];
-			if ( !env->m_sceneConverter->setupHardwareSkin( env->m_window->getContext(), skinBinding->m_mesh,
-				reinterpret_cast<hkgAssetConverter::IndexMapping*>( skinBinding->m_mappings ),
-				skinBinding->m_numMappings, (hkInt16)skinBinding->m_skeleton->m_numBones ) ) 
-			{
+			hkaMeshBinding* skinBinding = displayIn.m_skinBindings[ms];
+			hkgDisplayObject* origDisplayObject = displayIn.m_skinDisplay[ms];
 
-				HK_WARN_ALWAYS( 0x4327defe, "Could not setup the blend matrices for a skin. Will not be able to skin in h/w.");
+			// XX Once merged with the Head, this will be faster with the Instanced HW Skin object
+			// For now just clone the meshes as the blend matrices can't be shared in the face sets
+			hkgDisplayObject* newDisplayObject = origDisplayObject->copy( HKG_DISPLAY_OBJECT_SHARE_MATERIALS, context );
+
+			bool allowCulling = false;
+			
+			hkgAssetConverter::SkinPaletteMap* smap = hkgAssetConverter::setupHardwareSkin(context, 
+				newDisplayObject, 
+				reinterpret_cast<hkgAssetConverter::IndexMapping*>( skinBinding->m_mappings ), 
+				skinBinding->m_numMappings, 
+				(hkInt16)skinBinding->m_skeleton->m_numBones,
+				allowCulling  );
+
+			if (smap)
+			{
+				env->m_sceneConverter->m_addedSkins.pushBack( smap );
 			}
+
+			env->m_displayWorld->addDisplayObject( newDisplayObject );
+			displayObjectsOut.pushBack( newDisplayObject );
+			newDisplayObject->removeReference();
 		}
-
-		int numSkins = env->m_sceneConverter->m_addedSkins.getSize();
-
-		if (m_hardwareSkinning && (numPrevSkins < numSkins) )
+	}
+	else
+	{
+		for (int ms=0; ms < displayIn.m_numSkinBindings; ++ms)
 		{
-			hkgShaderCollection* shaderSet = AnimatedDemoCharacter_loadSkinningShader(env);
-			for (int s=numPrevSkins; m_hardwareSkinning && (s < numSkins); ++s )
-			{
-				AnimatedDemoCharacter_setSkinningShader(shaderSet, env->m_sceneConverter->m_addedSkins[s]->m_skin);
-			}		
-		}
+			hkgDisplayObject* origDisplayObject = displayIn.m_skinDisplay[ms];
+			hkxMesh* origMesh = displayIn.m_skinBindings[ms]->m_mesh;
 
+			// can't copy vertex buffers as they are cpu skinned into so can't instance them
+			hkgDisplayObject* newDisplayObject = origDisplayObject->copy( HKG_DISPLAY_OBJECT_SHARE_MATERIALS, context );
+
+			int curSection = 0;
+			for (int gi=0; gi < newDisplayObject->getNumGeometry(); ++gi)
+			{
+				hkgGeometry* geom = newDisplayObject->getGeometry(gi);
+				for (int mi=0; mi < geom->getNumMaterialFaceSets(); ++mi)
+				{
+					for (int fsi=0; fsi < geom->getMaterialFaceSet(mi)->getNumFaceSets(); ++fsi)
+					{
+						hkgFaceSet* faceSet = geom->getMaterialFaceSet(mi)->getFaceSet(fsi);
+						hkgVertexSet* faceVerts = faceSet->getVertexSet();
+						
+						hkgVertexBufferWrapper* buf = new hkgVertexBufferWrapper(HKG_LOCK_WRITEONLY);
+						buf->setVertexDataPtr( (void*)0x1, faceVerts->getNumVerts() );
+						buf->setVertexDesc( hkgAssetConverter::constructVertexDesc(faceVerts) );
+						buf->setFaceSet(faceSet);
+						buf->setTopLevelParent(newDisplayObject);
+						hkgAssetConverter::Mapping* mMap = &sc->m_vertexBuffers.expandOne();
+						mMap->m_hkgObject = buf;
+						mMap->m_origObject = curSection < origMesh->m_numSections? origMesh->m_sections[curSection]->m_vertexBuffer : HK_NULL ;
+
+						++curSection;
+					}
+				}
+			}
+
+			env->m_displayWorld->addDisplayObject( newDisplayObject );
+			displayObjectsOut.pushBack( newDisplayObject );
+			newDisplayObject->removeReference();
+		}
 	}
 }
 
+void AnimatedDemoCharacter::cloneSkin( hkDemoEnvironment* env, AnimatedDemoCharacterDisplay& displayInfo )
+{
+	cloneSkinDisplayObjects( env, displayInfo, m_skins );
 
+	m_hardwareSkinning = displayInfo.m_hardwareSkinning;
+	m_skinBindings = displayInfo.m_skinBindings;
+	m_numSkinBindings = displayInfo.m_numSkinBindings;
+	m_skinsLoaded = true;
+}
 
 void AnimatedDemoCharacter::initAnimation( const AnimatedDemoCharacterAnimationSet* set )
 {
@@ -406,7 +654,8 @@ void AnimatedDemoCharacter::initAnimation( const AnimatedDemoCharacterAnimationS
 		// WALK_CONTROL
 		control = new hkaDefaultAnimationControl( HK_NULL );
 		control->easeOut(0.0f);
-		control->setMasterWeight(0.01f);
+		//control->setMasterWeight(0.01f);
+		control->setMasterWeight(HK_REAL_EPSILON);
 		m_animatedSkeleton->addAnimationControl( control );
 		control->removeReference();
 
@@ -431,6 +680,12 @@ void AnimatedDemoCharacter::initAnimation( const AnimatedDemoCharacterAnimationS
 		// LAND_CONTROL
 		control = new hkaDefaultAnimationControl( set->m_land ); 
 		control->easeOut(0.0f);
+		m_animatedSkeleton->addAnimationControl( control );
+		control->removeReference();
+
+		// SLOWWALK_CONTROL
+		control = new hkaDefaultAnimationControl( set->m_idle ); 
+		control->setMasterWeight( 0.0f );
 		m_animatedSkeleton->addAnimationControl( control );
 		control->removeReference();
 
@@ -485,29 +740,48 @@ void AnimatedDemoCharacter::initAnimation( const AnimatedDemoCharacterAnimationS
 
 void AnimatedDemoCharacter::updatePosition( hkReal timestep, const CharacterStepInput& input, bool& isSupportedOut )
 {
-
-	// Synchronize walk and run so it transitions smoothly
+	
 	{
+		hkaDefaultAnimationControl* slowWalkControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( SLOW_WALK_CONTROL );
 		hkaDefaultAnimationControl* walkControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( WALK_CONTROL );
 		hkaDefaultAnimationControl* runControl = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( RUN_CONTROL );
 
-		hkReal forwardWalkRunBlend, walkSpeed, runSpeed;
-		CharacterUtils::computeBlendParams( input.m_forwardVelocity, m_walkVelocity, m_runVelocity, 
-			walkControl->getAnimationBinding()->m_animation->m_duration, 
-			runControl->getAnimationBinding()->m_animation->m_duration,
-			forwardWalkRunBlend,
-			walkSpeed,
-			runSpeed);
+		hkReal slowWalkWeight;
+		hkReal walkWeight;
+		hkReal runWeight;
 
-		runControl->setPlaybackSpeed( runSpeed );
-		walkControl->setPlaybackSpeed( walkSpeed );
+		if (input.m_forwardVelocity < m_walkVelocity)
+		{
+			hkReal dampedForwardSpeed = input.m_forwardVelocity/m_walkVelocity;
+			walkWeight = dampedForwardSpeed;
+			slowWalkWeight = 1.0f - dampedForwardSpeed;
+			runWeight = 0.0f;
+			walkControl->setPlaybackSpeed( 1.0f );
+		}
+		else
+		{
+			hkReal walkSpeed, runSpeed;
+			CharacterUtils::computeBlendParams( input.m_forwardVelocity, m_walkVelocity, m_runVelocity, 
+				walkControl->getAnimationBinding()->m_animation->m_duration, 
+				runControl->getAnimationBinding()->m_animation->m_duration,
+				runWeight,
+				walkSpeed,
+				runSpeed);
 
-		const hkaDefaultAnimationControl* control = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( MOVE_CONTROL );
-		const hkReal controlWeight = control->getWeight() / control->getMasterWeight();
-		runControl->setMasterWeight( forwardWalkRunBlend * controlWeight );
-		walkControl->setMasterWeight( (1.0f - forwardWalkRunBlend) * controlWeight );
+			slowWalkWeight = 0.0f;
+			walkWeight =  1.0f - runWeight;
+			runControl->setPlaybackSpeed( runSpeed );
+			walkControl->setPlaybackSpeed( walkSpeed );
+		}
+
+		//const hkaDefaultAnimationControl* control = (hkaDefaultAnimationControl*)m_animatedSkeleton->getAnimationControl( MOVE_CONTROL );
+		//const hkReal controlWeight = control->getWeight() / control->getMasterWeight();
+		const hkReal controlWeight = 1.0f;
+		slowWalkControl->setMasterWeight( slowWalkWeight * controlWeight );
+		walkControl->setMasterWeight( walkWeight * controlWeight );
+ 		runControl->setMasterWeight( runWeight * controlWeight );	
 	}
-
+	
 	// Advance the active animations
 	m_animatedSkeleton->stepDeltaTime( timestep );
 
@@ -538,7 +812,6 @@ void AnimatedDemoCharacter::updatePosition( hkReal timestep, const CharacterStep
 		wFc.getRotation().mul( r );
 		m_characterProxy->setTransform( wFc );
 	}
-
 
 	// Calculate the velocity we need stateInput order to achieve the desired motion
 	hkVector4 desiredVelocityWS;
@@ -623,10 +896,14 @@ void AnimatedDemoCharacter::updateDisplay( int numBones, const hkQsTransform* po
 
 void AnimatedDemoCharacter::display( hkReal timestep, hkDemoEnvironment* env )
 {
+	HK_TIMER_BEGIN( "AnimatedDemoCharacter::display", HK_NULL );
+
 	hkaPose pose( getSkeleton() );
 
 	updateAnimation( timestep, pose.accessUnsyncedPoseLocalSpace().begin());
 	updateDisplay( getSkeleton()->m_numBones, pose.getSyncedPoseModelSpace().begin(),  env);
+
+	HK_TIMER_END();
 }
 
 
@@ -636,8 +913,15 @@ void AnimatedDemoCharacter::updateAnimation( hkReal timestep, hkQsTransform* pos
 }
 
 
-void AnimatedDemoCharacter::update( hkReal timestep, hkpWorld* world, const CharacterStepInput& input, struct CharacterActionInfo* actionInfo )
+void AnimatedDemoCharacter::updateMt( hkReal timestep, hkpWorld* world, const CharacterStepInput& _input, struct CharacterActionInfo* actionInfo )
 {
+	HK_TIMER_BEGIN( "AnimatedDemoCharacter::updateMt", HK_NULL );
+
+	// copy the const input so we can tweak the forward velocity
+	CharacterStepInput input = _input;
+	hkReal oldForwardVelocity = input.m_forwardVelocity;
+	input.m_forwardVelocity *= FORWARD_VELOCITY_SCALAR;
+
 	bool isSupported;
 	updatePosition( timestep, input, isSupported );
 
@@ -652,6 +936,11 @@ void AnimatedDemoCharacter::update( hkReal timestep, hkpWorld* world, const Char
 	// Update animation state machine
 	m_animationStateMachine->update( timestep, &stateInput );
 	m_animationMachine->update( timestep );
+
+	// restore the old forward velocity in case it is being used outside
+	input.m_forwardVelocity = oldForwardVelocity;
+
+	HK_TIMER_END();
 }
 
 
@@ -680,14 +969,21 @@ void AnimatedDemoCharacter::doSkinning (const int boneCount, const hkQsTransform
 		}
 
 		// use FPU skinning
+		hkgDisplayObject* dispObjForSkin = m_skins[i];
 		if (!m_hardwareSkinning)
 		{
 			// FPU or SIMD skining
-			AnimationUtils::skinMesh( *inputMesh, worldFromModel, compositeWorldInverse.begin(), *env->m_sceneConverter );
+			AnimationUtils::skinMesh( *inputMesh, dispObjForSkin, worldFromModel, compositeWorldInverse.begin(), *env->m_sceneConverter );
 		}
 		else // shader/VU/blend based skinning
 		{
-			env->m_sceneConverter->updateSkin( inputMesh, compositeWorldInverse, worldFromModel );
+			int dindex = hkgAssetConverter::findFirstMapping( env->m_sceneConverter->m_addedSkins, dispObjForSkin );
+			hkArray< hkgBlendMatrixSet* >& palettes = env->m_sceneConverter->m_addedSkins[dindex]->m_palettes;
+			if (palettes.getSize() < 1)
+			{
+				HK_WARN( 0x0, "Trying to update a skin with no matrix palettes.");
+			}
+			hkgAssetConverter::updateSkin( dispObjForSkin, compositeWorldInverse, palettes, worldFromModel, HK_NULL );
 		}
 	}
 }
@@ -699,7 +995,7 @@ hkReal AnimatedDemoCharacter::getMaxVelocity() const
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

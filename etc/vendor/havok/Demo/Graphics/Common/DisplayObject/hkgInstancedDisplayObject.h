@@ -18,20 +18,19 @@ class hkgInstancedDisplayObject : public hkgDisplayObject
 
 		static hkgInstancedDisplayObject* (HK_CALL *create)( hkgDisplayContext* ctx );
 
-			/// Default create function, use ::create instead.
-		static hkgInstancedDisplayObject* defaultCreateInternal( hkgDisplayContext* ctx );
-
-		virtual hkgDisplayObject* copy( HKG_DISPLAY_OBJECT_COPY_FLAGS f, hkgDisplayContext* ctx /*only required if doing deeper copies (facesets and/or verts)*/ );
+		virtual hkgDisplayObject* copy( HKG_DISPLAY_OBJECT_COPY_FLAGS f, hkgDisplayContext* ctx /*only required if doing deeper copies (facesets and/or verts)*/ ) const;
 
 		virtual void setMaxNumObjects( int numObjects, bool allocateBuffers = true ) = 0;
 		virtual void setNumObjects( int numObjects );
-
+		
 		virtual void setRenderMode(HKG_INSTANCED_DISPLAY_MODE mode) = 0;
 		inline HKG_INSTANCED_DISPLAY_MODE getRenderMode() { return m_renderMode; }
 
 		inline int getNumObjects() const { return m_currentNumObjects; }
+		inline int getMaxNumObjects() const { return m_maxNumObjects; }
 
 		virtual void setTransform( const float* transform, int objectIdx ) = 0;
+		virtual void setTransforms( const float* allTransforms, int numTransforms, int startTransform );
 		virtual void setTransformAligned( const hkTransform& transform, int objectIdx ) { setTransform( (const float*)(&transform), objectIdx ); }
 
 		virtual const float* getTransform( int objectIdx ) const = 0;
@@ -69,7 +68,7 @@ class hkgInstancedDisplayObject : public hkgDisplayObject
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

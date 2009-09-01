@@ -113,10 +113,7 @@ ObbUtilDemo::ObbUtilDemo(hkDemoEnvironment* env)
 		// Convex approximation
 		hkpConvexVerticesShape* convexShape;
 		{
-			hkArray<hkVector4> planeEquations;
-			hkGeometry geom;
-			hkGeometryUtility::createConvexGeometry(stridedVerts, geom, planeEquations );
-			convexShape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
+			convexShape = new hkpConvexVerticesShape(stridedVerts);
 		}		
 
 		// Box approximation
@@ -302,7 +299,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(ObbUtilDemo, HK_DEMO_TYPE_PRIME, "Approximating shapes", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

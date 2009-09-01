@@ -43,7 +43,7 @@ class hkpCharacterMovementUtil
 			hkVector4 m_desiredVelocity;
 
 			/// Limit the maximum acceleration of the character
-			hkReal	  m_maxVelocityDelta;
+			hkReal m_maxVelocityDelta;
 
 			/// Velocity of the surface we're standing on in world space
 			hkVector4 m_surfaceVelocity;
@@ -57,7 +57,7 @@ class hkpCharacterMovementUtil
 #endif // HK_CHARACTER_MOVEMENT_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

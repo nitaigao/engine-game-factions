@@ -17,16 +17,16 @@
 #	include <PSGL/psglu.h>
 #elif defined(WIN32)
 #	ifndef _WINDOWS_
-#		define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-#		undef _WIN32_WINNT 
-#		define _WIN32_WINNT 0x0500	  // xp/2000
-#		undef _WIN32_WINDOWS  
-#		define _WIN32_WINDOWS 0x0500 // xp/2000
-#		if (_MSC_VER >= 1400)
-#			define _CRT_SECURE_NO_DEPRECATE 1
-#			define _CRT_NONSTDC_NO_DEPRECATE 1
-#		endif
-#		include <windows.h>
+#	define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
+#	undef _WIN32_WINNT 
+#	define _WIN32_WINNT 0x0500	  // xp/2000
+#	undef _WIN32_WINDOWS  
+#	define _WIN32_WINDOWS 0x0500 // xp/2000
+#	if (_MSC_VER >= 1400)
+#		define _CRT_SECURE_NO_DEPRECATE 1
+#		define _CRT_NONSTDC_NO_DEPRECATE 1
+#	endif
+#	include <windows.h>
 #	endif
 #	include <GL/gl.h>
 #	include <GL/glext.h>
@@ -46,7 +46,7 @@
 #endif //HK_GRAPHICS_PS3_PRECOMPILE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

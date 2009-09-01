@@ -11,6 +11,7 @@
 
 void SimpleBipedWalkState::enterState( hkUint32 prevState, AnimationEventQueue* animMachine ) const
 {
+
 	AnimationEventQueue::AnimationCommand cmd;
 	cmd.m_time = 0.0f; // immediately
 	cmd.m_command = AnimationEventQueue::HK_EASE_IN;
@@ -20,6 +21,10 @@ void SimpleBipedWalkState::enterState( hkUint32 prevState, AnimationEventQueue* 
 
 	// sync walk and run
 	cmd.m_command = AnimationEventQueue::HK_SET_LOCAL_TIME;
+	cmd.m_params.setTime.m_control = SLOW_WALK_CONTROL;
+	cmd.m_params.setTime.m_localTime = 0.0f;
+	animMachine->addCommand( cmd );
+
 	cmd.m_params.setTime.m_control = WALK_CONTROL;
 	cmd.m_params.setTime.m_localTime = 0.0f;
 	animMachine->addCommand( cmd );
@@ -397,7 +402,7 @@ void SimpleBipedDiveState::update( hkReal timestep, const SimpleBipedStateInput*
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

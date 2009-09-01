@@ -24,8 +24,14 @@
 
 /*static*/ const SplashScreen::SplashFile SplashScreen::m_destructionSplashFiles[] =
 {
-	{ "Resources/Destruction/splash/splash-D_final_4_3.png", 1.333f   },
-	{ "Resources/Destruction/splash/splash-D_final_16_9.png", 1.777f  },
+	{ "Resources/Destruction/Textures/splash-D_final_4_3.png", 1.333f   },
+	{ "Resources/Destruction/Textures/splash-D_final_16_9.png", 1.777f  },
+};
+
+/*static*/ const SplashScreen::SplashFile SplashScreen::m_aiSplashFiles[] =
+{
+	{ "Resources/Ai/splash/splash-AI_final_4_3.png", 1.333f   },
+	{ "Resources/Ai/splash/splash-AI_final_16_9.png", 1.777f  },
 };
 
 
@@ -66,6 +72,16 @@ m_progressPercentage(0.0f)
 			}
 		}
 		break;
+
+		case AI_SPLASH:
+			{
+				int numAiSplashes = sizeof(SplashScreen::m_aiSplashFiles) / sizeof(SplashScreen::SplashFile);
+				for (int i=0; i<numAiSplashes; ++i)
+				{
+					splashFiles.pushBack(SplashScreen::m_aiSplashFiles[i]);
+				}
+				break;
+			}
 
 		default:
 		{
@@ -334,14 +350,12 @@ void SplashScreen::drawProgressBar()
 	float textY = lr[1] - 1.1f * m_charHeight;
 
 	hkgFont::setDrawState( ctx );
-	ctx->setTexture2DState( true );
-	ctx->setBlendState( true );
 	m_font->render( ctx, m_message.cString(), textX, textY, white);
 }
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

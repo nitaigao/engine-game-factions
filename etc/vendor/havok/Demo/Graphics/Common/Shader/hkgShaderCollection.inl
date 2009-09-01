@@ -17,11 +17,12 @@ inline hkgShaderCollection* hkgShaderCollection::defaultCreateInternal()
 }
 
 
-inline void hkgShaderCollection::addShaderGrouping( hkgShader* vshader, hkgShader* pshader )
+inline void hkgShaderCollection::addShaderGrouping( hkgShader* vshader, hkgShader* pshader, hkgShader* gshader )
 {
 	ShaderSet& ss = m_shaders.expandOne();
-	ss.pixelShader = pshader; if (pshader) pshader->reference();
 	ss.vertexShader = vshader; if (vshader) vshader->reference();
+	ss.geomShader =   gshader; if (gshader) gshader->reference();
+	ss.pixelShader =  pshader; if (pshader) pshader->reference();
 }
 
 inline void hkgShaderCollection::removeShader( hkgShader* shader )
@@ -31,20 +32,22 @@ inline void hkgShaderCollection::removeShader( hkgShader* shader )
 	for (int s =0; s < numShaders; ++s)
 	{
 		if (m_shaders[s].vertexShader == shader) { m_shaders[s].vertexShader->release(); m_shaders[s].vertexShader = HK_NULL; }
-		if (m_shaders[s].pixelShader == shader) { m_shaders[s].pixelShader->release(); m_shaders[s].pixelShader = HK_NULL; }
+		if (m_shaders[s].geomShader == shader)   { m_shaders[s].geomShader->release();   m_shaders[s].geomShader = HK_NULL; }
+		if (m_shaders[s].pixelShader == shader)  { m_shaders[s].pixelShader->release();  m_shaders[s].pixelShader = HK_NULL; }
 	}
 }
 
 inline void hkgShaderCollection::removeShaderSet( int i )
 {
 	if (m_shaders[i].vertexShader) m_shaders[i].vertexShader->release();
-	if (m_shaders[i].pixelShader) m_shaders[i].pixelShader->release();
+	if (m_shaders[i].geomShader)   m_shaders[i].geomShader->release();
+	if (m_shaders[i].pixelShader)  m_shaders[i].pixelShader->release();
 	m_shaders.removeAtAndCopy(i);
 }
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

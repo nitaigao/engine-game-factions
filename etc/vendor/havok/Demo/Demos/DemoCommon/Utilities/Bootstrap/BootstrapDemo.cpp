@@ -35,6 +35,7 @@
 #include <Common/Base/System/Io/Reader/Memory/hkMemoryStreamReader.h>
 #include <Common/Base/System/Io/Writer/Array/hkArrayStreamWriter.h>
 #include <Common/Base/DebugUtil/DeterminismUtil/hkCheckDeterminismUtil.h>
+#include <Common/Base/DebugUtil/DeterminismUtil/hkNetworkedDeterminismUtil.h>
 
 #include <Common/Base/Algorithm/Sort/hkSort.h>
 
@@ -59,6 +60,7 @@ extern const char* LASTDEMO_FILENAME_BOOTSTRAP;
 	// set the next define to force the bootstrap to execute a single demo only
 //#define SPECIAL_DEMO "PhysicsApi/Dynamics/Constraints/BallAndSocketRope/Length 200"
 //#define SPECIAL_DEMO "Examples/Physics/Continuous/BrickWall/8x8x3 Continuous"
+//#define SPECIAL_DEMO "Physics/Test/Stress/Feature/Collide/BroadPhaseRayCastStress"
 void hkSetLastDemoBootstrap(const char* namein)
 {
 	hkOfstream out(LASTDEMO_FILENAME_BOOTSTRAP);
@@ -76,7 +78,8 @@ static const int DEMO_MASK_ALL = HK_DEMO_TYPE_COMPLETE |
 								 HK_DEMO_TYPE_PHYSICS |
 								 HK_DEMO_TYPE_CLOTH |
 								 HK_DEMO_TYPE_PRIME |
-								 HK_DEMO_TYPE_BEHAVIOR;
+								 HK_DEMO_TYPE_BEHAVIOR |
+								 HK_DEMO_TYPE_DESTRUCTION;
 
 static const int DEMO_MASK_PHYSICS = HK_DEMO_TYPE_PHYSICS |
 									 HK_DEMO_TYPE_PRIME;
@@ -199,6 +202,10 @@ BootstrapDemo::BootstrapDemo(hkDemoEnvironment* env)
 	m_forceMultithreadedSimulationBackup = hkpWorld::m_forceMultithreadedSimulation;
 #endif
 
+#if !defined (HK_ENABLE_DETERMINISM_CHECKS) || defined (HK_ENABLE_NETWORKED_DETERMINISM_UTIL)
+	m_runsPerGame = 1;
+#endif
+
 	//
 	// Process variant settings
 	//
@@ -216,11 +223,13 @@ BootstrapDemo::BootstrapDemo(hkDemoEnvironment* env)
 		m_streamAnalyzer = new hkMonitorStreamAnalyzer( 80000000 ); //80 megs for multithreading
 	}
 
+#if ! defined (HK_ENABLE_NETWORKED_DETERMINISM_UTIL)
 	if ( m_testType == TEST_DETERMINISM || m_testType == TEST_MULTITHREADING_DETERMINISM )
 	{
 		//m_options.m_stepsPerDemo = 150;
 		hkCheckDeterminismUtil::createInstance();
 	}
+#endif
 
 	//
 	// Get suitable demo entries
@@ -281,25 +290,34 @@ BootstrapDemo::BootstrapDemo(hkDemoEnvironment* env)
 
 
 
-					useDemo &=  ! entry.m_menuPath.beginsWith("Physics/UseCase/Fountain");		// broadphase border resets position in nondeterminstic order
-																										// <ag.todo.b> make the non-determinism warning disable the hkCheckDeterminismUtil at the same time ..
-					useDemo &=  ! entry.m_menuPath.beginsWith("Examples/Physics/Ragdoll/SlidingRagdolls"); 
+					useDemo &=  ! entry.m_menuPath.beginsWith("Physics/UseCase/Fountain");				// broadphase border resets position in nondeterminstic order
+
+					useDemo &=  ! entry.m_menuPath.beginsWith("Examples/Physics/Ragdoll/SlidingRagdolls"); //demo has nonstandard mt usage, checkDeterminimsUtil breaks
 					useDemo &=  ! entry.m_menuPath.endsWith("DestructibleWalls/Destructible Walls");		// uses a second world to simulate the wall
 					useDemo &=  ! entry.m_menuPath.endsWith("DestructibleWalls/Single Brick Tmp");			// uses a second world to simulate the wall
 
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/60Hz Discrete RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/30Hz Discrete RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/15Hz Discrete RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/10Hz Discrete RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/15Hz Discrete 4xSlower");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/30Hz Continuous RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/15Hz Continuous RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/10Hz Continuous RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/7 Hz Continuous RealTime");			// uses camera to set ragdoll velocity
-					useDemo &=  ! entry.m_menuPath.endsWith("RagdollVsMopp/5 Hz Continuous RealTime");			// uses camera to set ragdoll velocity
+					useDemo &=  ! entry.m_menuPath.endsWith("MovingVsFixedCollision");
 
+					// Awfuly slow
+					useDemo &=  ! entry.m_menuPath.endsWith("BroadPhaseRayCastStress/16-bit broadphase");
 
+					// For Oli to fix :-)
+					useDemo &=  ! entry.m_menuPath.endsWith("Shift Broadphase Only"); // start_index ~175
+					useDemo &=  ! entry.m_menuPath.endsWith("Shift Coordinate Space");
+
+					useDemo &=  ! entry.m_menuPath.beginsWith("Physics/Api/Dynamics/World/SlidingWorld");				// breaks in 6.1 due to inconsistent state in the broadphase
+					useDemo &=  ! entry.m_menuPath.beginsWith("Physics/UseCase/Welding");				// no asset
 				}
+
+#if defined(HK_PLATFORM_PS3_PPU)
+				// Certain demos need the SPUs to run.
+				if (m_testType == TEST_STATISTICS_SINGLE_THREADED )
+				{
+					useDemo &= ! entry.m_menuPath.beginsWith("Behavior/Test/BehaviorPerformance");
+					useDemo &= ! entry.m_menuPath.beginsWith("Cloth/Api/AssetTester");
+				}
+#endif
+
 				if( m_testType == TEST_SERIALIZE_BINARY || m_testType == TEST_SERIALIZE_XML )
 				{
 					if(    entry.m_demoTypeFlags != HK_DEMO_TYPE_COMPLETE
@@ -368,10 +386,12 @@ BootstrapDemo::~BootstrapDemo()
 	m_env->m_options->m_forceMT = m_forceMultithreadedSimulationBackup;
 #endif
 
+#if ! defined (HK_ENABLE_NETWORKED_DETERMINISM_UTIL)
 	if ( m_testType == TEST_DETERMINISM || m_testType == TEST_MULTITHREADING_DETERMINISM )
 	{
 		hkCheckDeterminismUtil::destroyInstance();
 	}
+#endif
 
 	if ( ( m_testType == TEST_STATISTICS ) 
 		|| ( m_testType == TEST_STATISTICS_SINGLE_THREADED ) 
@@ -495,7 +515,7 @@ hkDemo::Result BootstrapDemo::stepDemo()
 			m_env->m_variantId = entry->m_variantId;
 			hkSetLastDemoBootstrap(entry->m_menuPath.cString());
 
-#		if defined(HK_ENABLE_DETERMINISM_CHECKS)
+#		if defined(HK_ENABLE_DETERMINISM_CHECKS) && ! defined(HK_ENABLE_NETWORKED_DETERMINISM_UTIL)
 			if ( m_runIndex == 0 )
 			{
 				hkCheckDeterminismUtil::getInstance().startWriteMode();
@@ -552,7 +572,7 @@ hkDemo::Result BootstrapDemo::stepDemo()
 	// Status bar
 	//
 	{
-		int charwidth = (int)m_env->m_textDisplay->getFont()->getCharWidth();
+		int charwidth  = (int)m_env->m_textDisplay->getFont()->getCharWidth();
 		int charheight = (int)m_env->m_textDisplay->getFont()->getCharHeight();
 
 		char statusBuf[512];
@@ -1064,7 +1084,9 @@ GOTO_NEXT_DEMO:
 #endif
 	hkMtSafeDeleteDemo(m_demo);
 	m_demo = HK_NULL;
+#if ! defined (HK_ENABLE_NETWORKED_DETERMINISM_UTIL)
 	HK_ON_DETERMINISM_CHECKS_ENABLED( hkCheckDeterminismUtil::getInstance().finish() );
+#endif
 	m_env->m_displayHandler->clear(); // clear debug display
 
 	if (++m_runIndex >= m_runsPerGame)
@@ -1076,19 +1098,21 @@ GOTO_NEXT_DEMO:
 
 static hkOfstream* createAndAppend(const char* filename)
 {
-	hkArray<char> existingContent;
+	hkString existingContentStr;
 	{
 		hkIfstream existingFile( filename );
 		if (existingFile.isOk())
 		{
+			hkArray<char> existingContent;
 			existingFile.getStreamReader()->seek(0, hkStreamReader::STREAM_END);
 			existingContent.setSize( existingFile.getStreamReader()->tell() );
 			existingFile.getStreamReader()->seek(0, hkStreamReader::STREAM_SET);
 			existingFile.read( existingContent.begin(), existingContent.getSize() );
+			existingContentStr = hkString( existingContent.begin(), existingContent.getSize() ).replace("\r",""); // Remove \r characters added by cygwin when the Wii reads text files.
 		}
 	}
 	hkOfstream* outFile = new hkOfstream(filename);
-	outFile->write( existingContent.begin(), existingContent.getSize() );
+	outFile->write( existingContentStr.cString(), existingContentStr.getLength() );
 	return outFile;
 }
 
@@ -1265,7 +1289,7 @@ static void hkOutputStatsSummaryToFile( const char* filename, const hkObjectArra
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( BootstrapDemo, HK_DEMO_TYPE_OTHER, BootstrapVariant, g_variants, "Test bootstrap [Hold \222\\\223 and press \231 to continue from last\\next demo]" );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

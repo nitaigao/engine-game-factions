@@ -97,6 +97,10 @@ class hkClassMember
 			TYPE_ULONG,
 				/// hkFlags<ENUM,STORAGE> - 8,16,32 bits of named values.
 			TYPE_FLAGS,
+				/// hkHalf, 16-bit float value
+			TYPE_HALF,
+				/// hkStringPtr, c-string
+			TYPE_STRINGPTR,
 			TYPE_MAX
 		};
 
@@ -249,7 +253,7 @@ class hkClassMember
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

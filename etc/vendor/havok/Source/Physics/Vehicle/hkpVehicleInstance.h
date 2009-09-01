@@ -5,27 +5,30 @@
  * Level 2 and Level 3 source code contains trade secrets of Havok. Havok Software (C) Copyright 1999-2009 Telekinesys Research Limited t/a Havok. All Rights Reserved. Use of this software is subject to the terms of an end user license agreement.
  * 
  */
-#ifndef HKVEHICLE_HKVEHICLEINSTANCE_H
-#define HKVEHICLE_HKVEHICLEINSTANCE_H
+#ifndef HK_VEHICLE_INSTANCE_H
+#define HK_VEHICLE_INSTANCE_H
 
 #include <Physics/Dynamics/Action/hkpUnaryAction.h>
 
 #include <Common/Base/hkBase.h>
 
-class hkpVehicleAerodynamics;
-class hkpVehicleDriverInput;
-class hkpVehicleBrake;
-class hkpVehicleEngine;
-class hkpVehicleSteering;
-class hkpVehicleSuspension;
-class hkpVehicleTransmission;
-class hkpVehicleWheelCollide;
+#include <Physics/Vehicle/Brake/hkpVehicleBrake.h>
+#include <Physics/Vehicle/Engine/hkpVehicleEngine.h>
+#include <Physics/Vehicle/TyreMarks/hkpTyremarksInfo.h>
+#include <Physics/Vehicle/Steering/hkpVehicleSteering.h>
+#include <Physics/Vehicle/Suspension/hkpVehicleSuspension.h>
+#include <Physics/Vehicle/DriverInput/hkpVehicleDriverInput.h>
+#include <Physics/Vehicle/AeroDynamics/hkpVehicleAerodynamics.h>
+#include <Physics/Vehicle/Transmission/hkpVehicleTransmission.h>
+#include <Physics/Vehicle/WheelCollide/hkpVehicleWheelCollide.h>
+#include <Physics/Vehicle/VelocityDamper/hkpVehicleVelocityDamper.h>
 
 #include <Physics/Vehicle/hkpVehicleData.h>
 
+struct hkpVehicleFrictionSolverParams;
+struct hkpVehicleFrictionSolverAxleParams;
 class hkpVelocityAccumulator;
 class hkStepInfo;
-
 
 /// This is the main class for a vehicle - it is a container for all the
 /// runtime data the vehicle needs, and also contains pointers to all the
@@ -40,7 +43,7 @@ class hkpVehicleInstance : public hkpUnaryAction
 
 		HK_DECLARE_CLASS_ALLOCATOR(HK_MEMORY_CLASS_VEHICLE);
 		HK_DECLARE_REFLECTION();
-	
+		
 			/// This structure stores all data that is useful to the user and is shared
 			/// among vehicle components.
 		struct WheelInfo
@@ -109,11 +112,11 @@ class hkpVehicleInstance : public hkpUnaryAction
 			void init();
 		};
 
-
 			/// Default constructor, the chassis rigid body must be constructed already.
 		hkpVehicleInstance( hkpRigidBody* chassis );
 
-		~hkpVehicleInstance();
+			/// Destructor
+		virtual ~hkpVehicleInstance();
 		
 		//
 		// Methods
@@ -122,23 +125,47 @@ class hkpVehicleInstance : public hkpUnaryAction
 			/// Call to initialize any data that is derived from the initially setup data, such
 			/// as the number of wheels on each axle.
 		virtual void init();
+	
+			/// Obtain the phantom.
+		virtual void getPhantoms( hkArray<hkpPhantom*>& phantomsOut );
 
-			/// Applies the vehicle controller at a given time / timestep. This function
-			/// updates the physical state of the vehicle.
-		virtual void applyAction(const class hkStepInfo& stepInfo);
+			/// Applies the vehicle controller.
+			/// Calls stepVehicle.
+		virtual void applyAction( const class hkStepInfo& stepInfo );
+
+			/// Update and simulate the vehicle.
+		void stepVehicle( const class hkStepInfo& stepInfo );
+
+			/// Update the wheels' hardpoints and the wheelCollide component's phantom with the
+			/// vehicle current transform.
+			/// This should be called before wheel collision detection.
+		void updateBeforeCollisionDetection();
+
+			/// Update and simulate the vehicle, given the collision information.
+		void stepVehicleUsingWheelCollideOutput( const hkStepInfo& stepInfo, const hkpVehicleWheelCollide::CollisionDetectionWheelOutput* cdInfo );
 
 			/// Clone functionality from hkpAction. Will make a new vehicle instance
 			/// sharing as much data as it can.
 		virtual hkpAction* clone( const hkArray<hkpEntity*>& newEntities, const hkArray<hkpPhantom*>& newPhantoms ) const;
 
-			/// This forwards to hkpVehicleWheelCollide::getPhantoms
-		virtual void getPhantoms( hkArray<hkpPhantom*>& phantomsOut );
+
+		//
+		// Adding and removing the vehicle to and from the world.
+		//
+
+			/// Add the vehicle's chassis and phantoms to the world.
+			/// Does not add the vehicle instance as an action to the world.
+		virtual void addToWorld( hkpWorld* world );
+
+			/// Removes the vehicle's chassis and phantoms from the world.
+			/// Does not remove the vehicle instance as an action from the world.
+		virtual void removeFromWorld();
 
 
 		//
 		// Functions to calculate useful information.
 		//
-		
+
 			/// Calculate the current position and rotation of a wheel for the graphics engine.
 		virtual void calcCurrentPositionAndRotation( const hkpRigidBody* chassis, const hkpVehicleSuspension* suspension, int wheelNo, hkVector4& posOut, hkQuaternion& rotOut );
 
@@ -156,11 +183,50 @@ class hkpVehicleInstance : public hkpUnaryAction
 			/// like speed pads
 		virtual void handleFixedGroundAccum( hkpRigidBody* ground, hkpVelocityAccumulator& accum );
 		
+			/// Returns the number of wheels.
+		inline hkUint8 getNumWheels() const;
+
+	public:
+			/// An upper bound useful for creating local arrays for wheels.
+		static const hkUint8 s_maxNumLocalWheels = 16;
+
 		//
 		// Internal functions
 		//
 	protected:
-		void updateWheelsHardPoints(const hkTransform &car_transform);
+
+		// These methods update the state of the components prior to simulation.
+		
+		void updateWheels( hkReal deltaTime, const hkpVehicleWheelCollide::CollisionDetectionWheelOutput* cdInfo );
+		void updateDriverInput( hkReal deltaTime, hkpVehicleDriverInput::FilteredDriverInputOutput& filteredDriverInputInfo );
+		void updateSteering( hkReal deltaTime, const hkpVehicleDriverInput::FilteredDriverInputOutput& filteredDriverInputInfo );
+		void updateTransmission( hkReal deltaTime, hkpVehicleTransmission::TransmissionOutput& transmissionInfo );
+		void updateEngine( hkReal deltaTime, const hkpVehicleDriverInput::FilteredDriverInputOutput& filteredDriverInputInfo, const hkpVehicleTransmission::TransmissionOutput& transmissionInfo );
+		void updateBrake( hkReal deltaTime, const hkpVehicleDriverInput::FilteredDriverInputOutput& filteredDriverInputInfo, hkpVehicleBrake::WheelBreakingOutput& wheelBreakingInfo );
+		void updateSuspension( hkReal deltaTime, const hkpVehicleWheelCollide::CollisionDetectionWheelOutput* cdInfo, hkArray<hkReal>& suspensionForces );
+		void updateAerodynamics( hkReal deltaTime, hkpVehicleAerodynamics::AerodynamicsDragOutput& aerodynamicsDragInfo );
+	
+		// Methods used by the simulation step.
+		void applySuspensionForcesAtWheel( hkReal deltaTime, int w_it, hkReal suspensionForceAtWheel );
+		void getAxleParamsFromWheel( int w_it, hkReal linearForceAtWheel, hkReal suspensionForceAtWheel, hkReal estimatedCarSpeed, hkpVehicleFrictionSolverAxleParams& axle_params );
+		void getAxleParams( const hkStepInfo& stepInfo, hkpRigidBody* groundBody[], hkpVelocityAccumulator groundAccum[], hkpVelocityAccumulator groundAccumAtIntegration[], hkpVehicleFrictionSolverAxleParams axleParams[] );
+		void getExtraTorqueFactor( hkReal deltaTime, hkpVelocityAccumulator& accumulatorForChassis ) const;
+		void applyFrictionSolver( const hkStepInfo& stepInfo, hkpVehicleFrictionSolverParams& frictionParams );
+		void prepareFrictionSolverParams( const hkStepInfo& stepInfo, hkpVehicleFrictionSolverParams& frictionParams );
+		void perWheelBehavior( hkReal deltaTime, const hkArray<hkReal>& suspensionForceAtWheel, const hkArray<hkReal>& totalLinearForceAtWheel, hkpRigidBody* groundBody[], hkpVehicleFrictionSolverAxleParams axleParams[] );
+
+		// Use the results of the friction solver.
+		void applyResultsToChassis( const hkpVelocityAccumulator& accumulatorForChassis );
+		void applyResultsToGround( hkReal deltaTime, const hkpVehicleFrictionSolverAxleParams axleParams[], hkpRigidBody* groundBody[] );
+		void applyResultsToWheelInfo( hkReal deltaTime, const hkpRigidBody *const groundBody[], const hkpVehicleFrictionSolverParams& frictionParams );
+
+			/// Update the components of the vehicle, given the collision detection information.
+			/// This puts data in the provided aerodynamicsDragInfo structure and the suspensionForceAtWheel and totalLinearForceAtWheel arrays which is needed
+			/// by the simulation step.
+		void updateComponents( const hkStepInfo& stepInfo, const hkpVehicleWheelCollide::CollisionDetectionWheelOutput* cdInfo, hkpVehicleAerodynamics::AerodynamicsDragOutput& aerodynamicsDragInfo, hkArray<hkReal>& suspensionForceAtWheel, hkArray<hkReal>& totalLinearForceAtWheel );
+
+			/// Calculate and apply forces to the chassis and the the rigid bodies the vehicle is riding on.
+		void simulateVehicle( const hkStepInfo& stepInfo, const hkpVehicleAerodynamics::AerodynamicsDragOutput& aerodynamicsDragInfo, const hkArray<hkReal>& suspensionForceAtWheel, const hkArray<hkReal>& totalLinearForceAtWheel );		
 
 		//
 		// Members
@@ -202,8 +268,7 @@ class hkpVehicleInstance : public hkpUnaryAction
 	
 			/// The WheelInfo class holds all wheel information generated externally (from the
 			/// physics engine) such as each wheel's ground contact, sliding state, forces,
-			/// contact friction etc. Since all information is shared between several
-			/// s, none of it does not belong in any one. 	
+			/// contact friction etc.
 		hkArray<struct WheelInfo> m_wheelsInfo;
 
 		struct hkpVehicleFrictionStatus m_frictionStatus;
@@ -242,24 +307,23 @@ class hkpVehicleInstance : public hkpUnaryAction
 
 	public:
 
-		/// Get a pointer the vehicle's chassis.
+			/// Get a pointer to the vehicle's chassis.
 		inline class hkpRigidBody* getChassis ( void ) const;
 
-		/// Set the chassis of the vehicle.
-		/// This should only be called before the vehicle has been added to the
-		/// world.
+			/// Set the chassis of the vehicle.
+			/// This should only be called before the vehicle has been added to the
+			/// world.
 		void setChassis ( class hkpRigidBody* chassis );
 	
 		hkpVehicleInstance( hkFinishLoadedObjectFlag f ) : hkpUnaryAction(f), m_wheelsInfo(f), m_frictionStatus(f), m_isFixed(f), m_wheelsSteeringAngle(f) { }
-
 };
 
 #include <Physics/Vehicle/hkpVehicleInstance.inl>
 
-#endif // HKVEHICLE_HKVEHICLEINSTANCE_H
+#endif // HK_VEHICLE_INSTANCE_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

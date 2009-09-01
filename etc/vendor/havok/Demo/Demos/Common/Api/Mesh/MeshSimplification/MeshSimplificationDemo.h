@@ -21,6 +21,9 @@ public:
 	void handleInput();
 	void displayInfoText();
 
+	void setupMutatableMesh( class hkQemMutableMesh& mutMesh );
+	void setupSquareMutatableMesh( class hkQemMutableMesh& mutMesh );
+
 	class hkxMesh* m_originalMesh;
 	class hkLoader* m_loader;
 	hkArray<class hkxMeshSection*> m_sections;
@@ -39,7 +42,7 @@ public:
 };
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

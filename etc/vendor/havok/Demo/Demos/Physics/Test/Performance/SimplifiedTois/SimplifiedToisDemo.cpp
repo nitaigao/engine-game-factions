@@ -220,7 +220,7 @@ void SimplifiedToisDemo::createRagdoll( hkpWorld* world, const hkVector4& positi
 HK_DECLARE_DEMO( SimplifiedToisDemo, HK_DEMO_TYPE_PHYSICS , "Simplified Tois", "Ragdolls on landscape using Normal Tois and SimplifiedTois" );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

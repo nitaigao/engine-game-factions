@@ -225,12 +225,7 @@ hkDemo::Result MultipleCharactersDemo::stepDemo()
 			input[i].m_position = m_characterProxy[i]->getPosition();
 
 			hkVector4 down;	down.setNeg4(up);
-			hkpSurfaceInfo ground;
-			m_characterProxy[i]->checkSupport(down, ground);
-
-			input[i].m_isSupported = ground.m_supportedState == hkpSurfaceInfo::SUPPORTED;
-			input[i].m_surfaceNormal = ground.m_surfaceNormal;
-			input[i].m_surfaceVelocity = ground.m_surfaceVelocity;	
+			m_characterProxy[i]->checkSupport(down, input[i].m_surfaceInfo);
 		}
 	}
 
@@ -300,7 +295,7 @@ HK_DECLARE_DEMO_VARIANT(MultipleCharactersDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYP
 HK_DECLARE_DEMO_VARIANT(MultipleCharactersDemo, HK_DEMO_TYPE_PRIME                         | HK_DEMO_TYPE_STATS, g_variants[1].m_name, 1, helpString, g_variants[1].m_details);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

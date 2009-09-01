@@ -41,9 +41,9 @@ class hkpConstraintDrawer
 
 	protected:
 
-		void drawPivots(int tag);
+		void drawPivots(int id, int tag);
 		
-		void drawBodyFrames(int tag);
+		void drawBodyFrames(int id, int tag);
 
 		void updateCommonParameters(const hkpConstraintInstance* constraint, hkTransform& refLocalToWorld, hkTransform& attLocalToWorld);
 
@@ -113,7 +113,7 @@ class hkpConstraintDrawer
 #endif 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

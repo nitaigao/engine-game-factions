@@ -10,10 +10,13 @@
 #define HK_DEFAULTDEMO_H
 
 #include <Demos/DemoCommon/DemoFramework/hkDemo.h>
+
+#include <Common/Base/KeyCode.h>
 #include <Common/Base/Container/Array/hkObjectArray.h>
 
 // For access to display context
 #include <Graphics/Common/Window/hkgWindow.h>
+
 
 class hkgDisplayObject;
 class hkgDisplayHandler;
@@ -42,7 +45,13 @@ class DemoStepper : public hkReferencedObject
 		virtual hkDemo::Result stepDemo( hkDefaultDemo* demo ) = 0;
 };
 
-#define HK_USE_CHARACTER_FACTORY
+#ifndef HK_USE_CHARACTER_FACTORY
+#	if defined(USING_HAVOK_PHYSICS)
+#		define HK_USE_CHARACTER_FACTORY 1
+#	else
+#		define HK_USE_CHARACTER_FACTORY 0
+#	endif
+#endif
 
 class hkDefaultDemo : public hkDemo
 {
@@ -119,11 +128,12 @@ class hkDefaultDemo : public hkDemo
 		static void HK_CALL setupLights(hkDemoEnvironment* env);
 		static void HK_CALL setupSkyBox(hkDemoEnvironment* env, const char* skyBoxFileName = HK_NULL);
 		static void HK_CALL setSoleDirectionLight(hkDemoEnvironment* env, float dir[3], hkUint32 color);
-		static void HK_CALL setupFixedShadowFrustum(hkDemoEnvironment* env, hkgLight& light, const hkgAabb& areaOfInterest, float extraNear = 0, float extraFar = 0 );
+		static void HK_CALL setThreeStageLights(hkDemoEnvironment* env, float keyDir[3], float fillDir[3], hkUint32 keyColor, hkUint32 fillColor, hkUint32 rimColor );
+		static void HK_CALL setupFixedShadowFrustum(hkDemoEnvironment* env, const hkgLight& light, const hkgAabb& areaOfInterest, float extraNear = 0, float extraFar = 0, int numSplits = 0, int preferedUpAxis = -1 );
 		static void HK_CALL loadingScreen(hkDemoEnvironment* env, const char* screenFile = HK_NULL);
 
 		// handy simple version of above (does a set sole dir then a fixed shadow frustum)
-		virtual void setLightAndFixedShadow(float* lightDir, float* shadowAabbMin, float* shadowAabbMax, float extraNear = 0, float extraFar = 0);
+		virtual void setLightAndFixedShadow(float* lightDir, float* shadowAabbMin, float* shadowAabbMax, float extraNear = 0, float extraFar = 0, int numSplits = 0);
 
 		static void HK_CALL removeLights(hkDemoEnvironment* env);
 
@@ -185,13 +195,17 @@ class hkDefaultDemo : public hkDemo
 		// We remove reference as last step in destructor - handy for storing hkPackfileData
 		hkArray<hkReferencedObject*> m_delayedCleanup;
 
-#if defined (HK_USE_CHARACTER_FACTORY)
+#if defined (HK_USE_CHARACTER_FACTORY) && (HK_USE_CHARACTER_FACTORY == 1)
 		// A utilitiy class for creating a character in a demo - will do different things depending on what products are present
 		// Don't use directly - call getCharacterFactory()
 		class CharacterFactory* m_characterFactory;
 	
 		// Initializes m_characterFactory if it isn't already
 		class CharacterFactory* getCharacterFactory( );
+
+		// Sets a new character factory
+		void  setCharacterFactory( CharacterFactory* newFactory );
+
 #endif
 
 	public:
@@ -204,10 +218,6 @@ class hkDefaultDemo : public hkDemo
 
 		hkArray<hkProcessContext*> m_contexts;
 
-
-
-
-
 	public:
 			// Handles timer display for multithreaded demos
 		virtual void addOrRemoveThreads( );
@@ -215,6 +225,17 @@ class hkDefaultDemo : public hkDemo
 		virtual void getTimerStreamInfo( hkArray<hkTimerData>& timerStreams, hkArray<hkTimerData>& spuStreams, int maxThreads = 0x7fffffff );
 		virtual void resetTimerStreams();
 
+		int toggleShowFps();
+		int toggleShowShadowMap();
+		int showCameraInfo();
+
+		class AiDemoComponent* getAiDemoComponent();
+		void setAiDemoComponent(AiDemoComponent* aiDemoComponent);
+
+	public:
+	
+			// Wii-specific call to enable/disable the locked cache
+		void enableLockedCache(bool enable);
 
 	public:
 
@@ -236,14 +257,19 @@ class hkDefaultDemo : public hkDemo
 
 		hkBool m_forcedShadowsOff;
 		hkBool m_forcedShadowsOn;
+		hkBool m_forcedDebugShadowMap;
 
+	private:
+
+		// Derived classes should access this using getAiDemoComponent()
+		hkReferencedObject* m_aiDemoComponent;
 };
 
 #endif // HK_DEFAULTDEMO_H
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

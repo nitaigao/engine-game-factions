@@ -25,13 +25,14 @@ class hkpConstraintCallbackUtil
 		static void HK_CALL fireConstraintAdded(   hkpConstraintInstance* constraint );
 		static void HK_CALL fireConstraintRemoved( hkpConstraintInstance* constraint );
 		static void HK_CALL fireConstraintDeleted( hkpConstraintInstance* constraint );
-		static void HK_CALL fireConstraintBroken(  const hkpConstraintBrokenEvent& event ) ;
+		static void HK_CALL fireConstraintBroken  (  const hkpConstraintBrokenEvent& event ) ;
+		static void HK_CALL fireConstraintRepaired(  const hkpConstraintRepairedEvent& event ) ;
 };
 
 #endif // HK_DYNAMICS2_CONSTRAINT_CALLBACK_UTIL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

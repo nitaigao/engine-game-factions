@@ -13,6 +13,10 @@
 #include <Demos/DemoCommon/DemoFramework/hkDemoFramework.h>
 #include <Demos/DemoCommon/DemoFramework/hkTextDisplay.h>
 
+#if defined (HK_USE_CHARACTER_FACTORY) && (HK_USE_CHARACTER_FACTORY == 1)
+#	include <Demos/DemoCommon/Utilities/Character/DemoCharacter/DemoCharacter.h>
+#endif
+
 #include <Common/Base/System/Io/FileSystem/hkFileSystem.h>
 #include <Common/Base/System/Io/Reader/hkStreamReader.h>
 #include <Common/Base/System/Stopwatch/hkStopwatch.h>
@@ -46,17 +50,20 @@
 	#if defined USING_HAVOK_ANIMATION
 	#include <Demos/DemoCommon/Utilities/Character/DemoCharacter/AnimatedDemoCharacter/AnimatedDemoCharacter.h>
 	#endif
+	#if defined USING_HAVOK_BEHAVIOR
+	#include <Demos/DemoCommon/Utilities/Character/DemoCharacter/BehaviorDemoCharacter/BehaviorDemoCharacter.h>
+	#endif
 #endif
+
 
 
 
 #if defined HK_PLATFORM_PS3_PPU
-#include <Common/Base/Memory/PlattformUtils/Spu/hkSpuMemoryInternal.h>
+#include <Common/Base/Memory/PlatformUtils/Spu/hkSpuMemoryInternal.h>
 #define	SPURS_THREAD_GROUP_PRIORITY 250
 #define SPURS_HANDLER_THREAD_PRIORITY 1
-#define MAX_SPU_THREADS 6
+#define MAX_SPU_THREADS 5
 #endif
-
 
 
 
@@ -74,7 +81,8 @@ hkDefaultDemo::hkDefaultDemo(hkDemoEnvironment* env, bool isMenuDemo )
 		m_vdb(HK_NULL),
 		m_vdbClassReg(HK_NULL),
 		m_allowZeroActiveSpus(true),
-		m_allowChangingNumThreads(true)
+		m_allowChangingNumThreads(true),
+		m_aiDemoComponent(HK_NULL)
 {
 
 	m_jobQueue = HK_NULL;
@@ -83,7 +91,8 @@ hkDefaultDemo::hkDefaultDemo(hkDemoEnvironment* env, bool isMenuDemo )
 
 	m_forcedShadowsOff = false;
 	m_forcedShadowsOn = false;
-	
+	m_forcedDebugShadowMap = false;
+
 	if (!isMenuDemo)
 	{
 
@@ -126,19 +135,26 @@ hkDefaultDemo::hkDefaultDemo(hkDemoEnvironment* env, bool isMenuDemo )
 			}
 	}
 
-#if defined (HK_USE_CHARACTER_FACTORY)
+#if defined (HK_USE_CHARACTER_FACTORY) && (HK_USE_CHARACTER_FACTORY == 1)
 	m_characterFactory = HK_NULL;
 #endif
+
+	bindKeyPressed( HKG_VKEY_F12, "Toggle framerate display", KeyPressCallback::Method(&hkDefaultDemo::toggleShowFps,this) );
+	bindKeyPressed( HKG_VKEY_F11, "Toggle shadow map display", KeyPressCallback::Method(&hkDefaultDemo::toggleShowShadowMap,this) );
+	bindKeyPressed( HKG_VKEY_DECIMAL, "Show camera info", KeyPressCallback::Method(&hkDefaultDemo::showCameraInfo,this) );
 }
 
-#if defined (HK_USE_CHARACTER_FACTORY)
-CharacterFactory* hkDefaultDemo::getCharacterFactory( )
+#if defined (HK_USE_CHARACTER_FACTORY) && (HK_USE_CHARACTER_FACTORY == 1)
+CharacterFactory* hkDefaultDemo::getCharacterFactory( ) 
 {
 	if (!m_characterFactory)
 	{
 #if !defined USING_HAVOK_PHYSICS
 		m_characterFactory = HK_NULL; // No version currently implemented that do not use a character proxy from phsyics
 #else
+#	if defined USING_HAVOK_BEHAVIOR
+		m_characterFactory = new BehaviorCharacterFactory();
+#	else
 #	if defined USING_HAVOK_ANIMATION
 		//#if 0
 		m_characterFactory = new AnimatedCharacterFactory( );
@@ -146,10 +162,25 @@ CharacterFactory* hkDefaultDemo::getCharacterFactory( )
 		m_characterFactory = new SimpleCharacterFactory();
 #	endif
 #endif
+#endif
+
 	}
 	return m_characterFactory;
 }
-#endif // defined (HK_USE_CHARACTER_FACTORY)
+
+void  hkDefaultDemo::setCharacterFactory( CharacterFactory* newFactory )
+{
+	newFactory->addReference();
+
+	if (m_characterFactory)
+	{
+		m_characterFactory->removeReference();
+	}
+
+	m_characterFactory = newFactory;
+}
+
+#endif // defined (HK_USE_CHARACTER_FACTORY) && (HK_USE_CHARACTER_FACTORY == 1)
 
 void hkDefaultDemo::shutdownVDB()
 {
@@ -233,7 +264,7 @@ hkDefaultDemo::~hkDefaultDemo()
 		m_env->m_options->m_enableShadows = true;// reset
 	}
 	
-#if defined (HK_USE_CHARACTER_FACTORY)
+#if defined (HK_USE_CHARACTER_FACTORY) && (HK_USE_CHARACTER_FACTORY == 1)
  	if (m_characterFactory)
  	{
  		delete m_characterFactory;
@@ -280,19 +311,37 @@ void hkDefaultDemo::cleanupGraphics()
 		// but only if only running one demo at once (see multithread tests(
 		while (m_env->m_displayWorld->getNumDisplayObjects() > 0)
 		{
-			hkgDisplayObject* o = m_env->m_displayWorld->safeRemoveDisplayObject(m_env->m_displayWorld->getNumDisplayObjects()-1);
+			hkgDisplayObject* o = m_env->m_displayWorld->removeDisplayObject(m_env->m_displayWorld->getNumDisplayObjects()-1);
 			o->removeReference();
 		}
 		m_env->m_displayWorld->unlock();
 	}
 
 	m_env->m_displayHandler->clearDisplay();
+	m_env->m_displayHandler->setImmediateModeEnabled(true);
+
 	m_env->m_displayWorld->unsort();
+
+	m_env->m_sceneConverter->clearTextureSearchPaths();
 
 	if (m_env->m_window)
 	{
+		m_env->m_window->applyPostEffects();
+
 		m_env->m_window->getViewport(0)->setSkyBox(HK_NULL);
-		m_env->m_window->setShadowMapMode( HKG_SHADOWMAP_MODE_DEFAULT, HK_NULL );
+		m_env->m_window->setShadowMapMode( HKG_SHADOWMAP_MODE_NONE, HK_NULL );
+		m_env->m_window->getShadowUtil().setNearDistanceClamp(0,0);
+		m_env->m_window->getShadowUtil().setSplitSchemeWeight();
+		m_env->m_window->getShadowUtil().setNearFarFitTolerance();
+		m_env->m_window->getShadowUtil().setFastViewCull(false);
+		m_env->m_window->cleanupPostEffects();
+		setGraphicsState(HKG_ENABLED_FOG, false);
+
+		m_env->m_displayWorld->setShadowCasterMaxDistance( -1 );
+		m_env->m_window->setShadowMapSize(0);
+		m_env->m_displayWorld->setReflections(false, HK_NULL);
+		m_env->m_window->enableDebugShadowMapView( false );
+
 	}
 
 	m_env->m_window->getContext()->unlock();
@@ -419,12 +468,26 @@ void hkDefaultDemo::setupDefaultCameras( hkEnum<CameraAxis,int> upAxis, hkReal f
 
 void HK_CALL hkDefaultDemo::setupSkyBox(hkDemoEnvironment* env, const char* skyBoxFileName)
 {
+	hkString defaultPath("Resources/Common/Graphics/Skybox/");
+
 	if (!skyBoxFileName)
-{
+	{
 		skyBoxFileName = "Resources/Common/Graphics/defaultskybox";
 	}
 
-	hkString rootName (skyBoxFileName);
+	const char* dirSep = "/";
+	hkArray<int> hits;
+	hkString::findAllOccurrences( skyBoxFileName, dirSep, hits, hkString::REPLACE_ALL );
+	hkString rootName;
+	if (hits.isEmpty())
+	{
+		rootName = defaultPath + hkString(skyBoxFileName);
+	}
+	else
+	{
+		rootName = hkString(skyBoxFileName);
+	}
+
 	hkString upName = rootName + "_UP.png";
 	hkString downName = rootName + "_DN.png";
 	hkString leftName = rootName + "_LF.png";
@@ -644,7 +707,7 @@ void hkDefaultDemo::mouseDown()
 		hkgViewport* v = w->getCurrentViewport();
 		hkgCamera* c = v->getCamera();
 		int vx, vy;
-		v->getLowerLeftCoord(vx, vy);
+    		v->getLowerLeftCoord(vx, vy);
 
 		hkgViewportPickData pd;
 
@@ -852,6 +915,89 @@ void HK_CALL hkDefaultDemo::setSoleDirectionLight(hkDemoEnvironment* env, float 
 	lm->unlock();
 }
 
+
+// handy for simple demos
+void HK_CALL hkDefaultDemo::setThreeStageLights(hkDemoEnvironment* env, float keyDir[3], float fillDir[3], hkUint32 keyColor, hkUint32 fillColor, hkUint32 rimColor )
+{
+	// make some lights
+	hkgLightManager* lm = env->m_displayWorld->getLightManager();
+
+	if (!lm)
+	{
+		lm = hkgLightManager::create();
+		env->m_displayWorld->setLightManager( lm );
+		lm->release();
+		lm->lock();
+	}
+	else
+	{
+		lm->lock();
+		// clear out the lights currently in the world.
+		while( lm->getNumLights() > 0 )
+		{
+			hkgLight* l = lm->removeLight(0); // gives back reference
+			l->release();
+		}
+	}
+
+	// Background color
+	float bg[4] = { 0.53f, 0.55f, 0.61f, 1 };
+	env->m_window->setClearColor( bg );
+
+	float v[4]; v[3] = 255;
+	hkgLight* light;
+
+	// http://en.wikipedia.org/wiki/Three-point_lighting
+
+	// the key light, this is the strongest, and casts the main shadows etc
+	{
+		light = hkgLight::create();
+		light->setType( HKG_LIGHT_DIRECTIONAL );
+		float rgba[4];
+		hkgColor4UnpackToVec4(rgba, keyColor);
+		light->setDiffuse( rgba );
+		light->setSpecular( rgba );
+		float ndir[3];
+		hkgVec3Copy(ndir, keyDir);
+		hkgVec3Normalize( ndir );
+		light->setDirection( ndir );
+		light->setPosition( HKG_VEC3_ZERO ); // not used as directional
+		light->setDesiredEnabledState( true );
+		lm->addLight( light );
+		light->release();
+	}
+
+	// the fill light, this is softer than the main key light, usually lower too
+	{
+		light = hkgLight::create();
+		light->setType( HKG_LIGHT_DIRECTIONAL );
+		float rgba[4];
+		hkgColor4UnpackToVec4(rgba, fillColor);
+		light->setDiffuse( rgba );
+		light->setSpecular( rgba );
+		float ndir[3];
+		hkgVec3Copy(ndir, fillDir);
+		hkgVec3Normalize( ndir );
+		light->setDirection( ndir );
+		light->setPosition( HKG_VEC3_ZERO ); // not used as directional
+		light->setDesiredEnabledState( true );
+		lm->addLight( light );
+		light->release();
+
+	}
+
+	// Rim color, assumed to be from inverted fill color dir
+	{
+		float rgba[4];
+		hkgColor4UnpackToVec4(rgba, rimColor);
+		lm->setSceneRimColor( rgba );
+	}
+
+	lm->computeActiveSet( HKG_VEC3_ZERO );
+	lm->unlock();
+}
+
+
 void HK_CALL hkDefaultDemo::setupLights(hkDemoEnvironment* env)
 {
 	// make some default lights
@@ -970,18 +1116,34 @@ void HK_CALL hkDefaultDemo::setupLights(hkDemoEnvironment* env)
 	lm->unlock();
 }
 
-void HK_CALL hkDefaultDemo::setupFixedShadowFrustum( hkDemoEnvironment* env, hkgLight& light, const hkgAabb& areaOfInterest, float extraNear, float extraFar )
+void HK_CALL hkDefaultDemo::setupFixedShadowFrustum( hkDemoEnvironment* env, const hkgLight& light, const hkgAabb& areaOfInterest, float extraNear, float extraFar, int numSplits, int preferedUpAxis )
 {
-	hkgCamera* lightCam = hkgCamera::createFixedShadowFrustumCamera( light, areaOfInterest, true, extraNear, extraFar  );
-	env->m_window->setShadowMapMode(HKG_SHADOWMAP_MODE_FIXED, lightCam);
+	hkgCamera* lightCam = hkgCamera::createFixedShadowFrustumCamera( light, areaOfInterest, true, extraNear, extraFar, preferedUpAxis );
+
+	HKG_SHADOWMAP_SUPPORT shadowSupport = env->m_window->getShadowMapSupport();
+	if ( (numSplits > 0) && (shadowSupport == HKG_SHADOWMAP_VSM))
+	{
+		env->m_window->setShadowMapSplits(numSplits); // > 0 and you are requesting PSVSM (if the platforms supports VSM that is)
+		env->m_window->setShadowMapMode(HKG_SHADOWMAP_MODE_PSVSM, lightCam);
+	}
+	else
+	{
+		if ((numSplits > 0) && (shadowSupport != HKG_SHADOWMAP_NOSUPPORT))
+		{
+			HK_WARN_ALWAYS(0x0, "The demo is requesting PSVSM shadows, but VSM is not supported, so just reverting to normal single map, fixed projection.");
+		}
+
+		env->m_window->setShadowMapMode( HKG_SHADOWMAP_MODE_FIXED, lightCam);
+	}
+
 	lightCam->removeReference();
 }
 
-void hkDefaultDemo::setLightAndFixedShadow(float* lightDir, float* shadowAabbMin, float* shadowAabbMax, float extraNear, float extraFar )
+void hkDefaultDemo::setLightAndFixedShadow(float* lightDir, float* shadowAabbMin, float* shadowAabbMax, float extraNear, float extraFar, int numSplits  )
 {
 	setSoleDirectionLight(m_env, lightDir, 0xffffffff );
 	hkgAabb aabb( shadowAabbMin, shadowAabbMax );
-	setupFixedShadowFrustum(m_env, *(m_env->m_displayWorld->getLightManager()->getLight(0)), aabb, extraNear, extraFar );
+	setupFixedShadowFrustum(m_env, *(m_env->m_displayWorld->getLightManager()->getLight(0)), aabb, extraNear, extraFar, numSplits );
 }
 
 
@@ -1001,10 +1163,9 @@ void hkDefaultDemo::addStepper( DemoStepper* stepper )
 
 hkDemo::Result hkDefaultDemo::stepDemo()
 {
-	hkDemo::Result result = DEMO_OK;
 	for ( int i = 0; i < m_steppers.getSize(); ++i )
 	{
-		result = m_steppers[i]->stepDemo( this );
+		hkDemo::Result result = m_steppers[i]->stepDemo( this );
 		if (result != DEMO_OK)
 		{
 			return result;
@@ -1013,9 +1174,17 @@ hkDemo::Result hkDefaultDemo::stepDemo()
 
 	if ( m_allowChangingNumThreads )
 	{
-	addOrRemoveThreads();
+		addOrRemoveThreads();
 	}
-	return result;
+
+	// Step local viewers
+	hkReal frameTimeInMs = m_timestep * 1000.f;
+	for (int i = 0; i < m_debugProcesses.getSize(); ++i)
+	{
+		m_debugProcesses[i]->step(frameTimeInMs);
+	}
+
+	return hkDemo::stepDemo();
 }
 
 void hkDefaultDemo::addOrRemoveThreads()
@@ -1094,11 +1263,61 @@ void hkDefaultDemo::resetTimerStreams()
 	{
 		m_jobThreadPool->clearTimerData();
 	}
-
 }
 
+int hkDefaultDemo::toggleShowFps()
+{
+	m_env->m_options->m_showFps = !m_env->m_options->m_showFps;
+	return 0;
+}
+
+int hkDefaultDemo::toggleShowShadowMap()
+{
+	m_forcedDebugShadowMap = !m_forcedDebugShadowMap;
+	m_env->m_window->enableDebugShadowMapView( m_forcedDebugShadowMap );
+	return 0;
+}
+
+int hkDefaultDemo::showCameraInfo()
+{
+	hkgCamera* c = m_env->m_window->getCurrentViewport()->getCamera();
+	hkString camInfo; camInfo.printf("Cam From : %.3f %.3f %.3f\n Cam To : %.3f %.3f %.3f, \n Cam Up : %.3f %.3f %.3f, zn FOV : %.2f, Near : %.5f, Far %.5f\n\n",
+		c->getFromPtr()[0], c->getFromPtr()[1], c->getFromPtr()[2],
+		c->getToPtr()[0], c->getToPtr()[1], c->getToPtr()[2],
+		c->getUpPtr()[0], c->getUpPtr()[1], c->getUpPtr()[2],
+		c->getFOV(), c->getNear(), c->getFar() );
+
+	HK_REPORT( camInfo.cString() );
+	return 0;
+}
+
+AiDemoComponent* hkDefaultDemo::getAiDemoComponent()
+{
+	return reinterpret_cast<AiDemoComponent*>(m_aiDemoComponent);
+}
+
+void hkDefaultDemo::setAiDemoComponent(AiDemoComponent* aiDemoComponent)
+{
+	hkReferencedObject* refObj = reinterpret_cast<hkReferencedObject*>(aiDemoComponent);
+	if(refObj)
+	{
+		refObj->addReference();
+	}
+	if(m_aiDemoComponent)
+	{
+		m_aiDemoComponent->removeReference();
+	}
+	m_aiDemoComponent = refObj;
+}
+
+
+void hkDefaultDemo::enableLockedCache(bool enable)
+{
+}
+
+
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

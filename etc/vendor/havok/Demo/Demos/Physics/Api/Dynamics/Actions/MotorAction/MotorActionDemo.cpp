@@ -86,29 +86,8 @@ MotorActionDemo::MotorActionDemo(hkDemoEnvironment* env)
 		}
 
 		// make a convex hull for the top
-		hkpConvexVerticesShape* topShape = HK_NULL;
-		{
-			hkArray<hkVector4> planeEquations;
-			hkGeometry geom;
-				
-			hkStridedVertices stridedVerts;
-			{
-				stridedVerts.m_numVertices = verts.getSize();
-				stridedVerts.m_striding = sizeof(hkVector4);
-				stridedVerts.m_vertices = reinterpret_cast<const float*>(verts.begin());
-			}
-
-			hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-			{
-				stridedVerts.m_numVertices = geom.m_vertices.getSize();
-				stridedVerts.m_striding = sizeof(hkVector4);
-				stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-			}
-
-			topShape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-		}
-
+		hkpConvexVerticesShape* topShape = new hkpConvexVerticesShape(verts);
+		
 		// Add the body
 		topBody = GameUtils::createRigidBody( topShape, 1.0f, hkVector4::getZero() );
 		topShape->removeReference();
@@ -169,7 +148,7 @@ static const char* helpString = "A simple hkpMotorAction demo. The motor reverse
 HK_DECLARE_DEMO(MotorActionDemo, HK_DEMO_TYPE_PRIME, "Demonstrates the use of a hkpMotorAction\n", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

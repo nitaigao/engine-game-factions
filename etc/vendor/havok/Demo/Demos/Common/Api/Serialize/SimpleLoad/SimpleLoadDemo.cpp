@@ -146,7 +146,7 @@ HK_DECLARE_DEMO_VARIANT(SimpleLoadDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_SERIAL
 HK_DECLARE_DEMO_VARIANT(SimpleLoadDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_SERIALIZE | HK_DEMO_TYPE_CRITICAL, "XML",		XML,	"Shows how to load a simple xml physics file", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

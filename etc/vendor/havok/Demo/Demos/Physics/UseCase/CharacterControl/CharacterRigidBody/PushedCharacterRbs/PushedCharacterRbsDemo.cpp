@@ -9,6 +9,7 @@
 #include <Demos/demos.h>
 #include <Demos/Physics/UseCase/CharacterControl/CharacterRigidBody/PushedCharacterRbs/PushedCharacterRbsDemo.h>
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
 
 #include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h> 
 #include <Physics/ConstraintSolver/Simplex/hkpSimplexSolver.h>
@@ -146,7 +147,6 @@ PushedCharacterRbsDemo::PushedCharacterRbsDemo(hkDemoEnvironment* env)
 		info.setBroadPhaseWorldSize( 350.0f );  
 		info.m_gravity.set(0,0,-9.8f);
 		info.m_contactPointGeneration = hkpWorldCinfo::CONTACT_POINT_ACCEPT_ALWAYS;
-		info.m_collisionTolerance = 0.01f;
 		
 		m_world = new hkpWorld( info );
 		m_world->lock();
@@ -173,6 +173,9 @@ PushedCharacterRbsDemo::PushedCharacterRbsDemo(hkDemoEnvironment* env)
 		m_world->addEntity(entity);
 		entity->removeReference();
 	}
+
+	// The character rigid body listener is common to all the characters.
+	hkpCharacterRigidBodyListener* listener = new hkpCharacterRigidBodyListener();
 
 	//	Create main controlled character with attached hkPhantomCallback shape	
 	{
@@ -216,6 +219,7 @@ PushedCharacterRbsDemo::PushedCharacterRbsDemo(hkDemoEnvironment* env)
 		
 
 		m_characterRigidBody = new hkpCharacterRigidBody( info );
+		m_characterRigidBody->setListener( listener );
 		m_world->addEntity( m_characterRigidBody->getRigidBody() );
 
 		characterShape->removeReference();
@@ -325,8 +329,10 @@ PushedCharacterRbsDemo::PushedCharacterRbsDemo(hkDemoEnvironment* env)
 			m_desiredPositions[i] = info.m_position;
 			m_desiredPositions[i](2)-=0.9f; // stay 0.1 m above floor - dist
 			
-			m_characterRigidBodies[i] = new hkpCharacterRigidBody( info );
-			m_world->addEntity( m_characterRigidBodies[i]->getRigidBody() );
+			hkpCharacterRigidBody*& body = m_characterRigidBodies[i];
+			body = new hkpCharacterRigidBody( info );
+			body->setListener( listener );
+			m_world->addEntity( body->getRigidBody() );
 
 			// Reset to new color
 			m_characterRigidBodies[i]->getRigidBody()->removeProperty(HK_PROPERTY_DEBUG_DISPLAY_COLOR);
@@ -370,6 +376,8 @@ PushedCharacterRbsDemo::PushedCharacterRbsDemo(hkDemoEnvironment* env)
 			manager->removeReference();			
 		}
 	}
+		
+	listener->removeReference();
 		
 	// Current camera angle about up
 	m_currentAngle = 0.0f;
@@ -460,13 +468,7 @@ hkDemo::Result PushedCharacterRbsDemo::stepDemo()
 			input.m_velocity = m_characterRigidBody->getRigidBody()->getLinearVelocity();
 			input.m_position = m_characterRigidBody->getRigidBody()->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBody->checkSupport(stepInfo, ground);
-
-			input.m_isSupported = (ground.m_supportedState == hkpSurfaceInfo::SUPPORTED);
-			input.m_surfaceNormal = ground.m_surfaceNormal;
-			input.m_surfaceVelocity = ground.m_surfaceVelocity;			
-			
+			m_characterRigidBody->checkSupport(stepInfo, input.m_surfaceInfo);			
 		}
 
 		// Apply the character state machine
@@ -626,12 +628,7 @@ void PushedCharacterRbsDemo::doInteractionCharacterRbs()
 			input[i].m_velocity = m_characterRigidBodies[i]->getRigidBody()->getLinearVelocity();
 			input[i].m_position = m_characterRigidBodies[i]->getRigidBody()->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBodies[i]->checkSupport(stepInfo, ground);
-
-			input[i].m_isSupported = (ground.m_supportedState == hkpSurfaceInfo::SUPPORTED);
-			input[i].m_surfaceNormal = ground.m_surfaceNormal;
-			input[i].m_surfaceVelocity = ground.m_surfaceVelocity;				
+			m_characterRigidBodies[i]->checkSupport(stepInfo, input[i].m_surfaceInfo);
 		}
 	}
 
@@ -683,7 +680,7 @@ HK_DECLARE_DEMO(PushedCharacterRbsDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_CRITIC
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

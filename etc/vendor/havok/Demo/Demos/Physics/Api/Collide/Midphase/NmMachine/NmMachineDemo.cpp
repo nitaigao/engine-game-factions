@@ -321,7 +321,7 @@ hkpListShape* NmMachineDemo::createRing(bool useSubMopps)
 			{
 				// Build mopp around the subList
 				hkpMoppCompilerInput mci;
-				mci.m_enableChunkSubdivision = true; 
+				mci.m_enableChunkSubdivision = true;
 				hkpMoppCode* code = hkpMoppUtility::buildCode(subShape,mci);
 				hkpMoppBvTreeShape* moppSubShape = new hkpMoppBvTreeShape(subShape, code);
 				code->removeReference();
@@ -392,7 +392,7 @@ hkpListShape* NmMachineDemo::createSnowFlake(bool useSubMopps)
 
 			// Build mopp around the subList
 			hkpMoppCompilerInput mci;
-			mci.m_enableChunkSubdivision = true; 
+			mci.m_enableChunkSubdivision = true;
 			hkpMoppCode* code = hkpMoppUtility::buildCode(subList,mci);
 			hkpMoppBvTreeShape* moppSubShape = new hkpMoppBvTreeShape(subList, code);
 			code->removeReference();
@@ -438,7 +438,7 @@ hkDemo::Result NmMachineDemo::stepDemo()
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( NmMachineDemo, HK_DEMO_TYPE_PRIME | HK_DEMO_TYPE_CRITICAL, NmMachineDemoVariant, g_variants, HK_NULL);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

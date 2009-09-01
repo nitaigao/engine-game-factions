@@ -92,11 +92,11 @@ class hkpMaterial
 	private:
 
 		hkEnum<ResponseType,hkInt8> m_responseType;
+#if defined HK_ENABLE_ROLLING_FRICITON_CODE
+		////hkHalf m_rollingFrictionMultiplier; // Multiply this by m_friction to get the rolling friction coefficient
+#endif
 		hkReal m_friction;
 		hkReal m_restitution;
-#if defined HK_ENABLE_ROLLING_FRICITON_CODE
-		//hkReal m_rollingFrictionMultiplier; // Multiply this by m_friction to get the rolling friction coefficient
-#endif
 
 	public:
 
@@ -109,7 +109,7 @@ class hkpMaterial
 #endif // HK_DYNAMICS2_MATERIAL_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

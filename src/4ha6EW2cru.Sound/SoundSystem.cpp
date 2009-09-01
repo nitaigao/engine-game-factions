@@ -189,20 +189,12 @@ namespace Sound
 			std::string filePath = parameters[ "filePath" ].As< std::string >( );
 			result = m_eventSystem->load( filePath.c_str( ), 0, 0 );
 			results[ "result" ] = ( result == FMOD_OK );
-		}
-
-		if ( message == "playMusic" )
-		{
-			FMOD::Event* event = 0;
-			std::string eventPath = parameters[ "eventPath" ].As< std::string >( );
-			result = m_eventSystem->getEvent( eventPath.c_str( ), FMOD_EVENT_DEFAULT, &event );
-
-			if ( result == FMOD_OK )
-			{
-				result = event->start( );
-				results[ "result" ] = ( result == FMOD_OK );
-			}
 		}*/
+
+		if ( message == System::Messages::PlayMusic )
+		{
+			m_eventSystem->TriggerEvent( parameters[ System::Parameters::SoundEventPath ].As< std::string >( ) );
+		}
 
 		return results;
 	}

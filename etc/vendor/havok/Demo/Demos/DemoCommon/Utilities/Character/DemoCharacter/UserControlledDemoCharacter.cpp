@@ -10,18 +10,10 @@
 #include <Demos/demos.h>
 
 #include <Demos/DemoCommon/Utilities/Character/DemoCharacter/UserControlledDemoCharacter.h>
-#include <Demos/DemoCommon/Utilities/Character/DemoCharacter/DemoCharacter.h>
-#include <Demos/DemoCommon/Utilities/Character/CharacterProxy/CharacterProxy.h>
-
-#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>
-#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>
-#include <Physics/Collide/Query/Collector/RayCollector/hkpAllRayHitCollector.h>
-#include <Physics/Collide/Filter/Group/hkpGroupFilter.h>
-#include <Physics/Dynamics/World/hkpWorld.h>
-#include <Physics/Dynamics/Entity/hkpRigidBody.h>
-
-#include <Graphics/Common/Camera/hkgCamera.h>
 #include <Common/Visualize/hkDebugDisplay.h>
+#include <Demos/DemoCommon/Utilities/Character/DemoCharacter/DemoCharacter.h>
+#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>
+#include <Physics/Collide/Query/Collector/RayCollector/hkpAllRayHitCollector.h>
 
 UserControlledDemoCharacter::UserControlledDemoCharacter( DemoCharacter* character )
 : m_demoCharacter( character )
@@ -44,6 +36,10 @@ UserControlledDemoCharacter::UserControlledDemoCharacter( DemoCharacter* charact
 		m_actionsKeys[ACTION_GETUP] = HKG_PAD_BUTTON_1;
 		m_actionsKeys[ACTION_JUMP]	= HKG_PAD_BUTTON_0;
 		m_actionsKeys[ACTION_DIVE]	= HKG_PAD_BUTTON_3;
+		m_actionsKeys[ACTION_CROUCH] = HKG_PAD_BUTTON_L1;
+		m_actionsKeys[ACTION_TANTRUM] = HKG_PAD_BUTTON_L2;
+		m_actionsKeys[ACTION_SWAT] = HKG_PAD_BUTTON_R1;
+		m_actionsKeys[ACTION_PLANT_C4] = HKG_PAD_BUTTON_R2;
 	}
 }
 
@@ -59,7 +55,7 @@ void UserControlledDemoCharacter::setActionKey(CharacterAction action, HKG_PAD_B
 
 void UserControlledDemoCharacter::getUserInputForCharacter( hkDemoEnvironment* env, CharacterStepInput& input,  CharacterActionInfo& actionInfo, const hkReal maxVelocity )
 {
-	input.m_straffeLeftRightVelocity = 0; // Not used
+	input.m_strafeLeftRightVelocity = 0; // Not used
 	input.m_turnVelocity = 0;
 
 	{
@@ -139,6 +135,10 @@ void UserControlledDemoCharacter::getUserInputForCharacter( hkDemoEnvironment* e
 			actionInfo.m_wasDiePressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_DIE]);
 			actionInfo.m_wasGetUpPressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_GETUP]);
 			actionInfo.m_wasDivePressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_DIVE]);
+			actionInfo.m_wasCrouchPressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_CROUCH]);
+			actionInfo.m_wasTantrumPressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_TANTRUM]);
+			actionInfo.m_wasSwatPressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_SWAT]);
+			actionInfo.m_wasPlantC4Pressed = env->m_gamePad->wasButtonPressed(m_actionsKeys[ACTION_PLANT_C4]);
 		}
 	}
 }
@@ -260,7 +260,7 @@ void UserControlledDemoCharacter::updateCamera( hkDemoEnvironment* env, hkpWorld
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

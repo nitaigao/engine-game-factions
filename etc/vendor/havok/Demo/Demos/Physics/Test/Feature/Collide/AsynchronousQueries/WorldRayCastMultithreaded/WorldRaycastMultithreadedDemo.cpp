@@ -249,27 +249,12 @@ void WorldRayCastMultithreadedDemo::createBodies()
 				
 
 				hkpConvexVerticesShape* shape;
-				hkArray<hkVector4> planeEquations;
-				hkGeometry geom;
-				{
-					hkStridedVertices stridedVerts;
-					{
-						stridedVerts.m_numVertices = numVertices;
-						stridedVerts.m_striding = stride;
-						stridedVerts.m_vertices = vertices;
-					}
-
-					hkGeometryUtility::createConvexGeometry( stridedVerts, geom, planeEquations );
-
-					{
-						stridedVerts.m_numVertices = geom.m_vertices.getSize();
-						stridedVerts.m_striding = sizeof(hkVector4);
-						stridedVerts.m_vertices = &(geom.m_vertices[0](0));
-					}
-
-					shape = new hkpConvexVerticesShape(stridedVerts, planeEquations);
-				}
-
+				hkStridedVertices stridedVerts;
+				stridedVerts.m_numVertices = numVertices;
+				stridedVerts.m_striding = stride;
+				stridedVerts.m_vertices = vertices;
+				shape = new hkpConvexVerticesShape(stridedVerts);
+				
 				rigidBodyInfo.m_shape = shape;
 				break;
 			}
@@ -448,7 +433,7 @@ hkDemo::Result WorldRayCastMultithreadedDemo::stepDemo()
 HK_DECLARE_DEMO_VARIANT_USING_STRUCT( WorldRayCastMultithreadedDemo, HK_DEMO_TYPE_OTHER, WorldRayCastMultithreadedDemoVariant, g_WorldRayCastMultithreadedDemoVariants, HK_NULL );
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

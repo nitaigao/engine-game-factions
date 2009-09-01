@@ -38,6 +38,11 @@ class hkpConvexRadiusViewer :	public hkpWorldViewerBase,
 
 		static inline const char* HK_CALL getName() { return "Convex Radius"; }
 
+		// These will only affect objects added after this call
+		inline void setMovableObjectColor( hkUint32 c) { m_movableObjectColor = c; }
+		inline void setFixedObjectColor( hkUint32 c) { m_fixedObjectColor = c; }
+
+
 	protected:
 
 		hkpConvexRadiusViewer( const hkArray<hkProcessContext*>& contexts );
@@ -66,13 +71,17 @@ class hkpConvexRadiusViewer :	public hkpWorldViewerBase,
 
 		hkArray< WorldToEntityData* > m_worldEntities;
 		static int m_tag;
+
+		hkUint32 m_fixedObjectColor;
+		hkUint32 m_movableObjectColor;
+
 };
 
 #endif	// HK_UTILITIES_CONVEX_RADIUS_VIEWER_H
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

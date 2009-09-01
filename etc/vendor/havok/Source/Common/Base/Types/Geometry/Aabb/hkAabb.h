@@ -26,7 +26,7 @@ class hkAabb
 		HK_FORCE_INLINE hkAabb(const hkVector4& min, const hkVector4& max);
 
 			/// Returns true if the given AABB overlaps with this one. Zero volume overlaps are reported as an overlap.
-		HK_FORCE_INLINE hkBool overlaps( const hkAabb& testAabb ) const;
+		HK_FORCE_INLINE hkBool32 overlaps( const hkAabb& testAabb ) const;
 
 			/// Is this a valid aabb? I.e. no NaNs and min[i] <= max[i]
 		hkBool isValid() const;
@@ -37,7 +37,7 @@ class hkAabb
 
 			/// Return true if 'other' is enclosed in this aabb.
 			/// Boundaries are inclusive.
-		HK_FORCE_INLINE hkBool containsPoint(const hkVector4& other) const;
+		HK_FORCE_INLINE hkBool32 containsPoint(const hkVector4& other) const;
 
 		/// Extends the AABB to include the given point
 		HK_FORCE_INLINE void includePoint (const hkVector4& point);
@@ -50,6 +50,21 @@ class hkAabb
 
 			/// Returns true if the AABB is empty, e.g. its min is greater than its max for any dimension
 		HK_FORCE_INLINE hkBool isEmpty() const;
+
+			/// Returns the centre of the aabb
+		HK_FORCE_INLINE void getCenter( hkVector4& c ) const;
+
+			/// Returns the half extents of the aabb
+		HK_FORCE_INLINE void getHalfExtents( hkVector4& he ) const;
+
+			/// Returns true if the AABB is stricly the same as \a a
+		HK_FORCE_INLINE bool equals(const hkAabb& aabb)
+		{
+			hkVector4Comparison mi = aabb.m_max.compareEqual4(m_max);
+			hkVector4Comparison ma = aabb.m_max.compareEqual4(m_max);
+			hkVector4Comparison co; co.setAnd( mi, ma );
+			return (co.allAreSet( hkVector4Comparison::MASK_XYZ ))?true:false;
+		}
 
 	public:
 
@@ -78,7 +93,7 @@ HK_CLASSALIGN16(struct) hkAabbUint32
 	hkUint8 m_expansionShift;
 	hkUint32 m_max[3];
 	hkUint8 m_expansionMax[3];
-	hkUint8 m_shapeKeyByte; // lowest byty of the hkpShapeKey. Useful for hkpListShapes of less then 256 bodies.
+	hkUint8 m_shapeKeyByte; // lowest byte of the hkpShapeKey. Useful for hkpListShapes of less then 256 bodies.
 };
 
 #include <Common/Base/Types/Geometry/Aabb/hkAabb.inl>
@@ -86,7 +101,7 @@ HK_CLASSALIGN16(struct) hkAabbUint32
 #endif // HK_MATH_AABB_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

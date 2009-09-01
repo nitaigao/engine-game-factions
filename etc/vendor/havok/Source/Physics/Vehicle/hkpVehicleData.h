@@ -18,6 +18,7 @@
 class hkpVehicleData : public hkReferencedObject
 {
 	public:
+		//+version(1)
 
 		HK_DECLARE_CLASS_ALLOCATOR(HK_MEMORY_CLASS_VEHICLE);
 		HK_DECLARE_REFLECTION();
@@ -140,7 +141,7 @@ class hkpVehicleData : public hkReferencedObject
 			/// large impulses as the rays hit the face of the step, causing the vehicle to
 			/// spin around its up-axis. Setting this value to 0.2f produces considerably more
 			/// stability. 	
-		hkReal m_normalClippingAngle;
+		hkReal m_normalClippingAngleCos;
 
 			/// Limits the mass ratio between the chassis and any dynamic body the vehicle is driving over.
 			/// This prevents small objects from shooting away from an accelerating vehicle.
@@ -169,7 +170,7 @@ class hkpVehicleData : public hkReferencedObject
 #endif // HKVEHICLE_HKVEHICLEDATA_XML_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

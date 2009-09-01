@@ -17,6 +17,10 @@
 #include <Physics/Vehicle/Engine/Default/hkpVehicleDefaultEngineClass.cpp>
 #include <Physics/Vehicle/Engine/hkpVehicleEngineClass.cpp>
 #include <Physics/Vehicle/Friction/hkpVehicleFrictionClass.cpp>
+#include <Physics/Vehicle/Manager/LinearCastBatchingManager/hkpVehicleLinearCastBatchingManagerClass.cpp>
+#include <Physics/Vehicle/Manager/RayCastBatchingManager/hkpVehicleRayCastBatchingManagerClass.cpp>
+#include <Physics/Vehicle/Manager/hkpVehicleCastBatchingManagerClass.cpp>
+#include <Physics/Vehicle/Manager/hkpVehicleManagerClass.cpp>
 #include <Physics/Vehicle/Steering/Default/hkpVehicleDefaultSteeringClass.cpp>
 #include <Physics/Vehicle/Steering/hkpVehicleSteeringClass.cpp>
 #include <Physics/Vehicle/Suspension/Default/hkpVehicleDefaultSuspensionClass.cpp>
@@ -26,13 +30,15 @@
 #include <Physics/Vehicle/TyreMarks/hkpTyremarksInfoClass.cpp>
 #include <Physics/Vehicle/VelocityDamper/Default/hkpVehicleDefaultVelocityDamperClass.cpp>
 #include <Physics/Vehicle/VelocityDamper/hkpVehicleVelocityDamperClass.cpp>
-#include <Physics/Vehicle/WheelCollide/RayCast/hkpVehicleRaycastWheelCollideClass.cpp>
+#include <Physics/Vehicle/WheelCollide/LinearCast/hkpVehicleLinearCastWheelCollideClass.cpp>
+#include <Physics/Vehicle/WheelCollide/RayCast/hkpVehicleRayCastWheelCollideClass.cpp>
+#include <Physics/Vehicle/WheelCollide/RejectChassisListener/hkpRejectChassisListenerClass.cpp>
 #include <Physics/Vehicle/WheelCollide/hkpVehicleWheelCollideClass.cpp>
 #include <Physics/Vehicle/hkpVehicleDataClass.cpp>
 #include <Physics/Vehicle/hkpVehicleInstanceClass.cpp>
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

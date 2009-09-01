@@ -48,8 +48,8 @@ void hkpShape::castRayWithCollector( const hkpShapeRayCastInput& input, const hk
 
 hkVector4Comparison hkpShape::castRayBundle( const hkpShapeRayBundleCastInput& input, hkpShapeRayBundleCastOutput& output ) const
 {
-	//HK_WARN(0x0, "castRayBundle called without a mask. This will probably cause more narrowphase checks than you intended.");
-	//HK_ASSERT2(0x0, false, "castRayBundle called without a mask. This will probably cause more narrowphase checks than you intended.");
+	//HK_WARN(0x3a6a6dc4, "castRayBundle called without a mask. This will probably cause more narrowphase checks than you intended.");
+	//HK_ASSERT2(0x15315fcc, false, "castRayBundle called without a mask. This will probably cause more narrowphase checks than you intended.");
 	hkVector4Comparison mask; mask.set(hkVector4Comparison::MASK_XYZW);
 	return castRayBundleImpl( input, output, mask );
 }
@@ -61,7 +61,7 @@ hkVector4Comparison hkpShape::castRayBundle( const hkpShapeRayBundleCastInput& i
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

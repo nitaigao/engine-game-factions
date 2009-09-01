@@ -43,11 +43,14 @@ typedef unsigned int HKG_PAD_BUTTON;
 #define HKG_PAD_BUTTON_RSTICK  (1<<15)
 
 #define	HKG_PAD_NUM_BUTTONS 16
-	
+
+#define HKG_PAD_LEFT_ANALOG_TRIGGER		0
+#define HKG_PAD_RIGHT_ANALOG_TRIGGER	1
+
 #endif // HK_GRAPHICS_PAD_DEFINES__H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -15,6 +15,12 @@ inline hkpRigidBody* hkGetRigidBody( const hkpCollidable* collidable )
 	return HK_NULL;
 }
 
+inline hkpRigidBody* hkGetRigidBodyUnchecked( const hkpCollidable* collidable )
+{
+	HK_ASSERT2(0xad904061, collidable->getType() == hkpWorldObject::BROAD_PHASE_ENTITY, "Collidable is not of the rigid body type." );
+	return static_cast<hkpRigidBody*>( hkGetWorldObject(collidable) );
+}
+
 inline hkpMotion* hkpRigidBody::getRigidMotion() const
 {
 	return const_cast<hkpMaxSizeMotion*>(&m_motion);
@@ -332,7 +338,7 @@ HK_FORCE_INLINE void hkpRigidBody::setAllowedPenetrationDepth( hkReal val )
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -111,9 +111,12 @@ class hkpProperty
 	// This property is cleared and reference to the shape removed upon addition of the body to hkpWorld.
 #define HK_PROPERTY_DISPLAY_SHAPE 0x1135
 
-// Sames as the normal HK_PROPERTY_OVERRIDE_DEBUG_DISPLAY_GEOMETRY
-// except the prop is left in the entity and the geom is not deleted (helps sharing etc)
+	// Sames as the normal HK_PROPERTY_OVERRIDE_DEBUG_DISPLAY_GEOMETRY
+	// except the prop is left in the entity and the geom is not deleted (helps sharing etc)
 #define HK_PROPERTY_OVERRIDE_DEBUG_DISPLAY_GEOMETRY_NO_DELETE 0x1136
+
+	// If set, this rigid body is used by another object only as a reference object and should be removed from the final physics system
+#define HK_PROPERTY_PHYSICS_IS_ONLY_CREATED_AS_A_REFERENCE_OBJECT 0x1137
 
 // Half Stepping Utility
 #define HK_PROPERTY_HALF_STEPPER_INDEX 0x1200
@@ -127,7 +130,7 @@ class hkpProperty
 #endif // HK_DYNAMICS2_PROPERTY_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

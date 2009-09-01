@@ -116,6 +116,8 @@ public:
 		/// dtor
 	~hkgSceneDataConverter();
 
+	inline void setAutoPseudoInstancing( hkBool on, hkBool allowHwAccel = false ); // requires mesh sharing to be enabled too.
+
 	inline void setAllowMeshSharing( hkBool on );
 
 		/// Normally you only convert a material once. 
@@ -165,6 +167,14 @@ public:
 		/// You can add paths to be searched in case non-embedded textures are not found in the stored
 		/// absolute location.
 	inline void addTextureSearchPath(const char* path);
+	inline int getNumTextureSearchPaths() const;
+	bool hasTextureSearchPath(const char* path) const;
+	inline void clearTextureSearchPaths();
+
+		/// Sets the order that textures are searched in e.g Original ,DDS, TGA
+	inline void addTextureSearchOrder(const char* path);
+	inline int getNumTextureSearchOrder() const;
+	inline void clearTextureSearchOrder();
 
 		/// Convert any known types from the list.
 		/// Will cast to the correct types and call the sub convert methods
@@ -189,13 +199,13 @@ public:
 	int convertLight( const class hkxLight* light, bool addLightsToWorld = true );
 
 		/// Called by the main convert function, but you can call it directly of you like.
-	int convertMaterial( const class hkxMaterial* material, bool diffuseOnly = false );
+	int convertMaterial( const class hkxMaterial* material, hkgAssetConverter::ConvertMask convMask);
 	
 		/// Called by the main convert function, but you can call it directly of you like.
-	int convertInplaceTexture( const class hkxTextureInplace* texture );
+	int convertInplaceTexture( const class hkxTextureInplace* texture, hkxMaterial::TextureType tHint );
 
 		/// Called by the main convert function, but you can call it directly of you like.
-	int convertTextureFile( const class hkxTextureFile* texture );
+	int convertTextureFile( const class hkxTextureFile* texture, hkxMaterial::TextureType tHint );
 
 		/// Called by the main convert function, but you can call it directly of you like.
 	int convertCamera( const class hkxCamera* camera, const char* name );
@@ -253,6 +263,8 @@ public:
 	hkgArray<class hkgMaterial*> m_addedMaterials;
 	hkgArray<hkgAssetConverter::SkinPaletteMap* > m_addedSkins; 
 
+	hkgArray<class hkgInstancedDisplayObject* > m_instances;
+
 	// The context that we will create the objects in
 	hkgDisplayContext* m_context;
 
@@ -266,6 +278,8 @@ public:
 
 public:
 
+	hkBool m_bAllowPseudoInstancing;
+	hkBool m_bAllowPseudoInstancingHardwareAccel;
 	hkBool m_bAllowMeshSharing;
 	hkBool m_bAllowMaterialSharing;
 	hkBool m_bAllowTextureSharing;
@@ -283,7 +297,7 @@ public:
 #endif //HK_GRAPHICS_BRIDGE2_SCENEDATA_CONV_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

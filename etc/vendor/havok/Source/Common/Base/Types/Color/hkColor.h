@@ -28,6 +28,12 @@ public:
 			/// Creates a random color
 		static int HK_CALL getRandomColor();
 
+			/// Creates a random color using the given hkPseudoRandomGenerator
+		static int HK_CALL getRandomColor( class hkPseudoRandomGenerator& rand );
+
+			/// Get the i'th color from s_colorTable with optional alpha.
+		static int HK_CALL getPaletteColor(int i, int alpha=0xff);
+
 			/// Gets the Alpha component of a color.
 		inline static char HK_CALL getAlphaAsChar(int color) { return char((unsigned(color) >> 24) & 0xFF);	}
 		inline static hkReal HK_CALL getAlphaAsFloat(int color) { return getAlphaAsChar(color) * (1.0f / 255.0f); }
@@ -44,14 +50,29 @@ public:
 		inline static char HK_CALL getBlueAsChar(int color) { return char(unsigned(color) & 0xFF); }
 		inline static hkReal HK_CALL getBlueAsFloat(int color) { return getBlueAsChar(color) * (1.0f / 255.0f); }
 
-			/// Halve the alpha 
-		inline static int HK_CALL semiTransparent(int color) { return (color & 0x7FFFFFFF); }
+			/// Combine two colors. Uses the identity (a+b)/2 == (a^b)>>1 + (a&b).
+		inline static int HK_CALL average(int a, int b) {return int( unsigned((a^b)&0xfefefefe) >> 1 ) + (a&b); }
 
-			/// Make the color darker
-		inline static int HK_CALL darken(int col) { return ( (col & 0xff000000) | ((col >> 17 & 0x7f) << 16) | ((col >> 9 & 0x7f) << 8) | (col >> 1 & 0x7f) ); }
+			/// Halve the alpha.
+		inline static int HK_CALL semiTransparent(int color, int n=1)
+		{
+			return (int(unsigned(color)>>n) & 0xFF000000) | (color&0x00ffffff);
+		}
 
-			/// Make the color lighter
-		inline static int HK_CALL lighten(int col) { return ( (col & 0xff000000) | ( hkMath::max2((col >> 15) & 0x1ff, 0xff) << 16) | (hkMath::max2((col >> 7) & 0x1ff, 0xff) << 8) | (hkMath::max2((col << 1) & 0x1ff, 0xff) ) ); }
+			/// Make the color darker.
+		inline static int HK_CALL darken(int col, int n=1)
+		{
+			int masklo = (((1<<n) - 1) * 0x00010101);
+ 			return (col & 0xff000000) | ((col & ~masklo) >> n);
+		}
+
+			/// Make the color lighter.
+		inline static int HK_CALL lighten(int col, int n=1)
+		{
+			int lobits = (( (1<<   n ) - 1) * 0x00010101);
+			int maskhi = (( (1<<(8-n)) - 1) * 0x00010101);
+			return (col & 0xff000000) | ((col&maskhi) << n) | lobits;
+		}
 
 	public:
 
@@ -210,7 +231,7 @@ public:
 #endif // HK_VISUALIZE_COLOR
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

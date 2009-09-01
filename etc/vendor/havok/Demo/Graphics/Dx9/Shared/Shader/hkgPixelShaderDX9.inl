@@ -7,7 +7,7 @@
  */
 
 inline hkgPixelShaderDX9::hkgPixelShaderDX9(hkgDisplayContext* context)
-: m_pDevice( static_cast<hkgDisplayContextDX9*>( context )->getDevice() ), m_pPShader(HK_NULL), m_pConstantTable(HK_NULL), m_bound(false)
+: hkgShader(HKG_PIXEL_SHADER), m_pDevice( static_cast<hkgDisplayContextDX9*>( context )->getDevice() ), m_pPShader(HK_NULL), m_pConstantTable(HK_NULL), m_bound(false)
 {
 
 }
@@ -18,7 +18,7 @@ inline LPDIRECT3DDEVICE9 hkgPixelShaderDX9::getDevice()
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

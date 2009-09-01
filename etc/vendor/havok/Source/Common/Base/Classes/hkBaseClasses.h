@@ -31,7 +31,6 @@ HK_STRUCT(hkDataObjectTypeAttribute)
 HK_STRUCT(hkDescriptionAttribute)
 HK_STRUCT(hkDocumentationAttribute)
 HK_STRUCT(hkGizmoAttribute)
-HK_STRUCT(hkHalf)
 HK_STRUCT(hkLinkAttribute)
 HK_STRUCT(hkModelerNodeTypeAttribute)
 HK_STRUCT(hkMonitorStreamColorTableColorPair)
@@ -48,7 +47,7 @@ HK_STRUCT(hkSweptTransform)
 HK_STRUCT(hkUiAttribute)
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

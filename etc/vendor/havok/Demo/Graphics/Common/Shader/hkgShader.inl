@@ -6,9 +6,10 @@
  * 
  */
 
-hkgShader::hkgShader() 
-: m_userBindCallback(HK_NULL), m_allNormalInputs(0), m_allMatrixInputs(0), m_style(0)
+hkgShader::hkgShader(HKG_SHADER_TYPE type) 
+: m_userBindCallback(HK_NULL), m_type(type), m_allNormalInputs(0), m_allMatrixInputs(0), m_style(0)
 {
+	m_name = "";
 }
 
 HKG_SHADER_INPUT_CONSTANT hkgShader::getInputMask() const
@@ -88,11 +89,14 @@ inline HKG_SHADER_RENDER_STYLE hkgShader::getStyleForMaterialHint( HKG_MATERIAL_
 	if (hint & HKG_MATERIAL_VERTEX_HINT_BLENDING)
 		s |= HKG_SHADER_RENDER_BLENDING;
 
+	if (hint & HKG_MATERIAL_VERTEX_HINT_INSTANCED)
+		s |= HKG_SHADER_RENDER_INSTANCING_USING_TCOORDS;
+
 	return s;
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

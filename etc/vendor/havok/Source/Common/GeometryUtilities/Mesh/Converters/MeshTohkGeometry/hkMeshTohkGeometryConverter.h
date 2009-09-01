@@ -10,6 +10,8 @@
 #define HK_MESH_TO_HK_GEOMETRY_CONVERTER_H
 
 class hkMeshShape;
+class hkMeshSystem;
+class hkMeshMaterial;
 struct hkGeometry;
 
 /// Simple converter to convert from a mesh to an hkGeometry
@@ -34,7 +36,7 @@ class hkMeshTohkGeometryConverter
 #endif // HK_MESH_TO_HK_GEOMETRY_CONVERTER_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

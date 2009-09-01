@@ -191,6 +191,17 @@ hkString findCommonRootPath( const hkArray< hkDemoEntry* >& demos )
 	return prefix;
 }
 
+// Uncomment and modify this to produce build a specific subset of demos e.g. for a client or trade show
+//#define USING_DEMO_FILTERS
+
+#ifdef USING_DEMO_FILTERS
+const char* demoFilters[] = 
+{
+	"DemoCommon/Utilities/Menu", // You need to include this
+	"Ai/Api"
+};
+#endif
+
 void hkDemoDatabase::rebuildDatabase()
 {
 	m_demos.clear();
@@ -220,6 +231,22 @@ void hkDemoDatabase::rebuildDatabase()
 			menuPath += "/";
 			menuPath += e->m_variantName;
 		}
+
+#ifdef USING_DEMO_FILTERS
+		{
+			hkString name(menuPath);
+			bool valid = false;
+			for (int f=0; f < HK_COUNT_OF(demoFilters); f++)
+			{
+				valid |= name.beginsWith(demoFilters[f]);
+			}
+			if (!valid)
+			{
+				e = e->m_next;
+				continue;
+			}
+		}
+#endif
 
 		// Store the entry
 		hkDemoEntry* entry = new hkDemoEntry();
@@ -379,7 +406,7 @@ hkDemoEntryRegister* hkDemoDatabase::s_demoList;
 HK_SINGLETON_IMPLEMENTATION(hkDemoDatabase);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

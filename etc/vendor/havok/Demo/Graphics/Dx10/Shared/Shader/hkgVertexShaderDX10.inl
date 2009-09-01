@@ -7,13 +7,13 @@
  */
 
 inline hkgVertexShaderDX10::hkgVertexShaderDX10(hkgDisplayContext* context)
-: hkgShaderDX10(context), m_vertexShader(HK_NULL), m_bound(false)
+: hkgShaderDX10(HKG_VERTEX_SHADER, context), m_vertexShader(HK_NULL), m_bound(false)
 {
 
 }
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -105,6 +105,7 @@ hkpRigidBody* WindRegionDemo::createCompositeBody( hkReal width, hkReal mass, co
 	}
 
 	hkpShape* shape = new hkpListShape( shapeArray.begin(), shapeArray.getSize() );
+	hkReferencedObject::removeReferences( shapeArray.begin(), shapeArray.getSize() );
 
 	hkpRigidBodyCinfo info;
 	{
@@ -112,7 +113,7 @@ hkpRigidBody* WindRegionDemo::createCompositeBody( hkReal width, hkReal mass, co
 		{
 			hkpInertiaTensorComputer::combineMassProperties(massElements, massProperties);
 		}
-		info.m_shape = shape;
+		info.m_shape = shape;		
 		info.m_motionType = hkpMotion::MOTION_DYNAMIC;
 		info.m_mass = massProperties.m_mass;
 		info.m_inertiaTensor = massProperties.m_inertiaTensor;
@@ -120,7 +121,9 @@ hkpRigidBody* WindRegionDemo::createCompositeBody( hkReal width, hkReal mass, co
 		info.m_position = position;
 	}
 
-	return new hkpRigidBody( info );
+	hkpRigidBody* body = new hkpRigidBody( info );
+	shape->removeReference();
+	return body;
 }
 
 hkVector4 WindRegionDemo::initialPosition( hkReal height, int i, int gridWidth, hkReal gap )
@@ -204,6 +207,7 @@ WindRegionDemo::WindRegionDemo(hkDemoEnvironment* env)
 		hkpWind* wind = new SimpleVortex( hkVector4( 0.0f, 0.0f, 0.0f ), hkVector4( 0.0f, 1.0f, 0.0f ) );
 		m_region = new hkpWindRegion( phantom, wind, 0.1f, 0.7f );
 		m_world->addWorldPostSimulationListener( m_region );
+		wind->removeReference();
 		phantom->removeReference();
 	}
 
@@ -255,7 +259,7 @@ WindRegionDemo::WindRegionDemo(hkDemoEnvironment* env)
 			rot.setAxisAngle( axis, (HK_REAL_PI / numBodies) * i );
 			body->setRotation( rot );
 			m_world->addEntity( body );
-			body->removeReference();	
+			body->removeReference();
 		}
 
 		HK_ON_DETERMINISM_CHECKS_ENABLED(delete generator);
@@ -282,7 +286,7 @@ static const char helpString[] = \
 HK_DECLARE_DEMO(WindRegionDemo, HK_DEMO_TYPE_PRIME, "This demo shows a wind region", helpString);
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

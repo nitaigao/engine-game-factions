@@ -17,7 +17,7 @@
    subject to change. Applications should only use zlib.h.
  */
 
-/* @(#) $Id: deflate.h,v 1.4 2007/06/18 18:00:17 dave.gargan Exp $ */
+/* @(#) $Id: //depot/Release/660/660_Release/Demo/Graphics/Common/Texture/Png/Zlib/deflate.h#1 $ */
 
 #ifndef _DEFLATE_H
 #define _DEFLATE_H
@@ -327,7 +327,7 @@ void _tr_stored_block OF((deflate_state *s, charf *buf, ulg stored_len,
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

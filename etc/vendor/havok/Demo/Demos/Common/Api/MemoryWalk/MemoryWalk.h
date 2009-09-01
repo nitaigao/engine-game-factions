@@ -7,8 +7,8 @@
  */
 
 
-#ifndef HK_GARBAGE_COLLECTION_H
-#define HK_GARBAGE_COLLECTION_H
+#ifndef HK_MEMORY_WALK_DEMO_H
+#define HK_MEMORY_WALK_DEMO_H
 
 #include <Demos/DemoCommon/DemoFramework/hkDefaultPhysicsDemo.h>
 #include <Physics/Dynamics/World/Memory/hkpWorldMemoryAvailableWatchDog.h>
@@ -28,7 +28,31 @@ public:
 
 	Result stepDemo();
 
+	struct DemoVariant
+	{
+		enum Operation
+		{
+			NORMAL_COLLECT,
+			INCREMENTAL_COLLECT,	
+		};
+		
+		const char*         m_name;
+		const char*         m_details;
+		Operation			m_operation;
+		int					m_numIncrementalBlocks;
+	};
+
 private:
+	
+	// This class is used so the memory allocator can be set up to not do any garbage collection
+	class MemoryListener: public hkLimitedMemoryListener
+	{
+	public:
+		// hkLimitedMemoryListener
+		void cannotAllocate(hkMemory* mem,hk_size_t size) { }
+		void allocationFailure(hkMemory* mem,hk_size_t size) {}
+	};
+
 
 	/// hkReferencedObject
 	virtual void calcStatistics( hkStatisticsCollector* collector) const;
@@ -62,8 +86,16 @@ private:
 		self->m_allocs.pushBack(alloc);
 	}
 	void _updateAllocations();
+
+	void _normalUpdateAllocations();
+	void _incrementalUpdateAllocations();
 	void _alloc(hk_size_t size);
 	void _free(int index);
+	void _addAllocations(hk_size_t maxSize, hk_size_t maxAllocation);
+
+	DemoVariant m_variant;
+
+	MemoryListener m_listener;
 
 	hkArray<Allocation> m_allocs;
 	hkArray<Block> m_blocks;
@@ -78,12 +110,13 @@ private:
     hk_size_t m_memorySize;
     hkFixedMemoryBlockServer* m_server; 
     hkFreeListMemory* m_memory; 
+	hkBool m_allocating;
 };
 
 #endif
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

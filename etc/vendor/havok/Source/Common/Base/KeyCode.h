@@ -9,8 +9,8 @@
 #define HK_HAVOK_KEYCODE
 
 // Please enter your Havok keycode(s) here:
-#define HAVOK_ANIMATION_KEYCODE   "0xad34ffe6:PERPETUAL.An.PcXs"
-#define HAVOK_PHYSICS_KEYCODE     "0xad34ffe6:PERPETUAL.Ph.PcXs"
+#define HAVOK_ANIMATION_KEYCODE   "0xad34ffe6:PERPETUAL.Animation.PcXs"
+#define HAVOK_PHYSICS_KEYCODE     "0xad34ffe6:PERPETUAL.Physics.PcXs"
 
 
 #include <Common/Base/KeyCode.inl>
@@ -18,7 +18,7 @@
 #endif // HK_HAVOK_KEYCODE
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

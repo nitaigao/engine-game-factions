@@ -14,6 +14,7 @@
 // Used for
 // character rigid body
 #include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBody.h>
+#include <Physics/Utilities/CharacterControl/CharacterRigidBody/hkpCharacterRigidBodyListener.h>
 // character proxy
 #include <Physics/Utilities/CharacterControl/CharacterProxy/hkpCharacterProxy.h>
 // state machine
@@ -77,7 +78,6 @@ PlatformsCharacterRbDemo::PlatformsCharacterRbDemo(hkDemoEnvironment* env)
 		hkpWorldCinfo info;
 		info.setBroadPhaseWorldSize( 350.0f );
 		info.m_gravity.set(0,0,-9.8f);
-		info.m_collisionTolerance = 0.01f;
 		m_world = new hkpWorld( info );
 		m_world->lock();
 
@@ -188,6 +188,11 @@ PlatformsCharacterRbDemo::PlatformsCharacterRbDemo(hkDemoEnvironment* env)
 		info.m_maxSlope = HK_REAL_PI/2.0f;
 
 		m_characterRigidBody = new hkpCharacterRigidBody( info );
+		{
+			hkpCharacterRigidBodyListener* listener = new hkpCharacterRigidBodyListener();
+			m_characterRigidBody->setListener( listener );
+			listener->removeReference();
+		}
 		m_world->addEntity( m_characterRigidBody->getRigidBody() );
 
 	}
@@ -302,14 +307,7 @@ hkDemo::Result PlatformsCharacterRbDemo::stepDemo()
 			input.m_velocity = m_characterRigidBody->getLinearVelocity();
 			input.m_position = m_characterRigidBody->getPosition();
 
-			hkpSurfaceInfo ground;
-			m_characterRigidBody->checkSupport(stepInfo,ground);
-
-			input.m_isSupported = (ground.m_supportedState == hkpSurfaceInfo::SUPPORTED);
-			input.m_surfaceNormal = ground.m_surfaceNormal;
-			input.m_surfaceVelocity = ground.m_surfaceVelocity;
-			input.m_surfaceMotionType = ground.m_surfaceMotionType;
-			
+			m_characterRigidBody->checkSupport(stepInfo,input.m_surfaceInfo);
 		}
 
 		// Apply the character state machine
@@ -483,7 +481,7 @@ HK_DECLARE_DEMO(PlatformsCharacterRbDemo, HK_DEMO_TYPE_PRIME, "CharacterTest", h
 
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -72,30 +72,39 @@ scriptArgs['recurse'] = int(scriptArgs['recurse'])
 # Get the list of assets to convert.
 assetsToCheck = getFilesByPattern( srcDir, scriptArgs['filePattern'], scriptArgs['recurse'] )
 
+printIntermediateAssetsOnly = False # For internal use.
+
 for asset in assetsToCheck:
     data = open( os.path.join(srcDir, asset), "rb" ).read(1024)
-    match = re.search( r'Havok-[0-9]+\.[0-9]+\.[0-9]+-..', data)
-    if match:
-        print '%-14s' % match.group(0), asset
-    else:
-        match2 = re.search( r'Havok-[0-9]+\.[0-9]+\.[0-9]', data)
-        if match2:
-            print '%-14s' % match2.group(0), asset
-        else:
-            # Get the binary revision.
-            binaryRevision = int(ord(data[12]))
-            if binaryRevision == 0:
-                # Check other endian-ness
-                binaryRevision = int(ord(data[15]))
-
-            if binaryRevision in (1,2):
-                print '%-14s' % ["Havok-3.0.0","Havok-3.1.0"][binaryRevision==1], asset
+    if data:
+        match = re.search( r'Havok-[0-9]+\.[0-9]+\.[0-9]+-..', data)
+        if match:
+            if not printIntermediateAssetsOnly or match.group(0).endswith('$$'):
+                print '%-14s' % match.group(0), asset
+        elif not printIntermediateAssetsOnly:
+            match2 = re.search( r'Havok-[0-9]+\.[0-9]+\.[0-9]', data)
+            if match2:
+                print '%-14s' % match2.group(0), asset
             else:
-                print '%-14s' % '<unknown>', asset
+                try:
+                    # Get the binary revision.
+                    binaryRevision = int(ord(data[12]))
+                    if binaryRevision == 0:
+                        # Check other endian-ness
+                        binaryRevision = int(ord(data[15]))
+                    if binaryRevision in (1,2):
+                        print '%-14s' % ["Havok-3.0.0","Havok-3.1.0"][binaryRevision==1], asset
+                    else:
+                        print '%-14s' % '<unknown>', asset
+                except:
+                    print '%-14s' % 'Unreadable', asset
+    elif not printIntermediateAssetsOnly:
+        print '%-14s' % 'Empty', asset
+
 
 
 #
-# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+# Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 # 
 # Confidential Information of Havok.  (C) Copyright 1999-2009
 # Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

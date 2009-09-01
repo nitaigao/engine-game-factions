@@ -295,7 +295,7 @@ HK_DECLARE_LANDSCAPE( createSimpleFlatLandOneMetreTris, simpleFlatLandOneMetreTr
 HK_DECLARE_LANDSCAPE( createDefaultFlatLandOneMetreTris, defaultFlatLandOneMetreTris, 0);  // The default flatland comes last so that it's first in the landscape registry.
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

@@ -186,7 +186,7 @@ SlidingWorldDemo::SlidingWorldDemo(hkDemoEnvironment* env)
 		// Compute the box inertia tensor.
 		hkpInertiaTensorComputer::setShapeVolumeMassProperties(boxInfo.m_shape, 5.0f, boxInfo);
 
-		boxInfo.m_rigidBodyDeactivatorType = hkpRigidBodyDeactivator::DEACTIVATOR_NEVER;
+		boxInfo.m_enableDeactivation = false;
 
 		for (int i = -20; i <= 20; i += 5)
 		{
@@ -219,51 +219,6 @@ SlidingWorldDemo::~SlidingWorldDemo()
 	}
 	m_world->unlock();
 }
-
-void SlidingWorldDemo::recalcAabbsAfterBroadphaseRecenter( hkpWorld* world )
-{
-	HK_TIMER_BEGIN("RecalcAabbs", HK_NULL );
-
-	// Iterate over all simulation islands.
-	{
-		// Fixed island
-		const hkpSimulationIsland* island = world->getFixedIsland();
-		for (int b = 0; b < island->getEntities().getSize(); b++ )
-		{
-			hkpRigidBody* body =  static_cast<hkpRigidBody*>( island->getEntities()[b]);
-			body->updateCachedAabb();
-		}
-	}
-	{
-		// Inactive islands
-		const hkArray<hkpSimulationIsland*>& islands = world->getInactiveSimulationIslands();
-		for (int i = 0; i < islands.getSize(); i++ )
-		{
-			hkpSimulationIsland* island = islands[i];
-			for (int b = 0; b < island->getEntities().getSize(); b++ )
-			{
-				hkpRigidBody* body =  static_cast<hkpRigidBody*>( island->getEntities()[b]);
-				body->updateCachedAabb();
-			}
-		}
-	}
-	{
-		// Active Islands
-		const hkArray<hkpSimulationIsland*>& islands = world->getActiveSimulationIslands();
-		for (int i = 0; i < islands.getSize(); i++ )
-		{
-			hkpSimulationIsland* island = islands[i];
-			for (int b = 0; b < island->getEntities().getSize(); b++ )
-			{
-				hkpRigidBody* body =  static_cast<hkpRigidBody*>( island->getEntities()[b]);
-				body->updateCachedAabb();
-			}
-		}
-	}
-
-	HK_TIMER_END();
-}
-
 
 void SlidingWorldDemo::shiftAllGameObjectDataSilently( hkpWorld* world, const hkVector4& effectiveShiftDistance )
 {
@@ -323,9 +278,12 @@ void SlidingWorldDemo::shiftAllGameObjectDataSilently( hkpWorld* world, const hk
 				// manager.  To shift contact points we shift all contact points in the manager by the
 				// effectiveShiftDistance passed in.
 				hkpLinkedCollidable& collidableEx = *body->getLinkedCollidable();
-				for (int collidableIndex = 0; collidableIndex < collidableEx.m_collisionEntries.getSize(); collidableIndex++)
+
+				const hkArray<struct hkpLinkedCollidable::CollisionEntry>& collisionEntries = collidableEx.getCollisionEntriesNonDeterministic();
+
+				for (int collidableIndex = 0; collidableIndex < collisionEntries.getSize(); collidableIndex++)
 				{
-					hkpAgentNnEntry* entry = collidableEx.m_collisionEntries[collidableIndex].m_agentEntry;
+					hkpAgentNnEntry* entry = collisionEntries[collidableIndex].m_agentEntry;
 
 					hkpDynamicsContactMgr* contactManager = static_cast<hkpDynamicsContactMgr*>(entry->m_contactMgr);
 
@@ -561,25 +519,11 @@ hkDemo::Result SlidingWorldDemo::stepDemo()
 
 void SlidingWorldDemo::recenterBroadPhaseVariant(const hkVector4& requestedShift, hkArray<hkpBroadPhaseHandle*>& objectsEnteringBroadphaseBorder, hkVector4& effectiveShift)
 {
-	// Move broadphase only, i.e. recenter the broadphase around a new location in world space, and do so without
-	// addition/removal of overlaps for those objects remaining inside the new location.
+	// Move broadphase, i.e. recenter the broadphase around a new location in world space.
+	// If broadphase phantoms are present, they come along for the ride too. 
+	// SHIFT_BROADPHASE_UPDATE_ENTITY_AABBS must be passed in for the AABBs to be recalculated after recentering.
 	// We may however get objects entering the border (leaving the broadphase) if they are not contained in the new location.
 	m_world->shiftBroadPhase( requestedShift, effectiveShift, hkpWorld::SHIFT_BROADPHASE_UPDATE_ENTITY_AABBS );
-
-	// If broadphase phantoms are present, they come along for the ride too. Note that this is not done automatically by the 
-	// shiftBroadPhase function above, as the broadphase does not know if it has a border or not!
-	if (m_world->getBroadPhaseBorder() && m_world->getBroadPhaseBorder()->m_phantoms[0])	
-	{
-		for (int i=0; i<6; i++)
-		{
-			hkpAabbPhantom* phant = (hkpAabbPhantom*) m_world->getBroadPhaseBorder()->m_phantoms[i];
-			hkAabb& aabb = const_cast<hkAabb&>( phant->getAabb() );
-			aabb.m_min.add4(effectiveShift);
-			aabb.m_max.add4(effectiveShift);
-		}
-	}
-
-	recalcAabbsAfterBroadphaseRecenter( m_world );
 }
 
 
@@ -862,7 +806,7 @@ FAQs:
 */
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok

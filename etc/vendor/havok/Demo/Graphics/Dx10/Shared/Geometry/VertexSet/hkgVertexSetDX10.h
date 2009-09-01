@@ -37,6 +37,7 @@ protected:
 
 	ID3D10Buffer*						m_vertexBuffer;		// interleaved vertex buffer
 	hkArray<D3D10_INPUT_ELEMENT_DESC>	m_vertexDescArray;		// Vertex declaration for shaders
+	hkArray<D3D10_INPUT_ELEMENT_DESC>	m_vertexInstancedDescArray; 
 	class hkgDisplayContextDX10*		m_context;
 	
 	hkArray<unsigned char>				m_localVerts;
@@ -51,7 +52,7 @@ protected:
 #endif //HK_GRAPHICS_VERTEX_SET_DX10_H
 
 /*
-* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090216)
+* Havok SDK - NO SOURCE PC DOWNLOAD, BUILD(#20090704)
 * 
 * Confidential Information of Havok.  (C) Copyright 1999-2009
 * Telekinesys Research Limited t/a Havok. All Rights Reserved. The Havok
