@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/ignore:4099"
-				AdditionalDependencies="MyGuiStatic_d.lib ogremainstatic_d.lib luad.lib luabindd.lib"
+				AdditionalDependencies="MyGuiStatic_d.lib ogremainstatic_d.lib luabindd.lib luad.lib"
 				AdditionalLibraryDirectories="../../etc/vendor/ogre/lib;../../etc/vendor/mygui/myguiengine/lib/debug;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
@@ -183,6 +183,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\GUI.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SystemDefinition.cxx"
 				>
 			</File>
@@ -191,11 +195,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UXFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\UXSystem.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\UXSystemComponent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UXSystemComponentFactory.cpp"
 				>
 			</File>
 			<File
@@ -209,6 +221,14 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\GUI.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IGUI.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IUXSystem.hpp"
 				>
 			</File>
@@ -217,7 +237,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IUXSystemComponentFactory.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IUXSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UXFactory.h"
 				>
 			</File>
 			<File
@@ -226,6 +254,10 @@
 			</File>
 			<File
 				RelativePath=".\UXSystemComponent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UXSystemComponentFactory.h"
 				>
 			</File>
 			<File

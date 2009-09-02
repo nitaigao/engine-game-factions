@@ -240,6 +240,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Mocks\MockService.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockServiceManager.hpp"
 				>
 			</File>

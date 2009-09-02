@@ -14,7 +14,6 @@ using namespace RakNet;
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
-#include "Events/ScriptEvent.hpp"
 using namespace Events;
 
 #include "Utility/StringUtils.h"
@@ -184,8 +183,8 @@ namespace Network
 
 					m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 
 
-					ScriptEvent* scriptEvent = new ScriptEvent( "SERVER_ADVERTISED", m_serverCache->GetCount( ) - 1 );
-					m_eventManager->QueueEvent( scriptEvent );
+					//IEvent* scriptEvent = new ScriptEventT1< int >( "SERVER_ADVERTISED", m_serverCache->GetCount( ) - 1 );
+					//m_eventManager->QueueEvent( scriptEvent );
 
 					delete stream;
 

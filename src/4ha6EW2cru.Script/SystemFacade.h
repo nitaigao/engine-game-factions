@@ -54,7 +54,7 @@ namespace Script
 		*  @param[in] const std::string & message
 		*  @return (void)
 		*/
-		void Print( const std::string& message );
+		static void Print( const std::string& message );
 
 
 		/*! Quits the game

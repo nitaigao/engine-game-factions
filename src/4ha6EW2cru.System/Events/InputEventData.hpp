@@ -34,7 +34,7 @@ namespace Events
 		*  @param[in] const std::string keyText
 		*  @return ()
 		*/
-		KeyEventData( const OIS::KeyCode &keyCode, const std::string keyText )
+		KeyEventData( int keyCode, const std::string keyText )
 			: m_keyCode( keyCode )
 			, m_keyText( keyText )
 		{
@@ -46,7 +46,7 @@ namespace Events
 		*
 		*  @return (OIS::KeyCode)
 		*/
-		inline OIS::KeyCode GetKeyCode( ) { return m_keyCode; };
+		inline int GetKeyCode( ) { return m_keyCode; };
 
 
 		/*! Returns the text of the key pressed in the Event
@@ -57,7 +57,7 @@ namespace Events
 
 	private:
 
-		OIS::KeyCode m_keyCode;
+		int m_keyCode;
 		std::string m_keyText;
 
 		KeyEventData( ) { };
@@ -87,31 +87,49 @@ namespace Events
 		*  @param[in] const OIS::MouseButtonID & mouseButtonId
 		*  @return ()
 		*/
-		MouseEventData( const OIS::MouseState& mouseState, const OIS::MouseButtonID& mouseButtonId )
-			: m_mouseState( mouseState )
+		MouseEventData( int x, int y, int z, int mouseButtonId )
+			: m_x( x )
+			, m_y( y )
+			, m_z( z )
 			, m_mouseButtonId( mouseButtonId )
 		{
 
 		};
 
 
-		/*! Returns the MouseState of the mouse firing the Event
+		/*! Returns the X Position of the Mouse
+		 *
+		 * @return ( int )
+		 */
+		inline int GetX( ) const { return m_x; };
+
+
+		/*! Returns the Y Position of the Mouse
 		*
-		*  @return (const OIS::MouseState&)
+		* @return ( int )
 		*/
-		inline const OIS::MouseState& GetMouseState( ) const { return m_mouseState; };
+		inline int GetY( ) const { return m_y; };
+
+
+		/*! Returns the Z Position of the Mouse
+		*
+		* @return ( int )
+		*/
+		inline int GetZ( ) const { return m_z; };
 
 
 		/*! Returns the Mouse Button associated with the Event
 		*
-		*  @return (const OIS::MouseButtonID&)
+		*  @return (int)
 		*/
-		inline const OIS::MouseButtonID& GetMouseButtonId( ) const { return m_mouseButtonId; };
+		inline int GetMouseButtonId( ) const { return m_mouseButtonId; };
 
 	private:
 
-		OIS::MouseState m_mouseState;
-		OIS::MouseButtonID m_mouseButtonId;
+		int m_x;
+		int m_y;
+		int m_z;
+		int m_mouseButtonId;
 
 		MouseEventData( ) { };
 		MouseEventData( const MouseEventData & copy ) { };

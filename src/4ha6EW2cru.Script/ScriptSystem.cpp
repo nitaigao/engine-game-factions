@@ -100,13 +100,18 @@ namespace Script
 					.def( "getLookAt", &ScriptComponent::GetLookAt )
 					.def( "getPosition", &ScriptComponent::GetPosition )
 					.def( "executeString", &ScriptComponent::ExecuteString )
+
+
+
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, int ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int, int ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, int, const std::string& ) ) &ScriptComponent::BroadcastEvent ),
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent< int > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const MathVector3& ) ) &ScriptComponent::BroadcastEvent< MathVector3 > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string, std::string > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent< std::string, int > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const int& ) ) &ScriptComponent::BroadcastEvent< int, int > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const std::string& ) ) &ScriptComponent::BroadcastEvent< int, std::string > )
+					,
 
 				class_< MathVector3 >( "Vector" )
 					.def( constructor< float, float, float >( ) )

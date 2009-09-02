@@ -1,4 +1,4 @@
-#include "UXSystem.h"
+#include "UXFactory.h"
 
 #include "Configuration/IConfiguration.hpp"
 using namespace Configuration;
@@ -8,6 +8,8 @@ using namespace Configuration;
 #include "Management/Management.h"
 #include "Logging/Logger.h"
 using namespace Logging;
+
+#include <MyGUI.h>
 
 
 BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
@@ -23,7 +25,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
 {
-	return new UX::UXSystem( );
+	return UX::UXFactory( ).CreateUXSystem( );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

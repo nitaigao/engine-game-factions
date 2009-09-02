@@ -10,7 +10,6 @@ using namespace Services;
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
 #include "Events/InputEventData.hpp"
-#include "Events/ScriptEvent.hpp"
 using namespace Events;
 
 #include "InputSystemComponent.h"
@@ -87,17 +86,17 @@ namespace Input
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
-			Management::Get( )->GetEventManager( )->TriggerEvent( new ScriptEvent( "UI_CONSOLE" ) );
+			//Management::Get( )->GetEventManager( )->TriggerEvent( new ScriptEvent( "UI_CONSOLE" ) );
 		}
 		else if ( arg.key == OIS::KC_F12 )
 		{
-			IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-			renderService->ProcessMessage( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
+			//IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+			//renderService->ProcessMessage( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
 		}
 		else
 		{
-			IEvent* scriptEvent = new ScriptEvent( "INPUT_KEY_UP", arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) );
-			Management::Get( )->GetEventManager( )->TriggerEvent( scriptEvent );
+			//IEvent* scriptEvent = new ScriptEvent( "INPUT_KEY_UP", arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) );
+			//Management::Get( )->GetEventManager( )->TriggerEvent( scriptEvent );
 
 			IEvent* event = new Event( INPUT_KEY_UP, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
@@ -116,7 +115,7 @@ namespace Input
 
 	bool InputSystemScene::MouseMoved( const MouseEvent &arg )
 	{
-		Event* event = new Event( INPUT_MOUSE_MOVED, new MouseEventData( arg.state, OIS::MB_Left ) );
+		Event* event = new Event( INPUT_MOUSE_MOVED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, OIS::MB_Left ) );
 		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		if ( m_inputAllowed )
@@ -140,7 +139,7 @@ namespace Input
 			}
 		}
 
-		Event* event = new Event( INPUT_MOUSE_PRESSED, new MouseEventData( arg.state, id ) );
+		Event* event = new Event( INPUT_MOUSE_PRESSED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
 		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		return true;
@@ -156,7 +155,7 @@ namespace Input
 			}
 		}
 
-		Event* event = new Event( INPUT_MOUSE_RELEASED, new MouseEventData( arg.state, id ) );
+		Event* event = new Event( INPUT_MOUSE_RELEASED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
 		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		return true;

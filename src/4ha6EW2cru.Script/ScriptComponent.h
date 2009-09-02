@@ -8,13 +8,15 @@
 #ifndef SCRIPTCOMPONENT_H
 #define SCRIPTCOMPONENT_H
 
-#include "IScriptComponent.hpp"
 #include "Events/IEventManager.hpp"
 
+#include "IScriptComponent.hpp"
 #include "IScriptFacade.hpp"
 #include "IScriptFunctionHandler.hpp"
 #include "IScriptFacadeManager.hpp"
 #include "ILuaState.hpp"
+
+#include "ScriptEvent.hpp"
 
 #include <luabind/luabind.hpp>
 
@@ -208,72 +210,45 @@ namespace Script
 		*/
 		inline std::string GetName( ) { return m_attributes[ System::Attributes::Name ].As< std::string >( ); };
 
+
 		/*! Broadcasts an Event to the LUA State with no parameters
-		 *
-		 *  @param[in] const std::string & eventName
-		 *  @return (void)
-		 */
-		void BroadcastEvent( const std::string& eventName );
+		*
+		*  @param[in] const std::string & eventName
+		*  @return (void)
+		*/
+		void BroadcastEvent( const std::string& eventName )
+		{
+			m_eventManager->QueueEvent( new ScriptEventT0<>( eventName ) ); 
+		}
 
 
-		/*! Broadcasts an Event to the LUA State with parameters
-		 *
-		 *  @param[in] const std::string & eventName
-		 *  @param[in] const std::string & var1
-		 *  @return (void)
-		 */
-		void BroadcastEvent( const std::string& eventName, const std::string& var1 );
+		/*!  Broadcasts an Event with the given parameters
+		*
+		* @param[in] const std::string & eventName
+		* @param[in] const T1 & param1
+		* @return ( void )
+		*/
+		template < class T1 >
+		void BroadcastEvent( const std::string& eventName, const T1& param1 )
+		{
+			Events::IEvent* event = new ScriptEventT1< T1 >( eventName, param1 );
+			m_eventManager->QueueEvent( event );
+		}
 
 
-		/*! Broadcasts an Event to the LUA State with parameters
+		/*!  Broadcasts an Event with the given parameters
 		 *
-		 *  @param[in] const std::string & eventName
-		 *  @param[in] const int & var1
-		 *  @return (void)
+		 * @param[in] const std::string & eventName
+		 * @param[in] const T1 & param1
+		 * @param[in] const T2 & param2
+		 * @return ( void )
 		 */
-		void BroadcastEvent( const std::string& eventName, int var1 );
-
-
-
-		/*! Broadcasts an Event to the LUA State with parameters
-		 *
-		 *  @param[in] const std::string & eventName
-		 *  @param[in] const std::string & var1
-		 *  @param[in] const std::string & var2
-		 *  @return (void)
-		 */
-		void BroadcastEvent( const std::string& eventName, const std::string& var1, const std::string& var2 );
-		
-		
-		
-		/*! Broadcasts an Event to the LUA State with parameters
-		 *
-		 *  @param[in] const std::string & eventName
-		 *  @param[in] const std::string & var1
-		 *  @param[in] const int & var2
-		 *  @return (void)
-		 */
-		void BroadcastEvent( const std::string& eventName, const std::string& var1, int var2 );
-		
-		
-		/*! Broadcasts an Event to the LUA State with parameters
-		 *
-		 *  @param[in] const std::string & eventName
-		 *  @param[in] const int & var1
-		 *  @param[in] const std::string & var2
-		 *  @return (void)
-		 */
-		void BroadcastEvent( const std::string& eventName, int var1, const std::string& var2 );
-		
-		
-		/*! Broadcasts an Event to the LUA State with parameters
-		 *
-		 *  @param[in] const std::string & eventName
-		 *  @param[in] const int & var1
-		 *  @param[in] const int & var2
-		 *  @return (void)
-		 */
-		void BroadcastEvent( const std::string& eventName, int var1, int var2 );
+		template < class T1, class T2 >
+		void BroadcastEvent( const std::string& eventName, const T1& param1, const T2& param2 )
+		{
+			Events::IEvent* event = new ScriptEventT2< T1, T2 >( eventName, param1, param2 );
+			m_eventManager->QueueEvent( event );
+		}
 
 
 		inline Maths::MathVector3 GetLookAt( ) const { return m_lookAt; };

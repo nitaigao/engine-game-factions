@@ -1,5 +1,7 @@
 #include "SystemFacade.h"
 
+#include "ScriptEvent.hpp"
+
 #include "Management/Management.h"
 
 using namespace luabind;
@@ -9,7 +11,6 @@ using namespace Logging;
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
-#include "Events/ScriptEvent.hpp"
 using namespace Events;
 
 namespace Script
@@ -17,8 +18,9 @@ namespace Script
 	luabind::scope SystemFacade::RegisterFunctions()
 	{
 		return (
+			def( "print", &SystemFacade::Print ),
+
 			class_< SystemFacade >( "SystemFacade" )
-				.def( "print", &SystemFacade::Print )
 				.def( "quit", &SystemFacade::Quit )
 				.def( "loadLevel", &SystemFacade::LoadLevel )
 				.def( "endGame", &SystemFacade::EndGame )
@@ -44,7 +46,7 @@ namespace Script
 
 	void SystemFacade::EndGame( )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GAME_ENDED" ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEventT0<>( "GAME_ENDED" ) );
 		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_ENDED ) );
 	}
 

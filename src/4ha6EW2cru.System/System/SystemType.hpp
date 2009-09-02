@@ -127,6 +127,11 @@ namespace System
 		static const Parameter AnimationWeight			=	"animationWeight";
 		static const Parameter AnimationController		=	"animationController";
 
+		namespace Input
+		{
+			static const Parameter MouseButtonId		=	"mouseButtonId";
+		}
+
 		namespace Network
 		{
 			static const Parameter HostAddress			=	"hostAddress";
@@ -170,6 +175,7 @@ namespace System
 		namespace IO
 		{
 			static const Parameter Stream				=	"stream";
+			static const Parameter Progress				=	"progress";
 		}
 	};
 
@@ -249,12 +255,20 @@ namespace System
 		//Service
 		static const MessageType RegisterService			=	"registerService";
 
+		namespace General
+		{
+			static const MessageType MessageScene			=	"messageScene";
+		}
+
 		namespace Entity
 		{
 			static const MessageType CreateEntity			=	"createEntity";
 			static const MessageType DestroyEntity			=	"destroyEntity";
 			static const MessageType SerializeWorld			=	"serializeWorld";
 			static const MessageType DeSerializeWorld		=	"deserializeWorld";
+			static const MessageType LoadingStarted			=	"loadingStarted";
+			static const MessageType LoadingProgress		=	"loadingProgress";
+			static const MessageType LoadingFinished		=	"loadingFinished";
 		}
 
 		namespace Network
@@ -287,11 +301,14 @@ namespace System
 			static const MessageType GetMessageBindings				=	"getMessageBindings";
 			static const MessageType SetInputAllowed				=	"setInputAllowed";
 			static const MessageType SetDefaultBindingForMessage	=	"setDefaultBindingForMessage";
+			static const MessageType MouseReleased					=	"mouseReleased";
+			static const MessageType MousePressed					=	"mousePressed";
 		}
 
 		namespace Game
 		{
 			static const MessageType ChangeLevel			=	"changeLevel";
+			static const MessageType GameInitialized			=	"gameInitialized";
 		}
 
 		namespace Graphics

@@ -4,7 +4,8 @@
 #include "../Exceptions/AlreadyInitializedException.hpp"
 #include "../Exceptions/NullReferenceException.hpp"
 
-#include "../Events/ScriptEvent.hpp"
+#include "../Events/EventData.hpp"
+#include "../Events/Event.h"
 using namespace Events;
 
 #include "../Management/Management.h"
@@ -49,7 +50,8 @@ namespace Logging
 		{
 			if( level != "DEBUG" && level != "NET" )
 			{
-				Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "MESSAGE_LOGGED", outputMessage.str( ) ) );
+				IEventData* eventData = new MessageLoggedEventData( outputMessage.str( ) );
+				Management::Get( )->GetEventManager( )->QueueEvent( new Event( LOG_MESSAGE_APPENDED, eventData ) );
 			}
 
 			Management::Get( )->GetPlatformManager( )->OutputDebugMessage( outputMessage.str( ) );

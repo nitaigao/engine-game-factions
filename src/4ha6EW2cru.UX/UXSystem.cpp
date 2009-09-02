@@ -8,16 +8,24 @@
 #include <MyGUI.h>
 using namespace MyGUI;
 
+#include <Ogre.h>
+
 #include <luabind/luabind.hpp>
 #include <luabind/table_policy.hpp>
 using namespace luabind;
 
+#include "Events/EventType.hpp"
+#include "Events/EventData.hpp"
+#include "Events/EventListener.h"
+#include "Events/InputEventData.hpp"
+using namespace Events;
+
+using namespace Script;
+
 namespace UX
 {
-	ISystemScene* UXSystem::CreateScene()
+	ISystemScene* UXSystem::CreateScene( )
 	{
-		m_scene = new UXSystemScene( );
-		m_scene->Initialize( ); 
 		return m_scene;
 	}
 
@@ -25,25 +33,37 @@ namespace UX
 	{
 		AnyType::AnyTypeMap results;
 
+		if ( message == System::Messages::PostInitialize )
+		{
+			m_scene->Initialize( ); 
+		}
+
 		if ( message == System::Messages::RegisterScriptFunctions )
 		{
 			scope luaScope = 
-				(
-				class_< UXSystemComponent >( "UXSystemComponent" )
-				.def( constructor< const std::string&, IUXSystemScene* >( ) )
-				.def( "findWidget", &UXSystemComponent::FindWidget )
-				.def( "loadComponent", &UXSystemComponent::LoadComponent )
-				.def( "getScreenWidth", &UXSystemComponent::GetScreenWidth )
-				.def( "getScreenHeight", &UXSystemComponent::GetScreenHeight )
-				.def( "getSupportedResolutions", &UXSystemComponent::GetSupportedResolutions, copy_table( result ) )
-				.def( "scriptWidget", &UXSystemComponent::ScriptWidget )
-				.def( "unscriptWidget", &UXSystemComponent::UnScriptWidget) 
-				.def( "showMouse", &UXSystemComponent::ShowMouse )
-				.def( "hideMouse", &UXSystemComponent::HideMouse )
-				.def( "setInputAllowed", &UXSystemComponent::SetInputAllowed )
-				.def( "changeResolution", &UXSystemComponent::ChangeResolution ),
+			(
+			class_< UXSystemComponent >( "UXSystemComponent" )
+				.def( constructor< ILuaState* >( ) )
+				.def( "registerEventHandler", &UXSystemComponent::RegisterEvent )
+				.def( "registerUpdateHandler", &UXSystemComponent::RegisterUpdate )
+				.def( "unregisterEventHandler", &UXSystemComponent::UnRegisterEvent )
+				.def( "unregisterUpdateHandler", &UXSystemComponent::UnRegisterUpdate ),
 
-				class_< Widget >( "Widget" )
+			class_< UXSystemScene >( "UXSystemScene" )
+				.def( constructor< IGUI*, Services::IServiceManager*, ILuaState*, IUXSystemComponentFactory* >( ) )
+				.def( "findWidget", &UXSystemScene::FindWidget )
+				.def( "loadComponent", &UXSystemScene::LoadComponent )
+				.def( "getScreenWidth", &UXSystemScene::GetScreenWidth )
+				.def( "getScreenHeight", &UXSystemScene::GetScreenHeight )
+				.def( "getSupportedResolutions", &UXSystemScene::GetSupportedResolutions, copy_table( result ) )
+				.def( "scriptWidget", &UXSystemScene::ScriptWidget )
+				.def( "unscriptWidget", &UXSystemScene::UnScriptWidget) 
+				.def( "showMouse", &UXSystemScene::ShowMouse )
+				.def( "hideMouse", &UXSystemScene::HideMouse )
+				.def( "setInputAllowed", &UXSystemScene::SetInputAllowed )
+				.def( "changeResolution", &UXSystemScene::ChangeResolution ),
+
+			class_< Widget >( "Widget" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "getDimensions", &Widget::getClientCoord )
 				.def( "setSize", ( void( Widget::* )( int, int ) ) &Widget::setSize )
@@ -64,27 +84,27 @@ namespace UX
 				.def( "asScrollbar", &UXSystemScene::AsScrollBar )
 				.def( "setFocus", &UXSystemScene::SetFocus ),
 
-				class_< Button, Widget >( "Button" )
+			class_< Button, Widget >( "Button" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "setChecked", &Button::setStateCheck )
 				.def( "getChecked", &Button::getStateCheck ),
 
-				class_< ComboBox, Widget >( "ComboBox" )
-				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
+			class_< ComboBox, Widget >( "ComboBox" )
+			.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "addItem", ( void ( ComboBox::* ) ( const std::string&, const std::string& ) ) &ComboBox::addItem )
 				.def( "getValueAt", ( const std::string& ( ComboBox::* ) ( int ) ) &ComboBox::getItemNameAt )
 				.def( "getSelectedIndex", &ComboBox::getIndexSelected )
 				.def( "setSelectedIndex", &ComboBox::setIndexSelected ),
 
-				class_< Edit, Widget >( "EditBox" )
+			class_< Edit, Widget >( "EditBox" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "addText", &UXSystemScene::AddText ),
 
-				class_< Progress, Widget >( "ProgressBar" )
+			class_< Progress, Widget >( "ProgressBar" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "setProgress", &Progress::setProgressPosition ),
 
-				class_< MultiList, Widget >( "MultiList" )
+			class_< MultiList, Widget >( "MultiList" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "addColumn", &UXSystemScene::MultiList_AddColumn )
 				.def( "removeAllColumns", &MultiList::removeAllColumns )
@@ -100,24 +120,24 @@ namespace UX
 				.def( "getSelectedIndex", &UXSystemScene::MultiList_GetSelectedIndex )
 				,
 
-				class_< VScroll, Widget >( "Scrollbar" )
+			class_< VScroll, Widget >( "Scrollbar" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "getScrollPosition", &VScroll::getScrollPosition )
 				.def( "setScrollPosition", &VScroll::setScrollPosition ),
 
-				class_< Window, Widget >( "Window" )
+			class_< Window, Widget >( "Window" )
 				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) ),
 
-				class_< IntCoord >( "IntCoord" )
+			class_< IntCoord >( "IntCoord" )
 				.def( constructor< >( ) )
 				.def_readonly( "x" , &IntCoord::left )
 				.def_readonly( "y" , &IntCoord::top )
 				.def_readonly( "width" , &IntCoord::width )
 				.def_readonly( "height" , &IntCoord::height ),
 
-				class_< Any >( "Any" )
+			class_< Any >( "Any" )
 				.def( constructor<>( ) )
-				);
+			);
 
 			results[ System::TypeStrings::UX ] = luaScope;
 		}
@@ -127,11 +147,67 @@ namespace UX
 
 	void UXSystem::Update( float deltaMilliseconds )
 	{
+		m_gui->Update( deltaMilliseconds );
 		m_scene->Update( deltaMilliseconds );
 	}
 
 	void UXSystem::Initialize( Configuration::IConfiguration* configuration )
 	{
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
+		m_serviceManager->RegisterService( this );
+
+		m_eventManager->AddEventListener( MakeEventListener( INPUT_MOUSE_PRESSED, this, &UXSystem::OnMousePressed ) );
+		m_eventManager->AddEventListener( MakeEventListener( INPUT_MOUSE_MOVED, this, &UXSystem::OnMouseMoved ) );
+		m_eventManager->AddEventListener( MakeEventListener( INPUT_MOUSE_RELEASED, this, &UXSystem::OnMouseReleased ) );
+		m_eventManager->AddEventListener( MakeEventListener( INPUT_KEY_DOWN, this, &UXSystem::OnKeyDown ) );
+		m_eventManager->AddEventListener( MakeEventListener( INPUT_KEY_UP, this, &UXSystem::OnKeyUp ) );
+
+		m_gui->Initialize( "/data/interface/core/core.xml" );//, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "" );
+		m_gui->HideMouse( );
+	}
+
+	UXSystem::~UXSystem()
+	{
+		delete m_gui;
+	}
+
+	void UXSystem::Release()
+	{
+		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_MOUSE_PRESSED, this, &UXSystem::OnMousePressed ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_MOUSE_MOVED, this, &UXSystem::OnMouseMoved ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_MOUSE_RELEASED, this, &UXSystem::OnMouseReleased ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_KEY_DOWN, this, &UXSystem::OnKeyDown ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_KEY_UP, this, &UXSystem::OnKeyUp ) );
+
+		m_gui->Destroy( );
+	}
+
+	void UXSystem::OnMouseMoved( const IEvent* event )
+	{
+		MouseEventData* eventData = static_cast< MouseEventData* >( event->GetEventData( ) );
+		m_gui->MouseMoved( eventData->GetX( ), eventData->GetY( ), eventData->GetZ( ) );
+	}
+
+	void UXSystem::OnMousePressed( const IEvent* event )
+	{
+		MouseEventData* eventData = static_cast< MouseEventData* >( event->GetEventData( ) );
+		m_gui->MousePressed( eventData->GetX( ), eventData->GetY( ), MouseButton::Enum( eventData->GetMouseButtonId( ) ) );
+	}
+
+	void UXSystem::OnMouseReleased( const IEvent* event )
+	{
+		MouseEventData* eventData = static_cast< MouseEventData* >( event->GetEventData( ) );
+		m_gui->MouseReleased( eventData->GetX( ), eventData->GetY( ), MouseButton::Enum( eventData->GetMouseButtonId( ) ) );
+	}
+
+	void UXSystem::OnKeyUp( const IEvent* event )
+	{
+		KeyEventData* eventData = static_cast< KeyEventData* >( event->GetEventData( ) );
+		m_gui->KeyReleased( KeyCode::Enum( eventData->GetKeyCode( ) ) );
+	}
+
+	void UXSystem::OnKeyDown( const IEvent* event )
+	{
+		KeyEventData* eventData = static_cast< KeyEventData* >( event->GetEventData( ) );
+		m_gui->KeyPressed( KeyCode::Enum( eventData->GetKeyCode( ) ) );
 	}
 };

@@ -1,10 +1,13 @@
 #include "UXSystemComponent.h"
 
-using namespace luabind;
-using namespace MyGUI;
-
-#include "Events/ScriptEvent.hpp"
+#include "Events/Event.h"
 using namespace Events;
+
+#include "ScriptFunctionHandler.hpp"
+using namespace Script;
+
+#include <luabind/luabind.hpp>
+using namespace luabind;
 
 #include "Service/IService.hpp"
 using namespace Services;
@@ -16,356 +19,119 @@ using namespace Logging;
 
 namespace UX
 {
-	void UXSystemComponent::ChangeResolution( int width, int height, bool isFullScreen )
+	UXSystemComponent::~UXSystemComponent()
 	{
-		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-
-		AnyType::AnyTypeMap parameters;
-		parameters[ System::Parameters::Graphics::Width ] = width;
-		parameters[ System::Parameters::Graphics::Height ] = height;
-		parameters[ System::Parameters::Graphics::FullScreen ] = isFullScreen;
-
-		renderService->ProcessMessage( "changeResolution", parameters );
-
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GRAPHICS_SETTINGS_CHANGED", width, height ) );
-
-		m_scene->GetGui( )->windowResized( m_scene->GetGui( )->getRenderWindow( ) );
+		delete m_state;
 	}
 
-	void UXSystemComponent::SetInputAllowed( bool inputAllowed )
+	void UXSystemComponent::Initialize( )
 	{
-		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
-		
-		AnyType::AnyTypeMap parameters;
-		parameters[ "inputAllowed" ] = inputAllowed;
-		
-		inputService->ProcessMessage( "setInputAllowed", parameters );
+		m_state->Execute( );
 	}
 
-	void UXSystemComponent::UnScriptWidget( MyGUI::Widget* widget, const std::string& eventName, luabind::object function )
+	void UXSystemComponent::RegisterUpdate( const luabind::object& function )
 	{
-		void* userData = widget->getUserData( );
-		UXSystemComponent::WidgetUserData* widgetUserData = static_cast< UXSystemComponent::WidgetUserData* >( userData );
+		m_updateHandlers.push_back( new ScriptFunctionHandler( function ) );
+	}
 
-		if ( 0 != widgetUserData )
+	void UXSystemComponent::UnRegisterUpdate( const luabind::object& function )
+	{
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
 		{
-			for ( UXSystemComponent::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+			if ( ( *i )->GetFunction( ) == function )
 			{
-				if ( ( *i ).first == eventName )
-				{
-					if ( eventName == "onRelease" )
-					{
-						widget->eventMouseButtonReleased = 0;
-					}
-
-					if ( eventName == "onClick" )
-					{
-						widget->eventMouseButtonPressed = 0;
-					}
-
-					if ( eventName == "onKeyUp" )
-					{
-						widget->eventKeyButtonReleased = 0;
-					}
-
-					if ( eventName == "onListSelectAccept" )
-					{
-						static_cast< MultiList* >( widget )->eventListSelectAccept = 0;
-					}
-
-					if( eventName == "onScrollChangePosition" )
-					{
-						static_cast< VScroll* >( widget )->eventScrollChangePosition = 0;
-					}
-
-					if ( eventName == "onWindowButtonPressed" )
-					{
-						static_cast< Window* >( widget )->eventWindowButtonPressed = 0;
-					}
-
-					if ( eventName == "onWindowChangeCoord" )
-					{
-						static_cast< Window* >( widget )->eventWindowChangeCoord = 0;
-					}
-
-					widgetUserData->erase( i );
-
-					return;
-				}
+				( *i )->MarkForDeletion( ); 
 			}
 		}
 	}
 
-	void UXSystemComponent::ScriptWidget( MyGUI::Widget* widget, const std::string eventName, luabind::object function )
+	void UXSystemComponent::RegisterEvent( const luabind::object& function )
 	{
-		void* userData = widget->getUserData( );
-
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		if ( widgetUserData == 0 )
-		{
-			widgetUserData = new WidgetUserData( );
-		}
-
-		object* handlerFunctionPtr = new object( function );
-		widgetUserData->insert( std::make_pair( eventName, handlerFunctionPtr ) );
-
-		widget->setUserData( static_cast< void* >( widgetUserData ) );
-
-		if ( eventName == "onRelease" )
-		{
-			widget->eventMouseButtonReleased = newDelegate( &UXSystemComponent::OnMouseReleased );
-		}
-
-		if ( eventName == "onClick" )
-		{
-			widget->eventMouseButtonPressed = newDelegate( &UXSystemComponent::OnMousePressed );
-		}
-
-		if ( eventName == "onKeyUp" )
-		{
-			widget->eventKeyButtonReleased = newDelegate( &UXSystemComponent::OnKeyUp );
-		}
-
-		if ( eventName == "onListSelectAccept" )
-		{
-			static_cast< MultiList* >( widget )->eventListSelectAccept = newDelegate( &UXSystemComponent::OnListSelectAccept );
-		}
-
-		if( eventName == "onScrollChangePosition" )
-		{
-			static_cast< VScroll* >( widget )->eventScrollChangePosition = newDelegate( &UXSystemComponent::OnEventScrollChangePosition );
-		}
-
-		if ( eventName == "onWindowButtonPressed" )
-		{
-			static_cast< Window* >( widget )->eventWindowButtonPressed = newDelegate( &UXSystemComponent::OnWindowButtonPressed );
-		}
-
-		if ( eventName == "onWindowChangeCoord" )
-		{
-			static_cast< Window* >( widget )->eventWindowChangeCoord = newDelegate( &UXSystemComponent::OnWindowChangeCoord );
-		}
+		m_eventHandlers.push_back( new ScriptFunctionHandler( function ) );
 	}
 
-	void UXSystemComponent::LoadComponent( const std::string componentName )
+	void UXSystemComponent::UnRegisterEvent( const luabind::object& function )
 	{
-		m_scene->CreateComponent( componentName, "default" );
-	}
-
-	void UXSystemComponent::OnMouseReleased( MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id )
-	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
 		{
-			if ( ( *i ).first == "onRelease" )
+			if ( ( *i )->GetFunction( ) == function )
 			{
-				object eventHandler = *( *i ).second;
-
-				try
-				{
-					eventHandler( static_cast< int >( id.value ), left, top );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
+				( *i )->MarkForDeletion( ); 
 			}
 		}
 	}
 
-	void UXSystemComponent::OnMousePressed( MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id )
+	void UXSystemComponent::OnEvent( const IEvent* event )
 	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		EventType eventType = event->GetEventType( );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		if ( event->GetEventType( ) == ALL_EVENTS )
 		{
-			if ( ( *i ).first == "onClick" )
-			{
-				object eventHandler = *( *i ).second;
+			const IScriptEvent* scriptEvent = static_cast< const IScriptEvent* >( event );
 
-				try
-				{
-					eventHandler( static_cast< int >( id.value ), left, top );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
+			for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
+			{
+				( *i )->HandleEvent( scriptEvent );
 			}
 		}
 	}
 
-	void UXSystemComponent::OnKeyUp( MyGUI::WidgetPtr widget, MyGUI::KeyCode key )
+	void UXSystemComponent::Update( float deltaMilliseconds )
 	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
 		{
-			if ( ( *i ).first == "onKeyUp" )
+			try
 			{
-				Char keyCode = InputManager::getInstancePtr( )->getKeyChar( key, 0 );
-				char* keyText = ( char* ) &keyCode;
+				call_function< void >( ( *i )->GetFunction( ), deltaMilliseconds );
+			}
+			catch( error& e )
+			{
+				object error_msg( from_stack( e.state( ) , -1) );
+				std::stringstream logMessage;
+				logMessage << error_msg;
+				Warn( logMessage.str( ) );
+			}
+		}
 
-				object eventHandler = *( *i ).second;
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
+		{
+			if ( ( *i )->IsMarkedForDeletion( ) )
+			{
+				delete ( *i );
+				i = m_updateHandlers.erase( i );
+			}
+			else
+			{
+				++i;
+			}
+		}
 
-				try
-				{
-					eventHandler( static_cast< int >( key.value ), std::string( keyText ) );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
+		{
+			if ( ( *i )->IsMarkedForDeletion( ) )
+			{
+				delete ( *i );
+				i = m_eventHandlers.erase( i );
+			}
+			else
+			{
+				++i;
 			}
 		}
 	}
 
-	void UXSystemComponent::OnListSelectAccept( MultiListPtr widget, size_t index )
+	void UXSystemComponent::Destroy()
 	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
 		{
-			if ( ( *i ).first == "onListSelectAccept" )
-			{
-				object eventHandler = *( *i ).second;
-
-				try
-				{
-					eventHandler( index );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
-			}
-		}
-	}
-
-	void UXSystemComponent::OnEventScrollChangePosition( MyGUI::VScrollPtr widget, size_t position )
-	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
-		{
-			if ( ( *i ).first == "onScrollChangePosition" )
-			{
-				object eventHandler = *( *i ).second;
-
-				try
-				{
-					eventHandler( static_cast< int >( position ) );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
-			}
-		}
-	}
-
-	void UXSystemComponent::OnWindowButtonPressed( MyGUI::WindowPtr widget, const std::string& name )
-	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
-		{
-			if ( ( *i ).first == "onWindowButtonPressed" )
-			{
-				object eventHandler = *( *i ).second;
-
-				try
-				{
-					eventHandler( name );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
-			}
-		}
-	}
-
-	void UXSystemComponent::OnWindowChangeCoord( MyGUI::WindowPtr widget )
-	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
-		{
-			if ( ( *i ).first == "onWindowChangeCoord" )
-			{
-				object eventHandler = *( *i ).second;
-
-				try
-				{
-					eventHandler( );
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1 ) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
-			}
-		}
-	}
-
-	std::vector< std::string > UXSystemComponent::GetSupportedResolutions( )
-	{
-		typedef std::vector< std::string > StringVector;
-
-		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		StringVector resolutions = renderService->ProcessMessage( "getAvailableVideoModes", AnyType::AnyTypeMap( ) )[ "availableVideoModes" ].As< StringVector >( );
-
-		std::multimap< int, std::string > resolutionWidths;
-
-		for( StringVector::iterator i = resolutions.begin( ); i != resolutions.end( ); ++i )
-		{
-			std::string resolution = ( *i );
-
-			std::stringstream resolutionStream;
-			resolutionStream << resolution.substr( 0, resolution.find( " x " ) );
-
-			int resolutionWidth = 0;
-			resolutionStream >> resolutionWidth;
-			resolutionWidths.insert( std::make_pair( resolutionWidth, resolution ) );
+			delete ( *i );
+			i = m_updateHandlers.erase( i );
 		}
 
-		resolutions.clear( );
-
-		for( std::multimap< int, std::string >::iterator i = resolutionWidths.begin( ); i != resolutionWidths.end( ); ++i )
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
 		{
-			resolutions.push_back( ( *i ).second );
+			delete ( *i );
+			i = m_eventHandlers.erase( i );
 		}
-
-		return resolutions;
 	}
 }

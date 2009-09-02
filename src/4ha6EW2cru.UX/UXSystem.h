@@ -10,15 +10,17 @@
 
 #include "IUXSystem.hpp"
 #include "IUXSystemScene.hpp"
+#include "IGUI.hpp"
 
-#include "Service/IService.hpp"
+#include "Service/IServiceManager.h"
+#include "Events/IEventManager.hpp"
 
 namespace UX
 {
 	/*! 
 	 *  The System that controls the User Experience ( ie. GUI Elements )
 	 */
-	class UXSystem : public IUXSystem, public Services::IService
+	class GAMEAPI UXSystem : public IUXSystem, public Services::IService
 	{
 
 	public:
@@ -27,15 +29,18 @@ namespace UX
 		*
 		*  @return ()
 		*/
-		~UXSystem( ) { };
+		~UXSystem( );
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		UXSystem( )
-			: m_scene( 0 )
+		UXSystem( IGUI* gui, IUXSystemScene* scene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
+			: m_scene( scene )
+			, m_gui( gui )
+			, m_eventManager( eventManager )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -60,7 +65,7 @@ namespace UX
 		*
 		*  @return (void)
 		*/
-		inline void Release( ) { };
+		void Release( );
 
 
 		/*! Messages the system with a command
@@ -101,11 +106,18 @@ namespace UX
 		*/
 		inline void SetAttribute( const std::string& name, AnyType value ) { };
 
-	private:
+		void OnMouseMoved( const Events::IEvent* event );
+		void OnMousePressed( const Events::IEvent* event );
+		void OnMouseReleased( const Events::IEvent* event );
+		void OnKeyUp( const Events::IEvent* event );
+		void OnKeyDown( const Events::IEvent* event );
 
 		AnyType::AnyTypeMap m_attributes;
 
+		IGUI* m_gui;
 		IUXSystemScene* m_scene;
+		Events::IEventManager* m_eventManager;
+		Services::IServiceManager* m_serviceManager;
 
 	};
 };

@@ -58,6 +58,17 @@ namespace Script
 		*/
 		inline luabind::object GetFunction( ) const { return m_functionHandler; };
 
+		
+		/*! Handles an Event from the Script System
+		 *
+		 * @param[in] const IScriptEvent * event
+		 * @return ( void )
+		 */
+		virtual void HandleEvent( const IScriptEvent* event ) const
+		{
+			event->ExecuteHandler( m_functionHandler );
+		}
+
 	private:
 
 		bool m_isMarkedForDeletion;

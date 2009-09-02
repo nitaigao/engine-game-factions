@@ -14,7 +14,6 @@ using namespace Resources;
 #include "Management/Management.h"
 
 #include "Events/Event.h"
-#include "Events/ScriptEvent.hpp"
 using namespace Events;
 
 #include <luabind/luabind.hpp>
@@ -25,6 +24,7 @@ using namespace Services;
 
 #include "ScriptFunctionHandler.hpp"
 #include "LuaState.h"
+#include "ScriptEvent.hpp"
 
 #include "Events/EventManager.h"
 #include "Events/EventListener.h"
@@ -116,107 +116,17 @@ namespace Script
 
 	void ScriptComponent::OnEvent( const IEvent* event )
 	{
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
+		EventType eventType = event->GetEventType( );
+
+		if ( event->GetEventType( ) == ALL_EVENTS )
 		{
-			EventType eventType = event->GetEventType( );
-			
-			if ( event->GetEventType( ) == ALL_EVENTS )
+			const IScriptEvent* scriptEvent = static_cast< const IScriptEvent* >( event );
+
+			for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
 			{
-				ScriptEvent* scriptEvent = ( ScriptEvent* ) event;
-
-				try
-				{
-					switch( scriptEvent->GetParamType( ) )
-					{
-
-					case ScriptEvent::PARAMCOMBO_NONE:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ) );
-
-						break;
-
-					case ScriptEvent::PARAMCOMBO_INT:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ), scriptEvent->GetValue1AsInt( ) );
-
-						break;
-
-					case ScriptEvent::PARAMCOMBO_STRING:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ), scriptEvent->GetValue1AsString( ) );
-
-						break;
-
-					case ScriptEvent::PARAMCOMBO_STRING_STRING:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ), scriptEvent->GetValue1AsString( ), scriptEvent->GetValue2AsString( ) );
-
-						break;
-
-					case ScriptEvent::PARAMCOMBO_STRING_INT:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ), scriptEvent->GetValue1AsString( ), scriptEvent->GetValue2AsInt( ) );
-
-						break;
-
-					case ScriptEvent::PARAMCOMBO_INT_STRING:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ), scriptEvent->GetValue1AsInt( ), scriptEvent->GetValue2AsString( ) );
-
-						break;
-
-					case ScriptEvent::PARAMCOMBO_INT_INT:
-
-						call_function< void >( ( *i )->GetFunction( ), scriptEvent->GetEventName( ), scriptEvent->GetValue1AsInt( ), scriptEvent->GetValue2AsInt( ) );
-
-						break;
-
-					}
-				}
-				catch( error& e )
-				{
-					object error_msg( from_stack( e.state( ) , -1) );
-					std::stringstream logMessage;
-					logMessage << error_msg;
-					Warn( logMessage.str( ) );
-				}
+				( *i )->HandleEvent( scriptEvent );
 			}
 		}
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1 )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1 )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1 ) ); 
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1, const std::string& var2 )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, const std::string& var1, int var2 )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1, const std::string& var2 )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName, int var1, int var2 )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName, var1, var2 ) ); 
-	}
-
-	void ScriptComponent::BroadcastEvent( const std::string& eventName )
-	{
-		m_eventManager->QueueEvent( new ScriptEvent( eventName ) ); 
 	}
 
 	AnyType ScriptComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
@@ -253,7 +163,7 @@ namespace Script
 			result = m_state;
 		}
 
-		m_eventManager->QueueEvent( new ScriptEvent( message, m_attributes[ System::Attributes::Name ].As< std::string >( ) ) );
+		m_eventManager->QueueEvent( new ScriptEventT1< std::string >( message, m_attributes[ System::Attributes::Name ].As< std::string >( ) ) );
 
 		return result;
 	}

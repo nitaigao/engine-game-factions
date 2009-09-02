@@ -10,14 +10,11 @@
 
 #include <vector>
 
-#include <MyGUI.h>
-#include <luabind/luabind.hpp>
-
-#include "Maths/MathVector3.hpp"
-#include "Maths/MathQuaternion.hpp"
-
 #include "IUXSystemComponent.hpp"
 #include "IUXSystemScene.hpp"
+
+#include "ILuaState.hpp"
+#include "IScriptFunctionHandler.hpp"
 
 namespace UX
 {
@@ -29,24 +26,20 @@ namespace UX
 
 	public:
 
-		typedef std::map< std::string, luabind::object* > WidgetUserData;
-
 		/*! Default Destructor
 		*
 		*  @return ()
 		*/
-		~UXSystemComponent( ) { };
+		~UXSystemComponent( );
 
 
 		/*! Default Constructor
 		*
-		*  @param[in] const std::string & name
-		*  @param[in] IUXSystemScene * scene
+		*  @param[in] ILuaState * state
 		*  @return ()
 		*/
-		UXSystemComponent( const std::string& name, IUXSystemScene* scene )
-			: m_name( name )
-			, m_scene( scene )
+		UXSystemComponent( Script::ILuaState* state )
+			: m_state( state )
 		{
 
 		}
@@ -74,7 +67,7 @@ namespace UX
 		*  @param[in] AnyType::AnyValueMap properties
 		*  @return (void)
 		*/
-		inline void Initialize( ) { };
+		void Initialize( );
 
 
 		/*! Steps the internal data of the Component
@@ -82,14 +75,14 @@ namespace UX
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		inline void Update( float deltaMilliseconds ) { };
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the Component
 		*
 		*  @return (void)
 		*/
-		inline void Destroy( ) { };
+		void Destroy( );
 
 
 		/*! Adds an Observer to the Component
@@ -115,165 +108,6 @@ namespace UX
 		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
 
 
-		/*! -- Script Helpers -- */
-		
-		/*! Loads a UI Component for Rendering
-		 *
-		 *  @param[in] const std::string componentName
-		 *  @return (void)
-		 */
-		void LoadComponent( const std::string componentName );
-
-		
-		/*! Retrieves a widget from the UI
-		 *
-		 *  @param[in] const std::string widgetName
-		 *  @return (MyGUI::WidgetPtr)
-		 */
-		MyGUI::WidgetPtr FindWidget( const std::string widgetName ) { return m_scene->GetGui( )->findWidgetT( widgetName ); };
-
-		
-		/*! Attaches an LUA function to a Widget Event
-		 *
-		 *  @param[in] MyGUI::Widget * widget
-		 *  @param[in] const std::string eventName
-		 *  @param[in] luabind::object function
-		 *  @return (void)
-		 */
-		void ScriptWidget( MyGUI::Widget* widget, const std::string eventName, luabind::object function );
-
-
-		/*! Removes an LUA function from a Widget Event
-		*
-		*  @param[in] MyGUI::Widget * widget
-		*  @param[in] const std::string eventName
-		*  @param[in] luabind::object function
-		*  @return (void)
-		*/
-		void UnScriptWidget( MyGUI::Widget* widget, const std::string& eventName, luabind::object function );
-
-		
-		/*! Shows the mouse
-		 *
-		 *  @return (void)
-		 */
-		inline void ShowMouse( ) { m_scene->GetGui( )->showPointer( ); };
-
-		
-		/*! Hides the mouse
-		 *
-		 *  @return (void)
-		 */
-		inline void HideMouse( ) { m_scene->GetGui( )->hidePointer( ); };
-
-		
-		/*! Sets whether or not the Player controls can manipulate the scene
-		 *
-		 *  @param[in] bool inputAllowed
-		 *  @return (void)
-		 */
-		void SetInputAllowed( bool inputAllowed );
-
-		
-		/*! Causes the Renderer to adjust the Resolution to match the Configuration
-		 *
-		 *  @param[in] int width
-		 *  @param[in] int height
-		 *  @param[in] bool isFullScreen
-		 *  @return (void)
-		 */
-		void ChangeResolution( int width, int height, bool isFullScreen );
-
-		
-		/*!  Returns the Screen Width in pixels
-		 *
-		 *  @return (int)
-		 */
-		int GetScreenWidth( ) { return m_scene->GetGui( )->getViewWidth( ); };
-
-		
-		/*! Returns the Screen Height in pixels
-		 *
-		 *  @return (int)
-		 */
-		int GetScreenHeight( ) { return m_scene->GetGui( )->getViewHeight( ); };
-
-
-		/*! -- Widget Event Handlers -- */
-
-		/*! Forwards Mouse Button Released Events to the subscribing Widgets in Script
-		 *
-		 *  @param[in] MyGUI::WidgetPtr widget
-		 *  @param[in] int left
-		 *  @param[in] int top
-		 *  @param[in] MyGUI::MouseButton id
-		 *  @return (void)
-		 */
-		static void OnMouseReleased( MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id );
-
-
-		/*! Forwards the Mouse Button Pressed Events to the subscribing Widgets in Script
-		*
-		* @param[in] MyGUI::WidgetPtr widget
-		* @param[in] int left
-		* @param[in] int top
-		* @param[in] MyGUI::MouseButton id
-		* @return ( void )
-		*/
-		static void OnMousePressed( MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id );
-
-		
-		/*! Forwards Key Up Events to the subscribing Widgets in Script
-		 *
-		 *  @param[in] MyGUI::WidgetPtr widget
-		 *  @param[in] MyGUI::KeyCode key
-		 *  @return (void)
-		 */
-		static void OnKeyUp( MyGUI::WidgetPtr widget, MyGUI::KeyCode key );
-
-
-		/*! Forwards the List Select Events to the sibscribing Widgets in Script
-		*
-		* @param[in] MyGUI::MultiListPtr widget
-		* @param[in] size_t index
-		* @return ( void )
-		*/
-		static void OnListSelectAccept( MyGUI::MultiListPtr widget, size_t index );
-
-
-		/*! Forwards the Scroll Events to the subscribed widgets in Script
-		*
-		* @param[in] MyGUI::VScrollPtr sender
-		* @param[in] size_t position
-		* @return ( void )
-		*/
-		static void OnEventScrollChangePosition( MyGUI::VScrollPtr widget, size_t position );
-
-
-		/*! Forwards Window Button Events to the widgets in Script
-		*
-		* @param[in] MyGUI::WindowPtr window
-		* @param[in] const std::string & name
-		* @return ( void )
-		*/
-		static void OnWindowButtonPressed( MyGUI::WindowPtr widget, const std::string& name );
-
-
-		/*! Forwards Window Change Coord/Resize Events to the widgets in Script
-		*
-		* @param[in] MyGUI::WindowPtr window
-		* @return ( void )
-		*/
-		static void OnWindowChangeCoord( MyGUI::WindowPtr widget );
-
-		
-		/*! Returns a list of supported Video Resolutions
-		 *
-		 *  @return (std::vector< std::string >)
-		 */
-		std::vector< std::string > GetSupportedResolutions( );
-
-
 		/*! Writes the contents of the object to the given stream
 		*
 		* @param[in] IStream * stream
@@ -289,12 +123,53 @@ namespace UX
 		*/
 		void DeSerialize( IO::IStream* stream ) { };
 
+
+		/*!  Registers an LUA function to be included in the Game Update Loop
+		*
+		*  @param[in] luabind::object function
+		*  @return (void)
+		*/
+		void RegisterUpdate( const luabind::object& function );
+
+
+		/*! UnRegisters an LUA function from being included in the Game Update Loop
+		*
+		*  @param[in] luabind::object function
+		*  @return (void)
+		*/
+		void UnRegisterUpdate( const luabind::object& function );
+
+
+		/*! Registers an LUA function to receive in Game Events
+		*
+		*  @param[in] luabind::object function
+		*  @return (void)
+		*/
+		void RegisterEvent( const luabind::object& function );
+
+
+		/*! UnRegisters an LUA function from receiving in Game Events
+		*
+		*  @param[in] luabind::object function
+		*  @return (void)
+		*/
+		void UnRegisterEvent( const luabind::object& function );
+
+
+		/*! Generic Event Handler to Forward Game Events to the Script
+		*
+		*  @param[in] const Events::IEvent * event
+		*  @return (void)
+		*/
+		void OnEvent( const Events::IEvent* event );
+
 	private:
 
-		std::string m_name;
+		Script::ILuaState* m_state;
 		AnyType::AnyTypeMap m_attributes;
 
-		IUXSystemScene* m_scene;
+		Script::IScriptFunctionHandler::FunctionList m_eventHandlers;
+		Script::IScriptFunctionHandler::FunctionList m_updateHandlers;
 
 	};
 }

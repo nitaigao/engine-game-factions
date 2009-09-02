@@ -7,7 +7,6 @@ using namespace luabind;
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
-#include "Events/ScriptEvent.hpp"
 using namespace Events;
 
 #include "Logging/Logger.h"

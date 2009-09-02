@@ -11,7 +11,6 @@ using namespace Resources;
 #include "../../System/SystemTypeMapper.hpp"
 #include "../../Management/Management.h"
 
-#include "../../Events/ScriptEvent.hpp"
 using namespace Events;
 
 #include "ComponentSerializerFactory.h"
@@ -55,8 +54,8 @@ namespace Serialization
 		m_loadProgress = 0;
 		m_loadTotal = 0;
 	
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "WORLD_LOADING_STARTED", levelPath ) );
-	
+		Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Entity::LoadingStarted, AnyType::AnyTypeMap( ) );
+
 		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( levelPath );
 		Document levelFile( resource->GetFileBuffer()->fileBytes );
 
@@ -236,42 +235,20 @@ namespace Serialization
 			m_loadQueueEl.pop( );
 
 			float progressPercent = ( ( float ) ++m_loadProgress / ( float ) m_loadTotal ) * 100.0f;
-			Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "WORLD_LOADING_PROGRESS", static_cast< int >( progressPercent ) ) );
 
+			AnyType::AnyTypeMap parameters;
+			parameters[ System::Parameters::IO::Progress ] = static_cast< int >( progressPercent );
+			Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Entity::LoadingProgress, parameters );
+			
 			if ( m_loadQueueEl.empty( ) )
 			{
 				m_loadProgress = m_loadTotal;
-				Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "WORLD_LOADING_FINISHED" ) );
 
+				Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Entity::LoadingFinished, AnyType::AnyTypeMap( ) );
 				Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
 			}
 		}
 	}
-
-	/*AnyType::AnyTypeMap XMLSerializer::Message( const System::Message& message, AnyType::AnyTypeMap parameters )
-	{
-		/*if ( message == System::Messages::Entity::CreateEntity )
-		{
-			this->LoadEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ) );
-		}
-
-		if ( message == System::Messages::Entity::DestroyEntity )
-		{
-			m_world->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
-		}
-
-		if( message == System::Messages::Entity::SerializeWorld )
-		{
-			m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
-		}
-
-		if( message == System::Messages::Entity::DeserializeWorld )
-		{
-			//m_world->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
-		}
-
-		return AnyType::AnyTypeMap( );
-	}*/
 
 	void XMLSerializer::DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath )
 	{

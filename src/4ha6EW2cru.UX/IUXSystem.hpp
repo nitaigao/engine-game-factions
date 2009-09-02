@@ -15,7 +15,7 @@ namespace UX
 	/*! 
 	*  The System that controls the User Experience ( ie. GUI Elements )
 	*/
-	class IUXSystem : public ISystem
+	class GAMEAPI IUXSystem : public ISystem
 	{
 
 

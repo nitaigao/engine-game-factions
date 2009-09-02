@@ -21,14 +21,16 @@ extend( SpawnPoint, Object )
 function SpawnPoint:initialize( )
 
 	script:registerEventHandler( SpawnPoint.onEvent )
-	
-	spawnManager:registerSpawnPoint( self )
 
 end
 
 function SpawnPoint.onEvent( eventName, var1 )
 
+	if ( eventName == 'WORLD_LOADING_FINISHED' ) then
 	
+		script:broadcastEvent( 'SPAWN_REGISTER', script:getName( ), script:getPosition( ) )
+	
+	end
 
 end
 

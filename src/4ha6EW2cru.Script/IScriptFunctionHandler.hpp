@@ -11,6 +11,8 @@
 #include <luabind/luabind.hpp>
 #include <deque>
 
+#include "ScriptEvent.hpp"
+
 namespace Script
 {
 	/*!
@@ -45,10 +47,18 @@ namespace Script
 
 
 		/*! Returns the LUA function
-		 *
-		 *  @return (luabind::object)
-		 */
+		*
+		*  @return (luabind::object)
+		*/
 		virtual luabind::object GetFunction( ) const = 0;
+
+
+		/*! Handles an Event from the Script System
+		*
+		* @param[in] const IScriptEvent * event
+		* @return ( void )
+		*/
+		virtual void HandleEvent( const Script::IScriptEvent* event ) const = 0;
 
 	};
 };

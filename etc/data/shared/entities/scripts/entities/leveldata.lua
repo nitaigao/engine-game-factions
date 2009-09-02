@@ -1,0 +1,1 @@
+script:include( '/data/entities/scripts/game/spawnmanager.lua' )

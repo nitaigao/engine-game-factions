@@ -20,6 +20,8 @@ extend( Player, Character )
 
 function Player:initialize( )
 
+	self.super( ):initialize( )
+
 	script:registerEventHandler( Player.onEvent )
 
 end

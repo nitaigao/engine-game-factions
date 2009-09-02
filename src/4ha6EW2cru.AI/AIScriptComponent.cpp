@@ -17,7 +17,6 @@ using namespace luabind;
 #include "Logging/Logger.h"
 using namespace Logging;
 
-#include "Events/ScriptEvent.hpp"
 using namespace Events;
 
 namespace AI

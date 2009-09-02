@@ -24,7 +24,8 @@ extend( Character, Actor )
 
 function Character:initialize( )
 
-	print( '#######################################' )
+	script:registerEventHandler( Character.onEvent )
+	script:broadcastEvent( 'SPAWN_REQUEST', script:getName( ) )
 
 end
 
@@ -61,4 +62,18 @@ function Character:onDie( )
 	self.isdead = true
 	script:broadcastEvent( 'ACTOR_DEAD', script:getName( ) )
 	
+end
+
+function Character.onEvent( eventName, var1, var2 )
+
+	if ( eventName == 'SPAWN_RESPONSE' ) then
+	
+		if ( var1 == script:getName( ) ) then
+		
+			print( 'spawn response received' )
+		
+		end
+	
+	end
+
 end

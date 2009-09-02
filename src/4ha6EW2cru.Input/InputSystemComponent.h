@@ -138,7 +138,7 @@ namespace Input
 		* @param[in] const OIS::MouseEvent & arg
 		* @return ( void )
 		*/
-		void MouseMoved( const OIS::MouseEvent &arg );
+		void MouseMoved( const OIS::MouseEvent &arg ) { };
 
 
 		/*! Called by the Scene when a key is pressed

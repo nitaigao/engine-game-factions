@@ -2,7 +2,9 @@
 -- Global Variables
 ----------------------------------------------------------------
 
-Title = {}
+Title = {
+
+}
 
 ----------------------------------------------------------------
 -- Local Variables
@@ -22,8 +24,8 @@ function Title.initialize( )
 	local logoY = ( ux:getScreenHeight( ) - logo:getDimensions( ).height ) / 2
 	logo:setPosition( logoX, logoY )
 	
-	script:registerUpdateHandler( Title.onShowUpdate )
 	logo:setAlpha( 0 )
+	script:registerUpdateHandler( Title.onShowUpdate )
 
 end
 

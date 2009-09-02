@@ -9,14 +9,13 @@
 #define IUXSYSTEMSCENE_H
 
 #include "System/ISystemScene.hpp"
-#include <MyGUI.h>
 
 namespace UX
 {
 	/*! 
 	 *  A scene specific to the UX System
 	 */
-	class IUXSystemScene : public ISystemScene
+	class GAMEAPI IUXSystemScene : public ISystemScene
 	{
 
 	public:
@@ -26,13 +25,6 @@ namespace UX
 		 *  @return ()
 		 */
 		virtual ~IUXSystemScene( ) { };
-
-
-		/*! Returns the GUI System
-		 *
-		 *  @return (MyGUI::Gui*)
-		 */
-		virtual MyGUI::Gui* GetGui( ) const = 0;
 
 	};
 };

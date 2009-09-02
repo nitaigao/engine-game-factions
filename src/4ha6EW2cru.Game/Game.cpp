@@ -19,7 +19,6 @@ using namespace State;
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
-#include "Events/ScriptEvent.hpp"
 #include "Events/EventListener.h"
 using namespace Events;
 
@@ -97,9 +96,10 @@ void Game::Initialize( )
 	// -- Register Events
 
 	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_QUIT, this, &Game::OnGameQuit ) );
-	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
-	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_ENDED, this, &Game::OnGameEnded ) );
-	Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GAME_INITIALIZED" ) );
+	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_ENDED, this, &Game::OnGameEnded ) );
+	
+	//Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GAME_INITIALIZED" ) );
 
 	if ( programOptions.find( System::Options::LevelName ) != programOptions.end( ) )
 	{
@@ -137,9 +137,9 @@ void Game::Release( )
 	}
 
 	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_QUIT, this, &Game::OnGameQuit ) );
-	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	//Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
 
-	m_world->Clear( );
+	m_world->Destroy( );
 
 	delete m_world;
 
@@ -149,8 +149,6 @@ void Game::Release( )
 
 void Game::OnGameQuit( const IEvent* event )
 {
-	m_world->Destroy( );
-
 	m_isQuitting = true;
 }
 

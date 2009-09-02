@@ -1,4 +1,4 @@
-﻿<level> 
+<level>
   <environment>
     <colors>
       <color type="colourAmbient" r="0.333333" g="0.333333" b="0.333333" />
@@ -117,6 +117,28 @@
             <attribute key="scale" v1="1" v2="1" v3="1" />
             <attribute key="position" v1="-491.552" v2="140.654" v3="486.756" />
             <attribute key="orientation" v1="-0.0922054" v2="-0.381555" v3="-0.0382849" v4="0.918939" />
+          </attributes>
+        </component>
+      </components>
+    </entity>
+    <entity name="Spawn Point02" src="/data/entities/spawnpoint.xml">
+      <components>
+        <component type="default" system="geometry">
+          <attributes>
+            <attribute key="scale" v1="1" v2="1" v3="1" />
+            <attribute key="position" v1="148.365" v2="-5.23246e-006" v3="-119.705" />
+            <attribute key="orientation" v1="0" v2="0" v3="0" v4="1" />
+          </attributes>
+        </component>
+      </components>
+    </entity>
+    <entity name="leveldata" src="/data/entities/leveldata.xml">
+      <components>
+        <component type="default" system="geometry">
+          <attributes>
+            <attribute key="scale" v1="1" v2="1" v3="1" />
+            <attribute key="position" v1="0" v2="0" v3="0" />
+            <attribute key="orientation" v1="0" v2="0" v3="0" v4="1" />
           </attributes>
         </component>
       </components>

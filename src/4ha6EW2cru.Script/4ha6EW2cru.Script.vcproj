@@ -344,6 +344,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScriptEvent.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptFacadeFactory.h"
 				>
 			</File>
