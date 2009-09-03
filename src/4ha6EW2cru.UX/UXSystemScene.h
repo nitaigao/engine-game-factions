@@ -25,10 +25,8 @@ namespace UX
 	/*! 
 	 *  A scene specific to the UX System
 	 */
-	class GAMEAPI UXSystemScene : public IUXSystemScene, public MyGUI::IUnlinkWidget
+	class GAMEAPI UXSystemScene : public IUXSystemScene
 	{
-
-		typedef std::map< std::string, luabind::object* > WidgetUserData;
 
 	public:
 
@@ -305,8 +303,6 @@ namespace UX
 		static inline MyGUI::MultiListPtr AsMultiList( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::MultiListPtr >( widget ); };
 		static inline MyGUI::VScrollPtr AsScrollBar( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::VScrollPtr > ( widget ); };
 		static inline MyGUI::WindowPtr AsWindow( MyGUI::WidgetPtr widget ) { return static_cast< MyGUI::WindowPtr >( widget ); };
-
-		void _unlinkWidget( MyGUI::WidgetPtr widget );
 
 	private:
 

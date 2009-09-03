@@ -12,6 +12,7 @@ using namespace MyGUI;
 
 #include <luabind/luabind.hpp>
 #include <luabind/table_policy.hpp>
+#include <luabind/copy_policy.hpp>
 using namespace luabind;
 
 #include "Events/EventType.hpp"
@@ -43,7 +44,7 @@ namespace UX
 			scope luaScope = 
 			(
 			class_< UXSystemComponent >( "UXSystemComponent" )
-				.def( constructor< ILuaState* >( ) )
+				.def( constructor< ILuaState*, IEventManager* >( ) )
 				.def( "registerEventHandler", &UXSystemComponent::RegisterEvent )
 				.def( "registerUpdateHandler", &UXSystemComponent::RegisterUpdate )
 				.def( "unregisterEventHandler", &UXSystemComponent::UnRegisterEvent )
@@ -136,7 +137,10 @@ namespace UX
 				.def_readonly( "height" , &IntCoord::height ),
 
 			class_< Any >( "Any" )
-				.def( constructor<>( ) )
+				.def( constructor<>( ) ),
+
+			class_< EventType >( "EventType" )
+
 			);
 
 			results[ System::TypeStrings::UX ] = luaScope;
@@ -155,11 +159,11 @@ namespace UX
 	{
 		m_serviceManager->RegisterService( this );
 
-		m_eventManager->AddEventListener( MakeEventListener( INPUT_MOUSE_PRESSED, this, &UXSystem::OnMousePressed ) );
-		m_eventManager->AddEventListener( MakeEventListener( INPUT_MOUSE_MOVED, this, &UXSystem::OnMouseMoved ) );
-		m_eventManager->AddEventListener( MakeEventListener( INPUT_MOUSE_RELEASED, this, &UXSystem::OnMouseReleased ) );
-		m_eventManager->AddEventListener( MakeEventListener( INPUT_KEY_DOWN, this, &UXSystem::OnKeyDown ) );
-		m_eventManager->AddEventListener( MakeEventListener( INPUT_KEY_UP, this, &UXSystem::OnKeyUp ) );
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::INPUT_MOUSE_PRESSED, this, &UXSystem::OnMousePressed ) );
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::INPUT_MOUSE_MOVED, this, &UXSystem::OnMouseMoved ) );
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::INPUT_MOUSE_RELEASED, this, &UXSystem::OnMouseReleased ) );
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::INPUT_KEY_DOWN, this, &UXSystem::OnKeyDown ) );
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::INPUT_KEY_UP, this, &UXSystem::OnKeyUp ) );
 
 		m_gui->Initialize( "/data/interface/core/core.xml" );//, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "" );
 		m_gui->HideMouse( );
@@ -170,13 +174,13 @@ namespace UX
 		delete m_gui;
 	}
 
-	void UXSystem::Release()
+	void UXSystem::Release( )
 	{
-		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_MOUSE_PRESSED, this, &UXSystem::OnMousePressed ) );
-		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_MOUSE_MOVED, this, &UXSystem::OnMouseMoved ) );
-		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_MOUSE_RELEASED, this, &UXSystem::OnMouseReleased ) );
-		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_KEY_DOWN, this, &UXSystem::OnKeyDown ) );
-		m_eventManager->RemoveEventListener( MakeEventListener( INPUT_KEY_UP, this, &UXSystem::OnKeyUp ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::INPUT_MOUSE_PRESSED, this, &UXSystem::OnMousePressed ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::INPUT_MOUSE_MOVED, this, &UXSystem::OnMouseMoved ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::INPUT_MOUSE_RELEASED, this, &UXSystem::OnMouseReleased ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::INPUT_KEY_DOWN, this, &UXSystem::OnKeyDown ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::INPUT_KEY_UP, this, &UXSystem::OnKeyUp ) );
 
 		m_gui->Destroy( );
 	}

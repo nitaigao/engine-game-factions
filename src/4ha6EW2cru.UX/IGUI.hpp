@@ -9,6 +9,8 @@
 #define IGUI_HPP
 
 #include <string>
+#include <map>
+#include <luabind/luabind.hpp>
 
 #include <MyGUI.h>
 
@@ -23,6 +25,8 @@ namespace UX
 	{
 
 	public:
+
+		typedef std::map< std::string, luabind::object* > WidgetUserData;
 
 		/*! Default Destructor
 		 *
@@ -150,6 +154,13 @@ namespace UX
 		 * @return ( void )
 		 */
 		virtual void Update( float deltaMilliseconds ) = 0;
+
+
+		/*! Clears the Scene of All Widgets
+		 *
+		 * @return ( void )
+		 */
+		virtual void ClearScene( ) = 0;
 		
 	};
 };

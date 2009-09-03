@@ -10,6 +10,8 @@
 
 #include "IScriptFunctionHandler.hpp"
 
+
+
 namespace Script
 {
 	/*!
@@ -64,9 +66,9 @@ namespace Script
 		 * @param[in] const IScriptEvent * event
 		 * @return ( void )
 		 */
-		virtual void HandleEvent( const IScriptEvent* event ) const
+		inline void HandleEvent( const Events::IEvent* event ) const
 		{
-			event->ExecuteHandler( m_functionHandler );
+			luabind::call_function< void >( m_functionHandler, event->GetEventType( ) );
 		}
 
 	private:

@@ -82,7 +82,7 @@ TEST_F( UXSystem_Tests, should_inject_mouse_moved )
 	EXPECT_CALL( *m_gui, MouseMoved( x, y, z ) );
 
 	MouseEventData* eventData = new MouseEventData( x, y, z, 0 );
-	Event event( INPUT_MOUSE_MOVED, eventData );
+	Event event( EventTypes::INPUT_MOUSE_MOVED, eventData );
 
 	m_subject->OnMouseMoved( &event );
 }
@@ -96,7 +96,7 @@ TEST_F( UXSystem_Tests, should_inject_mouse_pressed )
 	EXPECT_CALL( *m_gui, MousePressed( x, y, id ) );
 
 	MouseEventData* eventData = new MouseEventData( x, y, 0, id );
-	Event event( INPUT_MOUSE_PRESSED, eventData );
+	Event event( EventTypes::INPUT_MOUSE_PRESSED, eventData );
 
 	m_subject->OnMousePressed( &event );
 }
@@ -110,7 +110,7 @@ TEST_F( UXSystem_Tests, should_inject_mouse_release )
 	EXPECT_CALL( *m_gui, MouseReleased( x, y, id ) );
 
 	MouseEventData* eventData = new MouseEventData( x, y, 0, id );
-	Event event( INPUT_MOUSE_RELEASED, eventData );
+	Event event( EventTypes::INPUT_MOUSE_RELEASED, eventData );
 
 	m_subject->OnMouseReleased( &event );
 }
@@ -122,7 +122,7 @@ TEST_F( UXSystem_Tests, should_inject_key_release )
 	EXPECT_CALL( *m_gui, KeyReleased( keyCode ) );
 
 	KeyEventData* eventData = new KeyEventData( keyCode, "something" );
-	Event event( INPUT_KEY_UP, eventData );
+	Event event( EventTypes::INPUT_KEY_UP, eventData );
 
 	m_subject->OnKeyUp( &event );
 }
@@ -134,7 +134,7 @@ TEST_F( UXSystem_Tests, should_inject_key_press )
 	EXPECT_CALL( *m_gui, KeyPressed( keyCode ) );
 
 	KeyEventData* eventData = new KeyEventData( keyCode, "something" );
-	Event event( INPUT_KEY_DOWN, eventData );
+	Event event( EventTypes::INPUT_KEY_DOWN, eventData );
 
 	m_subject->OnKeyDown( &event );
 }

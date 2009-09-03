@@ -49,7 +49,7 @@ namespace Renderer
 	{
 		Ogre::WindowEventUtilities::removeWindowEventListener( m_window, this );
 
-		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_ENDED, this, &RendererSystem::OnGameEnded ) );
+		Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_ENDED, this, &RendererSystem::OnGameEnded ) );
 		
 		if ( m_logListener != 0 )
 		{
@@ -157,7 +157,7 @@ namespace Renderer
 		m_factories.push_back( lineFactory );
 		m_root->addMovableObjectFactory( lineFactory );
 
-		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_ENDED, this, &RendererSystem::OnGameEnded ) );
+		Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_ENDED, this, &RendererSystem::OnGameEnded ) );
 
 		Management::Get( )->GetServiceManager( )->RegisterService( this );
 
@@ -277,7 +277,7 @@ namespace Renderer
 
 	void RendererSystem::windowClosed( RenderWindow* rw )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_QUIT ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_QUIT ) );
 	}
 
 	std::vector< std::string > RendererSystem::GetVideoModes( ) const

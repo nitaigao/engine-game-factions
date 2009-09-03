@@ -16,12 +16,14 @@
 #include "ILuaState.hpp"
 #include "IScriptFunctionHandler.hpp"
 
+#include "Events/IEventManager.hpp"
+
 namespace UX
 {
 	/*! 
 	*  A UX System Scene Component
 	*/
-	class UXSystemComponent : public IUXSystemComponent
+	class GAMEAPI UXSystemComponent : public IUXSystemComponent
 	{
 
 	public:
@@ -38,8 +40,9 @@ namespace UX
 		*  @param[in] ILuaState * state
 		*  @return ()
 		*/
-		UXSystemComponent( Script::ILuaState* state )
+		UXSystemComponent( Script::ILuaState* state, Events::IEventManager* eventManager )
 			: m_state( state )
+			, m_eventManager( eventManager )
 		{
 
 		}
@@ -166,6 +169,7 @@ namespace UX
 	private:
 
 		Script::ILuaState* m_state;
+		Events::IEventManager* m_eventManager;
 		AnyType::AnyTypeMap m_attributes;
 
 		Script::IScriptFunctionHandler::FunctionList m_eventHandlers;

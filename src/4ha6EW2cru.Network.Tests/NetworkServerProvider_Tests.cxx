@@ -72,7 +72,7 @@ TEST_F( NetworkServerProvider_Tests, should_set_offline_message_on_level_changed
 
 	m_subject->Initialize( 0, 0 );
 
-	Event event( GAME_LEVEL_CHANGED, new LevelChangedEventData( "test" ) );
+	Event event( EventTypes::GAME_LEVEL_CHANGED, new LevelChangedEventData( "test" ) );
 	m_subject->OnGameLevelChanged( &event );
 }
 

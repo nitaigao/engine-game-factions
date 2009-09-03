@@ -95,9 +95,9 @@ void Game::Initialize( )
 
 	// -- Register Events
 
-	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_QUIT, this, &Game::OnGameQuit ) );
-	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
-	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( GAME_ENDED, this, &Game::OnGameEnded ) );
+	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_QUIT, this, &Game::OnGameQuit ) );
+	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_ENDED, this, &Game::OnGameEnded ) );
 	
 	//Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GAME_INITIALIZED" ) );
 
@@ -105,7 +105,7 @@ void Game::Initialize( )
 	{
 		std::string levelName = programOptions[ System::Options::LevelName ].As< std::string >( );
 		LevelChangedEventData* eventData = new LevelChangedEventData( levelName );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_LEVEL_CHANGED, eventData ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_LEVEL_CHANGED, eventData ) );
 	}
 
 	m_isInitialized = true;
@@ -136,8 +136,8 @@ void Game::Release( )
 		throw e;
 	}
 
-	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_QUIT, this, &Game::OnGameQuit ) );
-	//Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_QUIT, this, &Game::OnGameQuit ) );
+	//Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
 
 	m_world->Destroy( );
 

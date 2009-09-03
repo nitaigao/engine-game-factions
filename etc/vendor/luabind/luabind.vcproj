@@ -313,6 +313,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\exception_handler.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\find_best_match.cpp"
 				>
 			</File>
@@ -370,22 +374,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\src\luabind\object.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\luabind\detail\object_call.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\luabind\detail\object_funs.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\luabind\detail\object_rep.hpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

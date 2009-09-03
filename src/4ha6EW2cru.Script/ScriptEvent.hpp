@@ -73,7 +73,7 @@ namespace Script
 		*
 		*  @return (Events::EventType)
 		*/
-		inline Events::EventType GetEventType( ) const { return Events::ALL_EVENTS; };
+		inline Events::EventType GetEventType( ) const { return Events::EventTypes::ALL_EVENTS; };
 
 
 		/*! Returns Event Data attached to the event, this will be null as the data is contained within the value functions GetValue1( ) & GetValue2( )

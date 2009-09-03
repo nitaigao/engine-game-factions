@@ -67,7 +67,7 @@ namespace Input
 	{
 		if ( arg.key != OIS::KC_GRAVE )
 		{
-			Event* event = new Event( INPUT_KEY_DOWN, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
+			Event* event = new Event( EventTypes::INPUT_KEY_DOWN, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 			if ( m_inputAllowed )
@@ -98,7 +98,7 @@ namespace Input
 			//IEvent* scriptEvent = new ScriptEvent( "INPUT_KEY_UP", arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) );
 			//Management::Get( )->GetEventManager( )->TriggerEvent( scriptEvent );
 
-			IEvent* event = new Event( INPUT_KEY_UP, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
+			IEvent* event = new Event( EventTypes::INPUT_KEY_UP, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 			if ( m_inputAllowed )
@@ -115,7 +115,7 @@ namespace Input
 
 	bool InputSystemScene::MouseMoved( const MouseEvent &arg )
 	{
-		Event* event = new Event( INPUT_MOUSE_MOVED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, OIS::MB_Left ) );
+		Event* event = new Event( EventTypes::INPUT_MOUSE_MOVED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, OIS::MB_Left ) );
 		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		if ( m_inputAllowed )
@@ -139,7 +139,7 @@ namespace Input
 			}
 		}
 
-		Event* event = new Event( INPUT_MOUSE_PRESSED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
+		Event* event = new Event( EventTypes::INPUT_MOUSE_PRESSED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
 		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		return true;
@@ -155,7 +155,7 @@ namespace Input
 			}
 		}
 
-		Event* event = new Event( INPUT_MOUSE_RELEASED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
+		Event* event = new Event( EventTypes::INPUT_MOUSE_RELEASED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
 		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		return true;

@@ -12,6 +12,7 @@
 
 #include "ILuaState.hpp"
 #include "IGUI.hpp"
+#include "Events/IEventManager.hpp"
 
 namespace UX
 {
@@ -34,9 +35,10 @@ namespace UX
 		*
 		* @return (  )
 		*/
-		UXSystemComponentFactory( Script::ILuaState* masterState, IGUI* gui )
+		UXSystemComponentFactory( Script::ILuaState* masterState, IGUI* gui, Events::IEventManager* eventManager )
 			: m_masterState( masterState )
 			, m_gui( gui )
+			, m_eventManager( eventManager )
 		{
 
 		}
@@ -55,6 +57,7 @@ namespace UX
 		UXSystemComponentFactory & operator = ( const UXSystemComponentFactory & copy ) { return *this; };
 
 		Script::ILuaState* m_masterState;
+		Events::IEventManager* m_eventManager;
 		IGUI* m_gui;
 
 	};

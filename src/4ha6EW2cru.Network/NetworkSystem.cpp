@@ -104,7 +104,7 @@ namespace Network
 				);
 
 			m_scene->AddNetworkProvider( m_serverProvider );
-			m_eventManager->AddEventListener( MakeEventListener( GAME_LEVEL_CHANGED, static_cast< NetworkServerProvider* >( m_serverProvider ), &NetworkServerProvider::OnGameLevelChanged ) );
+			m_eventManager->AddEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, static_cast< NetworkServerProvider* >( m_serverProvider ), &NetworkServerProvider::OnGameLevelChanged ) );
 		}
 
 		if ( message == System::Messages::Network::Connect )

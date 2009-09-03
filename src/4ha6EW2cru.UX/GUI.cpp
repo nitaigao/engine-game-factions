@@ -54,6 +54,9 @@ namespace UX
 		Root::initFromPtr( root ); 
 		RenderWindow* renderWindow = renderService->ProcessMessage( System::Messages::Graphics::GetRenderWindow, AnyType::AnyTypeMap( ) )[ "renderWindow" ].As< Ogre::RenderWindow* >( );
 		m_gui->initialise( renderWindow, skinPath, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "" );
+
+		WidgetManager::getInstancePtr( )->registerUnlinker( this );
+	
 	}
 
 	void GUI::Destroy()
@@ -94,5 +97,26 @@ namespace UX
 	void GUI::Update( float deltaMilliseconds )
 	{
 		m_gui->injectFrameEntered( deltaMilliseconds );
+	}
+
+	void GUI::ClearScene()
+	{
+		m_gui->destroyAllChildWidget( );
+	}
+
+	void GUI::_unlinkWidget( WidgetPtr widget )
+	{
+		void* userData = widget->getUserData( );
+		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+
+		if ( 0 != widgetUserData )
+		{
+			for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+			{
+				delete ( *i ).second;
+			}
+
+			delete widgetUserData;
+		}
 	}
 }

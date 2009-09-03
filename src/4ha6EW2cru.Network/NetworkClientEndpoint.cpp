@@ -53,7 +53,7 @@ namespace Network
 	void NetworkClientEndpoint::Net_LoadLevel( RakString levelName, RPC3* rpcFromNetwork )
 	{
 		IEventData* eventData = new LevelChangedEventData( levelName.C_String( ) );
-		IEvent* event = new Event( GAME_LEVEL_CHANGED, eventData );
+		IEvent* event = new Event( EventTypes::GAME_LEVEL_CHANGED, eventData );
 		Management::Get( )->GetEventManager( )->QueueEvent( event );
 	}
 

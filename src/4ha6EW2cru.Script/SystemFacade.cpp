@@ -35,19 +35,19 @@ namespace Script
 
 	void SystemFacade::Quit( )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_QUIT ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_QUIT ) );
 	}
 
 	void SystemFacade::LoadLevel( const std::string& levelName )
 	{
 		IEventData* eventData = new LevelChangedEventData( levelName );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_LEVEL_CHANGED, eventData ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_LEVEL_CHANGED, eventData ) );
 	}
 
 	void SystemFacade::EndGame( )
 	{
 		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEventT0<>( "GAME_ENDED" ) );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( GAME_ENDED ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_ENDED ) );
 	}
 
 	float SystemFacade::GetTime( ) const

@@ -34,7 +34,7 @@ namespace Script
 {
 	void ScriptComponent::Initialize( )
 	{
-		m_eventManager->AddEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
 
 		m_state->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
 
@@ -43,7 +43,7 @@ namespace Script
 
 	void ScriptComponent::Destroy( )
 	{
-		m_eventManager->RemoveEventListener( MakeEventListener( ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
 
 		m_facadeManager->Destroy( );
 
@@ -118,7 +118,7 @@ namespace Script
 	{
 		EventType eventType = event->GetEventType( );
 
-		if ( event->GetEventType( ) == ALL_EVENTS )
+		if ( event->GetEventType( ) == EventTypes::ALL_EVENTS )
 		{
 			const IScriptEvent* scriptEvent = static_cast< const IScriptEvent* >( event );
 

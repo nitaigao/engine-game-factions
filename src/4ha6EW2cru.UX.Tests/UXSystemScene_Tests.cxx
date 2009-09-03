@@ -59,6 +59,13 @@ TEST_F( UXSystemScene_Tests, should_initialize )
 	m_subject->Initialize( );
 }
 
+TEST_F( UXSystemScene_Tests, should_destroy )
+{
+	EXPECT_CALL( *m_gui, ClearScene( ) );
+
+	m_subject->Destroy( );
+}
+
 TEST_F( UXSystemScene_Tests, should_get_view_dimensions )
 {
 	int width = 10;

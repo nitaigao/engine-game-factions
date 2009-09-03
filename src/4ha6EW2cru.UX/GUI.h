@@ -18,7 +18,7 @@ namespace UX
 	/*! 
 	 *  The interface to the GUI System
 	 */
-	class GAMEAPI GUI : public IGUI
+	class GAMEAPI GUI : public IGUI, public MyGUI::IUnlinkWidget
 	{
 
 	public:
@@ -161,6 +161,16 @@ namespace UX
 		* @return ( void )
 		*/
 		void Update( float deltaMilliseconds );
+
+
+		/*! Clears the Scene of All Widgets
+		*
+		* @return ( void )
+		*/
+		void ClearScene( );
+
+		void _unlinkWidget( MyGUI::WidgetPtr widget );
+
 
 	private:
 

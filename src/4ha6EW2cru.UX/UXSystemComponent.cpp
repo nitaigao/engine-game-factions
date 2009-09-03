@@ -1,6 +1,7 @@
 #include "UXSystemComponent.h"
 
 #include "Events/Event.h"
+#include "Events/EventListener.h"
 using namespace Events;
 
 #include "ScriptFunctionHandler.hpp"
@@ -27,6 +28,25 @@ namespace UX
 	void UXSystemComponent::Initialize( )
 	{
 		m_state->Execute( );
+
+		m_eventManager->AddEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &UXSystemComponent::OnEvent ) );
+	}
+
+	void UXSystemComponent::Destroy()
+	{
+		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &UXSystemComponent::OnEvent ) );
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
+		{
+			delete ( *i );
+			i = m_updateHandlers.erase( i );
+		}
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
+		{
+			delete ( *i );
+			i = m_eventHandlers.erase( i );
+		}
 	}
 
 	void UXSystemComponent::RegisterUpdate( const luabind::object& function )
@@ -63,16 +83,9 @@ namespace UX
 
 	void UXSystemComponent::OnEvent( const IEvent* event )
 	{
-		EventType eventType = event->GetEventType( );
-
-		if ( event->GetEventType( ) == ALL_EVENTS )
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
 		{
-			const IScriptEvent* scriptEvent = static_cast< const IScriptEvent* >( event );
-
-			for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
-			{
-				( *i )->HandleEvent( scriptEvent );
-			}
+			( *i )->HandleEvent( event );
 		}
 	}
 
@@ -117,21 +130,6 @@ namespace UX
 			{
 				++i;
 			}
-		}
-	}
-
-	void UXSystemComponent::Destroy()
-	{
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
-		{
-			delete ( *i );
-			i = m_updateHandlers.erase( i );
-		}
-
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
-		{
-			delete ( *i );
-			i = m_eventHandlers.erase( i );
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace UX
 	{
 		ILuaState* masterState = new LuaState( Management::Get( )->GetResourceManager( ) );
 		IGUI* gui = this->CreateUXGUI( );
-		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui );
+		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, Management::Get( )->GetEventManager( ) );
 		IUXSystemScene* scene = new UXSystemScene( gui, Management::Get( )->GetServiceManager( ), masterState, factory );
 
 		return new UXSystem( gui, scene, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) );

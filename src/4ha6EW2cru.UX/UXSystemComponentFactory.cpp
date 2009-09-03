@@ -15,7 +15,7 @@ namespace UX
 
 		ILuaState* childState = m_masterState->CreateChild( );
 
-		UXSystemComponent* component = new UXSystemComponent( childState );
+		UXSystemComponent* component = new UXSystemComponent( childState, m_eventManager );
 		component->SetAttribute( System::Attributes::Name, name );
 		component->SetAttribute( System::Attributes::SystemType, System::Types::UX );
 

@@ -57,7 +57,7 @@ function Title.onHideUpdate( )
 	else
 	
 		Title.deactivate( )
-		script:broadcastEvent( 'UI_MAIN_MENU' ) 
+		--script:broadcastEvent( 'UI_MAIN_MENU' ) 
 	
 	end
 

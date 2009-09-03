@@ -37,7 +37,7 @@ namespace Events
 		{
 			if ( 
 				( *i )->GetEventType( ) == event->GetEventType( ) && !( *i )->IsMarkedForDeletion( ) || 
-				( *i )->GetEventType( ) == ALL_EVENTS && !( *i )->IsMarkedForDeletion( ) 
+				( *i )->GetEventType( ) == Events::EventTypes::ALL_EVENTS && !( *i )->IsMarkedForDeletion( ) 
 				)
 			{
 				( *i )->HandleEvent( event );

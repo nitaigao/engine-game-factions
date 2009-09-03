@@ -15,7 +15,7 @@ namespace UX
 	/*! 
 	*  A UX System Scene Component
 	*/
-	class IUXSystemComponent : public ISystemComponent
+	class GAMEAPI IUXSystemComponent : public ISystemComponent
 	{
 
 	public:

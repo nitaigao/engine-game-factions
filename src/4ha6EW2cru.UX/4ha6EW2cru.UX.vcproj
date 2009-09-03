@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Script;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/mygui/myguiengine/include;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/ois/includes"
-				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32;EXPORT;OGRE_STATIC_LIB;MYGUI_STATIC_LIB"
+				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32;EXPORT;OGRE_STATIC_LIB;MYGUI_STATIC_LIB;LUABIND_DYNAMIC_LINK;LUA_BUILD_AS_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"

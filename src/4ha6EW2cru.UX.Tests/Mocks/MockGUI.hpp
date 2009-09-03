@@ -34,6 +34,7 @@ namespace
 		MOCK_CONST_METHOD0( WindowResized, void( ) );
 		MOCK_METHOD1( LoadLayout, void( const std::string& ) );
 		MOCK_METHOD1( Update, void( float ) );
+		MOCK_METHOD0( ClearScene, void( ) );
 
 	};
 };

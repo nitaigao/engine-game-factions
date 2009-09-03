@@ -31,11 +31,6 @@ namespace UX
 
 	void UXSystemScene::Initialize( )
 	{
-		if ( typeid( *m_masterState ) == typeid( LuaState ) )
-		{
-			WidgetManager::getInstancePtr( )->registerUnlinker( this );
-		}
-
 		m_masterState->Initialize( );
 
 		AnyType::AnyTypeMap results = m_serviceManager->MessageAll( System::Messages::RegisterScriptFunctions, AnyType::AnyTypeMap( ) );
@@ -68,10 +63,7 @@ namespace UX
 
 	void UXSystemScene::Destroy( )
 	{
-		if ( typeid( *m_masterState ) == typeid( LuaState ) )
-		{
-			WidgetManager::getInstancePtr( )->unregisterUnlinker( this );
-		}
+		m_gui->ClearScene( );
 
 		for ( IUXSystemComponent::UXSystemComponentList::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
@@ -89,22 +81,6 @@ namespace UX
 		m_gui->WindowResized( );
 
 		return component;
-	}
-
-	void UXSystemScene::_unlinkWidget( WidgetPtr widget )
-	{
-		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
-
-		if ( 0 != widgetUserData )
-		{
-			for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
-			{
-				delete ( *i ).second;
-			}
-
-			delete widgetUserData;
-		}
 	}
 
 	void UXSystemScene::ChangeResolution( int width, int height, bool isFullScreen )
@@ -136,11 +112,11 @@ namespace UX
 	void UXSystemScene::UnScriptWidget( MyGUI::Widget* widget, const std::string& eventName, luabind::object function )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
 		if ( 0 != widgetUserData )
 		{
-			for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+			for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 			{
 				if ( ( *i ).first == eventName )
 				{
@@ -191,11 +167,11 @@ namespace UX
 	{
 		void* userData = widget->getUserData( );
 
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
 		if ( widgetUserData == 0 )
 		{
-			widgetUserData = new WidgetUserData( );
+			widgetUserData = new IGUI::WidgetUserData( );
 		}
 
 		object* handlerFunctionPtr = new object( function );
@@ -242,9 +218,9 @@ namespace UX
 	void UXSystemScene::OnMouseReleased( MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onRelease" )
 			{
@@ -268,9 +244,9 @@ namespace UX
 	void UXSystemScene::OnMousePressed( MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onClick" )
 			{
@@ -294,9 +270,9 @@ namespace UX
 	void UXSystemScene::OnKeyUp( MyGUI::WidgetPtr widget, MyGUI::KeyCode key )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onKeyUp" )
 			{
@@ -323,9 +299,9 @@ namespace UX
 	void UXSystemScene::OnListSelectAccept( MultiListPtr widget, size_t index )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onListSelectAccept" )
 			{
@@ -349,9 +325,9 @@ namespace UX
 	void UXSystemScene::OnEventScrollChangePosition( MyGUI::VScrollPtr widget, size_t position )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onScrollChangePosition" )
 			{
@@ -375,9 +351,9 @@ namespace UX
 	void UXSystemScene::OnWindowButtonPressed( MyGUI::WindowPtr widget, const std::string& name )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onWindowButtonPressed" )
 			{
@@ -401,9 +377,9 @@ namespace UX
 	void UXSystemScene::OnWindowChangeCoord( MyGUI::WindowPtr widget )
 	{
 		void* userData = widget->getUserData( );
-		WidgetUserData* widgetUserData = static_cast< WidgetUserData* >( userData );
+		IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >( userData );
 
-		for ( WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
+		for ( IGUI::WidgetUserData::iterator i = widgetUserData->begin( ); i != widgetUserData->end( ); ++i )
 		{
 			if ( ( *i ).first == "onWindowChangeCoord" )
 			{

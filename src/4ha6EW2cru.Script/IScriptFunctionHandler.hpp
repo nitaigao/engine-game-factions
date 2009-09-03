@@ -11,7 +11,7 @@
 #include <luabind/luabind.hpp>
 #include <deque>
 
-#include "ScriptEvent.hpp"
+#include "Events/IEvent.hpp"
 
 namespace Script
 {
@@ -58,7 +58,7 @@ namespace Script
 		* @param[in] const IScriptEvent * event
 		* @return ( void )
 		*/
-		virtual void HandleEvent( const Script::IScriptEvent* event ) const = 0;
+		virtual void HandleEvent( const Events::IEvent* event ) const = 0;
 
 	};
 };
