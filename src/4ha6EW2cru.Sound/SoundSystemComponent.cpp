@@ -69,7 +69,7 @@ namespace Sound
 
 	void SoundSystemComponent::Destroy( )
 	{
-		for ( SoundEventMap::iterator i = m_activeEvents.begin( ); i != m_activeEvents.end( ); ++i )
+		for ( SoundEventMap::iterator i = m_activeEvents.begin( ); i != m_activeEvents.end( ); )
 		{
 			m_eventSystem->KeyOutEvent( ( *i ).first );
 			i = m_activeEvents.erase( i );

@@ -181,6 +181,22 @@ namespace Script
 		void UnRegisterEvent( const luabind::object& function );
 
 
+		/*!  Registers an LUA function to receive messages
+		*
+		*  @param[in] luabind::object function
+		*  @return (void)
+		*/
+		void SubscribeMessage( const System::MessageType& message, const luabind::object& function );
+
+
+		/*! UnRegisters an LUA function from receiving messages
+		*
+		*  @param[in] luabind::object function
+		*  @return (void)
+		*/
+		void UnSubscribeMessage( const System::MessageType& message,  const luabind::object& function );
+
+
 		/*!  Registers an LUA function to be included in the Game Update Loop
 		 *
 		 *  @param[in] luabind::object function
@@ -255,6 +271,8 @@ namespace Script
 
 		inline Maths::MathVector3 GetPosition( ) { return m_attributes[ System::Attributes::Position ].As< Maths::MathVector3 >( ); };
 
+		inline void SetPosition( const Maths::MathVector3& position );
+
 	private:
 
 		ScriptComponent( const ScriptComponent & copy ) { };
@@ -264,6 +282,7 @@ namespace Script
 		Events::IEventManager* m_eventManager;
 		IScriptFacadeManager* m_facadeManager;
 
+		IScriptFunctionHandler::FunctionMap m_messageHandlers;
 		IScriptFunctionHandler::FunctionList m_eventHandlers;
 		IScriptFunctionHandler::FunctionList m_updateHandlers;
 

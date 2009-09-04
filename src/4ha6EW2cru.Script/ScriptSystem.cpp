@@ -85,11 +85,13 @@ namespace Script
 					.def( "registerUpdateHandler", &ScriptComponent::RegisterUpdate )
 					.def( "unregisterEventHandler", &ScriptComponent::UnRegisterEvent )
 					.def( "unregisterUpdateHandler", &ScriptComponent::UnRegisterUpdate )
+					.def( "subscribeMessage", &ScriptComponent::SubscribeMessage )
+					.def( "unsubscribeMessage", &ScriptComponent::UnSubscribeMessage )
 					.def( "getName", &ScriptComponent::GetName )
 					.def( "getLookAt", &ScriptComponent::GetLookAt )
 					.def( "getPosition", &ScriptComponent::GetPosition )
-
-
+					.def( "setPosition", &ScriptComponent::SetPosition )
+					
 
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string > )

@@ -30,8 +30,10 @@ extend( SpawnManager, Object )
 ----------------------------------------------------------------
 
 function SpawnManager:initialize( )
-
-	script:registerEventHandler( SpawnManager.onEvent )
+	
+	globals.spawnManager = spawnManager
+	
+	math.randomseed( os.time( ) )
 
 end
 
@@ -39,35 +41,27 @@ function SpawnManager:registerSpawn( name, position )
 
 	local spawnPoint = SpawnPoint:new( )
 	spawnPoint.name = name
+	spawnPoint.position = position
 	
 	table.insert( self.spawns, spawnPoint )
 
 end
 
-function SpawnManager:requestSpawn( characterName )
+function SpawnManager:requestSpawn( )
 
 	local spawnCount = table.getn( self.spawns )
+
+	for i = 0, math.random( 10 ) do
+	
+		 math.random( 1, spawnCount )
+	
+	end
+
 	local spawnIndex = math.random( 1, spawnCount )
 	local spawnPosition = self.spawns[ spawnIndex ].position
 	
-	script:broadcastEvent( 'SPAWN_RESPONSE', characterName )
+	return spawnPosition
 
-end
-
-function SpawnManager.onEvent( eventName, var1, var2 )
-
-	if ( eventName == 'SPAWN_REGISTER' ) then
-	
-		spawnManager:registerSpawn( var1, var2 )
-	
-	end
-	
-	if ( eventName == 'SPAWN_REQUEST' ) then
-	
-		spawnManager:requestSpawn( var1 )
-	
-	end
-	
 end
 
 spawnManager = SpawnManager:new( )

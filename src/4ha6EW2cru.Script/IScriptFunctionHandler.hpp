@@ -12,6 +12,7 @@
 #include <deque>
 
 #include "Events/IEvent.hpp"
+#include "System/SystemType.hpp"
 
 namespace Script
 {
@@ -24,6 +25,7 @@ namespace Script
 	public:
 
 		typedef std::deque< IScriptFunctionHandler* > FunctionList;
+		typedef std::multimap< System::MessageType, IScriptFunctionHandler* > FunctionMap;
 
 		/*! Default Destructor
 		 *

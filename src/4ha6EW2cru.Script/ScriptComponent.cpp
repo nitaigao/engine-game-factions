@@ -28,7 +28,10 @@ using namespace Services;
 
 #include "Events/EventManager.h"
 #include "Events/EventListener.h"
+#include "Events/EventData.hpp"
 using namespace Events;
+
+using namespace System;
 
 namespace Script
 {
@@ -57,6 +60,13 @@ namespace Script
 		{
 			delete ( *i );
 			i = m_updateHandlers.erase( i );
+		}
+
+
+		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); )	
+		{
+			delete ( *i ).second;
+			i = m_messageHandlers.erase( i );
 		}
 
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
@@ -116,16 +126,24 @@ namespace Script
 
 	void ScriptComponent::OnEvent( const IEvent* event )
 	{
-		EventType eventType = event->GetEventType( );
-
-		if ( event->GetEventType( ) == EventTypes::ALL_EVENTS )
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
 		{
-			const IScriptEvent* scriptEvent = static_cast< const IScriptEvent* >( event );
-
-			for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
+			try
 			{
-
+				if ( event->GetEventType( ) == EventTypes::UI_EVENT )
+				{
+					UIEventData* eventData = static_cast< UIEventData* >( event->GetEventData( ) );
+					luabind::call_function< void >( ( *i )->GetFunction( ), eventData->GetEventName( ), eventData->GetParameter1( ), eventData->GetParameter2( ) );
+				}
 			}
+			catch( error& e )
+			{
+				object error_msg( from_stack( e.state( ) , -1) );
+				std::stringstream logMessage;
+				logMessage << error_msg;
+				Warn( logMessage.str( ) );
+			}
+
 		}
 	}
 
@@ -158,12 +176,23 @@ namespace Script
 			this->RunScript( );
 		}
 
-		if( message == System::Messages::GetState )
-		{
-			result = m_state;
-		}
+		IScriptFunctionHandler::FunctionMap::iterator it1 = m_messageHandlers.lower_bound( message );
+		IScriptFunctionHandler::FunctionMap::iterator it2 = m_messageHandlers.upper_bound( message );
 
-		m_eventManager->QueueEvent( new ScriptEventT1< std::string >( message, m_attributes[ System::Attributes::Name ].As< std::string >( ) ) );
+		for( IScriptFunctionHandler::FunctionMap::iterator i = it1; i != it2; ++i )
+		{
+			try
+			{
+				call_function< void >( ( *i ).second->GetFunction( ), message );
+			}
+			catch( error& e )
+			{
+				object error_msg( from_stack( e.state( ) , -1) );
+				std::stringstream logMessage;
+				logMessage << error_msg;
+				Warn( logMessage.str( ) );
+			}
+		}
 
 		return result;
 	}
@@ -198,6 +227,19 @@ namespace Script
 			}
 		}
 
+		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); )	
+		{
+			if ( ( *i ).second->IsMarkedForDeletion( ) )
+			{
+				delete ( *i ).second;
+				i = m_messageHandlers.erase( i );
+			}
+			else
+			{
+				++i;
+			}
+		}
+
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
 		{
 			if ( ( *i )->IsMarkedForDeletion( ) )
@@ -216,5 +258,28 @@ namespace Script
 	{
 		delete m_facadeManager;
 		delete m_state;
+	}
+
+	void ScriptComponent::SetPosition( const Maths::MathVector3& position )
+	{
+		m_attributes[ System::Attributes::Position ] = position;
+		this->PushMessage( System::Messages::SetPosition, m_attributes );
+	}
+
+	void ScriptComponent::SubscribeMessage( const System::MessageType& message,  const luabind::object& function )
+	{
+		std::pair< MessageType, ScriptFunctionHandler*> messagePair( std::make_pair( message, new ScriptFunctionHandler( function ) ) );
+		m_messageHandlers.insert( messagePair );
+	}
+
+	void ScriptComponent::UnSubscribeMessage( const System::MessageType& message,  const luabind::object& function )
+	{
+		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); ++i )
+		{
+			if ( ( *i ).first == message && ( *i ).second->GetFunction( ) == function )
+			{
+				( *i ).second->MarkForDeletion( ); 
+			}
+		}
 	}
 }

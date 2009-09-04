@@ -52,7 +52,8 @@ namespace Script
 			std::terminate( );
 		}
 
-		// = luabind::registry( m_state )[ "Scripts" ];
+		object globaltable = globals( m_state );
+		globals( m_state )[ "globals" ] = globaltable;
 
 		int top = lua_gettop( m_state ); 
 		lua_getfield( m_state, LUA_REGISTRYINDEX, "Scripts" ); // top + 1
@@ -62,7 +63,7 @@ namespace Script
 		lua_newtable( m_state );  // a global table for this script 
 		lua_newtable( m_state );  // meta table 
 
-		lua_getfenv( m_state,top + 2 ); // that returns the global table (we are going to protect) 
+		lua_getfenv( m_state, top + 2 ); // that returns the global table (we are going to protect) 
 		lua_setfield( m_state, -2, "__index" ); // set global table as __index of the thread 
 		lua_setmetatable( m_state, -2 );
 		lua_setfenv( m_state, top + 2 );  // set environment of the new thread

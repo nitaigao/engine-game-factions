@@ -41,6 +41,14 @@ function Character:stopFiringWeapon( )
 
 end
 
+function Character:spawn( )
+
+	local spawnPosition = globals.spawnManager:requestSpawn( )
+	
+	script:setPosition( spawnPosition )
+
+end
+
 function Character:onHit( damage )
 
 	if ( not self.isdead ) then

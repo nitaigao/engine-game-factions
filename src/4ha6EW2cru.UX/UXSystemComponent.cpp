@@ -93,11 +93,6 @@ namespace UX
 		{
 			try
 			{
-				if ( !( *i )->GetFunction( ).is_valid( ) )
-				{
-					int a = 1;
-				}
-
 				if ( event->GetEventType( ) == EventTypes::UI_EVENT )
 				{
 					UIEventData* eventData = static_cast< UIEventData* >( event->GetEventData( ) );
@@ -139,11 +134,6 @@ namespace UX
 		{
 			try
 			{
-				if ( !( *i )->GetFunction( ).is_valid( ) )
-				{
-					int a = 1;
-				}
-
 				call_function< void >( ( *i )->GetFunction( ), deltaMilliseconds );
 			}
 			catch( error& e )

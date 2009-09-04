@@ -69,6 +69,8 @@ namespace Sound
 				eventParameter->keyOff( );
 			}
 
+			event->stop( );
+
 			m_activeSoundEvents.erase( eventPath );
 		}
 	}

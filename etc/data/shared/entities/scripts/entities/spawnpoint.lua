@@ -28,7 +28,7 @@ function SpawnPoint.onEvent( eventName, var1 )
 
 	if ( eventName == 'WORLD_LOADING_FINISHED' ) then
 	
-		script:broadcastEvent( 'SPAWN_REGISTER', script:getName( ), script:getPosition( ) )
+		globals.spawnManager:registerSpawn( script:getName( ), script:getPosition( ) )
 	
 	end
 
