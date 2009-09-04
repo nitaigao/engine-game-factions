@@ -28,12 +28,7 @@ namespace Events
 		static const EventType INPUT_MOUSE_RELEASED			=	"INPUT_MOUSE_RELEASED";
 		static const EventType INPUT_MOUSE_MOVED			=	"INPUT_MOUSE_MOVED";
 		static const EventType GRAPHICS_SETTINGS_CHANGED	=	"GRAPHICS_SETTINGS_CHANGED";
-		static const EventType UI_TITLE_SCREEN				=	"UI_TITLE_SCREEN";
-		static const EventType UI_MAIN_MENU					=	"UI_MAIN_MENU";
-		static const EventType UI_PAUSE_MENU				=	"UI_PAUSE_MENU";
-		static const EventType UI_OPTIONS					=	"UI_OPTIONS";
-		static const EventType UI_CLEAR						=	"UI_CLEAR";
-		static const EventType UI_CONSOLE					=	"UI_CONSOLE";
+		static const EventType UI_EVENT						=	"UI_EVENT";
 		static const EventType LOG_MESSAGE_APPENDED			=	"LOG_MESSAGE_APPENDED";
 		static const EventType SCRIPT_COMMAND_EXECUTED		=	"SCRIPT_COMMAND_EXECUTED";
 		static const EventType EVENTTYPE_MAX				=	"EVENTTYPE_MAX";

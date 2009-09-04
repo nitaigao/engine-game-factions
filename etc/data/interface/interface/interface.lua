@@ -17,33 +17,21 @@ function Interface.initialize( )
 	
 	--sfx:playMusic( 'game/ux/title_loaded' )
 	
-	--script:unregisterEventHandler( Interface.onEvent )
 	ux:showMouse( )
 
+	ux:loadComponent( 'console' )
 	ux:loadComponent( 'title' )
 	ux:loadComponent( 'menu' )
-	--ux:loadComponent( 'options' )
-	--ux:loadComponent( 'console' )
-	--ux:loadComponent( 'loading' )
+	ux:loadComponent( 'options' )
+	ux:loadComponent( 'loading' )
 	--ux:loadComponent( 'hud' )
---	-ux:loadComponent( 'statistics' )
+	ux:loadComponent( 'statistics' )
 	--ux:loadComponent( 'actor_hit' )
---	ux:loadComponent( 'key_binder' )
---	ux:loadComponent( 'characterselect' )
---	ux:loadComponent( 'servers' )
---	ux:loadComponent( 'disconnected' )
+	ux:loadComponent( 'key_binder' )
+	ux:loadComponent( 'characterselect' )
+	ux:loadComponent( 'servers' )
+	ux:loadComponent( 'disconnected' )
 	
 end
 
-function Interface.onEvent( eventName )
-
-	if ( eventName == 'GAME_INITIALIZED' ) then
-	
-		
-	
-	end
-
-end
-
---script:registerEventHandler( Interface.onEvent )
 Interface.initialize( )

@@ -16,7 +16,7 @@ namespace Script
 	/*! 
 	 *  A Facade for interacting with System Functions
 	 */
-	class SystemFacade : public IScriptFacade
+	class GAMEAPI SystemFacade : public IScriptFacade
 	{
 
 	public:

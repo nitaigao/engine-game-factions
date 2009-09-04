@@ -14,7 +14,7 @@
 
 namespace
 {
-	class MockScriptFacade : public IScriptFacade
+	class MockScriptFacade : public Script::IScriptFacade
 	{
 
 	public:

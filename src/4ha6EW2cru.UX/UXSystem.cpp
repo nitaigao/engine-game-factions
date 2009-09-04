@@ -21,6 +21,8 @@ using namespace luabind;
 #include "Events/InputEventData.hpp"
 using namespace Events;
 
+#include "ScriptConfiguration.h"
+#include "LuaState.h"
 using namespace Script;
 
 namespace UX
@@ -43,15 +45,29 @@ namespace UX
 		{
 			scope luaScope = 
 			(
+
+			class_< ScriptConfiguration >( "Config" )
+				.def( constructor< Configuration::IConfiguration* >( ) )
+					.property( "isFullScreen", &ScriptConfiguration::IsFullScreen, &ScriptConfiguration::SetFullScreen )
+					.property( "displayWidth", &ScriptConfiguration::GetDisplayWidth, &ScriptConfiguration::SetDisplayWidth )
+					.property( "displayHeight", &ScriptConfiguration::GetDisplayHeight, &ScriptConfiguration::SetDisplayHeight )
+					.property( "isConsole", &ScriptConfiguration::IsConsole, &ScriptConfiguration::SetConsole )
+					.property( "isInvertY", &ScriptConfiguration::IsInvertY, &ScriptConfiguration::SetInvertY )
+					.property( "isSmoothMouse", &ScriptConfiguration::IsSmoothMouse, &ScriptConfiguration::SetSmoothMouse )
+					.property( "mouseSmoothAmount", &ScriptConfiguration::GetMouseSmoothAmount, &ScriptConfiguration::SetMouseSmoothAmount )
+					.property( "sfxVolume", &ScriptConfiguration::GetSFXVolume, &ScriptConfiguration::SetSFXVolume )
+					.property( "musicVolume", &ScriptConfiguration::GetMusicVolume, &ScriptConfiguration::SetMusicVolume ),
+
 			class_< UXSystemComponent >( "UXSystemComponent" )
-				.def( constructor< ILuaState*, IEventManager* >( ) )
 				.def( "registerEventHandler", &UXSystemComponent::RegisterEvent )
 				.def( "registerUpdateHandler", &UXSystemComponent::RegisterUpdate )
 				.def( "unregisterEventHandler", &UXSystemComponent::UnRegisterEvent )
-				.def( "unregisterUpdateHandler", &UXSystemComponent::UnRegisterUpdate ),
+				.def( "unregisterUpdateHandler", &UXSystemComponent::UnRegisterUpdate )
+				.def( "sendEvent", &UXSystemComponent::SendEvent )
+				.def( "executeString", &UXSystemComponent::ExecuteString )
+				,
 
 			class_< UXSystemScene >( "UXSystemScene" )
-				.def( constructor< IGUI*, Services::IServiceManager*, ILuaState*, IUXSystemComponentFactory* >( ) )
 				.def( "findWidget", &UXSystemScene::FindWidget )
 				.def( "loadComponent", &UXSystemScene::LoadComponent )
 				.def( "getScreenWidth", &UXSystemScene::GetScreenWidth )
@@ -91,7 +107,7 @@ namespace UX
 				.def( "getChecked", &Button::getStateCheck ),
 
 			class_< ComboBox, Widget >( "ComboBox" )
-			.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
+				.def( constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >( ) )
 				.def( "addItem", ( void ( ComboBox::* ) ( const std::string&, const std::string& ) ) &ComboBox::addItem )
 				.def( "getValueAt", ( const std::string& ( ComboBox::* ) ( int ) ) &ComboBox::getItemNameAt )
 				.def( "getSelectedIndex", &ComboBox::getIndexSelected )

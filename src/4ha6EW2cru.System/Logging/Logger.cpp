@@ -50,8 +50,8 @@ namespace Logging
 		{
 			if( level != "DEBUG" && level != "NET" )
 			{
-				IEventData* eventData = new MessageLoggedEventData( outputMessage.str( ) );
-				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::LOG_MESSAGE_APPENDED, eventData ) );
+				IEventData* eventData = new UIEventData( EventTypes::LOG_MESSAGE_APPENDED, outputMessage.str( ), "" );
+				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
 			}
 
 			Management::Get( )->GetPlatformManager( )->OutputDebugMessage( outputMessage.str( ) );

@@ -52,14 +52,6 @@ namespace Script
 		*/
 		virtual luabind::object GetFunction( ) const = 0;
 
-
-		/*! Handles an Event from the Script System
-		*
-		* @param[in] const IScriptEvent * event
-		* @return ( void )
-		*/
-		virtual void HandleEvent( const Events::IEvent* event ) const = 0;
-
 	};
 };
 

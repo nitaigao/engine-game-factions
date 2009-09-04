@@ -30,6 +30,10 @@ using namespace IO;
 #include "../../Utility/StringUtils.h"
 using namespace Utility;
 
+#include "../../Events/EventData.hpp"
+#include "../../Events/Event.h"
+using namespace Events;
+
 namespace Serialization
 {
 	XMLSerializer::~XMLSerializer()
@@ -53,9 +57,10 @@ namespace Serialization
 
 		m_loadProgress = 0;
 		m_loadTotal = 0;
-	
-		Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Entity::LoadingStarted, AnyType::AnyTypeMap( ) );
 
+		IEventData* eventData = new UIEventData( "WORLD_LOADING_STARTED" );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
+	
 		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( levelPath );
 		Document levelFile( resource->GetFileBuffer()->fileBytes );
 
@@ -236,15 +241,19 @@ namespace Serialization
 
 			float progressPercent = ( ( float ) ++m_loadProgress / ( float ) m_loadTotal ) * 100.0f;
 
-			AnyType::AnyTypeMap parameters;
-			parameters[ System::Parameters::IO::Progress ] = static_cast< int >( progressPercent );
-			Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Entity::LoadingProgress, parameters );
-			
+			std::stringstream progress;
+			progress << static_cast< int >( progressPercent );
+
+			IEventData* eventData = new UIEventData( "WORLD_LOADING_PROGRESS", progress.str( ) );
+			Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
+
 			if ( m_loadQueueEl.empty( ) )
 			{
 				m_loadProgress = m_loadTotal;
 
-				Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Entity::LoadingFinished, AnyType::AnyTypeMap( ) );
+				IEventData* eventData = new UIEventData( "WORLD_LOADING_FINISHED" );
+				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
+
 				Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
 			}
 		}

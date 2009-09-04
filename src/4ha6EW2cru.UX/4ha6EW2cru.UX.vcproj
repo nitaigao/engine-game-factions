@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/ignore:4099"
-				AdditionalDependencies="MyGuiStatic_d.lib ogremainstatic_d.lib luabindd.lib luad.lib"
+				AdditionalDependencies="MyGuiStatic_d.lib ogremainstatic_d.lib luad.lib luabindd.lib"
 				AdditionalLibraryDirectories="../../etc/vendor/ogre/lib;../../etc/vendor/mygui/myguiengine/lib/debug;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
@@ -195,6 +195,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UXFacadeManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\UXFactory.cpp"
 				>
 			</File>
@@ -242,6 +246,10 @@
 			</File>
 			<File
 				RelativePath=".\IUXSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UXFacadeManager.h"
 				>
 			</File>
 			<File

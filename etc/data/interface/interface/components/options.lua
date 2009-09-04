@@ -32,9 +32,13 @@ end
 
 function Options.onEvent( eventName, var1, var2 )
 	
-	if ( eventName == 'UI_OPTIONS' ) then
+	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		Options.onShowOptions( )
+		if ( var1 == 'UI_OPTIONS' )  then
+	
+			Options.onShowOptions( )
+	
+		end
 	
 	end
 	
@@ -319,7 +323,7 @@ function Options.onKeyListDoubleClick( index )
 	
 	if ( keymapList:getSubItemName( 1, index ) ~= '' ) then -- if the item isnt a spacer
 
-		script:broadcastEvent( 'UI_KEYBINDER', keymapList:getSubItemName( 3, index ) )
+		script:sendEvent( 'UI_SHOW_PANE', 'UI_KEYBINDER', keymapList:getSubItemName( 3, index ) )
 		
 	end
 

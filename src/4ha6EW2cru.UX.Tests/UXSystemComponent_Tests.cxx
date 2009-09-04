@@ -7,6 +7,7 @@ using namespace UX;
 #include "Mocks/MockGUI.hpp"
 #include "Mocks/MockLuaState.hpp"
 #include "Mocks/MockEventManager.hpp"
+#include "Mocks/MockScriptFacadeManager.hpp"
 
 #include "Events/IEventListener.hpp"
 using namespace Events;
@@ -18,11 +19,13 @@ protected:
 
 	MockEventManager* m_eventManager;
 	MockLuaState* m_state;
+	MockScriptFacadeManager* m_facadeManager;
 
 	void EstablishContext( )
 	{
 		m_state = new MockLuaState( );
 		m_eventManager = new MockEventManager( );
+		m_facadeManager = new MockScriptFacadeManager( );
 	}
 
 
@@ -33,7 +36,7 @@ protected:
 
 	UXSystemComponent* CreateSubject( )
 	{
-		return new UXSystemComponent( m_state, m_eventManager ); 
+		return new UXSystemComponent( m_state, m_eventManager, m_facadeManager ); 
 	}
 };
 

@@ -7,20 +7,27 @@
 #include "UXSystemComponentFactory.h"
 
 #include "LuaState.h"
+#include "SystemFacade.h"
+#include "ScriptFacadeFactory.h"
 using namespace Script;
 
 #include "Management/Management.h"
 
 namespace UX
 {
-	IUXSystem* UXFactory::CreateUXSystem()
+	IUXSystem* UXFactory::CreateUXSystem( Configuration::IConfiguration* configuration )
 	{
+		Services::IServiceManager* serviceManager = Management::Get( )->GetServiceManager( );
+		Events::IEventManager* eventManager = Management::Get( )->GetEventManager( );
+
 		ILuaState* masterState = new LuaState( Management::Get( )->GetResourceManager( ) );
 		IGUI* gui = this->CreateUXGUI( );
-		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, Management::Get( )->GetEventManager( ) );
-		IUXSystemScene* scene = new UXSystemScene( gui, Management::Get( )->GetServiceManager( ), masterState, factory );
+		IScriptFacadeFactory* scriptFacadeFactory = new ScriptFacadeFactory( masterState );
 
-		return new UXSystem( gui, scene, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) );
+		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, eventManager, scriptFacadeFactory );
+		IUXSystemScene* scene = new UXSystemScene( gui, serviceManager, masterState, factory, configuration );
+
+		return new UXSystem( gui, scene, eventManager, serviceManager );
 	}
 
 	IGUI* UXFactory::CreateUXGUI()

@@ -11,6 +11,8 @@
 #include "IUXSystem.hpp"
 #include "IGUI.hpp"
 
+#include "Configuration/IConfiguration.hpp"
+
 namespace UX
 {
 	class IUXFactory
@@ -19,7 +21,7 @@ namespace UX
 		 *
 		 * @return ( IUXSystem* )
 		 */
-		virtual IUXSystem* CreateUXSystem( ) = 0;
+		virtual IUXSystem* CreateUXSystem( Configuration::IConfiguration* configuration ) = 0;
 
 
 		/*! Creates a UX GUI
@@ -53,11 +55,13 @@ namespace UX
 		UXFactory( ) { };
 
 
+		
 		/*! Creates a UX System
-		*
-		* @return ( IUXSystem* )
-		*/
-		IUXSystem* CreateUXSystem( );
+		 *
+		 * @param[in] IConfiguration * configuration
+		 * @return ( IUXSystem* )
+		 */
+		IUXSystem* CreateUXSystem( Configuration::IConfiguration* configuration );
 
 
 		/*! Creates a UX GUI

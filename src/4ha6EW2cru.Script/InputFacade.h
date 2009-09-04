@@ -18,7 +18,7 @@ namespace Script
 	/*! 
 	 *  The Facade interface to communicate with the input system
 	 */
-	class InputFacade : public IInputFacade
+	class GAMEAPI InputFacade : public IInputFacade
 	{
 
 	public:

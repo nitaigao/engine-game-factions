@@ -9,6 +9,11 @@ using namespace Services;
 #include "Management/Management.h"
 
 #include "LuaState.h"
+#include "SystemFacade.h"
+#include "InputFacade.h"
+#include "InstrumentationFacade.h"
+#include "NetworkFacade.h"
+#include "ScriptConfiguration.h"
 using namespace Script;
 
 using namespace luabind;
@@ -27,6 +32,12 @@ namespace UX
 	{
 		delete m_masterState;
 		delete m_componentFactory;
+
+		if ( m_scriptConfiguration != 0 )
+		{
+			delete m_scriptConfiguration;
+			m_scriptConfiguration = 0;
+		}
 	}
 
 	void UXSystemScene::Initialize( )
@@ -40,13 +51,17 @@ namespace UX
 			m_masterState->RegisterTypes( ( *i ).second.As< scope >( ) );
 		}
 
-		//m_masterState->RegisterTypes( SystemFacade::RegisterFunctions( ) );
-		//m_scriptConfiguration = new ScriptConfiguration( m_configuration );
+		m_masterState->RegisterTypes( SystemFacade::RegisterFunctions( ) );
+		m_masterState->RegisterTypes( InputFacade::RegisterFunctions( ) );
+		m_masterState->RegisterTypes( InstrumentationFacade::RegisterFunctions( ) );
+		m_masterState->RegisterTypes( NetworkFacade::RegisterFunctions( ) );
+
+		m_scriptConfiguration = new ScriptConfiguration( m_configuration );
 
 		if ( typeid( *m_masterState ) == typeid( LuaState ) )
 		{
-			//static_cast< LuaState* >( m_masterState )->SetGlobal( "Configuration", m_scriptConfiguration );
 			static_cast< LuaState* >( m_masterState )->SetGlobal( "ux", this );
+			static_cast< LuaState* >( m_masterState )->SetGlobal( "Configuration", static_cast< ScriptConfiguration* >( m_scriptConfiguration ) );
 		}
 
 		m_masterState->LoadScript( "/data/interface/interface.lua" );
@@ -74,13 +89,14 @@ namespace UX
 		m_masterState->Destroy( );
 	}
 
-	ISystemComponent* UXSystemScene::CreateComponent( const std::string& name, const std::string& type )
+	void UXSystemScene::LoadComponent( const std::string componentName )
 	{
-		IUXSystemComponent* component = m_componentFactory->CreateComponent( name );
+		IUXSystemComponent* component = m_componentFactory->CreateComponent( componentName );
+		component->Initialize( );
+
+		m_components.push_back( component );
 
 		m_gui->WindowResized( );
-
-		return component;
 	}
 
 	void UXSystemScene::ChangeResolution( int width, int height, bool isFullScreen )
@@ -429,15 +445,5 @@ namespace UX
 		}
 
 		return resolutions;
-	}
-
-	void UXSystemScene::LoadComponent( const std::string componentName )
-	{
-		IUXSystemComponent* component = m_componentFactory->CreateComponent( componentName );
-		component->Initialize( );
-
-		m_components.push_back( component );
-
-		m_gui->WindowResized( );
 	}
 }

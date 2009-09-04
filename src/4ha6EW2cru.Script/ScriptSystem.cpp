@@ -77,17 +77,6 @@ namespace Script
 		{
 			scope luaScope = 
 				(
-				class_< ScriptConfiguration >( "Config" )
-					.def( constructor< Configuration::IConfiguration* >( ) )
-						.property( "isFullScreen", &ScriptConfiguration::IsFullScreen, &ScriptConfiguration::SetFullScreen )
-						.property( "displayWidth", &ScriptConfiguration::GetDisplayWidth, &ScriptConfiguration::SetDisplayWidth )
-						.property( "displayHeight", &ScriptConfiguration::GetDisplayHeight, &ScriptConfiguration::SetDisplayHeight )
-						.property( "isConsole", &ScriptConfiguration::IsConsole, &ScriptConfiguration::SetConsole )
-						.property( "isInvertY", &ScriptConfiguration::IsInvertY, &ScriptConfiguration::SetInvertY )
-						.property( "isSmoothMouse", &ScriptConfiguration::IsSmoothMouse, &ScriptConfiguration::SetSmoothMouse )
-						.property( "mouseSmoothAmount", &ScriptConfiguration::GetMouseSmoothAmount, &ScriptConfiguration::SetMouseSmoothAmount )
-						.property( "sfxVolume", &ScriptConfiguration::GetSFXVolume, &ScriptConfiguration::SetSFXVolume )
-						.property( "musicVolume", &ScriptConfiguration::GetMusicVolume, &ScriptConfiguration::SetMusicVolume ),
 
 				class_< ScriptComponent >( "ScriptComponent" )
 					.def( constructor< ILuaState*, Events::IEventManager*, IScriptFacadeManager* >( ) )
@@ -99,7 +88,6 @@ namespace Script
 					.def( "getName", &ScriptComponent::GetName )
 					.def( "getLookAt", &ScriptComponent::GetLookAt )
 					.def( "getPosition", &ScriptComponent::GetPosition )
-					.def( "executeString", &ScriptComponent::ExecuteString )
 
 
 

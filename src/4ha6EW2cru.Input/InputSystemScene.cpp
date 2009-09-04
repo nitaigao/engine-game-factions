@@ -86,17 +86,19 @@ namespace Input
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
-			//Management::Get( )->GetEventManager( )->TriggerEvent( new ScriptEvent( "UI_CONSOLE" ) );
+			UIEventData* eventData = new UIEventData( "UI_SHOW_PANE", "UI_CONSOLE", "" );
+			IEvent* event = new Event( EventTypes::UI_EVENT, eventData );
+			Management::Get( )->GetEventManager( )->TriggerEvent( event );
 		}
 		else if ( arg.key == OIS::KC_F12 )
 		{
-			//IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-			//renderService->ProcessMessage( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
+			IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+			renderService->ProcessMessage( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
 		}
 		else
 		{
-			//IEvent* scriptEvent = new ScriptEvent( "INPUT_KEY_UP", arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) );
-			//Management::Get( )->GetEventManager( )->TriggerEvent( scriptEvent );
+			IEventData* eventData = new UIEventData( "UI_KEY_UP", arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) );
+			Management::Get( )->GetEventManager( )->TriggerEvent( new Event( EventTypes::UI_EVENT, eventData ) );
 
 			IEvent* event = new Event( EventTypes::INPUT_KEY_UP, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );

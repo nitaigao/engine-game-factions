@@ -32,7 +32,6 @@ protected:
 		m_factory = new MockScriptComponentFactory( );
 		m_masterState = new MockLuaState( );
 		m_serviceManager = new MockServiceManager( );
-
 		m_configuration = new ClientConfiguration( );
 	}
 

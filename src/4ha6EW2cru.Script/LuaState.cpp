@@ -26,6 +26,10 @@ namespace Script
 
 		luaL_openlibs( m_state );
 		luabind::open( m_state );
+
+		object scriptTable = newtable( m_state );
+		registry( m_state )[ "Scripts" ] = scriptTable;
+		
 	}
 
 	void LuaState::Destroy( )
@@ -48,8 +52,10 @@ namespace Script
 			std::terminate( );
 		}
 
+		// = luabind::registry( m_state )[ "Scripts" ];
+
 		int top = lua_gettop( m_state ); 
-		lua_getfield( m_state, LUA_REGISTRYINDEX, "Scripts" ); // top + 1 
+		lua_getfield( m_state, LUA_REGISTRYINDEX, "Scripts" ); // top + 1
 
 		childState->m_state = lua_newthread( m_state ); // top + 2 
 
@@ -60,6 +66,11 @@ namespace Script
 		lua_setfield( m_state, -2, "__index" ); // set global table as __index of the thread 
 		lua_setmetatable( m_state, -2 );
 		lua_setfenv( m_state, top + 2 );  // set environment of the new thread
+
+		lua_pushlightuserdata( m_state, childState ); // key, the pointer to my own   Script class 
+		lua_pushvalue( m_state, top + 2 );          // value, the new lua thread. 
+		lua_rawset( m_state, top + 1 ); // Scripts table 
+		lua_settop( m_state, top ); 
 
 		return childState;
 	}
@@ -129,5 +140,12 @@ namespace Script
 			Warn( errorMessage.str( ) );
 			lua_pop( m_state, 1 );
 		}
+	}
+
+	int LuaState::LuaPanic( lua_State* state )
+	{
+		int a= 1;
+
+		return 0;
 	}
 }

@@ -42,6 +42,7 @@ TEST_F( SoundSystemComponent_Tests, should_play_a_sound )
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::SoundEventPath ] = soundEvent;
 
+	m_subject->Initialize( );
 	m_subject->Observe( 0, System::Messages::TriggerSoundEvent, parameters );
 }
 

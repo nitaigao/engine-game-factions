@@ -124,7 +124,7 @@ namespace Script
 
 			for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
 			{
-				( *i )->HandleEvent( scriptEvent );
+
 			}
 		}
 	}

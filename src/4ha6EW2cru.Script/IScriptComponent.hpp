@@ -32,13 +32,6 @@ namespace Script
 		 */
 		virtual ~IScriptComponent( ) { };
 
-
-		/*! Runs the Loaded Script
-		*
-		*  @return (void)
-		*/
-		virtual void RunScript( ) = 0;
-
 	};
 };
 

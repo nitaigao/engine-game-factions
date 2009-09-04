@@ -44,9 +44,13 @@ end
 
 function Servers.onEvent( eventName, val1, val2 )
 
-	if ( eventName == 'UI_SERVERS' ) then
+	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		Servers.onShowServers( )
+		if ( val1 == 'UI_SERVERS' )  then
+	
+			Servers.onShowServers( )
+	
+		end
 	
 	end
 	

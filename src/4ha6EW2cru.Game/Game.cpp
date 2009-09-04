@@ -26,6 +26,7 @@ void Game::Initialize( )
 {
 	Logger::Initialize( );
 	Logger::Get( )->SetLogLevel( Logging::LEVEL_WARN );
+	Info( "Game Startup" );
 
 	m_configuration = new ClientConfiguration( );
 
@@ -96,10 +97,8 @@ void Game::Initialize( )
 	// -- Register Events
 
 	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_QUIT, this, &Game::OnGameQuit ) );
-	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
-	//Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_ENDED, this, &Game::OnGameEnded ) );
-	
-	//Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEvent( "GAME_INITIALIZED" ) );
+	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_ENDED, this, &Game::OnGameEnded ) );
 
 	if ( programOptions.find( System::Options::LevelName ) != programOptions.end( ) )
 	{
@@ -137,7 +136,7 @@ void Game::Release( )
 	}
 
 	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_QUIT, this, &Game::OnGameQuit ) );
-	//Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
 
 	m_world->Destroy( );
 

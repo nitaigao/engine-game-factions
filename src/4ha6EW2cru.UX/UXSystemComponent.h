@@ -15,6 +15,7 @@
 
 #include "ILuaState.hpp"
 #include "IScriptFunctionHandler.hpp"
+#include "IScriptFacadeManager.hpp"
 
 #include "Events/IEventManager.hpp"
 
@@ -40,9 +41,10 @@ namespace UX
 		*  @param[in] ILuaState * state
 		*  @return ()
 		*/
-		UXSystemComponent( Script::ILuaState* state, Events::IEventManager* eventManager )
+		UXSystemComponent( Script::ILuaState* state, Events::IEventManager* eventManager, Script::IScriptFacadeManager* facadeManager )
 			: m_state( state )
 			, m_eventManager( eventManager )
+			, m_facadeManager( facadeManager ) 
 		{
 
 		}
@@ -166,10 +168,29 @@ namespace UX
 		*/
 		void OnEvent( const Events::IEvent* event );
 
+
+		/*! Sends an Event to the Game
+		 *
+		 * @param[in] const std::string & eventName
+		 * @param[in] const std::string & parameter1
+		 * @param[in] const std::string & parameter2
+		 * @return ( void )
+		 */
+		void SendEvent( const std::string& eventName, const std::string& parameter1, const std::string& parameter2 );
+
+
+		/*! Runs the given input as LUA code
+		*
+		* @param[in] const std::string & input
+		* @return ( void )
+		*/
+		void ExecuteString( const std::string& input );
+
 	private:
 
 		Script::ILuaState* m_state;
 		Events::IEventManager* m_eventManager;
+		Script::IScriptFacadeManager* m_facadeManager ;
 		AnyType::AnyTypeMap m_attributes;
 
 		Script::IScriptFunctionHandler::FunctionList m_eventHandlers;

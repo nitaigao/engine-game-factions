@@ -180,6 +180,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)\$(ProjectName)d.dll"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -230,6 +231,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="LUA_BUILD_AS_DLL"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"

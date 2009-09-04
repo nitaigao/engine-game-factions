@@ -2,6 +2,7 @@
 
 #include "Events/Event.h"
 #include "Events/EventListener.h"
+#include "Events/EventData.hpp"
 using namespace Events;
 
 #include "ScriptFunctionHandler.hpp"
@@ -23,6 +24,7 @@ namespace UX
 	UXSystemComponent::~UXSystemComponent()
 	{
 		delete m_state;
+		delete m_facadeManager;
 	}
 
 	void UXSystemComponent::Initialize( )
@@ -30,6 +32,8 @@ namespace UX
 		m_state->Execute( );
 
 		m_eventManager->AddEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &UXSystemComponent::OnEvent ) );
+
+		m_facadeManager->Initialize( this );
 	}
 
 	void UXSystemComponent::Destroy()
@@ -47,6 +51,8 @@ namespace UX
 			delete ( *i );
 			i = m_eventHandlers.erase( i );
 		}
+
+		m_facadeManager->Destroy( );
 	}
 
 	void UXSystemComponent::RegisterUpdate( const luabind::object& function )
@@ -85,17 +91,23 @@ namespace UX
 	{
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
 		{
-			( *i )->HandleEvent( event );
-		}
-	}
-
-	void UXSystemComponent::Update( float deltaMilliseconds )
-	{
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
-		{
 			try
 			{
-				call_function< void >( ( *i )->GetFunction( ), deltaMilliseconds );
+				if ( !( *i )->GetFunction( ).is_valid( ) )
+				{
+					int a = 1;
+				}
+
+				if ( event->GetEventType( ) == EventTypes::UI_EVENT )
+				{
+					UIEventData* eventData = static_cast< UIEventData* >( event->GetEventData( ) );
+					luabind::call_function< void >( ( *i )->GetFunction( ), eventData->GetEventName( ), eventData->GetParameter1( ), eventData->GetParameter2( ) );
+					
+				}
+				else
+				{
+					luabind::call_function< void >( ( *i )->GetFunction( ), event->GetEventType( ) );
+				}
 			}
 			catch( error& e )
 			{
@@ -104,8 +116,12 @@ namespace UX
 				logMessage << error_msg;
 				Warn( logMessage.str( ) );
 			}
+		
 		}
+	}
 
+	void UXSystemComponent::Update( float deltaMilliseconds )
+	{
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
 		{
 			if ( ( *i )->IsMarkedForDeletion( ) )
@@ -116,6 +132,26 @@ namespace UX
 			else
 			{
 				++i;
+			}
+		}
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
+		{
+			try
+			{
+				if ( !( *i )->GetFunction( ).is_valid( ) )
+				{
+					int a = 1;
+				}
+
+				call_function< void >( ( *i )->GetFunction( ), deltaMilliseconds );
+			}
+			catch( error& e )
+			{
+				object error_msg( from_stack( e.state( ) , -1) );
+				std::stringstream logMessage;
+				logMessage << error_msg;
+				Warn( logMessage.str( ) );
 			}
 		}
 
@@ -131,5 +167,17 @@ namespace UX
 				++i;
 			}
 		}
+	}
+
+	void UXSystemComponent::SendEvent( const std::string& eventName, const std::string& parameter1, const std::string& parameter2 )
+	{
+		UIEventData* eventData = new UIEventData( eventName, parameter1, parameter2 );
+		Event* event = new Event( Events::EventTypes::UI_EVENT, eventData );
+		m_eventManager->QueueEvent( event );
+	}
+
+	void UXSystemComponent::ExecuteString( const std::string& input )
+	{
+		m_state->ExecuteString( input );
 	}
 }

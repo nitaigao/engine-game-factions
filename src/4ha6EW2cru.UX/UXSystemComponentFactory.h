@@ -11,6 +11,7 @@
 #include "IUXSystemComponentFactory.hpp"
 
 #include "ILuaState.hpp"
+#include "IScriptFacadeFactory.hpp"
 #include "IGUI.hpp"
 #include "Events/IEventManager.hpp"
 
@@ -28,17 +29,18 @@ namespace UX
 		 *
 		 *  @return ()
 		 */
-		~UXSystemComponentFactory( ) { };
+		~UXSystemComponentFactory( );
 
 
 		/*! Default Constructor
 		*
 		* @return (  )
 		*/
-		UXSystemComponentFactory( Script::ILuaState* masterState, IGUI* gui, Events::IEventManager* eventManager )
+		UXSystemComponentFactory( Script::ILuaState* masterState, IGUI* gui, Events::IEventManager* eventManager, Script::IScriptFacadeFactory* facadeFactory )
 			: m_masterState( masterState )
 			, m_gui( gui )
 			, m_eventManager( eventManager )
+			, m_facadeFactory( facadeFactory )
 		{
 
 		}
@@ -58,6 +60,7 @@ namespace UX
 
 		Script::ILuaState* m_masterState;
 		Events::IEventManager* m_eventManager;
+		Script::IScriptFacadeFactory* m_facadeFactory;
 		IGUI* m_gui;
 
 	};

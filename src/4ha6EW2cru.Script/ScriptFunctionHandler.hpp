@@ -60,16 +60,6 @@ namespace Script
 		*/
 		inline luabind::object GetFunction( ) const { return m_functionHandler; };
 
-		
-		/*! Handles an Event from the Script System
-		 *
-		 * @param[in] const IScriptEvent * event
-		 * @return ( void )
-		 */
-		inline void HandleEvent( const Events::IEvent* event ) const
-		{
-			luabind::call_function< void >( m_functionHandler, event->GetEventType( ) );
-		}
 
 	private:
 

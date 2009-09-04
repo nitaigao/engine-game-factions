@@ -44,9 +44,9 @@ function Menu.initialize( )
 end
 
 function Menu.onEvent( eventName, val1, val2 )
-
-	if ( eventName == 'INPUT_KEY_UP' ) then 
 	
+	if ( eventName == 'UI_KEY_UP' ) then 
+
 		Menu.onKeyUp( val1 )
 	
 	end
@@ -57,9 +57,13 @@ function Menu.onEvent( eventName, val1, val2 )
 	
 	end
 	
-	if ( eventName == 'UI_MAIN_MENU' )  then
+	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		Menu.onShowMenu( )
+		if ( val1 == 'MAIN_MENU' )  then
+	
+			Menu.onShowMenu( )
+	
+		end
 	
 	end
 	
@@ -113,7 +117,7 @@ end
 
 function Menu.onKeyUp( keyCode )
 
-	if ( keyCode == 1 and menu_ingame ) then
+	if ( keyCode == '1' and menu_ingame ) then
 	
 		Menu.ToggleInGameMenu( )
 	
@@ -206,13 +210,13 @@ end
 
 function Menu.onOptionsReleased( )
 
-	script:broadcastEvent( 'UI_OPTIONS' ) 
+	script:sendEvent( 'UI_SHOW_PANE', 'UI_OPTIONS', '' ) 
 
 end
 
 function Menu.onPlayReleased( )
 
-	script:broadcastEvent( 'UI_SERVERS' )
+	script:sendEvent( 'UI_SHOW_PANE', 'UI_SERVERS', '' ) 
 
 end
 

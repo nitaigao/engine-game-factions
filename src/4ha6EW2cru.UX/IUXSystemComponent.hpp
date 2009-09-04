@@ -8,14 +8,14 @@
 #ifndef IUXSYSTEMCOMPONENT_H
 #define IUXSYSTEMCOMPONENT_H
 
-#include "System/ISystemComponent.hpp"
+#include "IScriptComponent.hpp"
 
 namespace UX
 {
 	/*! 
 	*  A UX System Scene Component
 	*/
-	class GAMEAPI IUXSystemComponent : public ISystemComponent
+	class GAMEAPI IUXSystemComponent : public Script::IScriptComponent
 	{
 
 	public:

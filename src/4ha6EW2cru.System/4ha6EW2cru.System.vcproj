@@ -40,8 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs;../../etc/vendor/tinyxml/include;../../etc/vendor/tclap/include;../../etc/vendor/luabind;../../etc/vendor/lua/include"
-				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT;OGRE_STATIC_LIB"
+				AdditionalIncludeDirectories="../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs;../../etc/vendor/tinyxml/include;../../etc/vendor/tclap/include"
+				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT;OGRE_STATIC_LIB;LUABIND_DYNAMIC_LINK;LUA_BUILD_AS_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -59,8 +59,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib Rpcrt4.lib ogremainstatic_d.lib physfs.lib tinyxmld.lib luabindd.lib luad.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/boost/lib;../../etc/vendor/ogre/lib;../../etc/vendor/physfs/debug;../../etc/vendor/tinyxml/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
+				AdditionalDependencies="winmm.lib Rpcrt4.lib ogremainstatic_d.lib physfs.lib tinyxmld.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/boost/lib;../../etc/vendor/ogre/lib;../../etc/vendor/physfs/debug;../../etc/vendor/tinyxml/lib"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="true"
 			/>

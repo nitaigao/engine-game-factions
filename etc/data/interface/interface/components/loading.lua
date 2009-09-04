@@ -44,8 +44,6 @@ function Loading.onHideLoading( )
 	local loading = ux:findWidget( 'loading' )
 	loading:setVisible( false )
 	
-	print( 'Loading Finished' )
-
 end
 
 function Loading.onLoadProgress( totalProgress )

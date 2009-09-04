@@ -16,7 +16,10 @@ namespace Sound
 				FMOD::Event* event = m_eventSystem->TriggerEvent( eventPath );
 				m_activeEvents.insert( std::make_pair( eventPath, event ) );
 
-				this->Observe( 0, System::Messages::SetPosition, m_attributes );
+				if ( m_attributes.find( System::Attributes::Position ) != m_attributes.end( ) )
+				{
+					this->Observe( 0, System::Messages::SetPosition, m_attributes );
+				}
 			}
 
 			m_triggerRequests.insert( eventPath );

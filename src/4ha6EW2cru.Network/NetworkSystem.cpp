@@ -27,9 +27,6 @@ using namespace Events;
 #include "System/Instrumentation.hpp"
 using namespace Configuration;
 
-#include <luabind/luabind.hpp>
-using namespace luabind;
-
 using namespace Services;
 
 #include "Management/Management.h"
@@ -74,7 +71,7 @@ namespace Network
 	{
 		AnyType::AnyTypeMap results;
 
-		if ( message == System::Messages::RegisterScriptFunctions )
+		/*if ( message == System::Messages::RegisterScriptFunctions )
 		{
 			scope luaScope = 
 				(
@@ -90,7 +87,7 @@ namespace Network
 				);
 
 			results[ System::TypeStrings::NETWORK ] = luaScope;
-		}
+		}*/
 
 		if ( message == System::Messages::Network::CreateServer )
 		{

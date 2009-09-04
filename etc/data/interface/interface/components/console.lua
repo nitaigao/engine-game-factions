@@ -31,7 +31,7 @@ function Console.initialize( )
 	
 end
 
-function Console.onEvent( eventName, val1 )
+function Console.onEvent( eventName, val1, val2 )
 
 	if ( eventName == 'WORLD_LOADING_FINISHED' ) then
 	
@@ -45,15 +45,19 @@ function Console.onEvent( eventName, val1 )
 	
 	end
 
-	if ( eventName == 'MESSAGE_LOGGED' ) then 
+	if ( eventName == 'LOG_MESSAGE_APPENDED' ) then 
 	
 		Console.updateConsole( val1 ) 
 	
 	end
 	
-	if ( eventName == 'UI_CONSOLE' ) then
+	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		Console.onShowConsole( )
+		if ( val1 == 'UI_CONSOLE' )  then
+	
+			Console.onShowConsole( )
+	
+		end
 	
 	end
 

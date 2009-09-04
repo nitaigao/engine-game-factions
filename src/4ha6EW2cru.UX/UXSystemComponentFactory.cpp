@@ -4,9 +4,15 @@
 using namespace Script;
 
 #include "UXSystemComponent.h"
+#include "UXFacadeManager.h"
 
 namespace UX
 {
+	UXSystemComponentFactory::~UXSystemComponentFactory()
+	{
+		delete m_facadeFactory;
+	}
+
 	IUXSystemComponent* UXSystemComponentFactory::CreateComponent( const std::string& name )
 	{
 		std::stringstream layoutPath;
@@ -15,7 +21,7 @@ namespace UX
 
 		ILuaState* childState = m_masterState->CreateChild( );
 
-		UXSystemComponent* component = new UXSystemComponent( childState, m_eventManager );
+		UXSystemComponent* component = new UXSystemComponent( childState, m_eventManager, new UXFacadeManager( m_facadeFactory, childState ) );
 		component->SetAttribute( System::Attributes::Name, name );
 		component->SetAttribute( System::Attributes::SystemType, System::Types::UX );
 

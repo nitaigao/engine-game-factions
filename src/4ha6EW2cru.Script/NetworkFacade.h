@@ -21,7 +21,7 @@ namespace Script
 	/*! 
 	 *  A Facade interface to interact with the Network System from Script
 	 */
-	class NetworkFacade : public INetworkFacade
+	class GAMEAPI NetworkFacade : public INetworkFacade
 	{
 
 	public:

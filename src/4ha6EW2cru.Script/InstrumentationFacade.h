@@ -18,7 +18,7 @@ namespace Script
 	/*! 
 	 *  A Facade interface to the Instrumentation Provider
 	 */
-	class InstrumentationFacade : public IScriptFacade
+	class GAMEAPI InstrumentationFacade : public IScriptFacade
 	{
 
 	public:

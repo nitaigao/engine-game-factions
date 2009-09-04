@@ -116,6 +116,8 @@ namespace Script
 		LuaState( const LuaState & copy ) { };
 		LuaState & operator = ( const LuaState & copy ) { return *this; };
 
+		static int LuaPanic( lua_State* state ); 
+
 		lua_State* m_state;
 		Resources::IResourceCache* m_resourceCache;
 		

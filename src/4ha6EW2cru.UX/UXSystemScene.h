@@ -17,8 +17,11 @@
 #include <luabind/luabind.hpp>
 #include "IGUI.hpp"
 #include "ILuaState.hpp"
+#include "IScriptFacadeManager.hpp"
+#include "IScriptConfiguration.hpp"
 
 #include "Service/IServiceManager.h"
+#include "Configuration/IConfiguration.hpp"
 
 namespace UX
 {
@@ -41,11 +44,13 @@ namespace UX
 		*
 		*  @return ()
 		*/
-		UXSystemScene( IGUI* gui, Services::IServiceManager* serviceManager, Script::ILuaState* masterState, IUXSystemComponentFactory* componentFactory )
+		UXSystemScene( IGUI* gui, Services::IServiceManager* serviceManager, Script::ILuaState* masterState, IUXSystemComponentFactory* componentFactory, Configuration::IConfiguration* configuration )
 			: m_gui( gui )
 			, m_serviceManager( serviceManager )
 			, m_masterState( masterState )
 			, m_componentFactory( componentFactory )
+			, m_configuration( configuration )
+			, m_scriptConfiguration( 0 )
 		{
 
 		}
@@ -86,7 +91,7 @@ namespace UX
 		*  @param[in] const std::string & type
 		*  @return (ISystemComponent*)
 		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+		ISystemComponent* CreateComponent( const std::string& name, const std::string& type ) { return 0; };
 
 
 		/*! Destroys a SystemComponent created by the SystemScene
@@ -310,6 +315,8 @@ namespace UX
 		IUXSystemComponent::UXSystemComponentList m_components;
 		Services::IServiceManager* m_serviceManager;
 		Script::ILuaState* m_masterState;
+		Script::IScriptConfiguration* m_scriptConfiguration;
+		Configuration::IConfiguration* m_configuration;
 		IUXSystemComponentFactory* m_componentFactory;
 	};
 };

@@ -25,7 +25,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
 {
-	return UX::UXFactory( ).CreateUXSystem( );
+	return UX::UXFactory( ).CreateUXSystem( configuration );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

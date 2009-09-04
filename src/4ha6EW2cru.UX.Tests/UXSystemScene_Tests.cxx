@@ -8,11 +8,15 @@ using namespace UX;
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockService.hpp"
 #include "Mocks/MockLuaState.hpp"
+#include "Mocks/MockScriptFacade.hpp"
 #include "Mocks/MockUXSystemComponentFactory.hpp"
 #include "Mocks/MockUXSystemComponent.hpp"
 
 #include <MyGUI.h>
 using namespace MyGUI;
+
+#include "Configuration/Configuration.h"
+using namespace Configuration;
 
 class UXSystemScene_Tests : public TestHarness< UXSystemScene >
 {
@@ -22,7 +26,10 @@ protected:
 	MockGUI* m_gui;
 	MockServiceManager* m_serviceManager;
 	MockLuaState* m_state;
+
 	MockUXSystemComponentFactory* m_componentFactory;
+
+	ClientConfiguration* m_configuration;
 
 	void EstablishContext( )
 	{
@@ -30,6 +37,7 @@ protected:
 		m_serviceManager = new MockServiceManager( );
 		m_state = new MockLuaState( );
 		m_componentFactory = new MockUXSystemComponentFactory( );
+		m_configuration = new ClientConfiguration( );
 	}
 
 
@@ -37,11 +45,12 @@ protected:
 	{
 		delete m_gui;
 		delete m_serviceManager;
+		delete m_configuration;
 	}
 
 	UXSystemScene* CreateSubject( )
 	{
-		return new UXSystemScene( m_gui, m_serviceManager, m_state, m_componentFactory ); 
+		return new UXSystemScene( m_gui, m_serviceManager, m_state, m_componentFactory, m_configuration ); 
 	}
 };
 

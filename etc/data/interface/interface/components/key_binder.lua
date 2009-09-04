@@ -16,7 +16,7 @@ function KeyBinder.initialize( )
 
 	script:registerEventHandler( KeyBinder.onEvent )
 	
-	widget = ux:findWidget( 'key_binder' )
+	local widget = ux:findWidget( 'key_binder' )
 	widget:setVisible( false )
 	
 	ux:scriptWidget( widget, 'onKeyUp', KeyBinder.onKeyUp )
@@ -24,14 +24,20 @@ function KeyBinder.initialize( )
 	
 end
 
-function KeyBinder.onEvent( eventName, var1 )
+function KeyBinder.onEvent( eventName, var1, var2 )
+
+	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-	if ( eventName == 'UI_KEYBINDER' ) then
-	
-		widget:setVisible( true )
-		widget:setFocus( true )
+		if ( var1 == 'UI_KEYBINDER' )  then
 		
-		message = var1
+			local widget = ux:findWidget( 'key_binder' )
+	
+			widget:setVisible( true )
+			widget:setFocus( true )
+		
+			message = var2
+	
+		end
 	
 	end
 
@@ -39,11 +45,15 @@ end
 
 function KeyBinder.onHide( )
 
+	local widget = ux:findWidget( 'key_binder' )
+
 	widget:setVisible( false )
 
 end
 
 function KeyBinder.onKeyUp( keyCode )
+
+	local widget = ux:findWidget( 'key_binder' )
 
 	if ( widget:isVisible( ) ) then
 
@@ -51,7 +61,7 @@ function KeyBinder.onKeyUp( keyCode )
 		
 			input:setMessageBinding( message, 'k_' .. keyCode )
 		
-			script:broadcastEvent( 'UI_MAPPINGBOUND' )
+			script:sendEvent( 'UI_MAPPINGBOUND', '', '' )
 		
 		end
 		
@@ -63,11 +73,13 @@ end
 
 function KeyBinder.onClick( mouseId )
 
+	local widget = ux:findWidget( 'key_binder' )
+
 	if ( widget:isVisible( ) ) then
 		
 		input:setMessageBinding( message, 'm_' .. mouseId )
 		
-		script:broadcastEvent( 'UI_MAPPINGBOUND' )
+		script:sendEvent( 'UI_MAPPINGBOUND', '', '' )
 		
 		KeyBinder.onHide( )
 		

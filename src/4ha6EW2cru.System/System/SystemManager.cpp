@@ -130,12 +130,12 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 
 	if ( library == NULL )
 	{
+		DWORD error = GetLastError( );
+
 		FileNotFoundException e( "SystemManager::LoadSystem - Unable to load the given System dll" );
 		Fatal( e.what( ) );
 		throw e;
 	}
-
-	DWORD error = GetLastError( );
 
 	InitializeSystemFunction initializeSystem = reinterpret_cast< InitializeSystemFunction >( GetProcAddress( library, "Initialize" ) );
 	initializeSystem( Management::Get( ), Logger::Get( ) );
