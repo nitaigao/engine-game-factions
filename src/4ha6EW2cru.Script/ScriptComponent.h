@@ -14,6 +14,7 @@
 #include "IScriptFacade.hpp"
 #include "IScriptFunctionHandler.hpp"
 #include "IScriptFacadeManager.hpp"
+#include "IScriptMessageDispatcher.hpp"
 #include "ILuaState.hpp"
 
 #include "ScriptEvent.hpp"
@@ -42,10 +43,11 @@ namespace Script
 		*  @param[in] const std::string & name
 		*  @return ()
 		*/
-		ScriptComponent( ILuaState* state, Events::IEventManager* eventManager, IScriptFacadeManager* facadeManager )
+		ScriptComponent( ILuaState* state, Events::IEventManager* eventManager, IScriptFacadeManager* facadeManager, IScriptMessageDispatcher* messageDispatcher )
 			: m_state( state )
 			, m_eventManager( eventManager )
 			, m_facadeManager( facadeManager )
+			, m_messageDispatcher( messageDispatcher )
 			, m_observer( 0 )
 			, m_eventHandlers( 0 )
 		{
@@ -282,9 +284,10 @@ namespace Script
 		Events::IEventManager* m_eventManager;
 		IScriptFacadeManager* m_facadeManager;
 
-		IScriptFunctionHandler::FunctionMap m_messageHandlers;
 		IScriptFunctionHandler::FunctionList m_eventHandlers;
 		IScriptFunctionHandler::FunctionList m_updateHandlers;
+
+		IScriptMessageDispatcher* m_messageDispatcher;
 
 		IScriptFacade::ScriptFacadeList m_facades;
 

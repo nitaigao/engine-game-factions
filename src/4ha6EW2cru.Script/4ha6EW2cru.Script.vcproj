@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScriptMessageDispatcher.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptSystem.cpp"
 				>
 			</File>
@@ -308,6 +312,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IScriptMessageDispatcher.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IScriptSystem.hpp"
 				>
 			</File>
@@ -361,6 +369,10 @@
 			</File>
 			<File
 				RelativePath=".\ScriptFunctionHandler.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptMessageDispatcher.h"
 				>
 			</File>
 			<File

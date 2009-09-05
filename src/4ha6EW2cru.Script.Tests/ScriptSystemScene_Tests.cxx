@@ -39,6 +39,7 @@ protected:
 	void DestroyContext( )
 	{
 		delete m_serviceManager;
+		delete m_configuration;
 	}
 
 	ScriptSystemScene* CreateSubject( )

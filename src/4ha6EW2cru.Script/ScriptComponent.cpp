@@ -35,6 +35,13 @@ using namespace System;
 
 namespace Script
 {
+	ScriptComponent::~ScriptComponent()
+	{
+		delete m_messageDispatcher;
+		delete m_facadeManager;
+		delete m_state;
+	}
+
 	void ScriptComponent::Initialize( )
 	{
 		m_eventManager->AddEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
@@ -60,13 +67,6 @@ namespace Script
 		{
 			delete ( *i );
 			i = m_updateHandlers.erase( i );
-		}
-
-
-		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); )	
-		{
-			delete ( *i ).second;
-			i = m_messageHandlers.erase( i );
 		}
 
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
@@ -143,7 +143,6 @@ namespace Script
 				logMessage << error_msg;
 				Warn( logMessage.str( ) );
 			}
-
 		}
 	}
 
@@ -166,39 +165,20 @@ namespace Script
 			m_lookAt = parameters[ System::Attributes::LookAt ].As< MathVector3 >( );
 		}
 
-		if ( message == System::Messages::RunScript )
+		if ( message == System::Messages::RunScript || message == System::Messages::PostInitialize )
 		{
 			this->RunScript( );
 		}
 
-		if ( message == System::Messages::PostInitialize )
-		{
-			this->RunScript( );
-		}
-
-		IScriptFunctionHandler::FunctionMap::iterator it1 = m_messageHandlers.lower_bound( message );
-		IScriptFunctionHandler::FunctionMap::iterator it2 = m_messageHandlers.upper_bound( message );
-
-		for( IScriptFunctionHandler::FunctionMap::iterator i = it1; i != it2; ++i )
-		{
-			try
-			{
-				call_function< void >( ( *i ).second->GetFunction( ), message );
-			}
-			catch( error& e )
-			{
-				object error_msg( from_stack( e.state( ) , -1) );
-				std::stringstream logMessage;
-				logMessage << error_msg;
-				Warn( logMessage.str( ) );
-			}
-		}
+		m_messageDispatcher->DisptchMessage( message, parameters );
 
 		return result;
 	}
 
 	void ScriptComponent::Update( float deltaMilliseconds )
 	{
+		m_messageDispatcher->Update( deltaMilliseconds );
+
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
 		{
 			try
@@ -227,19 +207,6 @@ namespace Script
 			}
 		}
 
-		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); )	
-		{
-			if ( ( *i ).second->IsMarkedForDeletion( ) )
-			{
-				delete ( *i ).second;
-				i = m_messageHandlers.erase( i );
-			}
-			else
-			{
-				++i;
-			}
-		}
-
 		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
 		{
 			if ( ( *i )->IsMarkedForDeletion( ) )
@@ -254,32 +221,19 @@ namespace Script
 		}
 	}
 
-	ScriptComponent::~ScriptComponent()
-	{
-		delete m_facadeManager;
-		delete m_state;
-	}
-
 	void ScriptComponent::SetPosition( const Maths::MathVector3& position )
 	{
 		m_attributes[ System::Attributes::Position ] = position;
 		this->PushMessage( System::Messages::SetPosition, m_attributes );
 	}
 
-	void ScriptComponent::SubscribeMessage( const System::MessageType& message,  const luabind::object& function )
+	void ScriptComponent::SubscribeMessage( const System::MessageType& message, const luabind::object& delegateFunction )
 	{
-		std::pair< MessageType, ScriptFunctionHandler*> messagePair( std::make_pair( message, new ScriptFunctionHandler( function ) ) );
-		m_messageHandlers.insert( messagePair );
+		m_messageDispatcher->AddMessageHandler( message, delegateFunction );
 	}
 
-	void ScriptComponent::UnSubscribeMessage( const System::MessageType& message,  const luabind::object& function )
+	void ScriptComponent::UnSubscribeMessage( const System::MessageType& message, const luabind::object& delegateFunction )
 	{
-		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); ++i )
-		{
-			if ( ( *i ).first == message && ( *i ).second->GetFunction( ) == function )
-			{
-				( *i ).second->MarkForDeletion( ); 
-			}
-		}
+		m_messageDispatcher->RemoveHandler( message, delegateFunction );
 	}
 }

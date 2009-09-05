@@ -2,6 +2,7 @@
 
 #include "ScriptComponent.h"
 #include "ScriptFacadeManager.h"
+#include "ScriptMessageDispatcher.h"
 #include "LuaState.h"
 
 namespace Script
@@ -14,7 +15,10 @@ namespace Script
 	IScriptComponent* ScriptComponentFactory::CreateComponent( const std::string& name, const std::string& type )
 	{
  		ILuaState* childState = m_masterState->CreateChild( );
-		IScriptComponent* component = new ScriptComponent( childState, m_eventManager, new ScriptFacadeManager( m_facadeFactory, childState ) );
+		IScriptMessageDispatcher* messageDispatcher = new ScriptMessageDispatcher( );
+		IScriptFacadeManager* facadeManager = new ScriptFacadeManager( m_facadeFactory, childState );
+
+		IScriptComponent* component = new ScriptComponent( childState, m_eventManager, facadeManager, messageDispatcher );
 
 		component->SetAttribute( System::Attributes::Name, name );
 		component->SetAttribute( System::Attributes::SystemType, System::Types::SCRIPT );

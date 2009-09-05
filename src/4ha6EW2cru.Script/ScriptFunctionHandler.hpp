@@ -61,6 +61,29 @@ namespace Script
 		inline luabind::object GetFunction( ) const { return m_functionHandler; };
 
 
+		/*! Calls the Function Handler with the given parameters
+		*
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		void CallFunction( AnyType::AnyTypeMap parameters )
+		{
+			luabind::call_function< void >( m_functionHandler, parameters );
+		}
+
+
+		void CallFunction( const System::MessageType& message, AnyType::AnyTypeMap& parameters )
+		{
+			luabind::call_function< void >( m_functionHandler, message, parameters );
+		}
+
+
+		bool operator == ( const ScriptFunctionHandler& input )
+		{
+			return input.m_functionHandler == m_functionHandler;
+		}
+
+
 	private:
 
 		bool m_isMarkedForDeletion;

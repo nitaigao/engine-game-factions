@@ -7,6 +7,10 @@ using namespace Script;
 #include "Mocks/MockEventManager.hpp"
 #include "Mocks/MockLuaState.hpp"
 #include "Mocks/MockScriptFacadeManager.hpp"
+#include "Mocks/MockScriptMessageDispatcher.hpp"
+
+#include "Maths/MathVector3.hpp"
+using namespace Maths;
 
 #include "Events/IEventListener.hpp"
 
@@ -20,12 +24,14 @@ protected:
 	MockLuaState* m_state;
 	MockEventManager* m_eventManager;
 	MockScriptFacadeManager* m_facadeManager;
+	MockScriptMessageDispatcher* m_messageDispatcher;
 
 	void EstablishContext( )
 	{
 		m_state = new MockLuaState( );
 		m_eventManager = new MockEventManager( );
 		m_facadeManager = new MockScriptFacadeManager( );
+		m_messageDispatcher = new MockScriptMessageDispatcher( );
 	}
 
 	void DestroyContext( )
@@ -35,7 +41,7 @@ protected:
 
 	ScriptComponent* CreateSubject( )
 	{
-		return new ScriptComponent( m_state, m_eventManager, m_facadeManager );
+		return new ScriptComponent( m_state, m_eventManager, m_facadeManager, m_messageDispatcher );
 	}
 };
 
@@ -88,4 +94,45 @@ TEST_F( ScriptComponent_Tests, should_execute_a_string )
 	EXPECT_CALL( *m_state, ExecuteString( scriptString ) );
 
 	m_subject->ExecuteString( scriptString );
+}
+
+TEST_F( ScriptComponent_Tests, should_register_function_for_messages )
+{
+	luabind::object delegateFunction;
+	System::MessageType message = System::Messages::SetPosition;
+
+	EXPECT_CALL( *m_messageDispatcher, AddMessageHandler( message, delegateFunction ) );
+
+	m_subject->SubscribeMessage( message, delegateFunction );
+}
+
+TEST_F( ScriptComponent_Tests, should_un_register_function_for_messages )
+{
+	luabind::object delegateFunction;
+	System::MessageType message = System::Messages::SetPosition;
+
+	EXPECT_CALL( *m_messageDispatcher, RemoveHandler( message, delegateFunction ) );
+
+	m_subject->SubscribeMessage( message, delegateFunction );
+	m_subject->UnSubscribeMessage( message, delegateFunction );
+}
+
+TEST_F( ScriptComponent_Tests, should_dispatch_subscribed_messages )
+{
+	System::MessageType message = System::Messages::SetPosition;
+	AnyType::AnyTypeMap parameters;
+	parameters[ System::Attributes::Position ] = MathVector3::Forward( );
+
+	EXPECT_CALL( *m_messageDispatcher, DisptchMessage( message, An< AnyType::AnyTypeMap& >( ) ) );
+
+	m_subject->Observe( 0, message, parameters );
+}
+
+TEST_F( ScriptComponent_Tests, should_update_dispatchers )
+{
+	float delta = 10.0f; 
+
+	EXPECT_CALL( *m_messageDispatcher, Update( delta ) );
+
+	m_subject->Update( delta );
 }

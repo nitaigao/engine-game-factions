@@ -79,7 +79,6 @@ namespace Script
 				(
 
 				class_< ScriptComponent >( "ScriptComponent" )
-					.def( constructor< ILuaState*, Events::IEventManager*, IScriptFacadeManager* >( ) )
 					.def( "include", &ScriptComponent::IncludeScript )
 					.def( "registerEventHandler", &ScriptComponent::RegisterEvent )
 					.def( "registerUpdateHandler", &ScriptComponent::RegisterUpdate )
@@ -108,7 +107,9 @@ namespace Script
 					.def( self + MathVector3( ) ),
 
 				class_< MathQuaternion >( "Quaternion" )
-					.def( constructor< float, float, float, float >( ) )
+					.def( constructor< float, float, float, float >( ) ),
+
+				class_< AnyType::AnyTypeMap >( "AnyType" )
 				);
 
 			results[ System::TypeStrings::SCRIPT ] = luaScope;

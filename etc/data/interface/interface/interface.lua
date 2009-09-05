@@ -19,7 +19,7 @@ function Interface.initialize( )
 	
 	ux:showMouse( )
 
-	ux:loadComponent( 'console' )
+	--ux:loadComponent( 'console' )
 	ux:loadComponent( 'title' )
 	ux:loadComponent( 'menu' )
 	ux:loadComponent( 'options' )

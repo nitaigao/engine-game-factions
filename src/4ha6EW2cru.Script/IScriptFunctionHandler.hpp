@@ -13,6 +13,7 @@
 
 #include "Events/IEvent.hpp"
 #include "System/SystemType.hpp"
+#include "System/AnyType.hpp"
 
 namespace Script
 {
@@ -46,6 +47,18 @@ namespace Script
 		*  @return (bool)
 		*/
 		virtual bool IsMarkedForDeletion( ) const = 0;
+
+
+		/*! Calls the Function Handler with the given parameters
+		 *
+		 * @param[in] AnyType::AnyTypeMap parameters
+		 * @return ( void )
+		 */
+		virtual void CallFunction( AnyType::AnyTypeMap parameters ) = 0;
+
+
+		virtual void CallFunction( const System::MessageType& message, AnyType::AnyTypeMap& parameters ) = 0;
+
 
 
 		/*! Returns the LUA function
