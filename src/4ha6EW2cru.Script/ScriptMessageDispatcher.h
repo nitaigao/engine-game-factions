@@ -7,6 +7,7 @@
 #pragma once
 #ifndef SCRIPTMESSAGEDISPATCHER_H
 #define SCRIPTMESSAGEDISPATCHER_H
+#pragma warning( disable : 4251 )
 
 #include "IScriptMessageDispatcher.hpp"
 

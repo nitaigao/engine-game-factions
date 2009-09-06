@@ -112,7 +112,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System.Tests;../4ha6EW2cru.UX;../4ha6EW2cru.System;../4ha6EW2cru.Script;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/mygui/myguiengine/include;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/ois/includes;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;"
+				AdditionalIncludeDirectories="../4ha6EW2cru.Script.Tests;../4ha6EW2cru.Script;../4ha6EW2cru.System.Tests;../4ha6EW2cru.UX;../4ha6EW2cru.System;../4ha6EW2cru.Script;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/mygui/myguiengine/include;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/ois/includes;../../etc/vendor/gmock/include;../../etc/vendor/gtest/include;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
