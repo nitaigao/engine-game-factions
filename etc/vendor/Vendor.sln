@@ -25,6 +25,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGUIEngine", "mygui\MyGUIE
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "luabind", "luabind\luabind.vcproj", "{A459EE52-779E-49CB-A0EC-62C974F9C7B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A2FD5E29-D45B-4A39-996A-FDB277279DF1} = {A2FD5E29-D45B-4A39-996A-FDB277279DF1}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "lua\lua.vcproj", "{A2FD5E29-D45B-4A39-996A-FDB277279DF1}"
 EndProject
