@@ -56,7 +56,14 @@ namespace UX
 					.property( "isSmoothMouse", &ScriptConfiguration::IsSmoothMouse, &ScriptConfiguration::SetSmoothMouse )
 					.property( "mouseSmoothAmount", &ScriptConfiguration::GetMouseSmoothAmount, &ScriptConfiguration::SetMouseSmoothAmount )
 					.property( "sfxVolume", &ScriptConfiguration::GetSFXVolume, &ScriptConfiguration::SetSFXVolume )
-					.property( "musicVolume", &ScriptConfiguration::GetMusicVolume, &ScriptConfiguration::SetMusicVolume ),
+					.property( "musicVolume", &ScriptConfiguration::GetMusicVolume, &ScriptConfiguration::SetMusicVolume )
+					.property( "serverPort", &ScriptConfiguration::GetServerPort, &ScriptConfiguration::SetServerPort )
+					.property( "serverBotCount", &ScriptConfiguration::GetServerBotCount, &ScriptConfiguration::SetServerBotCount )
+					.property( "serverName", &ScriptConfiguration::GetServerName, &ScriptConfiguration::SetServerName )
+					.property( "serverTimeLimit", &ScriptConfiguration::GetServerTimeLimit, &ScriptConfiguration::SetServerTimeLimit )
+					.property( "serverFragLimit", &ScriptConfiguration::GetServerFragLimit, &ScriptConfiguration::SetServerFragLimit )
+					.property( "serverMaxPlayers", &ScriptConfiguration::GetServerMaxPlayers, &ScriptConfiguration::SetServerMaxPlayers )
+					,
 
 			class_< UXSystemComponent >( "UXSystemComponent" )
 				.def( "registerEventHandler", &UXSystemComponent::RegisterEvent )

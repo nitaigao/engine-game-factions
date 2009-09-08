@@ -40,6 +40,10 @@ namespace Configuration
 			static const ConfigItem MaxPlayers				=	"max_players";
 			static const ConfigItem ServerSnapshotRate		=	"server_snapshot_rate";
 			static const ConfigItem ClientSnapshotRate		=	"client_snapshot_rate";
+			static const ConfigItem ServerTimeLimit			=	"server_time_limit";
+			static const ConfigItem ServerBotCount			=	"server_bot_count";
+			static const ConfigItem ServerFragLimit			=	"server_frag_limit";
+			static const ConfigItem	ServerMaxPlayers		=	"server_max_players";
 		}
 
 		namespace Graphics

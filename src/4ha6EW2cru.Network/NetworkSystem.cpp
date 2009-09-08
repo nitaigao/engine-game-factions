@@ -60,6 +60,13 @@ namespace Network
 			m_clientProvider->Initialize( 0, 1 );
 			m_scene->AddNetworkProvider( m_clientProvider );
 		}
+
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort, 8989 );
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount, 0 );
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName, "Factions Server" );
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit, 60 );
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit, 50 ); 
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers, 10 ); 
 	}
 
 	void NetworkSystem::Update( float deltaMilliseconds )

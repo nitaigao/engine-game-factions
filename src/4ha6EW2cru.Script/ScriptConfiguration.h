@@ -183,10 +183,100 @@ namespace Script
 
 		/*! Sets the Music Volume
 		*
-		* @param[in] const int & volume
+		* @param[in] int musicVolume
 		* @return ( void )
 		*/
-		inline void SetMusicVolume( int volume ) { m_configuration->Set( Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::MusicVolume, volume ); };
+		inline void SetMusicVolume( int musicVolume ) { m_configuration->Set( Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::MusicVolume, musicVolume ); };
+
+
+		/*! Sets the Server Port
+		*
+		* @param[in] int serverPort
+		* @return ( void )
+		*/
+		inline void SetServerPort( int serverPort ) { m_configuration->Set( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort, serverPort ); };
+
+
+		/*! Gets the Server Port
+		*
+		* @return ( int )
+		*/
+		inline int GetServerPort( ) const { return m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort ).As< int >( ); };
+
+
+		/*! Sets the Bot Count
+		*
+		* @param[in] int botCount
+		* @return ( void )
+		*/
+		inline void SetServerBotCount( int botCount ) { m_configuration->Set( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount, botCount ); };
+
+
+		/*! Gets the Server Bot Count
+		*
+		* @return ( int )
+		*/
+		inline int GetServerBotCount( ) const { return m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount ).As< int >( ); };
+
+
+		/*! Sets the Server Name
+		*
+		* @param[in] const std::string & serverName
+		* @return ( void )
+		*/
+		inline void SetServerName( const std::string & serverName ) { m_configuration->Set( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName, serverName ); };
+
+
+		/*! Gets the Server Name
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetServerName( ) const { return m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName ).As< std::string >( ); };
+
+
+		/*! Sets the Server Time Limit
+		*
+		* @param[in] int timeLimit
+		* @return ( void )
+		*/
+		inline void SetServerTimeLimit( int timeLimit ) { m_configuration->Set( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit, timeLimit ); };
+
+
+		/*! Gets the Server Time Limit
+		*
+		* @return ( int )
+		*/
+		inline int GetServerTimeLimit( ) const { return m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit ).As< int >( ); };
+
+
+		/*! Sets the Frag Limit for the Server
+		*
+		* @param[in] const int & fragLimit
+		* @return ( void )
+		*/
+		inline void SetServerFragLimit( int fragLimit ) { m_configuration->Set( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit, fragLimit ); };
+
+
+		/*! Gets theFrag Limit for the Server
+		*
+		* @return ( int )
+		*/
+		inline int GetServerFragLimit( ) const { return m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit ).As< int >( ); };
+
+
+		/*! Sets the Max Players for the Server
+		*
+		* @param[in] const int & maxPlayers
+		* @return ( void )
+		*/
+		inline void SetServerMaxPlayers( int maxPlayers ) { m_configuration->Set( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers, maxPlayers ); };
+
+
+		/*! Gets the Max Players for the Server
+		*
+		* @return ( int )
+		*/
+		inline int GetServerMaxPlayers( ) const { return m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers ).As< int >( ); };
 
 	private:
 

@@ -221,10 +221,8 @@ function Menu.onPlayReleased( )
 end
 
 function Menu.onCreateReleased( )
-
-	--script:broadcastEvent( 'UI_CREATESERVER' )
-	network:createServer( 8990, 32, 'sandbox' )
-	network:connect( '127.0.0.1', 8990 )
+	
+	script:sendEvent( 'UI_SHOW_PANE', 'UI_CREATESERVER', '' ) 
 
 end
 

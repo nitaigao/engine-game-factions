@@ -48,3 +48,12 @@ TEST( StringVector_Tests, should_replace_a_string_with_an_occurance_of_the_strin
 
 	EXPECT_EQ( expected, result );
 }
+
+TEST( StringVector_Tests, should_replace_a_string_with_nothing )
+{
+	std::string expected = "";
+	std::string input = ".xml";
+	std::string result = StringUtils::Replace( input, input, expected );
+
+	EXPECT_EQ( expected, result );
+}

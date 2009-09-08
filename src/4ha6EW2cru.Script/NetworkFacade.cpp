@@ -4,6 +4,8 @@
 using namespace luabind;
 
 #include "Management/Management.h"
+#include "IO/FileSearchResult.hpp"
+using namespace IO;
 
 using namespace Utility;
 
@@ -20,6 +22,7 @@ namespace Script
 				.def( "findServers", &NetworkFacade::FindServers )
 				.def( "getServerAd", &NetworkFacade::GetServerAd, copy_table_assoc( result ) )
 				.def( "createServer", &NetworkFacade::CreateServer )
+				.def( "getServerMaps", &NetworkFacade::GetServerMaps, copy_table( result ) )
 				;
 	}
 
@@ -80,7 +83,7 @@ namespace Script
 			->ProcessMessage( System::Messages::Network::Disconnect, AnyType::AnyTypeMap( ) ); 
 	}
 
-	void NetworkFacade::CreateServer( unsigned int port, int maxPlayers, const std::string& levelName )
+	void NetworkFacade::CreateServer( const std::string& levelName, unsigned int port, int botCount, const std::string& serverName, int timeLimit, int fragLimit, int maxPlayers )
 	{
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Network::Port ] = port;
@@ -89,6 +92,22 @@ namespace Script
 
 		Management::Get( )->GetServiceManager( )->FindService( System::Types::NETWORK )
 			->ProcessMessage( System::Messages::Network::CreateServer, parameters );
-		
+	}
+
+	StringUtils::StringList NetworkFacade::GetServerMaps() const
+	{
+		FileSearchResult::FileSearchResultList* results = Management::Get( )->GetFileManager( )->FileSearch( "/data/levels", "*.xml", false );
+
+		StringUtils::StringList maps;
+
+		for( FileSearchResult::FileSearchResultList::iterator i = results->begin( ); i != results->end( ); ++i )
+		{
+			std::string mapName = StringUtils::Replace( ( *i ).FileName, ".xml", "" );
+			maps.push_back( mapName );
+		}
+
+		delete results;
+
+		return maps;
 	}
 }

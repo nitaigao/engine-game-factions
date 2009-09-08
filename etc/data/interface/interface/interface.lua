@@ -19,7 +19,7 @@ function Interface.initialize( )
 	
 	ux:showMouse( )
 
-	--ux:loadComponent( 'console' )
+	ux:loadComponent( 'console' )
 	ux:loadComponent( 'title' )
 	ux:loadComponent( 'menu' )
 	ux:loadComponent( 'options' )
@@ -31,6 +31,7 @@ function Interface.initialize( )
 	ux:loadComponent( 'characterselect' )
 	ux:loadComponent( 'servers' )
 	ux:loadComponent( 'disconnected' )
+	ux:loadComponent( 'create' )
 	
 end
 

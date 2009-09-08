@@ -94,14 +94,19 @@ namespace Script
 		Utility::StringUtils::StringMap GetServerAd( int cacheIndex );
 
 
+		
 		/*! Creates a Local Server running within the game client
 		 *
+		 * @param[in] const std::string & levelName
 		 * @param[in] unsigned int port
+		 * @param[in] int botCount
+		 * @param[in] const std::string & serverName
+		 * @param[in] int timeLimit
+		 * @param[in] int fragLimit
 		 * @param[in] int maxPlayers
-		 * @param[in] std::string levelName
 		 * @return ( void )
 		 */
-		void CreateServer( unsigned int port, int maxPlayers, const std::string& levelName );
+		void CreateServer( const std::string& levelName, unsigned int port, int botCount, const std::string& serverName, int timeLimit, int fragLimit, int maxPlayers );
 
 
 		/*! Initializes the Facade with the given ScriptComponent
@@ -109,6 +114,13 @@ namespace Script
 		* @return ( void )
 		*/
 		void Initialize( ) { };
+
+
+		/*! Returns a list of available maps to play on the Server
+		 *
+		 * @return ( StringUtils::StringList )
+		 */
+		Utility::StringUtils::StringList GetServerMaps( ) const;
 
 
 	private:
