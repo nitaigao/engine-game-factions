@@ -593,7 +593,7 @@ typedef void (*TearDownTestCaseFunc)();
 //                     The newly created TestInfo instance will assume
 //                     ownership of the factory object.
 TestInfo* MakeAndRegisterTestInfo(
-    const char* test_case_name, const char* name,
+    const char* test_namespace_name, const char* test_case_name, const char* name,
     const char* test_case_comment, const char* comment,
     TypeId fixture_class_id,
     SetUpTestCaseFunc set_up_tc,
@@ -752,6 +752,8 @@ int GetFailedPartCount(const TestResult* result);
 // A helper for suppressing warnings on unreachable code in some macros.
 bool AlwaysTrue();
 
+std::string ScrapeNamespace( const char* fullTypeId );
+
 }  // namespace internal
 }  // namespace testing
 
@@ -860,6 +862,7 @@ bool AlwaysTrue();
 #define GTEST_TEST_CLASS_NAME_(test_case_name, test_name) \
   test_case_name##_##test_name##_Test
 
+
 // Helper macro for defining tests.
 #define GTEST_TEST_(test_case_name, test_name, parent_class, parent_id)\
 class GTEST_TEST_CLASS_NAME_(test_case_name, test_name) : public parent_class {\
@@ -871,11 +874,11 @@ class GTEST_TEST_CLASS_NAME_(test_case_name, test_name) : public parent_class {\
   GTEST_DISALLOW_COPY_AND_ASSIGN_(\
       GTEST_TEST_CLASS_NAME_(test_case_name, test_name));\
 };\
-\
 ::testing::TestInfo* const GTEST_TEST_CLASS_NAME_(test_case_name, test_name)\
   ::test_info_ =\
     ::testing::internal::MakeAndRegisterTestInfo(\
-        #test_case_name, #test_name, "", "", \
+		::testing::internal::ScrapeNamespace(typeid(parent_class).name()).c_str( ), \
+		#test_case_name, #test_name, "", "", \
         (parent_id), \
         parent_class::SetUpTestCase, \
         parent_class::TearDownTestCase, \

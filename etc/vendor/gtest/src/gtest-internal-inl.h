@@ -597,7 +597,8 @@ class TestResult {
 
 class TestInfoImpl {
  public:
-  TestInfoImpl(TestInfo* parent, const char* test_case_name,
+  TestInfoImpl(TestInfo* parent, const char* test_namespace_name,
+			   const char* test_case_name,
                const char* name, const char* test_case_comment,
                const char* comment, TypeId fixture_class_id,
                internal::TestFactoryBase* factory);
@@ -614,6 +615,9 @@ class TestInfoImpl {
 
   // Sets the is_disabled member.
   void set_is_disabled(bool is) { is_disabled_ = is; }
+
+  // Returns the test namespace name.
+  const char* test_namespace_name() const { return test_namespace_name_.c_str(); }
 
   // Returns the test case name.
   const char* test_case_name() const { return test_case_name_.c_str(); }
@@ -654,6 +658,7 @@ class TestInfoImpl {
  private:
   // These fields are immutable properties of the test.
   TestInfo* const parent_;          // The owner of this object
+  const String test_namespace_name_;// The namespace of the test
   const String test_case_name_;     // Test case name
   const String name_;               // Test name
   const String test_case_comment_;  // Test case comment

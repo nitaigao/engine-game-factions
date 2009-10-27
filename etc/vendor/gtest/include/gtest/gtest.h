@@ -294,6 +294,8 @@ class Test {
   static void RecordProperty(const char* key, const char* value);
   static void RecordProperty(const char* key, int value);
 
+  std::string GetGivenStatement( ) { return gtest_given_statement_; };
+
  protected:
   // Creates a Test object.
   Test();
@@ -303,6 +305,8 @@ class Test {
 
   // Tears down the test fixture.
   virtual void TearDown();
+
+  std::string gtest_given_statement_;
 
  private:
   // Returns true iff the current test has the same fixture class as
@@ -396,6 +400,9 @@ class TestInfo {
   // don't inherit from TestInfo.
   ~TestInfo();
 
+  //Returns the test namespace name.
+  const char* test_namespace_name( ) const;
+
   // Returns the test case name.
   const char* test_case_name() const;
 
@@ -435,7 +442,7 @@ class TestInfo {
   friend class Test;
   friend class TestCase;
   friend TestInfo* internal::MakeAndRegisterTestInfo(
-      const char* test_case_name, const char* name,
+      const char* test_namespace_name, const char* test_case_name, const char* name,
       const char* test_case_comment, const char* comment,
       internal::TypeId fixture_class_id,
       Test::SetUpTestCaseFunc set_up_tc,
@@ -452,7 +459,7 @@ class TestInfo {
 
   // Constructs a TestInfo object. The newly constructed instance assumes
   // ownership of the factory object.
-  TestInfo(const char* test_case_name, const char* name,
+  TestInfo(const char* test_namespace_name, const char* test_case_name, const char* name,
            const char* test_case_comment, const char* comment,
            internal::TypeId fixture_class_id,
            internal::TestFactoryBase* factory);

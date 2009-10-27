@@ -193,6 +193,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetworkClientController_Tests.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\NetworkClientEndpoint_Tests.cxx"
 				>
 			</File>
@@ -206,6 +210,10 @@
 			</File>
 			<File
 				RelativePath=".\NetworkServerController_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\NetworkServerEndpoint_Tests.cxx"
 				>
 			</File>
 			<File
@@ -229,7 +237,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ServerAdvertisement_Tests.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\ServerCache_Tests.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\specs_for_NetworkClientEndpoint.cxx"
 				>
 			</File>
 		</Filter>
@@ -288,18 +304,6 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockService.h"
-				>
-			</File>
-			<File
-				RelativePath=".\NetworkClientController_Tests.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\NetworkServerEndpoint_Tests.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\ServerAdvertisement_Tests.cxx"
 				>
 			</File>
 		</Filter>

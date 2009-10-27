@@ -271,6 +271,11 @@ namespace System
 			static const MessageType LoadingFinished		=	"loadingFinished";
 		}
 
+		namespace AI
+		{
+			
+		}
+
 		namespace Network
 		{
 			static const MessageType Connect				=	"connect";

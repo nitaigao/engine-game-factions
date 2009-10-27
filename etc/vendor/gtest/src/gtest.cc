@@ -2088,13 +2088,15 @@ bool Test::HasFatalFailure() {
 
 // Constructs a TestInfo object. It assumes ownership of the test factory
 // object via impl_.
-TestInfo::TestInfo(const char* test_case_name,
+TestInfo::TestInfo(const char* test_namespace_name,
+				   const char* test_case_name,
                    const char* name,
                    const char* test_case_comment,
                    const char* comment,
                    internal::TypeId fixture_class_id,
                    internal::TestFactoryBase* factory) {
-  impl_ = new internal::TestInfoImpl(this, test_case_name, name,
+  impl_ = new internal::TestInfoImpl(this, test_namespace_name,
+									 test_case_name, name,
                                      test_case_comment, comment,
                                      fixture_class_id, factory);
 }
@@ -2124,14 +2126,14 @@ namespace internal {
 //                     The newly created TestInfo instance will assume
 //                     ownership of the factory object.
 TestInfo* MakeAndRegisterTestInfo(
-    const char* test_case_name, const char* name,
+    const char* test_namespace_name, const char* test_case_name, const char* name,
     const char* test_case_comment, const char* comment,
     TypeId fixture_class_id,
     SetUpTestCaseFunc set_up_tc,
     TearDownTestCaseFunc tear_down_tc,
     TestFactoryBase* factory) {
   TestInfo* const test_info =
-      new TestInfo(test_case_name, name, test_case_comment, comment,
+      new TestInfo(test_namespace_name, test_case_name, name, test_case_comment, comment,
                    fixture_class_id, factory);
   GetUnitTestImpl()->AddTestInfo(set_up_tc, tear_down_tc, test_info);
   return test_info;
@@ -2157,6 +2159,11 @@ void ReportInvalidTestCaseType(const char* test_case_name,
 #endif  // GTEST_HAS_PARAM_TEST
 
 }  // namespace internal
+
+// Returns the test namespace name.
+const char* TestInfo::test_namespace_name() const {
+	return impl_->test_namespace_name();
+}
 
 // Returns the test case name.
 const char* TestInfo::test_case_name() const {
@@ -2596,8 +2603,15 @@ using internal::COLOR_YELLOW;
 class PrettyUnitTestResultPrinter : public UnitTestEventListenerInterface {
  public:
   PrettyUnitTestResultPrinter() {}
-  static void PrintTestName(const char * test_case, const char * test) {
-    printf("%s.%s", test_case, test);
+  static void PrintTestName(const char* test_namespace, const char * test_case, const char * test) {
+	  if ( std::string( test_namespace).length() > 0 )
+	  {
+		printf("%s.%s.%s", test_namespace, test_case, test);
+	  }
+	  else
+	  {
+		  printf("%s.%s", test_case, test);
+	  }
   }
 
   // The following methods override what's in the
@@ -2680,7 +2694,7 @@ void PrettyUnitTestResultPrinter::OnTestCaseEnd(
 
 void PrettyUnitTestResultPrinter::OnTestStart(const TestInfo * test_info) {
   ColoredPrintf(COLOR_GREEN,  "[ RUN      ] ");
-  PrintTestName(test_case_name_.c_str(), test_info->name());
+  PrintTestName( test_info->test_namespace_name(), test_case_name_.c_str(), test_info->name());
   if (test_info->comment()[0] == '\0') {
     printf("\n");
   } else {
@@ -2695,7 +2709,7 @@ void PrettyUnitTestResultPrinter::OnTestEnd(const TestInfo * test_info) {
   } else {
     ColoredPrintf(COLOR_RED, "[  FAILED  ] ");
   }
-  PrintTestName(test_case_name_.c_str(), test_info->name());
+  PrintTestName(test_info->test_namespace_name( ), test_case_name_.c_str(), test_info->name());
   if (GTEST_FLAG(print_time)) {
     printf(" (%s ms)\n", internal::StreamableToString(
            test_info->result()->elapsed_time()).c_str());
@@ -3954,6 +3968,7 @@ internal::TestResult* UnitTestImpl::current_test_result() {
 // TestInfoImpl constructor. The new instance assumes ownership of the test
 // factory object.
 TestInfoImpl::TestInfoImpl(TestInfo* parent,
+						   const char* test_namespace_name,
                            const char* test_case_name,
                            const char* name,
                            const char* test_case_comment,
@@ -3961,6 +3976,7 @@ TestInfoImpl::TestInfoImpl(TestInfo* parent,
                            TypeId fixture_class_id,
                            internal::TestFactoryBase* factory) :
     parent_(parent),
+	test_namespace_name_(String(test_namespace_name)),
     test_case_name_(String(test_case_name)),
     name_(String(name)),
     test_case_comment_(String(test_case_comment)),
@@ -4001,6 +4017,18 @@ int GetFailedPartCount(const TestResult* result) {
 // code warnings.
 namespace {
 class ClassUniqueToAlwaysTrue {};
+}
+
+std::string ScrapeNamespace( const char* fullTypeId )
+{
+	std::string typeId( fullTypeId );
+	if( typeId.length( ) > 0 )
+	{
+		int startIndex = typeId.find_first_of( " " );
+		int count = typeId.find_first_of( "::" ) - startIndex;
+		return typeId.substr( startIndex, count );
+	}
+	return "";
 }
 
 bool AlwaysTrue() {
