@@ -39,6 +39,14 @@ namespace Events
 		 */
 		EventManager( ) { };
 
+
+		/*! Registers a string event type for use
+		*
+		* @param[in] const std::string & eventType
+		* @return ( void )
+		*/
+		void RegisterEventType( const std::string& eventType );
+
 		
 		/*! Queues an Event for processing on the next call to Update
 		 *
@@ -65,19 +73,21 @@ namespace Events
 
 
 		/*! Adds an EventListener for Event processing
-		 *
-		 * @param[in] IEventListener * eventListener
-		 * @return ( void )
-		 */
-		void AddEventListener( IEventListener* eventListener );
+		*
+		* @param[in] const std::string & eventType
+		* @param[in] IEventListener * eventListener
+		* @return ( void )
+		*/
+		void AddEventListener( const std::string& eventType, IEventListener* eventListener );
 
 
 		/*! Marks an Event Listener for removal on the next call to Update
 		 *
+		 * @param[in] const std::string & eventType
 		 * @param[in] IEventListener * eventListener
 		 * @return ( void )
 		 */
-		void RemoveEventListener( IEventListener* eventListener );
+		void RemoveEventListener( const std::string& eventType, IEventListener* eventListener );
 		
 
 	private:
@@ -85,8 +95,12 @@ namespace Events
 		EventManager( const EventManager & copy ) { };
 		EventManager & operator = ( const EventManager & copy ) { return *this; };
 
+		unsigned int GetEventTypeId( const std::string& eventType );
+
 		IEvent::EventQueue m_eventQueue;
-		IEventListener::EventListenerList m_eventListeners;
+		IEventListener::EventListenerMultiMap m_eventListeners;
+		IEventListener::EventListenerMultiMap m_eventListenersForRemoval;
+		EventTypeMap m_eventTypes;
 
 	};
 };

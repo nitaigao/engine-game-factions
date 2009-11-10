@@ -9,6 +9,7 @@ using namespace Configuration;
 #include "Logging/Logger.h"
 using namespace Logging;
 
+#include "InputFactory.h"
 
 BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
 {
@@ -23,7 +24,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
 {
-	return new Input::InputSystem( );
+	return Input::InputFactory( ).CreateInputSystem( );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

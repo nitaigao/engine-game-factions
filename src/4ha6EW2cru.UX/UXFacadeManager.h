@@ -46,7 +46,7 @@ namespace UX
 		* @param[in] IScriptComponent *
 		* @return ( void )
 		*/
-		void Initialize( Script::IScriptComponent* scriptComponent );
+		void Initialize( ISystemComponent* scriptComponent );
 
 
 		/*! Destroys each ScriptFacade

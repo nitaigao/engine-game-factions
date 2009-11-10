@@ -46,7 +46,7 @@ namespace Script
 		* @param[in] IScriptComponent *
 		* @return ( void )
 		*/
-		void Initialize( IScriptComponent* scriptComponent );
+		void Initialize( ISystemComponent* scriptComponent );
 
 
 		/*! Destroys each ScriptFacade

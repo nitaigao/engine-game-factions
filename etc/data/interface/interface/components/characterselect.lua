@@ -13,7 +13,7 @@ CharacterSelect = { }
 
 function CharacterSelect.initialize( )
 
-	script:registerEventHandler( CharacterSelect.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_FINISHED', CharacterSelect.onEvent )
 
 	CharacterSelect.onHide( )
 

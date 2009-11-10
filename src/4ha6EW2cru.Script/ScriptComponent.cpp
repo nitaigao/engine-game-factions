@@ -22,7 +22,7 @@ using namespace luabind;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "ScriptFunctionHandler.hpp"
+#include "ScriptFunctionHandler.h"
 #include "LuaState.h"
 #include "ScriptEvent.hpp"
 
@@ -38,14 +38,15 @@ namespace Script
 	ScriptComponent::~ScriptComponent()
 	{
 		delete m_messageDispatcher;
+		delete m_eventDispatcher;
+
+		delete m_updateDispatcher;
 		delete m_facadeManager;
 		delete m_state;
 	}
 
 	void ScriptComponent::Initialize( )
 	{
-		m_eventManager->AddEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
-
 		m_state->LoadScript( m_attributes[ System::Parameters::ScriptPath ].As< std::string >( ) );
 
 		m_facadeManager->Initialize( this );
@@ -53,27 +54,7 @@ namespace Script
 
 	void ScriptComponent::Destroy( )
 	{
-		m_eventManager->RemoveEventListener( MakeEventListener( EventTypes::ALL_EVENTS, this, &ScriptComponent::OnEvent ) );
-
 		m_facadeManager->Destroy( );
-
-		for( IScriptFacade::ScriptFacadeList::iterator i = m_facades.begin( ); i != m_facades.end( ); )
-		{
-			delete ( *i );
-			i = m_facades.erase( i );
-		}
-
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
-		{
-			delete ( *i );
-			i = m_updateHandlers.erase( i );
-		}
-
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
-		{
-			delete ( *i );
-			i = m_eventHandlers.erase( i );
-		}
 	}
 
 	void ScriptComponent::RunScript( )
@@ -92,58 +73,14 @@ namespace Script
 		m_state->ExecuteString( input );
 	}
 
-	void ScriptComponent::RegisterEvent( const luabind::object& function )
+	void ScriptComponent::RegisterUpdateHandler( const luabind::object& function )
 	{
-		m_eventHandlers.push_back( new ScriptFunctionHandler( function ) );
+		m_updateDispatcher->RegisterUpdateHandler( new ScriptFunctionHandler( function ) );
 	}
 
-	void ScriptComponent::UnRegisterEvent( const luabind::object& function )
+	void ScriptComponent::UnRegisterUpdateHandler( const luabind::object& function )
 	{
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
-		{
-			if ( ( *i )->GetFunction( ) == function )
-			{
-				( *i )->MarkForDeletion( ); 
-			}
-		}
-	}
-
-	void ScriptComponent::RegisterUpdate( const luabind::object& function )
-	{
-		m_updateHandlers.push_back( new ScriptFunctionHandler( function ) );
-	}
-
-	void ScriptComponent::UnRegisterUpdate( const luabind::object& function )
-	{
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
-		{
-			if ( ( *i )->GetFunction( ) == function )
-			{
-				( *i )->MarkForDeletion( ); 
-			}
-		}
-	}
-
-	void ScriptComponent::OnEvent( const IEvent* event )
-	{
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
-		{
-			try
-			{
-				if ( event->GetEventType( ) == EventTypes::UI_EVENT )
-				{
-					UIEventData* eventData = static_cast< UIEventData* >( event->GetEventData( ) );
-					luabind::call_function< void >( ( *i )->GetFunction( ), eventData->GetEventName( ), eventData->GetParameter1( ), eventData->GetParameter2( ) );
-				}
-			}
-			catch( error& e )
-			{
-				object error_msg( from_stack( e.state( ) , -1) );
-				std::stringstream logMessage;
-				logMessage << error_msg;
-				Warn( logMessage.str( ) );
-			}
-		}
+		m_updateDispatcher->UnRegisterUpdateHandler( new ScriptFunctionHandler( function ) );
 	}
 
 	AnyType ScriptComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
@@ -170,7 +107,7 @@ namespace Script
 			this->RunScript( );
 		}
 
-		m_messageDispatcher->DisptchMessage( message, parameters );
+		m_messageDispatcher->Dispatch_Message( message, parameters );
 
 		return result;
 	}
@@ -178,47 +115,7 @@ namespace Script
 	void ScriptComponent::Update( float deltaMilliseconds )
 	{
 		m_messageDispatcher->Update( deltaMilliseconds );
-
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
-		{
-			try
-			{
-				call_function< void >( ( *i )->GetFunction( ), deltaMilliseconds );
-			}
-			catch( error& e )
-			{
-				object error_msg( from_stack( e.state( ) , -1) );
-				std::stringstream logMessage;
-				logMessage << error_msg;
-				Warn( logMessage.str( ) );
-			}
-		}
-
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
-		{
-			if ( ( *i )->IsMarkedForDeletion( ) )
-			{
-				delete ( *i );
-				i = m_updateHandlers.erase( i );
-			}
-			else
-			{
-				++i;
-			}
-		}
-
-		for ( IScriptFunctionHandler::FunctionList::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )
-		{
-			if ( ( *i )->IsMarkedForDeletion( ) )
-			{
-				delete ( *i );
-				i = m_eventHandlers.erase( i );
-			}
-			else
-			{
-				++i;
-			}
-		}
+		m_updateDispatcher->Update( deltaMilliseconds );
 	}
 
 	void ScriptComponent::SetPosition( const Maths::MathVector3& position )
@@ -235,5 +132,10 @@ namespace Script
 	void ScriptComponent::UnSubscribeMessage( const System::MessageType& message, const luabind::object& delegateFunction )
 	{
 		m_messageDispatcher->RemoveHandler( message, delegateFunction );
+	}
+
+	void ScriptComponent::RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction )
+	{
+		m_eventDispatcher->RegisterEventHandler( eventType, new ScriptFunctionHandler( handlerFunction ) );
 	}
 }

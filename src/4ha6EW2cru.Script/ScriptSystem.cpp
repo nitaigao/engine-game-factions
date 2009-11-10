@@ -80,10 +80,9 @@ namespace Script
 
 				class_< ScriptComponent >( "ScriptComponent" )
 					.def( "include", &ScriptComponent::IncludeScript )
-					.def( "registerEventHandler", &ScriptComponent::RegisterEvent )
-					.def( "registerUpdateHandler", &ScriptComponent::RegisterUpdate )
-					.def( "unregisterEventHandler", &ScriptComponent::UnRegisterEvent )
-					.def( "unregisterUpdateHandler", &ScriptComponent::UnRegisterUpdate )
+					.def( "registerEventHandler", ( void ( ScriptComponent::* ) ( const std::string&, const luabind::object& ) ) &ScriptComponent::RegisterEventHandler )
+					.def( "registerUpdateHandler", &ScriptComponent::RegisterUpdateHandler )
+					.def( "unregisterUpdateHandler", &ScriptComponent::UnRegisterUpdateHandler )
 					.def( "subscribeMessage", &ScriptComponent::SubscribeMessage )
 					.def( "unsubscribeMessage", &ScriptComponent::UnSubscribeMessage )
 					.def( "getName", &ScriptComponent::GetName )
@@ -92,14 +91,14 @@ namespace Script
 					.def( "setPosition", &ScriptComponent::SetPosition )
 					
 
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
+					/*.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string > )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent< int > )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const MathVector3& ) ) &ScriptComponent::BroadcastEvent< MathVector3 > )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string, std::string > )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent< std::string, int > )
 					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const int& ) ) &ScriptComponent::BroadcastEvent< int, int > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const std::string& ) ) &ScriptComponent::BroadcastEvent< int, std::string > )
+					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const std::string& ) ) &ScriptComponent::BroadcastEvent< int, std::string > )*/
 					,
 
 				class_< MathVector3 >( "Vector" )

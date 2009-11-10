@@ -65,7 +65,7 @@ namespace Input
 
 	bool InputSystemScene::KeyPressed( const KeyEvent &arg )
 	{
-		if ( arg.key != OIS::KC_GRAVE )
+		if ( arg.key != OIS::KC_GRAVE && arg.key != OIS::KC_F12 )
 		{
 			Event* event = new Event( EventTypes::INPUT_KEY_DOWN, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
@@ -86,8 +86,8 @@ namespace Input
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
-			UIEventData* eventData = new UIEventData( "UI_SHOW_PANE", "UI_CONSOLE", "" );
-			IEvent* event = new Event( EventTypes::UI_EVENT, eventData );
+			UIEventData* eventData = new UIEventData( "UI_CONSOLE" );
+			IEvent* event = new Event( EventTypes::UI_SHOW_PANE, eventData );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
 		}
 		else if ( arg.key == OIS::KC_F12 )
@@ -97,9 +97,6 @@ namespace Input
 		}
 		else
 		{
-			IEventData* eventData = new UIEventData( "UI_KEY_UP", arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) );
-			Management::Get( )->GetEventManager( )->TriggerEvent( new Event( EventTypes::UI_EVENT, eventData ) );
-
 			IEvent* event = new Event( EventTypes::INPUT_KEY_UP, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
 

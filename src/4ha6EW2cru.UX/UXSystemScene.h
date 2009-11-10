@@ -289,7 +289,11 @@ namespace UX
 
 		static inline void SetText( MyGUI::WidgetPtr widget, const std::string& text ) { widget->setCaption( text ); };
 		static inline std::string GetText( MyGUI::WidgetPtr widget ) { return widget->getCaption( ).asUTF8( ); };
-		static inline void AddText( MyGUI::EditPtr editWidget, const std::string& text ) { editWidget->addText( text ); };
+		
+		static inline void Edit_AddText( MyGUI::EditPtr editWidget, const std::string& text ) { editWidget->addText( text ); };
+		static inline void Edit_EraseText( MyGUI::EditPtr editWidget, int start, int count ) { editWidget->eraseText( start, count ); };
+		static inline int Edit_GetLength( MyGUI::EditPtr editWidget ) { return editWidget->getTextLength( ); };
+
 		static inline void MultiList_AddColumn( MyGUI::MultiListPtr widget, const std::string& name, int width ) { widget->addColumn( name, width ); };
 		static inline void MultiList_AddItem( MyGUI::MultiListPtr widget, const std::string& name ) { widget->addItem( name ); };
 		static inline int MultiList_GetSelectedIndex( MyGUI::MultiListPtr widget ) { return static_cast< int >( widget->getIndexSelected( ) ); };

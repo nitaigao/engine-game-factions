@@ -14,14 +14,18 @@
 
 namespace
 {
-	class MockScriptFunctionHandler : public IScriptFunctionHandler
+	class MockScriptFunctionHandler : public Script::IScriptFunctionHandler
 	{
 
 	public:
 
 		MOCK_METHOD0( MarkForDeletion, void( ) );
 		MOCK_CONST_METHOD0( IsMarkedForDeletion, bool( ) );
+		MOCK_METHOD1( CallFunction, void( float ) );
 		MOCK_METHOD1( CallFunction, void( AnyType::AnyTypeMap ) );
+		MOCK_METHOD2( CallFunction, void( const System::MessageType&, AnyType::AnyTypeMap& ) );
+		MOCK_METHOD1( Compare, bool( IScriptFunctionHandler* ) );
+		MOCK_METHOD2( CallFunction, void( const std::string&, Events::IEventData* ) );
 		MOCK_CONST_METHOD0( GetFunction, luabind::object( ) );
 		
 	};

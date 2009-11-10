@@ -15,11 +15,11 @@
 #include "IScriptFunctionHandler.hpp"
 #include "IScriptFacadeManager.hpp"
 #include "IScriptMessageDispatcher.hpp"
+#include "IScriptEventDispatcher.hpp"
+#include "IScriptUpdateDispatcher.hpp"
 #include "ILuaState.hpp"
 
 #include "ScriptEvent.hpp"
-
-#include <luabind/luabind.hpp>
 
 namespace Script
 {
@@ -43,13 +43,13 @@ namespace Script
 		*  @param[in] const std::string & name
 		*  @return ()
 		*/
-		ScriptComponent( ILuaState* state, Events::IEventManager* eventManager, IScriptFacadeManager* facadeManager, IScriptMessageDispatcher* messageDispatcher )
+		ScriptComponent( ILuaState* state, IScriptFacadeManager* facadeManager, IScriptMessageDispatcher* messageDispatcher, IScriptEventDispatcher* eventDispatcher, IScriptUpdateDispatcher* updateDispatcher )
 			: m_state( state )
-			, m_eventManager( eventManager )
 			, m_facadeManager( facadeManager )
 			, m_messageDispatcher( messageDispatcher )
+			, m_eventDispatcher( eventDispatcher )
+			, m_updateDispatcher( updateDispatcher )
 			, m_observer( 0 )
-			, m_eventHandlers( 0 )
 		{
 
 		};
@@ -142,14 +142,6 @@ namespace Script
 		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
 
 
-		/*! Generic Event Handler to Forward Game Events to the Script
-		 *
-		 *  @param[in] const Events::IEvent * event
-		 *  @return (void)
-		 */
-		void OnEvent( const Events::IEvent* event );
-
-
 		/* Script Handlers */
 
 		/*! Runs the Loaded Script
@@ -167,20 +159,13 @@ namespace Script
 		void IncludeScript( const std::string& scriptPath );
 
 
-		/*! Registers an LUA function to receive in Game Events
-		 *
-		 *  @param[in] luabind::object function
-		 *  @return (void)
-		 */
-		void RegisterEvent( const luabind::object& function );
-
-
-		/*! UnRegisters an LUA function from receiving in Game Events
-		 *
-		 *  @param[in] luabind::object function
-		 *  @return (void)
-		 */
-		void UnRegisterEvent( const luabind::object& function );
+		/*! Registers a Script Function to receive Events
+		*
+		* @param[in] const std::string & eventType
+		* @param[in] luabind::object handlerFunction
+		* @return ( void )
+		*/
+		void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction );
 
 
 		/*!  Registers an LUA function to receive messages
@@ -204,7 +189,7 @@ namespace Script
 		 *  @param[in] luabind::object function
 		 *  @return (void)
 		 */
-		void RegisterUpdate( const luabind::object& function );
+		void RegisterUpdateHandler( const luabind::object& function );
 
 
 		/*! UnRegisters an LUA function from being included in the Game Update Loop
@@ -212,7 +197,7 @@ namespace Script
 		*  @param[in] luabind::object function
 		*  @return (void)
 		*/
-		void UnRegisterUpdate( const luabind::object& function );
+		void UnRegisterUpdateHandler( const luabind::object& function );
 
 
 		/*! Executed the given string as LUA code against the components LUA State
@@ -229,46 +214,6 @@ namespace Script
 		inline std::string GetName( ) { return m_attributes[ System::Attributes::Name ].As< std::string >( ); };
 
 
-		/*! Broadcasts an Event to the LUA State with no parameters
-		*
-		*  @param[in] const std::string & eventName
-		*  @return (void)
-		*/
-		void BroadcastEvent( const std::string& eventName )
-		{
-			m_eventManager->QueueEvent( new ScriptEventT0<>( eventName ) ); 
-		}
-
-
-		/*!  Broadcasts an Event with the given parameters
-		*
-		* @param[in] const std::string & eventName
-		* @param[in] const T1 & param1
-		* @return ( void )
-		*/
-		template < class T1 >
-		void BroadcastEvent( const std::string& eventName, const T1& param1 )
-		{
-			Events::IEvent* event = new ScriptEventT1< T1 >( eventName, param1 );
-			m_eventManager->QueueEvent( event );
-		}
-
-
-		/*!  Broadcasts an Event with the given parameters
-		 *
-		 * @param[in] const std::string & eventName
-		 * @param[in] const T1 & param1
-		 * @param[in] const T2 & param2
-		 * @return ( void )
-		 */
-		template < class T1, class T2 >
-		void BroadcastEvent( const std::string& eventName, const T1& param1, const T2& param2 )
-		{
-			Events::IEvent* event = new ScriptEventT2< T1, T2 >( eventName, param1, param2 );
-			m_eventManager->QueueEvent( event );
-		}
-
-
 		inline Maths::MathVector3 GetLookAt( ) const { return m_lookAt; };
 
 		inline Maths::MathVector3 GetPosition( ) { return m_attributes[ System::Attributes::Position ].As< Maths::MathVector3 >( ); };
@@ -281,20 +226,16 @@ namespace Script
 		ScriptComponent & operator = ( const ScriptComponent & copy ) { return *this; };
 
 		ILuaState* m_state;
-		Events::IEventManager* m_eventManager;
+
 		IScriptFacadeManager* m_facadeManager;
-
-		IScriptFunctionHandler::FunctionList m_eventHandlers;
-		IScriptFunctionHandler::FunctionList m_updateHandlers;
-
 		IScriptMessageDispatcher* m_messageDispatcher;
+		IScriptEventDispatcher* m_eventDispatcher;
+		IScriptUpdateDispatcher* m_updateDispatcher;
 
 		IScriptFacade::ScriptFacadeList m_facades;
 
 		IObserver* m_observer;
-
 		AnyType::AnyTypeMap m_attributes;
-
 		Maths::MathVector3 m_lookAt;
 
 	};

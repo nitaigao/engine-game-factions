@@ -17,7 +17,9 @@ function Title.initialize( )
 
 	ux:hideMouse( )
 	
-	script:registerEventHandler( Title.onEvent )
+	script:registerEventHandler( 'INPUT_KEY_UP', Title.onEvent )
+	script:registerEventHandler( 'INPUT_MOUSE_RELEASED', Title.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_STARTED', Title.onEvent )
 
 	local logo = ux:findWidget( 'logo' )
 	local logoX = ( ux:getScreenWidth( ) - logo:getDimensions( ).width ) / 2
@@ -64,12 +66,14 @@ function Title.onHideUpdate( )
 end
 
 function Title.deactivate( )
-
-	local logo = ux:findWidget( 'title' )
 	
 	script:unregisterUpdateHandler( Title.onHideUpdate )
 	script:unregisterUpdateHandler( Title.onShowUpdate )
-	script:unregisterEventHandler( Title.onEvent )
+	
+	script:unregisterEventHandler( 'INPUT_KEY_UP', Title.onEvent )
+	script:unregisterEventHandler( 'INPUT_MOUSE_RELEASED', Title.onEvent )
+
+	local logo = ux:findWidget( 'title' )
 	
 	logo:setVisible( false )
 	logo:setAlpha( 1 )

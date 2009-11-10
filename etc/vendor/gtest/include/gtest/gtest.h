@@ -364,6 +364,8 @@ public:
 	{
 		EstablishContext( );
 		m_subject = CreateSubject( );
+		Expecting( );
+		When( );
 	}
 
 	virtual void TearDown( )
@@ -377,6 +379,8 @@ protected:
 	virtual void EstablishContext( ) { };
 	virtual void DestroyContext( ) { };
 	virtual T* CreateSubject( ) = 0;
+	virtual void Expecting( ) { };
+	virtual void When( ) { };
 
 	T* m_subject;
 

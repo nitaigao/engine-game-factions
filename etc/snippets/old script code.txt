@@ -1,0 +1,151 @@
+for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )	
+		{
+			try
+			{
+				//call_function< void >( ( *i )->GetFunction( ), deltaMilliseconds );
+			}
+			catch( error& e )
+			{
+				object error_msg( from_stack( e.state( ) , -1) );
+				std::stringstream logMessage;
+				logMessage << error_msg;
+				Warn( logMessage.str( ) );
+			}
+		}
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
+		{
+			if ( ( *i )->IsMarkedForDeletion( ) )
+			{
+				delete ( *i );
+				i = m_updateHandlers.erase( i );
+			}
+			else
+			{
+				++i;
+			}
+		}
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); )
+		{
+			if ( ( *i )->IsMarkedForDeletion( ) )
+			{
+				delete ( *i );
+				i = m_messageHandlers.erase( i );
+			}
+			else
+			{
+				++i;
+			}
+		}
+		
+		
+		
+		
+		for( IScriptFacade::ScriptFacadeList::iterator i = m_facades.begin( ); i != m_facades.end( ); )
+		{
+			delete ( *i );
+			i = m_facades.erase( i );
+		}
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )	
+		{
+			delete ( *i );
+			i = m_updateHandlers.erase( i );
+		}
+
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_messageHandlers.begin( ); i != m_messageHandlers.end( ); )
+		{
+			delete ( *i );
+			i = m_messageHandlers.erase( i );
+		}
+
+		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )	
+		{
+			delete ( *i ).second;
+			i = m_eventHandlers.erase( i );
+		}
+		
+		
+		
+		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); ++i )
+		{
+			delete ( *i ).second;
+		}
+		
+		
+		for ( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
+		{
+			/*if ( ( *i )->GetFunction( ) == function )
+			{
+				( *i )->MarkForDeletion( ); 
+			}*/
+		}
+		
+		
+		inline void EventHandler( const Events::IEvent* event );
+		
+		void ScriptComponent::EventHandler( const IEvent* event )
+	{
+		EventTypeMap::iterator eventTypeId = m_eventTypes.find( event->GetEventType( ) );
+
+		IScriptFunctionHandler::FunctionMap::iterator eventHandlersUpper = m_eventHandlers.upper_bound( ( *eventTypeId ).second );
+		IScriptFunctionHandler::FunctionMap::iterator eventHandlersLower = m_eventHandlers.lower_bound( ( *eventTypeId ).second );
+
+		for ( IScriptFunctionHandler::FunctionMap::iterator i = eventHandlersLower; i != eventHandlersUpper; ++i )
+		{
+			( *i ).second->CallFunction( event->GetEventType( ), event->GetEventData( ) );
+		}
+	}
+	
+	
+	
+	IScriptFunctionHandler::FunctionList m_messageHandlers;
+		IScriptFunctionHandler::FunctionList m_updateHandlers;
+		IScriptFunctionHandler::FunctionMap m_eventHandlers;
+		Events::EventTypeMap m_eventTypes;
+		
+		
+		Events::IEventManager* m_eventManager;
+		
+		
+		
+		
+		/*! Broadcasts an Event to the LUA State with no parameters
+		*
+		*  @param[in] const std::string & eventName
+		*  @return (void)
+		*/
+		void BroadcastEvent( const std::string& eventName )
+		{
+			m_eventManager->QueueEvent( new ScriptEventT0<>( eventName ) ); 
+		}
+
+
+		/*!  Broadcasts an Event with the given parameters
+		*
+		* @param[in] const std::string & eventName
+		* @param[in] const T1 & param1
+		* @return ( void )
+		*/
+		template < class T1 >
+		void BroadcastEvent( const std::string& eventName, const T1& param1 )
+		{
+			Events::IEvent* event = new ScriptEventT1< T1 >( eventName, param1 );
+			m_eventManager->QueueEvent( event );
+		}
+
+
+		/*!  Broadcasts an Event with the given parameters
+		 *
+		 * @param[in] const std::string & eventName
+		 * @param[in] const T1 & param1
+		 * @param[in] const T2 & param2
+		 * @return ( void )
+		 */
+		template < class T1, class T2 >
+		void BroadcastEvent( const std::string& eventName, const T1& param1, const T2& param2 )
+		{
+			Events::IEvent* event = new ScriptEventT2< T1, T2 >( eventName, param1, param2 );
+			m_eventManager->QueueEvent( event );
+		}

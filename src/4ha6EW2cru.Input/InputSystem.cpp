@@ -12,6 +12,14 @@ using namespace Logging;
 
 #include "Configuration/ConfigurationTypes.hpp"
 
+#include "Events/Event.h"
+#include "Events/EventType.hpp"
+#include "Events/InputEventData.hpp"
+using namespace Events;
+
+#include <luabind/luabind.hpp>
+using namespace luabind;
+
 using namespace OIS;
 
 namespace Input
@@ -42,6 +50,12 @@ namespace Input
 		this->LoadMessageBindings( );
 
 		Management::Get( )->GetServiceManager( )->RegisterService( this );
+
+		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_MOUSE_PRESSED );
+		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_MOUSE_MOVED );
+		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_MOUSE_RELEASED);
+		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_KEY_DOWN );
+		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_KEY_UP );
 	}
 	
 	ISystemScene* InputSystem::CreateScene( )
@@ -204,6 +218,8 @@ namespace Input
 				);
 
 			this->LoadMessageBindings( );
+
+			m_eventManager->QueueEvent( new Event( EventTypes::INPUT_MESSAGE_BINDING_SET ) );
 		}
 
 		if ( message == System::Messages::Input::SetDefaultBindingForMessage )
@@ -249,6 +265,18 @@ namespace Input
 		if ( message == System::Messages::Input::GetMessageBindings )
 		{
 			results[ "result" ] = m_messageBindings;
+		}
+
+		if ( message == System::Messages::RegisterScriptFunctions )
+		{
+			scope luaScope = 
+				(
+				class_< IEventData >( "IEventData" ),
+				class_< KeyEventData >( "KeyEventData" )
+					.def( "getKeyCode", &KeyEventData::GetKeyCode )
+				);
+
+			results[ System::TypeStrings::INPUT ] = luaScope;
 		}
 
 		return results;

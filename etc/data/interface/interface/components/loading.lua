@@ -13,7 +13,9 @@ Loading = {}
 
 function Loading.initialize( )
 
-	script:registerEventHandler( Loading.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_STARTED', Loading.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_PROGRESS', Loading.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_FINISHED', Loading.onEvent )
 	
 	Loading.onHideLoading( )
 	
@@ -57,13 +59,13 @@ function Loading.onEvent( eventName, var1 )
 
 	if ( eventName == 'WORLD_LOADING_STARTED' ) then
 	
-		Loading.onShowLoading( var1 )
+		Loading.onShowLoading( var1:getParam1( ) )
 	
 	end
 	
 	if ( eventName == 'WORLD_LOADING_PROGRESS' ) then
 	
-		Loading.onLoadProgress( var1 )
+		Loading.onLoadProgress( var1:getParam1( ) )
 	
 	end
 	

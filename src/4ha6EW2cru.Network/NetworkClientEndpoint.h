@@ -13,7 +13,7 @@
 #include "INetworkSystemScene.hpp"
 #include "IServerCache.hpp"
 
-#include "Events/EventManager.h"
+#include "Events/IEventManager.hpp"
 #include "Service/IServiceManager.h"
 
 #include "Maths/MathVector3.hpp"
@@ -39,7 +39,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager );
+		NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, IServerCache* serverCache, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager );
 
 
 		/*! Initializes the Endpoint
@@ -87,7 +87,7 @@ namespace Network
 		INetworkSystemScene* m_networkScene;
 		IServerCache* m_serverCache;
 
-		Events::EventManager* m_eventManager;
+		Events::IEventManager* m_eventManager;
 		Services::IServiceManager* m_serviceManager;
 
 		bool m_isPassive;

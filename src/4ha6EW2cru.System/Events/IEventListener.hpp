@@ -11,7 +11,7 @@
 #include "IEvent.hpp"
 #include "EventType.hpp"
 
-#include <deque>
+#include <map>
 
 namespace Events
 {
@@ -23,7 +23,7 @@ namespace Events
 
 	public:
 
-		typedef std::deque< IEventListener* > EventListenerList;
+		typedef std::multimap< unsigned int, IEventListener* > EventListenerMultiMap;
 
 		/*! Default Destructor
 		 *
@@ -38,13 +38,6 @@ namespace Events
 		 *  @return (void)
 		 */
 		virtual void HandleEvent( const IEvent* ) const = 0;
-
-
-		/*! Gets the EventType that is being listened for
-		 *
-		 *  @return (const EventType)
-		 */
-		virtual EventType GetEventType( ) const = 0;
 
 		
 		/*! Marks the EventHandler for Deletion on the Next Update
@@ -73,6 +66,15 @@ namespace Events
 		* @return ( std::string )
 		*/
 		virtual std::string GetHandlerFunctionName( ) const = 0;
+
+
+		inline bool operator == ( IEventListener* input ) const
+		{
+			return (
+				this->GetHandlerAddress( ) == input->GetHandlerAddress( ) &&
+				this->GetHandlerFunctionName( ) == input->GetHandlerFunctionName( )
+				);
+		}
 
 	};
 };

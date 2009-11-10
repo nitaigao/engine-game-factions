@@ -18,7 +18,8 @@ function Servers.initialize( )
 	ux:scriptWidget( servers, 'onWindowButtonPressed', Servers.onClosePressed )
 	ux:scriptWidget( servers, 'onWindowChangeCoord', Servers.onResized )
 
-	script:registerEventHandler( Servers.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Servers.onEvent )
+	script:registerEventHandler( 'SERVER_ADVERTISED', Servers.onEvent )
 	
 	local refreshButton = ux:findWidget( 'servers_refresh_button' ):asButton( )
 	ux:scriptWidget( refreshButton, 'onRelease', Servers.onRefresh )
@@ -46,7 +47,7 @@ function Servers.onEvent( eventName, val1, val2 )
 
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( val1 == 'UI_SERVERS' )  then
+		if ( val1:getParam1( ) == 'UI_SERVERS' )  then
 	
 			Servers.onShowServers( )
 	
@@ -56,7 +57,7 @@ function Servers.onEvent( eventName, val1, val2 )
 	
 	if ( eventName == "SERVER_ADVERTISED" ) then
 	
-		Servers.onServerAdvertised( val1 )
+		Servers.onServerAdvertised( val1:getParam1( ) )
 	
 	end
 

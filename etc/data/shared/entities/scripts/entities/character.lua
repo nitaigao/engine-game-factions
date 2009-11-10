@@ -24,7 +24,7 @@ extend( Character, Actor )
 
 function Character:initialize( )
 
-	script:registerEventHandler( Character.onEvent )
+	script:registerEventHandler( 'SPAWN_RESPONSE', Character.onEvent )
 	script:broadcastEvent( 'SPAWN_REQUEST', script:getName( ) )
 
 end
@@ -76,7 +76,7 @@ function Character.onEvent( eventName, var1, var2 )
 
 	if ( eventName == 'SPAWN_RESPONSE' ) then
 	
-		if ( var1 == script:getName( ) ) then
+		if ( var1:getActorName( ) == script:getName( ) ) then
 		
 			print( 'spawn response received' )
 		

@@ -14,7 +14,7 @@ message = ''
 
 function KeyBinder.initialize( )
 
-	script:registerEventHandler( KeyBinder.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', KeyBinder.onEvent )
 	
 	local widget = ux:findWidget( 'key_binder' )
 	widget:setVisible( false )
@@ -28,14 +28,14 @@ function KeyBinder.onEvent( eventName, var1, var2 )
 
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( var1 == 'UI_KEYBINDER' )  then
+		if ( var1:getParam1( ) == 'UI_KEYBINDER' )  then
 		
 			local widget = ux:findWidget( 'key_binder' )
 	
 			widget:setVisible( true )
 			widget:setFocus( true )
 		
-			message = var2
+			message = var1:getParam2( )
 	
 		end
 	
@@ -61,7 +61,7 @@ function KeyBinder.onKeyUp( keyCode )
 		
 			input:setMessageBinding( message, 'k_' .. keyCode )
 		
-			script:sendEvent( 'UI_MAPPINGBOUND', '', '' )
+			--script:sendEvent( 'UI_MAPPINGBOUND', '', '' )
 		
 		end
 		

@@ -61,5 +61,5 @@ TEST_F( ScriptMessageDispatcher_Tests, should_dispatch_messages )
 	System::MessageType message = System::Messages::SetPosition;
 	AnyType::AnyTypeMap parameters;
 
-	m_subject->DisptchMessage( message, parameters );
+	m_subject->Dispatch_Message( message, parameters );
 }

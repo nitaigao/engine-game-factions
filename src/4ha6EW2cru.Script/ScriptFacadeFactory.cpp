@@ -12,7 +12,7 @@
 
 namespace Script
 {
-	IScriptFacade* ScriptFacadeFactory::CreateScriptFacade( IScriptFacade::FacadeType facadeType, IScriptComponent* component )
+	IScriptFacade* ScriptFacadeFactory::CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component )
 	{
 		IScriptFacade* facade = 0;
 

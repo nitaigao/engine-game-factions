@@ -43,7 +43,7 @@ namespace Script
 		* @param[in] AnyType::AnyTypeMap & parameters
 		* @return ( void )
 		*/
-		void DisptchMessage( const System::MessageType& message, AnyType::AnyTypeMap& parameters );
+		void Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters );
 
 
 		/*! Adds a Message handler ready for Message dispatch

@@ -19,7 +19,7 @@ namespace
 
 	public:
 
-		MOCK_METHOD1( Initialize, void ( Script::IScriptComponent* ) );
+		MOCK_METHOD1( Initialize, void ( ISystemComponent* ) );
 		MOCK_METHOD0( Destroy, void( ) );
 
 	};

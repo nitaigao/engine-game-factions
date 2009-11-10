@@ -19,6 +19,7 @@
 
 #include <string>
 #include <sstream>
+#include <cassert>
 
 #include "../Export.hpp"
 #include "LogLevel.hpp"

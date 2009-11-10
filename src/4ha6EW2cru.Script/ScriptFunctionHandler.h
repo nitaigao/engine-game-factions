@@ -5,19 +5,18 @@
 *  @date   2009/04/28
 */
 #pragma once
-#ifndef SCRIPTGENERICHANDLER_HPP
-#define SCRIPTGENERICHANDLER_HPP
+#ifndef SCRIPTFUNCTIONHANDLER_H
+#define SCRIPTFUNCTIONHANDLER_H
 
 #include "IScriptFunctionHandler.hpp"
-
-
+#include "Export.hpp"
 
 namespace Script
 {
 	/*!
 	 *  A Container for handling Updates or Events from the Game 
 	 */
-	class ScriptFunctionHandler : public IScriptFunctionHandler
+	class GAMEAPI ScriptFunctionHandler : public IScriptFunctionHandler
 	{
 
 	public:
@@ -54,11 +53,12 @@ namespace Script
 		inline bool IsMarkedForDeletion( ) const { return m_isMarkedForDeletion; };
 
 
-		/*! Returns the LUA function
+		/*! Calls a Function Handler with the given parameters
 		*
-		*  @return (luabind::object)
+		* @param[in] float deltaMilliseconds
+		* @return ( void )
 		*/
-		inline luabind::object GetFunction( ) const { return m_functionHandler; };
+		void CallFunction( float deltaMilliseconds );
 
 
 		/*! Calls the Function Handler with the given parameters
@@ -66,21 +66,24 @@ namespace Script
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		void CallFunction( AnyType::AnyTypeMap parameters )
+		void CallFunction( AnyType::AnyTypeMap parameters );
+
+
+		/*! Calls the Function Handler with the given parameters
+		 *
+		 * @param[in] const std::string & eventType
+		 * @param[in] Events::IEventData * eventData
+		 * @return ( void )
+		 */
+		void CallFunction( const std::string& eventType, Events::IEventData* eventData );
+
+
+		void CallFunction( const System::MessageType& message, AnyType::AnyTypeMap& parameters );
+
+
+		bool Compare( IScriptFunctionHandler* input )
 		{
-			luabind::call_function< void >( m_functionHandler, parameters );
-		}
-
-
-		void CallFunction( const System::MessageType& message, AnyType::AnyTypeMap& parameters )
-		{
-			luabind::call_function< void >( m_functionHandler, message, parameters );
-		}
-
-
-		bool operator == ( const ScriptFunctionHandler& input )
-		{
-			return input.m_functionHandler == m_functionHandler;
+			return static_cast< ScriptFunctionHandler* >( input )->m_functionHandler == m_functionHandler;
 		}
 
 

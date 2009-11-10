@@ -59,7 +59,7 @@ namespace Serialization
 		m_loadTotal = 0;
 
 		IEventData* eventData = new UIEventData( "WORLD_LOADING_STARTED" );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
+		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::WORLD_LOADING_STARTED, eventData ) );
 	
 		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( levelPath );
 		Document levelFile( resource->GetFileBuffer()->fileBytes );
@@ -244,15 +244,14 @@ namespace Serialization
 			std::stringstream progress;
 			progress << static_cast< int >( progressPercent );
 
-			IEventData* eventData = new UIEventData( "WORLD_LOADING_PROGRESS", progress.str( ) );
-			Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
+			IEventData* eventData = new UIEventData( progress.str( ) );
+			Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::WORLD_LOADING_PROGRESS, eventData ) );
 
 			if ( m_loadQueueEl.empty( ) )
 			{
 				m_loadProgress = m_loadTotal;
 
-				IEventData* eventData = new UIEventData( "WORLD_LOADING_FINISHED" );
-				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::UI_EVENT, eventData ) );
+				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::WORLD_LOADING_FINISHED ) );
 
 				Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
 			}

@@ -9,10 +9,12 @@
 #define EVENTTYPE_H
 
 #include <string>
+#include <map>
 
 namespace Events
 {
 	typedef std::string EventType;
+	typedef std::map< std::string, unsigned int > EventTypeMap;
 
 	namespace EventTypes
 	{
@@ -27,10 +29,15 @@ namespace Events
 		static const EventType INPUT_MOUSE_PRESSED			=	"INPUT_MOUSE_PRESSED";
 		static const EventType INPUT_MOUSE_RELEASED			=	"INPUT_MOUSE_RELEASED";
 		static const EventType INPUT_MOUSE_MOVED			=	"INPUT_MOUSE_MOVED";
+		static const EventType INPUT_MESSAGE_BINDING_SET	=	"INPUT_MESSAGE_BINDING_SET";
 		static const EventType GRAPHICS_SETTINGS_CHANGED	=	"GRAPHICS_SETTINGS_CHANGED";
-		static const EventType UI_EVENT						=	"UI_EVENT";
+		//static const EventType UI_EVENT						=	"UI_EVENT";
 		static const EventType LOG_MESSAGE_APPENDED			=	"LOG_MESSAGE_APPENDED";
 		static const EventType SCRIPT_COMMAND_EXECUTED		=	"SCRIPT_COMMAND_EXECUTED";
+		static const EventType WORLD_LOADING_STARTED		=	"WORLD_LOADING_STARTED";
+		static const EventType WORLD_LOADING_PROGRESS		=	"WORLD_LOADING_PROGRESS";
+		static const EventType WORLD_LOADING_FINISHED		=	"WORLD_LOADING_FINISHED";
+		static const EventType UI_SHOW_PANE					=	"UI_SHOW_PANE";
 		static const EventType EVENTTYPE_MAX				=	"EVENTTYPE_MAX";
 	}
 };

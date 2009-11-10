@@ -70,20 +70,8 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& eventName )
-			: m_eventName( eventName ) 
-		{
-
-		}
-
-		/*! Default Constructor
-		*
-		*  @param[in] const std::string levelName
-		*  @return ()
-		*/
-		UIEventData( const std::string& eventName, const std::string& parameter1 )
-			: m_eventName( eventName ) 
-			, m_parameter1( parameter1 )
+		UIEventData( const std::string& parameter1 )
+			: m_parameter1( parameter1 )
 		{
 
 		}

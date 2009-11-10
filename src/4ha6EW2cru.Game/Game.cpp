@@ -41,6 +41,12 @@ void Game::Initialize( )
 	LogLevel logLevel = static_cast< LogLevel >( m_configuration->Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ).As< int >( ) );
 	Logger::Get( )->SetLogLevel( logLevel );
 
+	Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::ALL_EVENTS );
+	Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::LOG_MESSAGE_APPENDED );
+	Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::GAME_QUIT );
+	Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::GAME_LEVEL_CHANGED );
+	Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::GAME_ENDED );
+
 	// -- Initialize All Systems
 
 	ISystemManager* systemManager = Management::Get( )->GetSystemManager( );
@@ -96,9 +102,9 @@ void Game::Initialize( )
 
 	// -- Register Events
 
-	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_QUIT, this, &Game::OnGameQuit ) );
-	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
-	Management::Get( )->GetEventManager( )->AddEventListener( MakeEventListener( EventTypes::GAME_ENDED, this, &Game::OnGameEnded ) );
+	Management::Get( )->GetEventManager( )->AddEventListener( EventTypes::GAME_QUIT, MakeEventListener( this, &Game::OnGameQuit ) );
+	Management::Get( )->GetEventManager( )->AddEventListener( EventTypes::GAME_LEVEL_CHANGED, MakeEventListener( this, &Game::OnGameLevelChanged ) ); 
+	Management::Get( )->GetEventManager( )->AddEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &Game::OnGameEnded ) );
 
 	if ( programOptions.find( System::Options::LevelName ) != programOptions.end( ) )
 	{
@@ -135,8 +141,9 @@ void Game::Release( )
 		throw e;
 	}
 
-	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_QUIT, this, &Game::OnGameQuit ) );
-	Management::Get( )->GetEventManager( )->RemoveEventListener( MakeEventListener( EventTypes::GAME_LEVEL_CHANGED, this, &Game::OnGameLevelChanged ) ); 
+	Management::Get( )->GetEventManager( )->RemoveEventListener( EventTypes::GAME_QUIT, MakeEventListener( this, &Game::OnGameQuit ) );
+	Management::Get( )->GetEventManager( )->RemoveEventListener( EventTypes::GAME_LEVEL_CHANGED, MakeEventListener( this, &Game::OnGameLevelChanged ) );
+	Management::Get( )->GetEventManager( )->RemoveEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &Game::OnGameEnded ) );
 
 	m_world->Destroy( );
 

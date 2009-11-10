@@ -15,7 +15,7 @@ function Disconnected.initialize( )
 	
 	Disconnected.hide( )
 
-	script:registerEventHandler( Disconnected.onEvent )
+	script:registerEventHandler( 'SERVER_DISCONNECTED', Disconnected.onEvent )
 	
 end
 

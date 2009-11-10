@@ -35,9 +35,9 @@ namespace Events
 		
 		/*! Gets the type of the Event
 		 *
-		 *  @return (EventType)
+		 *  @return (std::string)
 		 */
-		virtual EventType GetEventType( ) const = 0;
+		virtual std::string GetEventType( ) const = 0;
 
 		
 		/*! Returns Event Data attached to the event

@@ -14,7 +14,8 @@ Options = { }
 
 function Options.initialize( )
 
-	script:registerEventHandler( Options.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Options.onEvent )
+	script:registerEventHandler( 'INPUT_MESSAGE_BINDING_SET', Options.onEvent )
 	
 	local options = ux:findWidget( 'options' )
 	options:setVisible( false )
@@ -34,7 +35,7 @@ function Options.onEvent( eventName, var1, var2 )
 	
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( var1 == 'UI_OPTIONS' )  then
+		if ( var1:getParam1( ) == 'UI_OPTIONS' )  then
 	
 			Options.onShowOptions( )
 	
@@ -42,7 +43,7 @@ function Options.onEvent( eventName, var1, var2 )
 	
 	end
 	
-	if ( eventName == 'UI_MAPPINGBOUND' ) then
+	if ( eventName == 'INPUT_MESSAGE_BINDING_SET' ) then
 	
 		Options.setupMessageBindings( )
 		

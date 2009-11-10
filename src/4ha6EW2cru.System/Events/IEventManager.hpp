@@ -12,6 +12,8 @@
 
 #include "IEventListener.hpp"
 
+#include <map>
+
 namespace Events
 {
 	/*! 
@@ -27,6 +29,14 @@ namespace Events
 		 *  @return ()
 		 */
 		virtual ~IEventManager( ) { };
+
+
+		/*! Registers a string event type for use
+		 *
+		 * @param[in] const std::string & eventType
+		 * @return ( void )
+		 */
+		virtual void RegisterEventType( const std::string& eventType ) = 0;
 
 
 		/*! Queues an Event for processing on the next call to Update
@@ -52,21 +62,23 @@ namespace Events
 		*/
 		virtual void Update( float deltaMilliseconds ) = 0;
 
-
+		
 		/*! Adds an EventListener for Event processing
-		*
-		* @param[in] IEventListener * eventListener
-		* @return ( void )
-		*/
-		virtual void AddEventListener( IEventListener* eventListener ) = 0;
+		 *
+		 * @param[in] const std::string & eventType
+		 * @param[in] IEventListener * eventListener
+		 * @return ( void )
+		 */
+		virtual void AddEventListener( const std::string& eventType, IEventListener* eventListener ) = 0;
 
 
 		/*! Marks an Event Listener for removal on the next call to Update
 		*
+		* @param[in] const std::string & eventType
 		* @param[in] IEventListener * eventListener
 		* @return ( void )
 		*/
-		virtual void RemoveEventListener( IEventListener* eventListener ) = 0;
+		virtual void RemoveEventListener( const std::string& eventType, IEventListener* eventListener ) = 0;
 		
 	};
 };

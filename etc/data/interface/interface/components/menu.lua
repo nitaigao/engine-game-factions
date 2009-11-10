@@ -17,7 +17,12 @@ menu_ingame = false
 
 function Menu.initialize( )
 
-	script:registerEventHandler( Menu.onEvent )
+	script:registerEventHandler( 'INPUT_KEY_UP', Menu.onEvent )
+	script:registerEventHandler( 'GAME_ENDED', Menu.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Menu.onEvent )
+	script:registerEventHandler( 'MAIN_MENU', Menu.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_STARTED', Menu.onEvent )
+	script:registerEventHandler( 'GRAPHICS_SETTINGS_CHANGED', Menu.onEvent )
 
 	Menu.onHideMenu( )
 	
@@ -43,11 +48,11 @@ function Menu.initialize( )
 	
 end
 
-function Menu.onEvent( eventName, val1, val2 )
+function Menu.onEvent( eventName, eventData )
 	
-	if ( eventName == 'UI_KEY_UP' ) then 
+	if ( eventName == 'INPUT_KEY_UP' ) then 
 
-		Menu.onKeyUp( val1 )
+		Menu.onKeyUp( eventData:getKeyCode( ) )
 	
 	end
 	
@@ -59,7 +64,7 @@ function Menu.onEvent( eventName, val1, val2 )
 	
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( val1 == 'MAIN_MENU' )  then
+		if ( eventData:getParam1( ) == 'MAIN_MENU' )  then
 	
 			Menu.onShowMenu( )
 	
@@ -103,7 +108,7 @@ function Menu.onShowMenu( )
 	menu:setVisible( true ) 
 	menu:setAlpha( 0 )
 	
-	script:registerUpdateHandler(  Menu.onInGameMenuShowUpdate )
+	script:registerUpdateHandler( Menu.onInGameMenuShowUpdate )
 
 end
 
@@ -117,7 +122,7 @@ end
 
 function Menu.onKeyUp( keyCode )
 
-	if ( keyCode == '1' and menu_ingame ) then
+	if ( keyCode == 1 and menu_ingame ) then
 	
 		Menu.ToggleInGameMenu( )
 	

@@ -17,7 +17,8 @@ function Create.initialize( )
 	create:setVisible( false )
 	ux:scriptWidget( create, 'onWindowButtonPressed', Create.onClosedPressed )
 
-	script:registerEventHandler( Create.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_STARTED', Create.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Create.onEvent )
 	
 	local createButton = ux:findWidget( 'create_submit' ):asButton( )
 	ux:scriptWidget( createButton, 'onRelease', Create.onCreateClick )
@@ -62,7 +63,7 @@ function Create.onEvent( eventName, val1, val2 )
 
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( val1 == 'UI_CREATESERVER' )  then
+		if ( val1:getParam1( ) == 'UI_CREATESERVER' )  then
 	
 			Create.onShowCreate( )
 	

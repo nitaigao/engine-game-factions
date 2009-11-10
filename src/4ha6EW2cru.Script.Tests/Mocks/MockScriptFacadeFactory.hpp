@@ -19,7 +19,7 @@ namespace
 
 	public:
 
-		MOCK_METHOD2( CreateScriptFacade, Script::IScriptFacade*( Script::IScriptFacade::FacadeType, Script::IScriptComponent* ) );
+		MOCK_METHOD2( CreateScriptFacade, Script::IScriptFacade*( Script::IScriptFacade::FacadeType, ISystemComponent* ) );
 		
 	};
 };

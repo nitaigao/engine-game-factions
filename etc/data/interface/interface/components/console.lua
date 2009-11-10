@@ -19,7 +19,10 @@ console_ingame = false
 
 function Console.initialize( )
 
-	script:registerEventHandler( Console.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Console.onShowPane )
+	script:registerEventHandler( 'LOG_MESSAGE_APPENDED', Console.onMessageLogged )
+	script:registerEventHandler( 'WORLD_LOADING_FINISHED', Console.onWorldLoadingFinished )
+	script:registerEventHandler( 'GAME_ENDED', Console.onGameEnded )
 	
 	console = ux:findWidget( 'console' )
 	console:setVisible( false )
@@ -31,35 +34,31 @@ function Console.initialize( )
 	
 end
 
-function Console.onEvent( eventName, val1, val2 )
+function Console.onShowPane( eventName, eventData )
 
-	if ( eventName == 'WORLD_LOADING_FINISHED' ) then
+	if ( eventData:getParam1( ) == 'UI_CONSOLE' ) then
 	
-		console_ingame = true
-		
-	end
-	
-	if ( eventName == 'GAME_ENDED' ) then
-	
-		console_ingame = false
+		Console.onShowConsole( )
 	
 	end
 
-	if ( eventName == 'LOG_MESSAGE_APPENDED' ) then 
+end
+
+function Console.onMessageLogged( eventName, val1, val2 )
 	
-		Console.updateConsole( val1 ) 
-	
-	end
-	
-	if ( eventName == 'UI_SHOW_PANE' ) then
-	
-		if ( val1 == 'UI_CONSOLE' )  then
-	
-			Console.onShowConsole( )
-	
-		end
-	
-	end
+	Console.updateConsole( val1:getParam1( ) )
+
+end
+
+function Console.onWorldLoadingFinished( eventName, eventData )
+
+	console_ingame = true
+
+end
+
+function Console.onGameEnded( eventName, eventData )
+
+	console_ingame = false
 
 end
 
@@ -70,14 +69,14 @@ function Console.onShowConsole( )
 		if ( console:isVisible( ) ) then
 		
 			console:setVisible( false )
-			local menu = ux:findWidget( 'menu' )
+			--local menu = ux:findWidget( 'menu' )
 			
-			if ( not menu:isVisible( ) ) then
+			--if ( not menu:isVisible( ) ) then
 			
-				ux:hideMouse( )
-				input:setFocus( false )
+			--	ux:hideMouse( )
+			--	input:setFocus( false )
 			
-			end
+			--end
 			
 			if ( console_ingame ) then
 			
@@ -109,6 +108,14 @@ function Console.onKeyUp( keyCode, keyText )
 		
 		input:setText( '' )
 		
+	end
+	
+	if ( keyCode == 41 ) then
+	
+		local input = input:asEditBox( )
+		
+		input:eraseText( input:getLength( ) - 1, 1 )
+	
 	end
 
 end

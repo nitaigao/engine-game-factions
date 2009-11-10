@@ -25,27 +25,25 @@ extend( Marine, Object )
 function Marine:initialize( )
 	
 	script:registerUpdateHandler( Marine.onUpdate )
-	script:registerEventHandler( Marine.onEvent )
+	script:registerEventHandler( 'ACTOR_DEAD', Marine.onActorDead )
+	script:registerEventHandler( 'WORLD_LOADING_FINISHED', Marine.onWorldLoadingFinished )
 	
 end
 
-function Marine.onEvent( eventName, var1, var2 )
-			
-	if ( eventName == 'WORLD_LOADING_FINISHED' ) then
-	
-		marine.behaviorTree:initialize( )
-	
-	end
-	
-	if ( var1 == ai:getName( ) ) then
+function Marine.onWorldLoadingFinished( eventName, eventData )
+
+	marine.behaviorTree:initialize( )
+
+end
+
+function Marine.onActorDead( eventName, eventData )
+
+	if ( eventData:getActorName( ) == ai:getName( ) ) then
 		
-		if ( eventName == 'ACTOR_DEAD' ) then
-		
-			script:unregisterEventHandler( Marine.onEvent )
+			script:unregisterEventHandler( 'ACTOR_DEAD', Marine.onActorDead )
+			script:unregisterEventHandler( 'WORLD_LOADING_FINISHED', Marine.onWorldLoadingFinished )
 			script:unregisterUpdateHandler( Marine.onUpdate )
-			
-		end
-	
+		
 	end
 
 end

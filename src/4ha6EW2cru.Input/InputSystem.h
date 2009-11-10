@@ -15,6 +15,7 @@
 
 #include "Service/IService.hpp"
 #include "Configuration/IConfiguration.hpp"
+#include "Events/IEventManager.hpp"
 
 namespace Input
 {
@@ -40,8 +41,9 @@ namespace Input
 		 *  @param[in] Configuration::IConfiguration * configuration
 		 *  @return ()
 		 */
-		InputSystem( )
+		InputSystem( Events::IEventManager* eventManager )
 			: _inputAllowed( true )
+			, m_eventManager( eventManager )
 			, m_configuration( 0 )
 			, m_inputManager( 0 )
 			, m_keyboard( 0 )
@@ -195,6 +197,7 @@ namespace Input
 
 		Configuration::IConfiguration* m_configuration;
 		InputSystemSceneList m_inputScenes;
+		Events::IEventManager* m_eventManager;
 	
 		OIS::InputManager* m_inputManager;
 		OIS::Mouse* m_mouse;

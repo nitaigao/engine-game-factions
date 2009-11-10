@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/ois/includes"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/ois/includes;../../etc/vendor/lua/include;../../etc/vendor/luabind"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -59,8 +59,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OIS_static_d.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/ois/lib"
+				AdditionalDependencies="OIS_static_d.lib luad.lib luabindd.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/ois/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
 				GenerateDebugInformation="true"
@@ -115,7 +115,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/ois/includes"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/ois/includes;../../etc/vendor/lua/include;../../etc/vendor/luabind"
 				PreprocessorDefinitions="TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -133,8 +133,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OIS_static.lib"
-				AdditionalLibraryDirectories="../../etc/vendor/ois/lib"
+				AdditionalDependencies="OIS_static.lib lua.lib luabind.lib"
+				AdditionalLibraryDirectories="../../etc/vendor/ois/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				ModuleDefinitionFile="SystemDefinition.def"
 				GenerateDebugInformation="true"
@@ -178,6 +178,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\InputFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\InputSystem.cpp"
 				>
 			</File>
@@ -204,6 +208,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\IInputFactory.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IInputSystem.hpp"
 				>
 			</File>
@@ -213,6 +221,10 @@
 			</File>
 			<File
 				RelativePath=".\IInputSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\InputFactory.h"
 				>
 			</File>
 			<File

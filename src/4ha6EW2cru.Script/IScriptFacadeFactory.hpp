@@ -37,7 +37,7 @@ namespace Script
 		 * @param[in] IScriptFacade::FacadeType
 		 * @return ( IScriptFacade* )
 		 */
-		virtual IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, IScriptComponent* component ) = 0;
+		virtual IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component ) = 0;
 		
 	};
 };

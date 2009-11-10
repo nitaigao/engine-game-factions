@@ -209,6 +209,18 @@
 				RelativePath=".\ScriptMessageDispatcher_Tests.cxx"
 				>
 			</File>
+			<File
+				RelativePath=".\spec_for_ScriptEventDispatcher.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\specs_for_ScriptComponent.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\specs_for_ScriptUpdateDispatcher.cxx"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -225,6 +237,10 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockScriptComponentFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockScriptEventDispatcher.hpp"
 				>
 			</File>
 			<File
@@ -249,6 +265,10 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockScriptSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockScriptUpdateDispatcher.hpp"
 				>
 			</File>
 			<File

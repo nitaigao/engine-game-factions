@@ -10,7 +10,7 @@
 int main( int argc, char **argv ) 
 {
 #ifdef _DEBUG
-	//_crtBreakAlloc = 3789;
+	//_crtBreakAlloc = 4124;
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
 #endif
 

@@ -44,7 +44,7 @@ namespace Script
 		* @param[in] IScriptFacade::FacadeType
 		* @return ( IScriptFacade* )
 		*/
-		IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, IScriptComponent* component );
+		IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component );
 
 	private:
 

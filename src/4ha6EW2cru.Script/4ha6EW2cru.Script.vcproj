@@ -210,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScriptEventDispatcher.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptFacadeFactory.cpp"
 				>
 			</File>
@@ -219,6 +223,10 @@
 			</File>
 			<File
 				RelativePath=".\ScriptFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptFunctionHandler.cpp"
 				>
 			</File>
 			<File
@@ -234,15 +242,11 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScriptUpdateDispatcher.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SoundFacade.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SystemDefinition.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\SystemDefinition.def"
 				>
 			</File>
 			<File
@@ -260,71 +264,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\IAnimationFacade.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IInputFacade.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ILuaState.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\INetworkFacade.h"
-				>
-			</File>
-			<File
 				RelativePath=".\InputFacade.h"
 				>
 			</File>
 			<File
 				RelativePath=".\InstrumentationFacade.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptComponent.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptComponentFactory.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptConfiguration.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptFacade.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptFacadeFactory.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptFacadeManager.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptFunctionHandler.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptMessageDispatcher.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptSystem.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IScriptSystemScene.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ISoundFacade.hpp"
 				>
 			</File>
 			<File
@@ -356,6 +300,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ScriptEventDispatcher.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ScriptFacadeFactory.h"
 				>
 			</File>
@@ -368,7 +316,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ScriptFunctionHandler.hpp"
+				RelativePath=".\ScriptFunctionHandler.h"
 				>
 			</File>
 			<File
@@ -381,6 +329,10 @@
 			</File>
 			<File
 				RelativePath=".\ScriptSystemScene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ScriptUpdateDispatcher.h"
 				>
 			</File>
 			<File
@@ -397,6 +349,90 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="Interface Files"
+			>
+			<File
+				RelativePath=".\IAnimationFacade.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IInputFacade.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ILuaState.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\INetworkFacade.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptComponent.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptComponentFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptConfiguration.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptEventDispatcher.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptFacade.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptFacadeFactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptFacadeManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptFunctionHandler.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptMessageDispatcher.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptSystem.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IScriptUpdateDispatcher.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ISoundFacade.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="DLL"
+			>
+			<File
+				RelativePath=".\SystemDefinition.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\SystemDefinition.def"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

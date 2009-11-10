@@ -1,6 +1,6 @@
 #include "ScriptMessageDispatcher.h"
 
-#include "ScriptFunctionHandler.hpp"
+#include "ScriptFunctionHandler.h"
 
 namespace Script
 {
@@ -13,7 +13,7 @@ namespace Script
 		}
 	}
 
-	void ScriptMessageDispatcher::DisptchMessage( const System::MessageType& message, AnyType::AnyTypeMap& parameters )
+	void ScriptMessageDispatcher::Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters )
 	{
 		DelegateFunctionMap::iterator it1 = m_handlers.lower_bound( message );
 		DelegateFunctionMap::iterator it2 = m_handlers.upper_bound( message );
@@ -39,7 +39,7 @@ namespace Script
 
 		for( DelegateFunctionMap::iterator i = it1; i != it2; ++i )
 		{
-			if ( *static_cast< ScriptFunctionHandler* >( ( *i ).second ) == handler )
+			if ( handler.Compare( ( *i ).second ) )
 			{
 				return true;
 			}
@@ -57,10 +57,10 @@ namespace Script
 
 		for( DelegateFunctionMap::iterator i = it1; i != it2; ++i )
 		{
-			if ( *static_cast< ScriptFunctionHandler* >( ( *i ).second ) == handler )
+			/*if ( *static_cast< ScriptFunctionHandler* >( ( *i ).second ) == handler )
 			{
 				( *i ).second->MarkForDeletion( );
-			}
+			}*/
 		}
 	}
 

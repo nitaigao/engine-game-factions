@@ -2,7 +2,7 @@
 
 namespace Script
 {
-	void ScriptFacadeManager::Initialize( IScriptComponent* scriptComponent )
+	void ScriptFacadeManager::Initialize( ISystemComponent* scriptComponent )
 	{
 		for( int i = 0; i < IScriptFacade::FACADETYPE_MAX; i++ )
 		{

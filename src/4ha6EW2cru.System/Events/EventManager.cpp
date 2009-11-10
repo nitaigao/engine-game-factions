@@ -10,6 +10,20 @@ using namespace Exceptions;
 
 namespace Events
 {
+	EventManager::~EventManager()
+	{
+		while( m_eventQueue.size( ) > 0 )
+		{
+			delete m_eventQueue.front( );
+			m_eventQueue.pop( );
+		}
+
+		for ( IEventListener::EventListenerMultiMap::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
+		{
+			delete ( *i ).second;
+		}
+	}
+
 	void EventManager::QueueEvent( const IEvent* event )
 	{
 		if ( 0 == event )
@@ -31,16 +45,22 @@ namespace Events
 			throw e;
 		}
 
-		IEventListener::EventListenerList eventListeners( m_eventListeners );
+		unsigned int eventTypeId = this->GetEventTypeId( event->GetEventType( ) );
 
-		for ( IEventListener::EventListenerList::iterator i = eventListeners.begin( ); i != eventListeners.end( ); ++i )
+		IEventListener::EventListenerMultiMap::iterator listenersUpper = m_eventListeners.upper_bound( eventTypeId );
+		IEventListener::EventListenerMultiMap::iterator listenersLower = m_eventListeners.lower_bound( eventTypeId );
+
+		for ( IEventListener::EventListenerMultiMap::iterator i = listenersLower; i != listenersUpper; )
 		{
-			if ( 
-				( *i )->GetEventType( ) == event->GetEventType( ) && !( *i )->IsMarkedForDeletion( ) || 
-				( *i )->GetEventType( ) == Events::EventTypes::ALL_EVENTS && !( *i )->IsMarkedForDeletion( ) 
-				)
+			if ( !( *i ).second->IsMarkedForDeletion( ) )
 			{
-				( *i )->HandleEvent( event );
+				( *i ).second->HandleEvent( event );
+				++i;
+			}
+			else
+			{
+				delete ( *i ).second;
+				i = m_eventListeners.erase( i );
 			}
 		}
 
@@ -54,58 +74,52 @@ namespace Events
 			this->TriggerEvent( m_eventQueue.front( ) );
 			m_eventQueue.pop( );
 		}
-
-		for ( IEventListener::EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); )
-		{
-			if ( ( *i )->IsMarkedForDeletion( ) )
-			{
-				delete ( *i );
-				i = m_eventListeners.erase( i );
-			}
-			else
-			{
-				++i;
-			}
-		}
 	}
 
-	EventManager::~EventManager()
+	void EventManager::RemoveEventListener( const std::string& eventType, IEventListener* eventListener )
 	{
-		//Info( "Releasing Event Manager" );
+		unsigned int eventTypeId = ( *m_eventTypes.find( eventType ) ).second;
 
-		while( m_eventQueue.size( ) > 0 )
+		IEventListener::EventListenerMultiMap::iterator listenersUpper = m_eventListeners.upper_bound( eventTypeId );
+		IEventListener::EventListenerMultiMap::iterator listenersLower = m_eventListeners.lower_bound( eventTypeId );
+
+		for ( IEventListener::EventListenerMultiMap::iterator i = listenersLower; i != listenersUpper; ++i )
 		{
-			delete m_eventQueue.front( );
-			m_eventQueue.pop( );
-		}
-
-		for( IEventListener::EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
-		{
-			delete ( *i );
-		}
-
-		m_eventListeners.clear( );
-	}
-
-	void EventManager::RemoveEventListener( IEventListener* eventListener )
-	{
-		for ( IEventListener::EventListenerList::iterator i = m_eventListeners.begin( ); i != m_eventListeners.end( ); ++i )
-		{
-			if (
-				eventListener->GetHandlerAddress( ) == ( *i )->GetHandlerAddress( ) &&
-				eventListener->GetEventType( ) == ( *i )->GetEventType( ) &&
-				eventListener->GetHandlerFunctionName( ) == ( *i )->GetHandlerFunctionName( )
-				)
+			if ( eventListener->GetHandlerFunctionName( ) == ( *i ).second->GetHandlerFunctionName( ) &&
+				eventListener->GetHandlerAddress( ) == ( *i ).second->GetHandlerAddress( ) )
 			{
-				( *i )->MarkForDeletion( );
+				( *i ).second->MarkForDeletion( );
 			}
 		}
 
 		delete eventListener;
 	}
 
-	void EventManager::AddEventListener( IEventListener* eventListener )
+	void EventManager::AddEventListener( const std::string& eventType, IEventListener* eventListener )
 	{
-		m_eventListeners.push_back( eventListener );
+		m_eventListeners.insert( std::make_pair( this->GetEventTypeId( eventType ), eventListener ) );
+	}
+
+	void EventManager::RegisterEventType( const std::string& eventType )
+	{
+		//m_eventTypes.insert( std::make_pair( eventType, m_eventTypes.size( ) ) );
+	}
+
+	unsigned int EventManager::GetEventTypeId( const std::string& eventType )
+	{
+		EventTypeMap::iterator i = m_eventTypes.find( eventType );
+
+		if ( i != m_eventTypes.end( ) )
+		{
+			return ( *i ).second;
+		}
+
+		unsigned int eventTypeId = m_eventTypes.size( );
+
+		m_eventTypes.insert( std::make_pair( eventType, eventTypeId ) );
+
+		return eventTypeId;
+
+		//assert( "Attempted to listen for an event that doesnt exist" && i != m_eventTypes.end( ) );
 	}
 }

@@ -9,9 +9,13 @@ using namespace Network;
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockService.h"
 #include "Mocks/MockNetworkSystemScene.hpp"
+#include "Mocks/MockEventManager.hpp"
 
 #include "Events/EventManager.h"
 using namespace Events;
+
+#include "MessageIdentifiers.h"
+using namespace RakNet;
 
 namespace given_the_client_is_looking_for_servers
 {
@@ -22,20 +26,20 @@ namespace given_the_client_is_looking_for_servers
 
 		MockNetworkInterface* m_networkInterface;
 		MockServerCache* m_serverCache;
-		EventManager* m_eventManager;
+		MockEventManager* m_eventManager;
 		MockServiceManager* m_serviceManager;
 		MockNetworkSystemScene* m_scene;
 
-		void EstablishContext( )
+		virtual void EstablishContext( )
 		{
 			m_networkInterface = new MockNetworkInterface( );
 			m_scene = new MockNetworkSystemScene( );
 			m_serverCache = new MockServerCache( );
-			m_eventManager = new EventManager( );
+			m_eventManager = new MockEventManager( );
 			m_serviceManager = new MockServiceManager( );
 		}
 
-		void DestroyContext( )
+		virtual void DestroyContext( )
 		{
 			delete m_networkInterface;
 			delete m_scene;
@@ -50,6 +54,12 @@ namespace given_the_client_is_looking_for_servers
 		}
 	};
 
+	void DestroyPacket( Packet* packet )
+	{
+		delete[ ] packet->data;
+		delete packet;
+	}
+
 	class when_a_server_advertises : public NetworkClientEndpoint_BaseContext
 	{
 
@@ -58,11 +68,28 @@ namespace given_the_client_is_looking_for_servers
 		void EstablishContext( )
 		{
 			NetworkClientEndpoint_BaseContext::EstablishContext( );
+
+			EXPECT_CALL( *m_eventManager, QueueEvent( An< const IEvent* >( ) ) );
+
+			Packet* packet = new Packet( );
+			packet->data = new unsigned char[ 1 ];
+			packet->data[ 0 ] = ID_PONG;
+
+			EXPECT_CALL( *m_networkInterface, Receive( ) )
+				.WillOnce( Return( packet ) );
+
+			EXPECT_CALL( *m_networkInterface, DeAllocatePacket( packet ) )
+				.WillOnce( Invoke( &DestroyPacket ) );
+		}
+
+		void When( )
+		{
+			m_subject->Update( 0 );
 		}
 	};
 
 	TEST_F( when_a_server_advertises, then_the_client_should_inform_the_game_of_the_advertisement )
 	{
-		
+
 	}
 };

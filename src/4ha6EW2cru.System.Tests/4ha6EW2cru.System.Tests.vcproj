@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Events\specs_for_EventManager.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\Utility\StringUtils_Tests.cxx"
 				>
 			</File>
@@ -225,6 +229,10 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockEntityService.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockEventListener.hpp"
 				>
 			</File>
 			<File

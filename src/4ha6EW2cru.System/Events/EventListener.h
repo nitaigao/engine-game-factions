@@ -35,9 +35,8 @@ namespace Events
 		 *  @param[in] HandlerFunctor handlerFunctor
 		 *  @return ()
 		 */
-		EventListener( const EventType& eventType, T* const handlerTarget, HandlerFunctor handlerFunctor )
+		EventListener( T* const handlerTarget, HandlerFunctor handlerFunctor )
 			: m_handlerFunctor( handlerFunctor )
-			, m_eventType( eventType )
 			, m_handlerTarget( handlerTarget )
 			, m_markedForDeletion( false )
 		{
@@ -78,13 +77,6 @@ namespace Events
 				( m_handlerTarget->*m_handlerFunctor )( event );
 			}
 		}
-
-		
-		/*! Retrieves the Type of Event the EventListener is listening for
-		 *
-		 *  @return (const EventType)
-		 */
-		inline EventType GetEventType( ) const { return m_eventType; };
 
 		
 		/*! Returns a pointer to the method assigned to handle the Event
@@ -128,10 +120,18 @@ namespace Events
 		*/
 		std::string GetHandlerFunctionName( ) const { return typeid( m_handlerFunctor ).name( ); };
 
+		inline bool operator == ( EventListener* input ) const
+		{
+			return (
+				this->GetHandlerAddress( ) == input->GetHandlerAddress( ) &&
+				this->GetHandlerFunctionName( ) == input->GetHandlerFunctionName( )
+				);
+
+		}
+
 	private:
 
 		HandlerFunctor m_handlerFunctor;
-		EventType m_eventType;
 		T* m_handlerTarget;
 		bool m_markedForDeletion;
 
@@ -143,7 +143,7 @@ namespace Events
 	};
 
 	template< class T >
-	IEventListener* MakeEventListener( const EventType& eventType, T* handlerTarget, void ( T::*handlerFunctor ) ( const IEvent* event ) )
+	IEventListener* MakeEventListener( T* handlerTarget, void ( T::*handlerFunctor ) ( const IEvent* event ) )
 	{
 		if ( 0 == handlerTarget )
 		{
@@ -159,7 +159,7 @@ namespace Events
 			throw nullFunctor;
 		}
 
-		return new EventListener< T >( eventType, handlerTarget, handlerFunctor );
+		return new EventListener< T >( handlerTarget, handlerFunctor );
 	}
 };
 

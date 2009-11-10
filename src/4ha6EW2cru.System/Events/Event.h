@@ -41,7 +41,7 @@ namespace Events
 		 *  @param[in] const EventType & eventType
 		 *  @return ()
 		 */
-		Event( const EventType& eventType )
+		Event( const std::string& eventType )
 			: m_eventType( eventType )
 			, m_eventData( 0 )
 		{
@@ -55,19 +55,19 @@ namespace Events
 		*  @param[in] IEventData * eventData
 		*  @return ()
 		*/
-		Event( const EventType& eventType, IEventData* eventData )
+		Event( const std::string& eventType, IEventData* eventData )
 			: m_eventType( eventType )
 			, m_eventData( eventData )
 		{
 
 		};
 
-		
-		/*! Gets the Type of the Event
-		 *
-		 *  @return (EventType)
-		 */
-		inline EventType GetEventType( ) const { return m_eventType; };
+
+		/*! Gets the type of the Event
+		*
+		*  @return (std::string)
+		*/
+		inline std::string GetEventType( ) const { return m_eventType; };
 
 		
 		/*! Returns Event Data attached to the Event
@@ -78,7 +78,7 @@ namespace Events
 
 	private:
 
-		EventType m_eventType;
+		std::string m_eventType;
 		IEventData* m_eventData;
 
 		Event( ) { };

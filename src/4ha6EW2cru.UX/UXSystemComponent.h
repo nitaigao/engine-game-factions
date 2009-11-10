@@ -145,30 +145,6 @@ namespace UX
 		void UnRegisterUpdate( const luabind::object& function );
 
 
-		/*! Registers an LUA function to receive in Game Events
-		*
-		*  @param[in] luabind::object function
-		*  @return (void)
-		*/
-		void RegisterEvent( const luabind::object& function );
-
-
-		/*! UnRegisters an LUA function from receiving in Game Events
-		*
-		*  @param[in] luabind::object function
-		*  @return (void)
-		*/
-		void UnRegisterEvent( const luabind::object& function );
-
-
-		/*! Generic Event Handler to Forward Game Events to the Script
-		*
-		*  @param[in] const Events::IEvent * event
-		*  @return (void)
-		*/
-		void OnEvent( const Events::IEvent* event );
-
-
 		/*! Sends an Event to the Game
 		 *
 		 * @param[in] const std::string & eventName
@@ -177,6 +153,24 @@ namespace UX
 		 * @return ( void )
 		 */
 		void SendEvent( const std::string& eventName, const std::string& parameter1, const std::string& parameter2 );
+
+
+		/*! Registers a Script Function to receive Events
+		*
+		* @param[in] const std::string & eventType
+		* @param[in] luabind::object handlerFunction
+		* @return ( void )
+		*/
+		void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction );
+
+
+		/*! Unregisters a Script Function from receiving Events
+		*
+		* @param[in] const std::string & eventType
+		* @param[in] luabind::object handlerFunction
+		* @return ( void )
+		*/
+		void UnregisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction );
 
 
 		/*! Runs the given input as LUA code
@@ -193,8 +187,10 @@ namespace UX
 		Script::IScriptFacadeManager* m_facadeManager ;
 		AnyType::AnyTypeMap m_attributes;
 
-		Script::IScriptFunctionHandler::FunctionList m_eventHandlers;
+		Script::IScriptFunctionHandler::FunctionList m_messageHandlers;
 		Script::IScriptFunctionHandler::FunctionList m_updateHandlers;
+		Script::IScriptFunctionHandler::FunctionMap m_eventHandlers;
+		Events::EventTypeMap m_eventTypes;
 
 	};
 }

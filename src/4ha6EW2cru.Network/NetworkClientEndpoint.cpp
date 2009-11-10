@@ -29,7 +29,7 @@ namespace Network
 {
 	NetworkClientEndpoint* NetworkClientEndpoint::m_clientEndpoint = 0;
 
-	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* m_networkScene, IServerCache* serverCache, Events::EventManager* eventManager, Services::IServiceManager* serviceManager )
+	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* m_networkScene, IServerCache* serverCache, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
 		: m_networkInterface( networkInterface )
 		, m_networkScene( m_networkScene )
 		, m_serverCache( serverCache )
@@ -181,7 +181,9 @@ namespace Network
 
 					Info( "Found Server", "Address:", packet->systemAddress.ToString( ), "ServerName:", serverName, "Map:", "Ping:", ping, "MapName", mapName, "Players", numPlayers, "Max Players:", maxPlayers );
 
-					m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 
+					m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 					
+					
+					//IEvent* event = new Event( )
 
 					//IEvent* scriptEvent = new ScriptEventT1< int >( "SERVER_ADVERTISED", m_serverCache->GetCount( ) - 1 );
 					//m_eventManager->QueueEvent( scriptEvent );

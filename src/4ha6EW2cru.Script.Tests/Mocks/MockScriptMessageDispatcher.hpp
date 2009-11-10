@@ -19,7 +19,7 @@ namespace
 
 	public:
 
-		MOCK_METHOD2( DisptchMessage, void( const System::MessageType&, AnyType::AnyTypeMap& ) );
+		MOCK_METHOD2( Dispatch_Message, void( const System::MessageType&, AnyType::AnyTypeMap& ) );
 		MOCK_METHOD2( AddMessageHandler, void( const System::MessageType&, luabind::object ) );
 		MOCK_METHOD2( HasHandler, bool( const System::MessageType&, luabind::object ) );
 		MOCK_METHOD2( RemoveHandler, void( const System::MessageType&, luabind::object ) );

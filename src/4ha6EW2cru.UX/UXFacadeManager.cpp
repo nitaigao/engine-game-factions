@@ -4,7 +4,7 @@ using namespace Script;
 
 namespace UX
 {
-	void UXFacadeManager::Initialize( IScriptComponent* scriptComponent )
+	void UXFacadeManager::Initialize( ISystemComponent* scriptComponent )
 	{
 		IScriptFacade* systemFacade = m_facadeFactory->CreateScriptFacade( IScriptFacade::SYSTEM, scriptComponent );
 		m_facades.push_back( systemFacade );

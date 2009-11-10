@@ -20,7 +20,7 @@ extend( SpawnPoint, Object )
 
 function SpawnPoint:initialize( )
 
-	script:registerEventHandler( SpawnPoint.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_FINISHED', SpawnPoint.onEvent )
 
 end
 

@@ -17,7 +17,9 @@ gunHeight = 0
 
 function Hud.initialize( )
 
-	script:registerEventHandler( Hud.onEvent )
+	script:registerEventHandler( 'WORLD_LOADING_FINISHED', Hud.onEvent )
+	script:registerEventHandler( 'GAME_ENDED', Hud.onEvent )
+	script:registerEventHandler( 'GRAPHICS_SETTINGS_CHANGED', Hud.onEvent )
 
 	Hud.resetPositions( )
 	
