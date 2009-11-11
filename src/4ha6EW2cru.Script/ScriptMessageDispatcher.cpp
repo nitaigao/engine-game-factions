@@ -57,10 +57,10 @@ namespace Script
 
 		for( DelegateFunctionMap::iterator i = it1; i != it2; ++i )
 		{
-			/*if ( *static_cast< ScriptFunctionHandler* >( ( *i ).second ) == handler )
+			if ( static_cast< ScriptFunctionHandler* >( ( *i ).second )->Compare( &handler ) )
 			{
 				( *i ).second->MarkForDeletion( );
-			}*/
+			}
 		}
 	}
 

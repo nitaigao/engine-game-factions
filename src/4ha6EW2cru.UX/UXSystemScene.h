@@ -21,6 +21,7 @@
 #include "IScriptConfiguration.hpp"
 
 #include "Service/IServiceManager.h"
+#include "Events/IEventManager.hpp"
 #include "Configuration/IConfiguration.hpp"
 
 namespace UX
@@ -44,13 +45,21 @@ namespace UX
 		*
 		*  @return ()
 		*/
-		UXSystemScene( IGUI* gui, Services::IServiceManager* serviceManager, Script::ILuaState* masterState, IUXSystemComponentFactory* componentFactory, Configuration::IConfiguration* configuration )
+		UXSystemScene( 
+			IGUI* gui, 
+			Services::IServiceManager* serviceManager, 
+			Script::ILuaState* masterState, 
+			IUXSystemComponentFactory* componentFactory, 
+			Configuration::IConfiguration* configuration,
+			Events::IEventManager* eventManager
+			)
 			: m_gui( gui )
 			, m_serviceManager( serviceManager )
 			, m_masterState( masterState )
 			, m_componentFactory( componentFactory )
 			, m_configuration( configuration )
 			, m_scriptConfiguration( 0 )
+			, m_eventManager( eventManager )
 		{
 
 		}
@@ -272,6 +281,9 @@ namespace UX
 		std::vector< std::string > GetSupportedResolutions( );
 
 
+		void ShowScreen( const std::string& screenName );
+
+
 		// widget functions
 		public:
 
@@ -322,6 +334,7 @@ namespace UX
 		Script::IScriptConfiguration* m_scriptConfiguration;
 		Configuration::IConfiguration* m_configuration;
 		IUXSystemComponentFactory* m_componentFactory;
+		Events::IEventManager* m_eventManager;
 	};
 };
 

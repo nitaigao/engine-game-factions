@@ -14,10 +14,13 @@
 #include "IUXSystemScene.hpp"
 
 #include "ILuaState.hpp"
-#include "IScriptFunctionHandler.hpp"
+#include "IScriptUpdateDispatcher.hpp"
+#include "IScriptEventDispatcher.hpp"
+#include "IScriptMessageDispatcher.hpp"
 #include "IScriptFacadeManager.hpp"
+#include "IScriptFacade.hpp"
 
-#include "Events/IEventManager.hpp"
+#include "System/AnyType.hpp"
 
 namespace UX
 {
@@ -41,13 +44,22 @@ namespace UX
 		*  @param[in] ILuaState * state
 		*  @return ()
 		*/
-		UXSystemComponent( Script::ILuaState* state, Events::IEventManager* eventManager, Script::IScriptFacadeManager* facadeManager )
+		UXSystemComponent( 
+			Script::ILuaState* state, 
+			Script::IScriptFacadeManager* facadeManager, 
+			Script::IScriptMessageDispatcher* messageDispatcher, 
+			Script::IScriptEventDispatcher* eventDispatcher, 
+			Script::IScriptUpdateDispatcher* updateDispatcher 
+			)
 			: m_state( state )
-			, m_eventManager( eventManager )
-			, m_facadeManager( facadeManager ) 
+			, m_facadeManager( facadeManager )
+			, m_messageDispatcher( messageDispatcher )
+			, m_eventDispatcher( eventDispatcher )
+			, m_updateDispatcher( updateDispatcher )
+			, m_observer( 0 )
 		{
 
-		}
+		};
 
 		/*! Posts a message to observers
 		*
@@ -145,16 +157,6 @@ namespace UX
 		void UnRegisterUpdate( const luabind::object& function );
 
 
-		/*! Sends an Event to the Game
-		 *
-		 * @param[in] const std::string & eventName
-		 * @param[in] const std::string & parameter1
-		 * @param[in] const std::string & parameter2
-		 * @return ( void )
-		 */
-		void SendEvent( const std::string& eventName, const std::string& parameter1, const std::string& parameter2 );
-
-
 		/*! Registers a Script Function to receive Events
 		*
 		* @param[in] const std::string & eventType
@@ -182,16 +184,20 @@ namespace UX
 
 	private:
 
+
 		Script::ILuaState* m_state;
-		Events::IEventManager* m_eventManager;
-		Script::IScriptFacadeManager* m_facadeManager ;
+
+		Script::IScriptFacadeManager* m_facadeManager;
+		Script::IScriptMessageDispatcher* m_messageDispatcher;
+		Script::IScriptEventDispatcher* m_eventDispatcher;
+		Script::IScriptUpdateDispatcher* m_updateDispatcher;
+
+		Script::IScriptFacade::ScriptFacadeList m_facades;
+
+		IObserver* m_observer;
+		Maths::MathVector3 m_lookAt;
+
 		AnyType::AnyTypeMap m_attributes;
-
-		Script::IScriptFunctionHandler::FunctionList m_messageHandlers;
-		Script::IScriptFunctionHandler::FunctionList m_updateHandlers;
-		Script::IScriptFunctionHandler::FunctionMap m_eventHandlers;
-		Events::EventTypeMap m_eventTypes;
-
 	};
 }
 

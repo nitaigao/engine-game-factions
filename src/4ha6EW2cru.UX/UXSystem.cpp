@@ -66,12 +66,10 @@ namespace UX
 					,
 
 			class_< UXSystemComponent >( "UXSystemComponent" )
-				//.def( "registerEventHandler", &UXSystemComponent::RegisterEvent )
 				.def( "registerEventHandler", ( void ( UXSystemComponent::* ) ( const std::string&, const luabind::object& ) ) &UXSystemComponent::RegisterEventHandler )
 				.def( "unregisterEventHandler", ( void ( UXSystemComponent::* ) ( const std::string&, const luabind::object& ) ) &UXSystemComponent::UnregisterEventHandler )
 				.def( "registerUpdateHandler", &UXSystemComponent::RegisterUpdate )
 				.def( "unregisterUpdateHandler", &UXSystemComponent::UnRegisterUpdate )
-				.def( "sendEvent", &UXSystemComponent::SendEvent )
 				.def( "executeString", &UXSystemComponent::ExecuteString )
 				,
 
@@ -87,6 +85,7 @@ namespace UX
 				.def( "hideMouse", &UXSystemScene::HideMouse )
 				.def( "setInputAllowed", &UXSystemScene::SetInputAllowed )
 				.def( "changeResolution", &UXSystemScene::ChangeResolution )
+				.def( "showScreen", &UXSystemScene::ShowScreen )
 				,
 
 			class_< Widget >( "Widget" )

@@ -17,9 +17,13 @@ function Title.initialize( )
 
 	ux:hideMouse( )
 	
+	print( 'hello' )
+	
 	script:registerEventHandler( 'INPUT_KEY_UP', Title.onEvent )
 	script:registerEventHandler( 'INPUT_MOUSE_RELEASED', Title.onEvent )
 	script:registerEventHandler( 'WORLD_LOADING_STARTED', Title.onEvent )
+	
+	print( 'hello' )
 
 	local logo = ux:findWidget( 'logo' )
 	local logoX = ( ux:getScreenWidth( ) - logo:getDimensions( ).width ) / 2
@@ -59,7 +63,7 @@ function Title.onHideUpdate( )
 	else
 	
 		Title.deactivate( )
-		script:sendEvent( 'UI_SHOW_PANE', 'MAIN_MENU', '' ) 
+		ux:showScreen( 'MAIN_MENU' )
 	
 	end
 
@@ -83,6 +87,8 @@ end
 function Title.onEvent( eventName, val1, val2 )
 
 	if ( eventName == 'INPUT_KEY_UP' ) or ( eventName == 'INPUT_MOUSE_RELEASED' ) then 
+	
+		print( 'hello' )
 	
 		script:registerUpdateHandler( Title.onHideUpdate )
 	

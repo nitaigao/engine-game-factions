@@ -17,24 +17,28 @@ namespace Script
 
 	void ScriptUpdateDispatcher::Update( float deltaMilliseconds )
 	{
-		for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
+		for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( );)
 		{
-			( *i )->CallFunction( deltaMilliseconds );
-		}
-	}
-
-	void ScriptUpdateDispatcher::UnRegisterUpdateHandler( IScriptFunctionHandler* handler )
-	{
-		for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); )
-		{
-			if ( ( *i )->Compare( handler ) )
+			if( ( *i )->IsMarkedForDeletion( ) )
 			{
 				delete ( *i );
 				i = m_updateHandlers.erase( i );
 			}
 			else
 			{
+				( *i )->CallFunction( deltaMilliseconds );
 				++i;
+			}
+		}
+	}
+
+	void ScriptUpdateDispatcher::UnRegisterUpdateHandler( IScriptFunctionHandler* handler )
+	{
+		for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
+		{
+			if ( ( *i )->Compare( handler ) )
+			{
+				( *i )->MarkForDeletion( );
 			}
 		}
 

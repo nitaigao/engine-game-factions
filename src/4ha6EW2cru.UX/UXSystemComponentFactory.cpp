@@ -6,6 +6,10 @@ using namespace Script;
 #include "UXSystemComponent.h"
 #include "UXFacadeManager.h"
 
+#include "ScriptMessageDispatcher.h"
+#include "ScriptEventDispatcher.h"
+#include "ScriptUpdateDispatcher.h"
+
 namespace UX
 {
 	UXSystemComponentFactory::~UXSystemComponentFactory()
@@ -20,8 +24,12 @@ namespace UX
 		m_gui->LoadLayout( layoutPath.str( ) );
 
 		ILuaState* childState = m_masterState->CreateChild( );
+		IScriptMessageDispatcher* messageDispatcher = new ScriptMessageDispatcher( );
+		IScriptEventDispatcher* eventDispatcher = new ScriptEventDispatcher( m_eventManager );
+		IScriptUpdateDispatcher* updateDispatcher = new ScriptUpdateDispatcher( );
+		IScriptFacadeManager* facadeManager = new UXFacadeManager( m_facadeFactory, childState );
 
-		UXSystemComponent* component = new UXSystemComponent( childState, m_eventManager, new UXFacadeManager( m_facadeFactory, childState ) );
+		UXSystemComponent* component = new UXSystemComponent( childState, facadeManager, messageDispatcher, eventDispatcher, updateDispatcher );
 		component->SetAttribute( System::Attributes::Name, name );
 		component->SetAttribute( System::Attributes::SystemType, System::Types::UX );
 

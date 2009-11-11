@@ -14,7 +14,7 @@
 
 namespace
 {
-	class MockScriptMessageDispatcher : public IScriptMessageDispatcher
+	class MockScriptMessageDispatcher : public Script::IScriptMessageDispatcher
 	{
 
 	public:

@@ -11,6 +11,7 @@ using namespace UX;
 #include "Mocks/MockScriptFacade.hpp"
 #include "Mocks/MockUXSystemComponentFactory.hpp"
 #include "Mocks/MockUXSystemComponent.hpp"
+#include "Mocks/MockEventManager.hpp"
 
 #include <MyGUI.h>
 using namespace MyGUI;
@@ -26,6 +27,7 @@ protected:
 	MockGUI* m_gui;
 	MockServiceManager* m_serviceManager;
 	MockLuaState* m_state;
+	MockEventManager* m_eventManager;
 
 	MockUXSystemComponentFactory* m_componentFactory;
 
@@ -38,6 +40,7 @@ protected:
 		m_state = new MockLuaState( );
 		m_componentFactory = new MockUXSystemComponentFactory( );
 		m_configuration = new ClientConfiguration( );
+		m_eventManager = new MockEventManager( );
 	}
 
 
@@ -46,11 +49,12 @@ protected:
 		delete m_gui;
 		delete m_serviceManager;
 		delete m_configuration;
+		delete m_eventManager;
 	}
 
 	UXSystemScene* CreateSubject( )
 	{
-		return new UXSystemScene( m_gui, m_serviceManager, m_state, m_componentFactory, m_configuration ); 
+		return new UXSystemScene( m_gui, m_serviceManager, m_state, m_componentFactory, m_configuration, m_eventManager ); 
 	}
 };
 

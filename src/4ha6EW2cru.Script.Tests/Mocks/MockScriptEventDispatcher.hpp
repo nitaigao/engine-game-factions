@@ -15,7 +15,7 @@
 
 namespace
 {
-	class MockScriptEventDispatcher : public IScriptEventDispatcher
+	class MockScriptEventDispatcher : public Script::IScriptEventDispatcher
 	{
 
 	public:
@@ -25,7 +25,7 @@ namespace
 		MOCK_METHOD1( EventHandler, void( const Events::IEvent* ) );
 
 
-		static void ConsumeFunctionHandler( const std::string& eventType, IScriptFunctionHandler* handler )
+		static void ConsumeFunctionHandler( const std::string& eventType, Script::IScriptFunctionHandler* handler )
 		{
 			delete handler;
 		}

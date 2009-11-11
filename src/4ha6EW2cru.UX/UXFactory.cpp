@@ -25,7 +25,7 @@ namespace UX
 		IScriptFacadeFactory* scriptFacadeFactory = new ScriptFacadeFactory( masterState );
 
 		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, eventManager, scriptFacadeFactory );
-		IUXSystemScene* scene = new UXSystemScene( gui, serviceManager, masterState, factory, configuration );
+		IUXSystemScene* scene = new UXSystemScene( gui, serviceManager, masterState, factory, configuration, eventManager );
 
 		return new UXSystem( gui, scene, eventManager, serviceManager );
 	}

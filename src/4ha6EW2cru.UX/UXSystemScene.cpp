@@ -18,6 +18,7 @@ using namespace Script;
 
 using namespace luabind;
 
+#include "Events/Event.h"
 #include "Events/EventType.hpp"
 #include "Events/EventData.hpp"
 #include "Events/EventListener.h"
@@ -111,8 +112,6 @@ namespace UX
 		renderService->ProcessMessage( System::Messages::Graphics::ChangeResolution, parameters );
 
 		m_gui->WindowResized( );
-
-		//Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEventT2< int, int >( "GRAPHICS_SETTINGS_CHANGED", width, height ) );
 	}
 
 	void UXSystemScene::SetInputAllowed( bool inputAllowed )
@@ -445,5 +444,12 @@ namespace UX
 		}
 
 		return resolutions;
+	}
+
+	void UXSystemScene::ShowScreen( const std::string& screenName )
+	{
+		UIEventData* eventData = new UIEventData( screenName );
+		Event* event = new Event( EventTypes::UI_SHOW_PANE, eventData );
+		m_eventManager->QueueEvent( event );
 	}
 }

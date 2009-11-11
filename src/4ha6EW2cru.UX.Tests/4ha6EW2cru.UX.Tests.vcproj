@@ -188,10 +188,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\UXSystemComponent_Tests.cxx"
-				>
-			</File>
-			<File
 				RelativePath=".\UXSystemComponentFactory_Tests.cxx"
 				>
 			</File>

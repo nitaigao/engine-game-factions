@@ -86,6 +86,7 @@ namespace given_a_script_is_running
 			EXPECT_CALL( *m_add_handler, CallFunction( m_delta ) ).Times( 0 );
 			EXPECT_CALL( *m_add_handler, Compare( m_remove_handler ) )
 				.WillOnce( Return( true ) );
+			EXPECT_CALL( *m_add_handler, IsMarkedForDeletion( ) ).WillOnce( Return( true ) );
 		}
 
 		void When( )
