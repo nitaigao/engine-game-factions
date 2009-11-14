@@ -28,7 +28,7 @@ function KeyBinder.onEvent( eventName, var1, var2 )
 
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( var1:getParam1( ) == 'UI_KEYBINDER' )  then
+		if ( var1:getParam1( ) == Screens.KEY_BINDER )  then
 		
 			local widget = ux:findWidget( 'key_binder' )
 	

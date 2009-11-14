@@ -36,7 +36,7 @@ end
 
 function Console.onShowPane( eventName, eventData )
 
-	if ( eventData:getParam1( ) == 'UI_CONSOLE' ) then
+	if ( eventData:getParam1( ) == Screens.CONSOLE ) then
 	
 		Console.onShowConsole( )
 	

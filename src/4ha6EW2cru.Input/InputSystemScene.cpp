@@ -86,7 +86,7 @@ namespace Input
 	{
 		if ( arg.key == OIS::KC_GRAVE )
 		{
-			UIEventData* eventData = new UIEventData( "UI_CONSOLE" );
+			UIEventData* eventData = new UIEventData( "console" );
 			IEvent* event = new Event( EventTypes::UI_SHOW_PANE, eventData );
 			Management::Get( )->GetEventManager( )->TriggerEvent( event );
 		}

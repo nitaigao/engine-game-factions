@@ -324,7 +324,9 @@ function Options.onKeyListDoubleClick( index )
 	
 	if ( keymapList:getSubItemName( 1, index ) ~= '' ) then -- if the item isnt a spacer
 
-		script:sendEvent( 'UI_SHOW_PANE', 'UI_KEYBINDER', keymapList:getSubItemName( 3, index ) )
+		--ux:showScreen( Screens.KEY_BINDER )
+	
+		--script:sendEvent( 'UI_SHOW_PANE', 'UI_KEYBINDER', keymapList:getSubItemName( 3, index ) )
 		
 	end
 

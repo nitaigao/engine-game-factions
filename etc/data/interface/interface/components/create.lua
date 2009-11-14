@@ -63,7 +63,7 @@ function Create.onEvent( eventName, val1, val2 )
 
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( val1:getParam1( ) == 'UI_CREATESERVER' )  then
+		if ( val1:getParam1( ) == Screens.CREATE )  then
 	
 			Create.onShowCreate( )
 	
