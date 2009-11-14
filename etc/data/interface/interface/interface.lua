@@ -4,6 +4,20 @@
 
 Interface = { }
 
+Screens = {
+	CONSOLE = 'console',
+	STATISTICS = 'statistics',
+	TITLE = 'title',
+	MENU = 'menu',
+	OPTIONS = 'options',
+	KEY_BINDER = 'key_binder',
+	CREATE = 'create',
+	LOADING = 'loading',
+	CHARACTER_SELECT = 'characterselect',
+	SERVERS = 'servers',
+	DISCONNECTED = 'disconnected',
+	HUD = 'hud'
+}
 ----------------------------------------------------------------
 -- Local Variables
 ----------------------------------------------------------------
@@ -19,19 +33,11 @@ function Interface.initialize( )
 	
 	ux:showMouse( )
 
-	ux:loadComponent( 'console' )
-	ux:loadComponent( 'statistics' )
-	ux:loadComponent( 'title' )
-	ux:loadComponent( 'menu' )
-	ux:loadComponent( 'options' )
-	ux:loadComponent( 'key_binder' )
-	ux:loadComponent( 'create' )
-	ux:loadComponent( 'loading' )
-	ux:loadComponent( 'characterselect' )
-	ux:loadComponent( 'servers' )
-	ux:loadComponent( 'disconnected' )
-	ux:loadComponent( 'hud' )
-	--ux:loadComponent( 'actor_hit' )
+	for k in pairs( Screens ) do
+		
+		ux:loadComponent( Screens[ k ] )
+	
+	end
 	
 end
 

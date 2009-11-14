@@ -64,7 +64,7 @@ function Menu.onEvent( eventName, eventData )
 	
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( eventData:getParam1( ) == 'MAIN_MENU' )  then
+		if ( eventData:getParam1( ) == Screens.MENU )  then
 	
 			Menu.onShowMenu( )
 	
@@ -215,19 +215,19 @@ end
 
 function Menu.onOptionsReleased( )
 
-	script:sendEvent( 'UI_SHOW_PANE', 'UI_OPTIONS', '' ) 
+	ux:showScreen( Screens.OPTIONS )
 
 end
 
 function Menu.onPlayReleased( )
 
-	script:sendEvent( 'UI_SHOW_PANE', 'UI_SERVERS', '' ) 
+	ux:showScreen( Screens.SERVERS )
 
 end
 
 function Menu.onCreateReleased( )
 	
-	script:sendEvent( 'UI_SHOW_PANE', 'UI_CREATESERVER', '' ) 
+		ux:showScreen( Screens.CREATE )
 
 end
 

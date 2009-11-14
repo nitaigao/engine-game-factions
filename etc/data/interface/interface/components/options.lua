@@ -35,7 +35,7 @@ function Options.onEvent( eventName, var1, var2 )
 	
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
-		if ( var1:getParam1( ) == 'UI_OPTIONS' )  then
+		if ( var1:getParam1( ) == Screens.OPTIONS )  then
 	
 			Options.onShowOptions( )
 	
