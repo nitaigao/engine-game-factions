@@ -88,18 +88,8 @@ namespace Script
 					.def( "getName", &ScriptComponent::GetName )
 					.def( "getLookAt", &ScriptComponent::GetLookAt )
 					.def( "getPosition", &ScriptComponent::GetPosition )
-					.def( "setPosition", &ScriptComponent::SetPosition )
-					
-
-					/*.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string& ) ) &ScriptComponent::BroadcastEvent )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent< int > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const MathVector3& ) ) &ScriptComponent::BroadcastEvent< MathVector3 > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const std::string& ) ) &ScriptComponent::BroadcastEvent< std::string, std::string > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const std::string&, const int& ) ) &ScriptComponent::BroadcastEvent< std::string, int > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const int& ) ) &ScriptComponent::BroadcastEvent< int, int > )
-					.def( "broadcastEvent", ( void ( ScriptComponent::* ) ( const std::string&, const int&, const std::string& ) ) &ScriptComponent::BroadcastEvent< int, std::string > )*/
-					,
+					.def( "setPosition", &ScriptComponent::SetPosition ),
+				
 
 				class_< MathVector3 >( "Vector" )
 					.def( constructor< float, float, float >( ) )

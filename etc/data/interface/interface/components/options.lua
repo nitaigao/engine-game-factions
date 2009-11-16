@@ -14,8 +14,7 @@ Options = { }
 
 function Options.initialize( )
 
-	script:registerEventHandler( 'UI_SHOW_PANE', Options.onEvent )
-	script:registerEventHandler( 'INPUT_MESSAGE_BINDING_SET', Options.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Options.onShowPane )
 	
 	local options = ux:findWidget( 'options' )
 	options:setVisible( false )
@@ -31,22 +30,12 @@ function Options.initialize( )
 	
 end
 
-function Options.onEvent( eventName, var1, var2 )
+function Options.onShowPane( eventName, data )
 	
-	if ( eventName == 'UI_SHOW_PANE' ) then
+	if ( data:getParam1( ) == Screens.OPTIONS )  then
 	
-		if ( var1:getParam1( ) == Screens.OPTIONS )  then
+		Options.onShowOptions( )
 	
-			Options.onShowOptions( )
-	
-		end
-	
-	end
-	
-	if ( eventName == 'INPUT_MESSAGE_BINDING_SET' ) then
-	
-		Options.setupMessageBindings( )
-		
 	end
 
 end
@@ -323,13 +312,61 @@ function Options.onKeyListDoubleClick( index )
 	local keymapList = ux:findWidget( 'options_keylist' ):asMultiList( )
 	
 	if ( keymapList:getSubItemName( 1, index ) ~= '' ) then -- if the item isnt a spacer
-
-		--ux:showScreen( Screens.KEY_BINDER )
 	
-		--script:sendEvent( 'UI_SHOW_PANE', 'UI_KEYBINDER', keymapList:getSubItemName( 3, index ) )
+		keymapList:setSubItemName( 2, index, '?' )
+		
+		local widget = ux:findWidget( 'options' )
+		
+		indexToSet = index
+		messageToSet = keymapList:getSubItemName( 3, index )
+		clicks = 0
+		
+		script:registerEventHandler( 'INPUT_KEY_UP', Options.onKeyUp )
+		script:registerEventHandler( 'INPUT_MOUSE_RELEASED', Options.onMouseReleased )
+		
+		print( 'register' )
 		
 	end
 
+end
+
+function Options.deactivateCapture( )
+
+	script:unregisterEventHandler( 'INPUT_KEY_UP', Options.onKeyUp )
+	script:unregisterEventHandler( 'INPUT_MOUSE_RELEASED', Options.onMouseReleased )
+	
+	clicks = 0
+	
+	print( 'unregister' )
+
+end
+
+function Options.onKeyUp( event, data )
+
+	Options.deactivateCapture( )
+
+	input:setMessageBinding( messageToSet, 'k_' .. data:getKeyCode( ) )
+	
+	Options.setupMessageBindings( )
+
+end
+
+function Options.onMouseReleased( event, data )
+
+		clicks = clicks + 1
+		
+		if( clicks > 1 ) then
+		
+			print( '' .. clicks )
+
+			Options.deactivateCapture( )
+			
+			input:setMessageBinding( messageToSet, 'm_' .. data:getMouseId( ) )
+		
+			Options.setupMessageBindings( )
+			
+		end
+	
 end
 
 Options.initialize( )

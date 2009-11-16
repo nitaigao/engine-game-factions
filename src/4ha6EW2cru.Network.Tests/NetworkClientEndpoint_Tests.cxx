@@ -122,5 +122,5 @@ TEST_F( NetworkClientEndpoint_Tests, should_message_entity_mouse_moved_if_not_pa
 
 TEST_F( NetworkClientEndpoint_Tests, when_a_server_responds__then_the_client_should_broadcast_that_it_has_found_the_server )
 {
-
+	
 }

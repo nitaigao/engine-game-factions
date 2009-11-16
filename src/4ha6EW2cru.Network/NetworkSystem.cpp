@@ -29,6 +29,9 @@ using namespace Configuration;
 
 using namespace Services;
 
+#include <luabind/luabind.hpp>
+using namespace luabind;
+
 #include "Management/Management.h"
 
 #include "Configuration/ConfigurationTypes.hpp"
@@ -78,23 +81,23 @@ namespace Network
 	{
 		AnyType::AnyTypeMap results;
 
-		/*if ( message == System::Messages::RegisterScriptFunctions )
+		if ( message == System::Messages::RegisterScriptFunctions )
 		{
 			scope luaScope = 
 				(
-				class_< ServerAdvertisement >( "ServerAdvertisement" )
+				class_< ServerEventData >( "ServerEventData" )
 					.def( constructor< const std::string&, const std::string&, int, int, int, const std::string&, int >( ) )
-					.def( "getServerName", &ServerAdvertisement::GetServerName )
-					.def( "getMaxPlayers", &ServerAdvertisement::GetMaxPlayers )
-					.def( "getPlayerCount", &ServerAdvertisement::GetPlayerCount )
-					.def( "getLevelName", &ServerAdvertisement::GetLevelName )
-					.def( "getPing", &ServerAdvertisement::GetPing )
-					.def( "getServerAddress", &ServerAdvertisement::GetServerAddress )
-					.def( "getServerPort", &ServerAdvertisement::GetServerPort )
+					.def( "getServerName", &ServerEventData::GetServerName )
+					.def( "getMaxPlayers", &ServerEventData::GetMaxPlayers )
+					.def( "getMapName", &ServerEventData::GetMapName )
+					.def( "getNumPlayers", &ServerEventData::GetNumPlayers )
+					.def( "getPing", &ServerEventData::GetPing )
+					.def( "getAddress", &ServerEventData::GetAddress )
+					.def( "getPort", &ServerEventData::GetPort )
 				);
 
 			results[ System::TypeStrings::NETWORK ] = luaScope;
-		}*/
+		}
 
 		if ( message == System::Messages::Network::CreateServer )
 		{

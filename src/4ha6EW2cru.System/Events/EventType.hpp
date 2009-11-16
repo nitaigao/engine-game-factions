@@ -38,6 +38,7 @@ namespace Events
 		static const EventType WORLD_LOADING_PROGRESS		=	"WORLD_LOADING_PROGRESS";
 		static const EventType WORLD_LOADING_FINISHED		=	"WORLD_LOADING_FINISHED";
 		static const EventType UI_SHOW_PANE					=	"UI_SHOW_PANE";
+		static const EventType NETWORK_SERVER_DISCOVERED	=	"NETWORK_SERVER_DISCOVERED";
 		static const EventType EVENTTYPE_MAX				=	"EVENTTYPE_MAX";
 	}
 };

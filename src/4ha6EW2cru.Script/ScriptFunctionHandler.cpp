@@ -21,13 +21,21 @@ namespace Script
 		{
 			if( eventData != 0 )
 			{
-				if( typeid( KeyEventData ) == typeid( *eventData ) )
+				if( typeid( MouseEventData ) == typeid( *eventData ) )
+				{
+					luabind::call_function< void >( m_functionHandler, eventType, ( MouseEventData* ) eventData );
+				}
+				else if( typeid( KeyEventData ) == typeid( *eventData ) )
 				{
 					luabind::call_function< void >( m_functionHandler, eventType, ( KeyEventData* ) eventData );
 				}
 				else if ( typeid( UIEventData ) == typeid( *eventData ) )
 				{
 					luabind::call_function< void >( m_functionHandler, eventType, ( UIEventData* ) eventData );
+				}
+				else if ( typeid( ServerEventData ) == typeid( *eventData ) )
+				{
+					luabind::call_function< void >( m_functionHandler, eventType, ( ServerEventData* ) eventData );
 				}
 			}
 			else

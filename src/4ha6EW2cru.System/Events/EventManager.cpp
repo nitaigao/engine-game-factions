@@ -45,6 +45,7 @@ namespace Events
 			throw e;
 		}
 
+		//Debug( event->GetEventType( ).c_str( ) );
 		unsigned int eventTypeId = this->GetEventTypeId( event->GetEventType( ) );
 
 		IEventListener::EventListenerMultiMap::iterator listenersUpper = m_eventListeners.upper_bound( eventTypeId );

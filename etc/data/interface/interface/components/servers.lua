@@ -18,8 +18,8 @@ function Servers.initialize( )
 	ux:scriptWidget( servers, 'onWindowButtonPressed', Servers.onClosePressed )
 	ux:scriptWidget( servers, 'onWindowChangeCoord', Servers.onResized )
 
-	script:registerEventHandler( 'UI_SHOW_PANE', Servers.onEvent )
-	script:registerEventHandler( 'SERVER_ADVERTISED', Servers.onEvent )
+	script:registerEventHandler( 'UI_SHOW_PANE', Servers.onShowPane )
+	script:registerEventHandler( 'NETWORK_SERVER_DISCOVERED', Servers.onServerDiscovered )
 	
 	local refreshButton = ux:findWidget( 'servers_refresh_button' ):asButton( )
 	ux:scriptWidget( refreshButton, 'onRelease', Servers.onRefresh )
@@ -43,7 +43,7 @@ function Servers.initialize( )
 	
 end
 
-function Servers.onEvent( eventName, val1, val2 )
+function Servers.onShowPane( eventName, val1, val2 )
 
 	if ( eventName == 'UI_SHOW_PANE' ) then
 	
@@ -55,12 +55,6 @@ function Servers.onEvent( eventName, val1, val2 )
 	
 	end
 	
-	if ( eventName == "SERVER_ADVERTISED" ) then
-	
-		Servers.onServerAdvertised( val1:getParam1( ) )
-	
-	end
-
 end
 
 function Servers.onRefresh( )
@@ -101,53 +95,19 @@ function Servers.Connect( serverAddress, serverPort )
 
 end
 
-function Servers.onServerAdvertised( cacheIndex )
+function Servers.onServerDiscovered( event, data )
 
 	local serverList = ux:findWidget( 'servers_serverlist' ):asMultiList( )
 	serverList:addItem( '' )
 	
 	local serverIndex = serverList:getItemCount( ) - 1
-	local serverAd = network:getServerAd( cacheIndex )
 	
-	for key, value in pairs( serverAd ) do
-	
-		if ( key == 'serverName' ) then
-		
-			serverList:setSubItemName( 0, serverIndex, value )
-		
-		end
-		
-		if ( key == 'players' ) then
-		
-			serverList:setSubItemName( 1, serverIndex, value )
-		
-		end
-		
-		if ( key == 'levelname' ) then
-		
-			serverList:setSubItemName( 2, serverIndex, value )
-		
-		end
-		
-		if ( key == 'ping' ) then
-		
-			serverList:setSubItemName( 3, serverIndex, value .. 'ms' )
-		
-		end
-		
-		if ( key == 'hostAddress' ) then
-		
-			serverList:setSubItemName( 4, serverIndex, value )
-		
-		end
-		
-		if ( key == 'hostPort' ) then
-		
-			serverList:setSubItemName( 5, serverIndex, value )
-		
-		end
-	
-	end
+	serverList:setSubItemName( 0, serverIndex, '' .. data:getServerName( ) )
+	serverList:setSubItemName( 1, serverIndex, '' .. data:getNumPlayers( ) .. '/' .. data:getMaxPlayers( ) )
+	serverList:setSubItemName( 2, serverIndex, '' .. data:getMapName( ) )
+	serverList:setSubItemName( 3, serverIndex, '' .. data:getPing( ) .. 'ms' )
+	serverList:setSubItemName( 4, serverIndex, '' .. data:getAddress( ) )
+	serverList:setSubItemName( 5, serverIndex, '' .. data:getPort( ) )
 
 end
 

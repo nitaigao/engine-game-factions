@@ -48,12 +48,14 @@ namespace Logging
 
 		if ( Management::IsInitialized( ) )
 		{
+#ifndef _DEBUG
+
 			if( level != "DEBUG" && level != "NET" )
 			{
 				IEventData* eventData = new UIEventData( EventTypes::LOG_MESSAGE_APPENDED, outputMessage.str( ), "" );
 				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::LOG_MESSAGE_APPENDED, eventData ) );
 			}
-
+#endif
 			Management::Get( )->GetPlatformManager( )->OutputDebugMessage( outputMessage.str( ) );
 			Management::Get( )->GetPlatformManager( )->OutputToConsole( outputMessage.str( ) );
 		}

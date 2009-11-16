@@ -183,10 +183,19 @@ namespace Network
 
 					m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 					
 					
-					//IEvent* event = new Event( )
 
-					//IEvent* scriptEvent = new ScriptEventT1< int >( "SERVER_ADVERTISED", m_serverCache->GetCount( ) - 1 );
-					//m_eventManager->QueueEvent( scriptEvent );
+					ServerEventData* eventData = new ServerEventData( 
+						serverName.C_String( ), 
+						mapName.C_String( ), 
+						maxPlayers, 
+						numPlayers, 
+						ping, 
+						packet->systemAddress.ToString( false ), 
+						packet->systemAddress.port
+						);
+
+					IEvent* event = new Event( EventTypes::NETWORK_SERVER_DISCOVERED, eventData );
+					m_eventManager->QueueEvent( event );
 
 					delete stream;
 

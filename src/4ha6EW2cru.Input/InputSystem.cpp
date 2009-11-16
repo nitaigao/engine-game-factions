@@ -274,6 +274,9 @@ namespace Input
 				class_< IEventData >( "IEventData" ),
 				class_< KeyEventData >( "KeyEventData" )
 					.def( "getKeyCode", &KeyEventData::GetKeyCode )
+				,
+				class_< MouseEventData >( "MouseEventData" )
+				.def( "getMouseId", &MouseEventData::GetMouseButtonId )
 				);
 
 			results[ System::TypeStrings::INPUT ] = luaScope;

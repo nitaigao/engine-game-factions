@@ -62,24 +62,28 @@ namespace given_the_client_is_looking_for_servers
 
 	class when_a_server_advertises : public NetworkClientEndpoint_BaseContext
 	{
+		Packet* m_packet;
 
 	protected:
+
+		void Expecting( )
+		{
+			EXPECT_CALL( *m_eventManager, QueueEvent( An< const IEvent* >( ) ) );
+
+			EXPECT_CALL( *m_networkInterface, Receive( ) )
+				.WillOnce( Return( m_packet ) );
+
+			EXPECT_CALL( *m_networkInterface, DeAllocatePacket( m_packet ) )
+				.WillOnce( Invoke( &DestroyPacket ) );
+		}
 
 		void EstablishContext( )
 		{
 			NetworkClientEndpoint_BaseContext::EstablishContext( );
 
-			EXPECT_CALL( *m_eventManager, QueueEvent( An< const IEvent* >( ) ) );
-
-			Packet* packet = new Packet( );
-			packet->data = new unsigned char[ 1 ];
-			packet->data[ 0 ] = ID_PONG;
-
-			EXPECT_CALL( *m_networkInterface, Receive( ) )
-				.WillOnce( Return( packet ) );
-
-			EXPECT_CALL( *m_networkInterface, DeAllocatePacket( packet ) )
-				.WillOnce( Invoke( &DestroyPacket ) );
+			m_packet = new Packet( );
+			m_packet->data = new unsigned char[ 1 ];
+			m_packet->data[ 0 ] = ID_PONG;
 		}
 
 		void When( )
@@ -88,8 +92,5 @@ namespace given_the_client_is_looking_for_servers
 		}
 	};
 
-	TEST_F( when_a_server_advertises, then_the_client_should_inform_the_game_of_the_advertisement )
-	{
-
-	}
+	TEST_F( when_a_server_advertises, then_the_client_should_inform_the_game_of_the_advertisement )	{ }
 };

@@ -130,6 +130,9 @@ namespace Input
 
 	bool InputSystemScene::MousePressed( const MouseEvent &arg, MouseButtonID id )
 	{
+		Event* event = new Event( EventTypes::INPUT_MOUSE_PRESSED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
+		Management::Get( )->GetEventManager( )->TriggerEvent( event );
+
 		if ( m_inputAllowed )
 		{
 			for( IInputSystemComponent::InputSystemComponentList::iterator i = m_inputComponents.begin( ); i != m_inputComponents.end( ); ++i  )
@@ -138,14 +141,14 @@ namespace Input
 			}
 		}
 
-		Event* event = new Event( EventTypes::INPUT_MOUSE_PRESSED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
-		Management::Get( )->GetEventManager( )->TriggerEvent( event );
-
 		return true;
 	}
 
 	bool InputSystemScene::MouseReleased( const MouseEvent &arg, MouseButtonID id )
 	{	
+		Event* event = new Event( EventTypes::INPUT_MOUSE_RELEASED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
+		Management::Get( )->GetEventManager( )->TriggerEvent( event );
+
 		if ( m_inputAllowed )
 		{
 			for( IInputSystemComponent::InputSystemComponentList::iterator i = m_inputComponents.begin( ); i != m_inputComponents.end( ); ++i  )
@@ -153,9 +156,6 @@ namespace Input
 				( *i )->MouseReleased( arg, id );
 			}
 		}
-
-		Event* event = new Event( EventTypes::INPUT_MOUSE_RELEASED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
-		Management::Get( )->GetEventManager( )->TriggerEvent( event );
 
 		return true;
 	}
