@@ -10,12 +10,14 @@
 
 #include "IScriptFunctionHandler.hpp"
 
+#include "Export.hpp"
+
 namespace Script
 {
 	/*! 
 	 *  Dispatched Events to Script
 	 */
-	class IScriptEventDispatcher
+	class GAMEAPI IScriptEventDispatcher
 	{
 
 	public:

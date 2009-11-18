@@ -182,7 +182,6 @@ namespace Network
 					Info( "Found Server", "Address:", packet->systemAddress.ToString( ), "ServerName:", serverName, "Map:", "Ping:", ping, "MapName", mapName, "Players", numPlayers, "Max Players:", maxPlayers );
 
 					m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 					
-					
 
 					ServerEventData* eventData = new ServerEventData( 
 						serverName.C_String( ), 
