@@ -11,6 +11,7 @@ using namespace Network;
 #include "Mocks/MockServerCache.hpp"
 
 #include "Configuration/Configuration.h"
+#include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
 class NetworkClientProvider_Tests : public TestHarness< NetworkClientProvider >
@@ -18,50 +19,46 @@ class NetworkClientProvider_Tests : public TestHarness< NetworkClientProvider >
 
 protected:
 	 
+	ClientConfiguration* m_configuration;
 	MockNetworkInterface* m_networkInterface;
 	MockNetworkClientController* m_controller;
 	MockNetworkClientEndpoint* m_endpoint;
-	MockServerCache* m_serverCache;
 
 	void EstablishContext( )
 	{
+		m_configuration = new ClientConfiguration( );
 		m_networkInterface = new MockNetworkInterface( );
 		m_controller = new MockNetworkClientController( );
 		m_endpoint = new MockNetworkClientEndpoint( );
-		m_serverCache = new MockServerCache( );
-	}
 
-	void DestroyContext( )
-	{
-
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 0 );
 	}
 
 	NetworkClientProvider* CreateSubject( )
 	{
-		return new NetworkClientProvider( m_networkInterface, m_controller, m_endpoint, m_serverCache );
+		return new NetworkClientProvider( m_configuration, m_networkInterface, m_controller, m_endpoint );
 	}
 };
 
 TEST_F( NetworkClientProvider_Tests, should_initialize_network_interface )
 {
-	unsigned int port = 8989;
 	int maxConnections = 10;
 
 	EXPECT_CALL( *m_controller, Initialize( ) );
 	EXPECT_CALL( *m_endpoint, Initialize( ) );
-	EXPECT_CALL( *m_networkInterface, Initialize( port, maxConnections ) );
+	EXPECT_CALL( *m_networkInterface, Initialize( 0, maxConnections ) );
 
-	m_subject->Initialize( port, maxConnections );
+	m_subject->Initialize( maxConnections );
 }
 
 TEST_F( NetworkClientProvider_Tests, should_connect_to_a_server )
 {
 	std::string address = "127.0.0.1";
-	unsigned int port = 8989;
+	int port = 0;
 
-	EXPECT_CALL( *m_networkInterface, Connect( address, port ) );
+	EXPECT_CALL( *m_networkInterface, Connect( port, address ) );
 
-	m_subject->Connect( address, port );
+	m_subject->Connect( address );
 }
 
 TEST_F( NetworkClientProvider_Tests, should_disconnect_from_a_server )
@@ -77,7 +74,7 @@ TEST_F( NetworkClientProvider_Tests, should_initialize_endpoint )
 	EXPECT_CALL( *m_endpoint, Initialize( ) );
 	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
-	m_subject->Initialize( 0, 0 );
+	m_subject->Initialize( 0 );
 }
 
 TEST_F( NetworkClientProvider_Tests, should_update_the_endpoint )
@@ -95,7 +92,7 @@ TEST_F( NetworkClientProvider_Tests, should_initialize_the_client_controller )
 	EXPECT_CALL( *m_endpoint, Initialize( ) );
 	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
 
-	m_subject->Initialize( 0, 0 );
+	m_subject->Initialize( 0 );
 }
 
 TEST_F( NetworkClientProvider_Tests, should_select_a_character )
@@ -109,25 +106,8 @@ TEST_F( NetworkClientProvider_Tests, should_select_a_character )
 
 TEST_F( NetworkClientProvider_Tests, should_find_servers )
 {
-	EXPECT_CALL( *m_controller, FindServers( ) );
-	EXPECT_CALL( *m_serverCache, Clear( ) );
+	EXPECT_CALL( *m_controller, FindServers( 0 ) );
 	m_subject->FindServers( );
-}
-
-TEST_F( NetworkClientProvider_Tests, should_get_server_ad )
-{
-	int cacheIndex = 0;
-
-	IServerAdvertisement* ad = new ServerAdvertisement( "name", "level", 10, 1, 10, "127.0.0.1", 8989 );
-
-	EXPECT_CALL( *m_serverCache, Find( cacheIndex ) )
-		.WillOnce( Return( ad ) );
-
-	IServerAdvertisement* result = m_subject->GetServerAdvertisement( cacheIndex );
-
-	EXPECT_EQ( ad, result );
-
-	delete ad;
 }
 
 TEST_F( NetworkClientProvider_Tests, should_set_passive_mode )

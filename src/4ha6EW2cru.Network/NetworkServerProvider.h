@@ -56,11 +56,10 @@ namespace Network
 
 		/*! Initializes the Network Interface
 		*
-		* @param[in] unsigned int port
 		* @param[in] int maxConnections
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( unsigned int port, int maxConnections );
+		GAMEAPI void Initialize( int maxConnections );
 
 
 		/*! Updates the Network Provider

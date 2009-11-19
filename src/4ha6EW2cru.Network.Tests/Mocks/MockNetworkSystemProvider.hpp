@@ -19,7 +19,7 @@ namespace
 
 	public:
 
-		MOCK_METHOD2( Initialize, void( unsigned int, int ) );
+		MOCK_METHOD1( Initialize, void( int ) );
 		MOCK_METHOD1( Update, void( float ) );
 		MOCK_METHOD3( Message, void( const std::string&, const System::MessageType&, AnyType::AnyTypeMap ) );
 		MOCK_METHOD0( Destroy, void( ) );

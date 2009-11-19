@@ -31,6 +31,11 @@ namespace
 			delete eventListener;
 		}
 
+		static void ConsumeEvent( const Events::IEvent* event )
+		{
+			delete event;
+		}
+
 	};
 };
 

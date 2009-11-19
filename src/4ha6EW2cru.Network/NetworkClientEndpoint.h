@@ -39,7 +39,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, IServerCache* serverCache, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager );
+		NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager );
 
 
 		/*! Initializes the Endpoint

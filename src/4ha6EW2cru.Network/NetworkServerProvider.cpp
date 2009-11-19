@@ -28,7 +28,7 @@ namespace Network
 		delete m_networkInterface;
 	}
 
-	void NetworkServerProvider::Initialize( unsigned int port, int maxConnections)
+	void NetworkServerProvider::Initialize( int maxConnections )
 	{
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxServerConnections, 10 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSleepTime, 30 );
@@ -37,7 +37,8 @@ namespace Network
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::MaxPlayers, 10 );
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerSnapshotRate, 33 );
 
-		m_networkInterface->Initialize( port, maxConnections );
+		int serverPort = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerPort ).As< int >( );
+		m_networkInterface->Initialize( serverPort, maxConnections );
 		m_controller->Initialize( );
 		m_endpoint->Initialize( );
 	}

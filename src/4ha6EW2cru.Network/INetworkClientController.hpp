@@ -43,7 +43,7 @@ namespace Network
 		 *
 		 * @return ( void )
 		 */
-		virtual void FindServers( ) = 0;
+		virtual void FindServers( unsigned int port ) = 0;
 		
 
 		/*! Tells the Server that the Client has finished loading the Level

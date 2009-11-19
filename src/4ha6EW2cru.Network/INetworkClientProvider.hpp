@@ -36,7 +36,7 @@ namespace Network
 		 * @param[in] unsigned int port
 		 * @return (  )
 		 */
-		virtual void Connect( const std::string& serverAddress, unsigned int port ) = 0;
+		virtual void Connect( const std::string& serverAddress ) = 0;
 
 
 		/*! Disconnects the Provider if connected to a Server
@@ -59,14 +59,6 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void FindServers( ) = 0;
-
-		
-		/*! Finds the Server Advertisement at the given cache index
-		 *
-		 * @param[in] int cacheIndex
-		 * @return ( IServerAdvertisement* )
-		 */
-		virtual IServerAdvertisement* GetServerAdvertisement( int cacheIndex ) = 0;
 
 
 		/*! Stops the Client from receiving traffic, but it can still send messages

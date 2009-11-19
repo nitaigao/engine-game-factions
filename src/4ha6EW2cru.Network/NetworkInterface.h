@@ -38,7 +38,6 @@ namespace Network
 
 		/*! Initializes the Network Interface
 		*
-		* @param[in] unsigned int port
 		* @param[in] int maxConnections
 		* @return ( void )
 		*/
@@ -84,10 +83,9 @@ namespace Network
 		/*! Connects the interface to a Peer
 		*
 		* @param[in] const std::string address
-		* @param[in] unsigned int port
 		* @return ( void )
 		*/
-		void Connect( const std::string& address, unsigned int port );
+		void Connect( unsigned int port, const std::string& address );
 
 
 		/*! Disconnects the Interface from it's connected Peer
@@ -116,7 +114,7 @@ namespace Network
 		*
 		* @return ( void )
 		*/
-		void BroadcastOfflinePing( );
+		void BroadcastOfflinePing( unsigned int port );
 
 
 		/*! Finds the NetworkAddress for communicating with the given address

@@ -33,6 +33,7 @@ protected:
 
 TEST_F( NetworkClientController_Tests, should_broadcast_offline_ping_when_looking_for_servers )
 {
-	EXPECT_CALL( *m_networkInterface, BroadcastOfflinePing( ) );
-	m_subject->FindServers( );
+	int port = 0;
+	EXPECT_CALL( *m_networkInterface, BroadcastOfflinePing( port ) );
+	m_subject->FindServers( port );
 }

@@ -50,7 +50,7 @@ namespace given_the_client_is_looking_for_servers
 
 		NetworkClientEndpoint* CreateSubject( )
 		{
-			return new NetworkClientEndpoint( m_networkInterface, m_scene, m_serverCache, m_eventManager, m_serviceManager );
+			return new NetworkClientEndpoint( m_networkInterface, m_scene, m_eventManager, m_serviceManager );
 		}
 	};
 
@@ -68,7 +68,8 @@ namespace given_the_client_is_looking_for_servers
 
 		void Expecting( )
 		{
-			EXPECT_CALL( *m_eventManager, QueueEvent( An< const IEvent* >( ) ) );
+			EXPECT_CALL( *m_eventManager, QueueEvent( An< const IEvent* >( ) ) )
+				.WillOnce( Invoke( &MockEventManager::ConsumeEvent ) );
 
 			EXPECT_CALL( *m_networkInterface, Receive( ) )
 				.WillOnce( Return( m_packet ) );

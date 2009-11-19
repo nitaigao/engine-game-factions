@@ -10,7 +10,6 @@ using namespace Network;
 using namespace RakNet;
 
 #include "Mocks/MockNetworkInterface.hpp"
-#include "Mocks/MockServerCache.hpp"
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockService.h"
 #include "Mocks/MockNetworkSystemScene.hpp"
@@ -27,7 +26,6 @@ class NetworkClientEndpoint_Tests : public TestHarness< NetworkClientEndpoint >
 protected:
 
 	MockNetworkInterface* m_networkInterface;
-	MockServerCache* m_serverCache;
 	EventManager* m_eventManager;
 	MockServiceManager* m_serviceManager;
 	MockNetworkSystemScene* m_scene;
@@ -36,7 +34,6 @@ protected:
 	{
 		m_networkInterface = new MockNetworkInterface( );
 		m_scene = new MockNetworkSystemScene( );
-		m_serverCache = new MockServerCache( );
 		m_eventManager = new EventManager( );
 		m_serviceManager = new MockServiceManager( );
 	}
@@ -45,14 +42,13 @@ protected:
 	{
 		delete m_networkInterface;
 		delete m_scene;
-		delete m_serverCache;
 		delete m_eventManager;
 		delete m_serviceManager;
 	}
 
 	NetworkClientEndpoint* CreateSubject( )
 	{
-		return new NetworkClientEndpoint( m_networkInterface, m_scene, m_serverCache, m_eventManager, m_serviceManager );
+		return new NetworkClientEndpoint( m_networkInterface, m_scene, m_eventManager, m_serviceManager );
 	}
 };
 
@@ -81,12 +77,9 @@ TEST_F( NetworkClientEndpoint_Tests, should_receive_offline_pong_messages )
 	EXPECT_CALL( *m_networkInterface, Receive( ) )
 		.WillOnce( Return( p ) );
 
-	EXPECT_CALL( *m_serverCache, Add( serverName, mapName, players, maxPlayers, An< int >( ), serverAddress, port ) );
 	EXPECT_CALL( *m_networkInterface, DeAllocatePacket( p ) );
 
 	m_subject->Update( 99 );
-
-	m_serverCache->Clear( );
 
 	delete p;
 }

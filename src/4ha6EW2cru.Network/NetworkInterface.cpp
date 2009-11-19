@@ -6,8 +6,6 @@ using namespace RakNet;
 
 namespace Network
 {
-	const unsigned int SERVER_PORT = 8990;
-
 	NetworkInterface::~NetworkInterface( )
 	{
 		RakNetworkFactory::DestroyRakPeerInterface( m_networkAdapter );
@@ -51,7 +49,7 @@ namespace Network
 		m_networkAdapter->SetOfflinePingResponse( ( const char* ) information->GetData( ), information->GetNumberOfBytesUsed( ) );
 	}
 
-	void NetworkInterface::Connect( const std::string& address, unsigned int port )
+	void NetworkInterface::Connect( unsigned int port, const std::string& address )
 	{
 		m_networkAdapter->Connect( address.c_str( ), port, 0, 0 );
 	}
@@ -66,9 +64,9 @@ namespace Network
 		m_networkAdapter->AttachPlugin( plugin );
 	}
 
-	void NetworkInterface::BroadcastOfflinePing( )
+	void NetworkInterface::BroadcastOfflinePing( unsigned int port )
 	{
-		m_networkAdapter->Ping( "255.255.255.255", SERVER_PORT, true );
+		m_networkAdapter->Ping( "255.255.255.255", port, true );
 	}
 
 	SystemAddress NetworkInterface::GetAddress( const SystemAddress& address )

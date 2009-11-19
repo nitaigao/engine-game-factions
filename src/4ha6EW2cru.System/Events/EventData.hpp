@@ -286,17 +286,15 @@ namespace Events
 		 * @param[in] int numPlayers
 		 * @param[in] int ping
 		 * @param[in] const std::string & address
-		 * @param[in] unsigned int port
 		 * @return ( )
 		 */
-		ServerEventData( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port )
+		ServerEventData( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address )
 			: m_serverName( serverName )
 			, m_mapName( mapName )
 			, m_maxPlayers( maxPlayers )
 			, m_numPlayers( numPlayers )
 			, m_ping( ping )
 			, m_address( address )
-			, m_port( port )
 		{
 
 		}
@@ -308,7 +306,6 @@ namespace Events
 		inline int GetNumPlayers( ) { return m_numPlayers; }; 
 		inline int GetPing( ) { return m_ping; }; 
 		inline std::string GetAddress( ) { return m_address; };
-		inline unsigned int GetPort( ) { return m_port; };
 
 
 	private:
@@ -319,7 +316,6 @@ namespace Events
 		int m_numPlayers; 
 		int m_ping; 
 		std::string m_address;
-		unsigned int m_port;
 
 	};
 };

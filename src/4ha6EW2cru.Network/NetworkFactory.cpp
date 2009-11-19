@@ -32,13 +32,12 @@ namespace Network
 		case CLIENT:
 			{
 				INetworkInterface* networkInterface = new NetworkInterface( );
-				IServerCache* serverCache = new ServerCache( );
 
 				return new NetworkClientProvider( 
+					new ClientConfiguration( ),
 					networkInterface, 
 					new NetworkClientController( networkInterface ),
-					new NetworkClientEndpoint( networkInterface, scene, serverCache, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) ),
-					serverCache
+					new NetworkClientEndpoint( networkInterface, scene, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) )	
 					);
 			}
 

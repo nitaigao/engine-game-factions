@@ -29,10 +29,9 @@ namespace Network
 {
 	NetworkClientEndpoint* NetworkClientEndpoint::m_clientEndpoint = 0;
 
-	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* m_networkScene, IServerCache* serverCache, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
+	NetworkClientEndpoint::NetworkClientEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* m_networkScene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
 		: m_networkInterface( networkInterface )
 		, m_networkScene( m_networkScene )
-		, m_serverCache( serverCache )
 		, m_eventManager( eventManager )
 		, m_serviceManager( serviceManager )
 		, m_isPassive( false )
@@ -181,16 +180,13 @@ namespace Network
 
 					Info( "Found Server", "Address:", packet->systemAddress.ToString( ), "ServerName:", serverName, "Map:", "Ping:", ping, "MapName", mapName, "Players", numPlayers, "Max Players:", maxPlayers );
 
-					m_serverCache->Add( serverName.C_String( ), mapName.C_String( ), maxPlayers, numPlayers, ping, packet->systemAddress.ToString( false ), packet->systemAddress.port ); 					
-
 					ServerEventData* eventData = new ServerEventData( 
 						serverName.C_String( ), 
 						mapName.C_String( ), 
 						maxPlayers, 
 						numPlayers, 
 						ping, 
-						packet->systemAddress.ToString( false ), 
-						packet->systemAddress.port
+						packet->systemAddress.ToString( false )
 						);
 
 					IEvent* event = new Event( EventTypes::NETWORK_SERVER_DISCOVERED, eventData );

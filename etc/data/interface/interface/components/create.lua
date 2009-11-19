@@ -39,9 +39,6 @@ function Create.initialize( )
 	
 	end
 	
-	local port = ux:findWidget( 'create_port' ):asEditBox( )
-	port:setText( tostring( Configuration.serverPort ) )
-	
 	local botcount = ux:findWidget( 'create_botcount' ):asEditBox( )
 	botcount:setText( tostring( Configuration.serverBotCount ) )
 	
@@ -81,7 +78,6 @@ end
 
 function Create.onCreateClick( )
 
-	local port = ux:findWidget( 'create_port' ):asEditBox( )
 	local botcount = ux:findWidget( 'create_botcount' ):asEditBox( )
 	local servername = ux:findWidget( 'create_servername' ):asEditBox( )
 	local timelimit = ux:findWidget( 'create_timelimit' ):asEditBox( )
@@ -94,7 +90,6 @@ function Create.onCreateClick( )
 	
 	network:createServer( 
 		levelName,
-		tonumber( port:getText( ) ), 
 		tonumber( botcount:getText( ) ), 
 		servername:getText( ), 
 		tonumber( timelimit:getText( ) ), 
@@ -102,7 +97,7 @@ function Create.onCreateClick( )
 		tonumber( maxplayers:getText( ) ) 
 		)
 		
-	network:connect( '127.0.0.1', tonumber( port:getText( ) ) )
+	network:connect( '127.0.0.1' )
 	
 end
 

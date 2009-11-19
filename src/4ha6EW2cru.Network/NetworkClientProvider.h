@@ -37,12 +37,11 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkClientProvider( INetworkInterface* networkInterface, INetworkClientController* controller, 
-			INetworkClientEndpoint* endpoint, IServerCache* serverCache )
+		NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
 			: m_networkInterface( networkInterface )
 			, m_endpoint( endpoint )
 			, m_controller( controller )
-			, m_serverCache( serverCache )
+			, m_configuration( configuration )
 		{
 
 		}
@@ -50,11 +49,10 @@ namespace Network
 
 		/*! Initializes the Network Interface
 		*
-		* @param[in] unsigned int port
 		* @param[in] int maxConnections
 		* @return ( void )
 		*/
-		void Initialize( unsigned int port, int maxConnections );
+		void Initialize( int maxConnections );
 
 
 		/*! Updates the Network Provider
@@ -79,7 +77,7 @@ namespace Network
 		*
 		* @return ( void )
 		*/
-		void Destroy( );
+		void Destroy( ) { };
 
 
 		/*! Connects the Provider to a Server Address
@@ -88,7 +86,7 @@ namespace Network
 		* @param[in] unsigned int port
 		* @return (  )
 		*/
-		void Connect( const std::string& serverAddress, unsigned int port );
+		void Connect( const std::string& serverAddress );
 
 
 		/*! Disconnects the Provider if connected to a Server
@@ -111,14 +109,6 @@ namespace Network
 		* @return ( void )
 		*/
 		void FindServers( );
-
-
-		/*! Finds the Server Advertisement at the given cache index
-		*
-		* @param[in] int cacheIndex
-		* @return ( IServerAdvertisement* )
-		*/
-		IServerAdvertisement* GetServerAdvertisement( int cacheIndex );
 
 
 		/*! Stops the Client from receiving traffic, but it can still send messages
@@ -147,7 +137,7 @@ namespace Network
 		INetworkInterface* m_networkInterface;
 		INetworkClientEndpoint* m_endpoint;
 		INetworkClientController* m_controller;
-		IServerCache* m_serverCache;
+		Configuration::IConfiguration* m_configuration;
 		
 	};
 };

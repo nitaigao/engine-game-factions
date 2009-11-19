@@ -5,6 +5,9 @@
 #include "NetworkClientController.h"
 #include "ServerCache.h"
 
+#include "Configuration/ConfigurationTypes.hpp"
+using namespace Configuration;
+
 namespace Network
 {
 	NetworkClientProvider::~NetworkClientProvider( )
@@ -12,12 +15,13 @@ namespace Network
 		delete m_endpoint;
 		delete m_controller;
 		delete m_networkInterface;
-		delete m_serverCache;
+		delete m_configuration;
 	}
 
-	void NetworkClientProvider::Connect( const std::string& serverAddress, unsigned int port )
+	void NetworkClientProvider::Connect( const std::string& serverAddress )
 	{
-		m_networkInterface->Connect( serverAddress, port );
+		int serverPort = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerPort ).As< int >( );
+		m_networkInterface->Connect( serverPort, serverAddress );
 	}
 
 	void NetworkClientProvider::Disconnect()
@@ -25,9 +29,9 @@ namespace Network
 		m_networkInterface->Disconnect( );
 	}
 
-	void NetworkClientProvider::Initialize( unsigned int port, int maxConnections )
+	void NetworkClientProvider::Initialize( int maxConnections )
 	{
-		m_networkInterface->Initialize( port, maxConnections );
+		m_networkInterface->Initialize( 0, maxConnections );
 		m_controller->Initialize( );
 		m_endpoint->Initialize( );
 	}
@@ -37,11 +41,6 @@ namespace Network
 		m_endpoint->Update( deltaMilliseconds );
 	}
 
-	void NetworkClientProvider::Destroy()
-	{
-
-	}
-
 	void NetworkClientProvider::SelectCharacter( const std::string& characterName )
 	{
 		m_controller->SelectCharacter( characterName );
@@ -49,13 +48,8 @@ namespace Network
 
 	void NetworkClientProvider::FindServers( )
 	{
-		m_serverCache->Clear( );
-		m_controller->FindServers( );
-	}
-
-	IServerAdvertisement* NetworkClientProvider::GetServerAdvertisement( int cacheIndex )
-	{
-		return m_serverCache->Find( cacheIndex );
+		int serverPort = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerPort ).As< int >( );
+		m_controller->FindServers( serverPort );
 	}
 
 	void NetworkClientProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )

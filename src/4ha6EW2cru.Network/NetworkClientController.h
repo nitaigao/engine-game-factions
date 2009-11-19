@@ -58,7 +58,7 @@ namespace Network
 		*
 		* @return ( void )
 		*/
-		void FindServers( );
+		void FindServers( unsigned int port );
 
 
 		/*! Tells the Server that the Client has finished loading the Level

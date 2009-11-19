@@ -36,11 +36,10 @@ namespace Network
 
 		/*! Initializes the Network Interface
 		 *
-		 * @param[in] unsigned int port
 		 * @param[in] int maxConnections
 		 * @return ( void )
 		 */
-		virtual void Initialize( unsigned int port, int maxConnections ) = 0;
+		virtual void Initialize( int maxConnections ) = 0;
 
 
 		/*! Updates the Network Provider

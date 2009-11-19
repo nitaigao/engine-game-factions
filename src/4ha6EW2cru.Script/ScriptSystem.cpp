@@ -78,6 +78,24 @@ namespace Script
 			scope luaScope = 
 				(
 
+				class_< ScriptConfiguration >( "Config" )
+					.def( constructor< Configuration::IConfiguration* >( ) )
+						.property( "isFullScreen", &ScriptConfiguration::IsFullScreen, &ScriptConfiguration::SetFullScreen )
+						.property( "displayWidth", &ScriptConfiguration::GetDisplayWidth, &ScriptConfiguration::SetDisplayWidth )
+						.property( "displayHeight", &ScriptConfiguration::GetDisplayHeight, &ScriptConfiguration::SetDisplayHeight )
+						.property( "isConsole", &ScriptConfiguration::IsConsole, &ScriptConfiguration::SetConsole )
+						.property( "isInvertY", &ScriptConfiguration::IsInvertY, &ScriptConfiguration::SetInvertY )
+						.property( "isSmoothMouse", &ScriptConfiguration::IsSmoothMouse, &ScriptConfiguration::SetSmoothMouse )
+						.property( "mouseSmoothAmount", &ScriptConfiguration::GetMouseSmoothAmount, &ScriptConfiguration::SetMouseSmoothAmount )
+						.property( "sfxVolume", &ScriptConfiguration::GetSFXVolume, &ScriptConfiguration::SetSFXVolume )
+						.property( "musicVolume", &ScriptConfiguration::GetMusicVolume, &ScriptConfiguration::SetMusicVolume )
+						.property( "serverPort", &ScriptConfiguration::GetServerPort, &ScriptConfiguration::SetServerPort )
+						.property( "serverBotCount", &ScriptConfiguration::GetServerBotCount, &ScriptConfiguration::SetServerBotCount )
+						.property( "serverName", &ScriptConfiguration::GetServerName, &ScriptConfiguration::SetServerName )
+						.property( "serverTimeLimit", &ScriptConfiguration::GetServerTimeLimit, &ScriptConfiguration::SetServerTimeLimit )
+						.property( "serverFragLimit", &ScriptConfiguration::GetServerFragLimit, &ScriptConfiguration::SetServerFragLimit )
+						.property( "serverMaxPlayers", &ScriptConfiguration::GetServerMaxPlayers, &ScriptConfiguration::SetServerMaxPlayers ),
+
 				class_< ScriptComponent >( "ScriptComponent" )
 					.def( "include", &ScriptComponent::IncludeScript )
 					.def( "registerEventHandler", ( void ( ScriptComponent::* ) ( const std::string&, const luabind::object& ) ) &ScriptComponent::RegisterEventHandler )

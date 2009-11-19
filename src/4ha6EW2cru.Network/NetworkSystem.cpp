@@ -60,16 +60,16 @@ namespace Network
 
 		if ( !m_attributes[ System::Attributes::Network::IsServer ].As< bool >( ) )
 		{
-			m_clientProvider->Initialize( 0, 1 );
+			m_clientProvider->Initialize( 1 );
 			m_scene->AddNetworkProvider( m_clientProvider );
 		}
 
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort, 8989 );
 		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount, 0 );
 		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName, "Factions Server" );
 		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit, 60 );
 		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit, 50 ); 
 		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers, 10 ); 
+		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort, 8989 ); 
 	}
 
 	void NetworkSystem::Update( float deltaMilliseconds )
@@ -86,14 +86,13 @@ namespace Network
 			scope luaScope = 
 				(
 				class_< ServerEventData >( "ServerEventData" )
-					.def( constructor< const std::string&, const std::string&, int, int, int, const std::string&, int >( ) )
+					.def( constructor< const std::string&, const std::string&, int, int, int, const std::string& >( ) )
 					.def( "getServerName", &ServerEventData::GetServerName )
 					.def( "getMaxPlayers", &ServerEventData::GetMaxPlayers )
 					.def( "getMapName", &ServerEventData::GetMapName )
 					.def( "getNumPlayers", &ServerEventData::GetNumPlayers )
 					.def( "getPing", &ServerEventData::GetPing )
 					.def( "getAddress", &ServerEventData::GetAddress )
-					.def( "getPort", &ServerEventData::GetPort )
 				);
 
 			results[ System::TypeStrings::NETWORK ] = luaScope;
@@ -105,10 +104,7 @@ namespace Network
 
 			m_clientProvider->SetPassive( true );
 
-			m_serverProvider->Initialize(
-				parameters[ System::Parameters::Network::Port ].As< unsigned int >( ),
-				parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( )
-				);
+			m_serverProvider->Initialize( parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >( ) );
 
 			m_scene->AddNetworkProvider( m_serverProvider );
 			m_eventManager->AddEventListener( EventTypes::GAME_LEVEL_CHANGED, MakeEventListener( static_cast< NetworkServerProvider* >( m_serverProvider ), &NetworkServerProvider::OnGameLevelChanged ) );
@@ -117,8 +113,7 @@ namespace Network
 		if ( message == System::Messages::Network::Connect )
 		{
 			m_clientProvider->Connect( 
-				parameters[ System::Parameters::Network::HostAddress ].As< std::string >( ).c_str( ),
-				parameters[ System::Parameters::Network::Port ].As< unsigned int >( )
+				parameters[ System::Parameters::Network::HostAddress ].As< std::string >( ).c_str( )
 				);
 		}
 

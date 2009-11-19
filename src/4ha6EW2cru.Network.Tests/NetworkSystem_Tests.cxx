@@ -103,7 +103,7 @@ TEST_F( NetworkSystem_Tests, should_connect_to_server )
 	std::string serverAddress = "127.0.0.1";
 	unsigned int port = 8989;
 
-	EXPECT_CALL( *m_clientProvider, Connect( serverAddress, port ) );
+	EXPECT_CALL( *m_clientProvider, Connect( serverAddress ) );
 
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::Network::HostAddress ] = serverAddress;
@@ -144,23 +144,6 @@ TEST_F( NetworkSystem_Tests, should_find_servers )
 {
 	EXPECT_CALL( *m_clientProvider, FindServers( ) );
 	m_subject->ProcessMessage( System::Messages::Network::Client::FindServers, AnyType::AnyTypeMap( ) );
-}
-
-TEST_F( NetworkSystem_Tests, should_return_server_ad )
-{
-	int cacheIndex = 0;
-
-	AnyType::AnyTypeMap parameters;
-	parameters[ System::Parameters::Network::Client::ServerCacheIndex ] = cacheIndex;
-
-	ServerAdvertisement* ad = new ServerAdvertisement( "name", "level", 10, 1, 10, "127.0.0.1", 8989 );
-
-	EXPECT_CALL( *m_clientProvider, GetServerAdvertisement( cacheIndex ) )
-		.WillOnce( Return( ad ) );
-
-	m_subject->ProcessMessage( System::Messages::Network::Client::GetServerAd, parameters );
-
-	delete ad;
 }
 
 TEST_F( NetworkSystem_Tests, should_send_level_loaded )

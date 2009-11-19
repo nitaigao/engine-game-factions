@@ -23,6 +23,7 @@ using namespace Events;
 using namespace RakNet;
 
 #include "Configuration/Configuration.h"
+#include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
 class NetworkServerProvider_Tests : public TestHarness< NetworkServerProvider >
@@ -41,6 +42,8 @@ protected:
 		m_controller = new MockNetworkServerController( );
 		m_endpoint = new MockNetworkServerEndpoint( ); 
 		m_configuration = new ClientConfiguration( );
+
+		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 0 );
 	}
 
 	NetworkServerProvider* CreateSubject( )
@@ -53,7 +56,7 @@ protected:
 TEST_F( NetworkServerProvider_Tests, should_initialize_network_interface )
 {
 	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
-	m_subject->Initialize( 0, 0 );
+	m_subject->Initialize( 0 );
 }
 
 TEST_F( NetworkServerProvider_Tests, should_update_endpoint )
@@ -70,7 +73,7 @@ TEST_F( NetworkServerProvider_Tests, should_set_offline_message_on_level_changed
 
 	EXPECT_CALL( *m_networkInterface, SetOfflinePingInformation( A< BitStream* >( ) ) );
 
-	m_subject->Initialize( 0, 0 );
+	m_subject->Initialize( 0 );
 
 	Event event( EventTypes::GAME_LEVEL_CHANGED, new LevelChangedEventData( "test" ) );
 	m_subject->OnGameLevelChanged( &event );
@@ -80,7 +83,7 @@ TEST_F( NetworkServerProvider_Tests, should_initialize_controller )
 {
 	EXPECT_CALL( *m_controller, Initialize( ) );
 
-	m_subject->Initialize( 0, 0 );
+	m_subject->Initialize( 0 );
 }
 
 TEST_F( NetworkServerProvider_Tests, should_create_entity_using_controller )

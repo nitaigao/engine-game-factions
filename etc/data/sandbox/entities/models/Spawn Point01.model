@@ -1,5 +1,5 @@
 <node name="Spawn Point01">
-  <position x="-250.122" y="-5.23246e-006" z="-119.705" />
+  <position x="-27.8557" y="-6.29372e-008" z="-1.43983" />
   <scale x="1" y="1" z="1" />
   <rotation qx="0" qy="0" qz="0" qw="1" />
   <entity name="Spawn Point01" castShadows="true" receiveShadows="true" meshFile="/data/entities/meshes/SpawnPoint01.mesh">

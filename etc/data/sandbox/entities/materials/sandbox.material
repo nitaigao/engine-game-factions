@@ -13,6 +13,23 @@ material NoMaterial
 
 
 
+material invisible_OgreMax
+{
+	technique Map#5
+	{
+		pass Map#6
+		{
+			ambient 0.588235 0.588235 0.588235 1
+			diffuse 0.588235 0.588235 0.588235 1
+			specular 0 0 0 1 10
+		}
+
+	}
+
+}
+
+
+
 material 03-Default
 {
 	technique Map#7
@@ -27,23 +44,6 @@ material 03-Default
 				texture /data/entities/textures/board.png
 				filtering linear linear linear
 			}
-		}
-
-	}
-
-}
-
-
-
-material invisible_OgreMax
-{
-	technique Map#5
-	{
-		pass Map#6
-		{
-			ambient 0.588235 0.588235 0.588235 1
-			diffuse 0.588235 0.588235 0.588235 1
-			specular 0 0 0 1 10
 		}
 
 	}

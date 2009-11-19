@@ -58,10 +58,9 @@ namespace Script
 		/*! Requests the Game connects to the specified server
 		*
 		* @param[in] const std::string & serverAddress
-		* @param[in] const int & port
 		* @return ( void )
 		*/
-		void Connect( const std::string& hostAddress, unsigned int port );
+		void Connect( const std::string& hostAddress );
 
 
 		/*! Disconnects if connected to a server
@@ -98,7 +97,6 @@ namespace Script
 		/*! Creates a Local Server running within the game client
 		 *
 		 * @param[in] const std::string & levelName
-		 * @param[in] unsigned int port
 		 * @param[in] int botCount
 		 * @param[in] const std::string & serverName
 		 * @param[in] int timeLimit
@@ -106,7 +104,7 @@ namespace Script
 		 * @param[in] int maxPlayers
 		 * @return ( void )
 		 */
-		void CreateServer( const std::string& levelName, unsigned int port, int botCount, const std::string& serverName, int timeLimit, int fragLimit, int maxPlayers );
+		void CreateServer( const std::string& levelName, int botCount, const std::string& serverName, int timeLimit, int fragLimit, int maxPlayers );
 
 
 		/*! Initializes the Facade with the given ScriptComponent

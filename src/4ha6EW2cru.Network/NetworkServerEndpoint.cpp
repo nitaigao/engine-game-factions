@@ -67,8 +67,6 @@ namespace Network
 
 	void NetworkServerEndpoint::Net_SelectCharacter( RakString characterName, RakNet::RPC3* rpcFromnetwork )
 	{
-		Net( rpcFromnetwork->GetLastSenderAddress( ).ToString( ), "Has selected character", characterName.C_String( ) );
-
 		SystemAddress serverAddress = rpcFromnetwork->GetRakPeer( )->GetSystemAddressFromIndex( 0 );
 		SystemAddress clientAddress = rpcFromnetwork->GetLastSenderAddress( );
 
@@ -113,13 +111,11 @@ namespace Network
 
 	void NetworkServerEndpoint::LevelLoaded( RakNet::RPC3* rpcFromNetwork )
 	{
-		Net( rpcFromNetwork->GetLastSenderAddress( ).ToString( ), "Has finished loading a level" );
 		m_networkController->SendWorldUpdate( rpcFromNetwork->GetLastSenderAddress( ) );
 	}
 
 	void NetworkServerEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork )
 	{
-		Net( rpcFromNetwork->GetLastSenderAddress( ).ToString( ), entityName, message );
 		m_networkScene->MessageComponent( entityName, message, parameters );
 		m_networkController->MessageEntity( entityName, message, parameters ); // forward the message to the rest of the clients on the network
 	}
