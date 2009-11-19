@@ -81,6 +81,7 @@ namespace Network
 			stream.Write( deltaY );
 		}
 
+		Net( "server sending:", entityName, message );
 		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
 	}
 }

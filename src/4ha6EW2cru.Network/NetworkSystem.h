@@ -44,13 +44,14 @@ namespace Network
 		*/
 		NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
 			INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider
-			, Events::EventManager* eventManager )
+			, Events::EventManager* eventManager, Configuration::IConfiguration* configuration )
 			: m_instrumentation( instrumentation )
 			, m_serviceManager( serviceManager )
 			, m_scene( scene )
 			, m_clientProvider( clientProvider )
 			, m_serverProvider( serverProvider )
 			, m_eventManager( eventManager )
+			, m_configuration( configuration )
 		{
 			m_attributes[ System::Attributes::Network::IsServer ] = false;
 		}
@@ -129,6 +130,7 @@ namespace Network
 		INetworkClientProvider* m_clientProvider;
 		INetworkServerProvider* m_serverProvider;
 		Events::EventManager* m_eventManager;
+		Configuration::IConfiguration* m_configuration;
 	};
 };
 

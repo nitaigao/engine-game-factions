@@ -73,7 +73,7 @@ function Servers.onServerListDoubleClick( index )
 	local serverAddress = serverList:getSubItemName( 4, index )
 	local serverPort = serverList:getSubItemName( 5, index )
 	
-	Servers.Connect( serverAddress, tonumber( serverPort ) )
+	Servers.Connect( serverAddress )
 
 end
 
@@ -84,13 +84,13 @@ function Servers.onConnectClicked( )
 	local serverAddress = serverList:getSubItemName( 4, serverList:getSelectedIndex( ) )
 	local serverPort = serverList:getSubItemName( 5, serverList:getSelectedIndex( ) )
 	
-	Servers.Connect( serverAddress, tonumber( serverPort ) )
+	Servers.Connect( serverAddress )
 
 end
 
-function Servers.Connect( serverAddress, serverPort )
+function Servers.Connect( serverAddress )
 
-	network:connect( serverAddress, serverPort )
+	network:connect( serverAddress )
 	Servers.onHideServers( )
 
 end
@@ -107,7 +107,6 @@ function Servers.onServerDiscovered( event, data )
 	serverList:setSubItemName( 2, serverIndex, '' .. data:getMapName( ) )
 	serverList:setSubItemName( 3, serverIndex, '' .. data:getPing( ) .. 'ms' )
 	serverList:setSubItemName( 4, serverIndex, '' .. data:getAddress( ) )
-	serverList:setSubItemName( 5, serverIndex, '' .. data:getPort( ) )
 
 end
 

@@ -32,6 +32,8 @@ namespace Network
 
 	void NetworkClientController::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
+		Net( "client sending:", entityName, message );
+
 		BitStream stream;
 
 		if ( message == System::Messages::Mouse_Moved )

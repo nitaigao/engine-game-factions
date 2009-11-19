@@ -22,7 +22,6 @@ namespace Network
 {
 	NetworkServerProvider::~NetworkServerProvider( )
 	{
-		delete m_configuration;
 		delete m_endpoint;
 		delete m_controller;
 		delete m_networkInterface;

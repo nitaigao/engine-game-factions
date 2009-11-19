@@ -34,6 +34,11 @@ protected:
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 0 );
 	}
 
+	void DestroyContext()
+	{
+		delete m_configuration;
+	}
+
 	NetworkClientProvider* CreateSubject( )
 	{
 		return new NetworkClientProvider( m_configuration, m_networkInterface, m_controller, m_endpoint );

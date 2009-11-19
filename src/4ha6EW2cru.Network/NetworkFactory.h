@@ -12,6 +12,8 @@
 #include "INetworkSystem.hpp"
 #include "INetworkSystemScene.hpp"
 
+#include "Configuration/IConfiguration.hpp"
+
 namespace Network
 {
 	enum NetworkProviderType
@@ -22,8 +24,8 @@ namespace Network
 
 	class INetworkFactory
 	{
-		virtual INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene ) = 0;
-		virtual INetworkSystem* CreateNetworkSystem( ) = 0;
+		virtual INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene, Configuration::IConfiguration* configuration ) = 0;
+		virtual INetworkSystem* CreateNetworkSystem( Configuration::IConfiguration* configuration ) = 0;
 		virtual INetworkSystemScene* CreateNetworkSystemScene( ) = 0;
 	};
 
@@ -48,11 +50,11 @@ namespace Network
 		*/
 		NetworkFactory( ) { };
 
-		INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene );
+		INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene, Configuration::IConfiguration* configuration );
 
 		INetworkSystemScene* CreateNetworkSystemScene( );
 
-		INetworkSystem* CreateNetworkSystem( );
+		INetworkSystem* CreateNetworkSystem( Configuration::IConfiguration* configuration );
 
 	private:
 

@@ -64,12 +64,12 @@ namespace Network
 			m_scene->AddNetworkProvider( m_clientProvider );
 		}
 
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount, 0 );
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName, "Factions Server" );
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit, 60 );
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit, 50 ); 
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers, 10 ); 
-		configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort, 8989 ); 
+		m_configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount, 0 );
+		m_configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName, "Factions Server" );
+		m_configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit, 60 );
+		m_configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit, 50 ); 
+		m_configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers, 10 ); 
+		m_configuration->SetDefault( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort, 8989 ); 
 	}
 
 	void NetworkSystem::Update( float deltaMilliseconds )

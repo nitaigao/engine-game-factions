@@ -31,6 +31,7 @@ protected:
 	MockNetworkServerProvider * m_serverProvider;
 	MockInstrumentation* m_instrumentation;
 	EventManager* m_eventManager;
+	ClientConfiguration* m_configuration;
 
 	void EstablishContext( )
 	{
@@ -40,8 +41,8 @@ protected:
 		m_serverProvider = new MockNetworkServerProvider( );
 		m_instrumentation = new MockInstrumentation( );
 		m_eventManager = new EventManager( );
+		m_configuration = new ClientConfiguration( );
 	}
-
 
 	void DestroyContext( )
 	{
@@ -49,11 +50,12 @@ protected:
 		delete m_serviceManager;
 		delete m_instrumentation;
 		delete m_eventManager;
+		delete m_configuration;
 	}
 
 	NetworkSystem* CreateSubject( )
 	{
-		return new NetworkSystem( m_serviceManager, m_instrumentation, m_scene, m_clientProvider, m_serverProvider, m_eventManager ); 
+		return new NetworkSystem( m_serviceManager, m_instrumentation, m_scene, m_clientProvider, m_serverProvider, m_eventManager, m_configuration ); 
 	}
 };
 

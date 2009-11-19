@@ -24,7 +24,7 @@ using namespace Configuration;
 
 namespace Network
 {
-	INetworkProvider* NetworkFactory::CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene )
+	INetworkProvider* NetworkFactory::CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene, IConfiguration* configuration )
 	{
 		switch ( type )
 		{
@@ -34,7 +34,7 @@ namespace Network
 				INetworkInterface* networkInterface = new NetworkInterface( );
 
 				return new NetworkClientProvider( 
-					new ClientConfiguration( ),
+					configuration,
 					networkInterface, 
 					new NetworkClientController( networkInterface ),
 					new NetworkClientEndpoint( networkInterface, scene, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) )	
@@ -47,7 +47,7 @@ namespace Network
 				INetworkServerController* controller = new NetworkServerController( networkInterface, Management::Get( )->GetServiceManager( ) );
 
 				return new NetworkServerProvider( 
-					new ClientConfiguration( ),
+					configuration,
 					networkInterface, 
 					controller,
 					new NetworkServerEndpoint( networkInterface, scene, controller )
@@ -65,7 +65,7 @@ namespace Network
 		return new NetworkSystemScene( new NetworkSystemComponentFactory( ) );
 	}
 
-	INetworkSystem* NetworkFactory::CreateNetworkSystem()
+	INetworkSystem* NetworkFactory::CreateNetworkSystem( IConfiguration* configuration )
 	{
 		INetworkSystemScene* scene = this->CreateNetworkSystemScene( );
 
@@ -73,9 +73,10 @@ namespace Network
 			Management::Get( )->GetServiceManager( ), 
 			Management::Get( )->GetInstrumentation( ),
 			scene,
-			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT, scene ) ),
-			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER, scene ) ),
-			Management::Get( )->GetEventManager( )
+			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT, scene, configuration ) ),
+			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER, scene, configuration ) ),
+			Management::Get( )->GetEventManager( ),
+			configuration
 			);
 	}
 

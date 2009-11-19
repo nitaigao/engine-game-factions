@@ -25,7 +25,7 @@ extern "C" void __stdcall Initialize( Management* management, Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
 {
-	return Network::NetworkFactory( ).CreateNetworkSystem( );
+	return Network::NetworkFactory( ).CreateNetworkSystem( configuration );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

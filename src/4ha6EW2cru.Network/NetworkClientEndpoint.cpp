@@ -93,6 +93,7 @@ namespace Network
 	{
 		if ( !m_isPassive && entityName != sender.ToString( ) )
 		{
+			Net( "client:", m_networkInterface->GetAddress( sender ).ToString( ), "received message", message, "for", entityName );
 			m_networkScene->MessageComponent( entityName, message, parameters );
 		}
 	}

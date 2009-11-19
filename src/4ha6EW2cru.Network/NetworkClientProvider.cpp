@@ -15,7 +15,6 @@ namespace Network
 		delete m_endpoint;
 		delete m_controller;
 		delete m_networkInterface;
-		delete m_configuration;
 	}
 
 	void NetworkClientProvider::Connect( const std::string& serverAddress )
