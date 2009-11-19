@@ -40,13 +40,13 @@ TEST_F( ScriptFacadeManager_Tests, should_initialize )
 	MockScriptFacade facade;
 	MockScriptComponent component;
 
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::ANIMATION, &component ) ).WillOnce( Return( &facade ) );
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::INPUT, &component ) ).WillOnce( Return( &facade ) );
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::INSTRUMENTATION, &component ) ).WillOnce( Return( &facade ) );
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::NETWORK, &component ) ).WillOnce( Return( &facade ) );
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::PHYSICS, &component ) ).WillOnce( Return( &facade ) );
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::SOUND, &component ) ).WillOnce( Return( &facade ) );
-	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::SYSTEM, &component ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::ANIMATION, &component, m_state ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::INPUT, &component, m_state ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::INSTRUMENTATION, &component, m_state ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::NETWORK, &component, m_state ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::PHYSICS, &component, m_state ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::SOUND, &component, m_state ) ).WillOnce( Return( &facade ) );
+	EXPECT_CALL( *m_facadeFactory, CreateScriptFacade( IScriptFacade::SYSTEM, &component, m_state ) ).WillOnce( Return( &facade ) );
 	EXPECT_CALL( facade, Initialize( ) ).Times( ( int ) IScriptFacade::FACADETYPE_MAX );
 
 	m_subject->Initialize( &component );

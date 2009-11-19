@@ -9,7 +9,6 @@
 #define SCRIPTFACADEFACTORY_H
 
 #include "IScriptFacadeFactory.hpp"
-#include "ILuaState.hpp"
 
 namespace Script
 {
@@ -32,11 +31,7 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		ScriptFacadeFactory( ILuaState* state )
-			: m_state( state )
-		{
-
-		}
+		ScriptFacadeFactory( ) { };
 
 
 		/*! Creates a ScriptFacade of the given type
@@ -44,14 +39,12 @@ namespace Script
 		* @param[in] IScriptFacade::FacadeType
 		* @return ( IScriptFacade* )
 		*/
-		IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component );
+		IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state );
 
 	private:
 
 		ScriptFacadeFactory( const ScriptFacadeFactory & copy ) { };
 		ScriptFacadeFactory & operator = ( const ScriptFacadeFactory & copy ) { return *this; };
-
-		ILuaState* m_state;
 		
 	};
 };

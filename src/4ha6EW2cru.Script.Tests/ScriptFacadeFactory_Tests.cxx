@@ -26,7 +26,7 @@ protected:
 
 	ScriptFacadeFactory* CreateSubject( )
 	{
-		return new ScriptFacadeFactory( m_state ); 
+		return new ScriptFacadeFactory( ); 
 	}
 };
 
@@ -34,6 +34,6 @@ TEST_F( ScriptFacadeFactory_Tests, should_create_component )
 {
 	MockScriptComponent component;
 
-	IScriptFacade* facade = m_subject->CreateScriptFacade( IScriptFacade::ANIMATION, &component );
+	IScriptFacade* facade = m_subject->CreateScriptFacade( IScriptFacade::ANIMATION, &component, m_state );
 	delete facade;
 }

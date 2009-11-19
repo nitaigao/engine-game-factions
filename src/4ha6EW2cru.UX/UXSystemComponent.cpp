@@ -26,8 +26,8 @@ namespace UX
 
 	void UXSystemComponent::Initialize( )
 	{
-		m_state->Execute( );
 		m_facadeManager->Initialize( this );
+		m_state->Execute( );
 	}
 
 	void UXSystemComponent::Destroy()

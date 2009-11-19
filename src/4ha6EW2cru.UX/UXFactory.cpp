@@ -22,7 +22,7 @@ namespace UX
 
 		ILuaState* masterState = new LuaState( Management::Get( )->GetResourceManager( ) );
 		IGUI* gui = this->CreateUXGUI( );
-		IScriptFacadeFactory* scriptFacadeFactory = new ScriptFacadeFactory( masterState );
+		IScriptFacadeFactory* scriptFacadeFactory = new ScriptFacadeFactory( );
 
 		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, eventManager, scriptFacadeFactory );
 		IUXSystemScene* scene = new UXSystemScene( gui, serviceManager, masterState, factory, configuration, eventManager );

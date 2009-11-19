@@ -23,7 +23,7 @@ namespace Script
 	IScriptSystemScene* ScriptFactory::CreateScriptSystemScene( Configuration::IConfiguration* configuration )
 	{
 		ILuaState* state = new LuaState( Management::Get( )->GetResourceManager( ) );
-		IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory( state );
+		IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory( );
 		IScriptComponentFactory* componentFactory = new ScriptComponentFactory( state, Management::Get( )->GetEventManager( ), facadeFactory );
 
 		return new ScriptSystemScene( 
