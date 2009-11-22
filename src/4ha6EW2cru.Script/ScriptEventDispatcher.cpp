@@ -9,6 +9,11 @@ namespace Script
 {
 	ScriptEventDispatcher::~ScriptEventDispatcher()
 	{
+		for ( Events::EventTypeMap::iterator i = m_eventTypes.begin( ); i != m_eventTypes.end( ); ++i )
+		{
+			m_eventManager->RemoveEventListener( ( *i ).first, MakeEventListener( this, &ScriptEventDispatcher::EventHandler ) );
+		}
+
 		for ( IScriptFunctionHandler::FunctionMap::iterator i = m_eventHandlers.begin( ); i != m_eventHandlers.end( ); )	
 		{
 			delete ( *i ).second;
