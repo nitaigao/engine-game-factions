@@ -32,8 +32,6 @@ namespace Network
 
 	void NetworkClientController::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		Net( "client sending:", entityName, message );
-
 		BitStream stream;
 
 		if ( message == System::Messages::Mouse_Moved )
@@ -47,12 +45,6 @@ namespace Network
 
 		SystemAddress clientAddress = m_networkInterface->GetAddress( m_networkInterface->GetRPC( )->GetRakPeer( )->GetSystemAddressFromIndex( 0 ) );
 
-		/*if ( m_isPassive )
-		{
-			m_networkInterface->GetRPC( )->SetRecipientAddress( UNASSIGNED_SYSTEM_ADDRESS, true );
-			//m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
-		}
-		else if*/
 		if ( !m_isPassive && entityName == clientAddress.ToString( ) )
 		{
 			SystemAddress serverAddress = m_networkInterface->GetRPC( )->GetRakPeer( )->GetSystemAddressFromIndex( 0 );

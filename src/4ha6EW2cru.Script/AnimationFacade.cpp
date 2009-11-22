@@ -18,7 +18,6 @@ namespace Script
 
 	void AnimationFacade::StartAnimation( const std::string& animationName, bool loop )
 	{
-		Debug( m_component->GetAttributes( )[ System::Attributes::Name ].As<std::string>( ), "is animating" );
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::AnimationName ] = animationName;
 		parameters[ System::Parameters::LoopAnimation ] = loop;

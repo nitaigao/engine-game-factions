@@ -7,15 +7,13 @@ using namespace RakNet;
 #include "IO/IStream.hpp"
 using namespace IO;
 
+#include "Maths/MathVector3.hpp"
+using namespace Maths;
+
 #include "Management/Management.h"
 
 namespace Network
 {
-	NetworkServerController::~NetworkServerController( )
-	{
-
-	}
-
 	void NetworkServerController::Initialize( )
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkClientEndpoint::Net_LoadLevel );
@@ -81,7 +79,12 @@ namespace Network
 			stream.Write( deltaY );
 		}
 
-		Net( "server sending:", entityName, message );
+		if ( message == System::Messages::SetPosition )
+		{
+			MathVector3 position = parameters[ System::Attributes::Position ].As< MathVector3 >( );
+			stream.WriteVector( position.X, position.Y, position.Z );
+		}
+
 		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
 	}
 }

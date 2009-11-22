@@ -14,6 +14,7 @@ using namespace Maths;
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockNetworkServerController.hpp"
 #include "Mocks/MockNetworkServerEndpoint.hpp"
+#include "Mocks/MockNetworkSystemComponent.hpp"
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
@@ -96,35 +97,45 @@ TEST_F( NetworkServerProvider_Tests, should_create_entity_using_controller )
 	std::string entityName = "testname";
 	std::string entityType = "type";;
 
+	MockNetworkSystemComponent component;
+	EXPECT_CALL( component, GetName( ) ).WillOnce( Return( entityName ) );
+
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::FilePath ] = "filePath";
 	parameters[ System::Attributes::EntityType ] = "type";
 
 	EXPECT_CALL( *m_controller, CreateEntity( entityName, entityType ) );
-	m_subject->Message( entityName, System::Messages::Entity::CreateEntity, parameters );
+	m_subject->Message( &component, System::Messages::Entity::CreateEntity, parameters );
 }
 
 TEST_F( NetworkServerProvider_Tests, should_destroy_entity_using_the_controller )
 {
 	std::string entityName = "hello";
 
+	MockNetworkSystemComponent component;
+	EXPECT_CALL( component, GetName( ) ).WillOnce( Return( entityName ) );
+
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Attributes::Name ] = entityName;
 
 	EXPECT_CALL( *m_controller, DestroyEntity( entityName ) );
-	m_subject->Message( entityName, System::Messages::Entity::DestroyEntity, parameters );
+	m_subject->Message( &component, System::Messages::Entity::DestroyEntity, parameters );
 }
 
 TEST_F( NetworkServerProvider_Tests, should_forward_mouse_moved_events_to_the_network )
 {
 	std::string entityName = "test";
 
+	MockNetworkSystemComponent component;
+	EXPECT_CALL( component, GetName( ) ).WillRepeatedly( Return( entityName ) );
+
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::DeltaX ] = "1.0f";
 
 	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
+	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::SetPosition, An< AnyType::AnyTypeMap >( ) ) );
 
-	m_subject->Message( entityName, System::Messages::Mouse_Moved, parameters );
+	m_subject->Message( &component, System::Messages::Mouse_Moved, parameters );
 }
 
 /*TEST_F( NetworkServerProvider_Tests, should_update_the_controller )

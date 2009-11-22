@@ -76,6 +76,13 @@ public:
 	 */
 	virtual void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) = 0;
 
+
+	/*! Returns the Name of the Component
+	 *
+	 * @return ( std::string )
+	 */
+	virtual std::string GetName( ) const = 0;
+
 };
 
 #endif

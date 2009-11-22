@@ -8,6 +8,7 @@ using namespace Network;
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockNetworkClientEndpoint.hpp"
 #include "Mocks/MockNetworkClientController.hpp"
+#include "Mocks/MockNetworkSystemComponent.hpp"
 #include "Mocks/MockServerCache.hpp"
 
 #include "Configuration/Configuration.h"
@@ -135,10 +136,14 @@ TEST_F( NetworkClientProvider_Tests, should_forward_input_events_to_the_network 
 {
 	std::string entityName = "test";
 
+	MockNetworkSystemComponent component;
+
+	EXPECT_CALL( component, GetName( ) ).WillOnce( Return( entityName ) );
+
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::DeltaX ] = "1.0f";
 
 	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
 
-	m_subject->Message( entityName, System::Messages::Mouse_Moved, parameters );
+	m_subject->Message( &component, System::Messages::Mouse_Moved, parameters );
 }

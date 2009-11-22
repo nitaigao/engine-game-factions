@@ -17,7 +17,7 @@ namespace Network
 	/*! 
 	 *  A provider to control Server network flow
 	 */
-	class INetworkServerProvider : public INetworkProvider
+	class GAMEAPI INetworkServerProvider : public INetworkProvider
 	{
 
 	public:

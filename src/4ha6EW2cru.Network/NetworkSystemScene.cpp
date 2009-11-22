@@ -35,7 +35,7 @@ namespace Network
 
 	void NetworkSystemScene::MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
-		static_cast< INetworkSystemComponent* >( m_components[ componentId ] )->MessageFromNetwork( message, parameters );
+		m_components[ componentId ]->PushMessage( message, parameters );
 	}
 
 	void NetworkSystemScene::Update( float deltaMilliseconds )
@@ -43,6 +43,11 @@ namespace Network
 		for( INetworkProvider::NetworkProviderList::iterator i = m_networkProviders.begin( ); i != m_networkProviders.end( ); ++i )
 		{
 			( *i )->Update( deltaMilliseconds );
+		}
+
+		for( ISystemComponent::SystemComponentMap::iterator i = m_components.begin( ); i != m_components.end( ); ++i )
+		{
+			( *i ).second->Update( deltaMilliseconds );
 		}
 	}
 

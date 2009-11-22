@@ -133,6 +133,13 @@ namespace Renderer
 		*/
 		void DeSerialize( IO::IStream* stream ) { };
 
+
+		/*! Returns the Name of the Component
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+
 	protected:
 
 		RendererSystemComponent( ) { };

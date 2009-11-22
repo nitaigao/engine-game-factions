@@ -79,6 +79,7 @@ namespace Animation
 		*/
 		void DestroyComponent( ISystemComponent* component );
 
+
 	private:
 
 		AnimationSystemScene( const AnimationSystemScene & copy ) { };

@@ -18,11 +18,6 @@ namespace State
 	{
 		AnyType::AnyTypeKeyMap results;
 
-		if ( message == System::Messages::Move_Forward_Pressed )
-		{
-			int a = 1;
-		}
-
 		for( ISystemComponent::SystemComponentList::const_iterator i = m_components.begin( ); i != m_components.end( ); ++i )
 		{
 			if ( ( *i ) != subject )

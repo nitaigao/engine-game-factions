@@ -36,14 +36,12 @@ namespace Network
 		virtual void AddProvider( INetworkProvider* provider ) = 0;
 
 
-		/*! Receives Messages from an inbound network connection
+		/*! Returns the Position of the parent Entity in the scene
 		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
+		* @return ( Maths::MathVector3& )
 		*/
-		virtual void MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
-		
+		virtual Maths::MathVector3 GetPosition( ) const = 0;
+
 	};
 };
 

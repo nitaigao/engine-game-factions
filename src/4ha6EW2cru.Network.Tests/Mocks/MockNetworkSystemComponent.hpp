@@ -29,6 +29,8 @@ namespace
 		MOCK_METHOD2( PushMessage, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
 		MOCK_METHOD1( Serialize, void( IO::IStream* ) );
 		MOCK_METHOD1( DeSerialize, void( IO::IStream* ) );
+		MOCK_CONST_METHOD0( GetName, std::string( ) );
+		MOCK_CONST_METHOD0( GetPosition, Maths::MathVector3( ) );
 		
 	};
 };

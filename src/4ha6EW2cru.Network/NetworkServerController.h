@@ -27,7 +27,7 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		~NetworkServerController( );
+		~NetworkServerController( ) { };
 
 
 		/*! Default Constructor

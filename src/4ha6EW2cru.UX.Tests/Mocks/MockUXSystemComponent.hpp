@@ -34,6 +34,7 @@ namespace
 		MOCK_METHOD2( RegisterEventHandler, void( const std::string&, Script::IScriptFunctionHandler* ) );
 		MOCK_METHOD2( UnregisterEventHandler, void( const std::string&, const luabind::object& ) );
 		MOCK_METHOD2( UnregisterEventHandler, void( const std::string&, Script::IScriptFunctionHandler* ) );
+		MOCK_CONST_METHOD0( GetName, std::string( ) );
 		
 	};
 };

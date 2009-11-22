@@ -33,6 +33,7 @@ namespace Network
 		*/
 		NetworkSystemComponent( )
 			: m_observer( 0 )
+			, m_accumulator( 0 )
 		{
 
 		}
@@ -51,7 +52,7 @@ namespace Network
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		void Update( float deltaMilliseconds ) { };
+		void Update( float deltaMilliseconds );
 
 
 		/*! Destroys the Component
@@ -90,7 +91,7 @@ namespace Network
 		*  @param[in] AnyType::AnyValueMap parameters
 		*  @return (AnyType)
 		*/
-		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
+		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Messages the Component to influence its internal state
@@ -109,15 +110,6 @@ namespace Network
 		void AddProvider( INetworkProvider* provider ) { m_networkProviders.push_back( provider ); };
 
 
-		/*! Receives Messages from an inbound network connection
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		void MessageFromNetwork( const System::MessageType& message, AnyType::AnyTypeMap parameters );
-
-
 		/*! Writes the contents of the object to the given stream
 		*
 		* @param[in] IStream * stream
@@ -133,6 +125,20 @@ namespace Network
 		*/
 		void DeSerialize( IO::IStream* stream ) { };
 
+
+		/*! Returns the Name of the Component
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+
+
+		/*! Returns the Position of the parent Entity in the scene
+		*
+		* @return ( Maths::MathVector3& )
+		*/
+		inline Maths::MathVector3 GetPosition( ) const { return ( *m_attributes.find( System::Attributes::Position ) ).second.As< Maths::MathVector3 >( ); };
+
 	private:
 
 		NetworkSystemComponent( const NetworkSystemComponent & copy ) { };
@@ -141,6 +147,7 @@ namespace Network
 		AnyType::AnyTypeMap m_attributes;
 		IObserver* m_observer;
 		INetworkProvider::NetworkProviderList m_networkProviders;
+		float m_accumulator;
 		
 	};
 };

@@ -22,6 +22,9 @@ using namespace Utility;
 #include "Logging/Logger.h"
 using namespace Logging;
 
+#include "Maths/MathVector3.hpp"
+using namespace Maths;
+
 using namespace IO;
 using namespace Services;
 
@@ -51,9 +54,7 @@ namespace Network
 
 	void NetworkClientEndpoint::Net_LoadLevel( RakString levelName, RPC3* rpcFromNetwork )
 	{
-		IEventData* eventData = new LevelChangedEventData( levelName.C_String( ) );
-		IEvent* event = new Event( EventTypes::GAME_LEVEL_CHANGED, eventData );
-		Management::Get( )->GetEventManager( )->QueueEvent( event );
+		NetworkClientEndpoint::m_clientEndpoint->LoadLevel( levelName.C_String( ) );
 	}
 
 	void NetworkClientEndpoint::Net_CreateEntity( RakString entityName, RakString filePath, RPC3* rpcFromNetwork )
@@ -86,12 +87,26 @@ namespace Network
 			parametersMap[ System::Parameters::DeltaY ] = deltaY;
 		}
 
+		if ( message == System::Messages::SetPosition )
+		{
+			MathVector3 position;
+			parameters.ReadVector( position.X, position.Y, position.Z );
+			parametersMap[ System::Attributes::Position ] = position;
+		}
+
 		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork->GetRakPeer( )->GetExternalID( rpcFromNetwork->GetLastSenderAddress( ) ) );
+	}
+
+	void NetworkClientEndpoint::LoadLevel( const std::string& levelName )
+	{
+		IEventData* eventData = new LevelChangedEventData( levelName );
+		IEvent* event = new Event( EventTypes::GAME_LEVEL_CHANGED, eventData );
+		m_eventManager->QueueEvent( event );
 	}
 
 	void NetworkClientEndpoint::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, const SystemAddress& sender )
 	{
-		if ( !m_isPassive && entityName != sender.ToString( ) )
+		if ( !m_isPassive )
 		{
 			m_networkScene->MessageComponent( entityName, message, parameters );
 		}

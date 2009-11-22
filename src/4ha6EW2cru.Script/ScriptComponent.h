@@ -207,11 +207,12 @@ namespace Script
 		 */
 		void ExecuteString( const std::string& input );
 
-		/*! Gets the Name of the Component
+		
+		/*! Returns the Name of the Component
 		*
-		*  @return (const std::string&)
+		* @return ( std::string )
 		*/
-		inline std::string GetName( ) { return m_attributes[ System::Attributes::Name ].As< std::string >( ); };
+		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
 
 
 		inline Maths::MathVector3 GetLookAt( ) const { return m_lookAt; };

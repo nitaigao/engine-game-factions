@@ -92,7 +92,6 @@ end
 
 function Player.onMoveForward( message, data )
 
-	print( script:getName( ) )
 	animation:startAnimation( 'run_forward', true )
 	sfx:triggerEvent( 'game/biped/running' )
 

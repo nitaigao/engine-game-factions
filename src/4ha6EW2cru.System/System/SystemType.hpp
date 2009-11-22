@@ -297,6 +297,7 @@ namespace System
 			{
 				static const MessageType ClientDisconnected	=	"clientDisconnected";
 				static const MessageType WorldUpdate		=	"worldUpdate";
+				static const MessageType SetServerPosition	=	"setServerPosition";
 			}
 		}
 

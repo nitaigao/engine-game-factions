@@ -51,7 +51,7 @@ namespace Network
 		m_controller->FindServers( serverPort );
 	}
 
-	void NetworkClientProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	void NetworkClientProvider::Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( 
 			message == System::Messages::Move_Forward_Pressed ||
@@ -66,7 +66,7 @@ namespace Network
 			message == System::Messages::Mouse_Moved
 			)
 		{
-			m_controller->MessageEntity( entityName, message, parameters );
+			m_controller->MessageEntity( subject->GetName( ), message, parameters );
 		}
 	}
 }

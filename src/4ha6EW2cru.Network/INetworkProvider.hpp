@@ -11,6 +11,7 @@
 #include <vector>
 #include "System/SystemType.hpp"
 #include "System/AnyType.hpp"
+#include "System/ISystemComponent.hpp"
 
 #include "Export.hpp"
 
@@ -52,12 +53,12 @@ namespace Network
 
 		/*! Distributes the message for the entity across the Network
 		 *
-		 * @param[in] const std::string & entityName
+		 * @param[in] ISystemComponent* subject
 		 * @param[in] const System::Message & message
 		 * @param[in] AnyType::AnyTypeMap parameters
 		 * @return ( void )
 		 */
-		virtual void Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
 
 		/*! Destroys the Provider

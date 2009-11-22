@@ -20,14 +20,12 @@
 #include "Events/EventManager.h"
 #include "Events/Event.h"
 
-#include "Export.hpp"
-
 namespace Network
 {
 	/*! 
 	 *  Receives input from clients on the Network and Transmits Updates
 	 */
-	class NetworkServerProvider : public INetworkServerProvider
+	class GAMEAPI NetworkServerProvider : public INetworkServerProvider
 	{
 
 	public:
@@ -36,7 +34,7 @@ namespace Network
 		 *
 		 *  @return ()
 		 */
-		GAMEAPI ~NetworkServerProvider( );
+		~NetworkServerProvider( );
 
 
 		/*! IoC Constructor
@@ -59,7 +57,7 @@ namespace Network
 		* @param[in] int maxConnections
 		* @return ( void )
 		*/
-		GAMEAPI void Initialize( int maxConnections );
+		void Initialize( int maxConnections );
 
 
 		/*! Updates the Network Provider
@@ -67,27 +65,32 @@ namespace Network
 		* @param[in] float deltaMilliseconds
 		* @return ( void )
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Distributes the message for the entity across the Network
 		*
-		* @param[in] const std::string & entityName
+		* @param[in] ISystemComponent* subject
 		* @param[in] const System::Message & message
 		* @param[in] AnyType::AnyTypeMap parameters
 		* @return ( void )
 		*/
-		GAMEAPI void Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
 		/*! Destroys the Provider
 		*
 		* @return ( void )
 		*/
-		GAMEAPI void Destroy( );
+		void Destroy( ) { };
 
 
-		GAMEAPI void OnGameLevelChanged( const Events::IEvent* event );
+		/*! Instructs all connected clients that the level has changed
+		 *
+		 * @param[in] const Events::IEvent * event
+		 * @return ( void )
+		 */
+		void OnGameLevelChanged( const Events::IEvent* event );
 
 
 	private:

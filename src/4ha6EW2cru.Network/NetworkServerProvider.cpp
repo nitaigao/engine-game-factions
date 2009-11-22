@@ -42,16 +42,21 @@ namespace Network
 		m_endpoint->Initialize( );
 	}
 
-	void NetworkServerProvider::Message( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	void NetworkServerProvider::Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
 	{
 		if ( message == System::Messages::Entity::CreateEntity )
 		{
-			m_controller->CreateEntity( entityName, parameters[ System::Attributes::EntityType ].As< std::string >( ) );
+			m_controller->CreateEntity( subject->GetName( ), parameters[ System::Attributes::EntityType ].As< std::string >( ) );
 		}
 
 		if ( message == System::Messages::Entity::DestroyEntity )
 		{
-			m_controller->DestroyEntity( entityName );
+			m_controller->DestroyEntity( subject->GetName( ) );
+		}
+
+		if ( message == System::Messages::Network::Server::SetServerPosition )
+		{
+			m_controller->MessageEntity( subject->GetName( ), System::Messages::SetPosition, parameters );
 		}
 
 		if ( 
@@ -67,7 +72,7 @@ namespace Network
 			message == System::Messages::Mouse_Moved
 			)
 		{
-			m_controller->MessageEntity( entityName, message, parameters );
+			m_controller->MessageEntity( subject->GetName( ), message, parameters );
 		}
 	}
 
@@ -87,9 +92,5 @@ namespace Network
 	void NetworkServerProvider::Update( float deltaMilliseconds )
 	{
 		m_endpoint->Update( deltaMilliseconds );
-	}
-
-	void NetworkServerProvider::Destroy( )
-	{
 	}
 }

@@ -248,6 +248,10 @@
 				RelativePath=".\specs_for_NetworkClientEndpoint.cxx"
 				>
 			</File>
+			<File
+				RelativePath=".\specs_for_NetworkServerProvider.cxx"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

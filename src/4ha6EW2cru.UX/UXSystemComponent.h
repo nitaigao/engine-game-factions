@@ -182,6 +182,13 @@ namespace UX
 		*/
 		void ExecuteString( const std::string& input );
 
+
+		/*! Returns the Name of the Component
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+
 	private:
 
 

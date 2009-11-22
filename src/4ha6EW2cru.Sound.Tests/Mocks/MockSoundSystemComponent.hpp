@@ -29,6 +29,7 @@ namespace
 		MOCK_METHOD3( Observe, AnyType( const ISubject*, const System::MessageType&, AnyType::AnyTypeMap ) );
 		MOCK_METHOD1( AddObserver, void( IObserver* ) );
 		MOCK_METHOD2( PushMessage, AnyType( const System::MessageType&, AnyType::AnyTypeMap ) );
+		MOCK_CONST_METHOD0( GetName, std::string( ) );
 		
 	};
 };

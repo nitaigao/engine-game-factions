@@ -98,6 +98,29 @@ namespace Input
 		inline System::Types::Type GetType( ) const { return System::Types::INPUT; };
 
 
+		/*! Writes the contents of the object to the given stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void Serialize( IO::IStream* stream ) { };
+
+
+		/*! Reads the contents of the object from the stream
+		*
+		* @param[in] IStream * stream
+		* @return ( void )
+		*/
+		void DeSerialize( IO::IStream* stream ) { };
+
+
+		/*! Returns the Name of the Component
+		*
+		* @return ( std::string )
+		*/
+		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+
+
 		/*! Posts a message to observers
 		*
 		*  @param[in] const std::string & message
@@ -156,21 +179,6 @@ namespace Input
 		*/
 		void KeyReleased( const OIS::KeyEvent &arg );
 
-
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream ) { };
-
-
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void DeSerialize( IO::IStream* stream ) { };
 	
 	private:
 	
