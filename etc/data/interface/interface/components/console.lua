@@ -69,14 +69,15 @@ function Console.onShowConsole( )
 		if ( console:isVisible( ) ) then
 		
 			console:setVisible( false )
-			--local menu = ux:findWidget( 'menu' )
 			
-			--if ( not menu:isVisible( ) ) then
+			local menu = ux:findWidget( 'menu' )
 			
-			--	ux:hideMouse( )
-			--	input:setFocus( false )
+			if ( not menu:isVisible( ) ) then
 			
-			--end
+				ux:hideMouse( )
+				input:setFocus( false )
+			
+			end
 			
 			if ( console_ingame ) then
 			

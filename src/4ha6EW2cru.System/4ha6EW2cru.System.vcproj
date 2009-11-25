@@ -207,6 +207,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Game\Game.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Game\GameFactory.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\State\Serilaization\GeometryComponentSerializer.cpp"
 				>
 			</File>
@@ -236,6 +244,10 @@
 			</File>
 			<File
 				RelativePath=".\State\Serilaization\PhysicsComponentSerializer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Platform\ProgramOptions.cpp"
 				>
 			</File>
 			<File
@@ -373,6 +385,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Game\Game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Game\GameFactory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\State\Serilaization\GeometryComponentSerializer.h"
 				>
 			</File>
@@ -421,6 +441,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Game\IGame.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Game\IGameFactory.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\System\IInstrumentation.hpp"
 				>
 			</File>
@@ -450,6 +478,10 @@
 			</File>
 			<File
 				RelativePath=".\Platform\IPlatformManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Platform\IProgramOptions.hpp"
 				>
 			</File>
 			<File
@@ -562,6 +594,10 @@
 			</File>
 			<File
 				RelativePath=".\State\Serilaization\PhysicsComponentSerializer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Platform\ProgramOptions.h"
 				>
 			</File>
 			<File

@@ -22,11 +22,11 @@ ISystem* SystemManager::GetSystem( const System::Types::Type& systemType ) const
 	return ( *( _systemsByType.find( systemType ) ) ).second;
 }
 
-void SystemManager::InitializeAllSystems( IConfiguration* configuration )
+void SystemManager::InitializeAllSystems( )
 {
 	for( ISystem::SystemTypeMap::iterator i = _systemsByType.begin( ); i != _systemsByType.end( ); ++i )
 	{
-		( *i ).second->Initialize( configuration );
+		( *i ).second->Initialize( m_configuration );
 	}
 }
 
@@ -146,4 +146,40 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 	m_systemLibraries.insert( std::make_pair( system, library ) );
 
 	return system;
+}
+
+void SystemManager::LoadSystems( bool isDedicated )
+{
+	ISystem* geometrySystem = this->LoadSystem( "4ha6EW2cru.Geometry.dll" );
+	this->RegisterSystem( System::Queues::HOUSE, geometrySystem );
+
+	ISystem* scriptSystem = this->LoadSystem( "4ha6EW2cru.Script.dll" );
+	this->RegisterSystem( System::Queues::HOUSE, scriptSystem );
+
+	ISystem* networkSystem = this->LoadSystem( "4ha6EW2cru.Network.dll" );
+	this->RegisterSystem( System::Queues::HOUSE, networkSystem );
+
+	ISystem* physicsSystem = this->LoadSystem( "4ha6EW2cru.Physics.dll" );
+	this->RegisterSystem( System::Queues::LOGIC, physicsSystem );
+
+	//ISystem* aiSystem = this->LoadSystem( "4ha6EW2cru.AI.dll" );
+	//this->RegisterSystem( System::Queues::HOUSE, aiSystem );
+
+	if ( !isDedicated )
+	{
+		ISystem* rendererSystem = this->LoadSystem( "4ha6EW2cru.Renderer.dll" );
+		this->RegisterSystem( System::Queues::HOUSE, rendererSystem );
+
+		ISystem* animationSystem = this->LoadSystem( "4ha6EW2cru.Animation.dll" );
+		this->RegisterSystem( System::Queues::HOUSE, animationSystem );
+
+		ISystem* inputSystem = this->LoadSystem( "4ha6EW2cru.Input.dll" );
+		this->RegisterSystem( System::Queues::HOUSE, inputSystem );
+
+		ISystem* uxSystem = this->LoadSystem( "4ha6EW2cru.UX.dll" );
+		this->RegisterSystem( System::Queues::HOUSE, uxSystem );
+
+		ISystem* soundSystem = this->LoadSystem( "4ha6EW2cru.Sound.dll" );
+		this->RegisterSystem( System::Queues::HOUSE, soundSystem );
+	}
 }

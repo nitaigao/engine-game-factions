@@ -36,6 +36,11 @@ namespace Events
 		m_eventQueue.push( event );
 	}
 
+	void EventManager::QueueEvent( const std::string&, IEventData* )
+	{
+
+	}
+
 	void EventManager::TriggerEvent( const IEvent* event )
 	{
 		if ( 0 == event )
@@ -45,7 +50,7 @@ namespace Events
 			throw e;
 		}
 
-		Debug( event->GetEventType( ).c_str( ) );
+		//Debug( event->GetEventType( ).c_str( ) );
 		unsigned int eventTypeId = this->GetEventTypeId( event->GetEventType( ) );
 
 		IEventListener::EventListenerMultiMap::iterator listenersUpper = m_eventListeners.upper_bound( eventTypeId );
@@ -101,11 +106,6 @@ namespace Events
 		m_eventListeners.insert( std::make_pair( this->GetEventTypeId( eventType ), eventListener ) );
 	}
 
-	void EventManager::RegisterEventType( const std::string& eventType )
-	{
-		//m_eventTypes.insert( std::make_pair( eventType, m_eventTypes.size( ) ) );
-	}
-
 	unsigned int EventManager::GetEventTypeId( const std::string& eventType )
 	{
 		EventTypeMap::iterator i = m_eventTypes.find( eventType );
@@ -120,7 +120,5 @@ namespace Events
 		m_eventTypes.insert( std::make_pair( eventType, eventTypeId ) );
 
 		return eventTypeId;
-
-		//assert( "Attempted to listen for an event that doesnt exist" && i != m_eventTypes.end( ) );
 	}
 }

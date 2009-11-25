@@ -14,15 +14,15 @@
 
 namespace
 {
-	class MockWorld : public IWorld
+	class MockWorld : public State::IWorld
 	{
 
 	public:
 
 
 		MOCK_METHOD0( Initialize, void( ) );
-		MOCK_METHOD1( CreateEntity, IWorldEntity*( const std::string& ) );
-		MOCK_METHOD3( CreateEntity, IWorldEntity*( const std::string&, const std::string&, const std::string& ) );
+		MOCK_METHOD1( CreateEntity, State::IWorldEntity*( const std::string& ) );
+		MOCK_METHOD3( CreateEntity, State::IWorldEntity*( const std::string&, const std::string&, const std::string& ) );
 		MOCK_METHOD1( DestroyEntity, void( const std::string& ) );
 		MOCK_METHOD1( AddSystemScene, void( ISystemScene* systemScene ) );
 		MOCK_CONST_METHOD0( GetSystemScenes, const ISystemScene::SystemSceneMap&( ) );

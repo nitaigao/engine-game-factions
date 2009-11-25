@@ -50,12 +50,6 @@ namespace Input
 		this->LoadMessageBindings( );
 
 		Management::Get( )->GetServiceManager( )->RegisterService( this );
-
-		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_MOUSE_PRESSED );
-		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_MOUSE_MOVED );
-		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_MOUSE_RELEASED);
-		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_KEY_DOWN );
-		Management::Get( )->GetEventManager( )->RegisterEventType( EventTypes::INPUT_KEY_UP );
 	}
 	
 	ISystemScene* InputSystem::CreateScene( )

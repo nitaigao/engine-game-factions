@@ -114,10 +114,17 @@ end
 
 function Menu.onHideMenu( )
 
+	local console = ux:findWidget( 'console' )
+			
+	if ( not console:isVisible( ) ) then
+
+		ux:hideMouse( )
+	
+	end
+	
 	local menu = ux:findWidget( 'menu' )
 	menu:setVisible( false )
-	ux:hideMouse( )
-
+		
 end
 
 function Menu.onKeyUp( keyCode )

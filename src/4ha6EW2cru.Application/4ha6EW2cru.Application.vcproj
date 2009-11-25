@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../4ha6EW2cru.Game;../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs"
+				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -168,8 +168,8 @@
 	</Configurations>
 	<References>
 		<ProjectReference
-			ReferencedProjectIdentifier="{0930D1E7-1AB1-4067-85CF-90D360C498E3}"
-			RelativePathToProject=".\4ha6EW2cru.Game\4ha6EW2cru.Game.vcproj"
+			ReferencedProjectIdentifier="{58D6A894-4481-4A63-9958-49AE9B3A83D3}"
+			RelativePathToProject=".\4ha6EW2cru.System\4ha6EW2cru.System.vcproj"
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{402389EC-49BE-4A7B-A8C0-6593C8E0E1D2}"

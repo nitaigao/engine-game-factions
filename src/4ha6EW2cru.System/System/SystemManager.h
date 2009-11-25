@@ -40,6 +40,14 @@ public:
 
 	}
 
+
+	/*! Loads the relevant Game Systems
+	*
+	* @param[in] bool isDedicated
+	* @return ( void )
+	*/
+	void LoadSystems( bool isDedicated );
+
 	
 	/*! Loads a System dll and returns a pointer to the contained ISystem
 	*
@@ -69,7 +77,7 @@ public:
 	*
 	*  @return (void)
 	*/
-	void InitializeAllSystems( Configuration::IConfiguration* configuration );
+	void InitializeAllSystems(  );
 
 
 	/*! Checks to see if a system has been registered

@@ -57,7 +57,6 @@ namespace in_general
 	
 		void When( )
 		{
-			m_subject->RegisterEventType( m_eventType );
 			m_subject->AddEventListener( m_eventType, m_eventListener );
 			m_subject->QueueEvent( m_event );
 			m_subject->Update( 0 );
@@ -101,7 +100,6 @@ namespace in_general
 	
 		void When( )
 		{
-			m_subject->RegisterEventType( m_eventType );
 			m_subject->AddEventListener( m_eventType, m_eventListener );
 			m_subject->RemoveEventListener( m_eventType, m_eventListenerToRemove );
 			m_subject->TriggerEvent( m_event );

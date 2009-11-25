@@ -9,7 +9,9 @@
 #include <crtdbg.h>
 #include <string>
 
-#include "Game.h"
+#include "Game/IGame.hpp"
+#include "Game/GameFactory.h"
+using namespace Game;
 
 #ifdef _DEBUG
 #	define _CRTDBG_MAP_ALLOC 
@@ -33,15 +35,18 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
 #endif
 
-	Game game;
-	game.Initialize( );
+	GameFactory gameFactory;
+	IGame* game = gameFactory.CreateGame( );
+	game->Initialize( );
 
-	while( !game.IsQuitting( ) )
+	while( !game->IsQuitting( ) )
 	{
-		game.Update( );
+		game->Update( );
 	}
 
-	game.Release( );
+	game->Release( );
+
+	delete game;
 	
 	return 0;
 }

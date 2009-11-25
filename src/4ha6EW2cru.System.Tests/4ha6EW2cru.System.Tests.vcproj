@@ -198,6 +198,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Game\specs_for_Game.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\Utility\StringUtils_Tests.cxx"
 				>
 			</File>
@@ -240,6 +244,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Mocks\MockPlatformManager.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockProgramOptions.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockResourceCache.hpp"
 				>
 			</File>
@@ -261,6 +273,10 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockSystemComponent.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Mocks\MockSystemManager.hpp"
 				>
 			</File>
 			<File

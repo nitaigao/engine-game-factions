@@ -35,6 +35,9 @@ using namespace Resources;
 #include <OgreTagpoint.h>
 using namespace Ogre;
 
+#include "Logging/Logger.h"
+using namespace Logging;
+
 namespace Animation
 {
 	AnimationSystemComponent::~AnimationSystemComponent()
@@ -134,12 +137,16 @@ namespace Animation
 
 		if ( message == System::Messages::StartAnimation )
 		{
-			m_animationBlender->Blend( parameters[ System::Parameters::AnimationName ].As< std::string >( ) );
+			std::string animationName = parameters[ System::Parameters::AnimationName ].As< std::string >( );
+			Debug( m_attributes[ System::Attributes::Name ].As< std::string >( ), "StartAnimation:", animationName );
+			m_animationBlender->Blend( animationName );
 		}
 
 		if ( message == System::Messages::StopAnimation )
 		{
-			m_animationBlender->UnBlend( parameters[ System::Parameters::AnimationName ].As< std::string >( ) );
+			std::string animationName = parameters[ System::Parameters::AnimationName ].As< std::string >( );
+			Debug( m_attributes[ System::Attributes::Name ].As< std::string >( ), "StopAnimation:", animationName );
+			m_animationBlender->UnBlend( animationName );
 		}
 
 		if ( message == System::Messages::SetLookAt )

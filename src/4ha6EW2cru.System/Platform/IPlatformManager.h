@@ -13,13 +13,14 @@
 #include "../System/AnyType.hpp"
 
 #include "../IO/IPathInformation.hpp"
+#include "../Export.hpp"
 
 namespace Platform
 {
 	/*! 
 	 *  Interfaces with Specific Api's on the Target Platform
 	 */
-	class IPlatformManager
+	class GAMEAPI IPlatformManager
 	{
 
 	public:

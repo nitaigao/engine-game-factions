@@ -56,8 +56,8 @@ namespace Logging
 				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::LOG_MESSAGE_APPENDED, eventData ) );
 			}
 #endif
-			Management::Get( )->GetPlatformManager( )->OutputDebugMessage( outputMessage.str( ) );
-			Management::Get( )->GetPlatformManager( )->OutputToConsole( outputMessage.str( ) );
+			//Management::Get( )->GetPlatformManager( )->OutputDebugMessage( outputMessage.str( ) );
+			//Management::Get( )->GetPlatformManager( )->OutputToConsole( outputMessage.str( ) );
 		}
 	}
 }

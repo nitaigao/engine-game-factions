@@ -21,6 +21,7 @@ namespace
 		
 		MOCK_METHOD1( RegisterEventType, void( const std::string& ) );
 		MOCK_METHOD1( QueueEvent, void( const Events::IEvent* event ) );
+		MOCK_METHOD2( QueueEvent, void( const std::string&, Events::IEventData* ) );
 		MOCK_METHOD1( TriggerEvent, void( const Events::IEvent* event ) );
 		MOCK_METHOD1( Update, void( float ) );
 		MOCK_METHOD2( AddEventListener, void( const std::string&, Events::IEventListener* ) );
@@ -34,6 +35,11 @@ namespace
 		static void ConsumeEvent( const Events::IEvent* event )
 		{
 			delete event;
+		}
+
+		static void ConsumeEventData( const std::string& eventType, Events::IEventData* eventData )
+		{
+			delete eventData;
 		}
 
 	};

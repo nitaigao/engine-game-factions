@@ -179,7 +179,6 @@ namespace UX
 	{
 		m_serviceManager->RegisterService( this );
 
-		m_eventManager->RegisterEventType( EventTypes::UI_SHOW_PANE );
 		m_eventManager->AddEventListener( EventTypes::INPUT_MOUSE_PRESSED, MakeEventListener( this, &UXSystem::OnMousePressed ) );
 		m_eventManager->AddEventListener( EventTypes::INPUT_MOUSE_MOVED, MakeEventListener( this, &UXSystem::OnMouseMoved ) );
 		m_eventManager->AddEventListener( EventTypes::INPUT_MOUSE_RELEASED, MakeEventListener( this, &UXSystem::OnMouseReleased ) );

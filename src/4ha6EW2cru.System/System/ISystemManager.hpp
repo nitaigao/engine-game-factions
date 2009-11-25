@@ -26,6 +26,14 @@ public:
 	virtual ~ISystemManager( ) { };
 
 
+	/*! Loads the relevant Game Systems
+	 *
+	 * @param[in] bool isDedicated
+	 * @return ( void )
+	 */
+	virtual void LoadSystems( bool isDedicated ) = 0;
+
+
 	/*! Loads a System dll and returns a pointer to the contained ISystem
 	*
 	* @param[in] const std::string & systemPath
@@ -54,7 +62,7 @@ public:
 	 *
 	 *  @return (void)
 	 */
-	virtual void InitializeAllSystems( Configuration::IConfiguration* configuration ) = 0;
+	virtual void InitializeAllSystems( ) = 0;
 
 
 	/*! Checks to see if a system has been registered

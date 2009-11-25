@@ -40,20 +40,21 @@ namespace Events
 		EventManager( ) { };
 
 
-		/*! Registers a string event type for use
-		*
-		* @param[in] const std::string & eventType
-		* @return ( void )
-		*/
-		void RegisterEventType( const std::string& eventType );
-
-		
 		/*! Queues an Event for processing on the next call to Update
 		 *
 		 *  @param[in] const IEvent * event
 		 *  @return (void)
 		 */
 		void QueueEvent( const Events::IEvent* event );
+
+
+		/*! Queues an Event for processing on the next call to Update
+		*
+		* @param[in] const std::string &
+		* @param[in] IEventData *
+		* @return ( void )
+		*/
+		void QueueEvent( const std::string&, IEventData* );
 
 
 		/*! Processes an Event immediately
