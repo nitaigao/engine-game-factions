@@ -1,11 +1,21 @@
 #include "GeometrySystem.h"
+using namespace Geometry;
 
 #include "Configuration/IConfiguration.hpp"
 using namespace Configuration;
 
-#include "System/Memory.cxx"
+#include "Service/IServiceManager.h"
+using namespace Services;
 
-#include "Management/Management.h"
+#include "IO/IResourceCache.hpp"
+using namespace Resources;
+
+#include "Events/IEventManager.hpp"
+using namespace Events;
+
+#include "System/IInstrumentation.hpp"
+using namespace System;
+
 #include "Logging/Logger.h"
 using namespace Logging;
 
@@ -14,14 +24,12 @@ BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReser
 	return true;
 }
 
-extern "C" void __stdcall Initialize( Management* management, Logger* logger )
+extern "C" void __stdcall Initialize( Logger* logger )
 {
-	//Management::Initialize( management );
-	//Logger::Initialize( logger );
-	Debug( "Geometry System Imported" );
+
 }
 
-extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
+extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration, IServiceManager* serviceManager, IResourceCache* resourceCache, IEventManager* eventManager, IInstrumentation* instrumentation )
 {
 	return new Geometry::GeometrySystem( );
 }

@@ -9,6 +9,9 @@
 #define TESTENVIRONMENT_HPP
 
 #include "Logging/Logger.h"
+#include "Platform/Win32PlatformManager.h"
+
+using namespace Platform;
 
 namespace Testing
 {
@@ -35,18 +38,22 @@ namespace Testing
 
 		virtual void SetUp( )
 		{
-			Logging::Logger::Initialize( );
+			m_platformManager = new Win32PlatformManager( );
+			Logging::Logger::Initialize( m_platformManager );
 		}
 
 		virtual void TearDown( )
 		{
 			Logging::Logger::Get( )->Release( );
+			delete m_platformManager;
 		}
 
 	private:
 
 		Environment( const Environment & copy ) { };
 		Environment & operator = ( const Environment & copy ) { return *this; };
+
+		Platform::Win32PlatformManager* m_platformManager;
 		
 	};
 };

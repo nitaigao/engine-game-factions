@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="RakNetLibStaticDebug.lib ws2_32.lib gtestd.lib gmock.lib"
+				AdditionalDependencies="winmm.lib RakNetLibStaticDebug.lib ws2_32.lib gtestd.lib gmock.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Debug;../../etc/vendor/raknet/lib;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="RakNetLibStatic.lib ws2_32.lib gtest.lib gmock.lib"
+				AdditionalDependencies="winmm.lib RakNetLibStatic.lib ws2_32.lib gtest.lib gmock.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/raknet/lib;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib"
 				GenerateDebugInformation="true"

@@ -8,7 +8,7 @@
 
 #include "IClock.hpp"
 
-class Win32Clock : public IClock
+class GAMEAPI Win32Clock : public IClock
 {
 
 public:

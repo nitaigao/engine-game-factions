@@ -233,10 +233,6 @@
 				RelativePath=".\ServerCache.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\SystemDefinition.cxx"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -394,6 +390,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\SystemDefinition.cxx"
+			>
+		</File>
 		<File
 			RelativePath=".\SystemDefinition.def"
 			>

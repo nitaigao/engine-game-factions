@@ -34,13 +34,14 @@ Management::~Management( )
 Management::Management( Configuration::IConfiguration* configuration )
 	: m_configuration( configuration )
 {
-	m_serviceManager = new ServiceManager( );
+	/*m_serviceManager = new ServiceManager( );
 	m_platformManager = new Win32PlatformManager( );
 	m_eventManager = new Events::EventManager( );
 	m_systemManager = new SystemManager( m_configuration );
 	m_instrumentation = new Instrumentation( );
-	m_fileSystem = new FileSystem( );
-	m_resourceCache = new ResourceCache( );
+
+	m_fileSystem = new FileSystem( m_platformManager );
+	m_resourceCache = new ResourceCache( m_fileSystem );*/
 }
 
 void Management::Initialize( Configuration::IConfiguration* configuration )

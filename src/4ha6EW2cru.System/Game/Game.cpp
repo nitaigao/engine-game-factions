@@ -26,14 +26,13 @@ namespace Game
 {
 	void GameRoot::Initialize( )
 	{
-		Logger::Initialize( );
+		Logger::Initialize( m_platformManager );
 		Logger::Get( )->SetLogLevel( Logging::LEVEL_WARN );
 		Info( "Game Startup" );
 
-		//Management::Initialize( m_configuration );
+		m_fileSystem->Initialize( );
 
 		m_configuration->Initialize( "game.cfg" );
-
 		m_configuration->SetDefault( ConfigSections::Developer, ConfigItems::Developer::Console, false );
 		m_configuration->SetDefault( ConfigSections::Logging, ConfigItems::Logging::LogLevel, static_cast< int >( LEVEL_WARN ) );
 
@@ -77,8 +76,6 @@ namespace Game
 		m_platformManager->Update( deltaMilliseconds );
 
 		m_world->Update( deltaMilliseconds );
-
-		//Management::Get( )->Update( deltaMilliseconds );
 	}
 
 	void GameRoot::Release( )
@@ -91,7 +88,6 @@ namespace Game
 
 		delete m_world;
 
-		//Management::Release( );
 		Logger::Release( );
 	}
 

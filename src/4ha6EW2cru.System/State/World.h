@@ -13,6 +13,7 @@
 #include "IEntityService.hpp"
 
 #include "Serilaization/IWorldLoader.hpp"
+#include "../Service/IServiceManager.h"
 
 namespace State
 {
@@ -35,13 +36,14 @@ namespace State
 		 *
 		 *  @return ()
 		 */
-		World( );
+		World( Services::IServiceManager* serviceManager );
 
 
-		World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, IEntityService* entityService )
+		World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, IEntityService* entityService, Services::IServiceManager* serviceManager )
 			: m_serializer( serializer )
 			, m_entityFactory( entityFactory )
 			, m_entityService( entityService )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -145,6 +147,8 @@ namespace State
 		World & operator = ( const World & copy ) { return *this; };
 
 		std::string m_name;
+
+		Services::IServiceManager* m_serviceManager;
 		IWorldEntity::WorldEntityMap m_entities;
 		ISystemScene::SystemSceneMap m_systemScenes;
 

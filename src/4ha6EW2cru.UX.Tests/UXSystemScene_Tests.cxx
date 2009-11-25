@@ -12,12 +12,10 @@ using namespace UX;
 #include "Mocks/MockUXSystemComponentFactory.hpp"
 #include "Mocks/MockUXSystemComponent.hpp"
 #include "Mocks/MockEventManager.hpp"
+#include "Mocks/MockConfiguration.hpp"
 
 #include <MyGUI.h>
 using namespace MyGUI;
-
-#include "Configuration/Configuration.h"
-using namespace Configuration;
 
 class UXSystemScene_Tests : public TestHarness< UXSystemScene >
 {
@@ -31,7 +29,7 @@ protected:
 
 	MockUXSystemComponentFactory* m_componentFactory;
 
-	ClientConfiguration* m_configuration;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
@@ -39,7 +37,7 @@ protected:
 		m_serviceManager = new MockServiceManager( );
 		m_state = new MockLuaState( );
 		m_componentFactory = new MockUXSystemComponentFactory( );
-		m_configuration = new ClientConfiguration( );
+		m_configuration = new MockConfigurartion( );
 		m_eventManager = new MockEventManager( );
 	}
 

@@ -8,8 +8,9 @@
 #ifndef HAVOKPHYSICS_SYSTEM
 #define HAVOKPHYSICS_SYSTEM
 
-#include "Service/IService.hpp"
+#include "Service/IServiceManager.h"
 #include "System/ISystem.hpp"
+
 #include "HavokPhysicsSystemScene.h"
 
 #include "IPhysicsSystem.hpp"
@@ -35,10 +36,11 @@ namespace Physics
 		 *
 		 *  @return ()
 		 */
-		HavokPhysicsSystem( )
+		HavokPhysicsSystem( Services::IServiceManager* serviceManager )
 			: m_threadMemory( 0 )
 			, m_stackBuffer( 0 )
 			, m_scene( 0 )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -138,6 +140,7 @@ namespace Physics
 		hkVisualDebugger* m_vdb;
 #endif
 
+		Services::IServiceManager* m_serviceManager;
 
 		HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
 		HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };

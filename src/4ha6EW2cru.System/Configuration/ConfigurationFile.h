@@ -13,6 +13,9 @@
 #include "../IO/FileBuffer.hpp"
 #include "../Utility/SimpleIni.h"
 
+#include "../Platform/IPlatformManager.h"
+#include "../IO/IFileSystem.hpp"
+
 namespace Configuration
 {
 	/*! 
@@ -30,12 +33,15 @@ namespace Configuration
 		~ConfigurationFile( );
 
 
-		/*! Loads the Configuration File from the specified path
-		 *
-		 *  @param[in] const std::string & filePath
-		 *  @return (ConfigurationFile*)
-		 */
-		static ConfigurationFile* Load( const std::string& filePath );
+		ConfigurationFile( Platform::IPlatformManager* platformManager, IO::IFileSystem* fileSyostem );
+
+
+		/*! Loads the given file contents into the configuration
+		*
+		* @param[in] const std::string & fileName
+		* @return ( void )
+		*/
+		void Load( const std::string& fileName );
 		
 
 		/*! Finds a Configuration Item based on the given section and key
@@ -74,11 +80,11 @@ namespace Configuration
 
 	private:
 
-		ConfigurationFile( ) { }
-		ConfigurationFile( const IO::FileBuffer* fileBuffer );
-
 		CSimpleIni* m_ini;
 		std::string m_filePath;
+
+		Platform::IPlatformManager* m_platformManager;
+		IO::IFileSystem* m_fileSystem;
 
 		ConfigurationFile( const ConfigurationFile & copy ) { };
 		ConfigurationFile & operator = ( const ConfigurationFile & copy ) { return *this; };

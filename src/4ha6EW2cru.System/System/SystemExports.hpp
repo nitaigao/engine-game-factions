@@ -4,12 +4,18 @@
 #define SYSTEMEXPORTS_HPP
 
 #include "ISystem.hpp"
+
 #include "../Configuration/IConfiguration.hpp"
+#include "../Service/IServiceManager.h"
+#include "../IO/IResourceCache.hpp"
+#include "../Events/IEventManager.hpp"
+#include "../Logging/Logger.h"
+#include "../System/IInstrumentation.hpp"
 
 extern "C"
 {
-	typedef void ( __stdcall* InitializeSystemFunction ) ( Management* management, Logger* logger );
-	typedef ISystem* ( __stdcall* CreateSystemFunction ) ( Configuration::IConfiguration* configuration );
+	typedef void ( __stdcall* InitializeSystemFunction ) ( Logger* logger );
+	typedef ISystem* ( __stdcall* CreateSystemFunction ) ( Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, System::IInstrumentation* instrumentation );
 	typedef void ( __stdcall* DestroySystemFunction ) ( ISystem* system );
 };
 

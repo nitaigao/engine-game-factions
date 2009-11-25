@@ -5,6 +5,7 @@
 using namespace Platform;
 
 #include "../Configuration/Configuration.h"
+#include "../Configuration/ConfigurationFile.h"
 using namespace Configuration;
 
 #include "../Events/EventManager.h"
@@ -12,6 +13,15 @@ using namespace Events;
 
 #include "../Service/ServiceManager.h"
 using namespace Services;
+
+#include "../io/ResourceCache.h"
+using namespace Resources;
+
+#include "../IO/FileSystem.h"
+using namespace IO;
+
+#include "../System/Instrumentation.hpp"
+using namespace System;
 
 #include "../System/SystemManager.h"
 
@@ -27,6 +37,9 @@ namespace Game
 		delete m_systemManager;
 		delete m_eventManager;
 		delete m_serviceManager;
+		delete m_resourceCache;
+		delete m_fileSystem;
+		delete m_instrumentation;
 	}
 
 	GameFactory::GameFactory( )
@@ -34,15 +47,21 @@ namespace Game
 		m_programOptions = new ProgramOptions( );
 		m_platformManager = new Win32PlatformManager( );
 
-		m_configuration = new ClientConfiguration( );		
+		m_fileSystem = new FileSystem( m_platformManager );
+		m_resourceCache = new ResourceCache( m_fileSystem );
+
+		IConfigurationFile* configFile = new ConfigurationFile( m_platformManager, m_fileSystem );
+		m_configuration = new ClientConfiguration( configFile );
+
 		m_eventManager = new EventManager( );
 		m_serviceManager = new ServiceManager( );
+		m_instrumentation = new Instrumentation( );
 
-		m_systemManager = new SystemManager( m_configuration );
+		m_systemManager = new SystemManager( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager );
 	}
 
 	IGame* GameFactory::CreateGame( ) const
 	{
-		return new GameRoot( m_programOptions, m_configuration, m_platformManager, m_systemManager, m_eventManager, m_serviceManager );
+		return new GameRoot( m_programOptions, m_configuration, m_platformManager, m_systemManager, m_eventManager, m_serviceManager, m_fileSystem );
 	}
 }

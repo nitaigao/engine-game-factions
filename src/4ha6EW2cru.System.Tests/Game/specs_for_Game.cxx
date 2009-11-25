@@ -10,15 +10,17 @@ using namespace Game;
 #include "../Mocks/MockEventManager.hpp"
 #include "../Mocks/MockServiceManager.hpp"
 #include "../Mocks/MockWorld.hpp"
+#include "../Mocks/MocKFileSystem.hpp"
+#include "../Mocks/MockConfiguration.hpp"
 
 #include "Events/EventType.hpp"
 #include "Events/EventData.hpp"
 using namespace Events;
 
-#include "Configuration/Configuration.h"
-using namespace Configuration;
-
 #include "System/AnyType.hpp"
+#include "Configuration/ConfigurationTypes.hpp"
+
+using namespace Configuration;
 
 namespace base_context
 {
@@ -32,18 +34,20 @@ namespace base_context
 		MockSystemManager* m_systemManager;
 		MockEventManager* m_eventManager;
 		MockServiceManager* m_serviceManager;
+		MockFileSystem* m_fileSystem;
 		MockWorld* m_world;
 
-		ClientConfiguration* m_configuration;
+		MockConfigurartion* m_configuration;
 
 		virtual void EstablishContext( )
 		{
 			m_programOptions = new MockProgramOptions( );
 			m_platformManager = new MockPlatformManager( );
 			m_systemManager = new MockSystemManager( );
-			m_configuration = new ClientConfiguration( );
+			m_configuration = new MockConfigurartion( );
 			m_eventManager = new MockEventManager( );
 			m_serviceManager = new MockServiceManager( );
+			m_fileSystem = new MockFileSystem( );
 			m_world = new MockWorld( );
 		}
 
@@ -55,11 +59,12 @@ namespace base_context
 			delete m_eventManager;
 			delete m_configuration;
 			delete m_serviceManager;
+			delete m_fileSystem;
 		}
 
 		GameRoot* CreateSubject( )
 		{
-			return new GameRoot( m_programOptions, m_configuration, m_platformManager, m_systemManager, m_eventManager, m_serviceManager ); 
+			return new GameRoot( m_programOptions, m_configuration, m_platformManager, m_systemManager, m_eventManager, m_serviceManager, m_fileSystem ); 
 		}
 	};
 };
@@ -94,6 +99,8 @@ namespace given_the_game_is_a_dedicated_server
 
 			EXPECT_CALL( *m_systemManager, CreateWorld( ) ).WillOnce( Return( m_world ) );
 			EXPECT_CALL( *m_world, Initialize( ) );
+
+			EXPECT_CALL( *m_configuration, Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ) ).WillOnce( Return( 99 ) );
 		}
 	
 		void When( )
@@ -144,6 +151,8 @@ namespace given_a_level_has_been_passed_on_the_command_line
 
 			EXPECT_CALL( *m_systemManager, CreateWorld( ) ).WillOnce( Return( m_world ) );
 			EXPECT_CALL( *m_world, Initialize( ) );
+
+			EXPECT_CALL( *m_configuration, Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ) ).WillOnce( Return( 99 ) );
 		}
 	
 		void When( )
@@ -180,7 +189,8 @@ namespace given_in_general
 
 			EXPECT_CALL( *m_systemManager, CreateWorld( ) ).WillOnce( Return( m_world ) );
 			EXPECT_CALL( *m_world, Initialize( ) );
-		
+
+			EXPECT_CALL( *m_configuration, Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ) ).WillOnce( Return( 99 ) );		
 		}
 	
 		void When( )

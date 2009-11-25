@@ -19,16 +19,6 @@ using namespace boost::filesystem;
 
 namespace IO
 {
-	FileSystem::FileSystem( )
-	{
-		int result = PHYSFS_init( 0 );
-
-		if( !result )
-		{
-			throw AlreadyInitializedException( "FileSystem::FileSystem - Attempted to initialized the FileSystem twice" );
-		}
-	}
-
 	FileSystem::~FileSystem( )
 	{
 		PHYSFS_deinit( );
@@ -36,12 +26,19 @@ namespace IO
 
 	void FileSystem::Initialize( )
 	{
-		std::string userPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalUserPath( );
+		int result = PHYSFS_init( 0 );
+
+		if( !result )
+		{
+			throw AlreadyInitializedException( "FileSystem::FileSystem - Attempted to initialized the FileSystem twice" );
+		}
+
+		std::string userPath = m_platformManager->GetPathInformation( )->GetGlobalUserPath( );
 
 		this->Mount( userPath, "/" );
 		PHYSFS_setWriteDir( userPath.c_str( ) );
 
-		std::string dataPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalDataPath( );
+		std::string dataPath = m_platformManager->GetPathInformation( )->GetGlobalDataPath( );
 
 		if ( exists( dataPath.c_str( ) ) )
 		{
@@ -58,13 +55,13 @@ namespace IO
 						std::stringstream path;
 						path << i->path( );
 
-						this->Mount( path.str( ), Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
+						this->Mount( path.str( ), m_platformManager->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
 					}
 				}
 			}
 		}
 
-		std::string developmentPath = Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalDevelopmentPath( );
+		std::string developmentPath = m_platformManager->GetPathInformation( )->GetGlobalDevelopmentPath( );
 
 		if ( exists( developmentPath ) )
 		{
@@ -76,7 +73,7 @@ namespace IO
 					std::stringstream path;
 					path << i->path( );
 
-					this->Mount( path.str( ), Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
+					this->Mount( path.str( ), m_platformManager->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
 				}
 			}
 		}

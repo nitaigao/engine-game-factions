@@ -8,14 +8,12 @@ using namespace Events;
 #include "ServerAdvertisement.hpp"
 using namespace Network;
 
-#include "Configuration/Configuration.h"
-using namespace Configuration;
-
 #include "Mocks/MockNetworkSystemScene.hpp"
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockNetworkClientProvider.hpp"
 #include "Mocks/MockNetworkServerProvider.hpp"
 #include "Mocks/MockInstrumentation.hpp"
+#include "Mocks/MockConfiguration.hpp"
 
 #include "Service/IService.hpp"
 using namespace Services;
@@ -31,7 +29,7 @@ protected:
 	MockNetworkServerProvider * m_serverProvider;
 	MockInstrumentation* m_instrumentation;
 	EventManager* m_eventManager;
-	ClientConfiguration* m_configuration;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
@@ -41,7 +39,7 @@ protected:
 		m_serverProvider = new MockNetworkServerProvider( );
 		m_instrumentation = new MockInstrumentation( );
 		m_eventManager = new EventManager( );
-		m_configuration = new ClientConfiguration( );
+		m_configuration = new MockConfigurartion( );
 	}
 
 	void DestroyContext( )
@@ -65,8 +63,7 @@ TEST_F( NetworkSystem_Tests, should_add_server_network_provider_to_scene )
 	EXPECT_CALL( *m_scene, AddNetworkProvider( An< INetworkProvider* >( ) ) )
 		.Times( AtLeast( 1 ) );
 
-	ClientConfiguration config;
-	m_subject->Initialize( &config );
+	m_subject->Initialize( m_configuration );
 	
 	AnyType::AnyTypeMap parameters;
 	parameters[ System::Parameters::Network::Port ] = static_cast< unsigned int >( 8989 );
@@ -81,10 +78,8 @@ TEST_F( NetworkSystem_Tests, should_add_client_network_provider_to_the_scene )
 	EXPECT_CALL( *m_serviceManager, RegisterService( An< IService* >( ) ) );
 	EXPECT_CALL( *m_scene, AddNetworkProvider( An< INetworkProvider* >( ) ) );
 
-	ClientConfiguration config;
-
 	m_subject->SetAttribute( System::Attributes::Network::IsServer, false );
-	m_subject->Initialize( &config );
+	m_subject->Initialize( m_configuration );
 	m_subject->Release( );
 }
 

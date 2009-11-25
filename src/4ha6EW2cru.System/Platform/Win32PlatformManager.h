@@ -13,12 +13,14 @@
 
 #include "Win32Clock.h"
 
+#include "../Export.hpp"
+
 namespace Platform
 {
 	/*! 
 	*  Interfaces with the Windows Platform
 	*/
-	class Win32PlatformManager : public IPlatformManager
+	class GAMEAPI Win32PlatformManager : public IPlatformManager
 	{
 
 	public:

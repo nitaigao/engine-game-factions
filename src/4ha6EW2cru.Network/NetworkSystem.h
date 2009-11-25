@@ -8,18 +8,16 @@
 #ifndef NETWORKSYSTEM_H
 #define NETWORKSYSTEM_H
 
-#include "Events/EventManager.h"
-
+#include "Events/IEventManager.hpp"
+#include "Configuration/IConfiguration.hpp"
 #include "Service/IService.hpp"
+#include "Service/IServiceManager.h"
+#include "System/IInstrumentation.hpp"
 
 #include "INetworkSystem.hpp"
 #include "INetworkSystemScene.hpp"
 #include "INetworkClientProvider.hpp"
 #include "INetworkServerProvider.hpp"
-
-#include "Configuration/IConfiguration.hpp"
-#include "Service/IServiceManager.h"
-#include "System/IInstrumentation.hpp"
 
 namespace Network
 {
@@ -44,7 +42,7 @@ namespace Network
 		*/
 		NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
 			INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider
-			, Events::EventManager* eventManager, Configuration::IConfiguration* configuration )
+			, Events::IEventManager* eventManager, Configuration::IConfiguration* configuration )
 			: m_instrumentation( instrumentation )
 			, m_serviceManager( serviceManager )
 			, m_scene( scene )
@@ -129,7 +127,7 @@ namespace Network
 		INetworkSystemScene* m_scene;
 		INetworkClientProvider* m_clientProvider;
 		INetworkServerProvider* m_serverProvider;
-		Events::EventManager* m_eventManager;
+		Events::IEventManager* m_eventManager;
 		Configuration::IConfiguration* m_configuration;
 	};
 };

@@ -8,9 +8,7 @@ using namespace Script;
 #include "Mocks/MockServiceManager.hpp"
 
 #include "Mocks/MockScriptComponent.hpp"
-
-#include "Configuration/Configuration.h"
-using namespace Configuration;
+#include "Mocks/MockConfiguration.hpp"
 
 class ScriptSystem_Tests : public TestHarness< ScriptSystem >
 {
@@ -20,12 +18,14 @@ protected:
 	MockScriptSystemScene* m_scene;
 	MockScriptSystemScene* m_auxScene;
 	MockServiceManager* m_serviceManager;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
 		m_scene = new MockScriptSystemScene( );
 		m_auxScene = new MockScriptSystemScene( );
 		m_serviceManager = new MockServiceManager( );
+		m_configuration = new MockConfigurartion( );
 	}
 
 	void DestroyContext( )
@@ -44,17 +44,13 @@ TEST_F( ScriptSystem_Tests, should_register_with_service_manager )
 {
 	EXPECT_CALL( *m_serviceManager, RegisterService( m_subject ) );
 
-	ClientConfiguration config;
-
-	m_subject->Initialize( &config );
+	m_subject->Initialize( m_configuration );
 }
 
 TEST_F( ScriptSystem_Tests, post_init_should_initailize_scenes )
 {
 	EXPECT_CALL( *m_scene, Initialize( ) );
 	EXPECT_CALL( *m_auxScene, Initialize( ) );
-
-	ClientConfiguration config;
 
 	m_subject->ProcessMessage( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 }

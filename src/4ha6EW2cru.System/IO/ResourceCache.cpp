@@ -30,7 +30,7 @@ namespace Resources
 			return ( *result ).second;
 		}
 
-		FileBuffer* fileBuffer = Management::Get( )->GetFileManager( )->GetFile( filePath, true );
+		FileBuffer* fileBuffer = m_fileSystem->GetFile( filePath, true );
 		IResource* resource = new Resource( fileBuffer );
 
 		m_resourceCache.insert( std::make_pair( filePath, resource ) );

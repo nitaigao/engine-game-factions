@@ -21,6 +21,7 @@
 #include "../System/ISystemManager.hpp"
 #include "../Events/IEventManager.hpp"
 #include "../Service/IServiceManager.h"
+#include "../IO/IFileSystem.hpp"
 
 #include "../Export.hpp"
 
@@ -45,7 +46,10 @@ namespace Game
 		 *
 		 *  @return ()
 		 */
-		GameRoot( Platform::IProgramOptions* programOptions, Configuration::IConfiguration* configuration, Platform::IPlatformManager* platformManager, ISystemManager* systemManager, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
+		GameRoot( 
+			Platform::IProgramOptions* programOptions, Configuration::IConfiguration* configuration, Platform::IPlatformManager* platformManager, 
+			ISystemManager* systemManager, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager, IO::IFileSystem* fileSystem
+			)
 			: m_isQuitting( false )
 			, m_isInitialized( false )
 			, m_world( 0 )
@@ -55,6 +59,7 @@ namespace Game
 			, m_configuration( configuration )
 			, m_eventManager( eventManager )
 			, m_serviceManager( serviceManager )
+			, m_fileSystem( fileSystem )
 		{
 
 		}
@@ -104,6 +109,7 @@ namespace Game
 		ISystemManager* m_systemManager;
 		Events::IEventManager* m_eventManager;
 		Services::IServiceManager* m_serviceManager;
+		IO::IFileSystem* m_fileSystem;
 
 		GameRoot( const GameRoot & copy ) { };
 		GameRoot & operator = ( const GameRoot & copy ) { return *this; };

@@ -13,20 +13,16 @@
 #include "INetworkSystemScene.hpp"
 
 #include "Configuration/IConfiguration.hpp"
+#include "Service/IServiceManager.h"
+#include "IO/IResourceCache.hpp"
+#include "Events/IEventManager.hpp"
+#include "System/IInstrumentation.hpp"
 
 namespace Network
 {
-	enum NetworkProviderType
-	{
-		CLIENT,
-		SERVER
-	};
-
 	class INetworkFactory
 	{
-		virtual INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene, Configuration::IConfiguration* configuration ) = 0;
-		virtual INetworkSystem* CreateNetworkSystem( Configuration::IConfiguration* configuration ) = 0;
-		virtual INetworkSystemScene* CreateNetworkSystemScene( ) = 0;
+		virtual INetworkSystem* CreateNetworkSystem( ) = 0;
 	};
 
 	/*! 
@@ -43,23 +39,42 @@ namespace Network
 		 */
 		~NetworkFactory( ) { };
 
-
+		
 		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NetworkFactory( ) { };
+		 *
+		 * @param[in] Configuration::IConfiguration * configuration
+		 * @param[in] Services::IServiceManager * serviceManager
+		 * @param[in] Resources::IResourceCache * resourceCache
+		 * @param[in] Events::IEventManager * eventManager
+		 * @param[in] System::IInstrumentation * instrumentation
+		 * @return (  )
+		 */
+		NetworkFactory( 
+			Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
+			Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, System::IInstrumentation* instrumentation
+			)
+			: m_configuration( configuration )
+			, m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
+			, m_eventManager( eventManager )
+			, m_instrumentation( instrumentation )
+		{
 
-		INetworkProvider* CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene, Configuration::IConfiguration* configuration );
+		}
 
-		INetworkSystemScene* CreateNetworkSystemScene( );
-
-		INetworkSystem* CreateNetworkSystem( Configuration::IConfiguration* configuration );
+		INetworkSystem* CreateNetworkSystem( );
 
 	private:
 
 		NetworkFactory( const NetworkFactory & copy ) { };
 		NetworkFactory & operator = ( const NetworkFactory & copy ) { return *this; };
+
+
+		Configuration::IConfiguration* m_configuration;
+		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache;
+		Events::IEventManager* m_eventManager;
+		System::IInstrumentation* m_instrumentation;
 		
 	};
 };

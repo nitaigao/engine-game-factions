@@ -10,8 +10,8 @@ using namespace Network;
 #include "Mocks/MockNetworkClientController.hpp"
 #include "Mocks/MockNetworkSystemComponent.hpp"
 #include "Mocks/MockServerCache.hpp"
+#include "Mocks/MockConfiguration.hpp"
 
-#include "Configuration/Configuration.h"
 #include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
@@ -20,14 +20,14 @@ class NetworkClientProvider_Tests : public TestHarness< NetworkClientProvider >
 
 protected:
 	 
-	ClientConfiguration* m_configuration;
+	MockConfigurartion* m_configuration;
 	MockNetworkInterface* m_networkInterface;
 	MockNetworkClientController* m_controller;
 	MockNetworkClientEndpoint* m_endpoint;
 
 	void EstablishContext( )
 	{
-		m_configuration = new ClientConfiguration( );
+		m_configuration = new MockConfigurartion( );
 		m_networkInterface = new MockNetworkInterface( );
 		m_controller = new MockNetworkClientController( );
 		m_endpoint = new MockNetworkClientEndpoint( );

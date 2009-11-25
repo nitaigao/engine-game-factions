@@ -11,7 +11,7 @@ namespace Configuration
 
 	void ClientConfiguration::Initialize( const std::string& filePath )
 	{
-		m_configFile = ConfigurationFile::Load( filePath );
+		m_configFile->Load( filePath );
 	}
 
 	AnyType ClientConfiguration::Find( const std::string& section, const std::string& key )

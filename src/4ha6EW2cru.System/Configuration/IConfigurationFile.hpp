@@ -27,6 +27,14 @@ namespace Configuration
 		virtual ~IConfigurationFile( ) { };
 
 
+		/*! Loads the given file contents into the configuration
+		*
+		* @param[in] const std::string & fileName
+		* @return ( void )
+		*/
+		virtual void Load( const std::string& fileName ) = 0;
+
+
 		/*! Finds a Configuration Item based on the given section and key
 		*
 		*  @param[in] const std::string & section

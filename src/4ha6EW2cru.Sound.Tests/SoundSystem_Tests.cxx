@@ -8,9 +8,7 @@ using namespace Sound;
 #include "Mocks/MockSoundEventSystem.hpp"
 
 #include "Mocks/MockServiceManager.hpp"
-
-#include "Configuration/Configuration.h"
-using namespace Configuration;
+#include "Mocks/MockConfiguration.hpp"
 
 #include <fmod.h>
 
@@ -22,12 +20,14 @@ protected:
 	MockSoundSystemScene* m_scene;
 	MockSoundEventSystem* m_eventSystem;
 	MockServiceManager* m_serviceManager;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
 		m_serviceManager = new MockServiceManager( );
 		m_scene = new MockSoundSystemScene( );
 		m_eventSystem = new MockSoundEventSystem( );
+		m_configuration = new MockConfigurartion( );
 	}
 
 
@@ -35,6 +35,7 @@ protected:
 	{
 		delete m_scene;
 		delete m_serviceManager;
+		delete m_configuration;
 	}
 
 	SoundSystem* CreateSubject( )
@@ -64,15 +65,12 @@ TEST_F( SoundSystem_Tests, should_update_the_event_system )
 
 TEST_F( SoundSystem_Tests, should_initialize_the_event_system )
 {
-	ClientConfiguration config;
-
 	EXPECT_CALL( *m_eventSystem, Initialize( An< FMOD::System* >( ) ) );
-	m_subject->Initialize( &config );
+	m_subject->Initialize( m_configuration );
 }
 
 TEST_F( SoundSystem_Tests, should_add_to_the_service_manager )
 {
-	ClientConfiguration config;
 	EXPECT_CALL( *m_serviceManager, RegisterService( m_subject ) );
-	m_subject->Initialize( &config );
+	m_subject->Initialize( m_configuration );
 }

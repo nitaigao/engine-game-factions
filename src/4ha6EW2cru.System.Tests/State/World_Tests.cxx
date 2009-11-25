@@ -10,6 +10,7 @@ using namespace State;
 #include "../Mocks/MockEntity.hpp"
 #include "../Mocks/MockEntityFactory.hpp"
 #include "../Mocks/MockEntityService.hpp"
+#include "../Mocks/MockServiceManager.hpp"
 
 class World_Tests : public TestHarness< World >
 {
@@ -19,23 +20,25 @@ protected:
 	MockSerializer* m_serializer;
 	MockEntityFactory* m_entityFactory;
 	MockEntityService* m_entityService;
+	MockServiceManager* m_serviceManager;
 
 	void EstablishContext( )
 	{
 		m_serializer = new MockSerializer( );
 		m_entityFactory = new MockEntityFactory( );
 		m_entityService = new MockEntityService( );
+		m_serviceManager = new MockServiceManager( );
 	}
 
 
 	void DestroyContext( )
 	{
-
+		delete m_serviceManager;
 	}
 
 	World* CreateSubject( )
 	{
-		return new World( m_serializer, m_entityFactory, m_entityService );
+		return new World( m_serializer, m_entityFactory, m_entityService, m_serviceManager );
 	}
 };
 

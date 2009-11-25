@@ -13,6 +13,8 @@
 #include "FileBuffer.hpp"
 #include "FileSearchResult.hpp"
 
+#include "../Platform/IPlatformManager.h"
+
 namespace IO
 	{
 	/*! 
@@ -34,7 +36,11 @@ namespace IO
 		 *
 		 *  @return ()
 		 */
-		FileSystem( );
+		FileSystem( Platform::IPlatformManager* platformManager )
+			: m_platformManager( platformManager )
+		{
+
+		}
 
 
 		/*! Initializes the File System and any built in Mount Points
@@ -94,6 +100,8 @@ namespace IO
 
 		FileSystem( const FileSystem & copy ) { };
 		FileSystem & operator = ( const FileSystem & copy ) { return *this; };
+
+		Platform::IPlatformManager* m_platformManager;
 
 	};
 };

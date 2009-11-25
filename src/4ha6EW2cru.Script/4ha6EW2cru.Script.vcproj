@@ -422,18 +422,14 @@
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="DLL"
+		<File
+			RelativePath=".\SystemDefinition.cxx"
 			>
-			<File
-				RelativePath=".\SystemDefinition.cxx"
-				>
-			</File>
-			<File
-				RelativePath=".\SystemDefinition.def"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath=".\SystemDefinition.def"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

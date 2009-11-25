@@ -14,26 +14,30 @@ namespace Configuration
 		}
 	}
 
-	ConfigurationFile::ConfigurationFile( const FileBuffer* fileBuffer )
+	ConfigurationFile::ConfigurationFile( Platform::IPlatformManager* platformManager, IO::IFileSystem *fileSystem )
+		: m_platformManager( platformManager )
+		, m_fileSystem( fileSystem )
 	{
 		m_ini = new CSimpleIni( true );
-		m_ini->Load( fileBuffer->fileBytes );
-		m_filePath = fileBuffer->filePath;
 	}
 
-	ConfigurationFile* ConfigurationFile::Load( const std::string& filePath )
+	void ConfigurationFile::Load( const std::string& fileName )
 	{
 		std::stringstream configPath;
-		configPath << Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetLocalConfigPath( ) << "/" << filePath;
+		configPath << m_platformManager->GetPathInformation( )->GetLocalConfigPath( ) << "/" << fileName;
 
-		if ( !Management::Get( )->GetFileManager( )->FileExists( configPath.str( ) ) )
+		if ( !m_fileSystem->FileExists( configPath.str( ) ) )
 		{
 			FileBuffer fileBuffer( 0, 0, configPath.str( ) );
-			Management::Get( )->GetFileManager( )->SaveFile( fileBuffer );
+			m_fileSystem->SaveFile( fileBuffer );
 		}
 
-		Resources::IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( configPath.str( ) );
-		return new ConfigurationFile( resource->GetFileBuffer( ) );
+		FileBuffer* buffer = m_fileSystem->GetFile( configPath.str( ), true );
+
+		m_ini->Load( buffer->fileBytes );
+		m_filePath = buffer->filePath;
+
+		delete buffer;
 	}
 
 	AnyType ConfigurationFile::FindConfigItem( const std::string& section, const std::string& key, const AnyType& defaultValue )
@@ -89,7 +93,7 @@ namespace Configuration
 		outputBuffer[ output.length( ) ] = '\0';
 
 		FileBuffer fileBuffer( outputBuffer, output.length( ), m_filePath );
-		Management::Get( )->GetFileManager( )->SaveFile( fileBuffer );
+		m_fileSystem->SaveFile( fileBuffer );
 	}
 
 	AnyType::AnyTypeMap ConfigurationFile::FindConfigSection( const std::string& section )

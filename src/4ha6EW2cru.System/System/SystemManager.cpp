@@ -32,7 +32,7 @@ void SystemManager::InitializeAllSystems( )
 
 void SystemManager::Update( float deltaMilliseconds )
 {
-	Management::Get( )->GetInstrumentation( )->SetFPS( 1.0f / deltaMilliseconds );
+	m_instrumentation->SetFPS( 1.0f / deltaMilliseconds );
 
 	int loopCount = 0;
 	int maxLoops = 10;
@@ -40,7 +40,7 @@ void SystemManager::Update( float deltaMilliseconds )
 	float step = 1.0f / 100.0f;
 	m_accumulator += deltaMilliseconds;
 
-	float logicStart = Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+	float logicStart = m_platformManager->GetClock( ).GetTime( );
 
 	while( m_accumulator >= deltaMilliseconds && loopCount < maxLoops )
 	{
@@ -56,11 +56,11 @@ void SystemManager::Update( float deltaMilliseconds )
 		loopCount++;
 	}
 
-	float logicEnd = Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+	float logicEnd = m_platformManager->GetClock( ).GetTime( );
 
-	Management::Get( )->GetInstrumentation( )->SetRoundTime( System::Queues::LOGIC, logicEnd - logicStart );
+	m_instrumentation->SetRoundTime( System::Queues::LOGIC, logicEnd - logicStart );
 
-	float houseKeepingStart = Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+	float houseKeepingStart = m_platformManager->GetClock( ).GetTime( );
 
 	for( ISystem::SystemQueueMap::iterator i = _systemsByQueue.begin( ); i != _systemsByQueue.end( ); ++i )
 	{
@@ -70,11 +70,11 @@ void SystemManager::Update( float deltaMilliseconds )
 		}
 	}
 
-	float houseKeepingEnd = Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+	float houseKeepingEnd = m_platformManager->GetClock( ).GetTime( );
 
-	Management::Get( )->GetInstrumentation( )->SetRoundTime( System::Queues::HOUSE, houseKeepingEnd - houseKeepingStart );
+	m_instrumentation->SetRoundTime( System::Queues::HOUSE, houseKeepingEnd - houseKeepingStart );
 
-	float presentationStart = Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+	float presentationStart = m_platformManager->GetClock( ).GetTime( );
 
 	for( ISystem::SystemQueueMap::iterator i = _systemsByQueue.begin( ); i != _systemsByQueue.end( ); ++i )
 	{
@@ -84,9 +84,9 @@ void SystemManager::Update( float deltaMilliseconds )
 		}
 	}
 
-	float presentationEnd = Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+	float presentationEnd = m_platformManager->GetClock( ).GetTime( );
 
-	Management::Get( )->GetInstrumentation( )->SetRoundTime( System::Queues::RENDER, presentationEnd - presentationStart );
+	m_instrumentation->SetRoundTime( System::Queues::RENDER, presentationEnd - presentationStart );
 }
 
 void SystemManager::Release( )
@@ -109,7 +109,7 @@ void SystemManager::Release( )
 
 IWorld* SystemManager::CreateWorld()
 {
-	IWorld* world = new World( );
+	IWorld* world = new World( m_serviceManager );
 
 	for( ISystem::SystemTypeMap::iterator i = _systemsByType.begin( ); i != _systemsByType.end( ); ++i )
 	{
@@ -138,10 +138,10 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 	}
 
 	InitializeSystemFunction initializeSystem = reinterpret_cast< InitializeSystemFunction >( GetProcAddress( library, "Initialize" ) );
-	initializeSystem( Management::Get( ), Logger::Get( ) );
+	initializeSystem( Logger::Get( ) );
 
 	CreateSystemFunction createSystem = reinterpret_cast< CreateSystemFunction >( GetProcAddress( library, "CreateSystem" ) );
-	ISystem* system = createSystem( m_configuration );
+	ISystem* system = createSystem( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation );
 
 	m_systemLibraries.insert( std::make_pair( system, library ) );
 

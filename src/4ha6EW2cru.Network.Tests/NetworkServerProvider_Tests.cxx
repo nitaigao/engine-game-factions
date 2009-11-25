@@ -15,6 +15,7 @@ using namespace Maths;
 #include "Mocks/MockNetworkServerController.hpp"
 #include "Mocks/MockNetworkServerEndpoint.hpp"
 #include "Mocks/MockNetworkSystemComponent.hpp"
+#include "Mocks/MockConfiguration.hpp"
 
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
@@ -23,7 +24,6 @@ using namespace Events;
 #include <BitStream.h>
 using namespace RakNet;
 
-#include "Configuration/Configuration.h"
 #include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
@@ -35,14 +35,14 @@ protected:
 	MockNetworkInterface* m_networkInterface;
 	MockNetworkServerController* m_controller;
 	MockNetworkServerEndpoint* m_endpoint;
-	ClientConfiguration* m_configuration;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
 		m_networkInterface = new MockNetworkInterface( );
 		m_controller = new MockNetworkServerController( );
 		m_endpoint = new MockNetworkServerEndpoint( ); 
-		m_configuration = new ClientConfiguration( );
+		m_configuration = new MockConfigurartion( );
 
 		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 0 );
 	}

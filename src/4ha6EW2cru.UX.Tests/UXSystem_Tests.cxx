@@ -13,6 +13,7 @@ using namespace Configuration;
 #include "Mocks/MockEventManager.hpp"
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockService.hpp"
+#include "Mocks/MockConfiguration.hpp"
 
 #include "Events/InputEventData.hpp"
 #include "Events/Event.h"
@@ -28,6 +29,7 @@ protected:
 	MockUXSystemScene* m_scene;
 	MockEventManager* m_eventManager;
 	MockServiceManager* m_serviceManager;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
@@ -35,6 +37,7 @@ protected:
 		m_scene = new MockUXSystemScene( );
 		m_eventManager = new MockEventManager( );
 		m_serviceManager = new MockServiceManager( );
+		m_configuration = new MockConfigurartion( );
 	}
 
 
@@ -58,9 +61,7 @@ TEST_F( UXSystem_Tests, should_initialize )
 	EXPECT_CALL( *m_eventManager, AddEventListener( A< const std::string& >( ), An< IEventListener* >( ) ) )
 		.WillRepeatedly( Invoke( MockEventManager::ConsumeEventListener ) );
 
-	ClientConfiguration config;
-
-	m_subject->Initialize( &config );
+	m_subject->Initialize( m_configuration );
 }
 
 TEST_F( UXSystem_Tests, should_destroy_the_gui )

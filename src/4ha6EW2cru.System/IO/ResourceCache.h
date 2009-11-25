@@ -11,6 +11,7 @@
 #include <map>
 
 #include "IResourceCache.hpp"
+#include "IFileSystem.hpp"
 
 namespace Resources
 {
@@ -33,7 +34,11 @@ namespace Resources
 		 *
 		 *  @return ()
 		 */
-		ResourceCache( ) { };
+		ResourceCache( IO::IFileSystem* fileSystem )
+			: m_fileSystem( fileSystem )
+		{
+
+		}
 
 
 		/*! Returns a Resource from the given file path
@@ -54,6 +59,7 @@ namespace Resources
 	private:
 
 		IResource::ResourceMap m_resourceCache;
+		IO::IFileSystem* m_fileSystem;
 
 	};
 };

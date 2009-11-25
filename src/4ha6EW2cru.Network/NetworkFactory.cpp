@@ -13,72 +13,25 @@
 #include "NetworkSystemScene.h"
 #include "NetworkSystemComponentFactory.hpp"
 
-#include "ServerCache.h"
-
 #include "NetworkSystem.h"
-
-#include "Management/Management.h"
-
-#include "Configuration/Configuration.h"
-using namespace Configuration;
 
 namespace Network
 {
-	INetworkProvider* NetworkFactory::CreateNetworkProvider( NetworkProviderType type, INetworkSystemScene* scene, IConfiguration* configuration )
+	INetworkSystem* NetworkFactory::CreateNetworkSystem( )
 	{
-		switch ( type )
-		{
+		INetworkSystemComponentFactory* componentFactory = new NetworkSystemComponentFactory( );
+		INetworkSystemScene* scene = new NetworkSystemScene( componentFactory );
 
-		case CLIENT:
-			{
-				INetworkInterface* networkInterface = new NetworkInterface( );
+		INetworkInterface* clientInterface = new NetworkInterface( );
+		INetworkClientController* clientController = new NetworkClientController( clientInterface );
+		INetworkClientEndpoint* clientEndpoint = new NetworkClientEndpoint( clientInterface, scene, m_eventManager, m_serviceManager )	;
+		INetworkClientProvider* clientProvider = new NetworkClientProvider( m_configuration, clientInterface, clientController, clientEndpoint	);
 
-				return new NetworkClientProvider( 
-					configuration,
-					networkInterface, 
-					new NetworkClientController( networkInterface ),
-					new NetworkClientEndpoint( networkInterface, scene, Management::Get( )->GetEventManager( ), Management::Get( )->GetServiceManager( ) )	
-					);
-			}
+		INetworkInterface* serverInterface = new NetworkInterface( );
+		INetworkServerController* serverController = new NetworkServerController( serverInterface, m_serviceManager );
+		INetworkServerEndpoint* serverEndpoint = new NetworkServerEndpoint( serverInterface, scene, serverController );
+		INetworkServerProvider* serverProvider = new NetworkServerProvider( m_configuration, serverInterface, serverController, serverEndpoint	);
 
-		case SERVER:
-			{
-				INetworkInterface* networkInterface = new NetworkInterface( );
-				INetworkServerController* controller = new NetworkServerController( networkInterface, Management::Get( )->GetServiceManager( ) );
-
-				return new NetworkServerProvider( 
-					configuration,
-					networkInterface, 
-					controller,
-					new NetworkServerEndpoint( networkInterface, scene, controller )
-					);
-			}
-
-		default:
-
-			return 0;
-		}
+		return new NetworkSystem( m_serviceManager, m_instrumentation, scene, clientProvider, serverProvider, m_eventManager, m_configuration );
 	}
-
-	INetworkSystemScene* NetworkFactory::CreateNetworkSystemScene()
-	{
-		return new NetworkSystemScene( new NetworkSystemComponentFactory( ) );
-	}
-
-	INetworkSystem* NetworkFactory::CreateNetworkSystem( IConfiguration* configuration )
-	{
-		INetworkSystemScene* scene = this->CreateNetworkSystemScene( );
-
-		return new NetworkSystem( 
-			Management::Get( )->GetServiceManager( ), 
-			Management::Get( )->GetInstrumentation( ),
-			scene,
-			static_cast< INetworkClientProvider* >( this->CreateNetworkProvider( CLIENT, scene, configuration ) ),
-			static_cast< INetworkServerProvider* >( this->CreateNetworkProvider( SERVER, scene, configuration ) ),
-			Management::Get( )->GetEventManager( ),
-			configuration
-			);
-	}
-
-	
 }

@@ -12,9 +12,7 @@ using namespace luabind;
 #include "Mocks/MockLuaState.hpp"
 
 #include "Mocks/MockServiceManager.hpp"
-
-#include "Configuration/Configuration.h"
-using namespace Configuration;
+#include "Mocks/MockConfiguration.hpp"
 
 class ScriptSystemScene_Tests : public TestHarness< ScriptSystemScene >
 {
@@ -25,14 +23,14 @@ protected:
 	MockLuaState* m_masterState;
 	MockServiceManager* m_serviceManager;
 
-	ClientConfiguration* m_configuration;
+	MockConfigurartion* m_configuration;
 
 	void EstablishContext( )
 	{
 		m_factory = new MockScriptComponentFactory( );
 		m_masterState = new MockLuaState( );
 		m_serviceManager = new MockServiceManager( );
-		m_configuration = new ClientConfiguration( );
+		m_configuration = new MockConfigurartion( );
 	}
 
 

@@ -12,6 +12,9 @@
 #include "IScriptSystemScene.hpp"
 
 #include "Configuration/IConfiguration.hpp"
+#include "Service/IServiceManager.h"
+#include "IO/IResourceCache.hpp"
+#include "Events/IEventManager.hpp"
 
 namespace Script
 {
@@ -34,26 +37,42 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		ScriptFactory( ) { };
+		ScriptFactory( 
+			Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
+			Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager 
+			)
+			: m_configuration( configuration )
+			, m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
+			, m_eventManager( eventManager )
+		{
+
+		}
 
 
 		/*! Creates the Script System
 		 *
 		 * @return ( IScriptSystem* )
 		 */
-		IScriptSystem* CreateScriptSystem( Configuration::IConfiguration* configuration );
+		IScriptSystem* CreateScriptSystem(  );
 
 
 		/*! Creates a Script System Scene
 		 *
 		 * @return ( IScriptSystemScene* )
 		 */
-		IScriptSystemScene* CreateScriptSystemScene( Configuration::IConfiguration* configuration );
+		IScriptSystemScene* CreateScriptSystemScene( );
 
 	private:
 
 		ScriptFactory( const ScriptFactory & copy ) { };
 		ScriptFactory & operator = ( const ScriptFactory & copy ) { return *this; };
+
+
+		Configuration::IConfiguration* m_configuration;
+		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache;
+		Events::IEventManager* m_eventManager;
 		
 	};
 };

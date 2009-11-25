@@ -23,13 +23,14 @@
 
 #include "../Export.hpp"
 #include "LogLevel.hpp"
+#include "../Platform/IPlatformManager.h"
 
 namespace Logging
 {
 	/*! 
 	 *  Logging mechanism that logs to Console and a File
 	 */
-	class Logger
+	class GAMEAPI Logger
 	{
 
 	public:
@@ -38,7 +39,7 @@ namespace Logging
 		*
 		* @return ( void )
 		*/
-		static GAMEAPI void Initialize( );
+		static void Initialize( Platform::IPlatformManager* platformManager );
 
 
 		/*! Initializes the Logger Singleton from an already existing pointer
@@ -46,21 +47,21 @@ namespace Logging
 		* @param[in] Logger * logger
 		* @return ( void )
 		*/
-		static GAMEAPI void Initialize( Logger* logger );
+		static void Initialize( Logger* logger );
 
 
 		/*! Releases the Logger Singleton
 		*
 		* @return ( void )
 		*/
-		static GAMEAPI void Release( );
+		static void Release( );
 
 
 		/*! Returns the instance of the Logger Singleton
 		*
 		* @return ( Logger* )
 		*/
-		static GAMEAPI Logger* Get( );
+		static Logger* Get( );
 		
 
 		/*! Logs a message with the DEBUG prefix
@@ -70,7 +71,7 @@ namespace Logging
 		*/
 #define LOG_DEBUG_FUNCTION(z, n, data)																						\
 		template< class A BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM_PARAMS( n, class T ) >										\
-		GAMEAPI void Debug( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )			\
+		void Debug( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )					\
 		{																													\
 			if ( m_logLevel >= LEVEL_DEBUG )																				\
 			{																												\
@@ -90,7 +91,7 @@ namespace Logging
 		*/
 #define LOG_INFO_FUNCTION(z, n, data)																						\
 		template< class A BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM_PARAMS( n, class T ) >										\
-		GAMEAPI void Info( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )				\
+		void Info( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )						\
 		{																													\
 			if ( m_logLevel >= LEVEL_INFO )																					\
 			{																												\
@@ -111,7 +112,7 @@ namespace Logging
 		*/
 #define LOG_WARN_FUNCTION(z, n, data)																						\
 		template< class A BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM_PARAMS( n, class T ) >										\
-		GAMEAPI void Warn( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )				\
+		void Warn( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )						\
 		{																													\
 			if ( m_logLevel >= LEVEL_WARN )																					\
 			{																												\
@@ -132,7 +133,7 @@ namespace Logging
 		*/
 #define LOG_FATAL_FUNCTION(z, n, data)																						\
 		template< class A BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM_PARAMS( n, class T ) >										\
-		GAMEAPI void Fatal( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )			\
+		void Fatal( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )					\
 		{																													\
 			if ( m_logLevel >= LEVEL_FATAL )																				\
 			{																												\
@@ -153,7 +154,7 @@ namespace Logging
 		*/
 #define LOG_NET_FUNCTION(z, n, data)																						\
 		template< class A BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM_PARAMS( n, class T ) >										\
-		GAMEAPI void Net( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )				\
+		void Net( const A& start BOOST_PP_COMMA_IF( n ) BOOST_PP_ENUM( n, LOG_FUNCTIONPARAMS, data ) )						\
 		{																													\
 			if ( m_logLevel >= LEVEL_NET )																					\
 			{																												\
@@ -184,20 +185,23 @@ namespace Logging
 
 	private:
 
-		GAMEAPI void LogMessage( const std::string& level, const std::string& message );
+		void LogMessage( const std::string& level, const std::string& message );
 
 		LogLevel m_logLevel;
 
 		~Logger( ) { };
 
-		Logger( )
+		Logger( Platform::IPlatformManager* platformManager )
 			: m_logLevel( LEVEL_FATAL )
+			, m_platformManager( platformManager )
 		{
 
 		}
 
 		Logger( const Logger & copy ) { };
 		Logger & operator = ( const Logger & copy ) { return *this; };
+
+		Platform::IPlatformManager* m_platformManager;
 
 	};
 

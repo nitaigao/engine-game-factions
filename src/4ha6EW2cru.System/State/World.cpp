@@ -4,7 +4,6 @@
 using namespace Logging;
 
 #include "../System/ISystem.hpp"
-#include "../Management/Management.h"
 
 #include "WorldEntity.h"
 #include "WorldEntityFactory.h"
@@ -27,7 +26,8 @@ namespace State
 		delete m_entityService;
 	}
 
-	World::World( )
+	World::World( Services::IServiceManager* serviceManager )
+		: m_serviceManager( serviceManager )
 	{
 		m_serializer = new Serialization::XMLSerializer( this );
 		m_entityFactory = new WorldEntityFactory( );
@@ -36,7 +36,7 @@ namespace State
 
 	void World::Initialize( )
 	{
-		Management::Get( )->GetServiceManager( )->RegisterService( m_entityService );
+		m_serviceManager->RegisterService( m_entityService );
 	}
 	
 	IWorldEntity* World::CreateEntity( const std::string& name )

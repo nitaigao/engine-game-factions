@@ -14,14 +14,14 @@ namespace Logging
 {
 	Logger* g_logger = 0;
 
-	void Logger::Initialize( )
+	void Logger::Initialize( Platform::IPlatformManager* platformManager )
 	{
-		g_logger = new Logger( );
+		g_logger = new Logger( platformManager );
 	}
 
 	void Logger::Initialize( Logger* logger )
 	{
-		g_logger = logger;
+		//g_logger = logger;
 	}
 
 	void Logger::Release( )
@@ -46,8 +46,6 @@ namespace Logging
 		std::stringstream outputMessage;
 		outputMessage << level << ": " << message << "\n";
 
-		if ( Management::IsInitialized( ) )
-		{
 #ifndef _DEBUG
 
 			if( level != "DEBUG" && level != "NET" )
@@ -56,8 +54,7 @@ namespace Logging
 				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::LOG_MESSAGE_APPENDED, eventData ) );
 			}
 #endif
-			//Management::Get( )->GetPlatformManager( )->OutputDebugMessage( outputMessage.str( ) );
-			//Management::Get( )->GetPlatformManager( )->OutputToConsole( outputMessage.str( ) );
-		}
+			m_platformManager->OutputDebugMessage( outputMessage.str( ) );
+			m_platformManager->OutputToConsole( outputMessage.str( ) );
 	}
 }

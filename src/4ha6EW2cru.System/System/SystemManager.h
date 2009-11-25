@@ -10,7 +10,13 @@
 
 #include "ISystemManager.hpp"
 #include "../State/World.h"
+
 #include "../Configuration/IConfiguration.hpp"
+#include "../Service/IServiceManager.h"
+#include "../IO/IResourceCache.hpp"
+#include "../Events/IEventManager.hpp"
+#include "../System/IInstrumentation.hpp"
+#include "../Platform/IPlatformManager.h"
 
 /*! 
 *  Manages each System of the Game
@@ -33,9 +39,16 @@ public:
 	 *
 	 *  @return ()
 	 */
-	SystemManager( Configuration::IConfiguration* configuration )
+	SystemManager( 
+		Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, 
+		Events::IEventManager* eventManager, System::IInstrumentation* instrumentation, Platform::IPlatformManager* platformManager )
 		: m_accumulator( 0.0f )
 		, m_configuration( configuration )
+		, m_serviceManager( serviceManager )
+		, m_resourceCache( resourceCache )
+		, m_eventManager( eventManager )
+		, m_instrumentation( instrumentation )
+		, m_platformManager( platformManager )
 	{
 
 	}
@@ -120,7 +133,13 @@ private:
 	SystemLibraryList m_systemLibraries;
 
 	float m_accumulator;
+
 	Configuration::IConfiguration* m_configuration;
+	Services::IServiceManager* m_serviceManager;
+	Resources::IResourceCache* m_resourceCache;
+	Events::IEventManager* m_eventManager;
+	System::IInstrumentation* m_instrumentation;
+	Platform::IPlatformManager* m_platformManager;
 
 };
 

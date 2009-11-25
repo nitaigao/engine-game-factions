@@ -31,8 +31,8 @@ namespace Configuration
 		~ClientConfiguration( );
 
 
-		ClientConfiguration( )
-			: m_configFile( 0 )
+		ClientConfiguration( Configuration::IConfigurationFile* configurationFile )
+			: m_configFile( configurationFile )
 		{
 
 		};

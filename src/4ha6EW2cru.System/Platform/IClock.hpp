@@ -2,7 +2,9 @@
 #ifndef ICLOCK_HPP
 #define ICLOCK_HPP
 
-class IClock
+#include "../Export.hpp"
+
+class GAMEAPI IClock
 {
 
 public:

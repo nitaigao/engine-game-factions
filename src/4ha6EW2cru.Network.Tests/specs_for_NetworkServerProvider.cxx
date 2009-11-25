@@ -8,9 +8,7 @@ using namespace Network;
 #include "Mocks/MockNetworkServerController.hpp"
 #include "Mocks/MockNetworkServerEndpoint.hpp"
 #include "Mocks/MockNetworkSystemComponent.hpp"
-
-#include "Configuration/Configuration.h"
-using namespace Configuration;
+#include "Mocks/MockConfiguration.hpp"
 
 namespace BaseContext
 {
@@ -22,14 +20,14 @@ namespace BaseContext
 		MockNetworkInterface* m_interface;
 		MockNetworkServerController* m_controller;
 		MockNetworkServerEndpoint* m_endpoint;
-		ClientConfiguration* m_configuration;
+		MockConfigurartion* m_configuration;
 
 		virtual void EstablishContext( )
 		{
 			m_interface = new MockNetworkInterface( );
 			m_controller = new MockNetworkServerController( );
 			m_endpoint = new MockNetworkServerEndpoint( );
-			m_configuration = new ClientConfiguration( );
+			m_configuration = new MockConfigurartion( );
 
 		}
 

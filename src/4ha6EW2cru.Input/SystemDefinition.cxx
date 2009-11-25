@@ -1,28 +1,35 @@
-#include "InputSystem.h"
+#include "InputFactory.h"
+using namespace Input;
 
 #include "Configuration/IConfiguration.hpp"
 using namespace Configuration;
 
-#include "System/Memory.cxx"
+#include "Service/IServiceManager.h"
+using namespace Services;
 
-#include "Management/Management.h"
+#include "IO/IResourceCache.hpp"
+using namespace Resources;
+
+#include "Events/IEventManager.hpp"
+using namespace Events;
+
+#include "System/IInstrumentation.hpp"
+using namespace System;
+
 #include "Logging/Logger.h"
 using namespace Logging;
-
-#include "InputFactory.h"
 
 BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
 {
 	return true;
 }
 
-extern "C" void __stdcall Initialize( Management* management, Logger* logger )
+extern "C" void __stdcall Initialize( Logger* logger )
 {
-	//Management::Initialize( management );
-	//Logger::Initialize( logger );
+
 }
 
-extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration )
+extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration, IServiceManager* serviceManager, IResourceCache* resourceCache, IEventManager* eventManager, IInstrumentation* instrumentation )
 {
 	return Input::InputFactory( ).CreateInputSystem( );
 }

@@ -16,6 +16,9 @@
 #include "../System/ISystemManager.hpp"
 #include "../Events/IEventManager.hpp"
 #include "../Service/IServiceManager.h"
+#include "../IO/IResourceCache.hpp"
+#include "../IO/IFileSystem.hpp"
+#include "../System/IInstrumentation.hpp"
 
 #include "../Export.hpp"
 
@@ -62,6 +65,10 @@ namespace Game
 		ISystemManager* m_systemManager;
 		Events::IEventManager* m_eventManager;
 		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache;
+		IO::IFileSystem* m_fileSystem;
+		System::IInstrumentation* m_instrumentation;
+
 		
 	};
 };

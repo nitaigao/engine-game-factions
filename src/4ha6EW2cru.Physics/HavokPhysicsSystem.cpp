@@ -72,8 +72,6 @@ namespace Physics
 		m_vdb = new hkVisualDebugger( contexts );
 		m_vdb->serve( );
 #endif
-
-		Management::Get( )->GetServiceManager( )->RegisterService( this ); 
 	}
 
 	void HavokPhysicsSystem::Update( float deltaMilliseconds )
