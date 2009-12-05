@@ -43,8 +43,6 @@ protected:
 		m_controller = new MockNetworkServerController( );
 		m_endpoint = new MockNetworkServerEndpoint( ); 
 		m_configuration = new MockConfigurartion( );
-
-		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 0 );
 	}
 
 	void DestroyContext()
@@ -62,6 +60,10 @@ protected:
 TEST_F( NetworkServerProvider_Tests, should_initialize_network_interface )
 {
 	EXPECT_CALL( *m_networkInterface, Initialize( An< unsigned int >( ), An< int >( ) ) );
+
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::ServerPort ) )
+		.WillRepeatedly( Return( 8989 ) );
+
 	m_subject->Initialize( 0 );
 }
 
@@ -77,7 +79,16 @@ TEST_F( NetworkServerProvider_Tests, should_set_offline_message_on_level_changed
 	EXPECT_CALL( *m_networkInterface, GetConnectionCount( ) )
 		.WillOnce( Return( 1 ) );
 
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::ServerName ) )
+		.WillOnce( Return( "server_name" ) );
+
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::MaxPlayers ) )
+		.WillOnce( Return( 10 ) );
+
 	EXPECT_CALL( *m_networkInterface, SetOfflinePingInformation( A< BitStream* >( ) ) );
+
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::ServerPort ) )
+		.WillRepeatedly( Return( 8989 ) );
 
 	m_subject->Initialize( 0 );
 
@@ -88,6 +99,9 @@ TEST_F( NetworkServerProvider_Tests, should_set_offline_message_on_level_changed
 TEST_F( NetworkServerProvider_Tests, should_initialize_controller )
 {
 	EXPECT_CALL( *m_controller, Initialize( ) );
+
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::ServerPort ) )
+		.WillRepeatedly( Return( 8989 ) );
 
 	m_subject->Initialize( 0 );
 }
@@ -133,7 +147,6 @@ TEST_F( NetworkServerProvider_Tests, should_forward_mouse_moved_events_to_the_ne
 	parameters[ System::Parameters::DeltaX ] = "1.0f";
 
 	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >( ) ) );
-	EXPECT_CALL( *m_controller, MessageEntity( entityName, System::Messages::SetPosition, An< AnyType::AnyTypeMap >( ) ) );
 
 	m_subject->Message( &component, System::Messages::Mouse_Moved, parameters );
 }

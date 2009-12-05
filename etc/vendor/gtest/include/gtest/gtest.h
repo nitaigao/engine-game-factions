@@ -370,8 +370,8 @@ public:
 
 	virtual void TearDown( )
 	{
-		DestroyContext( );
 		delete m_subject;
+		DestroyContext( );
 	}
 
 protected:

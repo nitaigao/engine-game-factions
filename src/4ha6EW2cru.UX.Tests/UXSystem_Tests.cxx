@@ -46,6 +46,7 @@ protected:
 		delete m_scene;
 		delete m_eventManager;
 		delete m_serviceManager;
+		delete m_configuration;
 	}
 
 	UXSystem* CreateSubject( )

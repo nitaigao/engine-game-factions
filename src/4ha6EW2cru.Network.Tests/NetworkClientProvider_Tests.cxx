@@ -31,8 +31,6 @@ protected:
 		m_networkInterface = new MockNetworkInterface( );
 		m_controller = new MockNetworkClientController( );
 		m_endpoint = new MockNetworkClientEndpoint( );
-
-		m_configuration->SetDefault( ConfigSections::Network, ConfigItems::Network::ServerPort, 0 );
 	}
 
 	void DestroyContext()
@@ -60,7 +58,10 @@ TEST_F( NetworkClientProvider_Tests, should_initialize_network_interface )
 TEST_F( NetworkClientProvider_Tests, should_connect_to_a_server )
 {
 	std::string address = "127.0.0.1";
-	int port = 0;
+	int port = 8989;
+
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::ServerPort ) )
+		.WillOnce( Return( port ) );
 
 	EXPECT_CALL( *m_networkInterface, Connect( port, address ) );
 
@@ -112,7 +113,12 @@ TEST_F( NetworkClientProvider_Tests, should_select_a_character )
 
 TEST_F( NetworkClientProvider_Tests, should_find_servers )
 {
-	EXPECT_CALL( *m_controller, FindServers( 0 ) );
+	int port = 8989;
+
+	EXPECT_CALL( *m_configuration, Find( ConfigSections::Network, ConfigItems::Network::ServerPort ) )
+		.WillOnce( Return( port ) );
+
+	EXPECT_CALL( *m_controller, FindServers( port ) );
 	m_subject->FindServers( );
 }
 

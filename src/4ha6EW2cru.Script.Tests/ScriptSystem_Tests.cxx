@@ -32,6 +32,7 @@ protected:
 	{
 		delete m_scene;
 		delete m_serviceManager;
+		delete m_configuration;
 	}
 
 	ScriptSystem* CreateSubject( )

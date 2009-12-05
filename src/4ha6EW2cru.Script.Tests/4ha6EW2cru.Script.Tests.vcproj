@@ -59,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtestd.lib gmock.lib luabindd.lib luad.lib"
+				AdditionalDependencies="gtestd.lib gmock.lib luabindd.lib luad.lib winmm.lib"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Debug;../../etc/vendor/gtest/msvc/Debug;../../etc/vendor/boost/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
@@ -131,7 +131,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="gtest.lib gmock.lib luabind.lib lua.lib"
+				AdditionalDependencies="gtest.lib gmock.lib luabind.lib lua.lib winmm.lib"
 				AdditionalLibraryDirectories="../../etc/vendor/gmock/msvc/Release;../../etc/vendor/gtest/msvc/Release;../../etc/vendor/boost/lib;../../etc/vendor/luabind/lib;../../etc/vendor/lua"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"

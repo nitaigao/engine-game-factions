@@ -44,6 +44,9 @@ namespace given_a_script_is_running
 		{
 			EXPECT_CALL( *m_eventManager, AddEventListener( A< const std::string& >( ), An< IEventListener* >( ) ) )
 				.WillOnce( Invoke( MockEventManager::ConsumeEventListener ) );
+
+			EXPECT_CALL( *m_eventManager, RemoveEventListener( A< const std::string& >( ), An< IEventListener* >( ) ) )
+				.WillOnce( Invoke( MockEventManager::ConsumeEventListener ) );
 		}
 
 		void When( )
