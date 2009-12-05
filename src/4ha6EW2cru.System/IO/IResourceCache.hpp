@@ -9,13 +9,14 @@
 #define IRESOURCECACHE_H
 
 #include "IResource.hpp"
+#include "../Export.hpp"
 
 namespace Resources
 {
 	/*! 
 	 *  A Cache of data retrieved from the FileSystem for fast access
 	 */
-	class IResourceCache
+	class GAMEAPI IResourceCache
 	{
 
 	public:
@@ -33,6 +34,14 @@ namespace Resources
 		 *  @return (Resources::IResource*)
 		 */
 		virtual Resources::IResource* GetResource( const std::string& filePath ) = 0;
+
+
+		/*! Checks to see if the Resource Exists
+		 *
+		 * @param[in] const std::string & filePath
+		 * @return ( bool )
+		 */
+		virtual bool ResourceExists( const std::string& filePath ) = 0;
 
 
 		/*! Steps the internal data of the cache

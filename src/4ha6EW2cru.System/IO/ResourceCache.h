@@ -18,7 +18,7 @@ namespace Resources
 	/*! 
 	*  A Cache of data retrieved from the FileSystem for fast access
 	*/
-	class ResourceCache : public IResourceCache
+	class GAMEAPI ResourceCache : public IResourceCache
 	{
 
 	public:
@@ -47,6 +47,14 @@ namespace Resources
 		*  @return (Resources::IResource*)
 		*/
 		IResource* GetResource( const std::string& filePath );
+
+
+		/*! Checks to see if the Resource Exists
+		*
+		* @param[in] const std::string & filePath
+		* @return ( bool )
+		*/
+		bool ResourceExists( const std::string& filePath );
 
 
 		/*! Steps the internal data of the cache, may perform cache releases depending on resource age

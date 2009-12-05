@@ -9,13 +9,16 @@
 #define IWORLDLOADER_HPP
 
 #include "../IWorldEntity.hpp"
+#include "../IWorld.hpp"
+
+#include "../../Export.hpp"
 
 namespace Serialization
 {
 	/*!
 	 *  De serializes a world from storage 
 	 */
-	class IWorldSerializer
+	class GAMEAPI IWorldSerializer
 	{
 
 	public:
@@ -27,13 +30,14 @@ namespace Serialization
 		virtual ~IWorldSerializer( ) { };
 
 
-		/*! De serializes the Level File into the component collection
+		
+		/*! De serializes the level path into the world
 		 *
+		 * @param[in] IWorld * world
 		 * @param[in] const std::string & levelPath
-		 * @param[in] IWorldEntity::WorldEntityMap & entities
 		 * @return ( void )
 		 */
-		virtual void DeSerializeLevel( const std::string& levelPath ) = 0;
+		virtual void DeSerializeLevel( State::IWorld* world, const std::string& levelPath ) = 0;
 
 
 		/*! De serializes an entity file into the given entity

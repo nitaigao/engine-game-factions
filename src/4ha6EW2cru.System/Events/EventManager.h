@@ -54,7 +54,7 @@ namespace Events
 		* @param[in] IEventData *
 		* @return ( void )
 		*/
-		void QueueEvent( const std::string&, IEventData* );
+		void QueueEvent( const std::string& eventType, Events::IEventData* eventData );
 
 
 		/*! Processes an Event immediately

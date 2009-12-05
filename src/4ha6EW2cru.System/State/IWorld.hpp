@@ -33,13 +33,6 @@ namespace State
 		virtual ~IWorld( ) { };
 
 
-		/*! Initializes the World
-		 *
-		 * @return ( void )
-		 */
-		virtual void Initialize( ) = 0;
-
-
 		/*! Creates a World Entity Container
 		 *
 		 *  @param[in] const std::string & name

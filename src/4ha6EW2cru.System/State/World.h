@@ -34,26 +34,19 @@ namespace State
 
 		/*! Default Constructor
 		 *
-		 *  @return ()
+		 * @param[in] Serialization::IWorldSerializer * serializer
+		 * @param[in] IWorldEntityFactory * entityFactory
+		 * @param[in] IEntityService * entityService
+		 * @param[in] Services::IServiceManager * serviceManager
+		 * @return (  )
 		 */
-		World( Services::IServiceManager* serviceManager );
-
-
-		World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, IEntityService* entityService, Services::IServiceManager* serviceManager )
+		World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, Services::IServiceManager* serviceManager )
 			: m_serializer( serializer )
 			, m_entityFactory( entityFactory )
-			, m_entityService( entityService )
 			, m_serviceManager( serviceManager )
 		{
 
 		}
-
-
-		/*! Initializes the World
-		*
-		* @return ( void )
-		*/
-		void Initialize( );
 
 
 		/*! Creates a World Entity Container
@@ -154,8 +147,6 @@ namespace State
 
 		Serialization::IWorldSerializer* m_serializer;
 		IWorldEntityFactory* m_entityFactory;
-
-		IEntityService* m_entityService;
 
 		unsigned int m_lastEntityId;
 	};

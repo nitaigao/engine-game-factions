@@ -1,5 +1,7 @@
 #include "EventManager.h"
 
+#include "Event.h"
+
 #include "../Logging/Logger.h"
 using namespace Logging;
 
@@ -36,9 +38,10 @@ namespace Events
 		m_eventQueue.push( event );
 	}
 
-	void EventManager::QueueEvent( const std::string&, IEventData* )
+	void EventManager::QueueEvent( const std::string& eventType, IEventData* eventData )
 	{
-
+		IEvent* event = new Event( eventType, eventData );
+		this->QueueEvent( event );
 	}
 
 	void EventManager::TriggerEvent( const IEvent* event )

@@ -39,4 +39,9 @@ namespace Resources
 
 		return resource;
 	}
+
+	bool ResourceCache::ResourceExists( const std::string& filePath )
+	{
+		return m_fileSystem->FileExists( filePath );
+	}
 };

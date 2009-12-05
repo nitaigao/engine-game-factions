@@ -11,6 +11,13 @@ using namespace Logging;
 #include "SystemExports.hpp"
 #include "../Exceptions/FileNotFoundException.hpp"
 
+#include "../State/Serilaization/XMLSerializer.h"
+using namespace Serialization;
+
+#include "../State/WorldEntityFactory.h"
+#include "../State/EntityService.h"
+using namespace State;
+
 void SystemManager::RegisterSystem( const System::Queues::Queue& systemQueue, ISystem* system )
 {
 	_systemsByQueue.insert( std::make_pair( systemQueue, system ) );
@@ -109,7 +116,13 @@ void SystemManager::Release( )
 
 IWorld* SystemManager::CreateWorld()
 {
-	IWorld* world = new World( m_serviceManager );
+	Serialization::IWorldSerializer* serializer = new XMLSerializer( m_eventManager, m_resourceCache, this, m_serviceManager );
+	IWorldEntityFactory* factory = new WorldEntityFactory( );
+	
+	IWorld* world = new World( serializer, factory, m_serviceManager );
+
+	IEntityService* entityService = new EntityService( world );
+	m_serviceManager->RegisterService( entityService );
 
 	for( ISystem::SystemTypeMap::iterator i = _systemsByType.begin( ); i != _systemsByType.end( ); ++i )
 	{

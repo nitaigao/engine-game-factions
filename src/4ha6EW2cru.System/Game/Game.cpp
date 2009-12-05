@@ -51,7 +51,6 @@ namespace Game
 		m_serviceManager->MessageAll( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 
 		m_world = m_systemManager->CreateWorld( );
-		m_world->Initialize( );
 
 		m_eventManager->AddEventListener( EventTypes::GAME_QUIT, MakeEventListener( this, &GameRoot::OnGameQuit ) );
 		m_eventManager->AddEventListener( EventTypes::GAME_LEVEL_CHANGED, MakeEventListener( this, &GameRoot::OnGameLevelChanged ) ); 

@@ -10,8 +10,6 @@
 
 #include <queue>
 
-#include "../../Export.hpp"
-
 #include "IWorldLoader.hpp"
 #include "../IWorld.hpp"
 #include "../IWorldEntity.hpp"
@@ -19,13 +17,18 @@
 #include <ticpp.h>
 
 #include "../../Service/IService.hpp"
+#include "../../System/ISystemManager.hpp"
+#include "../../Events/IEventManager.hpp"
+#include "../../IO/IFileSystem.hpp"
+#include "../../IO/IResourceCache.hpp"
+#include "../../Service/IServiceManager.h"
 
 namespace Serialization
 {
 	/*!
 	 *  De serializes a world from storage  
 	 */
-	class XMLSerializer : public IWorldSerializer, public Services::IService
+	class GAMEAPI XMLSerializer : public IWorldSerializer, public Services::IService
 	{
 		typedef std::queue< ticpp::Node* > NodePtrList;
 		typedef std::map< System::Types::Type, ticpp::Node* > NodePtrMap;
@@ -36,16 +39,23 @@ namespace Serialization
 		*
 		*  @return ()
 		*/
-		GAMEAPI ~XMLSerializer( );
+		~XMLSerializer( );
 
 
 		/*! Default Constructor
 		 *
-		 *  @param[in] IWorld * world
-		 *  @return ()
+		 * @param[in] Events::IEventManager * eventManager
+		 * @param[in] Resources::IResourceCache * resourceCache
+		 * @param[in] ISystemManager * systemManager
+		 * @param[in] Services::IServiceManager * serviceManager
+		 * @return (  )
 		 */
-		XMLSerializer( State::IWorld* world )
-			: m_world( world )
+		XMLSerializer( Events::IEventManager* eventManager, Resources::IResourceCache* resourceCache, 
+			ISystemManager* systemManager, Services::IServiceManager* serviceManager )
+			: m_eventManager( eventManager )
+			, m_resourceCache( resourceCache )
+			, m_systemManager( systemManager )
+			, m_serviceManager( serviceManager )
 			, m_loadTotal( 0 )
 			, m_loadProgress( 0 )
 		{
@@ -53,13 +63,13 @@ namespace Serialization
 		}
 
 
-		/*! De serializes the Level File into the component collection
+		/*! De serializes the level path into the world
 		*
+		* @param[in] IWorld * world
 		* @param[in] const std::string & levelPath
-		* @param[in] IWorldEntity::WorldEntityMap & entities
 		* @return ( void )
 		*/
-		GAMEAPI void DeSerializeLevel( const std::string& levelPath );
+		void DeSerializeLevel( State::IWorld* world, const std::string& levelPath );
 
 
 		/*! De serializes an entity file into the given entity
@@ -68,7 +78,7 @@ namespace Serialization
 		* @param[in] const std::string & filepath
 		* @return ( void )
 		*/
-		GAMEAPI void DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath );
+		void DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath );
 
 
 		/*! Steps the loading process
@@ -76,7 +86,7 @@ namespace Serialization
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		GAMEAPI void Update( float deltaMilliseconds );
+		void Update( float deltaMilliseconds );
 
 
 		/*! Returns whether or no the Serializer has finished its loading task
@@ -99,7 +109,7 @@ namespace Serialization
 		*  @param[in] AnyType::AnyTypeMap & parameters
 		*  @return (AnyType::AnyTypeMap)
 		*/
-		GAMEAPI AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
+		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType::AnyTypeMap( ); };
 
 	private:
 
@@ -119,12 +129,16 @@ namespace Serialization
 		State::IWorldEntity* CreateEntity( const std::string& name, NodePtrMap& components );
 		void PopulateEntity( State::IWorldEntity* entity, NodePtrMap& components );
 
-		State::IWorld* m_world;
-
 		NodePtrList m_loadQueueEl;
 
 		int m_loadProgress;
 		int m_loadTotal;
+
+		State::IWorld* m_world;
+		Events::IEventManager* m_eventManager;
+		Resources::IResourceCache* m_resourceCache;
+		ISystemManager* m_systemManager;
+		Services::IServiceManager* m_serviceManager;
 
 	};
 };

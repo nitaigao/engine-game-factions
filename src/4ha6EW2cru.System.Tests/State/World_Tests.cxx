@@ -19,14 +19,12 @@ protected:
 
 	MockSerializer* m_serializer;
 	MockEntityFactory* m_entityFactory;
-	MockEntityService* m_entityService;
 	MockServiceManager* m_serviceManager;
 
 	void EstablishContext( )
 	{
 		m_serializer = new MockSerializer( );
 		m_entityFactory = new MockEntityFactory( );
-		m_entityService = new MockEntityService( );
 		m_serviceManager = new MockServiceManager( );
 	}
 
@@ -38,7 +36,7 @@ protected:
 
 	World* CreateSubject( )
 	{
-		return new World( m_serializer, m_entityFactory, m_entityService, m_serviceManager );
+		return new World( m_serializer, m_entityFactory, m_serviceManager );
 	}
 };
 
@@ -195,7 +193,7 @@ TEST_F( World_Tests, should_load_a_level_from_the_serializer )
 {
 	std::string levelPath = "levelPath";
 
-	EXPECT_CALL( *m_serializer, DeSerializeLevel( levelPath ) );
+	EXPECT_CALL( *m_serializer, DeSerializeLevel( m_subject, levelPath ) );
 
 	m_subject->LoadLevel( levelPath );
 }

@@ -32,6 +32,27 @@ namespace in_general
 			return new EventManager(  ); 
 		}
 	};
+
+	class when_an_event_is_queued : public EventManager_BaseContext
+	{
+	
+	protected:
+	
+		void Expecting( )
+		{
+			EXPECT_CALL( *m_eventListener, HandleEvent( A< const IEvent* >( ) ) );
+		}
+	
+		void When( )
+		{
+			m_subject->AddEventListener( EventTypes::TEST_EVENT, m_eventListener );
+			m_subject->QueueEvent( EventTypes::TEST_EVENT, 0 );
+			m_subject->Update( 99 );
+		}
+		
+	};
+
+	TEST_F( when_an_event_is_queued, then_the_event_listener_should_be_called_on_the_next_update ) { }
 	
 	class when_an_event_is_fired : public EventManager_BaseContext
 	{

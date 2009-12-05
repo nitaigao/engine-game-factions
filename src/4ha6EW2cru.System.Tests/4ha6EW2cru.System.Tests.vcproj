@@ -296,6 +296,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IO\specs_for_ResourceCache.cxx"
+				>
+			</File>
+			<File
 				RelativePath=".\TestEnvironment.hpp"
 				>
 			</File>

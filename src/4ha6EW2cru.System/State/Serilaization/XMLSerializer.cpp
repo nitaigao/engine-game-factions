@@ -9,7 +9,6 @@ using namespace Logging;
 using namespace Resources;
 
 #include "../../System/SystemTypeMapper.hpp"
-#include "../../Management/Management.h"
 
 using namespace Events;
 
@@ -45,9 +44,9 @@ namespace Serialization
 		}
 	}
 	
-	void XMLSerializer::DeSerializeLevel( const std::string& levelPath )
+	void XMLSerializer::DeSerializeLevel( IWorld* world, const std::string& levelPath )
 	{
-		if ( !Management::Get( )->GetFileManager( )->FileExists( levelPath ) )
+		if ( !m_resourceCache->ResourceExists( levelPath ) )
 		{
 			std::stringstream logMessage;
 			logMessage << "Unable to locate level file at path: " << levelPath;
@@ -55,13 +54,14 @@ namespace Serialization
 			return;
 		}
 
+		m_world = world;
 		m_loadProgress = 0;
 		m_loadTotal = 0;
 
 		IEventData* eventData = new UIEventData( "WORLD_LOADING_STARTED" );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::WORLD_LOADING_STARTED, eventData ) );
+		m_eventManager->QueueEvent( new Event( EventTypes::WORLD_LOADING_STARTED, eventData ) );
 	
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( levelPath );
+		IResource* resource = m_resourceCache->GetResource( levelPath );
 		Document levelFile( resource->GetFileBuffer()->fileBytes );
 
 		this->LoadElement( levelFile.FirstChildElement( ) );
@@ -101,7 +101,7 @@ namespace Serialization
 	
 	void XMLSerializer::LoadColor( ticpp::Element* element )
 	{
-		if ( Management::Get( )->GetSystemManager( )->HasSystem( System::Types::RENDER ) )
+		if ( m_systemManager->HasSystem( System::Types::RENDER ) )
 		{
 			std::string key;
 
@@ -119,7 +119,7 @@ namespace Serialization
 			parameters[ "g" ] = green;
 			parameters[ "b" ] = blue;
 
-			ISystem* graphicsSystem = Management::Get( )->GetSystemManager( )->GetSystem( System::Types::RENDER );
+			ISystem* graphicsSystem = m_systemManager->GetSystem( System::Types::RENDER );
 
 			graphicsSystem->SetAttribute( key, parameters );
 		}
@@ -127,7 +127,7 @@ namespace Serialization
 
 	void XMLSerializer::ImportEntity( const std::string& src, NodePtrMap& components )
 	{
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( src );
+		IResource* resource = m_resourceCache->GetResource( src );
 		Document externalFile( resource->GetFileBuffer( )->fileBytes );
 
 		std::string externalSource;
@@ -157,7 +157,7 @@ namespace Serialization
 	{
 		for( NodePtrMap::iterator i = components.begin( ); i != components.end( ); ++i )
 		{
-			if ( Management::Get( )->GetSystemManager( )->HasSystem( ( *i ).first ) ) 
+			if ( m_systemManager->HasSystem( ( *i ).first ) ) 
 			{
 				IComponentSerializer* serializer = ComponentSerializerFactory::Create( ( *i ).first );
 				ISystemComponent* component = serializer->DeSerialize( entity->GetName( ), ( *i ).second->ToElement( ), m_world->GetSystemScenes( ) );
@@ -245,15 +245,15 @@ namespace Serialization
 			progress << static_cast< int >( progressPercent );
 
 			IEventData* eventData = new UIEventData( progress.str( ) );
-			Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::WORLD_LOADING_PROGRESS, eventData ) );
+			m_eventManager->QueueEvent( new Event( EventTypes::WORLD_LOADING_PROGRESS, eventData ) );
 
 			if ( m_loadQueueEl.empty( ) )
 			{
 				m_loadProgress = m_loadTotal;
 
-				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::WORLD_LOADING_FINISHED ) );
+				m_eventManager->QueueEvent( new Event( EventTypes::WORLD_LOADING_FINISHED ) );
 
-				Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
+				m_serviceManager->MessageAll( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
 			}
 		}
 	}

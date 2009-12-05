@@ -23,20 +23,6 @@ namespace State
 
 		delete m_serializer;
 		delete m_entityFactory;
-		delete m_entityService;
-	}
-
-	World::World( Services::IServiceManager* serviceManager )
-		: m_serviceManager( serviceManager )
-	{
-		m_serializer = new Serialization::XMLSerializer( this );
-		m_entityFactory = new WorldEntityFactory( );
-		m_entityService = new EntityService( this );
-	}
-
-	void World::Initialize( )
-	{
-		m_serviceManager->RegisterService( m_entityService );
 	}
 	
 	IWorldEntity* World::CreateEntity( const std::string& name )
@@ -150,6 +136,6 @@ namespace State
 
 	void World::LoadLevel( const std::string& levelpath )
 	{
-		m_serializer->DeSerializeLevel( levelpath );
+		m_serializer->DeSerializeLevel( this, levelpath );
 	}
 }

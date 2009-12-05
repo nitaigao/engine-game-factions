@@ -20,6 +20,7 @@ namespace
 	public:
 
 		MOCK_METHOD1( GetResource, Resources::IResource*( const std::string& ) );
+		MOCK_METHOD1( ResourceExists, bool( const std::string& ) );
 		MOCK_METHOD1( Update, void( float ) );
 		
 	};
