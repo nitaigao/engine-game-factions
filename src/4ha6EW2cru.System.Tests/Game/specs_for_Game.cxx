@@ -98,7 +98,6 @@ namespace given_the_game_is_a_dedicated_server
 			EXPECT_CALL( *m_serviceManager, MessageAll( System::Messages::PostInitialize, An< AnyType::AnyTypeMap >( ) ) ).WillOnce( Return( AnyType::AnyTypeMap( ) ) );
 
 			EXPECT_CALL( *m_systemManager, CreateWorld( ) ).WillOnce( Return( m_world ) );
-			EXPECT_CALL( *m_world, Initialize( ) );
 
 			EXPECT_CALL( *m_configuration, Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ) ).WillOnce( Return( 99 ) );
 		}
@@ -150,7 +149,6 @@ namespace given_a_level_has_been_passed_on_the_command_line
 			EXPECT_CALL( *m_serviceManager, MessageAll( System::Messages::PostInitialize, An< AnyType::AnyTypeMap >( ) ) ).WillOnce( Return( AnyType::AnyTypeMap( ) ) );
 
 			EXPECT_CALL( *m_systemManager, CreateWorld( ) ).WillOnce( Return( m_world ) );
-			EXPECT_CALL( *m_world, Initialize( ) );
 
 			EXPECT_CALL( *m_configuration, Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ) ).WillOnce( Return( 99 ) );
 		}
@@ -188,7 +186,6 @@ namespace given_in_general
 			EXPECT_CALL( *m_serviceManager, MessageAll( System::Messages::PostInitialize, An< AnyType::AnyTypeMap >( ) ) ).WillOnce( Return( AnyType::AnyTypeMap( ) ) );
 
 			EXPECT_CALL( *m_systemManager, CreateWorld( ) ).WillOnce( Return( m_world ) );
-			EXPECT_CALL( *m_world, Initialize( ) );
 
 			EXPECT_CALL( *m_configuration, Find( ConfigSections::Logging, ConfigItems::Logging::LogLevel ) ).WillOnce( Return( 99 ) );		
 		}
