@@ -10,8 +10,10 @@
 
 #include "Logging/Logger.h"
 #include "Platform/Win32PlatformManager.h"
+#include "Events/EventManager.h"
 
 using namespace Platform;
+using namespace Events;
 
 namespace Testing
 {
@@ -38,14 +40,17 @@ namespace Testing
 
 		virtual void SetUp( )
 		{
+			m_eventManager = new EventManager( );
 			m_platformManager = new Win32PlatformManager( 0, 0, 0 );
-			Logging::Logger::Initialize( m_platformManager );
+
+			Logging::Logger::Initialize( m_platformManager, m_eventManager );
 		}
 
 		virtual void TearDown( )
 		{
 			Logging::Logger::Get( )->Release( );
 			delete m_platformManager;
+			delete m_eventManager;
 		}
 
 	private:
@@ -54,6 +59,7 @@ namespace Testing
 		Environment & operator = ( const Environment & copy ) { return *this; };
 
 		Platform::Win32PlatformManager* m_platformManager;
+		Events::EventManager* m_eventManager;
 		
 	};
 };
