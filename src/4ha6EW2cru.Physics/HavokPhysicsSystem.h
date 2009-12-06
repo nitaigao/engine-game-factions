@@ -15,6 +15,8 @@
 
 #include "IPhysicsSystem.hpp"
 
+#include "IO/IResourceCache.hpp"
+
 namespace Physics
 {
 	/*! 
@@ -36,11 +38,12 @@ namespace Physics
 		 *
 		 *  @return ()
 		 */
-		HavokPhysicsSystem( Services::IServiceManager* serviceManager )
+		HavokPhysicsSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
 			: m_threadMemory( 0 )
 			, m_stackBuffer( 0 )
 			, m_scene( 0 )
 			, m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
 		{
 
 		}
@@ -125,6 +128,11 @@ namespace Physics
 
 	private:
 
+		HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
+		HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };
+
+		Resources::IResourceCache* m_resourceCache;
+
 		static void errorReportFunction( const char* str, void* errorOutputObject );
 
 		HavokPhysicsSystemScene* m_scene;
@@ -141,9 +149,6 @@ namespace Physics
 #endif
 
 		Services::IServiceManager* m_serviceManager;
-
-		HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
-		HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };
 
 	};
 };

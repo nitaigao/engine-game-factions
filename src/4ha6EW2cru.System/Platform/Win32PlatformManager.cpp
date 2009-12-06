@@ -23,9 +23,6 @@ using namespace Logging;
 #include "../IO/Win32PathInformation.h"
 using namespace IO;
 
-#include <tclap/CmdLine.h>
-using namespace TCLAP;
-
 LRESULT CALLBACK WindowProcedure( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
 	switch( msg )
@@ -152,7 +149,7 @@ namespace Platform
 
 	AnyType::AnyTypeMap Win32PlatformManager::GetProgramOptions( ) const
 	{
-		int argc = 0;
+		/*int argc = 0;
 		LPWSTR* args = CommandLineToArgvW( GetCommandLineW( ), &argc );
 
 		char** argv = new char*[ argc ];
@@ -192,7 +189,8 @@ namespace Platform
 
 		delete[ ] argv;
 
-		return programOptions;
+		return programOptions;*/
+		return AnyType::AnyTypeMap( );
 	}
 
 	std::string Win32PlatformManager::GenUUID() const

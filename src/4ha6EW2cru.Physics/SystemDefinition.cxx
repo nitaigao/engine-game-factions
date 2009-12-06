@@ -32,7 +32,7 @@ extern "C" void __stdcall Initialize( Logger* logger )
 
 extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration, IServiceManager* serviceManager, IResourceCache* resourceCache, IEventManager* eventManager, IInstrumentation* instrumentation )
 {
-	return new Physics::HavokPhysicsSystem( serviceManager );
+	return new Physics::HavokPhysicsSystem( serviceManager, resourceCache );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )

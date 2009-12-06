@@ -17,11 +17,11 @@ namespace Physics
 
 		if ( type == "character" )
 		{
-			component = new PhysicsSystemCharacterComponent( name, this );
+			component = new PhysicsSystemCharacterComponent( name, this, m_resourceCache );
 		}
 		else
 		{
-			component = new PhysicsSystemComponent( name, this );
+			component = new PhysicsSystemComponent( name, this, m_resourceCache );
 		}
 
 		component->SetAttribute( System::Attributes::Name, name );

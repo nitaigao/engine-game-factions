@@ -35,7 +35,7 @@ namespace Physics
 	{
 		std::string bodyPath = m_attributes[ System::Parameters::Body ].As< std::string >( );
 
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( bodyPath );
+		IResource* resource = m_resourceCache->GetResource( bodyPath );
 
 		hkIstream istreamFromMemory( resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength );
 		hkStreamReader* streamReader = istreamFromMemory.getStreamReader( );

@@ -24,6 +24,8 @@
 
 #include "IPhysicsSystem.hpp"
 
+#include "IO/IResourceCache.hpp"
+
 namespace Physics
 {
 	/*! 
@@ -46,8 +48,9 @@ namespace Physics
 		 *  @param[in] const hkpWorldCinfo & worldInfo
 		 *  @return ()
 		 */
-		HavokPhysicsSystemScene( IPhysicsSystem* system )
+		HavokPhysicsSystemScene( IPhysicsSystem* system, Resources::IResourceCache* resourceCache )
 			: m_system( system )
+			, m_resourceCache( resourceCache )
 		{
 
 		}
@@ -104,6 +107,9 @@ namespace Physics
 
 	private:
 
+		HavokPhysicsSystemScene( const HavokPhysicsSystemScene & copy ) { };
+		HavokPhysicsSystemScene & operator = ( const HavokPhysicsSystemScene & copy ) { return *this; };
+
 		void postSimulationCallback( hkpWorld* world );
 		void inactiveEntityMovedCallback( hkpEntity* entity );
 
@@ -114,8 +120,7 @@ namespace Physics
 
 		IPhysicsSystemComponent::PhysicsSystemComponentList m_components;
 
-		HavokPhysicsSystemScene( const HavokPhysicsSystemScene & copy ) { };
-		HavokPhysicsSystemScene & operator = ( const HavokPhysicsSystemScene & copy ) { return *this; };
+		Resources::IResourceCache* m_resourceCache;
 
 	};
 };

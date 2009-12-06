@@ -31,7 +31,7 @@ namespace Physics
 {
 	ISystemScene* HavokPhysicsSystem::CreateScene( )
 	{
-		m_scene = new HavokPhysicsSystemScene( this );
+		m_scene = new HavokPhysicsSystemScene( this, m_resourceCache );
 		return m_scene;
 	}
 

@@ -17,6 +17,8 @@
 #include <Common/Base/hkBase.h>
 #include <Common/Serialize/Util/hkLoader.h>
 
+#include "IO/IResourceCache.hpp"
+
 namespace Physics
 {
 	/*! 
@@ -42,9 +44,10 @@ namespace Physics
 		 *  @param[in] int componentId
 		 *  @return ()
 		 */
-		PhysicsSystemComponent( const std::string& name, HavokPhysicsSystemScene* scene )
+		PhysicsSystemComponent( const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache )
 			: _name ( name )
 			, _scene( scene )
+			, m_resourceCache( resourceCache )
 			, m_loadedData( 0 )
 			, m_body( 0 )
 		{
@@ -154,6 +157,8 @@ namespace Physics
 		
 		hkpRigidBody* m_body;
 		hkPackfileData* m_loadedData;
+
+		Resources::IResourceCache* m_resourceCache;
 
 		PhysicsSystemComponent( const PhysicsSystemComponent & copy ) { };
 		PhysicsSystemComponent & operator = ( const PhysicsSystemComponent & copy ) { return *this; };
