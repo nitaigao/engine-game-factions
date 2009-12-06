@@ -27,7 +27,7 @@ namespace Game
 {
 	void GameRoot::Initialize( )
 	{
-		Logger::Initialize( m_platformManager );
+		Logger::Initialize( m_platformManager, m_eventManager );
 		Logger::Get( )->SetLogLevel( Logging::LEVEL_WARN );
 		Info( "Game Startup" );
 

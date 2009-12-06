@@ -12,11 +12,11 @@ namespace Logging
 {
 	Logger* g_logger = 0;
 
-	void Logger::Initialize( Platform::IPlatformManager* platformManager )
+	void Logger::Initialize( Platform::IPlatformManager* platformManager, Events::IEventManager* eventManager )
 	{
 		if ( g_logger == 0 )
 		{
-			g_logger = new Logger( platformManager );
+			g_logger = new Logger( platformManager, eventManager );
 		}
 	}
 
@@ -52,7 +52,7 @@ namespace Logging
 			if( level != "DEBUG" && level != "NET" )
 			{
 				IEventData* eventData = new UIEventData( EventTypes::LOG_MESSAGE_APPENDED, outputMessage.str( ), "" );
-				Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::LOG_MESSAGE_APPENDED, eventData ) );
+				m_eventManager->QueueEvent( new Event( EventTypes::LOG_MESSAGE_APPENDED, eventData ) );
 			}
 #endif
 			m_platformManager->OutputDebugMessage( outputMessage.str( ) );

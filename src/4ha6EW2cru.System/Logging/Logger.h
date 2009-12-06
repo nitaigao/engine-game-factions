@@ -23,7 +23,9 @@
 
 #include "../Export.hpp"
 #include "LogLevel.hpp"
+
 #include "../Platform/IPlatformManager.h"
+#include "../Events/IEventManager.hpp"
 
 namespace Logging
 {
@@ -39,7 +41,7 @@ namespace Logging
 		*
 		* @return ( void )
 		*/
-		static void Initialize( Platform::IPlatformManager* platformManager );
+		static void Initialize( Platform::IPlatformManager* platformManager, Events::IEventManager* eventManager );
 
 
 		/*! Initializes the Logger Singleton from an already existing pointer
@@ -191,9 +193,10 @@ namespace Logging
 
 		~Logger( ) { };
 
-		Logger( Platform::IPlatformManager* platformManager )
+		Logger( Platform::IPlatformManager* platformManager, Events::IEventManager* eventManager )
 			: m_logLevel( LEVEL_FATAL )
 			, m_platformManager( platformManager )
+			, m_eventManager( eventManager )
 		{
 
 		}
@@ -202,6 +205,7 @@ namespace Logging
 		Logger & operator = ( const Logger & copy ) { return *this; };
 
 		Platform::IPlatformManager* m_platformManager;
+		Events::IEventManager* m_eventManager;
 
 	};
 
