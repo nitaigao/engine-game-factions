@@ -13,7 +13,6 @@ using namespace Logging;
 using namespace Serialization;
 
 #include "../State/WorldEntityFactory.h"
-#include "../State/EntityService.h"
 using namespace State;
 
 void SystemManager::RegisterSystem( const System::Queues::Queue& systemQueue, ISystem* system )
@@ -168,6 +167,7 @@ void SystemManager::LoadSystems( bool isDedicated )
 	ISystem* networkSystem = this->LoadSystem( "4ha6EW2cru.Network.dll" );
 	this->RegisterSystem( System::Queues::HOUSE, networkSystem );
 
+
 	ISystem* physicsSystem = this->LoadSystem( "4ha6EW2cru.Physics.dll" );
 	this->RegisterSystem( System::Queues::LOGIC, physicsSystem );
 
@@ -193,6 +193,7 @@ void SystemManager::LoadSystems( bool isDedicated )
 	}
 	else
 	{		
+		networkSystem->SetAttribute( System::Attributes::Network::IsServer, true );
 		m_platformManager->CreateConsoleWindow( );
 	}
 }

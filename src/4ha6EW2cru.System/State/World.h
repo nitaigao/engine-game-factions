@@ -10,7 +10,6 @@
 
 #include "IWorld.hpp"
 #include "IWorldEntityFactory.hpp"
-#include "IEntityService.hpp"
 
 #include "Serilaization/IWorldLoader.hpp"
 #include "../Service/IServiceManager.h"

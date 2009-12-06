@@ -27,7 +27,10 @@ namespace Network
 
 	void NetworkClientController::LevelLoaded( )
 	{
-		m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_LevelLoaded", RakString( "levelName" ) );
+		if ( !m_isPassive )
+		{
+			m_networkInterface->GetRPC( )->CallC( "&NetworkServerEndpoint::Net_LevelLoaded", RakString( "levelName" ) );
+		}
 	}
 
 	void NetworkClientController::MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters )

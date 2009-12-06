@@ -7,7 +7,6 @@ using namespace Logging;
 
 #include "WorldEntity.h"
 #include "WorldEntityFactory.h"
-#include "EntityService.h"
 
 #include "Serilaization/XMLSerializer.h"
 using namespace Serialization;

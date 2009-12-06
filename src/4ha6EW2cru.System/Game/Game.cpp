@@ -15,6 +15,9 @@ using namespace Configuration;
 #include "../State/World.h"
 using namespace State;
 
+#include "../Service/IService.hpp"
+using namespace Services;
+
 #include "../Events/Event.h"
 #include "../Events/EventData.hpp"
 #include "../Events/EventListener.h"
@@ -50,6 +53,24 @@ namespace Game
 		m_eventManager->AddEventListener( EventTypes::GAME_LEVEL_CHANGED, MakeEventListener( this, &GameRoot::OnGameLevelChanged ) ); 
 		m_eventManager->AddEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &GameRoot::OnGameEnded ) );
 
+
+		if ( isDedicated )
+		{
+			if ( m_programOptions->HasOption( System::Options::LevelName ) )
+			{
+				AnyType::AnyTypeMap parameters;
+				
+				std::string levelName = m_programOptions->GetOption( System::Options::LevelName );
+				parameters[ System::Parameters::Game::LevelName ] = levelName;
+				
+				int maxPlayers = m_configuration->Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers ).As< int >( );
+				parameters[ System::Parameters::Network::Server::MaxPlayers ] = maxPlayers;
+
+				IService* networkService = m_serviceManager->FindService( System::Types::NETWORK );
+				networkService->ProcessMessage( System::Messages::Network::CreateServer, parameters );
+			}
+		}
+		
 		if ( m_programOptions->HasOption( System::Options::LevelName ) )
 		{
 			std::string levelName = m_programOptions->GetOption( System::Options::LevelName );
