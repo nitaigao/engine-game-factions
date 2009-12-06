@@ -9,7 +9,6 @@ using namespace State;
 #include "../Mocks/MockSerializer.hpp"
 #include "../Mocks/MockEntity.hpp"
 #include "../Mocks/MockEntityFactory.hpp"
-#include "../Mocks/MockEntityService.hpp"
 #include "../Mocks/MockServiceManager.hpp"
 
 class World_Tests : public TestHarness< World >

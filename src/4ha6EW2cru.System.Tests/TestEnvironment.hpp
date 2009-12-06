@@ -38,7 +38,7 @@ namespace Testing
 
 		virtual void SetUp( )
 		{
-			m_platformManager = new Win32PlatformManager( );
+			m_platformManager = new Win32PlatformManager( 0, 0, 0 );
 			Logging::Logger::Initialize( m_platformManager );
 		}
 

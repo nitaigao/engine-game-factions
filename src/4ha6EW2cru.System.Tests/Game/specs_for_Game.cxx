@@ -12,6 +12,7 @@ using namespace Game;
 #include "../Mocks/MockWorld.hpp"
 #include "../Mocks/MocKFileSystem.hpp"
 #include "../Mocks/MockConfiguration.hpp"
+#include "../Mocks/MockService.hpp"
 
 #include "Events/EventType.hpp"
 #include "Events/EventData.hpp"
@@ -79,7 +80,7 @@ namespace given_the_game_is_a_dedicated_server
 		void Expecting( )
 		{
 			EXPECT_CALL( *m_programOptions, HasOption( System::Options::DedicatedServer ) ).WillOnce( Return( true ) );
-			EXPECT_CALL( *m_programOptions, HasOption( System::Options::LevelName ) ).WillOnce( Return( false ) );
+			EXPECT_CALL( *m_programOptions, HasOption( System::Options::LevelName ) ).WillRepeatedly( Return( false ) );
 
 			EXPECT_CALL( *m_systemManager, LoadSystems( true ) );
 			EXPECT_CALL( *m_systemManager, InitializeAllSystems( ) );
@@ -87,7 +88,6 @@ namespace given_the_game_is_a_dedicated_server
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_QUIT, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_ENDED, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
-
 
 			EXPECT_CALL( *m_eventManager, RemoveEventListener( EventTypes::GAME_QUIT, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
 			EXPECT_CALL( *m_eventManager, RemoveEventListener( EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
@@ -115,8 +115,25 @@ namespace given_a_level_has_been_passed_on_the_command_line
 {
 	class when_the_game_is_initializing_and_is_a_dedicated_server : public base_context::Game_BaseContext
 	{
+
+		MockService* m_networkService;
 	
 	protected:
+
+		void EstablishContext( )
+		{
+			Game_BaseContext::EstablishContext( );
+
+			m_networkService = new MockService( );
+		}
+
+		void DestroyContext( )
+		{
+
+			Game_BaseContext::DestroyContext( );
+
+			delete m_networkService;
+		}
 	
 		void Expecting( )
 		{
@@ -125,8 +142,14 @@ namespace given_a_level_has_been_passed_on_the_command_line
 			bool isDedicated = true;
 
 			EXPECT_CALL( *m_programOptions, HasOption( System::Options::DedicatedServer ) ).WillOnce( Return( isDedicated ) );
-			EXPECT_CALL( *m_programOptions, HasOption( System::Options::LevelName ) ).WillOnce( Return( true ) );
-			EXPECT_CALL( *m_programOptions, GetOption( System::Options::LevelName ) ).WillOnce( Return( levelName ) );
+			EXPECT_CALL( *m_programOptions, HasOption( System::Options::LevelName ) ).WillRepeatedly( Return( true ) );
+			EXPECT_CALL( *m_programOptions, GetOption( System::Options::LevelName ) ).WillRepeatedly( Return( levelName ) );
+
+			EXPECT_CALL( *m_configuration, Find( Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers ) ).WillOnce( Return( 10 ) );
+	
+			EXPECT_CALL( *m_serviceManager, FindService( System::Types::NETWORK ) ).WillOnce( Return( m_networkService ) );
+			EXPECT_CALL( *m_networkService, ProcessMessage( System::Messages::Network::CreateServer, An< AnyType::AnyTypeMap >( ) ) )
+				.WillOnce( Return( AnyType::AnyTypeMap( ) ) );
 
 			EXPECT_CALL( *m_systemManager, LoadSystems( isDedicated ) );
 			EXPECT_CALL( *m_systemManager, InitializeAllSystems( ) );

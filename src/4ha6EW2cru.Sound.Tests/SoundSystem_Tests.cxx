@@ -9,6 +9,7 @@ using namespace Sound;
 
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockConfiguration.hpp"
+#include "Mocks/MockResourceCache.hpp"
 
 #include <fmod.h>
 
@@ -21,6 +22,7 @@ protected:
 	MockSoundEventSystem* m_eventSystem;
 	MockServiceManager* m_serviceManager;
 	MockConfigurartion* m_configuration;
+	MockResourceCache* m_resourceCache;
 
 	void EstablishContext( )
 	{
@@ -28,6 +30,7 @@ protected:
 		m_scene = new MockSoundSystemScene( );
 		m_eventSystem = new MockSoundEventSystem( );
 		m_configuration = new MockConfigurartion( );
+		m_resourceCache = new MockResourceCache( );
 	}
 
 
@@ -36,11 +39,12 @@ protected:
 		delete m_scene;
 		delete m_serviceManager;
 		delete m_configuration;
+		delete m_resourceCache;
 	}
 
 	SoundSystem* CreateSubject( )
 	{
-		return new SoundSystem( m_serviceManager, m_scene, m_eventSystem );
+		return new SoundSystem( m_serviceManager, m_resourceCache, m_scene, m_eventSystem );
 	}
 };
 

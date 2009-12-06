@@ -7,6 +7,7 @@ using namespace Network;
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockNetworkServerController.hpp"
 #include "Mocks/MockNetworkSystemScene.hpp"
+#include "Mocks/MockServiceManager.hpp"
 
 #include <RakNetTime.h>
 #include <BitStream.h>
@@ -23,12 +24,14 @@ protected:
 	MockNetworkInterface* m_networkInterface;
 	MockNetworkServerController* m_controller;
 	MockNetworkSystemScene* m_scene;
+	MockServiceManager* m_serviceManager;
 
 	void EstablishContext( )
 	{
 		m_networkInterface = new MockNetworkInterface( );
 		m_controller = new MockNetworkServerController( );
 		m_scene = new MockNetworkSystemScene( );
+		m_serviceManager = new MockServiceManager( );
 	}
 
 
@@ -37,11 +40,12 @@ protected:
 		delete m_controller;
 		delete m_networkInterface;
 		delete m_scene;
+		delete m_serviceManager;
 	}
 
 	NetworkServerEndpoint* CreateSubject( )
 	{
-		return new NetworkServerEndpoint( m_networkInterface, m_scene, m_controller );
+		return new NetworkServerEndpoint( m_networkInterface, m_scene, m_controller, m_serviceManager );
 	}
 };
 

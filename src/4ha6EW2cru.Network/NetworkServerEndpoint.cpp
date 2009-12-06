@@ -12,6 +12,15 @@ namespace Network
 {
 	NetworkServerEndpoint* NetworkServerEndpoint::m_networkServerEndpoint = 0;
 
+	NetworkServerEndpoint::NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller, Services::IServiceManager* serviceManager )
+		: m_networkInterface( networkInterface )
+		, m_networkController( controller )
+		, m_networkScene( networkScene )
+		, m_serviceManager( serviceManager )
+	{
+		NetworkServerEndpoint::m_networkServerEndpoint = this;
+	}
+
 	void NetworkServerEndpoint::Initialize( )
 	{
 		RPC3_REGISTER_FUNCTION( m_networkInterface->GetRPC( ), &NetworkServerEndpoint::Net_SelectCharacter );

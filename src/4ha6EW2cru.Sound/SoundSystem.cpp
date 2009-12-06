@@ -15,6 +15,17 @@ namespace Sound
 {
 	ISoundSystem* SoundSystem::m_soundSystem = 0;
 
+	SoundSystem::SoundSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, ISoundScene* scene, ISoundEventSystem* eventSystem )
+		: m_serviceManager( serviceManager )
+		, m_resourceCache( resourceCache )
+		, m_scene( scene )
+		, m_eventSystem( eventSystem )
+		, m_fmodSystem( 0 )
+		, m_configuration( 0 )
+	{
+		SoundSystem::m_soundSystem = this;
+	}
+
 	SoundSystem::~SoundSystem()
 	{
 		delete m_eventSystem;

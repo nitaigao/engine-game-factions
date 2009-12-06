@@ -182,10 +182,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\State\EntityService_Tests.cxx"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -233,10 +229,6 @@
 			</File>
 			<File
 				RelativePath=".\Mocks\MockEntityFactory.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Mocks\MockEntityService.hpp"
 				>
 			</File>
 			<File

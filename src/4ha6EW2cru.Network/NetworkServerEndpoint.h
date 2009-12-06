@@ -36,14 +36,7 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller, Services::IServiceManager* serviceManager )
-			: m_networkInterface( networkInterface )
-			, m_networkController( controller )
-			, m_networkScene( networkScene )
-			, m_serviceManager( serviceManager )
-		{
-			NetworkServerEndpoint::m_networkServerEndpoint = this;
-		}
+		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller, Services::IServiceManager* serviceManager );
 
 
 		/*! Initializes the Endpoint

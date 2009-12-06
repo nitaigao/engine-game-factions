@@ -14,7 +14,10 @@ namespace Logging
 
 	void Logger::Initialize( Platform::IPlatformManager* platformManager )
 	{
-		g_logger = new Logger( platformManager );
+		if ( g_logger == 0 )
+		{
+			g_logger = new Logger( platformManager );
+		}
 	}
 
 	void Logger::Initialize( Logger* logger )
