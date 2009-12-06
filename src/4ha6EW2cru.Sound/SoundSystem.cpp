@@ -2,8 +2,6 @@
 
 #include "SoundScene.h"
 
-#include "Management/Management.h"
-
 #include "IO/IResource.hpp"
 using namespace Resources;
 
@@ -15,6 +13,8 @@ using namespace Configuration;
 
 namespace Sound
 {
+	ISoundSystem* SoundSystem::m_soundSystem = 0;
+
 	SoundSystem::~SoundSystem()
 	{
 		delete m_eventSystem;
@@ -111,7 +111,7 @@ namespace Sound
 			}
 		}
 
-		result = m_fmodSystem->setFileSystem( &SoundSystem::FileOpen, &SoundSystem::FileClose, &SoundSystem::FileRead, &SoundSystem::FileSeek, 0 );
+		result = m_fmodSystem->setFileSystem( &SoundSystem::FMOD_FileOpen, &SoundSystem::FMOD_FileClose, &SoundSystem::FMOD_FileRead, &SoundSystem::FMOD_FileSeek, 0 );
 
 		if ( result != FMOD_OK )
 		{
@@ -139,18 +139,27 @@ namespace Sound
 		masterCategory->setVolume( sfxVolume );*/
 	}
 
-	FMOD_RESULT F_CALLBACK SoundSystem::FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata )
+	FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata )
 	{
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( name );
-		resource->AddReference( );
+		bool result = SoundSystem::m_soundSystem->FileOpen( name, unicode, filesize, handle, userdata );
 
-		*handle = resource;
-		*filesize = resource->GetFileBuffer( )->fileLength;
-
-		return FMOD_OK;
+		return result ? FMOD_OK : FMOD_ERR_FILE_NOTFOUND;
 	}
 
-	FMOD_RESULT F_CALLBACK SoundSystem::FileClose( void* handle, void* userdata )
+	bool SoundSystem::FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata )
+	{
+		if ( m_resourceCache->ResourceExists( name ) )
+		{
+			IResource* resource = m_resourceCache->GetResource( name );
+			resource->AddReference( );
+
+			*handle = resource;
+			*filesize = resource->GetFileBuffer( )->fileLength;
+		}
+
+		return false;
+	}
+	FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileClose( void* handle, void* userdata )
 	{
 		IResource* resource = reinterpret_cast< IResource* >( handle );
 		resource->RemoveReference( );
@@ -158,7 +167,7 @@ namespace Sound
 		return FMOD_OK;
 	}
 
-	FMOD_RESULT F_CALLBACK SoundSystem::FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata )
+	FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata )
 	{
 		IResource* resource = reinterpret_cast< IResource* >( handle );
 		FileBuffer* fileBuffer = resource->GetFileBuffer( );
@@ -170,7 +179,7 @@ namespace Sound
 		return FMOD_OK;
 	}
 
-	FMOD_RESULT F_CALLBACK SoundSystem::FileSeek( void* handle, unsigned int pos, void* userdata )
+	FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileSeek( void* handle, unsigned int pos, void* userdata )
 	{
 		IResource* resource = reinterpret_cast< IResource* >( handle );
 		FileBuffer* fileBuffer = resource->GetFileBuffer( );

@@ -9,6 +9,7 @@
 #define IPROGRAMOPTIONS_HPP
 
 #include <string>
+#include <map>
 
 namespace Platform
 {
@@ -25,6 +26,13 @@ namespace Platform
 		 *  @return ()
 		 */
 		virtual ~IProgramOptions( ) { };
+
+
+		/*! Initializes the program options from the command line arguments
+		 *
+		 * @return ( void )
+		 */
+		virtual void Initialize( ) = 0;
 
 
 		/*! Detects whether the given option was passed to the program command line

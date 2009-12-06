@@ -6,8 +6,6 @@ using namespace Configuration;
 #include "../Logging/Logger.h"
 using namespace Logging;
 
-#include "../Management/Management.h"
-
 #include "SystemExports.hpp"
 #include "../Exceptions/FileNotFoundException.hpp"
 
@@ -47,7 +45,7 @@ void SystemManager::Update( float deltaMilliseconds )
 	float step = 1.0f / 100.0f;
 	m_accumulator += deltaMilliseconds;
 
-	float logicStart = m_platformManager->GetClock( ).GetTime( );
+	float logicStart = m_platformManager->GetClock( )->GetTime( );
 
 	while( m_accumulator >= deltaMilliseconds && loopCount < maxLoops )
 	{
@@ -63,11 +61,11 @@ void SystemManager::Update( float deltaMilliseconds )
 		loopCount++;
 	}
 
-	float logicEnd = m_platformManager->GetClock( ).GetTime( );
+	float logicEnd = m_platformManager->GetClock( )->GetTime( );
 
 	m_instrumentation->SetRoundTime( System::Queues::LOGIC, logicEnd - logicStart );
 
-	float houseKeepingStart = m_platformManager->GetClock( ).GetTime( );
+	float houseKeepingStart = m_platformManager->GetClock( )->GetTime( );
 
 	for( ISystem::SystemQueueMap::iterator i = _systemsByQueue.begin( ); i != _systemsByQueue.end( ); ++i )
 	{
@@ -77,11 +75,11 @@ void SystemManager::Update( float deltaMilliseconds )
 		}
 	}
 
-	float houseKeepingEnd = m_platformManager->GetClock( ).GetTime( );
+	float houseKeepingEnd = m_platformManager->GetClock( )->GetTime( );
 
 	m_instrumentation->SetRoundTime( System::Queues::HOUSE, houseKeepingEnd - houseKeepingStart );
 
-	float presentationStart = m_platformManager->GetClock( ).GetTime( );
+	float presentationStart = m_platformManager->GetClock( )->GetTime( );
 
 	for( ISystem::SystemQueueMap::iterator i = _systemsByQueue.begin( ); i != _systemsByQueue.end( ); ++i )
 	{
@@ -91,7 +89,7 @@ void SystemManager::Update( float deltaMilliseconds )
 		}
 	}
 
-	float presentationEnd = m_platformManager->GetClock( ).GetTime( );
+	float presentationEnd = m_platformManager->GetClock( )->GetTime( );
 
 	m_instrumentation->SetRoundTime( System::Queues::RENDER, presentationEnd - presentationStart );
 }
@@ -119,10 +117,8 @@ IWorld* SystemManager::CreateWorld()
 	Serialization::IWorldSerializer* serializer = new XMLSerializer( m_eventManager, m_resourceCache, this, m_serviceManager );
 	IWorldEntityFactory* factory = new WorldEntityFactory( );
 	
-	IWorld* world = new World( serializer, factory, m_serviceManager );
-
-	IEntityService* entityService = new EntityService( world );
-	m_serviceManager->RegisterService( entityService );
+	World* world = new World( serializer, factory, m_serviceManager );
+	m_serviceManager->RegisterService( world );
 
 	for( ISystem::SystemTypeMap::iterator i = _systemsByType.begin( ); i != _systemsByType.end( ); ++i )
 	{
@@ -154,7 +150,7 @@ ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 	initializeSystem( Logger::Get( ) );
 
 	CreateSystemFunction createSystem = reinterpret_cast< CreateSystemFunction >( GetProcAddress( library, "CreateSystem" ) );
-	ISystem* system = createSystem( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation );
+	ISystem* system = createSystem( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager );
 
 	m_systemLibraries.insert( std::make_pair( system, library ) );
 
@@ -194,5 +190,9 @@ void SystemManager::LoadSystems( bool isDedicated )
 
 		ISystem* soundSystem = this->LoadSystem( "4ha6EW2cru.Sound.dll" );
 		this->RegisterSystem( System::Queues::HOUSE, soundSystem );
+	}
+	else
+	{		
+		m_platformManager->CreateConsoleWindow( );
 	}
 }

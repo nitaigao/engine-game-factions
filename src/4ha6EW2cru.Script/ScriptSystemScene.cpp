@@ -14,7 +14,6 @@ using namespace Logging;
 
 using namespace Maths;
 
-#include "Management/Management.h"
 #include "Exceptions/ScriptException.hpp"
 #include "Exceptions/OutOfRangeException.hpp"
 

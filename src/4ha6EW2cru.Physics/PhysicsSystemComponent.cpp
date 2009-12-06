@@ -6,8 +6,6 @@ using namespace Maths;
 #include "IO/IResource.hpp"
 using namespace Resources;
 
-#include "Management/Management.h"
-
 #include <Common/Base/System/Io/IStream/hkIStream.h>
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
 #include <Common/Serialize/Util/hkRootLevelContainer.h>

@@ -30,8 +30,8 @@ namespace AI
 		~AINavigationMeshComponent( );
 
 
-		AINavigationMeshComponent( const std::string& name )
-			: AISystemComponent( name )
+		AINavigationMeshComponent( const std::string& name, Services::IServiceManager* serviceManager )
+			: AISystemComponent( name, serviceManager )
 		{
 
 		}

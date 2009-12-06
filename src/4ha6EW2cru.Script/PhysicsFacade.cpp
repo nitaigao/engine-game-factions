@@ -12,15 +12,12 @@ using namespace Maths;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "Management/Management.h"
-
 namespace Script
 {
 	luabind::scope PhysicsFacade::RegisterFunctions()
 	{
 		return
 			class_< PhysicsFacade >( "PhysicsFacade" )
-			.def( constructor< >( ) )
 			.def( "rayQuery", &PhysicsFacade::RayQuery, copy_table( result ) )
 			;
 	}
@@ -44,7 +41,7 @@ namespace Script
 		 IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
 		 renderService->MessageType( "drawLine", debugParameters );*/
 
-		 IService* rayService = Management::Get( )->GetServiceManager( )->FindService( System::Types::PHYSICS );
+		 IService* rayService = m_serviceManager->FindService( System::Types::PHYSICS );
 		 return rayService->ProcessMessage( System::Messages::RayQuery, parameters ) [ "hits" ].As< std::vector< std::string > >( );
 	 }
 }

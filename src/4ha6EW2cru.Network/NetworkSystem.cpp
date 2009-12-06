@@ -32,8 +32,6 @@ using namespace Services;
 #include <luabind/luabind.hpp>
 using namespace luabind;
 
-#include "Management/Management.h"
-
 #include "Configuration/ConfigurationTypes.hpp"
 
 namespace Network

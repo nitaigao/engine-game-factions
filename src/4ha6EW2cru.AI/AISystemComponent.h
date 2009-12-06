@@ -17,6 +17,8 @@
 #include "IBehavior.hpp"
 #include "IAISystemComponent.hpp"
 
+#include "Service/IServiceManager.h"
+
 namespace AI
 {
 	/*! 
@@ -40,10 +42,11 @@ namespace AI
 		 *  @param[in] IScriptComponent * scriptComponent
 		 *  @return ()
 		 */
-		AISystemComponent( const std::string& name )
+		AISystemComponent( const std::string& name, Services::IServiceManager* serviceManager )
 			: m_name( name )
 			, m_observer( 0 )
 			, m_playerDistance( 0 )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -142,6 +145,7 @@ namespace AI
 		AISystemComponent & operator = ( const AISystemComponent & copy ) { return *this; };
 
 		std::string m_name;
+		Services::IServiceManager* m_serviceManager;
 
 		IObserver* m_observer;
 

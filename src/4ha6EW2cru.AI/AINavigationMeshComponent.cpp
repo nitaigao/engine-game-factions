@@ -5,8 +5,6 @@ using namespace Maths;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "Management/Management.h"
-
 namespace AI
 {
 	AINavigationMeshComponent::~AINavigationMeshComponent( )
@@ -28,7 +26,7 @@ namespace AI
 
 	void AINavigationMeshComponent::Initialize( )
 	{
-		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+		IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
 		AnyType::AnyTypeMap results = renderService->ProcessMessage( System::Messages::LoadMesh, m_attributes );
 		MathVector3::MathVector3List vertices = results[ "vertices" ].As< MathVector3::MathVector3List >( );
 
@@ -150,7 +148,7 @@ namespace AI
 
 		if ( message == System::Messages::SetPosition )
 		{
-			IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+			IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
 
 			AnyType::AnyTypeMap renderParameters;
 			MathVector3::MathVector3List vertices;

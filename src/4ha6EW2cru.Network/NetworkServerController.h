@@ -12,6 +12,7 @@
 #include "INetworkInterface.hpp"
 
 #include "Service/IServiceManager.h"
+#include "System/IInstrumentation.hpp"
 
 namespace Network
 {
@@ -34,9 +35,10 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkServerController( INetworkInterface* networkInterface, Services::IServiceManager* serviceManager )
+		NetworkServerController( INetworkInterface* networkInterface, Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation )
 			: m_networkInterface( networkInterface )
 			, m_serviceManager( serviceManager )
+			, m_instrumentation( instrumentation )
 		{
 
 		}
@@ -114,6 +116,7 @@ namespace Network
 
 		INetworkInterface* m_networkInterface; 
 		Services::IServiceManager* m_serviceManager;
+		System::IInstrumentation* m_instrumentation;
 	};
 };
 

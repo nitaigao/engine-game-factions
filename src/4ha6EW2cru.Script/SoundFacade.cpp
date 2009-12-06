@@ -1,7 +1,5 @@
 #include "SoundFacade.h"
 
-#include "Management/Management.h"
-
 #include "Service/IService.hpp"
 using namespace Services;
 
@@ -13,7 +11,6 @@ namespace Script
 	{
 		return
 			class_< SoundFacade >( "SoundFacade" )
-				.def( constructor< IScriptComponent* >( ) )
 				.def( "playMusic", &SoundFacade::PlayMusic )
 				.def( "triggerEvent", &SoundFacade::TriggerEvent )
 				.def( "keyOutEvent", &SoundFacade::KeyOutEvent );
@@ -21,7 +18,7 @@ namespace Script
 
 	void SoundFacade::PlayMusic( const std::string& eventPath )
 	{
-		IService* soundService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SOUND );
+		IService* soundService = m_serviceManager->FindService( System::Types::SOUND );
 		
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::SoundEventPath ] = eventPath;

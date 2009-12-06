@@ -9,7 +9,6 @@ using namespace Maths;
 using namespace Services;
 
 #include "IO/FileBuffer.hpp"
-#include "Management/Management.h"
 
 #include <luabind/luabind.hpp>
 using namespace luabind;
@@ -17,13 +16,11 @@ using namespace luabind;
 #include "Logging/Logger.h"
 using namespace Logging;
 
-using namespace Events;
-
 namespace AI
 {
 	void AIScriptComponent::Initialize( )
 	{
-		IService* scriptService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SCRIPT );
+		IService* scriptService = m_serviceManager->FindService( System::Types::SCRIPT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Name ] = m_name + "_ai";
@@ -39,7 +36,7 @@ namespace AI
 
 	void AIScriptComponent::Destroy()
 	{
-		IService* scriptService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SCRIPT );
+		IService* scriptService = m_serviceManager->FindService( System::Types::SCRIPT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Name ] = m_name + "_ai";
@@ -107,7 +104,7 @@ namespace AI
 
 	void AIScriptComponent::PlayAnimation( const std::string& animationName, bool loopAnimation )
 	{
-		IService* service = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+		IService* service = m_serviceManager->FindService( System::Types::RENDER );
 
 		AnyType::AnyTypeMap parameters;
 
@@ -156,7 +153,7 @@ namespace AI
 
 	bool AIScriptComponent::InLineOfSight( const Maths::MathVector3& position )
 	{
-		IService* physicsService = Management::Get( )->GetServiceManager( )->FindService( System::Types::PHYSICS );
+		IService* physicsService = m_serviceManager->FindService( System::Types::PHYSICS );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As< MathVector3 >( ) + MathVector3( 0.0f, 1.0f, 0.0f );

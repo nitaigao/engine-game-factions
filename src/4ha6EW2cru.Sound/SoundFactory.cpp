@@ -5,15 +5,13 @@
 #include "SoundEventSystem.h"
 #include "SoundComponentFactory.h"
 
-#include "Management/Management.h"
-
 namespace Sound
 {
 	ISoundSystem* SoundFactory::CreateSoundSystem()
 	{	
 		SoundEventSystem* eventSystem = new SoundEventSystem( );
 		SoundScene* scene = new SoundScene( new SoundComponentFactory( eventSystem ) );
-		ISoundSystem* system = new SoundSystem( Management::Get( )->GetServiceManager( ), scene, eventSystem );
+		ISoundSystem* system = new SoundSystem( m_serviceManager, m_resourceCache, scene, eventSystem );
 		return system;
 	}
 }

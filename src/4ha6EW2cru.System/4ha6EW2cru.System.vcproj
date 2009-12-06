@@ -191,10 +191,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\State\EntityService.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Events\EventManager.cpp"
 				>
 			</File>
@@ -228,10 +224,6 @@
 			</File>
 			<File
 				RelativePath=".\Logging\Logger.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Management\Management.cpp"
 				>
 			</File>
 			<File
@@ -341,10 +333,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\State\EntityService.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Events\Event.h"
 				>
 			</File>
@@ -414,10 +402,6 @@
 			</File>
 			<File
 				RelativePath=".\Configuration\IConfigurationFile.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\State\IEntityService.hpp"
 				>
 			</File>
 			<File
@@ -550,10 +534,6 @@
 			</File>
 			<File
 				RelativePath=".\Logging\LogLevel.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Management\Management.h"
 				>
 			</File>
 			<File

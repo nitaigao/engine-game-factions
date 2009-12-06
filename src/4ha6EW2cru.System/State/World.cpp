@@ -12,6 +12,9 @@ using namespace Logging;
 #include "Serilaization/XMLSerializer.h"
 using namespace Serialization;
 
+#include "../IO/IStream.hpp"
+using namespace IO;
+
 namespace State
 {
 	World::~World( )
@@ -137,5 +140,30 @@ namespace State
 	void World::LoadLevel( const std::string& levelpath )
 	{
 		m_serializer->DeSerializeLevel( this, levelpath );
+	}
+
+	AnyType::AnyTypeMap World::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	{
+		if( message == System::Messages::Entity::DeSerializeWorld )
+		{
+			this->DeSerialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+		}
+
+		if( message == System::Messages::Entity::SerializeWorld )
+		{
+			this->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+		}
+
+		if ( message == System::Messages::Entity::CreateEntity )
+		{
+			this->CreateEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ), parameters[ System::Attributes::EntityType ].As< std::string >( ) );
+		}
+
+		if ( message == System::Messages::Entity::DestroyEntity )
+		{
+			this->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
+		}
+
+		return AnyType::AnyTypeMap( );
 	}
 }

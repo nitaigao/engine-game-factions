@@ -13,6 +13,8 @@
 
 #include "Maths/MathVector3.hpp"
 
+#include "Service/IServiceManager.h"
+
 namespace Script
 {
 	/*! 
@@ -34,7 +36,11 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		PhysicsFacade( ) { };
+		PhysicsFacade( Services::IServiceManager* serviceManager )
+			: m_serviceManager( serviceManager )
+		{
+
+		}
 
 
 		/*! Registers the Script functions
@@ -73,6 +79,8 @@ namespace Script
 
 		PhysicsFacade( const PhysicsFacade & copy ) { };
 		PhysicsFacade & operator = ( const PhysicsFacade & copy ) { return *this; };
+
+		Services::IServiceManager* m_serviceManager;
 		
 	};
 };

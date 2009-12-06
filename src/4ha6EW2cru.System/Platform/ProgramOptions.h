@@ -18,6 +18,8 @@ namespace Platform
 	class ProgramOptions : public IProgramOptions
 	{
 
+		typedef std::map< std::string, std::string > ProgramOptionMap;
+
 	public:
 
 		/*! Default Destructor
@@ -32,6 +34,13 @@ namespace Platform
 		* @return (  )
 		*/
 		ProgramOptions( ) { };
+
+
+		/*! Initializes the program options from the command line arguments
+		*
+		* @return ( void )
+		*/
+		void Initialize( );
 
 
 		/*! Detects whether the given option was passed to the program command line
@@ -53,6 +62,8 @@ namespace Platform
 
 		ProgramOptions( const ProgramOptions & copy ) { };
 		ProgramOptions & operator = ( const ProgramOptions & copy ) { return *this; };
+
+		ProgramOptionMap m_programOptions;
 		
 	};
 };

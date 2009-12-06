@@ -15,6 +15,8 @@
 #include "Service/IServiceManager.h"
 #include "IO/IResourceCache.hpp"
 #include "Events/IEventManager.hpp"
+#include "Platform/IPlatformManager.h"
+#include "System/IInstrumentation.hpp"
 
 namespace Script
 {
@@ -39,12 +41,15 @@ namespace Script
 		*/
 		ScriptFactory( 
 			Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
-			Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager 
+			Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, 
+			Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation
 			)
 			: m_configuration( configuration )
 			, m_serviceManager( serviceManager )
 			, m_resourceCache( resourceCache )
 			, m_eventManager( eventManager )
+			, m_platformManager( platformManager )
+			, m_instrumentation( instrumentation )
 		{
 
 		}
@@ -73,6 +78,8 @@ namespace Script
 		Services::IServiceManager* m_serviceManager;
 		Resources::IResourceCache* m_resourceCache;
 		Events::IEventManager* m_eventManager;
+		Platform::IPlatformManager* m_platformManager;
+		System::IInstrumentation* m_instrumentation;
 		
 	};
 };

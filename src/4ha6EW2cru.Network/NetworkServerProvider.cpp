@@ -13,8 +13,6 @@ using namespace Events;
 #include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
-#include "Management/Management.h"
-
 #include <BitStream.h>
 using namespace RakNet;
 

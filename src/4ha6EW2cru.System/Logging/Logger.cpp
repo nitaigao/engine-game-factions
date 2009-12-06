@@ -8,8 +8,6 @@
 #include "../Events/Event.h"
 using namespace Events;
 
-#include "../Management/Management.h"
-
 namespace Logging
 {
 	Logger* g_logger = 0;

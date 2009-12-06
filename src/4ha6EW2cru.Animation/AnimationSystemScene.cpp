@@ -6,7 +6,7 @@ namespace Animation
 {
 	ISystemComponent* AnimationSystemScene::CreateComponent( const std::string& name, const std::string& type )
 	{
-		IAnimationSystemComponent* component = new AnimationSystemComponent( this );
+		IAnimationSystemComponent* component = new AnimationSystemComponent( this, m_resourceCache );
 		component->SetAttribute( System::Attributes::Name, name );
 		component->SetAttribute( System::Attributes::SystemType, System::Types::ANIMATION );
 		component->SetAttribute( System::Attributes::Parent, this );

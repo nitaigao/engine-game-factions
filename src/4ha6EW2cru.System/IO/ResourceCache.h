@@ -64,6 +64,16 @@ namespace Resources
 		*/
 		inline void Update( float deltaMilliseconds ) { };
 
+
+		/*! Searches for a Resource in the cache
+		*
+		* @param[in] const std::string & path
+		* @param[in] const std::string & searchPattern
+		* @param[in] bool recursive
+		* @return ( FileSearchResult::FileSearchResultList* )
+		*/
+		IO::FileSearchResult::FileSearchResultList* ResourceSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const;
+
 	private:
 
 		IResource::ResourceMap m_resourceCache;

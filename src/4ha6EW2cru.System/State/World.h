@@ -20,7 +20,7 @@ namespace State
 	/*!
 	 *  The Container for all Entities 
 	 */
-	class GAMEAPI World : public IWorld
+	class GAMEAPI World : public IWorld, public Services::IService
 	{
 
 	public:
@@ -133,6 +133,22 @@ namespace State
 		* @return ( void )
 		*/
 		void DeSerialize( IO::IStream* stream );
+
+
+		/*! Gets the System::Types::Type of the Service
+		*
+		*  @return (System::Types::Type)
+		*/
+		inline System::Types::Type GetType( ) const { return System::Types::ENTITY; };
+
+
+		/*! Messages the system with a command
+		*
+		* @param[in] const std::string & message
+		* @param[in] AnyType::AnyTypeMap parameters
+		* @return ( void )
+		*/
+		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 	private:
 

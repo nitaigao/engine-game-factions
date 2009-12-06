@@ -51,7 +51,7 @@ namespace Animation
 
 	ISystemScene* AnimationSystem::CreateScene( )
 	{
-		m_scene = new AnimationSystemScene( );
+		m_scene = new AnimationSystemScene( m_resourceCache );
 		return m_scene;
 	}
 }

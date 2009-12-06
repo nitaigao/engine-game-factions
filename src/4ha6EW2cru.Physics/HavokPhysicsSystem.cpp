@@ -6,8 +6,6 @@ using namespace Maths;
 #include "Logging/Logger.h"
 using namespace Logging;
 
-#include "Management/Management.h"
-
 #include <Common/Base/hkBase.h>
 #include <Common/Base/System/hkBaseSystem.h>
 #include <Common/Base/Memory/hkThreadMemory.h>
@@ -72,6 +70,8 @@ namespace Physics
 		m_vdb = new hkVisualDebugger( contexts );
 		m_vdb->serve( );
 #endif
+
+		m_serviceManager->RegisterService( this );
 	}
 
 	void HavokPhysicsSystem::Update( float deltaMilliseconds )

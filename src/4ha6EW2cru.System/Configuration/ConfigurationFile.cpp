@@ -1,6 +1,7 @@
 #include "ConfigurationFile.h"
 
-#include "../Management/Management.h"
+#include <sstream>
+
 #include "../IO/IResource.hpp"
 using namespace IO;
 

@@ -8,8 +8,6 @@ using namespace Maths;
 #include "Events/IEvent.hpp"
 using namespace Events;
 
-#include "Management/Management.h"
-
 #include "IInputSystemScene.hpp"
 #include "IInputSystem.hpp"
 
@@ -93,7 +91,7 @@ namespace Input
 		parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
 		parameters[ System::Parameters::Input::MouseButtonId ] = id;
 
-		Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Input::MouseReleased, parameters );
+		m_serviceManager->MessageAll( System::Messages::Input::MouseReleased, parameters );
 
 		for( InputMessageBinding::InputMessageBindingList::iterator i = m_mouseUpMessages.begin( ); i != m_mouseUpMessages.end( ); )
 		{
@@ -116,7 +114,7 @@ namespace Input
 		parameters[ System::Attributes::Name ] =  m_attributes[ System::Attributes::Name ].As< std::string >( );
 		parameters[ System::Parameters::Input::MouseButtonId ] = id;
 
-		Management::Get( )->GetServiceManager( )->MessageAll( System::Messages::Input::MousePressed, parameters );
+		m_serviceManager->MessageAll( System::Messages::Input::MousePressed, parameters );
 
 		IInputSystem* inputSystem = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >( )->GetSystem( );
 		InputMessageBinding::InputMessageBindingList messageBindings = inputSystem->GetBindings( );

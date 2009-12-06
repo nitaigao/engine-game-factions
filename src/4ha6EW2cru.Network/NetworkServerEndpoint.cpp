@@ -8,19 +8,9 @@ using namespace RakNet;
 #include "Logging/Logger.h"
 using namespace Logging;
 
-#include "Management/Management.h"
-
 namespace Network
 {
 	NetworkServerEndpoint* NetworkServerEndpoint::m_networkServerEndpoint = 0;
-
-	NetworkServerEndpoint::NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller )
-		: m_networkInterface( networkInterface )
-		, m_networkController( controller )
-		, m_networkScene( networkScene )
-	{
-		NetworkServerEndpoint::m_networkServerEndpoint = this;
-	}
 
 	void NetworkServerEndpoint::Initialize( )
 	{
@@ -67,6 +57,11 @@ namespace Network
 
 	void NetworkServerEndpoint::Net_SelectCharacter( RakString characterName, RakNet::RPC3* rpcFromnetwork )
 	{
+		NetworkServerEndpoint::m_networkServerEndpoint->SelectCharacter( characterName.C_String( ), rpcFromnetwork );
+	}
+
+	void NetworkServerEndpoint::SelectCharacter( const std::string& characterName, RakNet::RPC3* rpcFromnetwork )
+	{
 		SystemAddress serverAddress = rpcFromnetwork->GetRakPeer( )->GetSystemAddressFromIndex( 0 );
 		SystemAddress clientAddress = rpcFromnetwork->GetLastSenderAddress( );
 
@@ -82,7 +77,7 @@ namespace Network
 		entityFilePath << "/data/entities/" << characterName << fileExtension;
 		parameters[ System::Attributes::FilePath ] = entityFilePath.str( );
 
-		Management::Get( )->GetServiceManager( )->FindService( System::Types::ENTITY )
+		m_serviceManager->FindService( System::Types::ENTITY )
 			->ProcessMessage( System::Messages::Entity::CreateEntity, parameters );
 	}
 

@@ -19,6 +19,8 @@ using namespace System;
 #include "Logging/Logger.h"
 using namespace Logging;
 
+#include "Platform/IPlatformManager.h"
+using namespace Platform;
 
 BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
 {
@@ -30,9 +32,16 @@ extern "C" void __stdcall Initialize( Logger* logger )
 
 }
 
-extern "C" ISystem* __stdcall CreateSystem( IConfiguration* configuration, IServiceManager* serviceManager, IResourceCache* resourceCache, IEventManager* eventManager, IInstrumentation* instrumentation )
+extern "C" ISystem* __stdcall CreateSystem( 
+	IConfiguration* configuration, 
+	IServiceManager* serviceManager, 
+	IResourceCache* resourceCache, 
+	IEventManager* eventManager, 
+	IInstrumentation* instrumentation,
+	IPlatformManager* platformManager
+	)
 {
-	return ScriptFactory( configuration, serviceManager, resourceCache, eventManager )
+	return ScriptFactory( configuration, serviceManager, resourceCache, eventManager, platformManager, instrumentation )
 		.CreateScriptSystem( );
 }
 

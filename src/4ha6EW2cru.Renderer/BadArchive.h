@@ -11,6 +11,9 @@
 #include "OgreArchive.h"
 #include "IO/FileSearchResult.hpp"
 
+#include "IO/IFileSystem.hpp"
+#include "IO/ResourceCache.h"
+
 namespace Renderer
 {
 	/*! 
@@ -35,8 +38,9 @@ namespace Renderer
 		 *  @param[in] const std::string type
 		 *  @return ()
 		 */
-		BadArchive( const std::string& name, const std::string& type )
+		BadArchive( const std::string& name, const std::string& type, Resources::IResourceCache* resourceCache )
 			: Archive( name, type )
+			, m_resourceCache( resourceCache )
 		{
 
 		}
@@ -130,6 +134,7 @@ namespace Renderer
 	private:
 
 		TableOfContents m_tableOfContents;
+		Resources::IResourceCache* m_resourceCache;
 
 		BadArchive & operator = ( const BadArchive & copy ) { return *this; };
 

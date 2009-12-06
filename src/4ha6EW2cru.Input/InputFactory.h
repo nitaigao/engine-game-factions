@@ -10,6 +10,10 @@
 
 #include "IInputFactory.hpp"
 
+#include "Events/IEventManager.hpp"
+#include "Platform/IPlatformManager.h"
+#include "Service/IServiceManager.h"
+
 namespace Input
 {
 	/*! 
@@ -31,7 +35,13 @@ namespace Input
 		*
 		* @return (  )
 		*/
-		InputFactory( ) { };
+		InputFactory( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager ) 
+			: m_eventManager( eventManager )
+			, m_platformManager( platformManager )
+			, m_serviceManager( serviceManager )
+		{
+
+		}
 
 
 		/*! Creates an Input System
@@ -44,7 +54,10 @@ namespace Input
 
 		InputFactory( const InputFactory & copy ) { };
 		InputFactory & operator = ( const InputFactory & copy ) { return *this; };
-		
+
+		Events::IEventManager* m_eventManager;
+		Platform::IPlatformManager* m_platformManager;
+		Services::IServiceManager* m_serviceManager;
 	};
 };
 

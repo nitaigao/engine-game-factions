@@ -6,7 +6,6 @@
 #include <OgreD3D9Plugin.h>
 using namespace Ogre;
 
-#include "Management/Management.h"
 #include "Events/Event.h"
 using namespace Events;
 
@@ -49,7 +48,7 @@ namespace Renderer
 	{
 		Ogre::WindowEventUtilities::removeWindowEventListener( m_window, this );
 
-		Management::Get( )->GetEventManager( )->RemoveEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &RendererSystem::OnGameEnded ) );
+		m_eventManager->RemoveEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &RendererSystem::OnGameEnded ) );
 		
 		if ( m_logListener != 0 )
 		{
@@ -107,7 +106,7 @@ namespace Renderer
 
 		m_root->initialise( false );
 
-		ArchiveManager::getSingletonPtr( )->addArchiveFactory( new BadArchiveFactory( ) );
+		ArchiveManager::getSingletonPtr( )->addArchiveFactory( new BadArchiveFactory( m_resourceCache ) );
 		ResourceGroupManager::getSingletonPtr( )->addResourceLocation( "/", "BAD" );
 		ResourceGroupManager::getSingletonPtr( )->initialiseAllResourceGroups( );
 
@@ -130,7 +129,7 @@ namespace Renderer
 				m_configuration->Set( ConfigSections::Graphics, ConfigItems::Graphics::Depth, defaultDepth );
 				m_configuration->Set( ConfigSections::Graphics, ConfigItems::Graphics::WindowTitle, defaultWindowTitle );
 
-				Management::Get( )->GetPlatformManager( )->CloseWindow( );
+				m_platformManager->CloseWindow( );
 			}
 		}
 
@@ -157,9 +156,9 @@ namespace Renderer
 		m_factories.push_back( lineFactory );
 		m_root->addMovableObjectFactory( lineFactory );
 
-		Management::Get( )->GetEventManager( )->AddEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &RendererSystem::OnGameEnded ) );
+		m_eventManager->AddEventListener( EventTypes::GAME_ENDED, MakeEventListener( this, &RendererSystem::OnGameEnded ) );
 
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
+		m_serviceManager->RegisterService( this );
 
 		//CompositorManager::getSingletonPtr( )->addCompositor( m_sceneManager->getCurrentViewport( ), "HDR" );
 		//CompositorManager::getSingletonPtr( )->setCompositorEnabled( m_sceneManager->getCurrentViewport( ), "HDR", true );
@@ -277,7 +276,7 @@ namespace Renderer
 
 	void RendererSystem::windowClosed( RenderWindow* rw )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_QUIT ) );
+		m_eventManager->QueueEvent( new Event( EventTypes::GAME_QUIT ) );
 	}
 
 	std::vector< std::string > RendererSystem::GetVideoModes( ) const
@@ -312,10 +311,10 @@ namespace Renderer
 
 	void RendererSystem::CreateRenderWindow( const std::string& windowTitle, int width, int height, bool fullScreen )
 	{
-		Management::Get( )->GetPlatformManager( )->CreateInteractiveWindow( windowTitle, width, height, fullScreen );
+		m_platformManager->CreateInteractiveWindow( windowTitle, width, height, fullScreen );
 		
 		NameValuePairList params;
-		params[ "externalWindowHandle" ] = StringConverter::toString( ( int ) Management::Get( )->GetPlatformManager( )->GetWindowId( ) );
+		params[ "externalWindowHandle" ] = StringConverter::toString( ( int ) m_platformManager->GetWindowId( ) );
 		params[ ConfigItems::Graphics::VSync ] = m_configuration->Find( ConfigSections::Graphics, ConfigItems::Graphics::VSync ).As< bool >( ) ? "true" : "false";
 
 		m_window = m_root->createRenderWindow( windowTitle, width, height, fullScreen, &params ); 
@@ -474,7 +473,7 @@ namespace Renderer
 		if ( message == "drawLine" )
 		{
 			std::stringstream lineName;
-			lineName << "line-" << Management::Get( )->GetPlatformManager( )->GenUUID( );
+			lineName << "line-" << m_platformManager->GenUUID( );
 
 			Line3D* line = static_cast< Line3D* >( m_sceneManager->createMovableObject( lineName.str( ), Line3D::TypeName( ) ) );
 
@@ -496,7 +495,7 @@ namespace Renderer
 		if ( message == System::Messages::Graphics::ScreenShot )
 		{
 			std::stringstream filePath;
-			filePath << Management::Get( )->GetPlatformManager( )->GetPathInformation( )->GetGlobalScreenShotsPath( ) << "\\";
+			filePath << m_platformManager->GetPathInformation( )->GetGlobalScreenShotsPath( ) << "\\";
 			m_window->writeContentsToTimestampedFile( filePath.str( ), ".jpg" );
 		}
 

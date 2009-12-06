@@ -91,7 +91,7 @@ namespace Platform
 		*
 		* @return ( IClock& )
 		*/
-		virtual IClock& GetClock( ) = 0;
+		virtual IClock* GetClock( ) = 0;
 
 
 		/*! Outputs a message to the Debug Console
@@ -99,13 +99,6 @@ namespace Platform
 		 *  @return (void)
 		 */
 		virtual void OutputDebugMessage( const std::string& message ) = 0;
-
-
-		/*! Returns a map of the command line options used when launching the game
-		 *
-		 *  @return (AnyType::AnyTypeMap)
-		 */
-		virtual AnyType::AnyTypeMap GetProgramOptions( ) const = 0;
 
 
 		/*! Generates a unique UUID

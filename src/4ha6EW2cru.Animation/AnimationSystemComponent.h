@@ -24,6 +24,7 @@
 #include "IAnimationBlender.hpp"
 
 #include "Logging/Logger.h"
+#include "IO/IResourceCache.hpp"
 
 namespace Animation
 {
@@ -52,11 +53,12 @@ namespace Animation
 		*
 		* @return (  )
 		*/
-		AnimationSystemComponent( IAnimationSystemScene* scene )
+		AnimationSystemComponent( IAnimationSystemScene* scene, Resources::IResourceCache* resourceCache )
 			: m_scene( scene )
 			, m_observer( 0 )
 			, m_skeletonInstance( 0 )
 			, m_animationBlender( 0 )
+			, m_resourceCache( resourceCache )
 		{ 
 		
 		};
@@ -157,6 +159,7 @@ namespace Animation
 
 		void LoadAnimation( const std::string& animationName, const std::string& animationPath );
 
+		Resources::IResourceCache* m_resourceCache;
 		IAnimationSystemScene* m_scene;
 		AnyType::AnyTypeMap m_attributes;
 

@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include "TestEnvironment.hpp"
+
 #ifdef _DEBUG
 #	define _CRTDBG_MAP_ALLOC 
 #	define _CRTDBG_MAP_ALLOC_NEW 
@@ -10,10 +12,11 @@
 int main( int argc, char **argv ) 
 {
 #ifdef _DEBUG
-	//_crtBreakAlloc = 25095;
+	//_crtBreakAlloc = 28028;
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
 #endif
 
 	::testing::InitGoogleTest( &argc, argv );
+	::testing::AddGlobalTestEnvironment( new Testing::Environment( ) );
 	return RUN_ALL_TESTS( );
 }

@@ -9,9 +9,10 @@
 #define WIN32PLATFORMMANAGER_H
 
 #include "IPlatformManager.h"
-#include "../Events/IEvent.hpp"
 
-#include "Win32Clock.h"
+#include "../Events/IEvent.hpp"
+#include "../Events/IEventManager.hpp"
+#include "../IO/IPathInformation.hpp"
 
 #include "../Export.hpp"
 
@@ -36,7 +37,14 @@ namespace Platform
 		 *
 		 *  @return ()
 		 */
-		Win32PlatformManager( );
+		Win32PlatformManager( Events::IEventManager* eventManager, IO::IPathInformation* pathInformation, IClock* clock )
+			: m_hWnd( 0 )
+			, m_pathInformation( pathInformation )
+			, m_eventManager( eventManager )
+			, m_clock( clock )
+		{
+
+		}
 
 
 		/*! Initializes the Platform Manager and all Sub Components
@@ -98,7 +106,7 @@ namespace Platform
 		*
 		* @return ( IClock& )
 		*/
-		inline IClock& GetClock( ) { return m_clock; };
+		inline IClock* GetClock( ) { return m_clock; };
 
 
 		/*! Outputs a message to the Debug Console
@@ -106,13 +114,6 @@ namespace Platform
 		*  @return (void)
 		*/
 		void OutputDebugMessage( const std::string& message );
-
-
-		/*! Returns a map of the command line options used when launching the game
-		*
-		*  @return (AnyType::AnyTypeMap)
-		*/
-		AnyType::AnyTypeMap GetProgramOptions( ) const;
 
 
 		/*! Generates a unique UUID
@@ -131,8 +132,9 @@ namespace Platform
 	private:
 
 		size_t m_hWnd;
-		Win32Clock m_clock;
+		IClock* m_clock;
 		IO::IPathInformation* m_pathInformation;
+		Events::IEventManager* m_eventManager;
 
 		Win32PlatformManager( const Win32PlatformManager & copy ) { };
 		Win32PlatformManager & operator = ( const Win32PlatformManager & copy ) { return *this; };

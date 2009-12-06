@@ -3,8 +3,6 @@
 #include "UXSystemScene.h"
 #include "UXSystemComponent.h"
 
-#include "Management/Management.h"
-
 #include <MyGUI.h>
 using namespace MyGUI;
 

@@ -10,8 +10,8 @@
 
 #include <luabind/luabind.hpp>
 #include "System/SystemType.hpp"
-#include "Management/Management.h"
 #include "IScriptFacade.hpp"
+#include "System/IInstrumentation.hpp"
 
 namespace Script
 {
@@ -34,7 +34,11 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		InstrumentationFacade( ) { };
+		InstrumentationFacade( System::IInstrumentation* instrumentation )
+			: m_instrumentation( instrumentation )
+		{
+
+		}
 
 
 		/*! Registers the Script functions with the given state
@@ -56,7 +60,7 @@ namespace Script
 		*
 		* @return ( int )
 		*/
-		inline int GetFPS( ) { return Management::Get( )->GetInstrumentation( )->GetFPS( ); };
+		inline int GetFPS( ) { return m_instrumentation->GetFPS( ); };
 
 
 		/*! Returns the Round Time for the given Queue
@@ -64,7 +68,7 @@ namespace Script
 		* @param[in] const System::Queues::Queue & queue
 		* @return ( float )
 		*/
-		inline float GetRoundTime( const System::Queues::Queue& queue ) { return Management::Get( )->GetInstrumentation( )->GetRoundTime( queue ); };
+		inline float GetRoundTime( const System::Queues::Queue& queue ) { return m_instrumentation->GetRoundTime( queue ); };
 
 
 		/*! Initializes the Facade with the given ScriptComponent
@@ -77,6 +81,8 @@ namespace Script
 
 		InstrumentationFacade( const InstrumentationFacade & copy ) { };
 		InstrumentationFacade & operator = ( const InstrumentationFacade & copy ) { return *this; };
+
+		System::IInstrumentation* m_instrumentation;
 		
 	};
 };

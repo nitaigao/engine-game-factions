@@ -32,42 +32,42 @@ namespace Script
 
 			case IScriptFacade::INPUT:
 
-				facade = new InputFacade( );
+				facade = new InputFacade( m_serviceManager );
 				luaState->SetGlobal( "input", static_cast< InputFacade* >( facade ) );
 
 				break;
 
 			case IScriptFacade::INSTRUMENTATION:
 
-				facade = new InstrumentationFacade( );
+				facade = new InstrumentationFacade( m_instrumentation );
 				luaState->SetGlobal( "instrumentation", static_cast< InstrumentationFacade* >( facade ) );
 
 				break;
 
 			case IScriptFacade::NETWORK:
 
-				facade = new NetworkFacade( );
+				facade = new NetworkFacade( m_serviceManager, m_resourceCache );
 				luaState->SetGlobal( "network", static_cast< NetworkFacade* >( facade ) );
 
 				break;
 
 			case IScriptFacade::PHYSICS:
 
-				facade = new PhysicsFacade( );
+				facade = new PhysicsFacade( m_serviceManager );
 				luaState->SetGlobal( "physics", static_cast< PhysicsFacade* >( facade ) );
 
 				break;
 
 			case IScriptFacade::SOUND:
 
-				facade = new SoundFacade( component );
+				facade = new SoundFacade( component, m_serviceManager );
 				luaState->SetGlobal( "sfx", static_cast< SoundFacade* >( facade ) );
 
 				break;
 
 			case IScriptFacade::SYSTEM:
 
-				facade = new SystemFacade( );
+				facade = new SystemFacade( m_eventManager, m_platformManager ) ;
 				luaState->SetGlobal( "system", static_cast< SystemFacade* >( facade ) );
 
 				break;

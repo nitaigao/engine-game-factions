@@ -5,15 +5,13 @@ using namespace Ogre;
 using namespace Resources;
 using namespace IO;
 
-#include "Management/Management.h"
-
 namespace Renderer
 {
 	Ogre::DataStreamPtr BadArchive::open( const Ogre::String& filename ) const
 	{
 		DataStreamPtr stream;
 
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( filename );
+		IResource* resource = m_resourceCache->GetResource( filename );
 
 		MemoryDataStream memoryStream( resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength, false );
 		stream = DataStreamPtr( new MemoryDataStream( memoryStream, true ) );
@@ -23,14 +21,14 @@ namespace Renderer
 
 	bool BadArchive::exists( const Ogre::String& filename )
 	{
-		return Management::Get( )->GetFileManager( )->FileExists( filename );
+		return m_resourceCache->ResourceExists( filename );
 	}
 
 	StringVectorPtr BadArchive::find( const String& pattern, bool recursive /* = true */, bool dirs /* = false */ )
 	{
 		StringVector* resultsVector = new StringVector( );
 
-		FileSearchResult::FileSearchResultList* results = Management::Get( )->GetFileManager( )->FileSearch( "/data/", pattern, true );
+		FileSearchResult::FileSearchResultList* results = m_resourceCache->ResourceSearch( "/data/", pattern, true );
 
 		for( FileSearchResult::FileSearchResultList::iterator i = results->begin( ); i != results->end( ); ++i )
 		{

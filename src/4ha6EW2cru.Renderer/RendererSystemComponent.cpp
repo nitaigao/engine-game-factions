@@ -1,7 +1,5 @@
 #include "RendererSystemComponent.h"
 
-#include "Management/Management.h"
-
 #include "IRendererSystem.hpp"
 
 #include "Maths/MathVector3.hpp"

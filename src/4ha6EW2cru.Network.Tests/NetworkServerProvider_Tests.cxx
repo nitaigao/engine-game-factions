@@ -9,8 +9,6 @@ using namespace Maths;
 
 #include "System/AnyType.hpp"
 
-#include "Management/Management.h"
-
 #include "Mocks/MockNetworkInterface.hpp"
 #include "Mocks/MockNetworkServerController.hpp"
 #include "Mocks/MockNetworkServerEndpoint.hpp"

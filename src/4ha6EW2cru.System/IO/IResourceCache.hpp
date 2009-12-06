@@ -11,6 +11,8 @@
 #include "IResource.hpp"
 #include "../Export.hpp"
 
+#include "FileSearchResult.hpp"
+
 namespace Resources
 {
 	/*! 
@@ -50,6 +52,16 @@ namespace Resources
 		 *  @return (void)
 		 */
 		virtual void Update( float deltaMilliseconds ) = 0;
+
+
+		/*! Searches for a Resource in the cache
+		 *
+		 * @param[in] const std::string & path
+		 * @param[in] const std::string & searchPattern
+		 * @param[in] bool recursive
+		 * @return ( FileSearchResult::FileSearchResultList* )
+		 */
+		virtual IO::FileSearchResult::FileSearchResultList* ResourceSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const = 0;
 
 	};
 };

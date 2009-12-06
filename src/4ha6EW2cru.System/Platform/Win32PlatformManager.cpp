@@ -1,7 +1,6 @@
 #include "Win32PlatformManager.h"
 
 #include "../Events/Event.h"
-#include "../Management/Management.h"
 
 #include <windows.h>
 
@@ -47,12 +46,6 @@ namespace Platform
 			delete m_pathInformation;
 			m_pathInformation = 0;
 		}
-	}
-
-	Win32PlatformManager::Win32PlatformManager()
-	{
-		m_hWnd = 0;
-		m_pathInformation = new Win32PathInformation( );
 	}
 
 	void Win32PlatformManager::Initialize()
@@ -119,7 +112,7 @@ namespace Platform
 		{
 			if ( msg.message == WM_QUIT )
 			{
-				Management::Get( )->GetEventManager( )->QueueEvent( new Events::Event( Events::EventTypes::GAME_QUIT ) );
+				m_eventManager->QueueEvent( new Events::Event( Events::EventTypes::GAME_QUIT ) );
 			}
 
 			TranslateMessage( &msg );
@@ -145,52 +138,6 @@ namespace Platform
 	void Win32PlatformManager::OutputDebugMessage( const std::string& message )
 	{
 		OutputDebugString( message.c_str( ) );
-	}
-
-	AnyType::AnyTypeMap Win32PlatformManager::GetProgramOptions( ) const
-	{
-		/*int argc = 0;
-		LPWSTR* args = CommandLineToArgvW( GetCommandLineW( ), &argc );
-
-		char** argv = new char*[ argc ];
-
-		for ( int i = 0; i < argc; i++ )
-		{
-			argv[ i ] = new char[ 20480 ];
-			WideCharToMultiByte( CP_UTF8, 0, args[ i ], -1, ( LPSTR ) argv[ i ], 20480, 0, 0 );
-		}
-
-		CmdLine cmd( "Command Line Options" );
-
-		ValueArg< std::string > levelNameArg( "l", System::Options::LevelName.c_str( ), "The Level to Load", false, "", "string" );
-		cmd.add( levelNameArg );
-
-		SwitchArg dedicatedServerArg( "d", System::Options::DedicatedServer.c_str( ), "Run as a Dedicated Server", false );
-		cmd.add( dedicatedServerArg );
-
-		cmd.parse( argc, argv );
-
-		AnyType::AnyTypeMap programOptions;
-
-		if ( !levelNameArg.getValue( ).empty( ) )
-		{
-			programOptions[ System::Options::LevelName.c_str( ) ] = levelNameArg.getValue( );
-		}
-
-		if ( dedicatedServerArg.getValue( ) )
-		{
-			programOptions[ System::Options::DedicatedServer.c_str( ) ] = dedicatedServerArg.getValue( );
-		}
-
-		for ( int i = 0; i < argc; i++ )
-		{
-			delete[ ] argv[ i ];
-		}
-
-		delete[ ] argv;
-
-		return programOptions;*/
-		return AnyType::AnyTypeMap( );
 	}
 
 	std::string Win32PlatformManager::GenUUID() const

@@ -28,8 +28,8 @@ namespace Network
 		INetworkClientProvider* clientProvider = new NetworkClientProvider( m_configuration, clientInterface, clientController, clientEndpoint	);
 
 		INetworkInterface* serverInterface = new NetworkInterface( );
-		INetworkServerController* serverController = new NetworkServerController( serverInterface, m_serviceManager );
-		INetworkServerEndpoint* serverEndpoint = new NetworkServerEndpoint( serverInterface, scene, serverController );
+		INetworkServerController* serverController = new NetworkServerController( serverInterface, m_serviceManager, m_instrumentation );
+		INetworkServerEndpoint* serverEndpoint = new NetworkServerEndpoint( serverInterface, scene, serverController, m_serviceManager );
 		INetworkServerProvider* serverProvider = new NetworkServerProvider( m_configuration, serverInterface, serverController, serverEndpoint	);
 
 		return new NetworkSystem( m_serviceManager, m_instrumentation, scene, clientProvider, serverProvider, m_eventManager, m_configuration );

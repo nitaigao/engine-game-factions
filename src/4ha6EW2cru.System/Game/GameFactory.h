@@ -18,7 +18,9 @@
 #include "../Service/IServiceManager.h"
 #include "../IO/IResourceCache.hpp"
 #include "../IO/IFileSystem.hpp"
+#include "../IO/IPathInformation.hpp"
 #include "../System/IInstrumentation.hpp"
+#include "../Platform/IClock.hpp"
 
 #include "../Export.hpp"
 
@@ -67,7 +69,9 @@ namespace Game
 		Services::IServiceManager* m_serviceManager;
 		Resources::IResourceCache* m_resourceCache;
 		IO::IFileSystem* m_fileSystem;
+		IO::IPathInformation* m_pathInformation;
 		System::IInstrumentation* m_instrumentation;
+		Platform::IClock* m_clock;
 
 		
 	};

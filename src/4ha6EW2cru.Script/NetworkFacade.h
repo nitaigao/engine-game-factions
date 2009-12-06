@@ -16,6 +16,9 @@
 
 #include "Utility/StringUtils.h"
 
+#include "Service/IServiceManager.h"
+#include "IO/IResourceCache.hpp"
+
 namespace Script
 {
 	/*! 
@@ -37,7 +40,12 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		NetworkFacade( ) { };
+		NetworkFacade( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
+			: m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
+		{
+
+		}
 
 
 		/*! Registers the Script functions with the given state
@@ -126,6 +134,9 @@ namespace Script
 		NetworkFacade( const NetworkFacade & copy ) { };
 		NetworkFacade & operator = ( const NetworkFacade & copy ) { return *this; };
 		
+		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache;
+
 	};
 };
 

@@ -3,8 +3,6 @@
 #include "Logging/Logger.h"
 using namespace Logging;
 
-#include "Management/Management.h"
-
 #include "Exceptions/IntializeFailedException.hpp"
 #include "Exceptions/OutOfRangeException.hpp"
 #include "Exceptions/UnInitializedException.hpp"
@@ -39,7 +37,7 @@ namespace Input
 		m_configuration->SetDefault( Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::SmoothMouse, true );
 		m_configuration->SetDefault( Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount, 50 );
 	
-		m_inputManager = OIS::InputManager::createInputSystem( Management::Get( )->GetPlatformManager( )->GetWindowId( ) );
+		m_inputManager = OIS::InputManager::createInputSystem( m_platformManager->GetWindowId( ) );
 	
 		m_keyboard = static_cast< OIS::Keyboard* >( m_inputManager->createInputObject( OIS::OISKeyboard, true ) );
 		m_keyboard->setEventCallback( this );
@@ -49,12 +47,12 @@ namespace Input
 
 		this->LoadMessageBindings( );
 
-		Management::Get( )->GetServiceManager( )->RegisterService( this );
+		m_serviceManager->RegisterService( this );
 	}
 	
 	ISystemScene* InputSystem::CreateScene( )
 	{
-		InputSystemScene* inputScene = new InputSystemScene( m_configuration, this );
+		InputSystemScene* inputScene = new InputSystemScene( m_configuration, m_serviceManager, m_eventManager, this );
 	
 		m_inputScenes.push_back( inputScene );
 	

@@ -84,8 +84,6 @@ namespace given_the_game_is_a_dedicated_server
 			EXPECT_CALL( *m_systemManager, LoadSystems( true ) );
 			EXPECT_CALL( *m_systemManager, InitializeAllSystems( ) );
 
-			EXPECT_CALL( *m_platformManager, CreateConsoleWindow( ) );
-
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_QUIT, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_ENDED, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
@@ -132,8 +130,6 @@ namespace given_a_level_has_been_passed_on_the_command_line
 
 			EXPECT_CALL( *m_systemManager, LoadSystems( isDedicated ) );
 			EXPECT_CALL( *m_systemManager, InitializeAllSystems( ) );
-
-			EXPECT_CALL( *m_platformManager, CreateConsoleWindow( ) );
 
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_QUIT, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );
 			EXPECT_CALL( *m_eventManager, AddEventListener( EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >( ) ) ).WillOnce( Invoke( &MockEventManager::ConsumeEventListener ) );

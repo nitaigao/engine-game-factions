@@ -20,6 +20,8 @@
 #include <OISMouse.h>
 
 #include "Configuration/IConfiguration.hpp"
+#include "Service/IServiceManager.h"
+#include "Events/IEventManager.hpp"
 
 namespace Input
 {
@@ -45,8 +47,10 @@ namespace Input
 		*  @param[in] OIS::Keyboard * keyboard
 		*  @return ()
 		*/
-		explicit InputSystemScene( Configuration::IConfiguration* configuration, IInputSystem* system )
+		explicit InputSystemScene( Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Events::IEventManager* eventManager, IInputSystem* system )
 			: m_configuration( configuration ) 
+			, m_serviceManager( serviceManager )
+			, m_eventManager( eventManager )
 			, m_system( system )
 			, m_inputAllowed( false )
 		{
@@ -158,16 +162,18 @@ namespace Input
 
 	private:
 
+		InputSystemScene( ) { };
+		InputSystemScene( const InputSystemScene & copy ) { };
+		InputSystemScene & operator = ( const InputSystemScene & copy ) { return *this; };
+
 		bool m_inputAllowed;
 
 		IInputSystemComponent::InputSystemComponentList m_inputComponents;
 
 		IInputSystem* m_system;
 		Configuration::IConfiguration* m_configuration;
-
-		InputSystemScene( ) { };
-		InputSystemScene( const InputSystemScene & copy ) { };
-		InputSystemScene & operator = ( const InputSystemScene & copy ) { return *this; };
+		Services::IServiceManager* m_serviceManager;
+		Events::IEventManager* m_eventManager;
 
 	};
 };

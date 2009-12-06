@@ -8,8 +8,6 @@ using namespace luabind;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "Management/Management.h"
-
 #include "Logging/Logger.h"
 using namespace Logging;
 

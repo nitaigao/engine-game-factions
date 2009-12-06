@@ -8,8 +8,6 @@
 #include "ScriptFacadeManager.h"
 #include "ScriptFacadeFactory.h"
 
-#include "Management/Management.h"
-
 #include "Configuration/Configuration.h"
 using namespace Configuration;
 
@@ -27,7 +25,7 @@ namespace Script
 	IScriptSystemScene* ScriptFactory::CreateScriptSystemScene( )
 	{
 		ILuaState* state = new LuaState( m_resourceCache );
-		IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory( );
+		IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory( m_serviceManager, m_eventManager, m_platformManager, m_instrumentation, m_resourceCache );
 		IScriptComponentFactory* componentFactory = new ScriptComponentFactory( state, m_eventManager, facadeFactory );
 
 		return new ScriptSystemScene( m_configuration, componentFactory, state, m_serviceManager );

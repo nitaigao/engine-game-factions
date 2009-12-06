@@ -10,6 +10,8 @@
 
 #include "IAISystem.hpp"
 
+#include "Service/IServiceManager.h"
+
 namespace AI
 {
 	/*! 
@@ -31,8 +33,9 @@ namespace AI
 		 *
 		 *  @return ()
 		 */
-		AISystem( )
+		AISystem( Services::IServiceManager* serviceManager )
 			: m_scene( 0 )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -96,6 +99,7 @@ namespace AI
 
 		AnyType::AnyTypeMap m_attributes;
 		ISystemScene* m_scene;
+		Services::IServiceManager* m_serviceManager;
 	};
 };
 

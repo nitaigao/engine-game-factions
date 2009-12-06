@@ -6,8 +6,6 @@ using namespace MyGUI;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "Management/Management.h"
-
 #include "LuaState.h"
 #include "SystemFacade.h"
 #include "InputFacade.h"
@@ -116,7 +114,7 @@ namespace UX
 
 	void UXSystemScene::SetInputAllowed( bool inputAllowed )
 	{
-		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
+		IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ "inputAllowed" ] = inputAllowed;
@@ -419,7 +417,7 @@ namespace UX
 	{
 		typedef std::vector< std::string > StringVector;
 
-		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+		IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
 		StringVector resolutions = renderService->ProcessMessage( "getAvailableVideoModes", AnyType::AnyTypeMap( ) )[ "availableVideoModes" ].As< StringVector >( );
 
 		std::multimap< int, std::string > resolutionWidths;

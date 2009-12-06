@@ -5,8 +5,6 @@ using namespace OIS;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "Management/Management.h"
-
 #include "Events/Event.h"
 #include "Events/EventData.hpp"
 #include "Events/InputEventData.hpp"
@@ -20,7 +18,7 @@ namespace Input
 {
 	ISystemComponent* InputSystemScene::CreateComponent( const std::string& name, const std::string& type )
 	{
-		IInputSystemComponent* component = new InputSystemComponent( );
+		IInputSystemComponent* component = new InputSystemComponent( m_serviceManager );
 
 		component->SetAttribute( System::Attributes::Name, name );
 		component->SetAttribute( System::Attributes::SystemType, System::Types::INPUT );
@@ -68,7 +66,7 @@ namespace Input
 		if ( arg.key != OIS::KC_GRAVE && arg.key != OIS::KC_F12 )
 		{
 			Event* event = new Event( EventTypes::INPUT_KEY_DOWN, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
-			Management::Get( )->GetEventManager( )->TriggerEvent( event );
+			m_eventManager->TriggerEvent( event );
 
 			if ( m_inputAllowed )
 			{
@@ -88,17 +86,17 @@ namespace Input
 		{
 			UIEventData* eventData = new UIEventData( "console" );
 			IEvent* event = new Event( EventTypes::UI_SHOW_PANE, eventData );
-			Management::Get( )->GetEventManager( )->TriggerEvent( event );
+			m_eventManager->TriggerEvent( event );
 		}
 		else if ( arg.key == OIS::KC_F12 )
 		{
-			IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+			IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
 			renderService->ProcessMessage( System::Messages::Graphics::ScreenShot, AnyType::AnyTypeMap( ) );
 		}
 		else
 		{
 			IEvent* event = new Event( EventTypes::INPUT_KEY_UP, new KeyEventData( arg.key, m_system->GetKeyboard( )->getAsString( arg.key ) ) );
-			Management::Get( )->GetEventManager( )->TriggerEvent( event );
+			m_eventManager->TriggerEvent( event );
 
 			if ( m_inputAllowed )
 			{
@@ -115,7 +113,7 @@ namespace Input
 	bool InputSystemScene::MouseMoved( const MouseEvent &arg )
 	{
 		Event* event = new Event( EventTypes::INPUT_MOUSE_MOVED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, OIS::MB_Left ) );
-		Management::Get( )->GetEventManager( )->TriggerEvent( event );
+		m_eventManager->TriggerEvent( event );
 
 		if ( m_inputAllowed )
 		{
@@ -131,7 +129,7 @@ namespace Input
 	bool InputSystemScene::MousePressed( const MouseEvent &arg, MouseButtonID id )
 	{
 		Event* event = new Event( EventTypes::INPUT_MOUSE_PRESSED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
-		Management::Get( )->GetEventManager( )->TriggerEvent( event );
+		m_eventManager->TriggerEvent( event );
 
 		if ( m_inputAllowed )
 		{
@@ -147,7 +145,7 @@ namespace Input
 	bool InputSystemScene::MouseReleased( const MouseEvent &arg, MouseButtonID id )
 	{	
 		Event* event = new Event( EventTypes::INPUT_MOUSE_RELEASED, new MouseEventData( arg.state.X.abs, arg.state.Y.abs, arg.state.Z.abs, id ) );
-		Management::Get( )->GetEventManager( )->TriggerEvent( event );
+		m_eventManager->TriggerEvent( event );
 
 		if ( m_inputAllowed )
 		{

@@ -15,8 +15,6 @@ using namespace Logging;
 #include <boost/filesystem.hpp>
 using namespace boost::filesystem;
 
-#include "../Management/Management.h"
-
 namespace IO
 {
 	FileSystem::~FileSystem( )

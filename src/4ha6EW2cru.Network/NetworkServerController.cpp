@@ -10,8 +10,6 @@ using namespace IO;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-#include "Management/Management.h"
-
 namespace Network
 {
 	void NetworkServerController::Initialize( )
@@ -26,7 +24,7 @@ namespace Network
 	void NetworkServerController::ClientConnected( const SystemAddress& clientAddress )
 	{
 		m_networkInterface->GetRPC( )->SetRecipientAddress( clientAddress, false );
-		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_LoadLevel", RakString( Management::Get( )->GetInstrumentation( )->GetLevelName( ) ) );
+		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_LoadLevel", RakString( m_instrumentation->GetLevelName( ) ) );
 	}
 
 	void NetworkServerController::CreateEntity( const std::string& entityName, const std::string& entityType )

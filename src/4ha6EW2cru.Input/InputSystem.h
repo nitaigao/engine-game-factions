@@ -16,6 +16,8 @@
 #include "Service/IService.hpp"
 #include "Configuration/IConfiguration.hpp"
 #include "Events/IEventManager.hpp"
+#include "Platform/IPlatformManager.h"
+#include "Service/IServiceManager.h"
 
 namespace Input
 {
@@ -41,13 +43,15 @@ namespace Input
 		 *  @param[in] Configuration::IConfiguration * configuration
 		 *  @return ()
 		 */
-		InputSystem( Events::IEventManager* eventManager )
+		InputSystem( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager )
 			: _inputAllowed( true )
 			, m_eventManager( eventManager )
 			, m_configuration( 0 )
 			, m_inputManager( 0 )
 			, m_keyboard( 0 )
 			, m_mouse( 0 )
+			, m_platformManager( platformManager )
+			, m_serviceManager( serviceManager )
 		{
 	
 		}
@@ -188,6 +192,9 @@ namespace Input
 	
 	private:
 
+		InputSystem( const InputSystem & copy ) { };
+		InputSystem & operator = ( const InputSystem & copy ) { return *this; };
+
 		void LoadMessageBindings( );
 	
 		bool _inputAllowed;
@@ -197,14 +204,14 @@ namespace Input
 
 		Configuration::IConfiguration* m_configuration;
 		InputSystemSceneList m_inputScenes;
+
 		Events::IEventManager* m_eventManager;
+		Platform::IPlatformManager* m_platformManager;
+		Services::IServiceManager* m_serviceManager;
 	
 		OIS::InputManager* m_inputManager;
 		OIS::Mouse* m_mouse;
 		OIS::Keyboard* m_keyboard;
-	
-		InputSystem( const InputSystem & copy ) { };
-		InputSystem & operator = ( const InputSystem & copy ) { return *this; };
 	
 	};
 };

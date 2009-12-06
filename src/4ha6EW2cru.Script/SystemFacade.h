@@ -11,6 +11,10 @@
 #include <luabind/luabind.hpp>
 #include "IScriptFacade.hpp"
 
+#include "Service/IServiceManager.h"
+#include "Platform/IPlatformManager.h"
+#include "Events/IEventManager.hpp"
+
 namespace Script
 {
 	/*! 
@@ -32,7 +36,12 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		SystemFacade( ) { };
+		SystemFacade( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager )
+			: m_eventManager( eventManager )
+			, m_platformManager( platformManager )
+		{
+
+		}
 
 
 		/*! Returns the Script functions
@@ -96,6 +105,9 @@ namespace Script
 
 		SystemFacade( const SystemFacade & copy ) { };
 		SystemFacade & operator = ( const SystemFacade & copy ) { return *this; };
+
+		Events::IEventManager* m_eventManager;
+		Platform::IPlatformManager* m_platformManager;
 		
 	};
 };

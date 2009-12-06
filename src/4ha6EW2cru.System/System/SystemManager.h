@@ -21,7 +21,7 @@
 /*! 
 *  Manages each System of the Game
 */
-class SystemManager : public ISystemManager
+class GAMEAPI SystemManager : public ISystemManager
 {
 
 	typedef std::map< ISystem*, HMODULE > SystemLibraryList;

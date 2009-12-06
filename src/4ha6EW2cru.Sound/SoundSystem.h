@@ -12,6 +12,7 @@
 #include "Service/IServiceManager.h"
 
 #include "Configuration/IConfiguration.hpp"
+#include "IO/IResourceCache.hpp"
 
 #include "ISoundSystem.hpp"
 #include "ISoundScene.hpp"
@@ -38,14 +39,15 @@ namespace Sound
 		*
 		*  @return ()
 		*/
-		SoundSystem( Services::IServiceManager* serviceManager, ISoundScene* scene, ISoundEventSystem* eventSystem )
+		SoundSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, ISoundScene* scene, ISoundEventSystem* eventSystem )
 			: m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
 			, m_scene( scene )
 			, m_eventSystem( eventSystem )
 			, m_fmodSystem( 0 )
 			, m_configuration( 0 )
 		{
-
+			SoundSystem::m_soundSystem = this;
 		}
 
 		/*! Initializes the System
@@ -106,7 +108,19 @@ namespace Sound
 		*  @param[in] AnyType value
 		*  @return (void)
 		*/
-		inline void SetAttribute( const std::string& name, AnyType value ) { };		
+		inline void SetAttribute( const std::string& name, AnyType value ) { };	
+
+
+		/*! Opens a sound file for FMOD
+		*
+		* @param[in] const char * name
+		* @param[in] int unicode
+		* @param[in] unsigned int * filesize
+		* @param[in] void * * handle
+		* @param[in] void * * userdata
+		* @return ( bool )
+		*/
+		bool FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
 
 
 	private:
@@ -114,16 +128,19 @@ namespace Sound
 		SoundSystem( const SoundSystem & copy ) { };
 		SoundSystem & operator = ( const SoundSystem & copy ) { return *this; };
 
+		static ISoundSystem* m_soundSystem;
+
 		FMOD::System* m_fmodSystem;
 		ISoundEventSystem* m_eventSystem;
 		Configuration::IConfiguration* m_configuration;
 		ISoundScene* m_scene;
 		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache;
 
-		static FMOD_RESULT F_CALLBACK FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
-		static FMOD_RESULT F_CALLBACK FileClose( void* handle, void*  userdata );
-		static FMOD_RESULT F_CALLBACK FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata );
-		static FMOD_RESULT F_CALLBACK FileSeek( void* handle, unsigned int pos, void* userdata );
+		static FMOD_RESULT F_CALLBACK FMOD_FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
+		static FMOD_RESULT F_CALLBACK FMOD_FileClose( void* handle, void*  userdata );
+		static FMOD_RESULT F_CALLBACK FMOD_FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata );
+		static FMOD_RESULT F_CALLBACK FMOD_FileSeek( void* handle, unsigned int pos, void* userdata );
 	};
 };
 

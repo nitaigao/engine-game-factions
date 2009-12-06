@@ -1,6 +1,5 @@
 #include "ResourceCache.h"
 
-#include "../Management/Management.h"
 using namespace IO;
 
 #include "Resource.h"
@@ -43,5 +42,10 @@ namespace Resources
 	bool ResourceCache::ResourceExists( const std::string& filePath )
 	{
 		return m_fileSystem->FileExists( filePath );
+	}
+
+	IO::FileSearchResult::FileSearchResultList* ResourceCache::ResourceSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const
+	{
+		return m_fileSystem->FileSearch( path, searchPattern, recursive );
 	}
 };

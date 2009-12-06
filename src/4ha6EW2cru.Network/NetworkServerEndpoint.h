@@ -13,6 +13,8 @@
 #include "INetworkInterface.hpp"
 #include "INetworkSystemScene.hpp"
 
+#include "Service/IServiceManager.h"
+
 namespace Network
 {
 	/*! 
@@ -34,7 +36,14 @@ namespace Network
 		*
 		* @return (  )
 		*/
-		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller );
+		NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller, Services::IServiceManager* serviceManager )
+			: m_networkInterface( networkInterface )
+			, m_networkController( controller )
+			, m_networkScene( networkScene )
+			, m_serviceManager( serviceManager )
+		{
+			NetworkServerEndpoint::m_networkServerEndpoint = this;
+		}
 
 
 		/*! Initializes the Endpoint
@@ -59,6 +68,15 @@ namespace Network
 		*/
 		void LevelLoaded( RakNet::RPC3* rpcFromNetwork );
 
+
+		/*! Called when a client has selected a character
+		*
+		* @param[in] const std::string & characterName
+		* @param[in] RakNet::RPC3 * rpcFromnetwork
+		* @return ( void )
+		*/
+		void SelectCharacter( const std::string& characterName, RakNet::RPC3* rpcFromnetwork );
+
 		static void Net_LevelLoaded( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
 		static void Net_SelectCharacter( RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork );
 		static void Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, RakNet::BitStream& parameters, RakNet::RPC3* rpcFromNetwork );
@@ -73,6 +91,7 @@ namespace Network
 		INetworkInterface* m_networkInterface;
 		INetworkServerController* m_networkController;
 		INetworkSystemScene* m_networkScene;
+		Services::IServiceManager* m_serviceManager;
 
 		static NetworkServerEndpoint* m_networkServerEndpoint;
 

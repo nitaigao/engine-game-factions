@@ -8,29 +8,32 @@
 
 #include "IClock.hpp"
 
-class GAMEAPI Win32Clock : public IClock
+namespace Platform
 {
-
-public:
-
-	~Win32Clock( ) { };
-
-	Win32Clock( )
-		: m_endFrameTime( 0 )
-		, m_startFrameTime( timeGetTime( ) )
+	class GAMEAPI Win32Clock : public IClock
 	{
 
-	}
+	public:
 
-	float GetDeltaMilliseconds( );
+		~Win32Clock( ) { };
 
-	inline float GetTime( ) const { return static_cast< float >( timeGetTime( ) ); };
+		Win32Clock( )
+			: m_endFrameTime( 0 )
+			, m_startFrameTime( timeGetTime( ) )
+		{
 
-private:
+		}
 
-	DWORD m_endFrameTime;
-	DWORD m_startFrameTime;
+		float GetDeltaMilliseconds( );
 
-};
+		inline float GetTime( ) const { return static_cast< float >( timeGetTime( ) ); };
+
+	private:
+
+		DWORD m_endFrameTime;
+		DWORD m_startFrameTime;
+
+	};
+}
 
 #endif

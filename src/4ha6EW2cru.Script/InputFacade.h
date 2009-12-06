@@ -13,6 +13,8 @@
 #include <luabind/luabind.hpp>
 #include "System/SystemType.hpp"
 
+#include "Service/IServiceManager.h"
+
 namespace Script
 {
 	/*! 
@@ -34,8 +36,11 @@ namespace Script
 		*
 		* @return (  )
 		*/
-		InputFacade( ) { };
+		InputFacade( Services::IServiceManager* serviceManager )
+			: m_serviceManager( serviceManager )
+		{
 
+		}
 
 		/*! Registers the Script functions with the given state
 		*
@@ -87,6 +92,8 @@ namespace Script
 
 		InputFacade( const InputFacade & copy ) { };
 		InputFacade & operator = ( const InputFacade & copy ) { return *this; };
+
+		Services::IServiceManager* m_serviceManager;
 		
 	};
 };

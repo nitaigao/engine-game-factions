@@ -11,6 +11,8 @@
 #include "OgreArchiveFactory.h"
 #include "OgreArchive.h"
 
+#include "IO/ResourceCache.h"
+
 namespace Renderer
 {
 	/*! 
@@ -32,7 +34,11 @@ namespace Renderer
 		 *
 		 *  @return ()
 		 */
-		BadArchiveFactory( ) { };
+		BadArchiveFactory( Resources::IResourceCache* resourceCache )
+			: m_resourceCache( resourceCache )
+		{
+
+		}
 
 
 		/*! Returns the archive type of the BadArchive, in this case it's "BAD"
@@ -61,6 +67,8 @@ namespace Renderer
 
 		BadArchiveFactory( const BadArchiveFactory & copy ) { };
 		BadArchiveFactory & operator = ( const BadArchiveFactory & copy ) { return *this; };
+
+		Resources::IResourceCache* m_resourceCache;
 
 	};
 };

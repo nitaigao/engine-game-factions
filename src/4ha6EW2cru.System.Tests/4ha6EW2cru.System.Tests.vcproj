@@ -252,6 +252,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Mocks\MockInstrumentation.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Mocks\MockPlatformManager.hpp"
 				>
 			</File>
@@ -297,6 +301,10 @@
 			</File>
 			<File
 				RelativePath=".\IO\specs_for_ResourceCache.cxx"
+				>
+			</File>
+			<File
+				RelativePath=".\System\specs_for_SystemManager.cxx"
 				>
 			</File>
 			<File

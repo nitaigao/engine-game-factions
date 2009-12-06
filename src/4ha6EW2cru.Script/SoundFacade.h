@@ -12,6 +12,7 @@
 #include "IScriptComponent.hpp"
 
 #include <luabind/luabind.hpp>
+#include "Service/IServiceManager.h"
 
 namespace Script
 {
@@ -40,8 +41,9 @@ namespace Script
 		 *
 		 *  @return ()
 		 */
-		SoundFacade( ISystemComponent* component )
+		SoundFacade( ISystemComponent* component, Services::IServiceManager* serviceManager )
 			: m_component( component )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -77,6 +79,7 @@ namespace Script
 		SoundFacade & operator = ( const SoundFacade & copy ) { return *this; };
 
 		ISystemComponent* m_component;
+		Services::IServiceManager* m_serviceManager;
 	};
 };
 

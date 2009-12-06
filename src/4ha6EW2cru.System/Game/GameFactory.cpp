@@ -1,6 +1,8 @@
 #include "GameFactory.h"
 
 #include "../Platform/Win32PlatformManager.h"
+#include "../Platform/Win32Clock.h"
+
 #include "../Platform/ProgramOptions.h"
 using namespace Platform;
 
@@ -18,6 +20,7 @@ using namespace Services;
 using namespace Resources;
 
 #include "../IO/FileSystem.h"
+#include "../IO/Win32PathInformation.h"
 using namespace IO;
 
 #include "../System/Instrumentation.hpp"
@@ -40,22 +43,25 @@ namespace Game
 		delete m_resourceCache;
 		delete m_fileSystem;
 		delete m_instrumentation;
+		delete m_clock;
 	}
 
 	GameFactory::GameFactory( )
 	{
 		m_programOptions = new ProgramOptions( );
-		m_platformManager = new Win32PlatformManager( );
+		m_eventManager = new EventManager( );
+		m_serviceManager = new ServiceManager( );
+		m_instrumentation = new Instrumentation( );
+
+		m_clock = new Win32Clock( );
+		m_pathInformation = new Win32PathInformation( );
+		m_platformManager = new Win32PlatformManager(m_eventManager, m_pathInformation, m_clock );
 
 		m_fileSystem = new FileSystem( m_platformManager );
 		m_resourceCache = new ResourceCache( m_fileSystem );
 
 		IConfigurationFile* configFile = new ConfigurationFile( m_platformManager, m_fileSystem );
 		m_configuration = new ClientConfiguration( configFile );
-
-		m_eventManager = new EventManager( );
-		m_serviceManager = new ServiceManager( );
-		m_instrumentation = new Instrumentation( );
 
 		m_systemManager = new SystemManager( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager );
 	}

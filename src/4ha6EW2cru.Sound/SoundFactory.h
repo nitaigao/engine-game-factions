@@ -9,6 +9,8 @@
 #define SOUNDFACTORY_H
 
 #include "ISoundFactory.hpp"
+#include "Service/IServiceManager.h"
+#include "IO/IResourceCache.hpp"
 
 namespace Sound
 {
@@ -31,7 +33,12 @@ namespace Sound
 		*
 		* @return (  )
 		*/
-		SoundFactory( ) { };
+		SoundFactory( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
+			: m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
+		{
+
+		}
 
 
 		/*! Creates a SoundSystem Object
@@ -44,6 +51,9 @@ namespace Sound
 
 		SoundFactory( const SoundFactory & copy ) { };
 		SoundFactory & operator = ( const SoundFactory & copy ) { return *this; };
+
+		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache;
 		
 	};
 };

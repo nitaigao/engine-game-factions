@@ -11,10 +11,12 @@
 #include "ISystem.hpp"
 #include "../State/IWorld.hpp"
 
+#include "../Export.hpp"
+
 /*! 
  *  Manages each System of the Game
  */
-class ISystemManager
+class GAMEAPI ISystemManager
 {
 
 public:

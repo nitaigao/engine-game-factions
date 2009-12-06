@@ -10,6 +10,8 @@
 
 #include "IAnimationSystemScene.hpp"
 
+#include "IO/IResourceCache.hpp"
+
 namespace Animation
 {
 	/*! 
@@ -31,7 +33,11 @@ namespace Animation
 		*
 		* @return ( )
 		*/
-		AnimationSystemScene( ) { };
+		AnimationSystemScene( Resources::IResourceCache* resourceCache )
+			: m_resourceCache( resourceCache )
+		{
+
+		}
 
 
 		/*! Initializes the System Scene
@@ -86,6 +92,7 @@ namespace Animation
 		AnimationSystemScene & operator = ( const AnimationSystemScene & copy ) { return *this; };
 
 		ISystemComponent::SystemComponentMap m_components;
+		Resources::IResourceCache* m_resourceCache;
 		
 	};
 };

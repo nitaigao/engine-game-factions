@@ -6,8 +6,6 @@ using namespace Maths;
 #include "ScriptComponent.h"
 #include "IScriptFacadeManager.hpp"
 
-#include "Management/Management.h"
-
 #include <luabind/luabind.hpp>
 #include <luabind/table_policy.hpp>
 #include <luabind/operator.hpp>
@@ -79,7 +77,6 @@ namespace Script
 				(
 
 				class_< ScriptConfiguration >( "Config" )
-					.def( constructor< Configuration::IConfiguration* >( ) )
 						.property( "isFullScreen", &ScriptConfiguration::IsFullScreen, &ScriptConfiguration::SetFullScreen )
 						.property( "displayWidth", &ScriptConfiguration::GetDisplayWidth, &ScriptConfiguration::SetDisplayWidth )
 						.property( "displayHeight", &ScriptConfiguration::GetDisplayHeight, &ScriptConfiguration::SetDisplayHeight )

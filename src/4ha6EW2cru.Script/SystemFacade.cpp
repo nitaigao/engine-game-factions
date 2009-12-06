@@ -2,8 +2,6 @@
 
 #include "ScriptEvent.hpp"
 
-#include "Management/Management.h"
-
 using namespace luabind;
 
 #include "Logging/Logger.h"
@@ -35,23 +33,23 @@ namespace Script
 
 	void SystemFacade::Quit( )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_QUIT ) );
+		m_eventManager->QueueEvent( new Event( EventTypes::GAME_QUIT ) );
 	}
 
 	void SystemFacade::LoadLevel( const std::string& levelName )
 	{
 		IEventData* eventData = new LevelChangedEventData( levelName );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_LEVEL_CHANGED, eventData ) );
+		m_eventManager->QueueEvent( new Event( EventTypes::GAME_LEVEL_CHANGED, eventData ) );
 	}
 
 	void SystemFacade::EndGame( )
 	{
-		Management::Get( )->GetEventManager( )->QueueEvent( new ScriptEventT0<>( "GAME_ENDED" ) );
-		Management::Get( )->GetEventManager( )->QueueEvent( new Event( EventTypes::GAME_ENDED ) );
+		m_eventManager->QueueEvent( new ScriptEventT0<>( "GAME_ENDED" ) );
+		m_eventManager->QueueEvent( new Event( EventTypes::GAME_ENDED ) );
 	}
 
 	float SystemFacade::GetTime( ) const
 	{
-		return Management::Get( )->GetPlatformManager( )->GetClock( ).GetTime( );
+		return m_platformManager->GetClock( )->GetTime( );
 	}
 }

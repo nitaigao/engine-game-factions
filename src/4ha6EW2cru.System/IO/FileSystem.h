@@ -96,7 +96,7 @@ namespace IO
 
 	private:
 
-		FileSearchResult::FileSearchResultList*_FileSearch( const std::string& path, const std::string& pattern, bool recursive, FileSearchResult::FileSearchResultList* results ) const;
+		FileSearchResult::FileSearchResultList* _FileSearch( const std::string& path, const std::string& pattern, bool recursive, FileSearchResult::FileSearchResultList* results ) const;
 
 		FileSystem( const FileSystem & copy ) { };
 		FileSystem & operator = ( const FileSystem & copy ) { return *this; };

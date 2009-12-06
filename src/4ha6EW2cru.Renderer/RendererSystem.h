@@ -14,6 +14,11 @@
 #include "Configuration/IConfiguration.hpp"
 #include "Events/IEvent.hpp"
 
+#include "Events/IEventManager.hpp"
+#include "Platform/IPlatformManager.h"
+#include "Service/IServiceManager.h"
+#include "IO/IResourceCache.hpp"
+
 #include "IRendererSystem.hpp"
 #include "IRenderSystemScene.h"
 #include "OgreLogListener.h"
@@ -41,13 +46,17 @@ namespace Renderer
 		*
 		*  @return ()
 		*/
-		RendererSystem( )
+		RendererSystem( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
 			: m_configuration( 0 )
 			, m_root( 0 )
 			, m_window( 0 )
 			, m_sceneManager( 0 )
 			, m_scene( 0 )
 			, m_logListener( 0 )
+			, m_eventManager( eventManager )
+			, m_platformManager( platformManager )
+			, m_serviceManager( serviceManager )
+			, m_resourceCache( resourceCache )
 		{
 
 		}
@@ -145,6 +154,11 @@ namespace Renderer
 
 		FactoryList m_factories;
 		OgreLogListener* m_logListener;
+
+		Events::IEventManager* m_eventManager;
+		Platform::IPlatformManager* m_platformManager;
+		Services::IServiceManager* m_serviceManager;
+		Resources::IResourceCache* m_resourceCache; 
 
 	};
 };

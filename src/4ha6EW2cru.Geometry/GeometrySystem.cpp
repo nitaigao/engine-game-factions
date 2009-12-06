@@ -9,8 +9,6 @@ using namespace Maths;
 #include "System/SystemTypeMapper.hpp"
 using namespace System;
 
-#include "Management/Management.h"
-
 namespace Geometry
 {
 	ISystemScene* GeometrySystem::CreateScene( )

@@ -11,28 +11,23 @@
 #include "ScriptFacadeFactory.h"
 using namespace Script;
 
-#include "Management/Management.h"
-
 namespace UX
 {
-	IUXSystem* UXFactory::CreateUXSystem( Configuration::IConfiguration* configuration )
+	IUXSystem* UXFactory::CreateUXSystem( )
 	{
-		Services::IServiceManager* serviceManager = Management::Get( )->GetServiceManager( );
-		Events::IEventManager* eventManager = Management::Get( )->GetEventManager( );
-
-		ILuaState* masterState = new LuaState( Management::Get( )->GetResourceManager( ) );
+		ILuaState* masterState = new LuaState( m_resourceCache );
 		IGUI* gui = this->CreateUXGUI( );
-		IScriptFacadeFactory* scriptFacadeFactory = new ScriptFacadeFactory( );
+		IScriptFacadeFactory* scriptFacadeFactory = new ScriptFacadeFactory( m_serviceManager, m_eventManager, m_platformManager, m_instrumentation, m_resourceCache );
 
-		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, eventManager, scriptFacadeFactory );
-		IUXSystemScene* scene = new UXSystemScene( gui, serviceManager, masterState, factory, configuration, eventManager );
+		IUXSystemComponentFactory* factory = new UXSystemComponentFactory( masterState, gui, m_eventManager, scriptFacadeFactory );
+		IUXSystemScene* scene = new UXSystemScene( gui, m_serviceManager, masterState, factory, m_configuration, m_eventManager );
 
-		return new UXSystem( gui, scene, eventManager, serviceManager );
+		return new UXSystem( gui, scene, m_eventManager, m_serviceManager );
 	}
 
 	IGUI* UXFactory::CreateUXGUI()
 	{
 		MyGUI::Gui* myGUI = new MyGUI::Gui( );
-		return new GUI( myGUI, Management::Get( )->GetServiceManager( ) );
+		return new GUI( myGUI, m_serviceManager );
 	}
 }

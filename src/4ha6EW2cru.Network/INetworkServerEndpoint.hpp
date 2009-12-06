@@ -35,6 +35,15 @@ namespace Network
 		 * @return ( void )
 		 */
 		virtual void LevelLoaded( RakNet::RPC3* rpcFromNetwork ) = 0;
+
+
+		/*! Called when a client has selected a character
+		 *
+		 * @param[in] const std::string & characterName
+		 * @param[in] RakNet::RPC3 * rpcFromnetwork
+		 * @return ( void )
+		 */
+		virtual void SelectCharacter( const std::string& characterName, RakNet::RPC3* rpcFromnetwork ) = 0;
 		
 	};
 };

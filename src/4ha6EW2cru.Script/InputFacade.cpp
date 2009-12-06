@@ -8,15 +8,12 @@ using namespace luabind;
 #include "Service/IService.hpp"
 using namespace Services;
 
-#include "Management/Management.h"
-
 namespace Script
 {
 	luabind::scope InputFacade::RegisterFunctions()
 	{
 		return (
 			class_< InputFacade >( "InputFacade" )
-				.def( constructor< >( ) )
 				.def( "getTextForMessage", &InputFacade::GetTextForMessage )
 				.def( "setMessageBinding", &InputFacade::SetMessageBinding )
 				.def( "setDefaultMessageBinding", &InputFacade::SetDefaultMessageBinding )
@@ -25,7 +22,7 @@ namespace Script
 
 	std::string InputFacade::GetTextForMessage( const System::MessageType& message )
 	{
-		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
+		IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Message ] = message;
@@ -36,7 +33,7 @@ namespace Script
 
 	void InputFacade::SetMessageBinding( const System::MessageType& message, const std::string& binding )
 	{
-		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
+		IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Message ] = message;
@@ -47,7 +44,7 @@ namespace Script
 
 	void InputFacade::SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding )
 	{
-		IService* inputService = Management::Get( )->GetServiceManager( )->FindService( System::Types::INPUT );
+		IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
 
 		AnyType::AnyTypeMap parameters;
 		parameters[ System::Attributes::Message ] = message;

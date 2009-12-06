@@ -11,6 +11,8 @@
 #include "IAISystemComponent.hpp"
 #include "IAISystemScene.hpp"
 
+#include "Service/IServiceManager.h"
+
 #include <hash_map>
 
 namespace AI
@@ -34,7 +36,7 @@ namespace AI
 		 *
 		 *  @return ()
 		 */
-		AISystemScene( )
+		AISystemScene( Services::IServiceManager* m_serviceManager )
 		{
 
 		}
@@ -102,6 +104,8 @@ namespace AI
 
 		ISystemComponent::SystemComponentMap m_componentsByName;
 		ISystemComponent::SystemComponentMultiMap m_componentsByType;
+
+		Services::IServiceManager* m_serviceManager;
 
 	};
 };

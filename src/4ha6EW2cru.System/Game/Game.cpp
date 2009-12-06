@@ -8,8 +8,6 @@
 #include "../Logging/Logger.h"
 using namespace Logging;
 
-#include "../Management/Management.h"
-
 #include "../Configuration/Configuration.h"
 #include "../Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
@@ -30,6 +28,7 @@ namespace Game
 		Logger::Get( )->SetLogLevel( Logging::LEVEL_WARN );
 		Info( "Game Startup" );
 
+		m_programOptions->Initialize( );
 		m_fileSystem->Initialize( );
 
 		m_configuration->Initialize( "game.cfg" );
@@ -41,13 +40,8 @@ namespace Game
 
 		bool isDedicated = m_programOptions->HasOption( System::Options::DedicatedServer );
 		m_systemManager->LoadSystems( isDedicated );
-
-		if ( isDedicated )
-		{
-			m_platformManager->CreateConsoleWindow( );
-		}
-
 		m_systemManager->InitializeAllSystems( );
+
 		m_serviceManager->MessageAll( System::Messages::PostInitialize, AnyType::AnyTypeMap( ) );
 
 		m_world = m_systemManager->CreateWorld( );
@@ -68,7 +62,7 @@ namespace Game
 
 	void GameRoot::Update( )
 	{
-		float deltaMilliseconds = m_platformManager->GetClock( ).GetDeltaMilliseconds( );
+		float deltaMilliseconds = m_platformManager->GetClock( )->GetDeltaMilliseconds( );
 
 		m_systemManager->Update( deltaMilliseconds );
 		m_eventManager->Update( deltaMilliseconds );
@@ -86,6 +80,8 @@ namespace Game
 		m_world->Destroy( );
 
 		delete m_world;
+
+		m_systemManager->Release( );
 
 		Logger::Release( );
 	}

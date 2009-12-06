@@ -8,8 +8,6 @@ using namespace Maths;
 #include "IO/IResource.hpp"
 using namespace Resources;
 
-#include "Management/Management.h"
-
 #include <Common/Base/System/Io/IStream/hkIStream.h>
 
 #include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
@@ -63,7 +61,7 @@ namespace Animation
 		m_animationBlender = new AnimationBlender( );
 
 		std::string bindPose = m_attributes[ System::Attributes::Animation::BindPose ].As< std::string >( );
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( bindPose );
+		IResource* resource = m_resourceCache->GetResource( bindPose );
 
 		hkIstream istreamFromMemory( resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength );
 		hkStreamReader* streamReader = istreamFromMemory.getStreamReader( );
@@ -102,7 +100,7 @@ namespace Animation
 
 	void AnimationSystemComponent::LoadAnimation( const std::string& animationName, const std::string& animationPath )
 	{
-		IResource* resource = Management::Get( )->GetResourceManager( )->GetResource( animationPath );
+		IResource* resource = m_resourceCache->GetResource( animationPath );
 
 		hkIstream istreamFromMemory( resource->GetFileBuffer( )->fileBytes, resource->GetFileBuffer( )->fileLength );
 		hkStreamReader* streamReader = istreamFromMemory.getStreamReader( );

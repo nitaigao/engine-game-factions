@@ -4,7 +4,6 @@
 #include "Logging/Logger.h"
 using namespace Logging;
 
-#include "Management/Management.h"
 #include "Exceptions/NullReferenceException.hpp"
 
 namespace Renderer
@@ -34,7 +33,7 @@ namespace Renderer
 			archiveName.replace( extensionIndex, archiveName.length( ) - extensionIndex, "" );
 		}
 
-		return new BadArchive( archiveName, BAD_ARCHTYPE );
+		return new BadArchive( archiveName, BAD_ARCHTYPE, m_resourceCache );
 	}
 
 	void BadArchiveFactory::destroyInstance( Ogre::Archive* archive )

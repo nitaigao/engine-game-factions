@@ -17,10 +17,19 @@ namespace Platform
 {
 	bool ProgramOptions::HasOption( const std::string& optionName ) const
 	{
-		return true;
+		ProgramOptionMap::const_iterator i = m_programOptions.find( optionName );
+
+		return i != m_programOptions.end( );
 	}
 
 	std::string ProgramOptions::GetOption( const std::string& optionName ) const
+	{
+		ProgramOptionMap::const_iterator i = m_programOptions.find( optionName );
+
+		return ( *i ).second;
+	}
+
+	void ProgramOptions::Initialize( )
 	{
 		int argc = 0;
 		LPWSTR* args = CommandLineToArgvW( GetCommandLineW( ), &argc );
@@ -43,16 +52,14 @@ namespace Platform
 
 		cmd.parse( argc, argv );
 
-		std::map< std::string, std::string > programOptions;
-
 		if ( !levelNameArg.getValue( ).empty( ) )
 		{
-			programOptions[ System::Options::LevelName.c_str( ) ] = levelNameArg.getValue( );
+			m_programOptions[ System::Options::LevelName.c_str( ) ] = levelNameArg.getValue( );
 		}
 
 		if ( dedicatedServerArg.getValue( ) )
 		{
-			programOptions[ System::Options::DedicatedServer.c_str( ) ] = dedicatedServerArg.getValue( );
+			m_programOptions[ System::Options::DedicatedServer.c_str( ) ] = dedicatedServerArg.getValue( );
 		}
 
 		for ( int i = 0; i < argc; i++ )
@@ -61,7 +68,5 @@ namespace Platform
 		}
 
 		delete[ ] argv;
-
-		return programOptions[ optionName ];
 	}
 }

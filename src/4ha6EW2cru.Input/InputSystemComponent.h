@@ -15,6 +15,7 @@
 #include "InputMessageBinding.hpp"
 
 #include "System/SystemType.hpp"
+#include "Service/IServiceManager.h"
 
 namespace Input
 {
@@ -38,8 +39,9 @@ namespace Input
 		*
 		*  @return ()
 		*/
-		InputSystemComponent( )
+		InputSystemComponent( Services::IServiceManager* serviceManager )
 			: m_historySize( 10 )
+			, m_serviceManager( serviceManager )
 		{
 
 		}
@@ -184,6 +186,8 @@ namespace Input
 	
 		InputSystemComponent( const InputSystemComponent & copy ) { };
 		InputSystemComponent & operator = ( const InputSystemComponent & copy ) { return *this; };
+
+		Services::IServiceManager* m_serviceManager;
 
 		float AverageInputHistory( const InputHistory& inputHistory );
 

@@ -11,8 +11,6 @@ using namespace Logging;
 #include "IO/IResource.hpp"
 using namespace Resources;
 
-#include "Management/Management.h"
-
 #include "Events/Event.h"
 using namespace Events;
 

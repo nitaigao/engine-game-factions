@@ -13,6 +13,8 @@
 
 #include <Common/Base/hkBase.h>
 
+#include "IO/IResourceCache.hpp"
+
 namespace Animation
 {
 	/*! 
@@ -34,10 +36,11 @@ namespace Animation
 		*
 		*  @return ()
 		*/
-		AnimationSystem( )
+		AnimationSystem( Resources::IResourceCache* resourceCache )
 			: m_scene( 0 )
 			, m_threadMemory( 0 )
 			, m_stackBuffer( 0 )
+			, m_resourceCache( resourceCache )
 		{
 
 		}
@@ -106,6 +109,8 @@ namespace Animation
 		char* m_stackBuffer;
 
 		IAnimationSystemScene* m_scene;
+
+		Resources::IResourceCache* m_resourceCache;
 		
 	};
 };

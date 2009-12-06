@@ -25,8 +25,8 @@ namespace AI
 		~AIWaypointComponent( ) { };
 
 
-		AIWaypointComponent( const std::string& name )
-			: AISystemComponent( name )
+		AIWaypointComponent( const std::string& name, Services::IServiceManager* serviceManager )
+			: AISystemComponent( name, serviceManager )
 		{
 
 		}

@@ -4,8 +4,6 @@
 #include "AIWaypointComponent.h"
 #include "AINavigationMeshComponent.h"
 
-#include "Management/Management.h"
-
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
@@ -27,15 +25,15 @@ namespace AI
 
 		if ( type == "waypoint" )
 		{
-			component = new AIWaypointComponent( name );
+			component = new AIWaypointComponent( name, m_serviceManager );
 		}
 		else if ( type == "navmesh" )
 		{
-			component = new AINavigationMeshComponent( name );
+			component = new AINavigationMeshComponent( name, m_serviceManager );
 		}
 		else
 		{
-			component = new AIScriptComponent( name );
+			component = new AIScriptComponent( name, m_serviceManager );
 		}
 
 		component->SetAttribute( System::Attributes::Name, name );
@@ -74,13 +72,12 @@ namespace AI
 
 	void AISystemScene::Initialize()
 	{
-		IService* scriptService = Management::Get( )->GetServiceManager( )->FindService( System::Types::SCRIPT );
+		IService* scriptService = m_serviceManager->FindService( System::Types::SCRIPT );
 		lua_State* state = scriptService->ProcessMessage( "getMasterState", AnyType::AnyTypeMap( ) )[ "masterState" ].As< lua_State* >( );
 
 		module( state )
 		[
 			class_< AIScriptComponent >( "AISystemComponent" )
-				.def( constructor< const std::string& >( ) )
 				.def( "getName", &AIScriptComponent::GetName )
 				.def( "walkForward", &AIScriptComponent::WalkForward )
 				.def( "walkBackward", &AIScriptComponent::WalkBackward )
