@@ -117,6 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../4ha6EW2cru.Script;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/mygui/myguiengine/include;../../etc/vendor/lua/include;../../etc/vendor/luabind;../../etc/vendor/ois/includes"

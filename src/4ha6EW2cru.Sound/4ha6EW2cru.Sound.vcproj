@@ -39,6 +39,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="0"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT"
@@ -115,6 +116,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc"

@@ -39,6 +39,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="0"
 				AdditionalIncludeDirectories="./;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs;../../etc/vendor/tinyxml/include;../../etc/vendor/tclap/include"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT;OGRE_STATIC_LIB;LUABIND_DYNAMIC_LINK;LUA_BUILD_AS_DLL"
@@ -114,6 +115,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="./;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/source;../../etc/vendor/fmod/inc;../../etc/vendor/physfs;../../etc/vendor/tinyxml/include;../../etc/vendor/tclap/include"

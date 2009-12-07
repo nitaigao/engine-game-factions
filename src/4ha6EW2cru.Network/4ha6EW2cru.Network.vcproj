@@ -40,6 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="0"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/dependentextensions/rpc3;../../etc/vendor/raknet/Source;../../etc/vendor/lua/include;../../etc/vendor/luabind"
 				PreprocessorDefinitions="_DEBUG;TIXML_USE_STL;VC_EXTRALEAN;WIN32_LEAN_AND_MEAN;WIN32;EXPORT;LUABIND_DYNAMIC_LINK;LUA_BUILD_AS_DLL"
@@ -116,6 +117,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="../4ha6EW2cru.System;../../etc/vendor/boost/include;../../etc/vendor/ogre/ogremain/include;../../etc/vendor/havok/Source;../../etc/vendor/fmod/inc;../../etc/vendor/raknet/Source;../../etc/vendor/luabind;../../etc/vendor/lua/include;../../etc/vendor/raknet/dependentextensions/rpc3;../../etc/vendor/lua/include;../../etc/vendor/luabind"
