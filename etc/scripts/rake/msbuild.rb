@@ -13,6 +13,6 @@ class MSBuild
   end
   
 	def compile(compileMode = 'Debug')
-	 sh "#{@msbuildExecutable} #{@solutionFile} /m /property:BuildInParallel=false /property:Configuration=#{compileMode} /property:platform=Win32 /t:Rebuild"
+	 sh "#{@msbuildExecutable} #{@solutionFile} /m /property:BuildInParallel=true /property:Configuration=#{compileMode} /property:platform=Win32 /t:Rebuild"
 	end
 end
