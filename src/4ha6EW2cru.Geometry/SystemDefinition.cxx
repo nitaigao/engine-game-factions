@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "GeometrySystem.h"
 using namespace Geometry;
 

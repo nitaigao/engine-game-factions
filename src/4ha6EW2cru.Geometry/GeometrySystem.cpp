@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "GeometrySystem.h"
 
 #include "GeometrySystemScene.h"
