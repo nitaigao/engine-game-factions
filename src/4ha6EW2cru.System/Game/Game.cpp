@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Game.h"
 
 #include "../System/Memory.cxx"
@@ -29,7 +30,7 @@ namespace Game
 	{
 		Logger::Initialize( m_platformManager, m_eventManager );
 		Logger::Get( )->SetLogLevel( Logging::LEVEL_WARN );
-		Info( "Game Startup" );
+		Info( "Game Startup" ); 
 
 		m_programOptions->Initialize( );
 		m_fileSystem->Initialize( );

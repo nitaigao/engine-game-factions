@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "WorldEntity.h"
 
 using namespace IO;

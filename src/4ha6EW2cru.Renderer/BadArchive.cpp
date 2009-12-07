@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "BadArchive.h"
 using namespace Ogre;
 

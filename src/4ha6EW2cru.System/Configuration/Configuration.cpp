@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Configuration.h"
 
 #include "ConfigurationFile.h"

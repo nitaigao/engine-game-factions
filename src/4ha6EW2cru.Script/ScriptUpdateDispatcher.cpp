@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptUpdateDispatcher.h"
 
 namespace Script

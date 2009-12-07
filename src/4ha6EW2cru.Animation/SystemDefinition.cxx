@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AnimationSystem.h"
 using namespace Animation;
 

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkServerProvider.h"
 
 #include "NetworkInterface.h"

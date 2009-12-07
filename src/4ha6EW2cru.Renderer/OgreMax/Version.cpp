@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 /*
  * OgreMaxViewer - An Ogre 3D-based viewer for .scene and .mesh files
  * Copyright 2008 Derek Nedelman
@@ -134,3 +136,5 @@ int Version::Compare(const Version& version1, const Version& version2)
 {
     return version1.ToInt() - version2.ToInt();
 }
+#include "precompiled.h"
+

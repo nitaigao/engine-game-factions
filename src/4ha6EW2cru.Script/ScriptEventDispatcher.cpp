@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptEventDispatcher.h"
 
 #include "Events/EventListener.h"

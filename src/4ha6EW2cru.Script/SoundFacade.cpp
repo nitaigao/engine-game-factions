@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "SoundFacade.h"
 
 #include "Service/IService.hpp"

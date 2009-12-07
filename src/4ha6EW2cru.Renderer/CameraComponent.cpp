@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "CameraComponent.h"
 #include <Ogre.h>
 using namespace Ogre;

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "RendererSystemScene.h"
 
 #include "RendererSystemComponent.h"

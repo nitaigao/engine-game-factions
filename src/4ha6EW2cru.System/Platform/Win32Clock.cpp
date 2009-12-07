@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Win32Clock.h"
 
 namespace Platform

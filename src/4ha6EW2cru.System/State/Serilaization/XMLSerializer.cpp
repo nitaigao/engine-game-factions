@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "XMLSerializer.h"
 
 using namespace State;

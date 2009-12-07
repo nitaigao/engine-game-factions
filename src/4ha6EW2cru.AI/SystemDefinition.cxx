@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AISystem.h"
 using namespace AI;
 

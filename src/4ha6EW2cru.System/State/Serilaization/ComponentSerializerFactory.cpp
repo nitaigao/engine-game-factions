@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "ComponentSerializerFactory.h"
 
 #include "../../System/SystemType.hpp"

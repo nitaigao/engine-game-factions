@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "SystemFacade.h"
 
 #include "ScriptEvent.hpp"

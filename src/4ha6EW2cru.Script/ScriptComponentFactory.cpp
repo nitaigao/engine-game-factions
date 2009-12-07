@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptComponentFactory.h"
 
 #include "ScriptComponent.h"

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "HavokPhysicsSystemScene.h"						
 
 #include <Physics/Dynamics/World/hkpSimulationIsland.h>

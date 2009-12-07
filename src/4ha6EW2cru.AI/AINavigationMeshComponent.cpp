@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AINavigationMeshComponent.h"
 
 using namespace Maths;

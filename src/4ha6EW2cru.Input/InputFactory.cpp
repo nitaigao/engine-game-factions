@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "InputFactory.h"
 
 #include "InputSystem.h"

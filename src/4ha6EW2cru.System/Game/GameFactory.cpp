@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "GameFactory.h"
 
 #include "../Platform/Win32PlatformManager.h"

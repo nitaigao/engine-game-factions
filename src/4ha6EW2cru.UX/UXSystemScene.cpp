@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "UXSystemScene.h"
 
 using namespace Ogre;

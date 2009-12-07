@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "GUI.h"
 
 using namespace MyGUI;

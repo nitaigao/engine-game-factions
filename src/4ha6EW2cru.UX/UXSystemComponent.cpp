@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "UXSystemComponent.h"
 
 #include "ScriptFunctionHandler.h"

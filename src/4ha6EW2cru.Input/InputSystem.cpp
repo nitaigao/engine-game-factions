@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "InputSystem.h"
 
 #include "Logging/Logger.h"

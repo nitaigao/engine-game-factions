@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "InputComponentSerializer.h"
 
 using namespace ticpp;

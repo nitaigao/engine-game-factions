@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkInterface.h"
 
 #include <RakPeer.h>

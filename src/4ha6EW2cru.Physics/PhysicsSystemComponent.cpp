@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "PhysicsSystemComponent.h"
 
 #include "Maths/MathTools.hpp"
@@ -5,13 +7,6 @@ using namespace Maths;
 
 #include "IO/IResource.hpp"
 using namespace Resources;
-
-#include <Common/Base/System/Io/IStream/hkIStream.h>
-#include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
-#include <Common/Serialize/Util/hkRootLevelContainer.h>
-#include <Physics/Dynamics/Entity/hkpRigidBody.h>
-#include <Physics/Utilities/Serialize/hkpPhysicsData.h>
-#include <Common/Serialize/Version/hkVersionUtil.h>
 
 namespace Physics
 {

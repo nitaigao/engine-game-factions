@@ -1,4 +1,5 @@
-/**/
+#include "precompiled.h"
+
 #pragma once
 #ifndef SEARCHUTILITY_H
 #define SEARCHUTILITY_H

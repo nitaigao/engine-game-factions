@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "HavokPhysicsSystem.h"
 
 #include "Maths/MathTools.hpp"
@@ -5,25 +7,6 @@ using namespace Maths;
 
 #include "Logging/Logger.h"
 using namespace Logging;
-
-#include <Common/Base/hkBase.h>
-#include <Common/Base/System/hkBaseSystem.h>
-#include <Common/Base/Memory/hkThreadMemory.h>
-#include <Common/Base/Memory/Memory/Pool/hkPoolMemory.h>			
-
-#include <Physics/Collide/Dispatch/hkpAgentRegisterUtil.h>	
-
-#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastInput.h>			
-#include <Physics/Collide/Query/Collector/RayCollector/hkpAllRayHitCollector.h>
-#include <Physics/Collide/Query/CastUtil/hkpWorldRayCastOutput.h>			
-
-#include <Physics/Dynamics/World/hkpWorld.h>								
-#include <Physics/Dynamics/Entity/hkpRigidBody.h>							
-
-#define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
-#include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
-#define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
-#include <Common/Compat/hkCompat_All.cxx> 
 
 namespace Physics
 {

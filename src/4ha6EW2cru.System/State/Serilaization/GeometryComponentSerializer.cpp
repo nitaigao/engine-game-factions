@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "GeometryComponentSerializer.h"
 
 using namespace ticpp;

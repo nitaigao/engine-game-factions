@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AnimationFacade.h"
 
 using namespace luabind;

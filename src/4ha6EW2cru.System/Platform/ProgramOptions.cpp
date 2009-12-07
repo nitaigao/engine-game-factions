@@ -1,6 +1,5 @@
+#include "precompiled.h"
 #include "ProgramOptions.h"
-
-#define NOMINMAX
 
 #include <windows.h>
 #include <shellapi.h>

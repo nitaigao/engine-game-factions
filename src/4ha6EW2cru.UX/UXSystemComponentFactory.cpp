@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "UXSystemComponentFactory.h"
 
 #include "LuaState.h"

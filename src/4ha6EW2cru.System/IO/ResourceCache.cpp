@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "ResourceCache.h"
 
 using namespace IO;

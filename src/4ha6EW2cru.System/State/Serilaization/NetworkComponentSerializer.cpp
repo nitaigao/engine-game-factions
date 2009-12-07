@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "NetworkComponentSerializer.h"
 
 using namespace ticpp;

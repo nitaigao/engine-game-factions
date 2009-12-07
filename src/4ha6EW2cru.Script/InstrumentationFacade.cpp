@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "InstrumentationFacade.h"
 
 using namespace luabind;

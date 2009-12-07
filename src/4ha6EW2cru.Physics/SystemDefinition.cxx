@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "HavokPhysicsSystem.h"
 using namespace Physics;
 

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "InputSystemComponent.h"
 
 using namespace OIS;

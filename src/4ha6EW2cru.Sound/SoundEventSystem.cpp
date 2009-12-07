@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "SoundEventSystem.h"
 
 #include "Logging/Logger.h"

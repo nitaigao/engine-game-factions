@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkStream.h"
 
 #include <RakString.h>

@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Win32PlatformManager.h"
 
 #include "../Events/Event.h"

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "PhysicsFacade.h"
 
 #include <luabind/table_policy.hpp>

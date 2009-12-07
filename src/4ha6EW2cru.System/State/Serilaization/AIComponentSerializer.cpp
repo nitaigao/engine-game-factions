@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "AIComponentSerializer.h"
 
 using namespace ticpp;

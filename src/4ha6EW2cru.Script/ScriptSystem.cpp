@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptSystem.h"
 
 using namespace Maths;

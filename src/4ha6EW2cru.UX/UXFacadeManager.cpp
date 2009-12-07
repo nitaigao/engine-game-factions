@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "UXFacadeManager.h"
 
 using namespace Script;

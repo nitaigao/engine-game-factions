@@ -13,8 +13,6 @@
 
 #include "Service/IServiceManager.h"
 
-#include <hash_map>
-
 namespace AI
 {
 	/*! 

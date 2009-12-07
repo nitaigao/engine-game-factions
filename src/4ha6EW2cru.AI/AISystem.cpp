@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AISystem.h"
 
 #include "AISystemScene.h"

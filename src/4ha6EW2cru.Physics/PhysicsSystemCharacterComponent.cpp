@@ -1,10 +1,9 @@
+#include "precompiled.h"
+
 #include "PhysicsSystemCharacterComponent.h"
 
 #include "Maths/MathTools.hpp"
 using namespace Maths;
-
-#include <Physics/Dynamics/Entity/hkpRigidBody.h>
-#include <Physics/Collide/Shape/Convex/Capsule/hkpCapsuleShape.h>
 
 #include "Logging/Logger.h"
 using namespace Logging;

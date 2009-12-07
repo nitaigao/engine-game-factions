@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "AnimationComponentSerializer.h"
 
 using namespace ticpp;

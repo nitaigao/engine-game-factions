@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "BadArchiveFactory.h"
 #include "BadArchive.h"
 

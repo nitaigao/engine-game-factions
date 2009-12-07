@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkSystemComponent.h"
 
 #include "Maths/MathVector3.hpp"

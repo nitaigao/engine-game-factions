@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 /*
  * OgreMaxViewer - An Ogre 3D-based viewer for .scene and .mesh files
  * Copyright 2008 Derek Nedelman

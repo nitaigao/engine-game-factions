@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ServerCache.h"
 
 #include <sstream>

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkUtils.h"
 
 #include "Logging/Logger.h"

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkFactory.h"
 
 #include "NetworkInterface.h"

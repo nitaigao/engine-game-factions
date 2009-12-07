@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AISystemComponent.h"
 
 using namespace Maths;

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AnimationSystemComponent.h"
 
 #include "Maths/MathTools.hpp"
@@ -8,29 +10,6 @@ using namespace Maths;
 #include "IO/IResource.hpp"
 using namespace Resources;
 
-#include <Common/Base/System/Io/IStream/hkIStream.h>
-
-#include <Common/Serialize/Packfile/Binary/hkBinaryPackfileReader.h>
-#include <Common/Serialize/Util/hkRootLevelContainer.h>
-#include <Common/Serialize/Version/hkVersionUtil.h>
-
-#include <Physics/Utilities/Serialize/hkpPhysicsData.h>
-
-#include <Animation/Animation/hkaAnimation.h>
-#include <Animation/Animation/hkaAnimationContainer.h>
-#include <Animation/Animation/Playback/Control/Default/hkaDefaultAnimationControl.h>
-#include <Animation/Animation/Rig/hkaPose.h>
-#include <Animation/Animation/Deform/Skinning/Fpu/hkaFPUSkinningDeformer.h>
-#include <Animation/Animation/Rig/hkaSkeletonUtils.h>
-#include <Animation/Animation/Mapper/hkaSkeletonMapper.h>
-#include <Animation/Animation/Mapper/hkaSkeletonMapperData.h>
-#include <Animation/Animation/Mapper/hkaSkeletonMapperUtils.h>
-
-#include <Animation/Animation/Ik/Ccd/hkaCcdIkSolver.h>
-#include <Animation/Animation/Ik/TwoJoints/hkaTwoJointsIkSolver.h>
-
-#include <Ogre.h>
-#include <OgreTagpoint.h>
 using namespace Ogre;
 
 #include "Logging/Logger.h"

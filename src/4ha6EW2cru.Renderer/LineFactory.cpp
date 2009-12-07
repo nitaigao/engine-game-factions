@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "LineFactory.h"
 
 namespace Renderer

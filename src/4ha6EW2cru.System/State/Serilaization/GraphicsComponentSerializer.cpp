@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "GraphicsComponentSerializer.h"
 
 using namespace ticpp;

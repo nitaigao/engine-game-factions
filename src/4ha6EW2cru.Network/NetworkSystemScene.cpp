@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkSystemScene.h"
 
 #include "NetworkSystemComponent.h"

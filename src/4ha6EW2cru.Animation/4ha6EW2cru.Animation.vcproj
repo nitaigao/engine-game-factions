@@ -45,6 +45,8 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -119,6 +121,8 @@
 				PreprocessorDefinitions="TIXML_USE_STL;VC_EXTRALEAN;WIN32;EXPORT;OGRE_STATIC_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="precompiled.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -198,6 +202,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\precompiled.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\SystemDefinition.cxx"
 				>
 			</File>
@@ -241,6 +265,10 @@
 			</File>
 			<File
 				RelativePath=".\IAnimationSystemScene.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\precompiled.h"
 				>
 			</File>
 		</Filter>

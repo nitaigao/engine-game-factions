@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptMessageDispatcher.h"
 
 #include "ScriptFunctionHandler.h"

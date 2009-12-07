@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "StringUtils.h"
 
 #include <sstream>

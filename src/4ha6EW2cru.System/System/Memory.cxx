@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include <Windows.h>
 
 /*void* operator new( size_t size )

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "InputFacade.h"
 
 #include "System/SystemType.hpp"

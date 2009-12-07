@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "SoundSystemComponent.h"
 
 #include "Maths/MathTools.hpp"

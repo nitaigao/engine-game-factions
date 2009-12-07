@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkClientEndpoint.h"
 
 #include <MessageIdentifiers.h>

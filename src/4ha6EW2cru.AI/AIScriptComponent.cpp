@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AIScriptComponent.h"
 
 #include "IAISystemScene.hpp"

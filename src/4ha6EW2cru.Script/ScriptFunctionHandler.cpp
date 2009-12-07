@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptFunctionHandler.h"
 
 #include "Logging/Logger.h"

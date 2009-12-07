@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "Line3D.h"
 
 using namespace Ogre;

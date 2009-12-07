@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkClientController.h"
 
 #include "NetworkServerEndpoint.h"

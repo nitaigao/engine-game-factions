@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "LuaState.h"
 
 using namespace luabind;

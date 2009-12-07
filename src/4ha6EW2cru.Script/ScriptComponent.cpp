@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptComponent.h"
 
 #include "Maths/MathMatrix.h"

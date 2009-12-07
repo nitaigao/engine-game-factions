@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NavigationPolygon.h"
 
 using namespace Maths;

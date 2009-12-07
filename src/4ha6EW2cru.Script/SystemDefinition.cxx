@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptFactory.h"
 using namespace Script;
 

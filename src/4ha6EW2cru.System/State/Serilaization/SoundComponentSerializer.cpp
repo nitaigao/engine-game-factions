@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "SoundComponentSerializer.h"
 
 using namespace ticpp;

@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "Logger.h"
 
 #include "../Exceptions/UnInitializedException.hpp"

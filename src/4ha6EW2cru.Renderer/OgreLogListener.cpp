@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "OgreLogListener.h"
 
 #include "Logging/Logger.h"

@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "NetworkFacade.h"
 
 #include <luabind/table_policy.hpp>

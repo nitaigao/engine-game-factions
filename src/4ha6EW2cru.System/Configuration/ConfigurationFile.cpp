@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "ConfigurationFile.h"
 
 #include <sstream>

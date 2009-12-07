@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "ScriptFactory.h"
 
 #include "ScriptSystem.h"

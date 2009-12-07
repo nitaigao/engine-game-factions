@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AISystemScene.h"
 
 #include "AIScriptComponent.h"
@@ -7,8 +9,6 @@
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-#include <luabind/luabind.hpp>
-#include <luabind/table_policy.hpp>
 using namespace luabind;
 
 #include "Logging/Logger.h"

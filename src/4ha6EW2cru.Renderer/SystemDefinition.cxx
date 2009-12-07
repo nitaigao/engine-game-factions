@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "RendererSystem.h"
 using namespace Renderer;
 

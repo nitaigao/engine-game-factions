@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "FPSCameraComponent.h"
 
 #include "Maths/MathTools.hpp"

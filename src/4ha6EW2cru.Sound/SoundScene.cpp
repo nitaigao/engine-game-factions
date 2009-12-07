@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "SoundScene.h"
 
 #include "SoundSystemComponent.h"

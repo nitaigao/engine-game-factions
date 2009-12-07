@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "EventManager.h"
 
 #include "Event.h"

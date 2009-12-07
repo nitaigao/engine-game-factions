@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "InputSystemScene.h"
 
 using namespace OIS;

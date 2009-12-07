@@ -1,3 +1,5 @@
+#include "precompiled.h"
+
 #include "AnimationSystemScene.h"
 
 #include "AnimationSystemComponent.h"

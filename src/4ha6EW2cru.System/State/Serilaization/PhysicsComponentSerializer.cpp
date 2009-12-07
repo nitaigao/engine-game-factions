@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "PhysicsComponentSerializer.h"
 
 using namespace ticpp;

@@ -1,17 +1,8 @@
+#include "precompiled.h"
+
 #include "AnimationSystem.h"
 
 #include "AnimationSystemScene.h"
-
-#include <Common/Base/hkBase.h>
-#include <Common/Base/System/hkBaseSystem.h>
-#include <Common/Base/Memory/hkThreadMemory.h>
-#include <Common/Base/Memory/Memory/Pool/hkPoolMemory.h>	
-
-#define INCLUDE_HAVOK_ANIMATION_CLASSES
-#define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>
-#include <Common/Serialize/Util/hkBuiltinTypeRegistry.cxx>
-#define HK_COMPAT_FILE <Common/Compat/hkCompatVersions.h>
-#include <Common/Compat/hkCompat_All.cxx> 
 
 #include "Logging/Logger.h"
 using namespace Logging;

@@ -29,7 +29,7 @@ namespace Platform
 		 *
 		 *  @return ()
 		 */
-		virtual ~IPlatformManager( ) { };
+		virtual ~IPlatformManager( ) {  };
 
 
 		/*! Initializes the Platform Manager and all Sub Components

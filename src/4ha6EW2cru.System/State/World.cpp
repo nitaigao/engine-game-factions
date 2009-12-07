@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "World.h"
 
 #include "../Logging/Logger.h"

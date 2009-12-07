@@ -1,3 +1,4 @@
+#include "precompiled.h"
 #include "ServiceManager.h"
 
 namespace Services
