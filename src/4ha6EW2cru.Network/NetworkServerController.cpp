@@ -85,6 +85,13 @@ namespace Network
 			stream.WriteVector( position.X, position.Y, position.Z );
 		}
 
-		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );
+		if ( message == System::Messages::SetOrientation )
+		{
+			MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As< MathQuaternion >( );
+			stream.WriteNormQuat( orientation.W, orientation.X, orientation.Y, orientation.Z );
+		}
+
+		m_networkInterface->GetRPC()->SetSendParams( PacketPriority::MEDIUM_PRIORITY, PacketReliability::RELIABLE_SEQUENCED, 0 );
+		m_networkInterface->GetRPC( )->CallC( "&NetworkClientEndpoint::Net_MessageEntity", RakString( entityName ), RakString( message ), stream );	
 	}
 }

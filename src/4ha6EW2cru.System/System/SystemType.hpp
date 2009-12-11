@@ -140,6 +140,7 @@ namespace System
 			static const Parameter ComponentMessage		=	"componentMessage";
 			static const Parameter EndOfParameters		=	"endOfParameters";
 			static const Parameter Sender				=	"sender";
+			static const Parameter ServerTime			=	"serverTime";
 
 			namespace Client
 			{
@@ -298,6 +299,7 @@ namespace System
 				static const MessageType ClientDisconnected	=	"clientDisconnected";
 				static const MessageType WorldUpdate		=	"worldUpdate";
 				static const MessageType SetServerPosition	=	"setServerPosition";
+				static const MessageType SetServerOrientation	=	"setServerOrientation";
 			}
 		}
 

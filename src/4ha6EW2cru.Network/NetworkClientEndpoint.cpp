@@ -94,6 +94,13 @@ namespace Network
 			parametersMap[ System::Attributes::Position ] = position;
 		}
 
+		if ( message == System::Messages::SetOrientation )
+		{
+			MathQuaternion orientation;
+			parameters.ReadNormQuat( orientation.W, orientation.X, orientation.Y, orientation.Z );
+			parametersMap[ System::Attributes::Orientation ] = orientation;
+		}
+
 		NetworkClientEndpoint::m_clientEndpoint->MessageEntity( entityName.C_String( ), message.C_String( ), parametersMap, rpcFromNetwork->GetRakPeer( )->GetExternalID( rpcFromNetwork->GetLastSenderAddress( ) ) );
 	}
 

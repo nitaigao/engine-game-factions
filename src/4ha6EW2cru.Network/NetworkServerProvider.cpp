@@ -59,6 +59,11 @@ namespace Network
 			m_controller->MessageEntity( subject->GetName( ), System::Messages::SetPosition, parameters );
 		}
 
+		if ( message == System::Messages::Network::Server::SetServerOrientation )
+		{
+			m_controller->MessageEntity( subject->GetName( ), System::Messages::SetOrientation, parameters );
+		}
+
 		if ( 
 			message == System::Messages::Move_Forward_Pressed ||
 			message == System::Messages::Move_Backward_Pressed ||
