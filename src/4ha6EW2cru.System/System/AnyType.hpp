@@ -20,8 +20,8 @@ class AnyType
 
 public:
 
-	typedef std::map< std::string, AnyType > AnyType::AnyTypeMap;
-	typedef std::map< unsigned int, AnyType > AnyType::AnyTypeKeyMap;
+	typedef std::map< std::string, AnyType > AnyTypeMap;
+	typedef std::map< unsigned int, AnyType > AnyTypeKeyMap;
 
 
 	/*! Default Destructor

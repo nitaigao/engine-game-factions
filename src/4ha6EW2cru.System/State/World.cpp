@@ -67,7 +67,7 @@ namespace State
 		}
 		else
 		{
-			Warn( "Attempted to delete a not existing Entity:", name );
+			//Warn( "Attempted to delete a not existing Entity:", name );
 		}
 	}
 	

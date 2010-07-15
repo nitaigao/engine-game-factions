@@ -20,7 +20,7 @@ public:
 	*
 	*  @return ()
 	*/
-	~OutOfRangeException( ) { };
+	//~OutOfRangeException( ) { };
 
 
 	/*! Constructor with default error message
@@ -28,7 +28,7 @@ public:
 	*  @return ()
 	*/
 	OutOfRangeException( )
-		: std::exception( "A given argument was out of range" )
+		//: std::exception( "A given argument was out of range" )
 	{
 
 	}
@@ -39,7 +39,7 @@ public:
 	*  @return ()
 	*/
 	OutOfRangeException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

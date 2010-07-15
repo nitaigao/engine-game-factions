@@ -17,7 +17,7 @@ public:
 	*
 	*  @return ()
 	*/
-	~FileWriteException( ) { };
+	//~FileWriteException( ) { };
 
 
 	/*! Constructor with default error message
@@ -25,7 +25,7 @@ public:
 	*  @return ()
 	*/
 	FileWriteException( )
-		: std::exception( "There was an error attempting to write to a file" )
+		//: std::exception( "There was an error attempting to write to a file" )
 	{
 
 	}
@@ -37,7 +37,7 @@ public:
 	*  @return ()
 	*/
 	FileWriteException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

@@ -8,10 +8,10 @@
 #ifndef MATHTOOLS_HPP
 #define MATHTOOLS_HPP
 
-#include <Common/Base/hkBase.h>
+//#include <Common/Base/hkBase.h>
 
 #include <OgreVector3.h>
-#include <fmod.hpp>
+//#include <fmod.hpp>
 #include <OgreQuaternion.h>
 
 #include "MathQuaternion.hpp"
@@ -43,10 +43,10 @@ namespace Maths
 		* @param[in] const hkVector4 & vector
 		* @return ( Maths::MathVector3 )
 		*/
-		inline static MathVector3 FromhkVector4( const hkVector4& vector )
+		/*inline static MathVector3 FromhkVector4( const hkVector4& vector )
 		{
 			return Maths::MathVector3( vector( 0 ), vector( 1 ), vector( 2 ) );
-		};
+		};*/
 
 
 		/*! Returns Ogre's representation of a 3 dimensional Vector for convenience
@@ -63,24 +63,24 @@ namespace Maths
 		*
 		*  @return (hkVector4)
 		*/
-		inline static hkVector4 AshkVector4( const MathVector3& vector )
+		/*inline static hkVector4 AshkVector4( const MathVector3& vector )
 		{ 
 			return hkVector4( vector.X, vector.Y, vector.Z );
-		};
+		};*/
 
 
 		/*! Returns FMOD's representation of a 3 dimensional Vector for convenience
 		*
 		*  @return (FMOD_VECTOR)
 		*/
-		inline static FMOD_VECTOR AsFMODVector( const MathVector3& vector )
+		/*inline static FMOD_VECTOR AsFMODVector( const MathVector3& vector )
 		{ 
 			FMOD_VECTOR returnValue; 
 			returnValue.x = vector.X; 
 			returnValue.y = vector.Y; 
 			returnValue.z = vector.Z; 
 			return returnValue; 
-		};
+		};*/
 
 
 		/*! Returns a Quaternion created from an Ogre::Quaternion
@@ -99,10 +99,10 @@ namespace Maths
 		*  @param[in] const hkQuaternion & quaternion
 		*  @return (MathQuaternion)
 		*/
-		inline static Maths::MathQuaternion FromhkQuaternion( const hkQuaternion& quaternion )
+		/*inline static Maths::MathQuaternion FromhkQuaternion( const hkQuaternion& quaternion )
 		{
 			return Maths::MathQuaternion( quaternion( 0 ), quaternion( 1 ), quaternion( 2 ), quaternion( 3 ) );
-		}
+		}*/
 
 
 		/*! Returns an Ogre representation the Quaternion for convenience
@@ -119,10 +119,10 @@ namespace Maths
 		*
 		*  @return (hkQuaternion)
 		*/
-		inline static hkQuaternion AshkQuaternion( Maths::MathQuaternion& quternion )
+		/*inline static hkQuaternion AshkQuaternion( Maths::MathQuaternion& quternion )
 		{ 
 			return hkQuaternion( quternion.X, quternion.Y, quternion.Z, quternion.W ); 
-		};
+		};*/
 
 	private:
 

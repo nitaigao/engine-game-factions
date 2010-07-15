@@ -20,7 +20,7 @@ public:
 	 *
 	 *  @return ()
 	 */
-	~AlreadyInitializedException( ) { };
+	//~AlreadyInitializedException( ) { };
 
 
 	/*! Constructor with default error message
@@ -28,7 +28,7 @@ public:
 	 *  @return ()
 	 */
 	AlreadyInitializedException( )
-		: std::exception( "Object has already been Initialized" )
+		//: std::exception( "Object has already been Initialized" )
 	{
 
 	}
@@ -40,7 +40,7 @@ public:
 	 *  @return ()
 	 */
 	AlreadyInitializedException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

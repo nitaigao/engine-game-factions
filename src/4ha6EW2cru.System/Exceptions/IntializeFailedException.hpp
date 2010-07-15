@@ -28,7 +28,7 @@ public:
 	*  @return ()
 	*/
 	IntializeFailedException( )
-		: std::exception( "Component was unable to initialize correctly" )
+		//: std::exception( "Component was unable to initialize correctly" )
 	{
 
 	}
@@ -40,7 +40,7 @@ public:
 	*  @return ()
 	*/
 	IntializeFailedException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

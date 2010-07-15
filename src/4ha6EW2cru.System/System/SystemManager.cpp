@@ -100,10 +100,10 @@ void SystemManager::Release( )
 	{
 		( *i ).second->Release( );
 
-		HMODULE library = m_systemLibraries[ ( *i ).second ];
+		//HMODULE library = m_systemLibraries[ ( *i ).second ];
 
-		DestroySystemFunction destroySystem = reinterpret_cast< DestroySystemFunction >( GetProcAddress( library, "DestroySystem" ) );
-		destroySystem( ( *i ).second );
+		//DestroySystemFunction destroySystem = reinterpret_cast< DestroySystemFunction >( GetProcAddress( library, "DestroySystem" ) );
+		//destroySystem( ( *i ).second );
 	}
 
 	_systemsByType.clear( );
@@ -135,31 +135,32 @@ bool SystemManager::HasSystem( const System::Types::Type& systemType ) const
 
 ISystem* SystemManager::LoadSystem( const std::string& systemPath )
 {
-	HMODULE library = LoadLibrary( systemPath.c_str( ) );
+	//HMODULE library = LoadLibrary( systemPath.c_str( ) );
 
-	if ( library == NULL )
-	{
-		DWORD error = GetLastError( );
+	//if ( library == NULL )
+	//{
+		//DWORD error = GetLastError( );
 
-		FileNotFoundException e( "SystemManager::LoadSystem - Unable to load the given System dll" );
-		Fatal( e.what( ) );
-		throw e;
-	}
+		//FileNotFoundException e( "SystemManager::LoadSystem - Unable to load the given System dll" );
+		//Fatal( e.what( ) );
+		//throw e;
+	//}
 
-	InitializeSystemFunction initializeSystem = reinterpret_cast< InitializeSystemFunction >( GetProcAddress( library, "Initialize" ) );
-	initializeSystem( Logger::Get( ) );
+	//InitializeSystemFunction initializeSystem = reinterpret_cast< InitializeSystemFunction >( GetProcAddress( library, "Initialize" ) );
+	//initializeSystem( Logger::Get( ) );
 
-	CreateSystemFunction createSystem = reinterpret_cast< CreateSystemFunction >( GetProcAddress( library, "CreateSystem" ) );
-	ISystem* system = createSystem( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager );
+	//CreateSystemFunction createSystem = reinterpret_cast< CreateSystemFunction >( GetProcAddress( library, "CreateSystem" ) );
+	//ISystem* system = createSystem( m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager );
 
-	m_systemLibraries.insert( std::make_pair( system, library ) );
+	//m_systemLibraries.insert( std::make_pair( system, library ) );
 
-	return system;
+	//return system;
+  return 0;
 }
 
 void SystemManager::LoadSystems( bool isDedicated )
 {
-	ISystem* geometrySystem = this->LoadSystem( "4ha6EW2cru.Geometry.dll" );
+	/*ISystem* geometrySystem = this->LoadSystem( "4ha6EW2cru.Geometry.dll" );
 	this->RegisterSystem( System::Queues::HOUSE, geometrySystem );
 
 	ISystem* scriptSystem = this->LoadSystem( "4ha6EW2cru.Script.dll" );
@@ -172,8 +173,8 @@ void SystemManager::LoadSystems( bool isDedicated )
 	ISystem* physicsSystem = this->LoadSystem( "4ha6EW2cru.Physics.dll" );
 	this->RegisterSystem( System::Queues::LOGIC, physicsSystem );
 
-	//ISystem* aiSystem = this->LoadSystem( "4ha6EW2cru.AI.dll" );
-	//this->RegisterSystem( System::Queues::HOUSE, aiSystem );
+	ISystem* aiSystem = this->LoadSystem( "4ha6EW2cru.AI.dll" );
+	this->RegisterSystem( System::Queues::HOUSE, aiSystem );
 
 	if ( !isDedicated )
 	{
@@ -196,5 +197,5 @@ void SystemManager::LoadSystems( bool isDedicated )
 	{		
 		networkSystem->SetAttribute( System::Attributes::Network::IsServer, true );
 		m_platformManager->CreateConsoleWindow( );
-	}
+	}*/
 }

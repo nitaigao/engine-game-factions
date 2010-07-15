@@ -1,9 +1,9 @@
 #define NOMINMAX
 
-#include <windows.h>
+/*#include <windows.h>
 #include <shellapi.h>
 #include <mmsystem.h>
-#include <crtdbg.h>
+#include <crtdbg.h>*/
 
 #include <string>
 #include <map>

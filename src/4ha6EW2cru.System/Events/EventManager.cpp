@@ -31,9 +31,9 @@ namespace Events
 	{
 		if ( 0 == event )
 		{
-			NullReferenceException e( "EventManager::QueueEvent - Attempted to add a NULL Event to the Queue" );
-			Fatal( e.what ( ) );
-			throw e;
+			//NullReferenceException e( "EventManager::QueueEvent - Attempted to add a NULL Event to the Queue" );
+			//Fatal( e.what ( ) );
+			//throw e;
 		}
 
 		m_eventQueue.push( event );
@@ -49,9 +49,9 @@ namespace Events
 	{
 		if ( 0 == event )
 		{
-			NullReferenceException e( "EventManager::TriggerEvent - Attempted to trigger a NULL Event" );
-			Fatal( e.what ( ) );
-			throw e;
+			//NullReferenceException e( "EventManager::TriggerEvent - Attempted to trigger a NULL Event" );
+			//Fatal( e.what ( ) );
+			//throw e;
 		}
 
 		//Debug( event->GetEventType( ).c_str( ) );
@@ -70,7 +70,9 @@ namespace Events
 			else
 			{
 				delete ( *i ).second;
-				i = m_eventListeners.erase( i );
+				//i = m_eventListeners.erase( i );
+        m_eventListeners.erase(i++);
+				
 			}
 		}
 

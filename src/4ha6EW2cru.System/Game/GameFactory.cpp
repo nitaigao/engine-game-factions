@@ -1,8 +1,17 @@
 #include "precompiled.h"
 #include "GameFactory.h"
 
+#ifdef WIN32
+
 #include "../Platform/Win32PlatformManager.h"
 #include "../Platform/Win32Clock.h"
+#include "../IO/Win32PathInformation.h"
+
+#endif
+
+#include "../Platform/OSXPlatformManager.h"
+#include "../Platform/OSXClock.h"
+#include "../IO/OSXPathInformation.h"
 
 #include "../Platform/ProgramOptions.h"
 using namespace Platform;
@@ -21,7 +30,6 @@ using namespace Services;
 using namespace Resources;
 
 #include "../IO/FileSystem.h"
-#include "../IO/Win32PathInformation.h"
 using namespace IO;
 
 #include "../System/Instrumentation.hpp"
@@ -53,10 +61,18 @@ namespace Game
 		m_eventManager = new EventManager( );
 		m_serviceManager = new ServiceManager( );
 		m_instrumentation = new Instrumentation( );
+		
+		#ifdef WIN32
 
 		m_clock = new Win32Clock( );
 		m_pathInformation = new Win32PathInformation( );
 		m_platformManager = new Win32PlatformManager(m_eventManager, m_pathInformation, m_clock );
+
+    #endif
+    
+    m_clock = new OSXClock();
+    m_pathInformation = new OSXPathInformation();
+    m_platformManager = new OSXPlatformManager(m_eventManager, m_pathInformation, m_clock);
 
 		m_fileSystem = new FileSystem( m_platformManager );
 		m_resourceCache = new ResourceCache( m_fileSystem );

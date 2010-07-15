@@ -23,7 +23,7 @@ public:
 	*
 	*  @return ()
 	*/
-	~NullReferenceException( ) { };
+	//~NullReferenceException( ) { };
 
 
 	/*! Constructor with default error message
@@ -31,7 +31,7 @@ public:
 	*  @return ()
 	*/
 	NullReferenceException( )
-		: std::exception( "The referenced object is NULL" )
+		//: std::exception( "The referenced object is NULL" )
 	{
 
 	}
@@ -43,7 +43,7 @@ public:
 	*  @return ()
 	*/
 	NullReferenceException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

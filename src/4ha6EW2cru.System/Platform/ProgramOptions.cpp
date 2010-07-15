@@ -1,8 +1,10 @@
 #include "precompiled.h"
 #include "ProgramOptions.h"
 
+#ifdef WIN32
 #include <windows.h>
 #include <shellapi.h>
+#endif
 
 #include <tclap/CmdLine.h>
 using namespace TCLAP;
@@ -30,7 +32,7 @@ namespace Platform
 
 	void ProgramOptions::Initialize( )
 	{
-		int argc = 0;
+		/*int argc = 0;
 		LPWSTR* args = CommandLineToArgvW( GetCommandLineW( ), &argc );
 
 		char** argv = new char*[ argc ];
@@ -66,6 +68,6 @@ namespace Platform
 			delete[ ] argv[ i ];
 		}
 
-		delete[ ] argv;
+		delete[ ] argv;*/
 	}
 }

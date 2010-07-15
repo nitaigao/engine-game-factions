@@ -68,8 +68,8 @@ namespace Maths
 		template< class T >
 		static inline T Round( T value )
 		{
-			T integral = 0;
-			return ( modf( value, &integral ) > 0.5 ) ? ceil( value ) : floor( value );
+			double integral = 0;
+      return ( modf( value, &integral ) > 0.5 ) ? ceil( value ) : floor( value );
 		}
 	};
 }

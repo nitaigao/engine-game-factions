@@ -51,7 +51,7 @@ namespace Events
 		 */
 		void HandleEvent( const IEvent* event ) const
 		{
-			if ( m_handlerTarget == 0 )
+			/*if ( m_handlerTarget == 0 )
 			{
 				NullReferenceException nullTarget( "EventListener::HandleEvent - HandlerTarget is NULL" );
 				Fatal( nullTarget.what( ) );
@@ -70,7 +70,7 @@ namespace Events
 				NullReferenceException nullEvent( "EventListener::HandleEvent - Event is NULL" );
 				Fatal( nullEvent.what( ) );
 				throw nullEvent;
-			}
+			}*/
 
 			if ( !m_markedForDeletion )
 			{
@@ -145,7 +145,7 @@ namespace Events
 	template< class T >
 	IEventListener* MakeEventListener( T* handlerTarget, void ( T::*handlerFunctor ) ( const IEvent* event ) )
 	{
-		if ( 0 == handlerTarget )
+		/*if ( 0 == handlerTarget )
 		{
 			NullReferenceException nullTarget( "EventManager::RemoveEventListener - Event Target is NULL" );
 			Fatal( nullTarget.what( ) );
@@ -157,7 +157,7 @@ namespace Events
 			NullReferenceException nullFunctor( "EventManager::RemoveEventListener - Handler Functor is NULL" );
 			Fatal( nullFunctor.what( ) );
 			throw nullFunctor;
-		}
+		}*/
 
 		return new EventListener< T >( handlerTarget, handlerFunctor );
 	}

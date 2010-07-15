@@ -41,8 +41,8 @@ namespace Logging
 	{
 		if ( 0 == message.c_str( ) )
 		{
-			NullReferenceException e( "Logger::LogMessage - Attempted to Log a NULL message" );
-			throw e;
+			//NullReferenceException e( "Logger::LogMessage - Attempted to Log a NULL message" );
+			//throw e;
 		}
 
 		std::stringstream outputMessage;

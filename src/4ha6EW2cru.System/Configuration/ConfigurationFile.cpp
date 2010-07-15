@@ -36,7 +36,7 @@ namespace Configuration
 
 		FileBuffer* buffer = m_fileSystem->GetFile( configPath.str( ), true );
 
-		m_ini->Load( buffer->fileBytes );
+//		m_ini->Load( buffer->fileBytes );
 		m_filePath = buffer->filePath;
 
 		delete buffer;

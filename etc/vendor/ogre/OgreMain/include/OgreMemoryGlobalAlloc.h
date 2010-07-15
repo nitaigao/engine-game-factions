@@ -34,7 +34,7 @@ Torus Knot Software Ltd.
 #include <limits>
 
 #define NOMINMAX
-#include <Windows.h>
+//#include <Windows.h>
 
 #include "OgreAlignedAllocator.h"
 #include "OgreMemoryTracker.h"

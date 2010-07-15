@@ -65,7 +65,7 @@ namespace System
 				return System::Types::NETWORK;
 			}
 
-			throw OutOfRangeException("StringToType - Couldn't match string to System::Types::Type");
+			//throw OutOfRangeException("StringToType - Couldn't match string to System::Types::Type");
 		}
 
 		/*! Maps the given System::Types::Type to a string
@@ -112,7 +112,7 @@ namespace System
 				return System::TypeStrings::NETWORK;
 			}
 				
-			throw OutOfRangeException("Couldn't match string to System::Types::Type");
+			//throw OutOfRangeException("Couldn't match string to System::Types::Type");
 		}
 	};
 };

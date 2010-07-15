@@ -24,7 +24,8 @@
 class GAMEAPI SystemManager : public ISystemManager
 {
 
-	typedef std::map< ISystem*, HMODULE > SystemLibraryList;
+//  typedef std::map< ISystem*, HMODULE > SystemLibraryList;
+  typedef std::map< ISystem*, void* > SystemLibraryList;
 
 public:
 

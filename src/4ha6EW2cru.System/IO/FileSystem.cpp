@@ -13,8 +13,8 @@ using namespace Logging;
 #include "../Exceptions/FileNotFoundException.hpp"
 #include "../Exceptions/FileWriteException.hpp"
 
-#include <boost/filesystem.hpp>
-using namespace boost::filesystem;
+//#include <boost/filesystem.hpp>
+//using namespace boost::filesystem;
 
 namespace IO
 {
@@ -29,7 +29,7 @@ namespace IO
 
 		if( !result )
 		{
-			throw AlreadyInitializedException( "FileSystem::FileSystem - Attempted to initialized the FileSystem twice" );
+			//throw AlreadyInitializedException( "FileSystem::FileSystem - Attempted to initialized the FileSystem twice" );
 		}
 
 		std::string userPath = m_platformManager->GetPathInformation( )->GetGlobalUserPath( );
@@ -39,7 +39,7 @@ namespace IO
 
 		std::string dataPath = m_platformManager->GetPathInformation( )->GetGlobalDataPath( );
 
-		if ( exists( dataPath.c_str( ) ) )
+		/*if ( exists( dataPath.c_str( ) ) )
 		{
 			directory_iterator end;
 
@@ -75,7 +75,7 @@ namespace IO
 					this->Mount( path.str( ), m_platformManager->GetPathInformation( )->GetLocalDataPath( ).c_str( ) );
 				}
 			}
-		}
+		}*/
 	}
 
 	bool FileSystem::FileExists( const std::string& filePath, bool throwOnFail ) const
@@ -84,7 +84,7 @@ namespace IO
 
 		if ( !exists && throwOnFail )
 		{
-			throw FileNotFoundException( "FileSystem::GetFile - Could not find file within the Search Path" );
+			//throw FileNotFoundException( "FileSystem::GetFile - Could not find file within the Search Path" );
 		}
 
 		return ( exists > 0 );
@@ -92,14 +92,14 @@ namespace IO
 
 	bool FileSystem::Mount( const std::string& filePath, const std::string& mountPoint )
 	{
-		Info( "Mounting", filePath, "to", mountPoint );
+		//Info( "Mounting", filePath, "to", mountPoint );
 
 		int result = ( PHYSFS_mount( filePath.c_str( ), mountPoint.c_str( ), 0 ) > 0 );
 
 		if ( !result )
 		{
-			Warn( PHYSFS_getLastError( ) );
-			throw FileNotFoundException( "FileSystem::AddFileStore - Could not find File Store" );
+			//Warn( PHYSFS_getLastError( ) );
+			//throw FileNotFoundException( "FileSystem::AddFileStore - Could not find File Store" );
 		}
 
 		return ( result > 0 );
@@ -109,7 +109,7 @@ namespace IO
 	{
 		this->FileExists( filePath, true );
 
-		PHYSFS_file *pFile = PHYSFS_openRead( filePath.c_str( ) );
+/*		PHYSFS_file *pFile = PHYSFS_openRead( filePath.c_str( ) );
 		
 		unsigned int fileLength = static_cast< unsigned int >( PHYSFS_fileLength( pFile ) );
 
@@ -125,11 +125,12 @@ namespace IO
 			fileBytes = new char[ fileLength + 1 ];
 			PHYSFS_read( pFile, fileBytes, 1, fileLength );
 			fileBytes[ fileLength ] = '\0';
-		}
+		}*/
 
-		FileBuffer* fileBuffer = new FileBuffer( fileBytes, fileLength, filePath );
+//    FileBuffer* fileBuffer = new FileBuffer( fileBytes, fileLength, filePath );
+    FileBuffer* fileBuffer = new FileBuffer( 0, 0, filePath );
 
-		PHYSFS_close( pFile );
+		//PHYSFS_close( pFile );
 
 		return fileBuffer;
 	}
@@ -140,11 +141,11 @@ namespace IO
 
 		if ( !file )
 		{
-			Warn( PHYSFS_getLastError( ) );
-			throw FileWriteException( "FileSystem::SaveFile - Unable to open the destination file for writing" );
+			//Warn( PHYSFS_getLastError( ) );
+			//throw FileWriteException( "FileSystem::SaveFile - Unable to open the destination file for writing" );
 		}
 
-		PHYSFS_write( file, fileBuffer.fileBytes, 1, fileBuffer.fileLength );
+		//PHYSFS_write( file, fileBuffer.fileBytes, 1, fileBuffer.fileLength );
 		PHYSFS_close( file );
 	}
 

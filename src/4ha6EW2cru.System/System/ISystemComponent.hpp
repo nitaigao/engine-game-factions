@@ -17,9 +17,6 @@
 #include "ISubject.hpp"
 #include "ISerializable.hpp"
 
-#include "../Maths/MathQuaternion.hpp"
-#include "../Maths/MathVector3.hpp"
-
 /*! 
  *  A System Scene Component
  */

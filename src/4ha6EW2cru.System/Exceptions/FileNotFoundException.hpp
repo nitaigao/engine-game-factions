@@ -22,7 +22,7 @@ public:
 	*
 	*  @return ()
 	*/
-	~FileNotFoundException( ) { };
+	//~FileNotFoundException( ) { };
 
 
 	/*! Constructor with default error message
@@ -30,7 +30,7 @@ public:
 	*  @return ()
 	*/
 	FileNotFoundException( )
-		: std::exception( "There was an error attempting to open an File" )
+		//: std::exception( "There was an error attempting to open an File" )
 	{
 
 	}
@@ -41,7 +41,7 @@ public:
 	*  @return ()
 	*/
 	FileNotFoundException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

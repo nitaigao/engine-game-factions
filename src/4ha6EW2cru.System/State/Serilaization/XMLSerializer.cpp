@@ -20,7 +20,7 @@ using namespace Events;
 #include "InputComponentSerializer.h"
 #include "PhysicsComponentSerializer.h"
 #include "ScriptComponentSerializer.h"
-#include "..\IWorldEntity.hpp"
+//#include "..\IWorldEntity.hpp"
 
 using namespace ticpp;
 
@@ -51,7 +51,7 @@ namespace Serialization
 		{
 			std::stringstream logMessage;
 			logMessage << "Unable to locate level file at path: " << levelPath;
-			Warn( logMessage.str( ) );
+			//Warn( logMessage.str( ) );
 			return;
 		}
 

@@ -66,10 +66,10 @@ namespace Resources
 		*/
 		inline void RemoveReference( )
 		{
-			if ( m_referenceCount == 0 )
+			/*if ( m_referenceCount == 0 )
 			{
 				throw OutOfRangeException( "Attempted to de increment a reference on a Resource that already has a reference count of 0" );
-			}
+			}*/
 
 			m_referenceCount--;
 		}

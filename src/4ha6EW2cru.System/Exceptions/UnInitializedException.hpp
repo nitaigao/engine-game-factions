@@ -22,7 +22,7 @@ public:
 	*
 	*  @return ()
 	*/
-	~UnInitializedException( ) { };
+	//~UnInitializedException( ) { };
 
 
 	/*! Constructor with default error message
@@ -30,7 +30,7 @@ public:
 	*  @return ()
 	*/
 	UnInitializedException( )
-		: std::exception( "Object has not been Initialized" )
+		//: std::exception( "Object has not been Initialized" )
 	{
 
 	}
@@ -42,7 +42,7 @@ public:
 	*  @return ()
 	*/
 	UnInitializedException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}

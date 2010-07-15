@@ -27,7 +27,7 @@ public:
 	*  @return ()
 	*/
 	ScriptException( )
-		: std::exception( "A Script Error has occured" )
+		//: std::exception( "A Script Error has occured" )
 	{
 
 	}
@@ -39,7 +39,7 @@ public:
 	*  @return ()
 	*/
 	ScriptException( const std::string message )
-		: std::exception( message.c_str( ) )
+		//: std::exception( message.c_str( ) )
 	{
 
 	}
