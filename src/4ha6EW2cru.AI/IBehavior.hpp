@@ -10,36 +10,36 @@
 
 namespace AI
 {
-	/*!
-	 *  An AI Behavior State 
-	 */
-	class IBehaviour
-	{
+  /*!
+   *  An AI Behavior State 
+   */
+  class IBehaviour
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IBehaviour( ) { };
-
-
-		/*! Sets the Behavior
-		*
-		*  @param[in] const std::string & behavior
-		*  @return (void)
-		*/
-		virtual void SetBehavior( const std::string& behavior ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IBehaviour( ) { };
 
 
-		/*! Gets the Behavior Name
-		*
-		*  @return (std::string)
-		*/
-		virtual std::string GetBehavior( ) const = 0;
+    /*! Sets the Behavior
+    *
+    *  @param[in] const std::string & behavior
+    *  @return (void)
+    */
+    virtual void SetBehavior( const std::string& behavior ) = 0;
 
-	};
+
+    /*! Gets the Behavior Name
+    *
+    *  @return (std::string)
+    */
+    virtual std::string GetBehavior( ) const = 0;
+
+  };
 };
 
 #endif

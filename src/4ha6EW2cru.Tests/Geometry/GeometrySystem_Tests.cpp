@@ -10,10 +10,10 @@ using namespace Geometry;
 
 void GeometrySystem_Tests::Should_Return_GeometrySystemScene_On_CreateScene( )
 {
-	GeometrySystem system;
-	ISystemScene* scene = system.CreateScene( );
+  GeometrySystem system;
+  ISystemScene* scene = system.CreateScene( );
 
-	CPPUNIT_ASSERT( scene != 0 );
+  CPPUNIT_ASSERT( scene != 0 );
 
-	delete scene;
+  delete scene;
 }

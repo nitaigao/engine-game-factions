@@ -12,21 +12,21 @@
 
 namespace Animation
 {
-	/*! 
-	 *  An Animation System Component
-	 */
-	class IAnimationSystemComponent : public ISystemComponent
-	{
+  /*! 
+   *  An Animation System Component
+   */
+  class IAnimationSystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IAnimationSystemComponent( ) { };
-		
-	};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IAnimationSystemComponent( ) { };
+    
+  };
 };
 
 #endif

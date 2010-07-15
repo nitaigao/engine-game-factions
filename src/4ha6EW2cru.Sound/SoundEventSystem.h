@@ -12,88 +12,88 @@
 
 namespace Sound
 {
-	/*! 
-	 *  Manages the control of Sound Events
-	 */
-	class GAMEAPI SoundEventSystem : public ISoundEventSystem
-	{
+  /*! 
+   *  Manages the control of Sound Events
+   */
+  class GAMEAPI SoundEventSystem : public ISoundEventSystem
+  {
 
-	public:
+  public:
 
-		typedef std::map< std::string, FMOD::Event* > SoundEventList;
+    typedef std::map< std::string, FMOD::Event* > SoundEventList;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundEventSystem( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		SoundEventSystem( )
-			: m_eventSystem( )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundEventSystem( ) { };
 
 
-		/*! Initializes the Event System
-		*
-		* @return ( void )
-		*/
-		void Initialize( FMOD::System* fmodSystem );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    SoundEventSystem( )
+      : m_eventSystem( )
+    {
+
+    }
 
 
-		/*! Triggers a Sound Event
-		*
-		* @param[in] const std::string & eventPath
-		* @return ( FMOD::Event* )
-		*/
-		FMOD::Event* TriggerEvent( const std::string& eventPath );	
+    /*! Initializes the Event System
+    *
+    * @return ( void )
+    */
+    void Initialize( FMOD::System* fmodSystem );
 
 
-		/*! Keys out a Sound Event
-		*
-		* @param[in] const std::string & eventPath
-		* @return ( void )
-		*/
-		void KeyOutEvent( const std::string& eventPath );	
+    /*! Triggers a Sound Event
+    *
+    * @param[in] const std::string & eventPath
+    * @return ( FMOD::Event* )
+    */
+    FMOD::Event* TriggerEvent( const std::string& eventPath );  
 
 
-		/*! Sets the Position the Speakers would be listening from
-		*
-		* @param[in] const Maths::MathVector3 & position
-		* @return ( void )
-		*/
-		void SetListenerPosition( const Maths::MathVector3& position );
+    /*! Keys out a Sound Event
+    *
+    * @param[in] const std::string & eventPath
+    * @return ( void )
+    */
+    void KeyOutEvent( const std::string& eventPath );  
 
 
-		/*! Destroys the Event System
-		*
-		* @return ( void )
-		*/
-		void Destroy( );
+    /*! Sets the Position the Speakers would be listening from
+    *
+    * @param[in] const Maths::MathVector3 & position
+    * @return ( void )
+    */
+    void SetListenerPosition( const Maths::MathVector3& position );
 
 
-		/*! Updates the Event System
-		*
-		* @param[in] float deltaMilliseconds
-		* @return ( void )
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Destroys the Event System
+    *
+    * @return ( void )
+    */
+    void Destroy( );
 
-	private:
 
-		SoundEventSystem( const SoundEventSystem & copy ) { };
-		SoundEventSystem & operator = ( const SoundEventSystem & copy ) { return *this; };
+    /*! Updates the Event System
+    *
+    * @param[in] float deltaMilliseconds
+    * @return ( void )
+    */
+    void Update( float deltaMilliseconds );
 
-		FMOD::EventSystem* m_eventSystem;
-		SoundEventList m_activeSoundEvents;
-		
-	};
+  private:
+
+    SoundEventSystem( const SoundEventSystem & copy ) { };
+    SoundEventSystem & operator = ( const SoundEventSystem & copy ) { return *this; };
+
+    FMOD::EventSystem* m_eventSystem;
+    SoundEventList m_activeSoundEvents;
+    
+  };
 };
 
 #endif

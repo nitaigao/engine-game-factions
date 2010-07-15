@@ -14,30 +14,30 @@
 
 namespace Sound
 {
-	/*! 
-	 *  Creates Sound Components
-	 */
-	class GAMEAPI ISoundComponentFactory
-	{
+  /*! 
+   *  Creates Sound Components
+   */
+  class GAMEAPI ISoundComponentFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~ISoundComponentFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~ISoundComponentFactory( ) { };
 
 
-		/*! Creates a SoundSystem Component
-		 *
-		 * @param[in] const std::string & name
-		 * @param[in] const std::string & type
-		 * @return ( ISoundSystemComponent* )
-		 */
-		virtual ISoundSystemComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
-		
-	};
+    /*! Creates a SoundSystem Component
+     *
+     * @param[in] const std::string & name
+     * @param[in] const std::string & type
+     * @return ( ISoundSystemComponent* )
+     */
+    virtual ISoundSystemComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
+    
+  };
 };
 
 #endif

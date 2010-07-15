@@ -23,8 +23,8 @@ class EventListenerFixture : public CPPUNIT_NS::TestFixture
 
 public:
 
-	void setUp( );
-	void tearDown( );
+  void setUp( );
+  void tearDown( );
 
 protected:
 
@@ -38,8 +38,8 @@ protected:
 
 private:
 
-	Mock_EventSubject* _eventTarget;
-	Events::IEventListener* _eventListener;
+  Mock_EventSubject* _eventTarget;
+  Events::IEventListener* _eventListener;
 };
 
 #endif

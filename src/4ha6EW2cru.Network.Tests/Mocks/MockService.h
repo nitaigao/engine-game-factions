@@ -14,15 +14,15 @@
 
 namespace
 {
-	class MockService : public Services::IService
-	{
+  class MockService : public Services::IService
+  {
 
-	public:
+  public:
 
-		MOCK_CONST_METHOD0( GetType, System::Types::Type( ) );
-		MOCK_METHOD2( ProcessMessage, AnyType::AnyTypeMap( const System::MessageType&, AnyType::AnyTypeMap ) );
-		
-	};
+    MOCK_CONST_METHOD0( GetType, System::Types::Type( ) );
+    MOCK_METHOD2( ProcessMessage, AnyType::AnyTypeMap( const System::MessageType&, AnyType::AnyTypeMap ) );
+    
+  };
 };
 
 #endif

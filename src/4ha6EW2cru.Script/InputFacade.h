@@ -17,85 +17,85 @@
 
 namespace Script
 {
-	/*! 
-	 *  The Facade interface to communicate with the input system
-	 */
-	class GAMEAPI InputFacade : public IInputFacade
-	{
+  /*! 
+   *  The Facade interface to communicate with the input system
+   */
+  class GAMEAPI InputFacade : public IInputFacade
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~InputFacade( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		InputFacade( Services::IServiceManager* serviceManager )
-			: m_serviceManager( serviceManager )
-		{
-
-		}
-
-		/*! Registers the Script functions with the given state
-		*
-		* @return ( void )
-		*/
-		static luabind::scope  RegisterFunctions( );
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~InputFacade( ) { };
 
 
-		/*! Returns the Name that the Facade will use in script
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) { return "input"; };
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    InputFacade( Services::IServiceManager* serviceManager )
+      : m_serviceManager( serviceManager )
+    {
+
+    }
+
+    /*! Registers the Script functions with the given state
+    *
+    * @return ( void )
+    */
+    static luabind::scope  RegisterFunctions( );
 
 
-		/*! Returns the key or mouse text associated with the given message
-		*
-		* @param[in] const std::string & message
-		* @return ( std::string )
-		*/
-		std::string GetTextForMessage( const System::MessageType& message );
+    /*! Returns the Name that the Facade will use in script
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) { return "input"; };
 
 
-		/*! Sets the key or mouse button to the given message
-		*
-		* @param[in] const std::string & message
-		* @param[in] const std::string & binding
-		* @return ( void )
-		*/
-		void SetMessageBinding( const System::MessageType& message, const std::string& binding );
+    /*! Returns the key or mouse text associated with the given message
+    *
+    * @param[in] const std::string & message
+    * @return ( std::string )
+    */
+    std::string GetTextForMessage( const System::MessageType& message );
 
 
-		/*! Sets a default binding for the given message which will be used if the binding isn't specified in the config file
-		*
-		* @param[in] const std::string & message
-		* @param[in] const std::string & binding
-		* @return ( void )
-		*/
-		void SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding );
+    /*! Sets the key or mouse button to the given message
+    *
+    * @param[in] const std::string & message
+    * @param[in] const std::string & binding
+    * @return ( void )
+    */
+    void SetMessageBinding( const System::MessageType& message, const std::string& binding );
 
 
-		/*! Initializes the Facade with the given ScriptComponent
-		*
-		* @return ( void )
-		*/
-		void Initialize( ) { };
+    /*! Sets a default binding for the given message which will be used if the binding isn't specified in the config file
+    *
+    * @param[in] const std::string & message
+    * @param[in] const std::string & binding
+    * @return ( void )
+    */
+    void SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding );
 
-	private:
 
-		InputFacade( const InputFacade & copy ) { };
-		InputFacade & operator = ( const InputFacade & copy ) { return *this; };
+    /*! Initializes the Facade with the given ScriptComponent
+    *
+    * @return ( void )
+    */
+    void Initialize( ) { };
 
-		Services::IServiceManager* m_serviceManager;
-		
-	};
+  private:
+
+    InputFacade( const InputFacade & copy ) { };
+    InputFacade & operator = ( const InputFacade & copy ) { return *this; };
+
+    Services::IServiceManager* m_serviceManager;
+    
+  };
 };
 
 #endif

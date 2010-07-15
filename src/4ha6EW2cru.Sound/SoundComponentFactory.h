@@ -13,48 +13,48 @@
 
 namespace Sound
 {
-	/*! 
-	 *  Creates Sound Components
-	 */
-	class GAMEAPI SoundComponentFactory : public ISoundComponentFactory
-	{
+  /*! 
+   *  Creates Sound Components
+   */
+  class GAMEAPI SoundComponentFactory : public ISoundComponentFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundComponentFactory( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		SoundComponentFactory( ISoundEventSystem* eventSystem )
-			: m_eventSystem( eventSystem )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundComponentFactory( ) { };
 
 
-		/*! Creates a SoundSystem Component
-		*
-		* @param[in] const std::string & name
-		* @param[in] const std::string & type
-		* @return ( ISoundSystemComponent* )
-		*/
-		ISoundSystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    SoundComponentFactory( ISoundEventSystem* eventSystem )
+      : m_eventSystem( eventSystem )
+    {
 
-	private:
+    }
 
-		SoundComponentFactory( const SoundComponentFactory & copy ) { };
-		SoundComponentFactory & operator = ( const SoundComponentFactory & copy ) { return *this; };
 
-		ISoundEventSystem* m_eventSystem;
-		
-	};
+    /*! Creates a SoundSystem Component
+    *
+    * @param[in] const std::string & name
+    * @param[in] const std::string & type
+    * @return ( ISoundSystemComponent* )
+    */
+    ISoundSystemComponent* CreateComponent( const std::string& name, const std::string& type );
+
+  private:
+
+    SoundComponentFactory( const SoundComponentFactory & copy ) { };
+    SoundComponentFactory & operator = ( const SoundComponentFactory & copy ) { return *this; };
+
+    ISoundEventSystem* m_eventSystem;
+    
+  };
 };
 
 #endif

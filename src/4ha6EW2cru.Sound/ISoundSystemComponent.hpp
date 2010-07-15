@@ -12,21 +12,21 @@
 
 namespace Sound
 {
-	/*!
-	 *  A Sound System Component 
-	 */
-	class GAMEAPI ISoundSystemComponent : public ISystemComponent
-	{
+  /*!
+   *  A Sound System Component 
+   */
+  class GAMEAPI ISoundSystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~ISoundSystemComponent( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~ISoundSystemComponent( ) { };
 
-	};
+  };
 };
 
 #endif

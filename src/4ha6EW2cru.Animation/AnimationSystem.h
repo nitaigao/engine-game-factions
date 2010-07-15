@@ -17,102 +17,102 @@
 
 namespace Animation
 {
-	/*! 
-	 *  The AnimationSystem
-	 */
-	class AnimationSystem : public IAnimationSystem
-	{
+  /*! 
+   *  The AnimationSystem
+   */
+  class AnimationSystem : public IAnimationSystem
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AnimationSystem( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AnimationSystem( ) { };
 
-		
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		AnimationSystem( Resources::IResourceCache* resourceCache )
-			: m_scene( 0 )
-			, m_threadMemory( 0 )
-			, m_stackBuffer( 0 )
-			, m_resourceCache( resourceCache )
-		{
+    
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    AnimationSystem( Resources::IResourceCache* resourceCache )
+      : m_scene( 0 )
+      , m_threadMemory( 0 )
+      , m_stackBuffer( 0 )
+      , m_resourceCache( resourceCache )
+    {
 
-		}
-
-
-		/*! Initializes the System
-		*
-		*  @return (void)
-		*/
-		void Initialize( Configuration::IConfiguration* configuration );
+    }
 
 
-		/*! Steps the System's internal data
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the System
+    *
+    *  @return (void)
+    */
+    void Initialize( Configuration::IConfiguration* configuration );
 
 
-		/*! Releases internal data of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		void Release( );
+    /*! Steps the System's internal data
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Returns the type of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::ANIMATION; };
+    /*! Releases internal data of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    void Release( );
 
 
-		/*! Creates a System Scene
-		*
-		*  @return (ISystemScene*)
-		*/
-		ISystemScene* CreateScene( );
+    /*! Returns the type of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::ANIMATION; };
 
 
-		/*! Gets the System's Properties
-		*
-		*  @return (AnyTypeMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    /*! Creates a System Scene
+    *
+    *  @return (ISystemScene*)
+    */
+    ISystemScene* CreateScene( );
 
 
-		/*! Sets a System Property
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] AnyType value
-		*  @return (void)
-		*/
-		inline void SetAttribute( const std::string& name, AnyType value ) { };		
+    /*! Gets the System's Properties
+    *
+    *  @return (AnyTypeMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
 
 
-	private:
+    /*! Sets a System Property
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] AnyType value
+    *  @return (void)
+    */
+    inline void SetAttribute( const std::string& name, AnyType value ) { };    
 
-		AnimationSystem( const AnimationSystem & copy ) { };
-		AnimationSystem & operator = ( const AnimationSystem & copy ) { return *this; };
 
-		static void errorReportFunction( const char* str, void* errorOutputObject );
+  private:
 
-		hkThreadMemory* m_threadMemory;
-		char* m_stackBuffer;
+    AnimationSystem( const AnimationSystem & copy ) { };
+    AnimationSystem & operator = ( const AnimationSystem & copy ) { return *this; };
 
-		IAnimationSystemScene* m_scene;
+    static void errorReportFunction( const char* str, void* errorOutputObject );
 
-		Resources::IResourceCache* m_resourceCache;
-		
-	};
+    hkThreadMemory* m_threadMemory;
+    char* m_stackBuffer;
+
+    IAnimationSystemScene* m_scene;
+
+    Resources::IResourceCache* m_resourceCache;
+    
+  };
 };
 
 #endif

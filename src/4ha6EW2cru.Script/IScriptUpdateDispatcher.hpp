@@ -12,52 +12,52 @@
 
 namespace Script
 {
-	/*! 
-	 *  Dispatches Update Calls to the Script
-	 */
-	class IScriptUpdateDispatcher
-	{
+  /*! 
+   *  Dispatches Update Calls to the Script
+   */
+  class IScriptUpdateDispatcher
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptUpdateDispatcher( ) { };
-
-
-		/*! Destroys the Dispatcher
-		 *
-		 * @return ( void )
-		 */
-		virtual void Destroy( ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptUpdateDispatcher( ) { };
 
 
-		/*! Registers an Update Handler to be called on each System Tick
-		 *
-		 * @param[in] IScriptFunctionHandler* handler
-		 * @return ( void )
-		 */
-		virtual void RegisterUpdateHandler( IScriptFunctionHandler* handler ) = 0;
+    /*! Destroys the Dispatcher
+     *
+     * @return ( void )
+     */
+    virtual void Destroy( ) = 0;
 
 
-		/*! Updates all registered Update Handlers
-		 *
-		 * @param[in] float deltaMilliseconds
-		 * @return ( void )
-		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
+    /*! Registers an Update Handler to be called on each System Tick
+     *
+     * @param[in] IScriptFunctionHandler* handler
+     * @return ( void )
+     */
+    virtual void RegisterUpdateHandler( IScriptFunctionHandler* handler ) = 0;
 
 
-		/*! UnRegisters an Update Handler from being called on each System Tick
-		*
-		* @param[in] IScriptFunctionHandler* handler
-		* @return ( void )
-		*/
-		virtual void UnRegisterUpdateHandler( IScriptFunctionHandler* handler ) = 0;
-		
-	};
+    /*! Updates all registered Update Handlers
+     *
+     * @param[in] float deltaMilliseconds
+     * @return ( void )
+     */
+    virtual void Update( float deltaMilliseconds ) = 0;
+
+
+    /*! UnRegisters an Update Handler from being called on each System Tick
+    *
+    * @param[in] IScriptFunctionHandler* handler
+    * @return ( void )
+    */
+    virtual void UnRegisterUpdateHandler( IScriptFunctionHandler* handler ) = 0;
+    
+  };
 };
 
 #endif

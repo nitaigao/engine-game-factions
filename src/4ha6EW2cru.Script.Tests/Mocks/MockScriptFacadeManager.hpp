@@ -14,15 +14,15 @@
 
 namespace
 {
-	class MockScriptFacadeManager : public Script::IScriptFacadeManager
-	{
+  class MockScriptFacadeManager : public Script::IScriptFacadeManager
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD1( Initialize, void ( ISystemComponent* ) );
-		MOCK_METHOD0( Destroy, void( ) );
+    MOCK_METHOD1( Initialize, void ( ISystemComponent* ) );
+    MOCK_METHOD0( Destroy, void( ) );
 
-	};
+  };
 };
 
 #endif

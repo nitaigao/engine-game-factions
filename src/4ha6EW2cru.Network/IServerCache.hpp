@@ -12,36 +12,36 @@
 
 namespace Network
 {
-	/*! 
-	 *  A Cache of Server Advertisement
-	 */
-	class IServerCache
-	{
+  /*! 
+   *  A Cache of Server Advertisement
+   */
+  class IServerCache
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IServerCache( ) { };
-
-
-		virtual bool Exists( const std::string& systemAddress ) const = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IServerCache( ) { };
 
 
-		virtual int GetCount( ) const = 0;
+    virtual bool Exists( const std::string& systemAddress ) const = 0;
 
 
-		virtual void Add( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port ) = 0;
+    virtual int GetCount( ) const = 0;
 
 
-		virtual IServerAdvertisement* Find( int index ) const = 0;
+    virtual void Add( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port ) = 0;
 
 
-		virtual void Clear( ) = 0;
-		
-	};
+    virtual IServerAdvertisement* Find( int index ) const = 0;
+
+
+    virtual void Clear( ) = 0;
+    
+  };
 };
 
 #endif

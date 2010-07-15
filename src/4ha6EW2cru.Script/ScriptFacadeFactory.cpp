@@ -14,68 +14,68 @@
 
 namespace Script
 {
-	IScriptFacade* ScriptFacadeFactory::CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state )
-	{
-		IScriptFacade* facade = 0;
+  IScriptFacade* ScriptFacadeFactory::CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state )
+  {
+    IScriptFacade* facade = 0;
 
-		if ( typeid( *state ) == typeid( LuaState ) )
-		{
-			LuaState* luaState = static_cast< LuaState* >( state );
+    if ( typeid( *state ) == typeid( LuaState ) )
+    {
+      LuaState* luaState = static_cast< LuaState* >( state );
 
-			switch( facadeType )
-			{
+      switch( facadeType )
+      {
 
-			case IScriptFacade::ANIMATION:
+      case IScriptFacade::ANIMATION:
 
-				facade = new AnimationFacade( component );
-				luaState->SetGlobal( "animation", static_cast< AnimationFacade* >( facade ) );
+        facade = new AnimationFacade( component );
+        luaState->SetGlobal( "animation", static_cast< AnimationFacade* >( facade ) );
 
-				break;
+        break;
 
-			case IScriptFacade::INPUT:
+      case IScriptFacade::INPUT:
 
-				facade = new InputFacade( m_serviceManager );
-				luaState->SetGlobal( "input", static_cast< InputFacade* >( facade ) );
+        facade = new InputFacade( m_serviceManager );
+        luaState->SetGlobal( "input", static_cast< InputFacade* >( facade ) );
 
-				break;
+        break;
 
-			case IScriptFacade::INSTRUMENTATION:
+      case IScriptFacade::INSTRUMENTATION:
 
-				facade = new InstrumentationFacade( m_instrumentation );
-				luaState->SetGlobal( "instrumentation", static_cast< InstrumentationFacade* >( facade ) );
+        facade = new InstrumentationFacade( m_instrumentation );
+        luaState->SetGlobal( "instrumentation", static_cast< InstrumentationFacade* >( facade ) );
 
-				break;
+        break;
 
-			case IScriptFacade::NETWORK:
+      case IScriptFacade::NETWORK:
 
-				facade = new NetworkFacade( m_serviceManager, m_resourceCache );
-				luaState->SetGlobal( "network", static_cast< NetworkFacade* >( facade ) );
+        facade = new NetworkFacade( m_serviceManager, m_resourceCache );
+        luaState->SetGlobal( "network", static_cast< NetworkFacade* >( facade ) );
 
-				break;
+        break;
 
-			case IScriptFacade::PHYSICS:
+      case IScriptFacade::PHYSICS:
 
-				facade = new PhysicsFacade( m_serviceManager );
-				luaState->SetGlobal( "physics", static_cast< PhysicsFacade* >( facade ) );
+        facade = new PhysicsFacade( m_serviceManager );
+        luaState->SetGlobal( "physics", static_cast< PhysicsFacade* >( facade ) );
 
-				break;
+        break;
 
-			case IScriptFacade::SOUND:
+      case IScriptFacade::SOUND:
 
-				facade = new SoundFacade( component, m_serviceManager );
-				luaState->SetGlobal( "sfx", static_cast< SoundFacade* >( facade ) );
+        facade = new SoundFacade( component, m_serviceManager );
+        luaState->SetGlobal( "sfx", static_cast< SoundFacade* >( facade ) );
 
-				break;
+        break;
 
-			case IScriptFacade::SYSTEM:
+      case IScriptFacade::SYSTEM:
 
-				facade = new SystemFacade( m_eventManager, m_platformManager ) ;
-				luaState->SetGlobal( "system", static_cast< SystemFacade* >( facade ) );
+        facade = new SystemFacade( m_eventManager, m_platformManager ) ;
+        luaState->SetGlobal( "system", static_cast< SystemFacade* >( facade ) );
 
-				break;
-			}
-		}
+        break;
+      }
+    }
 
-		return facade;
-	}
+    return facade;
+  }
 }

@@ -12,21 +12,21 @@
 
 namespace Script
 {
-	/*! 
-	 *  The Facade interface to communicate with the Input System
-	 */
-	class IInputFacade : public IScriptFacade
-	{
+  /*! 
+   *  The Facade interface to communicate with the Input System
+   */
+  class IInputFacade : public IScriptFacade
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IInputFacade( ) { };
-		
-	};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IInputFacade( ) { };
+    
+  };
 };
 
 #endif

@@ -14,16 +14,16 @@
 
 namespace
 {
-	class MockSoundComponentFactory : public ISoundComponentFactory
-	{
+  class MockSoundComponentFactory : public ISoundComponentFactory
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD2( CreateComponent, ISoundSystemComponent*( const std::string&, const std::string& ) );
-		
+    MOCK_METHOD2( CreateComponent, ISoundSystemComponent*( const std::string&, const std::string& ) );
+    
 
-		
-	};
+    
+  };
 };
 
 #endif

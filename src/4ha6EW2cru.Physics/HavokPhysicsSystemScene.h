@@ -18,7 +18,7 @@
 #include <Physics/Collide/Filter/Group/hkpGroupFilter.h>
 
 #include <Common/Visualize/hkVisualDebugger.h>
-#include <Physics/Utilities/VisualDebugger/hkpPhysicsContext.h>			
+#include <Physics/Utilities/VisualDebugger/hkpPhysicsContext.h>      
 
 #include "IPhysicsSystemComponent.hpp"
 
@@ -28,101 +28,101 @@
 
 namespace Physics
 {
-	/*! 
-	*  A Physics Specific Scene
-	*/
-	class HavokPhysicsSystemScene : public ISystemScene
-	{
+  /*! 
+  *  A Physics Specific Scene
+  */
+  class HavokPhysicsSystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~HavokPhysicsSystemScene( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] const hkpWorldCinfo & worldInfo
-		 *  @return ()
-		 */
-		HavokPhysicsSystemScene( IPhysicsSystem* system, Resources::IResourceCache* resourceCache )
-			: m_system( system )
-			, m_resourceCache( resourceCache )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~HavokPhysicsSystemScene( ) { };
 
 
-		/*! Initializes the System Scene
-		*
-		*  @return (void)
-		*/
-		void Initialize( ) { };
+    /*! Default Constructor
+     *
+     *  @param[in] const hkpWorldCinfo & worldInfo
+     *  @return ()
+     */
+    HavokPhysicsSystemScene( IPhysicsSystem* system, Resources::IResourceCache* resourceCache )
+      : m_system( system )
+      , m_resourceCache( resourceCache )
+    {
+
+    }
 
 
-		/*! Steps internal data of the SystemScene
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the System Scene
+    *
+    *  @return (void)
+    */
+    void Initialize( ) { };
 
 
-		/*! Destroys the System Scene
-		*
-		*  @return (void)
-		*/
-		inline void Destroy( ) { };
+    /*! Steps internal data of the SystemScene
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Gets the System::Types::Type of the SystemScene
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::PHYSICS; };
+    /*! Destroys the System Scene
+    *
+    *  @return (void)
+    */
+    inline void Destroy( ) { };
 
 
-		/*! Creates a SystemComponent specific to the SystemScene
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] const std::string & type
-		*  @return (ISystemComponent*)
-		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
-		
-		
-		/*! Destroys a SystemComponent created by the SystemScene
-		*
-		*  @param[in] ISystemComponent * component
-		*  @return (void)
-		*/
-		void DestroyComponent( ISystemComponent* component );
+    /*! Gets the System::Types::Type of the SystemScene
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::PHYSICS; };
 
 
-		IPhysicsSystem* GetSystem( ) { return m_system; };
+    /*! Creates a SystemComponent specific to the SystemScene
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] const std::string & type
+    *  @return (ISystemComponent*)
+    */
+    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    
+    
+    /*! Destroys a SystemComponent created by the SystemScene
+    *
+    *  @param[in] ISystemComponent * component
+    *  @return (void)
+    */
+    void DestroyComponent( ISystemComponent* component );
 
 
-	private:
+    IPhysicsSystem* GetSystem( ) { return m_system; };
 
-		HavokPhysicsSystemScene( const HavokPhysicsSystemScene & copy ) { };
-		HavokPhysicsSystemScene & operator = ( const HavokPhysicsSystemScene & copy ) { return *this; };
 
-		void postSimulationCallback( hkpWorld* world );
-		void inactiveEntityMovedCallback( hkpEntity* entity );
+  private:
 
-		void entityDeactivatedCallback( hkpEntity* entity );
-		void entityActivatedCallback( hkpEntity* entity );
+    HavokPhysicsSystemScene( const HavokPhysicsSystemScene & copy ) { };
+    HavokPhysicsSystemScene & operator = ( const HavokPhysicsSystemScene & copy ) { return *this; };
 
-		IPhysicsSystem* m_system;
+    void postSimulationCallback( hkpWorld* world );
+    void inactiveEntityMovedCallback( hkpEntity* entity );
 
-		IPhysicsSystemComponent::PhysicsSystemComponentList m_components;
+    void entityDeactivatedCallback( hkpEntity* entity );
+    void entityActivatedCallback( hkpEntity* entity );
 
-		Resources::IResourceCache* m_resourceCache;
+    IPhysicsSystem* m_system;
 
-	};
+    IPhysicsSystemComponent::PhysicsSystemComponentList m_components;
+
+    Resources::IResourceCache* m_resourceCache;
+
+  };
 };
 
 #endif

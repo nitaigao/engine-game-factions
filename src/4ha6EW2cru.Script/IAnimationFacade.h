@@ -12,21 +12,21 @@
 
 namespace Script
 {
-	/*! 
-	 *  A Facade interface to the Animation System
-	 */
-	class IAnimationFacade : public IScriptFacade
-	{
+  /*! 
+   *  A Facade interface to the Animation System
+   */
+  class IAnimationFacade : public IScriptFacade
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IAnimationFacade( ) { };
-		
-	};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IAnimationFacade( ) { };
+    
+  };
 };
 
 #endif

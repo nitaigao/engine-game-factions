@@ -15,67 +15,67 @@
 
 namespace Script
 {
-	/*! 
-	 *  Dispatches Events to Script
-	 */
-	class GAMEAPI ScriptEventDispatcher : public IScriptEventDispatcher
-	{
+  /*! 
+   *  Dispatches Events to Script
+   */
+  class GAMEAPI ScriptEventDispatcher : public IScriptEventDispatcher
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ScriptEventDispatcher( );
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		ScriptEventDispatcher( Events::IEventManager* eventManager )
-			: m_eventManager( eventManager )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ScriptEventDispatcher( );
 
 
-		/*! Registers a Script Function to receive Events
-		*
-		* @param[in] const std::string & eventType
-		* @param[in] IScriptFunctionHandler * eventHandler
-		* @return ( void )
-		*/
-		void RegisterEventHandler( const std::string& eventType, Script::IScriptFunctionHandler* eventHandler );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    ScriptEventDispatcher( Events::IEventManager* eventManager )
+      : m_eventManager( eventManager )
+    {
+
+    }
 
 
-		/*! Unregisters a Script Function from receiving Events
-		*
-		* @param[in] const std::string & eventType
-		* @param[in] IScriptFunctionHandler * eventHandler
-		* @return ( void )
-		*/
-		void UnregisterEventHandler( const std::string& eventType, Script::IScriptFunctionHandler* eventHandler );
+    /*! Registers a Script Function to receive Events
+    *
+    * @param[in] const std::string & eventType
+    * @param[in] IScriptFunctionHandler * eventHandler
+    * @return ( void )
+    */
+    void RegisterEventHandler( const std::string& eventType, Script::IScriptFunctionHandler* eventHandler );
 
 
-		/*! Handles incoming Events
-		*
-		* @param[in] const Events::IEvent * event
-		* @return ( void )
-		*/
-		void EventHandler( const Events::IEvent* event );
+    /*! Unregisters a Script Function from receiving Events
+    *
+    * @param[in] const std::string & eventType
+    * @param[in] IScriptFunctionHandler * eventHandler
+    * @return ( void )
+    */
+    void UnregisterEventHandler( const std::string& eventType, Script::IScriptFunctionHandler* eventHandler );
 
-	private:
 
-		ScriptEventDispatcher( const ScriptEventDispatcher & copy ) { };
-		ScriptEventDispatcher & operator = ( const ScriptEventDispatcher & copy ) { return *this; };
+    /*! Handles incoming Events
+    *
+    * @param[in] const Events::IEvent * event
+    * @return ( void )
+    */
+    void EventHandler( const Events::IEvent* event );
 
-		Events::IEventManager* m_eventManager;
-		Events::EventTypeMap m_eventTypes;
-		Script::IScriptFunctionHandler::FunctionMap m_eventHandlers;
-		
-	};
+  private:
+
+    ScriptEventDispatcher( const ScriptEventDispatcher & copy ) { };
+    ScriptEventDispatcher & operator = ( const ScriptEventDispatcher & copy ) { return *this; };
+
+    Events::IEventManager* m_eventManager;
+    Events::EventTypeMap m_eventTypes;
+    Script::IScriptFunctionHandler::FunctionMap m_eventHandlers;
+    
+  };
 };
 
 #endif

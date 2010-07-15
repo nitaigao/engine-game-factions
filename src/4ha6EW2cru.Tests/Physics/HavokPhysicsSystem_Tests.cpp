@@ -13,37 +13,37 @@ using namespace Logging;
 
 void HavokPhysicsSystem_Tests::setUp()
 {
-	Management::Initialize( );
+  Management::Initialize( );
 }
 
 void HavokPhysicsSystem_Tests::tearDown()
 {
-	Management::Release( );
+  Management::Release( );
 }
 
 void HavokPhysicsSystem_Tests::Should_Initialize_Correctly()
 {
-	HavokPhysicsSystem system;
-	system.Initialize( 0 );
-	system.Release( );
+  HavokPhysicsSystem system;
+  system.Initialize( 0 );
+  system.Release( );
 }
 
 void HavokPhysicsSystem_Tests::Should_Return_PhysicsScene_On_CreateScene()
 {
-	HavokPhysicsSystem system;
-	system.Initialize( 0 );
+  HavokPhysicsSystem system;
+  system.Initialize( 0 );
 
-	ISystemScene* scene = system.CreateScene( );
+  ISystemScene* scene = system.CreateScene( );
 
-	CPPUNIT_ASSERT( scene != 0 );
+  CPPUNIT_ASSERT( scene != 0 );
 
-	delete scene;
+  delete scene;
 
-	scene = system.CreateScene( );
+  scene = system.CreateScene( );
 
-	CPPUNIT_ASSERT( scene != 0 );
+  CPPUNIT_ASSERT( scene != 0 );
 
-	delete scene;
+  delete scene;
 
-	system.Release( );
+  system.Release( );
 }

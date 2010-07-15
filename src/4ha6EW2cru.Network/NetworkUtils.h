@@ -15,45 +15,45 @@
 
 namespace Network
 {
-	/*! 
-	 *  A Collection of Utilities for manipulating Network Data
-	 */
-	class NetworkUtils
-	{
+  /*! 
+   *  A Collection of Utilities for manipulating Network Data
+   */
+  class NetworkUtils
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~NetworkUtils( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~NetworkUtils( ) { };
 
 
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NetworkUtils( ) { };
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    NetworkUtils( ) { };
 
-		static const SystemAddress BROADCAST_ADDRESS;
-		static const unsigned int NetworkUtils::SERVER_PORT;
+    static const SystemAddress BROADCAST_ADDRESS;
+    static const unsigned int NetworkUtils::SERVER_PORT;
 
-		static unsigned char GetPacketIdentifier( Packet *packet );
+    static unsigned char GetPacketIdentifier( Packet *packet );
 
-		static RakNet::BitStream* ReceiveNetworkMessage( Packet* packet );
+    static RakNet::BitStream* ReceiveNetworkMessage( Packet* packet );
 
-		static void SendNetworkMessage( RakNet::BitStream& data, const SystemAddress& destination, RakPeerInterface* networkInterface );
+    static void SendNetworkMessage( RakNet::BitStream& data, const SystemAddress& destination, RakPeerInterface* networkInterface );
 
-		static void HandleRPCError( Packet* packet );
-		
+    static void HandleRPCError( Packet* packet );
+    
 
-	private:
+  private:
 
-		NetworkUtils( const NetworkUtils & copy ) { };
-		NetworkUtils & operator = ( const NetworkUtils & copy ) { return *this; };
-		
-	};
+    NetworkUtils( const NetworkUtils & copy ) { };
+    NetworkUtils & operator = ( const NetworkUtils & copy ) { return *this; };
+    
+  };
 };
 
 #endif

@@ -12,23 +12,23 @@
 
 namespace AI
 {
-	/*! 
-	 *  An AI System Component
-	 */
-	class IAISystemComponent : public ISystemComponent
-	{
+  /*! 
+   *  An AI System Component
+   */
+  class IAISystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		typedef std::deque< IAISystemComponent* > AISystemComponentList;
+    typedef std::deque< IAISystemComponent* > AISystemComponentList;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IAISystemComponent( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IAISystemComponent( ) { };
 
-	};
+  };
 };
 
 #endif

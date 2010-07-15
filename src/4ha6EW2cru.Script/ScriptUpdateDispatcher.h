@@ -14,66 +14,66 @@
 
 namespace Script
 {
-	/*! 
-	 *  Dispatches Update Calls to the Script
-	 */
-	class GAMEAPI ScriptUpdateDispatcher : public IScriptUpdateDispatcher
-	{
+  /*! 
+   *  Dispatches Update Calls to the Script
+   */
+  class GAMEAPI ScriptUpdateDispatcher : public IScriptUpdateDispatcher
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ScriptUpdateDispatcher( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		ScriptUpdateDispatcher( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ScriptUpdateDispatcher( ) { };
 
 
-		/*! Destroys the Dispatcher
-		*
-		* @return ( void )
-		*/
-		void Destroy( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    ScriptUpdateDispatcher( ) { };
 
 
-		/*! Registers an Update Handler to be called on each System Tick
-		*
-		* @param[in] IScriptFunctionHandler* handler
-		* @return ( void )
-		*/
-		void RegisterUpdateHandler( IScriptFunctionHandler* handler );
+    /*! Destroys the Dispatcher
+    *
+    * @return ( void )
+    */
+    void Destroy( );
 
 
-		/*! Updates all registered Update Handlers
-		*
-		* @param[in] float deltaMilliseconds
-		* @return ( void )
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Registers an Update Handler to be called on each System Tick
+    *
+    * @param[in] IScriptFunctionHandler* handler
+    * @return ( void )
+    */
+    void RegisterUpdateHandler( IScriptFunctionHandler* handler );
 
 
-		/*! UnRegisters an Update Handler from being called on each System Tick
-		*
-		* @param[in] IScriptFunctionHandler* handler
-		* @return ( void )
-		*/
-		void UnRegisterUpdateHandler( IScriptFunctionHandler* handler );
+    /*! Updates all registered Update Handlers
+    *
+    * @param[in] float deltaMilliseconds
+    * @return ( void )
+    */
+    void Update( float deltaMilliseconds );
 
-	private:
 
-		ScriptUpdateDispatcher( const ScriptUpdateDispatcher & copy ) { };
-		ScriptUpdateDispatcher & operator = ( const ScriptUpdateDispatcher & copy ) { return *this; };
+    /*! UnRegisters an Update Handler from being called on each System Tick
+    *
+    * @param[in] IScriptFunctionHandler* handler
+    * @return ( void )
+    */
+    void UnRegisterUpdateHandler( IScriptFunctionHandler* handler );
 
-		IScriptFunctionHandler::FunctionList m_updateHandlers;
-		
-	};
+  private:
+
+    ScriptUpdateDispatcher( const ScriptUpdateDispatcher & copy ) { };
+    ScriptUpdateDispatcher & operator = ( const ScriptUpdateDispatcher & copy ) { return *this; };
+
+    IScriptFunctionHandler::FunctionList m_updateHandlers;
+    
+  };
 };
 
 #endif

@@ -12,19 +12,19 @@
 
 namespace 
 {
-	/*! 
-	 *  
-	 */
-	class MockSerializer : public Serialization::IWorldSerializer
-	{
+  /*! 
+   *  
+   */
+  class MockSerializer : public Serialization::IWorldSerializer
+  {
 
-	public:
-		
-		MOCK_METHOD2(DeSerializeLevel, void ( IWorld*, const std::string&));
-		MOCK_METHOD2(DeSerializeEntity, void(IWorldEntity*, const std::string&));
-		MOCK_METHOD1(Update, void(float));
-		
-	};
+  public:
+    
+    MOCK_METHOD2(DeSerializeLevel, void ( IWorld*, const std::string&));
+    MOCK_METHOD2(DeSerializeEntity, void(IWorldEntity*, const std::string&));
+    MOCK_METHOD1(Update, void(float));
+    
+  };
 };
 
 #endif

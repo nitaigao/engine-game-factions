@@ -12,29 +12,29 @@
 
 namespace Network
 {
-	/*! 
-	 *  Receives traffic from the Server
-	 */
-	class GAMEAPI INetworkClientEndpoint : public INetworkEndpoint
-	{
+  /*! 
+   *  Receives traffic from the Server
+   */
+  class GAMEAPI INetworkClientEndpoint : public INetworkEndpoint
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkClientEndpoint( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkClientEndpoint( ) { };
 
 
-		/*! Stops the Endpoint from Receiving data
-		 *
-		 * @param[in] bool isPassive
-		 * @return ( void )
-		 */
-		virtual void SetPassive( bool isPassive ) = 0;
-		
-	};
+    /*! Stops the Endpoint from Receiving data
+     *
+     * @param[in] bool isPassive
+     * @return ( void )
+     */
+    virtual void SetPassive( bool isPassive ) = 0;
+    
+  };
 };
 
 #endif

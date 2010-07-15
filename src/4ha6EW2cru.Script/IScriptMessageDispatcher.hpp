@@ -17,65 +17,65 @@
 
 namespace Script
 {
-	/*! 
-	 *  Dispatched component messages to script handlers
-	 */
-	class GAMEAPI IScriptMessageDispatcher
-	{
+  /*! 
+   *  Dispatched component messages to script handlers
+   */
+  class GAMEAPI IScriptMessageDispatcher
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptMessageDispatcher( ) { };
-
-
-		/*! Dispatches a message to the listening Handlers
-		 *
-		 * @param[in] const System::MessageType & message
-		 * @param[in] AnyType::AnyTypeMap & parameters
-		 * @return ( void )
-		 */
-		virtual void Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptMessageDispatcher( ) { };
 
 
-		/*! Adds a Message handler ready for Message dispatch
-		*
-		* @param[in] const System::MessageType & message
-		* @param[in] IScriptFunctionHandler * functionHandler
-		* @return ( void )
-		*/
-		virtual void AddMessageHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+    /*! Dispatches a message to the listening Handlers
+     *
+     * @param[in] const System::MessageType & message
+     * @param[in] AnyType::AnyTypeMap & parameters
+     * @return ( void )
+     */
+    virtual void Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters ) = 0;
 
 
-		/*! Returns whether or not the handler has been added for the message
-		 *
-		 * @param[in] const System::MessageType & message
-		 * @param[in] IScriptFunctionHandler * functionHandler
-		 * @return ( bool )
-		 */
-		virtual bool HasHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+    /*! Adds a Message handler ready for Message dispatch
+    *
+    * @param[in] const System::MessageType & message
+    * @param[in] IScriptFunctionHandler * functionHandler
+    * @return ( void )
+    */
+    virtual void AddMessageHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
 
 
-		/*! Removes the message handler from the handler list
-		*
-		* @param[in] const System::MessageType & message
-		* @param[in] IScriptFunctionHandler * functionHandler
-		* @return ( void )
-		*/
-		virtual void RemoveHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+    /*! Returns whether or not the handler has been added for the message
+     *
+     * @param[in] const System::MessageType & message
+     * @param[in] IScriptFunctionHandler * functionHandler
+     * @return ( bool )
+     */
+    virtual bool HasHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
 
 
-		/*! Updates the Dispatcher
-		 *
-		 * @param[in] float
-		 * @return ( void )
-		 */
-		virtual void Update( float ) = 0;
-		
-	};
+    /*! Removes the message handler from the handler list
+    *
+    * @param[in] const System::MessageType & message
+    * @param[in] IScriptFunctionHandler * functionHandler
+    * @return ( void )
+    */
+    virtual void RemoveHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+
+
+    /*! Updates the Dispatcher
+     *
+     * @param[in] float
+     * @return ( void )
+     */
+    virtual void Update( float ) = 0;
+    
+  };
 };
 
 #endif

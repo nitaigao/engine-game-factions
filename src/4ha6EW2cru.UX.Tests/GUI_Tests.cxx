@@ -11,19 +11,19 @@ class GUI_Tests : public TestHarness< GUI >
 
 protected:
 
-	void EstablishContext( )
-	{
+  void EstablishContext( )
+  {
 
-	}
+  }
 
 
-	void DestroyContext( )
-	{
+  void DestroyContext( )
+  {
 
-	}
+  }
 
-	GUI* CreateSubject( )
-	{
-		return new GUI( new MyGUI::Gui( ), 0 ); 
-	}
+  GUI* CreateSubject( )
+  {
+    return new GUI( new MyGUI::Gui( ), 0 ); 
+  }
 };

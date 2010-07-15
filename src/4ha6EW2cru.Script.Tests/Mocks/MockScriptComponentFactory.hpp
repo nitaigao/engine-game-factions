@@ -14,16 +14,16 @@
 
 namespace
 {
-	class MockScriptComponentFactory : public IScriptComponentFactory
-	{
+  class MockScriptComponentFactory : public IScriptComponentFactory
+  {
 
-	public:
+  public:
 
-	
-		MOCK_METHOD2( CreateComponent, IScriptComponent*( const std::string& name, const std::string& type ) );
+  
+    MOCK_METHOD2( CreateComponent, IScriptComponent*( const std::string& name, const std::string& type ) );
 
-		
-	};
+    
+  };
 };
 
 #endif

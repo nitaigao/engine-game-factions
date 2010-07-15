@@ -8,71 +8,71 @@ using namespace Resources;
 
 namespace base_context
 {
-	class ResourceCache_BaseContext : public TestHarness< ResourceCache >
-	{
+  class ResourceCache_BaseContext : public TestHarness< ResourceCache >
+  {
 
-	protected:
+  protected:
 
-		MockFileSystem* m_fileSystem;
-		std::string m_filePath;
+    MockFileSystem* m_fileSystem;
+    std::string m_filePath;
 
-		virtual void EstablishContext( )
-		{
-			m_filePath = "some_file";
-			m_fileSystem = new MockFileSystem( );
-		}
+    virtual void EstablishContext( )
+    {
+      m_filePath = "some_file";
+      m_fileSystem = new MockFileSystem( );
+    }
 
-		virtual void DestroyContext( )
-		{
-			delete m_fileSystem;
-		}
+    virtual void DestroyContext( )
+    {
+      delete m_fileSystem;
+    }
 
-		ResourceCache* CreateSubject( )
-		{
-			return new ResourceCache( m_fileSystem );; 
-		}
-	};
+    ResourceCache* CreateSubject( )
+    {
+      return new ResourceCache( m_fileSystem );; 
+    }
+  };
 };
 
 namespace in_general
 {
-	class when_a_resource_exists : public base_context::ResourceCache_BaseContext
-	{
-	
-	protected:
-	
-		void Expecting( )
-		{
-			EXPECT_CALL( *m_fileSystem, FileExists( m_filePath, false ) ).WillOnce( Return( true ) );
-		}
-	
-		void When( )
-		{
-			bool exists = m_subject->ResourceExists( m_filePath );
-			ASSERT_TRUE( exists );
-		}
-		
-	};
+  class when_a_resource_exists : public base_context::ResourceCache_BaseContext
+  {
+  
+  protected:
+  
+    void Expecting( )
+    {
+      EXPECT_CALL( *m_fileSystem, FileExists( m_filePath, false ) ).WillOnce( Return( true ) );
+    }
+  
+    void When( )
+    {
+      bool exists = m_subject->ResourceExists( m_filePath );
+      ASSERT_TRUE( exists );
+    }
+    
+  };
 
-	TEST_F( when_a_resource_exists, then_the_resource_cache_should_report_this ) { }
+  TEST_F( when_a_resource_exists, then_the_resource_cache_should_report_this ) { }
 
-	class when_a_resource_doesnt_exists : public base_context::ResourceCache_BaseContext
-	{
+  class when_a_resource_doesnt_exists : public base_context::ResourceCache_BaseContext
+  {
 
-	protected:
+  protected:
 
-		void Expecting( )
-		{
-			EXPECT_CALL( *m_fileSystem, FileExists( m_filePath, false ) ).WillOnce( Return( false ) );
-		}
+    void Expecting( )
+    {
+      EXPECT_CALL( *m_fileSystem, FileExists( m_filePath, false ) ).WillOnce( Return( false ) );
+    }
 
-		void When( )
-		{
-			bool exists = m_subject->ResourceExists( m_filePath );
-			ASSERT_FALSE( exists );
-		}
+    void When( )
+    {
+      bool exists = m_subject->ResourceExists( m_filePath );
+      ASSERT_FALSE( exists );
+    }
 
-	};
+  };
 
-	TEST_F( when_a_resource_doesnt_exists, then_the_resource_cache_should_report_this ) { }
+  TEST_F( when_a_resource_doesnt_exists, then_the_resource_cache_should_report_this ) { }
 }

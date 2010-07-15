@@ -9,26 +9,26 @@
 
 class BadArchiveFactoryFixture : public CPPUNIT_NS::TestFixture
 {
-	CPPUNIT_TEST_SUITE( BadArchiveFactoryFixture );
-	CPPUNIT_TEST( Should_Create_BadArchive );
-	CPPUNIT_TEST( Should_Throw_On_Destroy_Given_NULL_Archive );
-	CPPUNIT_TEST( Should_Destroy_Valid_Archive );
-	CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE( BadArchiveFactoryFixture );
+  CPPUNIT_TEST( Should_Create_BadArchive );
+  CPPUNIT_TEST( Should_Throw_On_Destroy_Given_NULL_Archive );
+  CPPUNIT_TEST( Should_Destroy_Valid_Archive );
+  CPPUNIT_TEST_SUITE_END( );
 
 public:
 
-	void setUp( );
-	void tearDown( );
+  void setUp( );
+  void tearDown( );
 
 protected:
 
-	void Should_Create_BadArchive( );
-	void Should_Throw_On_Destroy_Given_NULL_Archive( );
-	void Should_Destroy_Valid_Archive( );
+  void Should_Create_BadArchive( );
+  void Should_Throw_On_Destroy_Given_NULL_Archive( );
+  void Should_Destroy_Valid_Archive( );
 
 private:
 
-	IO::BadArchiveFactory* _bfactory;
+  IO::BadArchiveFactory* _bfactory;
 
 };
 

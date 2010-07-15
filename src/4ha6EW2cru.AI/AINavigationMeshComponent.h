@@ -15,72 +15,72 @@
 
 namespace AI
 {
-	/*! 
-	 *  A Component that contains the Navigation Mesh for the AI Characters
-	 */
-	class AINavigationMeshComponent : public AISystemComponent
-	{
+  /*! 
+   *  A Component that contains the Navigation Mesh for the AI Characters
+   */
+  class AINavigationMeshComponent : public AISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AINavigationMeshComponent( );
-
-
-		AINavigationMeshComponent( const std::string& name, Services::IServiceManager* serviceManager )
-			: AISystemComponent( name, serviceManager )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AINavigationMeshComponent( );
 
 
-		/*! Initializes the Component
-		*
-		* @return ( void )
-		*/
-		void Initialize( );
+    AINavigationMeshComponent( const std::string& name, Services::IServiceManager* serviceManager )
+      : AISystemComponent( name, serviceManager )
+    {
+
+    }
 
 
-		/*! Destroys the Component
-		*
-		* @return ( void )
-		*/
-		void Destroy( );
+    /*! Initializes the Component
+    *
+    * @return ( void )
+    */
+    void Initialize( );
 
 
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
-
-		/*! Returns a Path in way points from the start point to the destination point
-		*
-		* @param[in] const Maths::MathVector3 & start
-		* @param[in] const Maths::MathVector3 & finish
-		* @return ( Maths::MathVector3::MathVector3List )
-		*/
-		Maths::MathVector3::MathVector3List FindPath( const Maths::MathVector3& start, const Maths::MathVector3& finish );
+    /*! Destroys the Component
+    *
+    * @return ( void )
+    */
+    void Destroy( );
 
 
-		/*! Returns a Path in way points from the start Polygon to the destination Polygon
-		*
-		* @param[in] NavigationPolygon * start
-		* @param[in] NavigationPolygon * finish
-		* @return ( Maths::MathVector3::MathVector3List )
-		*/
-		Maths::MathVector3::MathVector3List FindPath( NavigationPolygon* start, NavigationPolygon* finish  );
+    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
-	private:
+    /*! Returns a Path in way points from the start point to the destination point
+    *
+    * @param[in] const Maths::MathVector3 & start
+    * @param[in] const Maths::MathVector3 & finish
+    * @return ( Maths::MathVector3::MathVector3List )
+    */
+    Maths::MathVector3::MathVector3List FindPath( const Maths::MathVector3& start, const Maths::MathVector3& finish );
 
-		AINavigationMeshComponent( ) { };
-		AINavigationMeshComponent( const AINavigationMeshComponent & copy ) { };
-		AINavigationMeshComponent & operator = ( const AINavigationMeshComponent & copy ) { return *this; };
 
-		void RecalculateNeighbours( );
+    /*! Returns a Path in way points from the start Polygon to the destination Polygon
+    *
+    * @param[in] NavigationPolygon * start
+    * @param[in] NavigationPolygon * finish
+    * @return ( Maths::MathVector3::MathVector3List )
+    */
+    Maths::MathVector3::MathVector3List FindPath( NavigationPolygon* start, NavigationPolygon* finish  );
 
-		NavigationPolygon::NavPolyList m_polygons;
-		
-	};
+  private:
+
+    AINavigationMeshComponent( ) { };
+    AINavigationMeshComponent( const AINavigationMeshComponent & copy ) { };
+    AINavigationMeshComponent & operator = ( const AINavigationMeshComponent & copy ) { return *this; };
+
+    void RecalculateNeighbours( );
+
+    NavigationPolygon::NavPolyList m_polygons;
+    
+  };
 };
 
 #endif

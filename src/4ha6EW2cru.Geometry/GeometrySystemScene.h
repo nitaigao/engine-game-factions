@@ -12,87 +12,87 @@
 
 namespace Geometry
 {
-	/*! 
-	*  A Geometry Specific Scene
-	*/
-	class GeometrySystemScene : public ISystemScene
-	{
+  /*! 
+  *  A Geometry Specific Scene
+  */
+  class GeometrySystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~GeometrySystemScene( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] ISystem * system
-		 *  @return ()
-		 */
-		explicit GeometrySystemScene( ISystem* system )
-			: m_system( system )
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~GeometrySystemScene( ) { };
 
 
-		/*! Initializes the System Scene
-		*
-		*  @return (void)
-		*/
-		void Initialize( ) { };
+    /*! Default Constructor
+     *
+     *  @param[in] ISystem * system
+     *  @return ()
+     */
+    explicit GeometrySystemScene( ISystem* system )
+      : m_system( system )
+    {
+
+    }
 
 
-		/*! Steps internal data of the SystemScene
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		inline void Update( float deltaMilliseconds ) { };
+    /*! Initializes the System Scene
+    *
+    *  @return (void)
+    */
+    void Initialize( ) { };
 
 
-		/*! Destroys the System Scene
-		*
-		*  @return (void)
-		*/
-		inline void Destroy( ) { };
+    /*! Steps internal data of the SystemScene
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    inline void Update( float deltaMilliseconds ) { };
 
 
-		/*! Gets the System::Types::Type of the SystemScene
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::GEOMETRY; };
+    /*! Destroys the System Scene
+    *
+    *  @return (void)
+    */
+    inline void Destroy( ) { };
 
 
-		/*! Creates a SystemComponent specific to the SystemScene
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] const std::string & type
-		*  @return (ISystemComponent*)
-		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    /*! Gets the System::Types::Type of the SystemScene
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::GEOMETRY; };
 
 
-		/*! Destroys a SystemComponent created by the SystemScene
-		*
-		*  @param[in] ISystemComponent * component
-		*  @return (void)
-		*/
-		void DestroyComponent( ISystemComponent* component );
+    /*! Creates a SystemComponent specific to the SystemScene
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] const std::string & type
+    *  @return (ISystemComponent*)
+    */
+    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
 
-	private:
 
-		ISystem* m_system;
+    /*! Destroys a SystemComponent created by the SystemScene
+    *
+    *  @param[in] ISystemComponent * component
+    *  @return (void)
+    */
+    void DestroyComponent( ISystemComponent* component );
 
-		GeometrySystemScene( ) { };
-		GeometrySystemScene( const GeometrySystemScene & copy ) { };
-		GeometrySystemScene & operator = ( const GeometrySystemScene & copy ) { return *this; };
+  private:
 
-	};
+    ISystem* m_system;
+
+    GeometrySystemScene( ) { };
+    GeometrySystemScene( const GeometrySystemScene & copy ) { };
+    GeometrySystemScene & operator = ( const GeometrySystemScene & copy ) { return *this; };
+
+  };
 };
 
 #endif

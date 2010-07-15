@@ -13,35 +13,35 @@
 
 extern "C" 
 {
-#	include <lua.h>
+#  include <lua.h>
 }
 
 namespace Script
 {
-	/*!
-	 *  A Script System Scene 
-	 */
-	class GAMEAPI IScriptSystemScene : public ISystemScene
-	{
+  /*!
+   *  A Script System Scene 
+   */
+  class GAMEAPI IScriptSystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptSystemScene( ) { };
-
-
-		/*! Unloads and Destroys a Script Component
-		 *
-		 * @param[in] const std::string & name
-		 * @return ( void )
-		 */
-		virtual void UnloadComponent( const std::string& name ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptSystemScene( ) { };
 
 
-	};
+    /*! Unloads and Destroys a Script Component
+     *
+     * @param[in] const std::string & name
+     * @return ( void )
+     */
+    virtual void UnloadComponent( const std::string& name ) = 0;
+
+
+  };
 };
 
 #endif

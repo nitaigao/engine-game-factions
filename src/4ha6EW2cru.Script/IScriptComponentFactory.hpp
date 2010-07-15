@@ -14,30 +14,30 @@
 
 namespace Script
 {
-	/*! 
-	 *  Creates Script Components
-	 */
-	class GAMEAPI IScriptComponentFactory
-	{
+  /*! 
+   *  Creates Script Components
+   */
+  class GAMEAPI IScriptComponentFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptComponentFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptComponentFactory( ) { };
 
 
-		/*! Creates a Script Component
-		 *
-		 * @param[in] const std::string & name
-		 * @param[in] const std::string & type
-		 * @return ( IScriptComponent* )
-		 */
-		virtual IScriptComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
-		
-	};
+    /*! Creates a Script Component
+     *
+     * @param[in] const std::string & name
+     * @param[in] const std::string & type
+     * @return ( IScriptComponent* )
+     */
+    virtual IScriptComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
+    
+  };
 };
 
 #endif

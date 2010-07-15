@@ -14,25 +14,25 @@
 
 #include <Common/Base/Thread/Job/ThreadPool/Cpu/hkCpuJobThreadPool.h>
 #include <Common/Base/Thread/Job/ThreadPool/Spu/hkSpuJobThreadPool.h>
-#include <Common/Base/Thread/JobQueue/hkJobQueue.h>	
+#include <Common/Base/Thread/JobQueue/hkJobQueue.h>  
 
 class AISystemComponent_Tests : public CPPUNIT_NS::TestFixture
 {
 
-	CPPUNIT_TEST_SUITE( AISystemComponent_Tests );
-	CPPUNIT_TEST( Should_Return_Name_On_GetName );
-	CPPUNIT_TEST( Should_Set_BehaviorName_On_SetBehavior );
-	CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE( AISystemComponent_Tests );
+  CPPUNIT_TEST( Should_Return_Name_On_GetName );
+  CPPUNIT_TEST( Should_Set_BehaviorName_On_SetBehavior );
+  CPPUNIT_TEST_SUITE_END( );
 
 public:
 
-	void setUp( );
-	void tearDown( );
+  void setUp( );
+  void tearDown( );
 
 protected:
 
-	void Should_Return_Name_On_GetName( );
-	void Should_Set_BehaviorName_On_SetBehavior( );
+  void Should_Return_Name_On_GetName( );
+  void Should_Set_BehaviorName_On_SetBehavior( );
 
 };
 

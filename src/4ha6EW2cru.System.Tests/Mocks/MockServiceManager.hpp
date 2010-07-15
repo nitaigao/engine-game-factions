@@ -15,16 +15,16 @@
 
 namespace
 {
-	class MockServiceManager : public Services::IServiceManager
-	{
+  class MockServiceManager : public Services::IServiceManager
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD1(RegisterService, void(Services::IService*));
-		MOCK_METHOD2(MessageAll, AnyType::AnyTypeMap(const System::MessageType&, AnyType::AnyTypeMap));
-		MOCK_CONST_METHOD1(FindService, Services::IService*(System::Types::Type));
-		
-	};
+    MOCK_METHOD1(RegisterService, void(Services::IService*));
+    MOCK_METHOD2(MessageAll, AnyType::AnyTypeMap(const System::MessageType&, AnyType::AnyTypeMap));
+    MOCK_CONST_METHOD1(FindService, Services::IService*(System::Types::Type));
+    
+  };
 };
 
 #endif

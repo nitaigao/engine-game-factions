@@ -12,14 +12,14 @@
 
 namespace
 {
-	class MockUXSystemComponentFactory : public IUXSystemComponentFactory
-	{
+  class MockUXSystemComponentFactory : public IUXSystemComponentFactory
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD1( CreateComponent, IUXSystemComponent*( const std::string& ) );
-		
-	};
+    MOCK_METHOD1( CreateComponent, IUXSystemComponent*( const std::string& ) );
+    
+  };
 };
 
 #endif

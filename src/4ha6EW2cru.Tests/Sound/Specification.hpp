@@ -12,94 +12,94 @@
 
 namespace Testing
 {
-	/*!
-	 *  A BDD Specification 
-	 */
-	template< class T >
-	class Specificaton : public CPPUNIT_NS::TestFixture
-	{
+  /*!
+   *  A BDD Specification 
+   */
+  template< class T >
+  class Specificaton : public CPPUNIT_NS::TestFixture
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~Specificaton( )
-		{
-			
-		}
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		Specificaton( )
-			: _subject( 0 )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~Specificaton( )
+    {
+      
+    }
 
 
-		/*! Standard Intercept to Setup the Test
-		 *
-		 *  @return (void)
-		 */
-		void setUp( )
-		{
-			this->SetupTest( );
-			this->EstablishBaseContext( );
-		}
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    Specificaton( )
+      : _subject( 0 )
+    {
+
+    }
 
 
-		/*! Standard Intercept to TearDown the Test
-		*
-		*  @return (void)
-		*/
-		void tearDown( )
-		{
-			this->TearDownTest( );
-
-			if ( _subject != 0 )
-			{
-				delete _subject;
-			}
-		}
+    /*! Standard Intercept to Setup the Test
+     *
+     *  @return (void)
+     */
+    void setUp( )
+    {
+      this->SetupTest( );
+      this->EstablishBaseContext( );
+    }
 
 
-		/*! override to set up test data in the base context
-		 *
-		 *  @return (void)
-		 */
-		virtual void SetupTest( ) { };
+    /*! Standard Intercept to TearDown the Test
+    *
+    *  @return (void)
+    */
+    void tearDown( )
+    {
+      this->TearDownTest( );
+
+      if ( _subject != 0 )
+      {
+        delete _subject;
+      }
+    }
 
 
-		/*! Override to tear the test data down
-		 *
-		 *  @return (void)
-		 */
-		virtual void TearDownTest( ) { };
+    /*! override to set up test data in the base context
+     *
+     *  @return (void)
+     */
+    virtual void SetupTest( ) { };
 
 
-		/*! Override to setup the test data in the BaseContext or derived classes
-		 *
-		 *  @return (void)
-		 */
-		virtual void EstablishBaseContext( ) { };
+    /*! Override to tear the test data down
+     *
+     *  @return (void)
+     */
+    virtual void TearDownTest( ) { };
 
 
-	protected:
+    /*! Override to setup the test data in the BaseContext or derived classes
+     *
+     *  @return (void)
+     */
+    virtual void EstablishBaseContext( ) { };
 
-		T* _subject;
 
-	private:
+  protected:
 
-		
-		Specificaton( const Specificaton & copy ) { };
-		Specificaton & operator = ( const Specificaton & copy ) { return *this; };
+    T* _subject;
 
-	};
+  private:
+
+    
+    Specificaton( const Specificaton & copy ) { };
+    Specificaton & operator = ( const Specificaton & copy ) { return *this; };
+
+  };
 };
 
 #endif

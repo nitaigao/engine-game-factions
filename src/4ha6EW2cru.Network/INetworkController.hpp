@@ -15,36 +15,36 @@ using namespace Logging;
 
 namespace Network
 {
-	/*! 
-	 *  Sends information across the Network
-	 */
-	class GAMEAPI INetworkController
-	{
+  /*! 
+   *  Sends information across the Network
+   */
+  class GAMEAPI INetworkController
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkController( ) { };
-
-
-		/*! Initializes the Controller
-		*
-		* @return ( void )
-		*/
-		virtual void Initialize( ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkController( ) { };
 
 
-		/*! Updates the internal state of the controller and processes the send queue at the send interval
-		 *
-		 * @param[in] float deltaMilliseconds
-		 * @return ( void )
-		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
-		
-	};
+    /*! Initializes the Controller
+    *
+    * @return ( void )
+    */
+    virtual void Initialize( ) = 0;
+
+
+    /*! Updates the internal state of the controller and processes the send queue at the send interval
+     *
+     * @param[in] float deltaMilliseconds
+     * @return ( void )
+     */
+    virtual void Update( float deltaMilliseconds ) = 0;
+    
+  };
 };
 
 #endif

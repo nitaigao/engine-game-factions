@@ -18,128 +18,128 @@
 
 namespace Network
 {
-	/*! 
-	 *  A Client for transmitting and receiving client messages to and from the server
-	 */
-	class GAMEAPI NetworkClientProvider : public INetworkClientProvider
-	{
+  /*! 
+   *  A Client for transmitting and receiving client messages to and from the server
+   */
+  class GAMEAPI NetworkClientProvider : public INetworkClientProvider
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~NetworkClientProvider( );
-	
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~NetworkClientProvider( );
+  
 
-		/*! IoC Constructor
-		*
-		* @return (  )
-		*/
-		NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
-			: m_networkInterface( networkInterface )
-			, m_endpoint( endpoint )
-			, m_controller( controller )
-			, m_configuration( configuration )
-		{
+    /*! IoC Constructor
+    *
+    * @return (  )
+    */
+    NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
+      : m_networkInterface( networkInterface )
+      , m_endpoint( endpoint )
+      , m_controller( controller )
+      , m_configuration( configuration )
+    {
 
-		}
-
-
-		/*! Initializes the Network Interface
-		*
-		* @param[in] int maxConnections
-		* @return ( void )
-		*/
-		void Initialize( int maxConnections );
+    }
 
 
-		/*! Updates the Network Provider
-		*
-		* @param[in] float deltaMilliseconds
-		* @return ( void )
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the Network Interface
+    *
+    * @param[in] int maxConnections
+    * @return ( void )
+    */
+    void Initialize( int maxConnections );
 
 
-		/*! Distributes the message for the entity across the Network
-		*
-		* @param[in] ISystemComponent* subject
-		* @param[in] const System::Message & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Updates the Network Provider
+    *
+    * @param[in] float deltaMilliseconds
+    * @return ( void )
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Destroys the Provider
-		*
-		* @return ( void )
-		*/
-		void Destroy( ) { };
+    /*! Distributes the message for the entity across the Network
+    *
+    * @param[in] ISystemComponent* subject
+    * @param[in] const System::Message & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Connects the Provider to a Server Address
-		*
-		* @param[in] const std::string & serverAddress
-		* @param[in] unsigned int port
-		* @return (  )
-		*/
-		void Connect( const std::string& serverAddress );
+    /*! Destroys the Provider
+    *
+    * @return ( void )
+    */
+    void Destroy( ) { };
 
 
-		/*! Disconnects the Provider if connected to a Server
-		*
-		* @return ( void )
-		*/
-		void Disconnect( );
+    /*! Connects the Provider to a Server Address
+    *
+    * @param[in] const std::string & serverAddress
+    * @param[in] unsigned int port
+    * @return (  )
+    */
+    void Connect( const std::string& serverAddress );
 
 
-		/*! Selects a Character to play on the Server
-		*
-		* @param[in] const std::string & characterName
-		* @return ( void )
-		*/
-		void SelectCharacter( const std::string& characterName );
+    /*! Disconnects the Provider if connected to a Server
+    *
+    * @return ( void )
+    */
+    void Disconnect( );
 
 
-		/*! Broadcasts the Local Network for Servers
-		*
-		* @return ( void )
-		*/
-		void FindServers( );
+    /*! Selects a Character to play on the Server
+    *
+    * @param[in] const std::string & characterName
+    * @return ( void )
+    */
+    void SelectCharacter( const std::string& characterName );
 
 
-		/*! Stops the Client from receiving traffic, but it can still send messages
-		*
-		* @param[in] bool isPassive
-		* @return ( void )
-		*/
-		 inline void SetPassive( bool isPassive ) 
-		 { 
-			 m_endpoint->SetPassive( isPassive ); 
-			 m_controller->SetPassive( isPassive );
-		 };
+    /*! Broadcasts the Local Network for Servers
+    *
+    * @return ( void )
+    */
+    void FindServers( );
 
 
-		 /*! Tells the Server that the Client has finished loading the level
-		 *
-		 * @return ( void )
-		 */
-		 inline void LevelLoaded( ) { m_controller->LevelLoaded( ); };
+    /*! Stops the Client from receiving traffic, but it can still send messages
+    *
+    * @param[in] bool isPassive
+    * @return ( void )
+    */
+     inline void SetPassive( bool isPassive ) 
+     { 
+       m_endpoint->SetPassive( isPassive ); 
+       m_controller->SetPassive( isPassive );
+     };
 
-	private:
 
-		NetworkClientProvider( const NetworkClientProvider & copy ) { };
-		NetworkClientProvider & operator = ( const NetworkClientProvider & copy ) { return *this; };
+     /*! Tells the Server that the Client has finished loading the level
+     *
+     * @return ( void )
+     */
+     inline void LevelLoaded( ) { m_controller->LevelLoaded( ); };
 
-		INetworkInterface* m_networkInterface;
-		INetworkClientEndpoint* m_endpoint;
-		INetworkClientController* m_controller;
-		Configuration::IConfiguration* m_configuration;
-		
-	};
+  private:
+
+    NetworkClientProvider( const NetworkClientProvider & copy ) { };
+    NetworkClientProvider & operator = ( const NetworkClientProvider & copy ) { return *this; };
+
+    INetworkInterface* m_networkInterface;
+    INetworkClientEndpoint* m_endpoint;
+    INetworkClientController* m_controller;
+    Configuration::IConfiguration* m_configuration;
+    
+  };
 };
 
 #endif

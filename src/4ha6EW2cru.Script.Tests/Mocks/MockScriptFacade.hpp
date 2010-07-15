@@ -14,16 +14,16 @@
 
 namespace
 {
-	class MockScriptFacade : public Script::IScriptFacade
-	{
+  class MockScriptFacade : public Script::IScriptFacade
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD0( Initialize, void( ) );
-		MOCK_METHOD0( GetName, std::string( ) );
+    MOCK_METHOD0( Initialize, void( ) );
+    MOCK_METHOD0( GetName, std::string( ) );
 
-		
-	};
+    
+  };
 };
 
 #endif

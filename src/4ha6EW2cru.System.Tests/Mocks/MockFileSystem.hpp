@@ -14,19 +14,19 @@
 
 namespace
 {
-	class MockFileSystem : public IO::IFileSystem
-	{
+  class MockFileSystem : public IO::IFileSystem
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD0( Initialize, void( ) );
-		MOCK_METHOD2( Mount, bool( const std::string&, const std::string& ) );
-		MOCK_CONST_METHOD2( GetFile, IO::FileBuffer*( const std::string&, bool ) );
-		MOCK_CONST_METHOD1( SaveFile, void( const IO::FileBuffer& ) );
-		MOCK_CONST_METHOD2( FileExists, bool( const std::string&, bool ) );
-		MOCK_CONST_METHOD3( FileSearch, IO::FileSearchResult::FileSearchResultList*( const std::string&, const std::string&, bool ) );
-		
-	};
+    MOCK_METHOD0( Initialize, void( ) );
+    MOCK_METHOD2( Mount, bool( const std::string&, const std::string& ) );
+    MOCK_CONST_METHOD2( GetFile, IO::FileBuffer*( const std::string&, bool ) );
+    MOCK_CONST_METHOD1( SaveFile, void( const IO::FileBuffer& ) );
+    MOCK_CONST_METHOD2( FileExists, bool( const std::string&, bool ) );
+    MOCK_CONST_METHOD3( FileSearch, IO::FileSearchResult::FileSearchResultList*( const std::string&, const std::string&, bool ) );
+    
+  };
 };
 
 #endif

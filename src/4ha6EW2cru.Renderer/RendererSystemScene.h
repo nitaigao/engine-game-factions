@@ -15,104 +15,104 @@
 
 namespace Renderer
 {
-	/*!
-	 *  A Render System Scene 
-	 */
-	class RendererSystemScene : public IRenderSystemScene
-	{
+  /*!
+   *  A Render System Scene 
+   */
+  class RendererSystemScene : public IRenderSystemScene
+  {
 
-	public:
-
-
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~RendererSystemScene( ) { };
+  public:
 
 
-		/*! Default Constructor
-		 *
-		 *  @param[in] Ogre::SceneManager * sceneManager
-		 *  @return ()
-		 */
-		RendererSystemScene( Ogre::SceneManager* sceneManager )
-			: m_sceneManager( sceneManager )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~RendererSystemScene( ) { };
 
 
-		/*! Initializes the System Scene
-		*
-		*  @return (void)
-		*/
-		void Initialize( ) { };
+    /*! Default Constructor
+     *
+     *  @param[in] Ogre::SceneManager * sceneManager
+     *  @return ()
+     */
+    RendererSystemScene( Ogre::SceneManager* sceneManager )
+      : m_sceneManager( sceneManager )
+    {
+
+    }
 
 
-		/*! Steps internal data of the SystemScene
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the System Scene
+    *
+    *  @return (void)
+    */
+    void Initialize( ) { };
 
 
-		/*! Destroys the System Scene
-		*
-		*  @return (void)
-		*/
-		inline void Destroy( ) { };
+    /*! Steps internal data of the SystemScene
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Gets the System::Types::Type of the SystemScene
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::RENDER; };
+    /*! Destroys the System Scene
+    *
+    *  @return (void)
+    */
+    inline void Destroy( ) { };
 
 
-		/*! Creates a SystemComponent specific to the SystemScene
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] const std::string & type
-		*  @return (ISystemComponent*)
-		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    /*! Gets the System::Types::Type of the SystemScene
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::RENDER; };
 
 
-		/*! Destroys a SystemComponent created by the SystemScene
-		*
-		*  @param[in] ISystemComponent * component
-		*  @return (void)
-		*/
-		void DestroyComponent( ISystemComponent* component );
+    /*! Creates a SystemComponent specific to the SystemScene
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] const std::string & type
+    *  @return (ISystemComponent*)
+    */
+    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
 
 
-		/*! Returns the Ogre Scene Manager containing the Scene
-		 *
-		 *  @return (Ogre::SceneManager*)
-		 */
-		Ogre::SceneManager* GetSceneManager( ) const { return m_sceneManager; };
+    /*! Destroys a SystemComponent created by the SystemScene
+    *
+    *  @param[in] ISystemComponent * component
+    *  @return (void)
+    */
+    void DestroyComponent( ISystemComponent* component );
 
 
-		/*! Returns a Render Scene Component of the given name
-		 *
-		 *  @param[in] const std::string & name
-		 *  @return (IRendererSystemComponent*)
-		 */
-		IRendererSystemComponent* GetComponent( const std::string& name ) const;
+    /*! Returns the Ogre Scene Manager containing the Scene
+     *
+     *  @return (Ogre::SceneManager*)
+     */
+    Ogre::SceneManager* GetSceneManager( ) const { return m_sceneManager; };
 
-	private:
 
-		Ogre::SceneManager* m_sceneManager;
-		IRendererSystemComponent::RendererSystemComponentList m_components;
+    /*! Returns a Render Scene Component of the given name
+     *
+     *  @param[in] const std::string & name
+     *  @return (IRendererSystemComponent*)
+     */
+    IRendererSystemComponent* GetComponent( const std::string& name ) const;
 
-		RendererSystemScene( ) { };
-		RendererSystemScene( const RendererSystemScene & copy ) { };
-		RendererSystemScene & operator = ( const RendererSystemScene & copy ) { return *this; };
+  private:
 
-	};
+    Ogre::SceneManager* m_sceneManager;
+    IRendererSystemComponent::RendererSystemComponentList m_components;
+
+    RendererSystemScene( ) { };
+    RendererSystemScene( const RendererSystemScene & copy ) { };
+    RendererSystemScene & operator = ( const RendererSystemScene & copy ) { return *this; };
+
+  };
 };
 
 #endif

@@ -9,197 +9,197 @@ using namespace Services;
 
 namespace AI
 {
-	AINavigationMeshComponent::~AINavigationMeshComponent( )
-	{
-		for( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
-		{
-			delete ( *i );
-		}
-	}
+  AINavigationMeshComponent::~AINavigationMeshComponent( )
+  {
+    for( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
+    {
+      delete ( *i );
+    }
+  }
 
-	void AINavigationMeshComponent::Destroy( )
-	{
-		/*AnyType::AnyTypeMap parameters;
-		parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
+  void AINavigationMeshComponent::Destroy( )
+  {
+    /*AnyType::AnyTypeMap parameters;
+    parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
 
-		IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-		renderService->MessageType( System::Messages::DestroyMesh, parameters );*/
-	}
+    IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
+    renderService->MessageType( System::Messages::DestroyMesh, parameters );*/
+  }
 
-	void AINavigationMeshComponent::Initialize( )
-	{
-		IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
-		AnyType::AnyTypeMap results = renderService->ProcessMessage( System::Messages::LoadMesh, m_attributes );
-		MathVector3::MathVector3List vertices = results[ "vertices" ].As< MathVector3::MathVector3List >( );
+  void AINavigationMeshComponent::Initialize( )
+  {
+    IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
+    AnyType::AnyTypeMap results = renderService->ProcessMessage( System::Messages::LoadMesh, m_attributes );
+    MathVector3::MathVector3List vertices = results[ "vertices" ].As< MathVector3::MathVector3List >( );
 
-		NavigationPolygon* polygon = new NavigationPolygon( );
+    NavigationPolygon* polygon = new NavigationPolygon( );
 
-		for( MathVector3::MathVector3List::iterator i = vertices.begin( ); i != vertices.end( ); ++i )
-		{	
-			polygon->AddVertex( *i );
+    for( MathVector3::MathVector3List::iterator i = vertices.begin( ); i != vertices.end( ); ++i )
+    {  
+      polygon->AddVertex( *i );
 
-			if ( polygon->CountVertices( ) == 3 )
-			{
-				m_polygons.push_back( polygon );
-				polygon = new NavigationPolygon( );
-			}
-		}
+      if ( polygon->CountVertices( ) == 3 )
+      {
+        m_polygons.push_back( polygon );
+        polygon = new NavigationPolygon( );
+      }
+    }
 
-		delete polygon;
-	}
+    delete polygon;
+  }
 
-	MathVector3::MathVector3List AINavigationMeshComponent::FindPath( const Maths::MathVector3& start, const Maths::MathVector3& finish )
-	{
-		NavigationPolygon* startPolygon = 0;
-		NavigationPolygon* endPolygon = 0;
+  MathVector3::MathVector3List AINavigationMeshComponent::FindPath( const Maths::MathVector3& start, const Maths::MathVector3& finish )
+  {
+    NavigationPolygon* startPolygon = 0;
+    NavigationPolygon* endPolygon = 0;
 
-		for ( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
-		{
-			if ( ( *i )->IsPointInside( start ) )
-			{
-				startPolygon = ( *i );
-			}
+    for ( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
+    {
+      if ( ( *i )->IsPointInside( start ) )
+      {
+        startPolygon = ( *i );
+      }
 
-			if ( ( *i )->IsPointInside( finish ) )
-			{
-				endPolygon = ( *i );
-			}
-		}
+      if ( ( *i )->IsPointInside( finish ) )
+      {
+        endPolygon = ( *i );
+      }
+    }
 
-		assert( startPolygon != 0 && "Start Polygon not found"  );
-		assert( endPolygon  != 0 && "End Polygon not found"  );
+    assert( startPolygon != 0 && "Start Polygon not found"  );
+    assert( endPolygon  != 0 && "End Polygon not found"  );
 
-		return this->FindPath( startPolygon, endPolygon );
-	}
+    return this->FindPath( startPolygon, endPolygon );
+  }
 
-	MathVector3::MathVector3List AINavigationMeshComponent::FindPath( NavigationPolygon* start, NavigationPolygon* finish )
-	{
-		for( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
-		{
-			( *i )->Reset( );
-		}
+  MathVector3::MathVector3List AINavigationMeshComponent::FindPath( NavigationPolygon* start, NavigationPolygon* finish )
+  {
+    for( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
+    {
+      ( *i )->Reset( );
+    }
 
-		NavigationPolygon::NavPolyList openList;
-		openList.push_back( start );
+    NavigationPolygon::NavPolyList openList;
+    openList.push_back( start );
 
-		NavigationPolygon* currentNode = 0;
+    NavigationPolygon* currentNode = 0;
 
-		while( !openList.empty( ) )
-		{
-			currentNode = openList.front( );
-			openList.pop_front( );
-			currentNode->Mark( );
+    while( !openList.empty( ) )
+    {
+      currentNode = openList.front( );
+      openList.pop_front( );
+      currentNode->Mark( );
 
-			if ( currentNode == finish ) { break; }
+      if ( currentNode == finish ) { break; }
 
-			for( NavigationPolygon::NavPolyList::const_iterator neighbour = currentNode->GetNeighbours( ).begin( ); neighbour != currentNode->GetNeighbours( ).end( ); ++neighbour )
-			{
-				if ( ( *neighbour )->IsMarked( ) ) { continue; }
+      for( NavigationPolygon::NavPolyList::const_iterator neighbour = currentNode->GetNeighbours( ).begin( ); neighbour != currentNode->GetNeighbours( ).end( ); ++neighbour )
+      {
+        if ( ( *neighbour )->IsMarked( ) ) { continue; }
 
-				bool onOpenList = false;
+        bool onOpenList = false;
 
-				for( NavigationPolygon::NavPolyList::iterator open = openList.begin( ); open != openList.end( ); ++open )
-				{
-					if ( ( *open ) == ( *neighbour ) )
-					{
-						onOpenList = true;
+        for( NavigationPolygon::NavPolyList::iterator open = openList.begin( ); open != openList.end( ); ++open )
+        {
+          if ( ( *open ) == ( *neighbour ) )
+          {
+            onOpenList = true;
 
-						if( currentNode->GetCost( ) < ( *open )->GetCost( ) )
-						{
-							( *open )->SetParent( currentNode, finish );
+            if( currentNode->GetCost( ) < ( *open )->GetCost( ) )
+            {
+              ( *open )->SetParent( currentNode, finish );
 
-							// recalculate queue here
-						}
+              // recalculate queue here
+            }
 
-						break;
-					}
-				}
+            break;
+          }
+        }
 
-				if ( !onOpenList )
-				{
-					( *neighbour )->SetParent( currentNode, finish );
-					openList.push_back( *neighbour );
-				}
-			}
-		}
+        if ( !onOpenList )
+        {
+          ( *neighbour )->SetParent( currentNode, finish );
+          openList.push_back( *neighbour );
+        }
+      }
+    }
 
-		MathVector3::MathVector3List waypoints;
+    MathVector3::MathVector3List waypoints;
 
-		while( currentNode )
-		{
-			if ( currentNode->GetParent( ) != 0 )
-			{
-				NavigationPolygon::PolyEdge edge = currentNode->GetEdgeLinks( )[ currentNode->GetEntryEdge( ) ];
-				MathVector3 halfDifference = ( edge.second - edge.first ) * 0.5f;
-				MathVector3 midPoint = edge.first + halfDifference;
+    while( currentNode )
+    {
+      if ( currentNode->GetParent( ) != 0 )
+      {
+        NavigationPolygon::PolyEdge edge = currentNode->GetEdgeLinks( )[ currentNode->GetEntryEdge( ) ];
+        MathVector3 halfDifference = ( edge.second - edge.first ) * 0.5f;
+        MathVector3 midPoint = edge.first + halfDifference;
 
-				waypoints.push_front( midPoint ); 
-			}
+        waypoints.push_front( midPoint ); 
+      }
 
-			currentNode = currentNode->GetParent( );
-		}
+      currentNode = currentNode->GetParent( );
+    }
 
-		return waypoints;
-	}
+    return waypoints;
+  }
 
-	AnyType AINavigationMeshComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
-	{
-		AISystemComponent::Observe( subject, message, parameters );
+  AnyType AINavigationMeshComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  {
+    AISystemComponent::Observe( subject, message, parameters );
 
-		AnyType result;
+    AnyType result;
 
-		if ( message == System::Messages::SetPosition )
-		{
-			IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
+    if ( message == System::Messages::SetPosition )
+    {
+      IService* renderService = m_serviceManager->FindService( System::Types::RENDER );
 
-			AnyType::AnyTypeMap renderParameters;
-			MathVector3::MathVector3List vertices;
-			
-			for ( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
-			{
-				( *i )->SetPosition( parameters[ System::Attributes::Position ].As< MathVector3 >( ) );
+      AnyType::AnyTypeMap renderParameters;
+      MathVector3::MathVector3List vertices;
+      
+      for ( NavigationPolygon::NavPolyList::iterator i = m_polygons.begin( ); i != m_polygons.end( ); ++i )
+      {
+        ( *i )->SetPosition( parameters[ System::Attributes::Position ].As< MathVector3 >( ) );
 
-				MathVector3::MathVector3List polyVerts = ( *i )->GetVertices( );
-				for( Maths::MathVector3::MathVector3List::const_iterator i = polyVerts.begin( ); i != polyVerts.end( ); ++i )
-				{
-					vertices.push_back( ( *i ) );
-				}
-			}
+        MathVector3::MathVector3List polyVerts = ( *i )->GetVertices( );
+        for( Maths::MathVector3::MathVector3List::const_iterator i = polyVerts.begin( ); i != polyVerts.end( ); ++i )
+        {
+          vertices.push_back( ( *i ) );
+        }
+      }
 
-			this->RecalculateNeighbours( );
+      this->RecalculateNeighbours( );
 
-			renderParameters[ System::Parameters::Vertices ] = vertices;
-			renderParameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
-			renderService->ProcessMessage( System::Messages::RenderMesh, renderParameters );
-		}
+      renderParameters[ System::Parameters::Vertices ] = vertices;
+      renderParameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
+      renderService->ProcessMessage( System::Messages::RenderMesh, renderParameters );
+    }
 
-		if ( message == System::Messages::FindPath )
-		{
-			result = this->FindPath(  
-				parameters[ System::Parameters::Origin ].As< MathVector3 >( ),
-				parameters[ System::Parameters::Destination ].As< MathVector3 >( )
-				);
-		}
+    if ( message == System::Messages::FindPath )
+    {
+      result = this->FindPath(  
+        parameters[ System::Parameters::Origin ].As< MathVector3 >( ),
+        parameters[ System::Parameters::Destination ].As< MathVector3 >( )
+        );
+    }
 
-		return result;
-	}
+    return result;
+  }
 
-	void AINavigationMeshComponent::RecalculateNeighbours( )
-	{
-		for ( NavigationPolygon::NavPolyList::iterator polygona = m_polygons.begin( ); polygona != m_polygons.end( ); ++polygona )
-		{
-			( *polygona )->ResetNeighbours( );
+  void AINavigationMeshComponent::RecalculateNeighbours( )
+  {
+    for ( NavigationPolygon::NavPolyList::iterator polygona = m_polygons.begin( ); polygona != m_polygons.end( ); ++polygona )
+    {
+      ( *polygona )->ResetNeighbours( );
 
-			for ( NavigationPolygon::NavPolyList::iterator polygonb = m_polygons.begin( ); polygonb != m_polygons.end( ); ++polygonb )
-			{
-				if ( ( *polygonb ) != ( *polygona ) )
-				{
-					if ( ( *polygonb )->IsNeighbour( *polygona ) )
-					{
-						( *polygona )->AddNeighbour( *polygonb );
-					}
-				}
-			}
-		}
-	}
+      for ( NavigationPolygon::NavPolyList::iterator polygonb = m_polygons.begin( ); polygonb != m_polygons.end( ); ++polygonb )
+      {
+        if ( ( *polygonb ) != ( *polygona ) )
+        {
+          if ( ( *polygonb )->IsNeighbour( *polygona ) )
+          {
+            ( *polygona )->AddNeighbour( *polygonb );
+          }
+        }
+      }
+    }
+  }
 }

@@ -17,103 +17,103 @@ namespace Network
 {
 
 
-	/*! 
-	 *  A Stream that can cross the Network
-	 */
-	class GAMEAPI NetworkStream : public IO::IStream
-	{
+  /*! 
+   *  A Stream that can cross the Network
+   */
+  class GAMEAPI NetworkStream : public IO::IStream
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~NetworkStream( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NetworkStream( RakNet::BitStream* bitStream )
-			: m_bitStream( bitStream )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~NetworkStream( ) { };
 
 
-		/*! Writes an integer to the Stream
-		*
-		* @param[in] int data
-		* @return ( void )
-		*/
-		void Write( int data );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    NetworkStream( RakNet::BitStream* bitStream )
+      : m_bitStream( bitStream )
+    {
+
+    }
 
 
-		/*! Reads an integer to the Stream
-		*
-		* @param[in] int data
-		* @return ( void )
-		*/
-		void Read( int& data );
+    /*! Writes an integer to the Stream
+    *
+    * @param[in] int data
+    * @return ( void )
+    */
+    void Write( int data );
 
 
-		/*! Writes a string to the Stream
-		*
-		* @param[in] const std::string & data
-		* @return ( void )
-		*/
-		void Write( const std::string& data );
+    /*! Reads an integer to the Stream
+    *
+    * @param[in] int data
+    * @return ( void )
+    */
+    void Read( int& data );
 
 
-		/*! Reads a string from the Stream
-		*
-		* @param[in] const std::string & data
-		* @return ( void )
-		*/
-		void Read( std::string& data );
+    /*! Writes a string to the Stream
+    *
+    * @param[in] const std::string & data
+    * @return ( void )
+    */
+    void Write( const std::string& data );
 
 
-		/*! Writes a Vector to the Stream
-		*
-		* @param[in] const Maths::MathVector3 & data
-		* @return ( void )
-		*/
-		void Write( const Maths::MathVector3& data );
+    /*! Reads a string from the Stream
+    *
+    * @param[in] const std::string & data
+    * @return ( void )
+    */
+    void Read( std::string& data );
 
 
-		/*! Reads a Vector from the Stream
-		*
-		* @param[in] Maths::MathVector3 & data
-		* @return ( void )
-		*/
-		void Read( Maths::MathVector3& data );
+    /*! Writes a Vector to the Stream
+    *
+    * @param[in] const Maths::MathVector3 & data
+    * @return ( void )
+    */
+    void Write( const Maths::MathVector3& data );
 
 
-		/*! Writes a Quaternion to the Stream
-		*
-		* @param[in] const Maths::MathQuaternion & data
-		* @return ( void )
-		*/
-		void Write( const Maths::MathQuaternion& data );
+    /*! Reads a Vector from the Stream
+    *
+    * @param[in] Maths::MathVector3 & data
+    * @return ( void )
+    */
+    void Read( Maths::MathVector3& data );
 
 
-		/*! Reads a Quaternion from the Stream
-		*
-		* @param[in] Maths::MathQuaternion & data
-		* @return ( void )
-		*/
-		void Read( Maths::MathQuaternion& data );
+    /*! Writes a Quaternion to the Stream
+    *
+    * @param[in] const Maths::MathQuaternion & data
+    * @return ( void )
+    */
+    void Write( const Maths::MathQuaternion& data );
 
-	private:
 
-		NetworkStream( const NetworkStream & copy ) { };
-		NetworkStream & operator = ( const NetworkStream & copy ) { return *this; };
+    /*! Reads a Quaternion from the Stream
+    *
+    * @param[in] Maths::MathQuaternion & data
+    * @return ( void )
+    */
+    void Read( Maths::MathQuaternion& data );
 
-		RakNet::BitStream* m_bitStream;
-		
-	};
+  private:
+
+    NetworkStream( const NetworkStream & copy ) { };
+    NetworkStream & operator = ( const NetworkStream & copy ) { return *this; };
+
+    RakNet::BitStream* m_bitStream;
+    
+  };
 };
 
 #endif

@@ -16,17 +16,17 @@ class MockScriptBinder
 
 public:
 
-	static int handle_count;
+  static int handle_count;
 
-	static void HandleEvent( )
-	{
-		MockScriptBinder::handle_count++;
-	}
+  static void HandleEvent( )
+  {
+    MockScriptBinder::handle_count++;
+  }
 
-	static void QueueEvent( )
-	{
-		EventManager::GetInstance( )->QueueEvent( new Event( TEST_EVENT ) );
-	}
+  static void QueueEvent( )
+  {
+    EventManager::GetInstance( )->QueueEvent( new Event( TEST_EVENT ) );
+  }
 
 };
 

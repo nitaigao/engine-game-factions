@@ -20,131 +20,131 @@
 
 namespace Geometry
 {
-	/*! 
-	*  A Geometry System Scene Component
-	*/
-	class GAMEAPI GeometrySystemComponent : public ISystemComponent
-	{
+  /*! 
+  *  A Geometry System Scene Component
+  */
+  class GAMEAPI GeometrySystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~GeometrySystemComponent( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] const std::string & name
-		 *  @return ()
-		 */
-		explicit GeometrySystemComponent( const std::string& name )
-			: m_name( name )
-		{
-
-		}
-		
-
-		/*! Initializes the Component
-		*
-		*  @param[in] AnyType::AnyValueMap properties
-		*  @return (void)
-		*/
-		void Initialize( ) { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~GeometrySystemComponent( ) { };
 
 
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		inline void Update( float deltaMilliseconds ) { };
+    /*! Default Constructor
+     *
+     *  @param[in] const std::string & name
+     *  @return ()
+     */
+    explicit GeometrySystemComponent( const std::string& name )
+      : m_name( name )
+    {
+
+    }
+    
+
+    /*! Initializes the Component
+    *
+    *  @param[in] AnyType::AnyValueMap properties
+    *  @return (void)
+    */
+    void Initialize( ) { };
 
 
-		/*! Destroys the Component
-		*
-		*  @return (void)
-		*/
-		inline void Destroy( ) { };
+    /*! Steps the internal data of the Component
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    inline void Update( float deltaMilliseconds ) { };
 
 
-		/*! Adds an Observer to the Component
-		*
-		*  @param[in] IObserver * observer
-		*  @return (void)
-		*/
-		inline void AddObserver( IObserver* observer ) { m_observers.push_back( observer ); };
+    /*! Destroys the Component
+    *
+    *  @return (void)
+    */
+    inline void Destroy( ) { };
 
 
-		/*! Gets the properties of the Component
-		*
-		*  @return (AnyTypeKeyMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    /*! Adds an Observer to the Component
+    *
+    *  @param[in] IObserver * observer
+    *  @return (void)
+    */
+    inline void AddObserver( IObserver* observer ) { m_observers.push_back( observer ); };
 
 
-		/*! Sets an Attribute on the Component *
-		*
-		*  @param[in] const unsigned int attributeId
-		*  @param[in] const AnyType & value
-		*/
-		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    /*! Gets the properties of the Component
+    *
+    *  @return (AnyTypeKeyMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
-		/*! Posts a message to observers
-		*
-		*  @param[in] const std::string & message
-		*  @param[in] AnyType::AnyValueMap parameters
-		*  @return (AnyType)
-		*/
-		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Sets an Attribute on the Component *
+    *
+    *  @param[in] const unsigned int attributeId
+    *  @param[in] const AnyType & value
+    */
+    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
 
 
-		/*! Messages the Component to influence its internal state
-		*
-		*  @param[in] const std::string & message
-		*  @return (AnyType)
-		*/
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Posts a message to observers
+    *
+    *  @param[in] const std::string & message
+    *  @param[in] AnyType::AnyValueMap parameters
+    *  @return (AnyType)
+    */
+    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream );
+    /*! Messages the Component to influence its internal state
+    *
+    *  @param[in] const std::string & message
+    *  @return (AnyType)
+    */
+    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void DeSerialize( IO::IStream* stream );
+    /*! Writes the contents of the object to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void Serialize( IO::IStream* stream );
 
 
-		/*! Returns the Name of the Component
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    /*! Reads the contents of the object from the stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void DeSerialize( IO::IStream* stream );
 
-	private:
 
-		std::string m_name;
+    /*! Returns the Name of the Component
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
 
-		AnyType::AnyTypeMap m_attributes;
+  private:
 
-		ObserverList m_observers;
+    std::string m_name;
 
-		GeometrySystemComponent( ) { };
-		GeometrySystemComponent( const GeometrySystemComponent & copy ) { };
-		GeometrySystemComponent & operator = ( const GeometrySystemComponent & copy ) { return *this; };
+    AnyType::AnyTypeMap m_attributes;
 
-	};
+    ObserverList m_observers;
+
+    GeometrySystemComponent( ) { };
+    GeometrySystemComponent( const GeometrySystemComponent & copy ) { };
+    GeometrySystemComponent & operator = ( const GeometrySystemComponent & copy ) { return *this; };
+
+  };
 };
 
 #endif

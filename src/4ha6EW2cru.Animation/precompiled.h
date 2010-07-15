@@ -14,7 +14,7 @@
 #include <Common/Base/hkBase.h>
 #include <Common/Base/System/hkBaseSystem.h>
 #include <Common/Base/Memory/hkThreadMemory.h>
-#include <Common/Base/Memory/Memory/Pool/hkPoolMemory.h>	
+#include <Common/Base/Memory/Memory/Pool/hkPoolMemory.h>  
 
 #define INCLUDE_HAVOK_ANIMATION_CLASSES
 #define HK_CLASSES_FILE <Common/Serialize/Classlist/hkClasses.h>

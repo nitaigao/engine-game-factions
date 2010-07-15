@@ -16,108 +16,108 @@
 
 namespace Network
 {
-	/*! 
-	 *  A Controller that transmits messages across the network
-	 */
-	class GAMEAPI NetworkServerController : public INetworkServerController
-	{
+  /*! 
+   *  A Controller that transmits messages across the network
+   */
+  class GAMEAPI NetworkServerController : public INetworkServerController
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~NetworkServerController( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NetworkServerController( INetworkInterface* networkInterface, Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation )
-			: m_networkInterface( networkInterface )
-			, m_serviceManager( serviceManager )
-			, m_instrumentation( instrumentation )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~NetworkServerController( ) { };
 
 
-		/*! Initializes the Server Controller
-		*
-		* @return ( void )
-		*/
-		void Initialize( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    NetworkServerController( INetworkInterface* networkInterface, Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation )
+      : m_networkInterface( networkInterface )
+      , m_serviceManager( serviceManager )
+      , m_instrumentation( instrumentation )
+    {
+
+    }
 
 
-		/*! Instructs the Controller that a client has connected
-		*
-		* @param[in] const SystemAddress & clientAddress
-		* @return ( void )
-		*/
-		void ClientConnected( const SystemAddress& clientAddress );
+    /*! Initializes the Server Controller
+    *
+    * @return ( void )
+    */
+    void Initialize( );
 
 
-		/*! Instructs the controller that a client has disconnected
-		*
-		* @param[in] const SystemAddress & clientDisconnected
-		* @return ( void )
-		*/
-		void ClientDisconnected( const SystemAddress& clientAddress );
+    /*! Instructs the Controller that a client has connected
+    *
+    * @param[in] const SystemAddress & clientAddress
+    * @return ( void )
+    */
+    void ClientConnected( const SystemAddress& clientAddress );
 
 
-		/*! Broadcasts to the connected clients to create the Entity
-		*
-		* @param[in] const std::string & entityName
-		* @param[in] const std::string & filePath
-		* @return ( void )
-		*/
-		void CreateEntity( const std::string& entityName, const std::string& entityType );
+    /*! Instructs the controller that a client has disconnected
+    *
+    * @param[in] const SystemAddress & clientDisconnected
+    * @return ( void )
+    */
+    void ClientDisconnected( const SystemAddress& clientAddress );
 
 
-		/*! Broadcasts to the connected clients to destroy the entity
-		*
-		* @param[in] const std::string & entityName
-		* @return ( void )
-		*/
-		void DestroyEntity( const std::string& entityName );
+    /*! Broadcasts to the connected clients to create the Entity
+    *
+    * @param[in] const std::string & entityName
+    * @param[in] const std::string & filePath
+    * @return ( void )
+    */
+    void CreateEntity( const std::string& entityName, const std::string& entityType );
 
 
-		/*! Pushes a world update to the client at the given address
-		*
-		* @param[in] const SystemAddress & address
-		* @return ( void )
-		*/
-		void SendWorldUpdate( const SystemAddress& address );
+    /*! Broadcasts to the connected clients to destroy the entity
+    *
+    * @param[in] const std::string & entityName
+    * @return ( void )
+    */
+    void DestroyEntity( const std::string& entityName );
 
 
-		/*! Forwards the Message to the given Entity
-		*
-		* @param[in] const std::string & entityName
-		* @param[in] const System::MessageType & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Pushes a world update to the client at the given address
+    *
+    * @param[in] const SystemAddress & address
+    * @return ( void )
+    */
+    void SendWorldUpdate( const SystemAddress& address );
 
 
-		/*! Updates the internal state of the controller and processes the send queue at the send interval
-		*
-		* @param[in] float deltaMilliseconds
-		* @return ( void )
-		*/
-		void Update( float deltaMilliseconds ) { };
+    /*! Forwards the Message to the given Entity
+    *
+    * @param[in] const std::string & entityName
+    * @param[in] const System::MessageType & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
-	private:
 
-		NetworkServerController( const NetworkServerController & copy ) { };
-		NetworkServerController & operator = ( const NetworkServerController & copy ) { return *this; };
+    /*! Updates the internal state of the controller and processes the send queue at the send interval
+    *
+    * @param[in] float deltaMilliseconds
+    * @return ( void )
+    */
+    void Update( float deltaMilliseconds ) { };
 
-		INetworkInterface* m_networkInterface; 
-		Services::IServiceManager* m_serviceManager;
-		System::IInstrumentation* m_instrumentation;
-	};
+  private:
+
+    NetworkServerController( const NetworkServerController & copy ) { };
+    NetworkServerController & operator = ( const NetworkServerController & copy ) { return *this; };
+
+    INetworkInterface* m_networkInterface; 
+    Services::IServiceManager* m_serviceManager;
+    System::IInstrumentation* m_instrumentation;
+  };
 };
 
 #endif

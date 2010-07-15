@@ -13,36 +13,36 @@
 
 namespace Renderer
 {
-	/*!
-	 *  A Render System Scene 
-	 */
-	class IRenderSystemScene : public ISystemScene
-	{
+  /*!
+   *  A Render System Scene 
+   */
+  class IRenderSystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IRenderSystemScene( ) { };
-
-
-		/*! Returns the Ogre Scene Manager containing the Scene
-		*
-		*  @return (Ogre::SceneManager*)
-		*/
-		virtual Ogre::SceneManager* GetSceneManager( ) const = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IRenderSystemScene( ) { };
 
 
-		/*! Gets the specified component from the scene
-		 *
-		 *  @param[in] const std::string & name
-		 *  @return (IRendererSystemComponent*)
-		 */
-		virtual IRendererSystemComponent* GetComponent( const std::string& name ) const = 0;
+    /*! Returns the Ogre Scene Manager containing the Scene
+    *
+    *  @return (Ogre::SceneManager*)
+    */
+    virtual Ogre::SceneManager* GetSceneManager( ) const = 0;
 
-	};
+
+    /*! Gets the specified component from the scene
+     *
+     *  @param[in] const std::string & name
+     *  @return (IRendererSystemComponent*)
+     */
+    virtual IRendererSystemComponent* GetComponent( const std::string& name ) const = 0;
+
+  };
 };
 
 #endif

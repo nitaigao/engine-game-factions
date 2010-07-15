@@ -12,28 +12,28 @@
 
 namespace Sound
 {
-	/*! 
-	 *  A factory to create sound system objects
-	 */
-	class ISoundFactory
-	{
+  /*! 
+   *  A factory to create sound system objects
+   */
+  class ISoundFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~ISoundFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~ISoundFactory( ) { };
 
 
-		/*! Creates a SoundSystem Object
-		 *
-		 * @return ( ISoundSystem* )
-		 */
-		virtual ISoundSystem* CreateSoundSystem( ) = 0;
-		
-	};
+    /*! Creates a SoundSystem Object
+     *
+     * @return ( ISoundSystem* )
+     */
+    virtual ISoundSystem* CreateSoundSystem( ) = 0;
+    
+  };
 };
 
 #endif

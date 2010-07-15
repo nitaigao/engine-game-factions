@@ -20,119 +20,119 @@
 
 namespace Sound
 {
-	/*!
-	 *  The Sound System 
-	 */
-	class GAMEAPI SoundSystem : public ISoundSystem, public Services::IService
-	{
+  /*!
+   *  The Sound System 
+   */
+  class GAMEAPI SoundSystem : public ISoundSystem, public Services::IService
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundSystem( );
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		SoundSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, ISoundScene* scene, ISoundEventSystem* eventSystem );
-
-		/*! Initializes the System
-		*
-		*  @return (void)
-		*/
-		void Initialize( Configuration::IConfiguration* configuration );
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundSystem( );
 
 
-		/*! Steps the System's internal data
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    SoundSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, ISoundScene* scene, ISoundEventSystem* eventSystem );
+
+    /*! Initializes the System
+    *
+    *  @return (void)
+    */
+    void Initialize( Configuration::IConfiguration* configuration );
 
 
-		/*! Releases internal data of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		void Release( );
+    /*! Steps the System's internal data
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Messages the system with a command
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Releases internal data of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    void Release( );
 
 
-		/*! Returns the type of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::SOUND; };
+    /*! Messages the system with a command
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Creates a System Scene
-		*
-		*  @return (ISystemScene*)
-		*/
-		ISystemScene* CreateScene( );
+    /*! Returns the type of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::SOUND; };
 
 
-		/*! Gets the System's Properties
-		*
-		*  @return (AnyTypeMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    /*! Creates a System Scene
+    *
+    *  @return (ISystemScene*)
+    */
+    ISystemScene* CreateScene( );
 
 
-		/*! Sets a System Property
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] AnyType value
-		*  @return (void)
-		*/
-		inline void SetAttribute( const std::string& name, AnyType value ) { };	
+    /*! Gets the System's Properties
+    *
+    *  @return (AnyTypeMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
 
 
-		/*! Opens a sound file for FMOD
-		*
-		* @param[in] const char * name
-		* @param[in] int unicode
-		* @param[in] unsigned int * filesize
-		* @param[in] void * * handle
-		* @param[in] void * * userdata
-		* @return ( bool )
-		*/
-		bool FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
+    /*! Sets a System Property
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] AnyType value
+    *  @return (void)
+    */
+    inline void SetAttribute( const std::string& name, AnyType value ) { };  
 
 
-	private:
+    /*! Opens a sound file for FMOD
+    *
+    * @param[in] const char * name
+    * @param[in] int unicode
+    * @param[in] unsigned int * filesize
+    * @param[in] void * * handle
+    * @param[in] void * * userdata
+    * @return ( bool )
+    */
+    bool FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
 
-		SoundSystem( const SoundSystem & copy ) { };
-		SoundSystem & operator = ( const SoundSystem & copy ) { return *this; };
 
-		static ISoundSystem* m_soundSystem;
+  private:
 
-		FMOD::System* m_fmodSystem;
-		ISoundEventSystem* m_eventSystem;
-		Configuration::IConfiguration* m_configuration;
-		ISoundScene* m_scene;
-		Services::IServiceManager* m_serviceManager;
-		Resources::IResourceCache* m_resourceCache;
+    SoundSystem( const SoundSystem & copy ) { };
+    SoundSystem & operator = ( const SoundSystem & copy ) { return *this; };
 
-		static FMOD_RESULT F_CALLBACK FMOD_FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
-		static FMOD_RESULT F_CALLBACK FMOD_FileClose( void* handle, void*  userdata );
-		static FMOD_RESULT F_CALLBACK FMOD_FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata );
-		static FMOD_RESULT F_CALLBACK FMOD_FileSeek( void* handle, unsigned int pos, void* userdata );
-	};
+    static ISoundSystem* m_soundSystem;
+
+    FMOD::System* m_fmodSystem;
+    ISoundEventSystem* m_eventSystem;
+    Configuration::IConfiguration* m_configuration;
+    ISoundScene* m_scene;
+    Services::IServiceManager* m_serviceManager;
+    Resources::IResourceCache* m_resourceCache;
+
+    static FMOD_RESULT F_CALLBACK FMOD_FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
+    static FMOD_RESULT F_CALLBACK FMOD_FileClose( void* handle, void*  userdata );
+    static FMOD_RESULT F_CALLBACK FMOD_FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata );
+    static FMOD_RESULT F_CALLBACK FMOD_FileSeek( void* handle, unsigned int pos, void* userdata );
+  };
 };
 
 #endif

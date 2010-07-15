@@ -16,30 +16,30 @@ using namespace Script;
 
 void AISystem_Tests::setUp()
 {
-	Management::Initialize( );
+  Management::Initialize( );
 }
 
 void AISystem_Tests::tearDown()
 {
-	Management::Release( );
+  Management::Release( );
 }
 
 void AISystem_Tests::Should_Initialize_Correctly()
 {
-	AISystem system;
-	system.Initialize( );
+  AISystem system;
+  system.Initialize( );
 }
 
 void AISystem_Tests::Should_Return_Scene_On_CreateScene()
 {
-	Management::GetSystemManager( )->RegisterSystem( System::Queues::HOUSE, new ScriptSystem( 0 ) );
-	Management::GetSystemManager( )->InitializeAllSystems( );
+  Management::GetSystemManager( )->RegisterSystem( System::Queues::HOUSE, new ScriptSystem( 0 ) );
+  Management::GetSystemManager( )->InitializeAllSystems( );
 
-	AISystem system;
+  AISystem system;
 
-	ISystemScene* scene = system.CreateScene( );
+  ISystemScene* scene = system.CreateScene( );
 
-	CPPUNIT_ASSERT( scene != 0 );
+  CPPUNIT_ASSERT( scene != 0 );
 
-	delete scene;
+  delete scene;
 }

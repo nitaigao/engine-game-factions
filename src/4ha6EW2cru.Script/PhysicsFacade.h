@@ -17,72 +17,72 @@
 
 namespace Script
 {
-	/*! 
-	 *  A Facade for the Physics Service
-	 */
-	class PhysicsFacade : public IScriptFacade
-	{
+  /*! 
+   *  A Facade for the Physics Service
+   */
+  class PhysicsFacade : public IScriptFacade
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~PhysicsFacade( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		PhysicsFacade( Services::IServiceManager* serviceManager )
-			: m_serviceManager( serviceManager )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~PhysicsFacade( ) { };
 
 
-		/*! Registers the Script functions
-		*
-		* @return ( void )
-		*/
-		static luabind::scope RegisterFunctions( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    PhysicsFacade( Services::IServiceManager* serviceManager )
+      : m_serviceManager( serviceManager )
+    {
+
+    }
 
 
-		/*! Returns the Name that the Facade will use in script
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) { return "physics"; };
+    /*! Registers the Script functions
+    *
+    * @return ( void )
+    */
+    static luabind::scope RegisterFunctions( );
 
 
-		/*! Casts a Ray and Returns the Hit Results
-		 *
-		 * @param[in] const Maths::MathVector3 & origin
-		 * @param[in] const Maths::MathVector3 & direction
-		 * @param[in] float length
-		 * @param[in] bool sortByDistance
-		 * @param[in] int maxResults
-		 * @return ( std::vector< std::string > )
-		 */
-		std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults );
+    /*! Returns the Name that the Facade will use in script
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) { return "physics"; };
 
 
-		/*! Initializes the Facade with the given ScriptComponent
-		*
-		* @return ( void )
-		*/
-		void Initialize( ) { };
+    /*! Casts a Ray and Returns the Hit Results
+     *
+     * @param[in] const Maths::MathVector3 & origin
+     * @param[in] const Maths::MathVector3 & direction
+     * @param[in] float length
+     * @param[in] bool sortByDistance
+     * @param[in] int maxResults
+     * @return ( std::vector< std::string > )
+     */
+    std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults );
 
-	private:
 
-		PhysicsFacade( const PhysicsFacade & copy ) { };
-		PhysicsFacade & operator = ( const PhysicsFacade & copy ) { return *this; };
+    /*! Initializes the Facade with the given ScriptComponent
+    *
+    * @return ( void )
+    */
+    void Initialize( ) { };
 
-		Services::IServiceManager* m_serviceManager;
-		
-	};
+  private:
+
+    PhysicsFacade( const PhysicsFacade & copy ) { };
+    PhysicsFacade & operator = ( const PhysicsFacade & copy ) { return *this; };
+
+    Services::IServiceManager* m_serviceManager;
+    
+  };
 };
 
 #endif

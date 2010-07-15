@@ -12,34 +12,34 @@ using namespace State;
 
 void World_Tests::Entity_Should_Be_Created_on_CreateEntity()
 {
-	World world;
-	IWorldEntity* entity = world.CreateEntity( "test" );
+  World world;
+  IWorldEntity* entity = world.CreateEntity( "test" );
 
-	CPPUNIT_ASSERT( entity != 0 );
+  CPPUNIT_ASSERT( entity != 0 );
 }
 
 void World_Tests::GetSystemScenes_Should_Return_All_Extended_Scenes()
 {
-	World world;
+  World world;
 
-	Mock_System system1( System::Types::RENDER );
-	world.AddSystemScene( system1.CreateScene( ) );
+  Mock_System system1( System::Types::RENDER );
+  world.AddSystemScene( system1.CreateScene( ) );
 
-	CPPUNIT_ASSERT( !world.GetSystemScenes( ).empty( ) );
+  CPPUNIT_ASSERT( !world.GetSystemScenes( ).empty( ) );
 }
 
 void World_Tests::Update_Should_Call_Update_On_All_Attached_SystemScenes()
 {
-	World world;
+  World world;
 
-	Mock_SystemScene* scene = new Mock_SystemScene( System::Types::TEST );
-	scene->update_count.setExpected( 1 );
+  Mock_SystemScene* scene = new Mock_SystemScene( System::Types::TEST );
+  scene->update_count.setExpected( 1 );
 
-	world.AddSystemScene( scene );
+  world.AddSystemScene( scene );
 
-	world.Update( 1.0f / 100.0f );
+  world.Update( 1.0f / 100.0f );
 
-	scene->verify( );
+  scene->verify( );
 }
 
 void World_Tests::setUp()

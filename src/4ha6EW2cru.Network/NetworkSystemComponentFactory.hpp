@@ -14,47 +14,47 @@
 
 namespace Network
 {
-	/*! 
-	 *  Creates Network System Components
-	 */
-	class NetworkSystemComponentFactory : public INetworkSystemComponentFactory
-	{
+  /*! 
+   *  Creates Network System Components
+   */
+  class NetworkSystemComponentFactory : public INetworkSystemComponentFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~NetworkSystemComponentFactory( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NetworkSystemComponentFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~NetworkSystemComponentFactory( ) { };
 
 
-		/*! Creates a Network System Component
-		*
-		* @param[in] const std::string & name
-		* @return ( INetworkSystemComponent* )
-		*/
-		INetworkSystemComponent* Create( const std::string& name )
-		{
-			INetworkSystemComponent* component = new NetworkSystemComponent( );
-			component->SetAttribute( System::Attributes::Name, name );
-			component->SetAttribute( System::Attributes::SystemType, System::Types::NETWORK );
-			return component;
-		}
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    NetworkSystemComponentFactory( ) { };
 
-	private:
 
-		NetworkSystemComponentFactory( const NetworkSystemComponentFactory & copy ) { };
-		NetworkSystemComponentFactory & operator = ( const NetworkSystemComponentFactory & copy ) { return *this; };
-		
-	};
+    /*! Creates a Network System Component
+    *
+    * @param[in] const std::string & name
+    * @return ( INetworkSystemComponent* )
+    */
+    INetworkSystemComponent* Create( const std::string& name )
+    {
+      INetworkSystemComponent* component = new NetworkSystemComponent( );
+      component->SetAttribute( System::Attributes::Name, name );
+      component->SetAttribute( System::Attributes::SystemType, System::Types::NETWORK );
+      return component;
+    }
+
+  private:
+
+    NetworkSystemComponentFactory( const NetworkSystemComponentFactory & copy ) { };
+    NetworkSystemComponentFactory & operator = ( const NetworkSystemComponentFactory & copy ) { return *this; };
+    
+  };
 };
 
 #endif

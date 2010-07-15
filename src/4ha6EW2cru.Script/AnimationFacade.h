@@ -15,77 +15,77 @@
 
 namespace Script
 {
-	/*! 
-	 *  A Facade Interface to the Animation System
-	 */
-	class AnimationFacade : public IAnimationFacade
-	{
+  /*! 
+   *  A Facade Interface to the Animation System
+   */
+  class AnimationFacade : public IAnimationFacade
+  {
 
-	public:
+  public:
 
-		/*! Registers the Script functions with the given state
-		*
-		* @param[in] lua_State * state
-		* @return ( void )
-		*/
-		static luabind::scope RegisterFunctions( );
+    /*! Registers the Script functions with the given state
+    *
+    * @param[in] lua_State * state
+    * @return ( void )
+    */
+    static luabind::scope RegisterFunctions( );
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AnimationFacade( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		AnimationFacade( ISystemComponent* component )
-			: m_component( component )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AnimationFacade( ) { };
 
 
-		/*! Returns the Name that the Facade will use in script
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) { return "animation"; };
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    AnimationFacade( ISystemComponent* component )
+      : m_component( component )
+    {
+
+    }
 
 
-		/*! Instructs the Animation System to Start an Animation for the component
-		*
-		* @param[in] const std::string & animationName
-		* @param[in] const bool & loop
-		* @return ( void )
-		*/
-		void StartAnimation( const std::string& animationName, bool loop );
+    /*! Returns the Name that the Facade will use in script
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) { return "animation"; };
 
 
-		/*! Instructs the Animation System to Stop an Animation for the component
-		*
-		* @param[in] const std::string & animationName
-		* @return ( void )
-		*/
-		void StopAnimation( const std::string& animationName );
+    /*! Instructs the Animation System to Start an Animation for the component
+    *
+    * @param[in] const std::string & animationName
+    * @param[in] const bool & loop
+    * @return ( void )
+    */
+    void StartAnimation( const std::string& animationName, bool loop );
 
 
-		/*! Initializes the Facade with the given ScriptComponent
-		*
-		* @return ( void )
-		*/
-		void Initialize( ) { };
+    /*! Instructs the Animation System to Stop an Animation for the component
+    *
+    * @param[in] const std::string & animationName
+    * @return ( void )
+    */
+    void StopAnimation( const std::string& animationName );
 
-	private:
 
-		AnimationFacade( const AnimationFacade & copy ) { };
-		AnimationFacade & operator = ( const AnimationFacade & copy ) { return *this; };
-	
-		ISystemComponent* m_component;
-		
-	};
+    /*! Initializes the Facade with the given ScriptComponent
+    *
+    * @return ( void )
+    */
+    void Initialize( ) { };
+
+  private:
+
+    AnimationFacade( const AnimationFacade & copy ) { };
+    AnimationFacade & operator = ( const AnimationFacade & copy ) { return *this; };
+  
+    ISystemComponent* m_component;
+    
+  };
 };
 
 #endif

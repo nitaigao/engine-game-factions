@@ -10,34 +10,34 @@
 
 namespace AI
 {
-	/*! 
-	 *  A Waypoint component used in conjunction with the Navigation Mesh
-	 */
-	class AIWaypointComponent : public AISystemComponent
-	{
+  /*! 
+   *  A Waypoint component used in conjunction with the Navigation Mesh
+   */
+  class AIWaypointComponent : public AISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AIWaypointComponent( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AIWaypointComponent( ) { };
 
 
-		AIWaypointComponent( const std::string& name, Services::IServiceManager* serviceManager )
-			: AISystemComponent( name, serviceManager )
-		{
+    AIWaypointComponent( const std::string& name, Services::IServiceManager* serviceManager )
+      : AISystemComponent( name, serviceManager )
+    {
 
-		}
+    }
 
-	private:
+  private:
 
-		AIWaypointComponent( ) { };
-		AIWaypointComponent( const AIWaypointComponent & copy ) { };
-		AIWaypointComponent & operator = ( const AIWaypointComponent & copy ) { return *this; };
-		
-	};
+    AIWaypointComponent( ) { };
+    AIWaypointComponent( const AIWaypointComponent & copy ) { };
+    AIWaypointComponent & operator = ( const AIWaypointComponent & copy ) { return *this; };
+    
+  };
 };
 
 #endif

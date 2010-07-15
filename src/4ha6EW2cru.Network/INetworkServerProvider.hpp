@@ -14,24 +14,24 @@
 
 namespace Network
 {
-	/*! 
-	 *  A provider to control Server network flow
-	 */
-	class GAMEAPI INetworkServerProvider : public INetworkProvider
-	{
+  /*! 
+   *  A provider to control Server network flow
+   */
+  class GAMEAPI INetworkServerProvider : public INetworkProvider
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkServerProvider( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkServerProvider( ) { };
 
 
-		virtual void OnGameLevelChanged( const Events::IEvent* event ) = 0;
-		
-	};
+    virtual void OnGameLevelChanged( const Events::IEvent* event ) = 0;
+    
+  };
 };
 
 #endif

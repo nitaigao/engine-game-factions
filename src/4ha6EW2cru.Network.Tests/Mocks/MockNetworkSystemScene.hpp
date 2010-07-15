@@ -14,22 +14,22 @@
 
 namespace
 {
-	class MockNetworkSystemScene : public INetworkSystemScene
-	{
+  class MockNetworkSystemScene : public INetworkSystemScene
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD1( AddNetworkProvider, void( INetworkProvider* ) );
-		MOCK_CONST_METHOD0( GetSystem, INetworkSystem*( ) );
-		MOCK_METHOD3( MessageComponent, void( const std::string&, const System::MessageType&, AnyType::AnyTypeMap ) );
-		MOCK_METHOD0( Initialize, void( ) );
-		MOCK_METHOD1( Update, void( float ) );
-		MOCK_METHOD0( Destroy, void( ) );
-		MOCK_CONST_METHOD0( GetType, System::Types::Type( ) );
-		MOCK_METHOD2( CreateComponent, ISystemComponent*( const std::string&, const std::string& ) );
-		MOCK_METHOD1( DestroyComponent, void( ISystemComponent* ) );
-		
-	};
+    MOCK_METHOD1( AddNetworkProvider, void( INetworkProvider* ) );
+    MOCK_CONST_METHOD0( GetSystem, INetworkSystem*( ) );
+    MOCK_METHOD3( MessageComponent, void( const std::string&, const System::MessageType&, AnyType::AnyTypeMap ) );
+    MOCK_METHOD0( Initialize, void( ) );
+    MOCK_METHOD1( Update, void( float ) );
+    MOCK_METHOD0( Destroy, void( ) );
+    MOCK_CONST_METHOD0( GetType, System::Types::Type( ) );
+    MOCK_METHOD2( CreateComponent, ISystemComponent*( const std::string&, const std::string& ) );
+    MOCK_METHOD1( DestroyComponent, void( ISystemComponent* ) );
+    
+  };
 };
 
 #endif

@@ -12,21 +12,21 @@
 
 namespace Renderer
 {
-	/*!
-	 *  The Render System 
-	 */
-	class IRendererSystem : public ISystem
-	{
+  /*!
+   *  The Render System 
+   */
+  class IRendererSystem : public ISystem
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IRendererSystem( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IRendererSystem( ) { };
 
-	};
+  };
 };
 
 #endif

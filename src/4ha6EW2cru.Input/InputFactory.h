@@ -16,49 +16,49 @@
 
 namespace Input
 {
-	/*! 
-	 *  Creates Input Objects
-	 */
-	class InputFactory : public IInputFactory
-	{
+  /*! 
+   *  Creates Input Objects
+   */
+  class InputFactory : public IInputFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~InputFactory( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		InputFactory( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager ) 
-			: m_eventManager( eventManager )
-			, m_platformManager( platformManager )
-			, m_serviceManager( serviceManager )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~InputFactory( ) { };
 
 
-		/*! Creates an Input System
-		*
-		* @return ( IInputSystem* )
-		*/
-		IInputSystem* CreateInputSystem( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    InputFactory( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager ) 
+      : m_eventManager( eventManager )
+      , m_platformManager( platformManager )
+      , m_serviceManager( serviceManager )
+    {
 
-	private:
+    }
 
-		InputFactory( const InputFactory & copy ) { };
-		InputFactory & operator = ( const InputFactory & copy ) { return *this; };
 
-		Events::IEventManager* m_eventManager;
-		Platform::IPlatformManager* m_platformManager;
-		Services::IServiceManager* m_serviceManager;
-	};
+    /*! Creates an Input System
+    *
+    * @return ( IInputSystem* )
+    */
+    IInputSystem* CreateInputSystem( );
+
+  private:
+
+    InputFactory( const InputFactory & copy ) { };
+    InputFactory & operator = ( const InputFactory & copy ) { return *this; };
+
+    Events::IEventManager* m_eventManager;
+    Platform::IPlatformManager* m_platformManager;
+    Services::IServiceManager* m_serviceManager;
+  };
 };
 
 #endif

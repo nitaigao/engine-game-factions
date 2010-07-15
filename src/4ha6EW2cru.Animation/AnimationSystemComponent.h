@@ -28,205 +28,205 @@
 
 namespace Animation
 {
-	/*! 
-	 *  An Animation System Component
-	 */
-	class AnimationSystemComponent : public IAnimationSystemComponent
-	{
+  /*! 
+   *  An Animation System Component
+   */
+  class AnimationSystemComponent : public IAnimationSystemComponent
+  {
 
-		typedef std::deque< hkPackfileData* > LoadedDataList;
-		typedef std::deque< hkaAnimationBinding* > AnimationBindingList;
-		typedef std::deque< hkaAnimation* > AnimationList;
-		typedef std::map< std::string, hkaDefaultAnimationControl* > AnimationControlList;
-		typedef std::deque< Ogre::Skeleton* > SkeletonList;
+    typedef std::deque< hkPackfileData* > LoadedDataList;
+    typedef std::deque< hkaAnimationBinding* > AnimationBindingList;
+    typedef std::deque< hkaAnimation* > AnimationList;
+    typedef std::map< std::string, hkaDefaultAnimationControl* > AnimationControlList;
+    typedef std::deque< Ogre::Skeleton* > SkeletonList;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AnimationSystemComponent( );
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		AnimationSystemComponent( IAnimationSystemScene* scene, Resources::IResourceCache* resourceCache )
-			: m_scene( scene )
-			, m_observer( 0 )
-			, m_skeletonInstance( 0 )
-			, m_animationBlender( 0 )
-			, m_resourceCache( resourceCache )
-		{ 
-		
-		};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AnimationSystemComponent( );
 
 
-		/*! Initializes the Component
-		*
-		*  @param[in] AnyType::AnyValueMap properties
-		*  @return (void)
-		*/
-		void Initialize( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    AnimationSystemComponent( IAnimationSystemScene* scene, Resources::IResourceCache* resourceCache )
+      : m_scene( scene )
+      , m_observer( 0 )
+      , m_skeletonInstance( 0 )
+      , m_animationBlender( 0 )
+      , m_resourceCache( resourceCache )
+    { 
+    
+    };
 
 
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the Component
+    *
+    *  @param[in] AnyType::AnyValueMap properties
+    *  @return (void)
+    */
+    void Initialize( );
 
 
-		/*! Destroys the Component
-		*
-		*  @return (void)
-		*/
-		void Destroy( ) { };
+    /*! Steps the internal data of the Component
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Adds an Observer to the Component
-		*
-		*  @param[in] IObserver * observer
-		*  @return (void)
-		*/
-		inline void AddObserver( IObserver* observer ) { m_observer = observer; };
+    /*! Destroys the Component
+    *
+    *  @return (void)
+    */
+    void Destroy( ) { };
 
 
-		/*! Gets the properties of the Component
-		*
-		*  @return (AnyTypeKeyMap)
-		*/
-		AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    /*! Adds an Observer to the Component
+    *
+    *  @param[in] IObserver * observer
+    *  @return (void)
+    */
+    inline void AddObserver( IObserver* observer ) { m_observer = observer; };
 
 
-		/*! Sets an Attribute on the Component *
-		*
-		*  @param[in] const unsigned int attributeId
-		*  @param[in] const AnyType & value
-		*/
-		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    /*! Gets the properties of the Component
+    *
+    *  @return (AnyTypeKeyMap)
+    */
+    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
-		/*! Posts a message to observers
-		*
-		*  @param[in] const std::string & message
-		*  @param[in] AnyType::AnyValueMap parameters
-		*  @return (AnyType)
-		*/
-		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
+    /*! Sets an Attribute on the Component *
+    *
+    *  @param[in] const unsigned int attributeId
+    *  @param[in] const AnyType & value
+    */
+    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
 
 
-		/*! Messages the Component to influence its internal state
-		*
-		*  @param[in] const std::string & message
-		*  @return (AnyType)
-		*/
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Posts a message to observers
+    *
+    *  @param[in] const std::string & message
+    *  @param[in] AnyType::AnyValueMap parameters
+    *  @return (AnyType)
+    */
+    inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
 
 
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream ) { };
+    /*! Messages the Component to influence its internal state
+    *
+    *  @param[in] const std::string & message
+    *  @return (AnyType)
+    */
+    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void DeSerialize( IO::IStream* stream ) { };
+    /*! Writes the contents of the object to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void Serialize( IO::IStream* stream ) { };
 
 
-		/*! Returns the Name of the Component
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    /*! Reads the contents of the object from the stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void DeSerialize( IO::IStream* stream ) { };
 
 
-		void TransformBone( hkaPose* pose, Ogre::Node* bone );
+    /*! Returns the Name of the Component
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
 
-	private:
 
-		AnimationSystemComponent( const AnimationSystemComponent & copy ) { };
-		AnimationSystemComponent & operator = ( const AnimationSystemComponent & copy ) { return *this; };
+    void TransformBone( hkaPose* pose, Ogre::Node* bone );
 
-		void LoadAnimation( const std::string& animationName, const std::string& animationPath );
+  private:
 
-		Resources::IResourceCache* m_resourceCache;
-		IAnimationSystemScene* m_scene;
-		AnyType::AnyTypeMap m_attributes;
+    AnimationSystemComponent( const AnimationSystemComponent & copy ) { };
+    AnimationSystemComponent & operator = ( const AnimationSystemComponent & copy ) { return *this; };
 
-		IObserver* m_observer;
+    void LoadAnimation( const std::string& animationName, const std::string& animationPath );
 
-		LoadedDataList m_loadedData;
-		IAnimationBlender* m_animationBlender;
+    Resources::IResourceCache* m_resourceCache;
+    IAnimationSystemScene* m_scene;
+    AnyType::AnyTypeMap m_attributes;
 
-		hkaSkeleton* m_skeleton;
-		hkaAnimatedSkeleton* m_skeletonInstance;
+    IObserver* m_observer;
 
-		AnimationList m_animations;
-		AnimationBindingList m_animationBindings;
+    LoadedDataList m_loadedData;
+    IAnimationBlender* m_animationBlender;
 
-		SkeletonList m_ogreSkeletons;
-	};
+    hkaSkeleton* m_skeleton;
+    hkaAnimatedSkeleton* m_skeletonInstance;
 
-	class SkeletonUtils
-	{
+    AnimationList m_animations;
+    AnimationBindingList m_animationBindings;
 
-	public:
+    SkeletonList m_ogreSkeletons;
+  };
 
-		static Ogre::Node* FindNode( const std::string& name, Ogre::Skeleton* skeleton )
-		{
-			Ogre::Skeleton::BoneIterator boneIterator = skeleton->getRootBoneIterator( );
+  class SkeletonUtils
+  {
 
-			Ogre::Node* node = 0;
+  public:
 
-			while( boneIterator.hasMoreElements( ) )
-			{
-				node = SkeletonUtils::_FindChild( name, boneIterator.getNext( ) );
+    static Ogre::Node* FindNode( const std::string& name, Ogre::Skeleton* skeleton )
+    {
+      Ogre::Skeleton::BoneIterator boneIterator = skeleton->getRootBoneIterator( );
 
-				if ( node )
-				{
-					return node;
-				}
-			}
+      Ogre::Node* node = 0;
 
-			return node;
-		}
+      while( boneIterator.hasMoreElements( ) )
+      {
+        node = SkeletonUtils::_FindChild( name, boneIterator.getNext( ) );
 
-	private:
+        if ( node )
+        {
+          return node;
+        }
+      }
 
-		static Ogre::Node* _FindChild( const std::string& name, Ogre::Node* node )
-		{
-			if ( node->getName( ) == name )
-			{
-				return node;
-			}
+      return node;
+    }
 
-			Ogre::Node::ChildNodeIterator children = node->getChildIterator( );
+  private:
 
-			Ogre::Node* child = 0;
+    static Ogre::Node* _FindChild( const std::string& name, Ogre::Node* node )
+    {
+      if ( node->getName( ) == name )
+      {
+        return node;
+      }
 
-			while( children.hasMoreElements( ) )
-			{
-				child = SkeletonUtils::_FindChild( name, children.getNext( ) );
+      Ogre::Node::ChildNodeIterator children = node->getChildIterator( );
 
-				if( child )
-				{
-					return child;
-				}
-			}
+      Ogre::Node* child = 0;
 
-			return child;
-		}
-	};
+      while( children.hasMoreElements( ) )
+      {
+        child = SkeletonUtils::_FindChild( name, children.getNext( ) );
+
+        if( child )
+        {
+          return child;
+        }
+      }
+
+      return child;
+    }
+  };
 };
 
 #endif

@@ -13,16 +13,16 @@
 
 namespace Input
 {
-	class IInputSystemScene : public ISystemScene
-	{
+  class IInputSystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		virtual ~IInputSystemScene( ) { };
+    virtual ~IInputSystemScene( ) { };
 
-		virtual IInputSystem* GetSystem( ) = 0;
+    virtual IInputSystem* GetSystem( ) = 0;
 
-	};
+  };
 };
 
 

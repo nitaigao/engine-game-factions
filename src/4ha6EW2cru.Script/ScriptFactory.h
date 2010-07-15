@@ -20,68 +20,68 @@
 
 namespace Script
 {
-	/*! 
-	 *  Creates Script System Classes
-	 */
-	class ScriptFactory
-	{
+  /*! 
+   *  Creates Script System Classes
+   */
+  class ScriptFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ScriptFactory( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		ScriptFactory( 
-			Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
-			Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, 
-			Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation
-			)
-			: m_configuration( configuration )
-			, m_serviceManager( serviceManager )
-			, m_resourceCache( resourceCache )
-			, m_eventManager( eventManager )
-			, m_platformManager( platformManager )
-			, m_instrumentation( instrumentation )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ScriptFactory( ) { };
 
 
-		/*! Creates the Script System
-		 *
-		 * @return ( IScriptSystem* )
-		 */
-		IScriptSystem* CreateScriptSystem(  );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    ScriptFactory( 
+      Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
+      Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, 
+      Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation
+      )
+      : m_configuration( configuration )
+      , m_serviceManager( serviceManager )
+      , m_resourceCache( resourceCache )
+      , m_eventManager( eventManager )
+      , m_platformManager( platformManager )
+      , m_instrumentation( instrumentation )
+    {
+
+    }
 
 
-		/*! Creates a Script System Scene
-		 *
-		 * @return ( IScriptSystemScene* )
-		 */
-		IScriptSystemScene* CreateScriptSystemScene( );
-
-	private:
-
-		ScriptFactory( const ScriptFactory & copy ) { };
-		ScriptFactory & operator = ( const ScriptFactory & copy ) { return *this; };
+    /*! Creates the Script System
+     *
+     * @return ( IScriptSystem* )
+     */
+    IScriptSystem* CreateScriptSystem(  );
 
 
-		Configuration::IConfiguration* m_configuration;
-		Services::IServiceManager* m_serviceManager;
-		Resources::IResourceCache* m_resourceCache;
-		Events::IEventManager* m_eventManager;
-		Platform::IPlatformManager* m_platformManager;
-		System::IInstrumentation* m_instrumentation;
-		
-	};
+    /*! Creates a Script System Scene
+     *
+     * @return ( IScriptSystemScene* )
+     */
+    IScriptSystemScene* CreateScriptSystemScene( );
+
+  private:
+
+    ScriptFactory( const ScriptFactory & copy ) { };
+    ScriptFactory & operator = ( const ScriptFactory & copy ) { return *this; };
+
+
+    Configuration::IConfiguration* m_configuration;
+    Services::IServiceManager* m_serviceManager;
+    Resources::IResourceCache* m_resourceCache;
+    Events::IEventManager* m_eventManager;
+    Platform::IPlatformManager* m_platformManager;
+    System::IInstrumentation* m_instrumentation;
+    
+  };
 };
 
 #endif

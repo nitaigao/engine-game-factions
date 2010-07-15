@@ -15,77 +15,77 @@
 
 namespace Physics
 {
-	/*! 
-	 *  A representation of a Character within the Physics System
-	 */
-	class PhysicsSystemCharacterComponent : public PhysicsSystemComponent
-	{
+  /*! 
+   *  A representation of a Character within the Physics System
+   */
+  class PhysicsSystemCharacterComponent : public PhysicsSystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~PhysicsSystemCharacterComponent( );
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] const std::string & name
-		 *  @param[in] HavokPhysicsSystemScene * scene
-		 *  @param[in] int componentId
-		 *  @return ()
-		 */
-		PhysicsSystemCharacterComponent( const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache )
-			: PhysicsSystemComponent( name, scene, resourceCache )
-			, m_characterBody( 0 )
-			, m_characterContext( 0 )
-			, m_framesInAir( 0 )
-			, m_isMovingForward( false )
-			, m_isMovingBackward( false )
-			, m_isMovingLeft( false )
-			, m_isMovingRight( false )
-			, m_previousGround( new hkpSurfaceInfo( ) )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~PhysicsSystemCharacterComponent( );
 
 
-		/*! Initializes the Component
-		*
-		*  @param[in] AnyType::AnyValueMap properties
-		*  @return (void)
-		*/
-		void Initialize( );
+    /*! Default Constructor
+     *
+     *  @param[in] const std::string & name
+     *  @param[in] HavokPhysicsSystemScene * scene
+     *  @param[in] int componentId
+     *  @return ()
+     */
+    PhysicsSystemCharacterComponent( const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache )
+      : PhysicsSystemComponent( name, scene, resourceCache )
+      , m_characterBody( 0 )
+      , m_characterContext( 0 )
+      , m_framesInAir( 0 )
+      , m_isMovingForward( false )
+      , m_isMovingBackward( false )
+      , m_isMovingLeft( false )
+      , m_isMovingRight( false )
+      , m_previousGround( new hkpSurfaceInfo( ) )
+    {
+
+    }
 
 
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the Component
+    *
+    *  @param[in] AnyType::AnyValueMap properties
+    *  @return (void)
+    */
+    void Initialize( );
 
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
-	private:
+    /*! Steps the internal data of the Component
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
-		hkpCharacterContext* m_characterContext;
-		hkpCharacterRigidBody* m_characterBody;
-		hkpCharacterInput m_characterInput;
-		hkpSurfaceInfo* m_previousGround;
+    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
-		bool m_isMovingForward;
-		bool m_isMovingBackward;
-		bool m_isMovingLeft;
-		bool m_isMovingRight;
+  private:
 
-		int m_framesInAir;
+    hkpCharacterContext* m_characterContext;
+    hkpCharacterRigidBody* m_characterBody;
+    hkpCharacterInput m_characterInput;
+    hkpSurfaceInfo* m_previousGround;
 
-		PhysicsSystemCharacterComponent & operator = ( const PhysicsSystemCharacterComponent & copy ) { return *this; };
+    bool m_isMovingForward;
+    bool m_isMovingBackward;
+    bool m_isMovingLeft;
+    bool m_isMovingRight;
 
-	};
+    int m_framesInAir;
+
+    PhysicsSystemCharacterComponent & operator = ( const PhysicsSystemCharacterComponent & copy ) { return *this; };
+
+  };
 };
 
 #endif

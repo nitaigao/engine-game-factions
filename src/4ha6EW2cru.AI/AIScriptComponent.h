@@ -14,160 +14,160 @@
 
 namespace AI
 {
-	/*! 
-	 *  A Script Component for the AI System
-	 */
-	class AIScriptComponent : public AISystemComponent
-	{
+  /*! 
+   *  A Script Component for the AI System
+   */
+  class AIScriptComponent : public AISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AIScriptComponent( ) { };
-
-
-		AIScriptComponent( const std::string& name, Services::IServiceManager* serviceManager )
-			: AISystemComponent( name, serviceManager )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AIScriptComponent( ) { };
 
 
-		/* Inherited from ISystemComponent */
+    AIScriptComponent( const std::string& name, Services::IServiceManager* serviceManager )
+      : AISystemComponent( name, serviceManager )
+    {
 
-		/*! Initializes the Component
-		*
-		*  @param[in] AnyType::AnyValueMap attributes
-		*  @return (void)
-		*/
-		void Initialize( );
+    }
 
 
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /* Inherited from ISystemComponent */
+
+    /*! Initializes the Component
+    *
+    *  @param[in] AnyType::AnyValueMap attributes
+    *  @return (void)
+    */
+    void Initialize( );
 
 
-		/*! Destroys the Component
-		*
-		*  @return (void)
-		*/
-		void Destroy( );
-
-		/* AI Specific */
-
-
-		/* Script Callbacks */
-
-		/*! Walks the Parent Entity Forward
-		*
-		*  @return (void)
-		*/
-		void WalkForward( );
+    /*! Steps the internal data of the Component
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Walks the Parent Entity Backwards
-		*
-		*  @return (void)
-		*/
-		void WalkBackward( );
+    /*! Destroys the Component
+    *
+    *  @return (void)
+    */
+    void Destroy( );
+
+    /* AI Specific */
 
 
-		/*! Rotates the Parent Entity towards the Player
-		*
-		*  @return (void)
-		*/
-		void FacePosition( const Maths::MathVector3& position );
+    /* Script Callbacks */
+
+    /*! Walks the Parent Entity Forward
+    *
+    *  @return (void)
+    */
+    void WalkForward( );
 
 
-		/*! Fires the AI Weapon
-		*
-		*  @return (void)
-		*/
-		void FireWeapon( );
+    /*! Walks the Parent Entity Backwards
+    *
+    *  @return (void)
+    */
+    void WalkBackward( );
 
 
-		/*! Gets the Distance to the Player
-		*
-		*  @return (float)
-		*/
-		inline float GetPlayerDistance( ) { return m_playerDistance; };
+    /*! Rotates the Parent Entity towards the Player
+    *
+    *  @return (void)
+    */
+    void FacePosition( const Maths::MathVector3& position );
 
 
-		/*! Returns the position of the Player
-		*
-		* @return ( Maths::MathVector3 )
-		*/
-		inline Maths::MathVector3 GetPlayerPosition( ) { return m_attributes[ System::Parameters::PlayerPosition ].As< Maths::MathVector3 >( ); };
+    /*! Fires the AI Weapon
+    *
+    *  @return (void)
+    */
+    void FireWeapon( );
 
 
-		/*! Returns the number of waypoints left to process
-		*
-		* @return ( unsigned int )
-		*/
-		unsigned int GetWaypointCount( ) { return m_activeWaypoints.size( ); };
+    /*! Gets the Distance to the Player
+    *
+    *  @return (float)
+    */
+    inline float GetPlayerDistance( ) { return m_playerDistance; };
+
+
+    /*! Returns the position of the Player
+    *
+    * @return ( Maths::MathVector3 )
+    */
+    inline Maths::MathVector3 GetPlayerPosition( ) { return m_attributes[ System::Parameters::PlayerPosition ].As< Maths::MathVector3 >( ); };
+
+
+    /*! Returns the number of waypoints left to process
+    *
+    * @return ( unsigned int )
+    */
+    unsigned int GetWaypointCount( ) { return m_activeWaypoints.size( ); };
 
 
 
-		/*! Tests to see if the given position is in Line of Sight
-		*
-		* @param[in] const Maths::MathVector3 & position
-		* @return ( bool )
-		*/
-		bool InLineOfSight( const Maths::MathVector3& position );
+    /*! Tests to see if the given position is in Line of Sight
+    *
+    * @param[in] const Maths::MathVector3 & position
+    * @return ( bool )
+    */
+    bool InLineOfSight( const Maths::MathVector3& position );
 
 
-		/*! Finds a Random waypoint on the Map
-		*
-		* @return ( Maths::MathVector3 )
-		*/
-		Maths::MathVector3 FindRandomWaypoint( );
+    /*! Finds a Random waypoint on the Map
+    *
+    * @return ( Maths::MathVector3 )
+    */
+    Maths::MathVector3 FindRandomWaypoint( );
 
 
-		/*! Returns the waypoint paths to the given position
-		*
-		* @param[in] const MathVector3 & position
-		* @return ( MathVector3::MathVector3List )
-		*/
-		Maths::MathVector3::MathVector3List GetPathTo( const Maths::MathVector3& position );
+    /*! Returns the waypoint paths to the given position
+    *
+    * @param[in] const MathVector3 & position
+    * @return ( MathVector3::MathVector3List )
+    */
+    Maths::MathVector3::MathVector3List GetPathTo( const Maths::MathVector3& position );
 
 
-		/*! Navigate to a position in the World
-		*
-		* @param[in] const Maths::MathVector3 & position
-		* @return ( void )
-		*/
-		void NavigateTo( const Maths::MathVector3& position );
+    /*! Navigate to a position in the World
+    *
+    * @param[in] const Maths::MathVector3 & position
+    * @return ( void )
+    */
+    void NavigateTo( const Maths::MathVector3& position );
 
 
-		/*! Plays an Animation
-		*
-		*  @param[in] const std::string & animationName
-		*  @param[in] const bool & loopAnimation
-		*  @return (void)
-		*/
-		void PlayAnimation( const std::string& animationName, bool loopAnimation );
+    /*! Plays an Animation
+    *
+    *  @param[in] const std::string & animationName
+    *  @param[in] const bool & loopAnimation
+    *  @return (void)
+    */
+    void PlayAnimation( const std::string& animationName, bool loopAnimation );
 
 
-		/*! Gets the Name of the Component
-		*
-		*  @return (const std::string&)
-		*/
-		inline std::string GetName( ) { return m_attributes[ System::Attributes::Name ].As< std::string >( ); };
-		
-	private:
+    /*! Gets the Name of the Component
+    *
+    *  @return (const std::string&)
+    */
+    inline std::string GetName( ) { return m_attributes[ System::Attributes::Name ].As< std::string >( ); };
+    
+  private:
 
-		AIScriptComponent( ) { };
-		AIScriptComponent( const AIScriptComponent & copy ) { };
-		AIScriptComponent & operator = ( const AIScriptComponent & copy ) { return *this; };
-		
-	};
+    AIScriptComponent( ) { };
+    AIScriptComponent( const AIScriptComponent & copy ) { };
+    AIScriptComponent & operator = ( const AIScriptComponent & copy ) { return *this; };
+    
+  };
 };
 
 #endif

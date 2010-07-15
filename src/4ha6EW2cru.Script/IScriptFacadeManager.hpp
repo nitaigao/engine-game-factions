@@ -14,36 +14,36 @@
 
 namespace Script
 {
-	/*! 
-	 *  Manages the facades Exposed to the Lua Script Engine
-	 */
-	class GAMEAPI IScriptFacadeManager
-	{
+  /*! 
+   *  Manages the facades Exposed to the Lua Script Engine
+   */
+  class GAMEAPI IScriptFacadeManager
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptFacadeManager( ) { };
-
-
-		/*! Initializes the Facade Manager with the given ScriptComponent
-		 *
-		 * @param[in] IScriptComponent *
-		 * @return ( void )
-		 */
-		virtual void Initialize( ISystemComponent* scriptComponent ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptFacadeManager( ) { };
 
 
-		/*! Destroys each ScriptFacade
-		 *
-		 * @return ( void )
-		 */
-		virtual void Destroy( ) = 0;
-		
-	};
+    /*! Initializes the Facade Manager with the given ScriptComponent
+     *
+     * @param[in] IScriptComponent *
+     * @return ( void )
+     */
+    virtual void Initialize( ISystemComponent* scriptComponent ) = 0;
+
+
+    /*! Destroys each ScriptFacade
+     *
+     * @return ( void )
+     */
+    virtual void Destroy( ) = 0;
+    
+  };
 };
 
 #endif

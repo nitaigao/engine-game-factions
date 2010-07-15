@@ -12,28 +12,28 @@
 
 namespace Input
 {
-	/*! 
-	 *  Creates Input Objects
-	 */
-	class IInputFactory
-	{
+  /*! 
+   *  Creates Input Objects
+   */
+  class IInputFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IInputFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IInputFactory( ) { };
 
 
-		/*! Creates an Input System
-		 *
-		 * @return ( IInputSystem* )
-		 */
-		virtual IInputSystem* CreateInputSystem( ) = 0;
-		
-	};
+    /*! Creates an Input System
+     *
+     * @return ( IInputSystem* )
+     */
+    virtual IInputSystem* CreateInputSystem( ) = 0;
+    
+  };
 };
 
 #endif

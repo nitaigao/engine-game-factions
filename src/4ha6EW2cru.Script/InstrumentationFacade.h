@@ -15,76 +15,76 @@
 
 namespace Script
 {
-	/*! 
-	 *  A Facade interface to the Instrumentation Provider
-	 */
-	class GAMEAPI InstrumentationFacade : public IScriptFacade
-	{
+  /*! 
+   *  A Facade interface to the Instrumentation Provider
+   */
+  class GAMEAPI InstrumentationFacade : public IScriptFacade
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~InstrumentationFacade( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		InstrumentationFacade( System::IInstrumentation* instrumentation )
-			: m_instrumentation( instrumentation )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~InstrumentationFacade( ) { };
 
 
-		/*! Registers the Script functions with the given state
-		*
-		* @param[in] lua_State * state
-		* @return ( void )
-		*/
-		static luabind::scope  RegisterFunctions( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    InstrumentationFacade( System::IInstrumentation* instrumentation )
+      : m_instrumentation( instrumentation )
+    {
+
+    }
 
 
-		/*! Returns the Name that the Facade will use in script
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) { return "instrumentation"; };
+    /*! Registers the Script functions with the given state
+    *
+    * @param[in] lua_State * state
+    * @return ( void )
+    */
+    static luabind::scope  RegisterFunctions( );
 
 
-		/*! Gets the FPS Statistic for the Game
-		*
-		* @return ( int )
-		*/
-		inline int GetFPS( ) { return m_instrumentation->GetFPS( ); };
+    /*! Returns the Name that the Facade will use in script
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) { return "instrumentation"; };
 
 
-		/*! Returns the Round Time for the given Queue
-		*
-		* @param[in] const System::Queues::Queue & queue
-		* @return ( float )
-		*/
-		inline float GetRoundTime( const System::Queues::Queue& queue ) { return m_instrumentation->GetRoundTime( queue ); };
+    /*! Gets the FPS Statistic for the Game
+    *
+    * @return ( int )
+    */
+    inline int GetFPS( ) { return m_instrumentation->GetFPS( ); };
 
 
-		/*! Initializes the Facade with the given ScriptComponent
-		*
-		* @return ( void )
-		*/
-		void Initialize( ) { };
+    /*! Returns the Round Time for the given Queue
+    *
+    * @param[in] const System::Queues::Queue & queue
+    * @return ( float )
+    */
+    inline float GetRoundTime( const System::Queues::Queue& queue ) { return m_instrumentation->GetRoundTime( queue ); };
 
-	private:
 
-		InstrumentationFacade( const InstrumentationFacade & copy ) { };
-		InstrumentationFacade & operator = ( const InstrumentationFacade & copy ) { return *this; };
+    /*! Initializes the Facade with the given ScriptComponent
+    *
+    * @return ( void )
+    */
+    void Initialize( ) { };
 
-		System::IInstrumentation* m_instrumentation;
-		
-	};
+  private:
+
+    InstrumentationFacade( const InstrumentationFacade & copy ) { };
+    InstrumentationFacade & operator = ( const InstrumentationFacade & copy ) { return *this; };
+
+    System::IInstrumentation* m_instrumentation;
+    
+  };
 };
 
 #endif

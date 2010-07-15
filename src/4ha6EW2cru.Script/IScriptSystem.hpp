@@ -12,21 +12,21 @@
 
 namespace Script
 {
-	/*!
-	 *  The Scripting System 
-	 */
-	class GAMEAPI IScriptSystem : public ISystem
-	{
+  /*!
+   *  The Scripting System 
+   */
+  class GAMEAPI IScriptSystem : public ISystem
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptSystem( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptSystem( ) { };
 
-	};
+  };
 };
 
 #endif

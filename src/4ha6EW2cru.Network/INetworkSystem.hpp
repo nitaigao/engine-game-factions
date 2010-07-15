@@ -14,21 +14,21 @@
 
 namespace Network
 {
-	/*!
-	*  The Sound System 
-	*/
-	class GAMEAPI INetworkSystem : public ISystem
-	{
+  /*!
+  *  The Sound System 
+  */
+  class GAMEAPI INetworkSystem : public ISystem
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		virtual ~INetworkSystem( ) { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    virtual ~INetworkSystem( ) { };
 
-	};
+  };
 };
 
 #endif

@@ -11,37 +11,37 @@
 
 namespace Renderer
 {
-	class Line3D : public Ogre::SimpleRenderable
-	{
+  class Line3D : public Ogre::SimpleRenderable
+  {
 
-	public:
+  public:
 
-		Line3D( const std::string& name );
+    Line3D( const std::string& name );
 
-		~Line3D(void);
+    ~Line3D(void);
 
-		void addPoint(const Ogre::Vector3 &p);
-		const Ogre::Vector3 &getPoint(unsigned short index) const;
-		unsigned short getNumPoints(void) const;
-		void updatePoint(unsigned short index, const Ogre::Vector3 &value);
-		void drawLine(Ogre::Vector3 &start, Ogre::Vector3 &end);
-		void drawLines(void);
+    void addPoint(const Ogre::Vector3 &p);
+    const Ogre::Vector3 &getPoint(unsigned short index) const;
+    unsigned short getNumPoints(void) const;
+    void updatePoint(unsigned short index, const Ogre::Vector3 &value);
+    void drawLine(Ogre::Vector3 &start, Ogre::Vector3 &end);
+    void drawLines(void);
 
-		Ogre::Real getSquaredViewDepth(const Ogre::Camera *cam) const;
-		Ogre::Real getBoundingRadius(void) const;
+    Ogre::Real getSquaredViewDepth(const Ogre::Camera *cam) const;
+    Ogre::Real getBoundingRadius(void) const;
 
-		static std::string TypeName( ) { return "Line"; };
+    static std::string TypeName( ) { return "Line"; };
 
-	protected:
+  protected:
 
-		//void getWorldTransforms(Matrix4 *xform) const;
-		const Ogre::Quaternion &getWorldOrientation(void) const;
-		const Ogre::Vector3 &getWorldPosition(void) const;
+    //void getWorldTransforms(Matrix4 *xform) const;
+    const Ogre::Quaternion &getWorldOrientation(void) const;
+    const Ogre::Vector3 &getWorldPosition(void) const;
 
-		std::vector<Ogre::Vector3> mPoints;
+    std::vector<Ogre::Vector3> mPoints;
 
-		bool mDrawn;
-	};
+    bool mDrawn;
+  };
 };
 
 #endif

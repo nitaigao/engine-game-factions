@@ -14,48 +14,48 @@
 
 namespace Sound
 {
-	/*! 
-	 *  A Factory to Create the Sound System Object Graph
-	 */
-	class SoundFactory : public ISoundFactory
-	{
+  /*! 
+   *  A Factory to Create the Sound System Object Graph
+   */
+  class SoundFactory : public ISoundFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundFactory( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		SoundFactory( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-			: m_serviceManager( serviceManager )
-			, m_resourceCache( resourceCache )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundFactory( ) { };
 
 
-		/*! Creates a SoundSystem Object
-		*
-		* @return ( ISoundSystem* )
-		*/
-		ISoundSystem* CreateSoundSystem( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    SoundFactory( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
+      : m_serviceManager( serviceManager )
+      , m_resourceCache( resourceCache )
+    {
 
-	private:
+    }
 
-		SoundFactory( const SoundFactory & copy ) { };
-		SoundFactory & operator = ( const SoundFactory & copy ) { return *this; };
 
-		Services::IServiceManager* m_serviceManager;
-		Resources::IResourceCache* m_resourceCache;
-		
-	};
+    /*! Creates a SoundSystem Object
+    *
+    * @return ( ISoundSystem* )
+    */
+    ISoundSystem* CreateSoundSystem( );
+
+  private:
+
+    SoundFactory( const SoundFactory & copy ) { };
+    SoundFactory & operator = ( const SoundFactory & copy ) { return *this; };
+
+    Services::IServiceManager* m_serviceManager;
+    Resources::IResourceCache* m_resourceCache;
+    
+  };
 };
 
 #endif

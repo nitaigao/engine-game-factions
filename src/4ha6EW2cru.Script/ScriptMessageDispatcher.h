@@ -13,81 +13,81 @@
 
 namespace Script
 {
-	/*! 
-	 *  Dispatched component messages to script handlers
-	 */
-	class GAMEAPI ScriptMessageDispatcher : public IScriptMessageDispatcher
-	{
+  /*! 
+   *  Dispatched component messages to script handlers
+   */
+  class GAMEAPI ScriptMessageDispatcher : public IScriptMessageDispatcher
+  {
 
-		typedef std::multimap< System::MessageType, IScriptFunctionHandler* > DelegateFunctionMap;
+    typedef std::multimap< System::MessageType, IScriptFunctionHandler* > DelegateFunctionMap;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ScriptMessageDispatcher( );
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		ScriptMessageDispatcher( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ScriptMessageDispatcher( );
 
 
-		/*! Dispatches a message to the listening Handlers
-		*
-		* @param[in] const System::MessageType & message
-		* @param[in] AnyType::AnyTypeMap & parameters
-		* @return ( void )
-		*/
-		void Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    ScriptMessageDispatcher( ) { };
 
 
-		/*! Adds a Message handler ready for Message dispatch
-		 *
-		 * @param[in] const System::MessageType & message
-		 * @param[in] IScriptFunctionHandler * functionHandler
-		 * @return ( void )
-		 */
-		void AddMessageHandler( const System::MessageType& message, luabind::object delegateFunction );
+    /*! Dispatches a message to the listening Handlers
+    *
+    * @param[in] const System::MessageType & message
+    * @param[in] AnyType::AnyTypeMap & parameters
+    * @return ( void )
+    */
+    void Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters );
 
 
-		/*! Returns whether or not the handler has been added for the message
-		*
-		* @param[in] const System::MessageType & message
-		* @param[in] IScriptFunctionHandler * functionHandler
-		* @return ( bool )
-		*/
-		bool HasHandler( const System::MessageType& message, luabind::object delegateFunction );
+    /*! Adds a Message handler ready for Message dispatch
+     *
+     * @param[in] const System::MessageType & message
+     * @param[in] IScriptFunctionHandler * functionHandler
+     * @return ( void )
+     */
+    void AddMessageHandler( const System::MessageType& message, luabind::object delegateFunction );
 
 
-		/*! Removes the message handler from the handler list
-		*
-		* @param[in] const System::MessageType & message
-		* @param[in] IScriptFunctionHandler * functionHandler
-		* @return ( void )
-		*/
-		void RemoveHandler( const System::MessageType& message, luabind::object delegateFunction );
+    /*! Returns whether or not the handler has been added for the message
+    *
+    * @param[in] const System::MessageType & message
+    * @param[in] IScriptFunctionHandler * functionHandler
+    * @return ( bool )
+    */
+    bool HasHandler( const System::MessageType& message, luabind::object delegateFunction );
 
 
-		/*! Updates the Dispatcher
-		*
-		* @param[in] float
-		* @return ( void )
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Removes the message handler from the handler list
+    *
+    * @param[in] const System::MessageType & message
+    * @param[in] IScriptFunctionHandler * functionHandler
+    * @return ( void )
+    */
+    void RemoveHandler( const System::MessageType& message, luabind::object delegateFunction );
 
-	private:
 
-		ScriptMessageDispatcher( const ScriptMessageDispatcher & copy ) { };
-		ScriptMessageDispatcher & operator = ( const ScriptMessageDispatcher & copy ) { return *this; };
+    /*! Updates the Dispatcher
+    *
+    * @param[in] float
+    * @return ( void )
+    */
+    void Update( float deltaMilliseconds );
 
-		DelegateFunctionMap m_handlers;
-		
-	};
+  private:
+
+    ScriptMessageDispatcher( const ScriptMessageDispatcher & copy ) { };
+    ScriptMessageDispatcher & operator = ( const ScriptMessageDispatcher & copy ) { return *this; };
+
+    DelegateFunctionMap m_handlers;
+    
+  };
 };
 
 #endif

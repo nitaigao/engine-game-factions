@@ -9,20 +9,20 @@ class SoundEventSystem_Tests : public TestHarness< SoundEventSystem >
 
 protected:
 
-	void EstablishContext( )
-	{
+  void EstablishContext( )
+  {
 
-	}
+  }
 
 
-	void DestroyContext( )
-	{
+  void DestroyContext( )
+  {
 
-	}
+  }
 
-	SoundEventSystem* CreateSubject( )
-	{
-		return new SoundEventSystem( );
-	}
+  SoundEventSystem* CreateSubject( )
+  {
+    return new SoundEventSystem( );
+  }
 };
 

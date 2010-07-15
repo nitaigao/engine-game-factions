@@ -9,11 +9,11 @@
 
 namespace Sound
 {
-	ISoundSystem* SoundFactory::CreateSoundSystem()
-	{	
-		SoundEventSystem* eventSystem = new SoundEventSystem( );
-		SoundScene* scene = new SoundScene( new SoundComponentFactory( eventSystem ) );
-		ISoundSystem* system = new SoundSystem( m_serviceManager, m_resourceCache, scene, eventSystem );
-		return system;
-	}
+  ISoundSystem* SoundFactory::CreateSoundSystem()
+  {  
+    SoundEventSystem* eventSystem = new SoundEventSystem( );
+    SoundScene* scene = new SoundScene( new SoundComponentFactory( eventSystem ) );
+    ISoundSystem* system = new SoundSystem( m_serviceManager, m_resourceCache, scene, eventSystem );
+    return system;
+  }
 }

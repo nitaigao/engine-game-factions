@@ -16,16 +16,16 @@ class MockEventTrigger : public MockObject
 
 public:
 
-	MockEventTrigger( )
-		: MockObject( "MockEventTrigger", 0 )
-		, handle_count( "MockEventTrigger/EventHandler", this )
-	{
+  MockEventTrigger( )
+    : MockObject( "MockEventTrigger", 0 )
+    , handle_count( "MockEventTrigger/EventHandler", this )
+  {
 
-	}
+  }
 
-	ExpectationCounter handle_count;
+  ExpectationCounter handle_count;
 
-	inline void EventHandler( const Events::IEvent* event ) { handle_count.inc( ); };
+  inline void EventHandler( const Events::IEvent* event ) { handle_count.inc( ); };
 };
 
 #endif

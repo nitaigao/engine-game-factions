@@ -2,6 +2,6 @@ LIBRARY
 
 EXPORTS
 
-	Initialize		=	Initialize			@1
-	CreateSystem	=	CreateSystem		@2
-	DestroySystem	=	DestroySystem		@3
+  Initialize    =  Initialize      @1
+  CreateSystem  =  CreateSystem    @2
+  DestroySystem  =  DestroySystem    @3

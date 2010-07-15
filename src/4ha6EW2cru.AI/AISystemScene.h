@@ -15,97 +15,97 @@
 
 namespace AI
 {
-	/*! 
-	*  An AI System Specific Scene
-	*/
-	class AISystemScene : public IAISystemScene
-	{
+  /*! 
+  *  An AI System Specific Scene
+  */
+  class AISystemScene : public IAISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~AISystemScene( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		AISystemScene( Services::IServiceManager* m_serviceManager )
-		{
-
-		}
-
-		/*!  Initializes the System Scene
-		*
-		*  @return (void)
-		*/
-		void Initialize( );
-
-		/*! Steps internal data of the SystemScene
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~AISystemScene( ) { };
 
 
-		/*! Destroys the System Scene
-		*
-		*  @return (void)
-		*/
-		inline void Destroy( ) { };
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    AISystemScene( Services::IServiceManager* m_serviceManager )
+    {
+
+    }
+
+    /*!  Initializes the System Scene
+    *
+    *  @return (void)
+    */
+    void Initialize( );
+
+    /*! Steps internal data of the SystemScene
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Gets the System::Types::Type of the SystemScene
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::AI; };
-
-		/*! Creates a SystemComponent specific to the SystemScene
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] const std::string & type
-		*  @return (ISystemComponent*)
-		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
-		
-		/*! Destroys a SystemComponent created by the SystemScene
-		*
-		*  @param[in] ISystemComponent * component
-		*  @return (void)
-		*/
-		void DestroyComponent( ISystemComponent* component );
+    /*! Destroys the System Scene
+    *
+    *  @return (void)
+    */
+    inline void Destroy( ) { };
 
 
-		/*! Returns all way points in the Scene
-		*
-		* @return ( ISystemComponent::SystemComponentList )
-		*/
-		ISystemComponent::SystemComponentList GetWaypoints( );
+    /*! Gets the System::Types::Type of the SystemScene
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::AI; };
+
+    /*! Creates a SystemComponent specific to the SystemScene
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] const std::string & type
+    *  @return (ISystemComponent*)
+    */
+    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    
+    /*! Destroys a SystemComponent created by the SystemScene
+    *
+    *  @param[in] ISystemComponent * component
+    *  @return (void)
+    */
+    void DestroyComponent( ISystemComponent* component );
 
 
-		/*! Returns the Navigation Mesh for the Scene
-		*
-		* @return ( INavigationMesh* )
-		*/
-		ISystemComponent* GetNavigationMesh( ) { return ( *m_componentsByType.find( "navmesh" ) ).second; };
+    /*! Returns all way points in the Scene
+    *
+    * @return ( ISystemComponent::SystemComponentList )
+    */
+    ISystemComponent::SystemComponentList GetWaypoints( );
 
-	private:
 
-		AISystemScene( const AISystemScene & copy ) { };
-		AISystemScene & operator = ( const AISystemScene & copy ) { return *this; };
+    /*! Returns the Navigation Mesh for the Scene
+    *
+    * @return ( INavigationMesh* )
+    */
+    ISystemComponent* GetNavigationMesh( ) { return ( *m_componentsByType.find( "navmesh" ) ).second; };
 
-		ISystemComponent::SystemComponentMap m_componentsByName;
-		ISystemComponent::SystemComponentMultiMap m_componentsByType;
+  private:
 
-		Services::IServiceManager* m_serviceManager;
+    AISystemScene( const AISystemScene & copy ) { };
+    AISystemScene & operator = ( const AISystemScene & copy ) { return *this; };
 
-	};
+    ISystemComponent::SystemComponentMap m_componentsByName;
+    ISystemComponent::SystemComponentMultiMap m_componentsByType;
+
+    Services::IServiceManager* m_serviceManager;
+
+  };
 };
 
 #endif

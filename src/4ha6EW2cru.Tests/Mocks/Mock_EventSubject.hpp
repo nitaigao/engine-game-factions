@@ -16,18 +16,18 @@ class Mock_EventSubject
 
 public:
 
-	Mock_EventSubject( )
-		: eventHandler_counter( 0 )
-	{ };
+  Mock_EventSubject( )
+    : eventHandler_counter( 0 )
+  { };
 
-	void EventHandler( const Events::IEvent* const event )
-	{
-		eventHandler_counter++;
-	};
+  void EventHandler( const Events::IEvent* const event )
+  {
+    eventHandler_counter++;
+  };
 
-	void FalseEventHandler( const Events::IEvent* const event ) { };
+  void FalseEventHandler( const Events::IEvent* const event ) { };
 
-	int eventHandler_counter;
+  int eventHandler_counter;
 
 };
 

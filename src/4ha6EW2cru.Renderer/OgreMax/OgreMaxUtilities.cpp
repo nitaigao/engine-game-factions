@@ -43,8 +43,8 @@ void OgreMaxUtilities::LoadXmlDocument(const String& fileName, TiXmlDocument& do
         OGRE_EXCEPT
             (
             Exception::ERR_FILE_NOT_FOUND,
-		    errorMessage.str(), 
-		    "OgreMaxUtilities::LoadXmlDocument"
+        errorMessage.str(), 
+        "OgreMaxUtilities::LoadXmlDocument"
             );
     }
 
@@ -62,8 +62,8 @@ void OgreMaxUtilities::LoadXmlDocument(const String& fileName, TiXmlDocument& do
         OGRE_EXCEPT
             (
             Exception::ERR_INVALID_STATE,
-		    errorMessage.str(), 
-		    "OgreMaxUtilities::LoadXmlDocument"
+        errorMessage.str(), 
+        "OgreMaxUtilities::LoadXmlDocument"
             );
     }
 }
@@ -186,7 +186,7 @@ void OgreMaxUtilities::LoadBufferUsage(const TiXmlElement* objectElement, Hardwa
 {
     String usageText = GetStringAttribute(objectElement, "usage");
     usage = usageText.empty() ? HardwareBuffer::HBU_STATIC_WRITE_ONLY : ParseHardwareBufferUsage(usageText);
-	
+  
     shadowed = GetBoolAttribute(objectElement, "useShadow", true);
 }
 
@@ -246,7 +246,7 @@ bool OgreMaxUtilities::ParseSceneManager(const String& sceneManager, SceneType& 
     else if (sceneManagerLower == "exteriorrealfar")
         sceneType = ST_EXTERIOR_REAL_FAR;
     else if (sceneManagerLower == "interior")
-		sceneType = ST_INTERIOR;
+    sceneType = ST_INTERIOR;
 
     return sceneType != (SceneType)0;
 }
@@ -279,8 +279,8 @@ Light::LightTypes OgreMaxUtilities::ParseLightType(const String& type)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseLightType"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseLightType"
         );
 }
 
@@ -300,8 +300,8 @@ ProjectionType OgreMaxUtilities::ParseProjectionType(const String& type)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseProjectionType"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseProjectionType"
         );
 }
 
@@ -327,8 +327,8 @@ BillboardType OgreMaxUtilities::ParseBillboardType(const String& type)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseBillboardType"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseBillboardType"
         );
 }
 
@@ -362,8 +362,8 @@ BillboardOrigin OgreMaxUtilities::ParseBillboardOrigin(const String& origin)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseBillboardOrigin"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseBillboardOrigin"
         );
 }
 
@@ -383,8 +383,8 @@ BillboardRotationType OgreMaxUtilities::ParseBillboardRotationType(const String&
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseBillboardRotationType"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseBillboardRotationType"
         );
 }
 
@@ -408,8 +408,8 @@ FogMode OgreMaxUtilities::ParseFogMode(const String& mode)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseFogMode"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseFogMode"
         );
 }
 
@@ -435,8 +435,8 @@ HardwareBuffer::Usage OgreMaxUtilities::ParseHardwareBufferUsage(const String& u
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseHardwareBufferUsage"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseHardwareBufferUsage"
         );
 }
 
@@ -458,8 +458,8 @@ Node::TransformSpace OgreMaxUtilities::ParseTransformSpace(const String& space)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseTransformSpace"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseTransformSpace"
         );
 }
 
@@ -481,8 +481,8 @@ BoundingVolume::Type OgreMaxUtilities::ParseBoundingVolumeType(const String& typ
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseBoundingVolumeType"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseBoundingVolumeType"
         );
 }
 
@@ -594,8 +594,8 @@ ShadowTechnique OgreMaxUtilities::ParseShadowTechnique(const String& technique)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseShadowTechnique"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseShadowTechnique"
         );
 }
 
@@ -615,8 +615,8 @@ UpAxis OgreMaxUtilities::ParseUpAxis(const String& upAxis)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseUpAxis"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseUpAxis"
         );
 }
 
@@ -636,8 +636,8 @@ Animation::InterpolationMode OgreMaxUtilities::ParseAnimationInterpolationMode(c
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseAnimationInterpolationMode"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseAnimationInterpolationMode"
         );
 }
 
@@ -657,8 +657,8 @@ Animation::RotationInterpolationMode OgreMaxUtilities::ParseAnimationRotationInt
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseAnimationRotationInterpolationMode"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseAnimationRotationInterpolationMode"
         );
 }
 
@@ -696,18 +696,18 @@ uint8 OgreMaxUtilities::ParseRenderQueue(const String& renderQueue)
         nameToNumber["skiesearly"] = RENDER_QUEUE_SKIES_EARLY;
         nameToNumber["queue1"] = RENDER_QUEUE_1;
         nameToNumber["queue2"] = RENDER_QUEUE_2;
-		nameToNumber["worldgeometry1"] = RENDER_QUEUE_WORLD_GEOMETRY_1;
+    nameToNumber["worldgeometry1"] = RENDER_QUEUE_WORLD_GEOMETRY_1;
         nameToNumber["queue3"] = RENDER_QUEUE_3;
         nameToNumber["queue4"] = RENDER_QUEUE_4;
-		nameToNumber["main"] = RENDER_QUEUE_MAIN;
+    nameToNumber["main"] = RENDER_QUEUE_MAIN;
         nameToNumber["queue6"] = RENDER_QUEUE_6;
         nameToNumber["queue7"] = RENDER_QUEUE_7;
-		nameToNumber["worldgeometry2"] = RENDER_QUEUE_WORLD_GEOMETRY_2;
+    nameToNumber["worldgeometry2"] = RENDER_QUEUE_WORLD_GEOMETRY_2;
         nameToNumber["queue8"] = RENDER_QUEUE_8;
         nameToNumber["queue9"] = RENDER_QUEUE_9;
         nameToNumber["skieslate"] = RENDER_QUEUE_SKIES_LATE;
         nameToNumber["overlay"] = RENDER_QUEUE_OVERLAY;
-		nameToNumber["max"] = RENDER_QUEUE_MAX;
+    nameToNumber["max"] = RENDER_QUEUE_MAX;
     }
 
     if (renderQueue.empty())
@@ -753,8 +753,8 @@ uint8 OgreMaxUtilities::ParseRenderQueue(const String& renderQueue)
             OGRE_EXCEPT
                 (
                 Exception::ERR_INVALIDPARAMS,
-	            errorMessage.str(), 
-	            "OgreMaxUtilities::ParseRenderQueue"
+              errorMessage.str(), 
+              "OgreMaxUtilities::ParseRenderQueue"
                 );
         }
     }
@@ -812,8 +812,8 @@ PixelFormat OgreMaxUtilities::ParsePixelFormat(const String& pixelFormat)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParsePixelFormat"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParsePixelFormat"
         );
 }
 
@@ -837,8 +837,8 @@ TextureType OgreMaxUtilities::ParseTextureType(const String& textureType)
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxUtilities::ParseTextureType"
+      errorMessage.str(), 
+      "OgreMaxUtilities::ParseTextureType"
         );
 }
 

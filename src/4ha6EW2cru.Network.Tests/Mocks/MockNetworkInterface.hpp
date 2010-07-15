@@ -14,25 +14,25 @@
 
 namespace
 {
-	class MockNetworkInterface : public INetworkInterface
-	{
+  class MockNetworkInterface : public INetworkInterface
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD2( Connect, void( unsigned int, const std::string& ) );
-		MOCK_METHOD0( Disconnect, void( ) );
-		MOCK_METHOD2( Initialize, void( unsigned int, int ) );
-		MOCK_METHOD1( Destroy, void( unsigned int ) );
-		MOCK_METHOD0( Receive, Packet*( ) );
-		MOCK_METHOD1( DeAllocatePacket, void( Packet* ) );
-		MOCK_METHOD1( SetOfflinePingInformation, void( RakNet::BitStream* ) );
-		MOCK_METHOD0( GetConnectionCount, int( ) );
-		MOCK_METHOD1( AttachPlugin, void( PluginInterface2* ) );
-		MOCK_METHOD0( GetRPC, RakNet::RPC3*( ) );
-		MOCK_METHOD1( BroadcastOfflinePing, void( unsigned int ) );
-		MOCK_METHOD1( GetAddress, SystemAddress( const SystemAddress& ) );
-		
-	};
+    MOCK_METHOD2( Connect, void( unsigned int, const std::string& ) );
+    MOCK_METHOD0( Disconnect, void( ) );
+    MOCK_METHOD2( Initialize, void( unsigned int, int ) );
+    MOCK_METHOD1( Destroy, void( unsigned int ) );
+    MOCK_METHOD0( Receive, Packet*( ) );
+    MOCK_METHOD1( DeAllocatePacket, void( Packet* ) );
+    MOCK_METHOD1( SetOfflinePingInformation, void( RakNet::BitStream* ) );
+    MOCK_METHOD0( GetConnectionCount, int( ) );
+    MOCK_METHOD1( AttachPlugin, void( PluginInterface2* ) );
+    MOCK_METHOD0( GetRPC, RakNet::RPC3*( ) );
+    MOCK_METHOD1( BroadcastOfflinePing, void( unsigned int ) );
+    MOCK_METHOD1( GetAddress, SystemAddress( const SystemAddress& ) );
+    
+  };
 };
 
 #endif

@@ -21,86 +21,86 @@
 
 namespace Sound
 {
-	/*!
-	 *  A Sound Scene 
-	 */
-	class GAMEAPI SoundScene : public ISoundScene
-	{
+  /*!
+   *  A Sound Scene 
+   */
+  class GAMEAPI SoundScene : public ISoundScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundScene( );
-
-
-		/*! Default Constructor
-		*
-		*  @param[in] ISystem * system
-		*  @return ()
-		*/
-		explicit SoundScene( ISoundComponentFactory* componentFactory )
-			: m_componentFactory( componentFactory )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundScene( );
 
 
-		/*! Initializes the System Scene
-		*
-		*  @return (void)
-		*/
-		void Initialize( ) { };
+    /*! Default Constructor
+    *
+    *  @param[in] ISystem * system
+    *  @return ()
+    */
+    explicit SoundScene( ISoundComponentFactory* componentFactory )
+      : m_componentFactory( componentFactory )
+    {
+
+    }
 
 
-		/*! Steps internal data of the SystemScene
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds ) { };
+    /*! Initializes the System Scene
+    *
+    *  @return (void)
+    */
+    void Initialize( ) { };
 
 
-		/*! Destroys the System Scene
-		*
-		*  @return (void)
-		*/
-		inline void Destroy( ) { };
+    /*! Steps internal data of the SystemScene
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds ) { };
 
 
-		/*! Gets the System::Types::Type of the SystemScene
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::SOUND; };
+    /*! Destroys the System Scene
+    *
+    *  @return (void)
+    */
+    inline void Destroy( ) { };
 
 
-		/*! Creates a SystemComponent specific to the SystemScene
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] const std::string & type
-		*  @return (ISystemComponent*)
-		*/
-		ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    /*! Gets the System::Types::Type of the SystemScene
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::SOUND; };
 
 
-		/*! Destroys a SystemComponent created by the SystemScene
-		*
-		*  @param[in] ISystemComponent * component
-		*  @return (void)
-		*/
-		void DestroyComponent( ISystemComponent* component );
+    /*! Creates a SystemComponent specific to the SystemScene
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] const std::string & type
+    *  @return (ISystemComponent*)
+    */
+    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
 
-		inline ISoundSystem* GetSoundSystem( ) { return m_soundSystem; };
-		inline void SetSoundSystem( ISoundSystem* soundSystem ) { m_soundSystem = soundSystem; };
 
-	private:
+    /*! Destroys a SystemComponent created by the SystemScene
+    *
+    *  @param[in] ISystemComponent * component
+    *  @return (void)
+    */
+    void DestroyComponent( ISystemComponent* component );
 
-		ISoundSystem* m_soundSystem;
-		ISoundComponentFactory* m_componentFactory;
-	};
+    inline ISoundSystem* GetSoundSystem( ) { return m_soundSystem; };
+    inline void SetSoundSystem( ISoundSystem* soundSystem ) { m_soundSystem = soundSystem; };
+
+  private:
+
+    ISoundSystem* m_soundSystem;
+    ISoundComponentFactory* m_componentFactory;
+  };
 };
 
 #endif

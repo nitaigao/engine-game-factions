@@ -12,20 +12,20 @@ using namespace Game;
 
 int main()
 {
-	GameFactory gameFactory;
-	IGame* game = gameFactory.CreateGame( );
-	game->Initialize( );
+  GameFactory gameFactory;
+  IGame* game = gameFactory.CreateGame( );
+  game->Initialize( );
 
-	while( !game->IsQuitting( ) )
-	{
-		game->Update( );
-	}
+  while( !game->IsQuitting( ) )
+  {
+    game->Update( );
+  }
 
-	game->Release( );
+  game->Release( );
 
-	delete game;
-	
-	return 0;
+  delete game;
+  
+  return 0;
 }
 
 // EOF

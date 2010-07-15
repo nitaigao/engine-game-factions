@@ -12,21 +12,21 @@
 
 namespace Script
 {
-	/*! 
-	 *  A Facade Interface to interface with the Network System
-	 */
-	class INetworkFacade : public IScriptFacade
-	{
+  /*! 
+   *  A Facade Interface to interface with the Network System
+   */
+  class INetworkFacade : public IScriptFacade
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkFacade( ) { };
-		
-	};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkFacade( ) { };
+    
+  };
 };
 
 #endif

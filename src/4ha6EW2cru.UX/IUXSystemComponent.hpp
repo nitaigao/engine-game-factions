@@ -15,37 +15,37 @@
 
 namespace UX
 {
-	/*! 
-	*  A UX System Scene Component
-	*/
-	class GAMEAPI IUXSystemComponent : public ISystemComponent
-	{
+  /*! 
+  *  A UX System Scene Component
+  */
+  class GAMEAPI IUXSystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		typedef std::deque< IUXSystemComponent* > UXSystemComponentList;
+    typedef std::deque< IUXSystemComponent* > UXSystemComponentList;
 
-		virtual ~IUXSystemComponent( ) { };
-
-
-		/*! Registers a Script Function to receive Events
-		*
-		* @param[in] const std::string & eventType
-		* @param[in] luabind::object handlerFunction
-		* @return ( void )
-		*/
-		virtual void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
+    virtual ~IUXSystemComponent( ) { };
 
 
-		/*! Unregisters a Script Function from receiving Events
-		*
-		* @param[in] const std::string & eventType
-		* @param[in] luabind::object handlerFunction
-		* @return ( void )
-		*/
-		virtual void UnregisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
+    /*! Registers a Script Function to receive Events
+    *
+    * @param[in] const std::string & eventType
+    * @param[in] luabind::object handlerFunction
+    * @return ( void )
+    */
+    virtual void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
 
-	};
+
+    /*! Unregisters a Script Function from receiving Events
+    *
+    * @param[in] const std::string & eventType
+    * @param[in] luabind::object handlerFunction
+    * @return ( void )
+    */
+    virtual void UnregisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
+
+  };
 };
 
 #endif

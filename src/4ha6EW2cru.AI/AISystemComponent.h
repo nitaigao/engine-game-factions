@@ -21,141 +21,141 @@
 
 namespace AI
 {
-	/*! 
-	 *  An Artificial Intelligence System Scene Component
-	 */
-	class AISystemComponent : public IAISystemComponent
-	{
+  /*! 
+   *  An Artificial Intelligence System Scene Component
+   */
+  class AISystemComponent : public IAISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~AISystemComponent( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] const std::string & name
-		 *  @param[in] IScriptComponent * scriptComponent
-		 *  @return ()
-		 */
-		AISystemComponent( const std::string& name, Services::IServiceManager* serviceManager )
-			: m_name( name )
-			, m_observer( 0 )
-			, m_playerDistance( 0 )
-			, m_serviceManager( serviceManager )
-		{
-
-		}
-
-		/* Inherited from ISystemComponent */
-
-		/*! Initializes the Component
-		 *
-		 *  @param[in] AnyType::AnyValueMap attributes
-		 *  @return (void)
-		 */
-		virtual void Initialize( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~AISystemComponent( ) { };
 
 
-		/*! Steps the internal data of the Component
-		 *
-		 *  @param[in] float deltaMilliseconds
-		 *  @return (void)
-		 */
-		virtual void Update( float deltaMilliseconds ) { };
+    /*! Default Constructor
+     *
+     *  @param[in] const std::string & name
+     *  @param[in] IScriptComponent * scriptComponent
+     *  @return ()
+     */
+    AISystemComponent( const std::string& name, Services::IServiceManager* serviceManager )
+      : m_name( name )
+      , m_observer( 0 )
+      , m_playerDistance( 0 )
+      , m_serviceManager( serviceManager )
+    {
+
+    }
+
+    /* Inherited from ISystemComponent */
+
+    /*! Initializes the Component
+     *
+     *  @param[in] AnyType::AnyValueMap attributes
+     *  @return (void)
+     */
+    virtual void Initialize( ) { };
 
 
-		/*! Destroys the Component
-		 *
-		 *  @return (void)
-		 */
-		virtual void Destroy( ) { };
+    /*! Steps the internal data of the Component
+     *
+     *  @param[in] float deltaMilliseconds
+     *  @return (void)
+     */
+    virtual void Update( float deltaMilliseconds ) { };
 
 
-		/*! Adds an Observer to the Component
-		 *
-		 *  @param[in] IObserver * observer
-		 *  @return (void)
-		 */
-		virtual void AddObserver( IObserver* observer ) { m_observer = observer; };
+    /*! Destroys the Component
+     *
+     *  @return (void)
+     */
+    virtual void Destroy( ) { };
 
 
-		/*! Posts a message to observers
-		*
-		*  @param[in] const std::string & message
-		*  @param[in] AnyType::AnyValueMap parameters
-		*  @return (AnyType)
-		*/
-		virtual AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Adds an Observer to the Component
+     *
+     *  @param[in] IObserver * observer
+     *  @return (void)
+     */
+    virtual void AddObserver( IObserver* observer ) { m_observer = observer; };
 
 
-		/*! Messages the Component to influence its internal state
-		*
-		*  @param[in] const std::string & message
-		*  @return (AnyType)
-		*/
-		virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Posts a message to observers
+    *
+    *  @param[in] const std::string & message
+    *  @param[in] AnyType::AnyValueMap parameters
+    *  @return (AnyType)
+    */
+    virtual AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Gets the attributes of the Component
-		 *
-		 *  @return (AnyValueMap)
-		 */
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    /*! Messages the Component to influence its internal state
+    *
+    *  @param[in] const std::string & message
+    *  @return (AnyType)
+    */
+    virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Sets an Attribute on the Component *
-		*
-		*  @param[in] const unsigned int attributeId
-		*  @param[in] const AnyType & value
-		*/
-		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    /*! Gets the attributes of the Component
+     *
+     *  @return (AnyValueMap)
+     */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream ) { };
+    /*! Sets an Attribute on the Component *
+    *
+    *  @param[in] const unsigned int attributeId
+    *  @param[in] const AnyType & value
+    */
+    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
 
 
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void DeSerialize( IO::IStream* stream ) { };
+    /*! Writes the contents of the object to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void Serialize( IO::IStream* stream ) { };
 
 
-		/*! Returns the Name of the Component
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    /*! Reads the contents of the object from the stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void DeSerialize( IO::IStream* stream ) { };
 
-	protected:
 
-		AISystemComponent( ) { };
-		AISystemComponent( const AISystemComponent & copy ) { };
-		AISystemComponent & operator = ( const AISystemComponent & copy ) { return *this; };
+    /*! Returns the Name of the Component
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
 
-		std::string m_name;
-		Services::IServiceManager* m_serviceManager;
+  protected:
 
-		IObserver* m_observer;
+    AISystemComponent( ) { };
+    AISystemComponent( const AISystemComponent & copy ) { };
+    AISystemComponent & operator = ( const AISystemComponent & copy ) { return *this; };
 
-		float m_playerDistance;
+    std::string m_name;
+    Services::IServiceManager* m_serviceManager;
 
-		AnyType::AnyTypeMap m_attributes;
+    IObserver* m_observer;
 
-		Maths::MathVector3::MathVector3List m_activeWaypoints;
+    float m_playerDistance;
 
-	};
+    AnyType::AnyTypeMap m_attributes;
+
+    Maths::MathVector3::MathVector3List m_activeWaypoints;
+
+  };
 };
 
 #endif

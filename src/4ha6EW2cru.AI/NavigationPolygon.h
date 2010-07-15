@@ -12,201 +12,201 @@
 
 namespace AI
 {
-	/*! 
-	 *  A Navigation Polygon used inside the Navigation Mesh
-	 */
-	class NavigationPolygon
-	{
+  /*! 
+   *  A Navigation Polygon used inside the Navigation Mesh
+   */
+  class NavigationPolygon
+  {
 
-	public:
+  public:
 
-		typedef std::deque< NavigationPolygon* > NavPolyList;
-		typedef std::pair< Maths::MathVector3, Maths::MathVector3 > PolyEdge;
-		typedef std::deque< PolyEdge > PolyEdgeList;
-
-
-		/*! Default Destructor
-		*
-		* @return (  )
-		*/
-		~NavigationPolygon( ) { };
+    typedef std::deque< NavigationPolygon* > NavPolyList;
+    typedef std::pair< Maths::MathVector3, Maths::MathVector3 > PolyEdge;
+    typedef std::deque< PolyEdge > PolyEdgeList;
 
 
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NavigationPolygon( )
-			: m_cost( 0 )
-			, m_totalCost( 0 )
-			, m_parent( 0 )
-			, m_marked( false )
-			, m_entryEdge( 0 )
-		{ 
-
-		};
+    /*! Default Destructor
+    *
+    * @return (  )
+    */
+    ~NavigationPolygon( ) { };
 
 
-		/*! Sets the Position of the Polygon
-		*
-		* @param[in] const MathVector3 & position
-		* @return ( void )
-		*/
-		void SetPosition( const Maths::MathVector3& position );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    NavigationPolygon( )
+      : m_cost( 0 )
+      , m_totalCost( 0 )
+      , m_parent( 0 )
+      , m_marked( false )
+      , m_entryEdge( 0 )
+    { 
+
+    };
 
 
-		/*! Adds a Vertex to the Polygon
-		*
-		* @param[in] const Maths::MathVector3 & vertex
-		* @return ( void )
-		*/
-		inline void AddVertex( const Maths::MathVector3& vertex ) { m_vertices.push_back( vertex ); m_offsetVertices.push_back( vertex ); };
+    /*! Sets the Position of the Polygon
+    *
+    * @param[in] const MathVector3 & position
+    * @return ( void )
+    */
+    void SetPosition( const Maths::MathVector3& position );
 
 
-		/*! Returns the number of Vertices's inside this Polygon
-		*
-		* @return ( int )
-		*/
-		inline int CountVertices( ) const {	return m_offsetVertices.size( ); }
+    /*! Adds a Vertex to the Polygon
+    *
+    * @param[in] const Maths::MathVector3 & vertex
+    * @return ( void )
+    */
+    inline void AddVertex( const Maths::MathVector3& vertex ) { m_vertices.push_back( vertex ); m_offsetVertices.push_back( vertex ); };
 
 
-		/*! Returns a list of Vertices's that make this Polygon
-		*
-		* @return ( const Maths::MathVector3::MathVector3List& )
-		*/
-		inline const Maths::MathVector3::MathVector3List& GetVertices( ) const { return m_offsetVertices; }
+    /*! Returns the number of Vertices's inside this Polygon
+    *
+    * @return ( int )
+    */
+    inline int CountVertices( ) const {  return m_offsetVertices.size( ); }
 
 
-		/*! Returns whether the given polygon is a neighbor of this Polygon
-		*
-		* @param[in] NavigationPolygon * polygon
-		* @return ( bool )
-		*/
-		bool IsNeighbour( const NavigationPolygon* polygon ) const;
+    /*! Returns a list of Vertices's that make this Polygon
+    *
+    * @return ( const Maths::MathVector3::MathVector3List& )
+    */
+    inline const Maths::MathVector3::MathVector3List& GetVertices( ) const { return m_offsetVertices; }
 
 
-		/*! Adds a Polygon as a Neighbor to this Polygon
-		*
-		* @param[in] NavigationPolygon * polygon
-		* @return ( void )
-		*/
-		void AddNeighbour( NavigationPolygon* polygon );
+    /*! Returns whether the given polygon is a neighbor of this Polygon
+    *
+    * @param[in] NavigationPolygon * polygon
+    * @return ( bool )
+    */
+    bool IsNeighbour( const NavigationPolygon* polygon ) const;
 
 
-		/*! Returns all registered Neighbors of this Polygon
-		*
-		* @return ( const NavPolyList& )
-		*/
-		inline const NavPolyList& GetNeighbours( ) const { return m_neighbours; };
+    /*! Adds a Polygon as a Neighbor to this Polygon
+    *
+    * @param[in] NavigationPolygon * polygon
+    * @return ( void )
+    */
+    void AddNeighbour( NavigationPolygon* polygon );
 
 
-		/*! Resets the list of Neighbors for this Polygon
-		*
-		* @return ( void )
-		*/
-		inline void ResetNeighbours( ) { m_neighbours.clear( ); };
+    /*! Returns all registered Neighbors of this Polygon
+    *
+    * @return ( const NavPolyList& )
+    */
+    inline const NavPolyList& GetNeighbours( ) const { return m_neighbours; };
 
 
-		/*! Returns a List of Edges that are linked to other Polygons
-		*
-		* @return ( const PolyEdgeList& )
-		*/
-		inline const PolyEdgeList& GetEdgeLinks( ) const { return m_edgeLinks; };
+    /*! Resets the list of Neighbors for this Polygon
+    *
+    * @return ( void )
+    */
+    inline void ResetNeighbours( ) { m_neighbours.clear( ); };
 
 
-		/*! Returns the Center Coordinates of this Polygon
-		*
-		* @return ( Maths::MathVector3 )
-		*/
-		Maths::MathVector3 GetCenter( ) const;
+    /*! Returns a List of Edges that are linked to other Polygons
+    *
+    * @return ( const PolyEdgeList& )
+    */
+    inline const PolyEdgeList& GetEdgeLinks( ) const { return m_edgeLinks; };
 
 
-		/*! Returns whether or not the given point resides inside this Polygon
-		*
-		* @param[in] const Maths::MathVector3 & point
-		* @return ( bool )
-		*/
-		bool IsPointInside( const Maths::MathVector3& point ) const;
+    /*! Returns the Center Coordinates of this Polygon
+    *
+    * @return ( Maths::MathVector3 )
+    */
+    Maths::MathVector3 GetCenter( ) const;
 
 
-		/*! Gets the Parent Node of this Polygon
-		*
-		* @return ( NavigationPolygon* )
-		*/
-		NavigationPolygon* GetParent( ) const { return m_parent; };
+    /*! Returns whether or not the given point resides inside this Polygon
+    *
+    * @param[in] const Maths::MathVector3 & point
+    * @return ( bool )
+    */
+    bool IsPointInside( const Maths::MathVector3& point ) const;
 
 
-		/*! Sets the Parent Node of this Polygon
-		*
-		* @param[in] NavigationPolygon * parent
-		* @param[in] const NavigationPolygon * finish
-		* @return ( void )
-		*/
-		void SetParent( NavigationPolygon* parent, const NavigationPolygon* finish );
+    /*! Gets the Parent Node of this Polygon
+    *
+    * @return ( NavigationPolygon* )
+    */
+    NavigationPolygon* GetParent( ) const { return m_parent; };
 
 
-		/*! Gets the Cost of this Polygon
-		*
-		* @return ( float )
-		*/
-		float GetCost( ) { return m_cost; };
+    /*! Sets the Parent Node of this Polygon
+    *
+    * @param[in] NavigationPolygon * parent
+    * @param[in] const NavigationPolygon * finish
+    * @return ( void )
+    */
+    void SetParent( NavigationPolygon* parent, const NavigationPolygon* finish );
 
 
-		/*! Returns whether the Polygon was Marked in a Search
-		*
-		* @return ( bool )
-		*/
-		bool IsMarked( ) const { return m_marked; };
+    /*! Gets the Cost of this Polygon
+    *
+    * @return ( float )
+    */
+    float GetCost( ) { return m_cost; };
 
 
-		/*! Marks the Polygon for use in a Search
-		*
-		* @return ( void )
-		*/
-		void Mark( ) { m_marked = true; };
+    /*! Returns whether the Polygon was Marked in a Search
+    *
+    * @return ( bool )
+    */
+    bool IsMarked( ) const { return m_marked; };
 
 
-		/*! Returns the Entry Edge set within a Search
-		*
-		* @return ( int )
-		*/
-		int GetEntryEdge( ) const { return m_entryEdge; };
+    /*! Marks the Polygon for use in a Search
+    *
+    * @return ( void )
+    */
+    void Mark( ) { m_marked = true; };
 
 
-		/*! Resets all the Search Properties for this Polygon
-		*
-		* @return ( void )
-		*/
-		void Reset( )
-		{
-			m_cost = 0;
-			m_totalCost = 0;
-			m_entryEdge = 0;
-			m_parent = 0;
-			m_marked = false;
-		}
+    /*! Returns the Entry Edge set within a Search
+    *
+    * @return ( int )
+    */
+    int GetEntryEdge( ) const { return m_entryEdge; };
 
-	private:
 
-		NavigationPolygon( const NavigationPolygon & copy ) { };
-		NavigationPolygon & operator = ( const NavigationPolygon & copy ) { return *this; };
+    /*! Resets all the Search Properties for this Polygon
+    *
+    * @return ( void )
+    */
+    void Reset( )
+    {
+      m_cost = 0;
+      m_totalCost = 0;
+      m_entryEdge = 0;
+      m_parent = 0;
+      m_marked = false;
+    }
 
-		Maths::MathVector3::MathVector3List m_vertices;
-		Maths::MathVector3::MathVector3List m_offsetVertices;
+  private:
 
-		NavPolyList m_neighbours;
-		PolyEdgeList m_edgeLinks;
+    NavigationPolygon( const NavigationPolygon & copy ) { };
+    NavigationPolygon & operator = ( const NavigationPolygon & copy ) { return *this; };
 
-		NavigationPolygon* m_parent;
-		float m_cost;
-		float m_totalCost;
-		int m_entryEdge;
-		bool m_marked;
+    Maths::MathVector3::MathVector3List m_vertices;
+    Maths::MathVector3::MathVector3List m_offsetVertices;
 
-		PolyEdgeList GetEdges( ) const;
-		bool SameSide( const Maths::MathVector3& point1, const Maths::MathVector3& point2, const Maths::MathVector3& a, const Maths::MathVector3& b ) const;
-		
-	};
+    NavPolyList m_neighbours;
+    PolyEdgeList m_edgeLinks;
+
+    NavigationPolygon* m_parent;
+    float m_cost;
+    float m_totalCost;
+    int m_entryEdge;
+    bool m_marked;
+
+    PolyEdgeList GetEdges( ) const;
+    bool SameSide( const Maths::MathVector3& point1, const Maths::MathVector3& point2, const Maths::MathVector3& a, const Maths::MathVector3& b ) const;
+    
+  };
 };
 
 #endif

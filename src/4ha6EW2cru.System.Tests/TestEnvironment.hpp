@@ -17,51 +17,51 @@ using namespace Events;
 
 namespace Testing
 {
-	/*! 
-	 *  The Global Test SetUp TearDown Container
-	 */
-	class Environment : public testing::Environment
-	{
+  /*! 
+   *  The Global Test SetUp TearDown Container
+   */
+  class Environment : public testing::Environment
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~Environment( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~Environment( ) { };
 
 
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		Environment( ) { };
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    Environment( ) { };
 
-		virtual void SetUp( )
-		{
-			m_eventManager = new EventManager( );
-			m_platformManager = new Win32PlatformManager( 0, 0, 0 );
+    virtual void SetUp( )
+    {
+      m_eventManager = new EventManager( );
+      m_platformManager = new Win32PlatformManager( 0, 0, 0 );
 
-			Logging::Logger::Initialize( m_platformManager, m_eventManager );
-		}
+      Logging::Logger::Initialize( m_platformManager, m_eventManager );
+    }
 
-		virtual void TearDown( )
-		{
-			Logging::Logger::Get( )->Release( );
-			delete m_platformManager;
-			delete m_eventManager;
-		}
+    virtual void TearDown( )
+    {
+      Logging::Logger::Get( )->Release( );
+      delete m_platformManager;
+      delete m_eventManager;
+    }
 
-	private:
+  private:
 
-		Environment( const Environment & copy ) { };
-		Environment & operator = ( const Environment & copy ) { return *this; };
+    Environment( const Environment & copy ) { };
+    Environment & operator = ( const Environment & copy ) { return *this; };
 
-		Platform::Win32PlatformManager* m_platformManager;
-		Events::EventManager* m_eventManager;
-		
-	};
+    Platform::Win32PlatformManager* m_platformManager;
+    Events::EventManager* m_eventManager;
+    
+  };
 };
 
 #endif

@@ -14,8 +14,8 @@ class InputSystemFixture : public CPPUNIT_NS::TestFixture
 
 public:
 
-	void setUp ( void );
-	void tearDown ( void );
+  void setUp ( void );
+  void tearDown ( void );
 
 protected:
 

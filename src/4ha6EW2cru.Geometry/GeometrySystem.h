@@ -16,85 +16,85 @@
 
 namespace Geometry
 {
-	/*! 
-	 *  The Geometry System
-	 */
-	class GeometrySystem : public ISystem
-	{
+  /*! 
+   *  The Geometry System
+   */
+  class GeometrySystem : public ISystem
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~GeometrySystem( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		GeometrySystem( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~GeometrySystem( ) { };
 
 
-		/*! Initializes the System
-		*
-		*  @return (void)
-		*/
-		inline void Initialize( Configuration::IConfiguration* configuration ) { };
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    GeometrySystem( ) { };
 
 
-		/*! Steps the System's internal data
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		inline void Update( float deltaMilliseconds ) { };
+    /*! Initializes the System
+    *
+    *  @return (void)
+    */
+    inline void Initialize( Configuration::IConfiguration* configuration ) { };
 
 
-		/*! Releases internal data of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline void Release( ) { };
+    /*! Steps the System's internal data
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    inline void Update( float deltaMilliseconds ) { };
 
 
-		/*! Returns the type of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::GEOMETRY; };
+    /*! Releases internal data of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline void Release( ) { };
 
 
-		/*! Creates a System Scene
-		*
-		*  @return (ISystemScene*)
-		*/
-		ISystemScene* CreateScene( );
-		
-
-		/*! Gets the System's Properties
-		*
-		*  @return (AnyTypeMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    /*! Returns the type of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::GEOMETRY; };
 
 
-		/*! Sets a System Property
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] AnyType value
-		*  @return (void)
-		*/
-		inline void SetAttribute( const std::string& name, AnyType value ) { };
+    /*! Creates a System Scene
+    *
+    *  @return (ISystemScene*)
+    */
+    ISystemScene* CreateScene( );
+    
 
-	private:
+    /*! Gets the System's Properties
+    *
+    *  @return (AnyTypeMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
 
-		GeometrySystem( const GeometrySystem & copy ) { };
-		GeometrySystem & operator = ( const GeometrySystem & copy ) { return *this; };
 
-	};
+    /*! Sets a System Property
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] AnyType value
+    *  @return (void)
+    */
+    inline void SetAttribute( const std::string& name, AnyType value ) { };
+
+  private:
+
+    GeometrySystem( const GeometrySystem & copy ) { };
+    GeometrySystem & operator = ( const GeometrySystem & copy ) { return *this; };
+
+  };
 };
 
 

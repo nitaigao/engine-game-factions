@@ -13,36 +13,36 @@
 
 namespace Network
 {
-	/*! 
-	 *  A Network System Component
-	 */
-	class GAMEAPI INetworkSystemComponent : public ISystemComponent
-	{
+  /*! 
+   *  A Network System Component
+   */
+  class GAMEAPI INetworkSystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkSystemComponent( ) { };
-
-
-		/*! Adds a Network Provider to the Component
-		 *
-		 * @param[in] INetworkProvider * provider
-		 * @return ( void )
-		 */
-		virtual void AddProvider( INetworkProvider* provider ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkSystemComponent( ) { };
 
 
-		/*! Returns the Position of the parent Entity in the scene
-		*
-		* @return ( Maths::MathVector3& )
-		*/
-		virtual Maths::MathVector3 GetPosition( ) const = 0;
+    /*! Adds a Network Provider to the Component
+     *
+     * @param[in] INetworkProvider * provider
+     * @return ( void )
+     */
+    virtual void AddProvider( INetworkProvider* provider ) = 0;
 
-	};
+
+    /*! Returns the Position of the parent Entity in the scene
+    *
+    * @return ( Maths::MathVector3& )
+    */
+    virtual Maths::MathVector3 GetPosition( ) const = 0;
+
+  };
 };
 
 #endif

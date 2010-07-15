@@ -16,51 +16,51 @@
 
 namespace Script
 {
-	/*!
-	 *  A Controller For Interfacing with different components from a Script 
-	 */
-	class GAMEAPI IScriptFacade
-	{
+  /*!
+   *  A Controller For Interfacing with different components from a Script 
+   */
+  class GAMEAPI IScriptFacade
+  {
 
-	public:
+  public:
 
-		typedef std::deque< IScriptFacade* > ScriptFacadeList;
+    typedef std::deque< IScriptFacade* > ScriptFacadeList;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptFacade( ) { };
-
-
-		/*! Initializes the Facade with the given ScriptComponent
-		 *
-		 * @param[in] IScriptComponent *
-		 * @return ( void )
-		 */
-		virtual void Initialize( ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptFacade( ) { };
 
 
-		/*! Returns the Name that the Facade will use in script
-		 *
-		 * @return ( std::string )
-		 */
-		virtual std::string GetName( ) = 0;
+    /*! Initializes the Facade with the given ScriptComponent
+     *
+     * @param[in] IScriptComponent *
+     * @return ( void )
+     */
+    virtual void Initialize( ) = 0;
 
 
-		enum FacadeType
-		{
-			ANIMATION = 0,
-			INPUT = 1,
-			INSTRUMENTATION = 2,
-			NETWORK = 3,
-			PHYSICS = 4,
-			SOUND = 5,
-			SYSTEM = 6,
-			FACADETYPE_MAX = 7
-		};
+    /*! Returns the Name that the Facade will use in script
+     *
+     * @return ( std::string )
+     */
+    virtual std::string GetName( ) = 0;
 
-	};
+
+    enum FacadeType
+    {
+      ANIMATION = 0,
+      INPUT = 1,
+      INSTRUMENTATION = 2,
+      NETWORK = 3,
+      PHYSICS = 4,
+      SOUND = 5,
+      SYSTEM = 6,
+      FACADETYPE_MAX = 7
+    };
+
+  };
 };
 
 #endif

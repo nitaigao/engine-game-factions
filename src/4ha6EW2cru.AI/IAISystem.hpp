@@ -12,21 +12,21 @@
 
 namespace AI
 {
-	/*! 
-	 *  The AI System
-	 */
-	class IAISystem : public ISystem
-	{
+  /*! 
+   *  The AI System
+   */
+  class IAISystem : public ISystem
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IAISystem( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IAISystem( ) { };
 
-	};
+  };
 };
 
 #endif

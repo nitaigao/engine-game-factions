@@ -12,29 +12,29 @@
 
 namespace Network
 {
-	/*! 
-	 *  Creates Network System Components
-	 */
-	class INetworkSystemComponentFactory
-	{
+  /*! 
+   *  Creates Network System Components
+   */
+  class INetworkSystemComponentFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkSystemComponentFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkSystemComponentFactory( ) { };
 
 
-		/*! Creates a Network System Component
-		 *
-		 * @param[in] const std::string & name
-		 * @return ( INetworkSystemComponent* )
-		 */
-		virtual INetworkSystemComponent* Create( const std::string& name ) = 0;
-		
-	};
+    /*! Creates a Network System Component
+     *
+     * @param[in] const std::string & name
+     * @return ( INetworkSystemComponent* )
+     */
+    virtual INetworkSystemComponent* Create( const std::string& name ) = 0;
+    
+  };
 };
 
 #endif

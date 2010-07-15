@@ -14,14 +14,14 @@
 
 namespace
 {
-	class MockScriptFacadeFactory : public Script::IScriptFacadeFactory
-	{
+  class MockScriptFacadeFactory : public Script::IScriptFacadeFactory
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD3( CreateScriptFacade, Script::IScriptFacade*( Script::IScriptFacade::FacadeType, ISystemComponent*, Script::ILuaState* ) );
-		
-	};
+    MOCK_METHOD3( CreateScriptFacade, Script::IScriptFacade*( Script::IScriptFacade::FacadeType, ISystemComponent*, Script::ILuaState* ) );
+    
+  };
 };
 
 #endif

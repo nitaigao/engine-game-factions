@@ -12,46 +12,46 @@
 
 namespace Network
 {
-	/*! 
-	 *  A Stream to transmit across the Network
-	 */
-	class INetworkStream
-	{
+  /*! 
+   *  A Stream to transmit across the Network
+   */
+  class INetworkStream
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkStream( ) { };
-
-
-		/*! Writes string data to the stream
-		*
-		* @param[in] const std::string & data
-		* @return ( void )
-		*/
-		virtual void Write( const std::string& data ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkStream( ) { };
 
 
-		/*! Reads data into the string
-		*
-		* @param[in] std::string data
-		* @return ( GAMEAPI void )
-		*/
-		virtual void Read( std::string& data ) = 0;
+    /*! Writes string data to the stream
+    *
+    * @param[in] const std::string & data
+    * @return ( void )
+    */
+    virtual void Write( const std::string& data ) = 0;
+
+
+    /*! Reads data into the string
+    *
+    * @param[in] std::string data
+    * @return ( GAMEAPI void )
+    */
+    virtual void Read( std::string& data ) = 0;
 
 
 
-		/*! Sets the position of the read cursor
-		*
-		* @param[in] const unsigned int & position
-		* @return ( void )
-		*/
-		virtual void SetReadPosition( const unsigned int& position ) = 0;
-		
-	};
+    /*! Sets the position of the read cursor
+    *
+    * @param[in] const unsigned int & position
+    * @return ( void )
+    */
+    virtual void SetReadPosition( const unsigned int& position ) = 0;
+    
+  };
 };
 
 #endif

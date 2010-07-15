@@ -19,190 +19,190 @@
 
 namespace Input
 {
-	/*! 
-	 *  An Input System Scene Component
-	 */
-	class InputSystemComponent : public IInputSystemComponent
-	{
-		typedef std::deque< float > InputHistory;
-	
-	public:
-	
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~InputSystemComponent( ) { };
-	
-	
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		InputSystemComponent( Services::IServiceManager* serviceManager )
-			: m_historySize( 10 )
-			, m_serviceManager( serviceManager )
-		{
+  /*! 
+   *  An Input System Scene Component
+   */
+  class InputSystemComponent : public IInputSystemComponent
+  {
+    typedef std::deque< float > InputHistory;
+  
+  public:
+  
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~InputSystemComponent( ) { };
+  
+  
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    InputSystemComponent( Services::IServiceManager* serviceManager )
+      : m_historySize( 10 )
+      , m_serviceManager( serviceManager )
+    {
 
-		}
-	
-	
-		/*! Initializes the Component
-		*
-		*  @param[in] AnyType::AnyValueMap properties
-		*  @return (void)
-		*/
-		void Initialize( );
-	
-	
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
-	
-	
-		/*! Destroys the Component
-		*
-		*  @return (void)
-		*/
-		void Destroy( ) { };
-
-
-		/*! Gets the properties of the Component
-		*
-		*  @return (AnyTypeKeyMap)
-		*/
-		AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    }
+  
+  
+    /*! Initializes the Component
+    *
+    *  @param[in] AnyType::AnyValueMap properties
+    *  @return (void)
+    */
+    void Initialize( );
+  
+  
+    /*! Steps the internal data of the Component
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
+  
+  
+    /*! Destroys the Component
+    *
+    *  @return (void)
+    */
+    void Destroy( ) { };
 
 
-		/*! Sets an Attribute on the Component *
-		*
-		*  @param[in] const unsigned int attributeId
-		*  @param[in] const AnyType & value
-		*/
-		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    /*! Gets the properties of the Component
+    *
+    *  @return (AnyTypeKeyMap)
+    */
+    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
-		/*! Adds an Observer to the Component
-		*
-		*  @param[in] IObserver * observer
-		*  @return (void)
-		*/
-		void AddObserver( IObserver* observer ) { m_observers.push_back( observer ); };
+    /*! Sets an Attribute on the Component *
+    *
+    *  @param[in] const unsigned int attributeId
+    *  @param[in] const AnyType & value
+    */
+    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
 
 
-		/*! Gets the System::Types::Type of the Component
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::INPUT; };
+    /*! Adds an Observer to the Component
+    *
+    *  @param[in] IObserver * observer
+    *  @return (void)
+    */
+    void AddObserver( IObserver* observer ) { m_observers.push_back( observer ); };
 
 
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream ) { };
+    /*! Gets the System::Types::Type of the Component
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::INPUT; };
 
 
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void DeSerialize( IO::IStream* stream ) { };
+    /*! Writes the contents of the object to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void Serialize( IO::IStream* stream ) { };
 
 
-		/*! Returns the Name of the Component
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    /*! Reads the contents of the object from the stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void DeSerialize( IO::IStream* stream ) { };
 
 
-		/*! Posts a message to observers
-		*
-		*  @param[in] const std::string & message
-		*  @param[in] AnyType::AnyValueMap parameters
-		*  @return (AnyType)
-		*/
-		AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Returns the Name of the Component
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
 
 
-		/*! Messages the Component to influence its internal state
-		*
-		*  @param[in] const std::string & message
-		*  @return (AnyType)
-		*/
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Posts a message to observers
+    *
+    *  @param[in] const std::string & message
+    *  @param[in] AnyType::AnyValueMap parameters
+    *  @return (AnyType)
+    */
+    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Called by the Scene when the user presses a mouse button
-		*
-		* @param[in] const OIS::MouseEvent & arg
-		* @param[in] OIS::MouseButtonID id
-		* @return ( void )
-		*/
-		void MousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    /*! Messages the Component to influence its internal state
+    *
+    *  @param[in] const std::string & message
+    *  @return (AnyType)
+    */
+    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Called by the Scene when the user releases a mouse button
-		*
-		* @param[in] const OIS::MouseEvent & arg
-		* @param[in] OIS::MouseButtonID id
-		* @return ( void )
-		*/
-		void MouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    /*! Called by the Scene when the user presses a mouse button
+    *
+    * @param[in] const OIS::MouseEvent & arg
+    * @param[in] OIS::MouseButtonID id
+    * @return ( void )
+    */
+    void MousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
 
-		/*! Called the the Scene when the user moves the mouse
-		*
-		* @param[in] const OIS::MouseEvent & arg
-		* @return ( void )
-		*/
-		void MouseMoved( const OIS::MouseEvent &arg ) { };
+    /*! Called by the Scene when the user releases a mouse button
+    *
+    * @param[in] const OIS::MouseEvent & arg
+    * @param[in] OIS::MouseButtonID id
+    * @return ( void )
+    */
+    void MouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
 
-		/*! Called by the Scene when a key is pressed
-		*
-		* @param[in] const OIS::KeyEvent & arg
-		* @return ( void )
-		*/
-		void KeyPressed( const OIS::KeyEvent &arg );
+    /*! Called the the Scene when the user moves the mouse
+    *
+    * @param[in] const OIS::MouseEvent & arg
+    * @return ( void )
+    */
+    void MouseMoved( const OIS::MouseEvent &arg ) { };
 
 
-		/*! Called by the Scene when a key is released
-		*
-		* @param[in] const KeyEvent & arg
-		* @return ( void )
-		*/
-		void KeyReleased( const OIS::KeyEvent &arg );
+    /*! Called by the Scene when a key is pressed
+    *
+    * @param[in] const OIS::KeyEvent & arg
+    * @return ( void )
+    */
+    void KeyPressed( const OIS::KeyEvent &arg );
 
-	
-	private:
-	
-		InputSystemComponent( const InputSystemComponent & copy ) { };
-		InputSystemComponent & operator = ( const InputSystemComponent & copy ) { return *this; };
 
-		Services::IServiceManager* m_serviceManager;
+    /*! Called by the Scene when a key is released
+    *
+    * @param[in] const KeyEvent & arg
+    * @return ( void )
+    */
+    void KeyReleased( const OIS::KeyEvent &arg );
 
-		float AverageInputHistory( const InputHistory& inputHistory );
+  
+  private:
+  
+    InputSystemComponent( const InputSystemComponent & copy ) { };
+    InputSystemComponent & operator = ( const InputSystemComponent & copy ) { return *this; };
 
-		InputMessageBinding::InputMessageBindingList m_keyUpMessages;
-		InputMessageBinding::InputMessageBindingList m_mouseUpMessages;
+    Services::IServiceManager* m_serviceManager;
 
-		ObserverList m_observers;
-		AnyType::AnyTypeMap m_attributes;
+    float AverageInputHistory( const InputHistory& inputHistory );
 
-		InputHistory m_xHistory;
-		InputHistory m_yHistory;
+    InputMessageBinding::InputMessageBindingList m_keyUpMessages;
+    InputMessageBinding::InputMessageBindingList m_mouseUpMessages;
 
-		int m_historySize;
-	
-	};
+    ObserverList m_observers;
+    AnyType::AnyTypeMap m_attributes;
+
+    InputHistory m_xHistory;
+    InputHistory m_yHistory;
+
+    int m_historySize;
+  
+  };
 };
 
 #endif

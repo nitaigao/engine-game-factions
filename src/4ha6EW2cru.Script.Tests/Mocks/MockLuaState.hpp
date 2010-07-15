@@ -14,21 +14,21 @@
 
 namespace
 {
-	class MockLuaState : public Script::ILuaState
-	{
+  class MockLuaState : public Script::ILuaState
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD0( Initialize, void( ) );
-		MOCK_METHOD0( Destroy, void( ) );
-		MOCK_METHOD0( CreateChild, Script::ILuaState*( ) );
-		MOCK_METHOD1( RegisterTypes, void( const luabind::scope& ) );
-		MOCK_METHOD1( LoadScript, void( const std::string& ) );
-		MOCK_METHOD0( Execute, void( ) );
-		MOCK_METHOD0( ReParse, void( ) );
-		MOCK_METHOD1( ExecuteString, void( const std::string& ) );
-		
-	};
+    MOCK_METHOD0( Initialize, void( ) );
+    MOCK_METHOD0( Destroy, void( ) );
+    MOCK_METHOD0( CreateChild, Script::ILuaState*( ) );
+    MOCK_METHOD1( RegisterTypes, void( const luabind::scope& ) );
+    MOCK_METHOD1( LoadScript, void( const std::string& ) );
+    MOCK_METHOD0( Execute, void( ) );
+    MOCK_METHOD0( ReParse, void( ) );
+    MOCK_METHOD1( ExecuteString, void( const std::string& ) );
+    
+  };
 };
 
 #endif

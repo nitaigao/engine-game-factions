@@ -249,8 +249,8 @@ void OgreMaxScene::Load
                 OGRE_EXCEPT
                     (
                     Exception::ERR_INVALID_STATE,
-		            errorMessage.str(), 
-		            "OgreMaxScene::Load"
+                errorMessage.str(), 
+                "OgreMaxScene::Load"
                     );
             }
         }
@@ -263,8 +263,8 @@ void OgreMaxScene::Load
             OGRE_EXCEPT
                 (
                 Exception::ERR_FILE_NOT_FOUND,
-	            errorMessage.str(), 
-	            "OgreMaxScene::Load"
+              errorMessage.str(), 
+              "OgreMaxScene::Load"
                 );
         }
         else
@@ -285,7 +285,7 @@ void OgreMaxScene::Load
             OGRE_EXCEPT
                 (
                 Exception::ERR_INVALIDPARAMS,
-		        errorMessage.str(), 
+            errorMessage.str(), 
                 "OgreMaxScene::Load"
                 );
         }
@@ -732,8 +732,8 @@ String OgreMaxScene::GetNewObjectName(const TiXmlElement* objectElement, SceneNo
         OGRE_EXCEPT
             (
             Exception::ERR_DUPLICATE_ITEM,
-		    errorMessage.str(), 
-		    "OgreMaxScene::GetNewObjectName"
+        errorMessage.str(), 
+        "OgreMaxScene::GetNewObjectName"
             );
     }
 
@@ -777,8 +777,8 @@ void OgreMaxScene::LoadScene(const TiXmlElement* objectElement)
         OGRE_EXCEPT
             (
             Exception::ERR_NOT_IMPLEMENTED,
-		    errorMessage.str(), 
-		    "OgreMaxScene::LoadScene"
+        errorMessage.str(), 
+        "OgreMaxScene::LoadScene"
             );
     }
 
@@ -961,14 +961,14 @@ void OgreMaxScene::LoadInstancedGeometries(const TiXmlElement* objectElement)
 {
     //Ensure instancing is supported
     if (!Root::getSingleton().getRenderSystem()->getCapabilities()->hasCapability(RSC_VERTEX_PROGRAM))
-	{
-		OGRE_EXCEPT
+  {
+    OGRE_EXCEPT
             (
             Exception::ERR_INVALIDPARAMS, 
             "Instanced geometry is not supported by the current render system and/or video card", 
             "OgreMaxScene::LoadInstancedGeometry"
             );
-	}
+  }
 
     //Read all the instanced geometries
     String elementName;
@@ -2094,7 +2094,7 @@ void OgreMaxScene::LoadShadows(const TiXmlElement* objectElement)
         //Turn on shadows
 
         this->sceneManager->setShadowTechnique(params.shadowTechnique);
-        this->sceneManager->setShadowTextureSelfShadow(params.selfShadow);	       
+        this->sceneManager->setShadowTextureSelfShadow(params.selfShadow);         
         this->sceneManager->setShadowColour(params.shadowColor);
         if (params.farDistance > 0)
             this->sceneManager->setShadowFarDistance(params.farDistance);
@@ -2140,14 +2140,14 @@ void OgreMaxScene::LoadShadows(const TiXmlElement* objectElement)
                 //Choose a default format
                 if (renderSystem->getName().find("GL") != String::npos)
                 {
-	                //OpenGL performs better with a half-float format
-	                params.pixelFormat = PF_FLOAT16_R;
+                  //OpenGL performs better with a half-float format
+                  params.pixelFormat = PF_FLOAT16_R;
                 }
                 else
                 {
-	                //D3D is the opposite - if you ask for PF_FLOAT16_R you
-	                //get an integer format instead. You can ask for PF_FLOAT16_GR
-	                //but the precision doesn't work well
+                  //D3D is the opposite - if you ask for PF_FLOAT16_R you
+                  //get an integer format instead. You can ask for PF_FLOAT16_GR
+                  //but the precision doesn't work well
                     params.pixelFormat = PF_FLOAT32_R;
                 }    
             }
@@ -2175,7 +2175,7 @@ void OgreMaxScene::LoadShadows(const TiXmlElement* objectElement)
             //Create the appropriate default setup
             shadowCameraSetupPtr = ShadowCameraSetupPtr(new DefaultShadowCameraSetup());
         }
-	    this->sceneManager->setShadowCameraSetup(shadowCameraSetupPtr);
+      this->sceneManager->setShadowCameraSetup(shadowCameraSetupPtr);
     }
 }
 
@@ -2733,7 +2733,7 @@ void OgreMaxScene::LoadPlane(const TiXmlElement* objectElement, const MovableObj
     
     //Create plane mesh
     Plane plane(parameters.normal, parameters.distance);
-	MeshManager::getSingleton().createPlane
+  MeshManager::getSingleton().createPlane
         (
         parameters.planeName, 
         parameters.resourceGroupName,
@@ -3158,7 +3158,7 @@ ShadowCameraSetup* OgreMaxScene::ParseShadowCameraSetup(const String& type, Plan
     OGRE_EXCEPT
         (
         Exception::ERR_INVALIDPARAMS,
-	    errorMessage.str(), 
-	    "OgreMaxScene::ParseShadowCameraSetup"
+      errorMessage.str(), 
+      "OgreMaxScene::ParseShadowCameraSetup"
         );
 }

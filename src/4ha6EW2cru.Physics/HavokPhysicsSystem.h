@@ -19,138 +19,138 @@
 
 namespace Physics
 {
-	/*! 
-	 *  The Physics System
-	 */
-	class HavokPhysicsSystem : public IPhysicsSystem, public Services::IService
-	{
+  /*! 
+   *  The Physics System
+   */
+  class HavokPhysicsSystem : public IPhysicsSystem, public Services::IService
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~HavokPhysicsSystem( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		HavokPhysicsSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-			: m_threadMemory( 0 )
-			, m_stackBuffer( 0 )
-			, m_scene( 0 )
-			, m_serviceManager( serviceManager )
-			, m_resourceCache( resourceCache )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~HavokPhysicsSystem( ) { };
 
 
-		/*! Initializes the System
-		*
-		*  @return (void)
-		*/
-		void Initialize( Configuration::IConfiguration* configuration );
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    HavokPhysicsSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
+      : m_threadMemory( 0 )
+      , m_stackBuffer( 0 )
+      , m_scene( 0 )
+      , m_serviceManager( serviceManager )
+      , m_resourceCache( resourceCache )
+    {
+
+    }
 
 
-		/*! Steps the System's internal data
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the System
+    *
+    *  @return (void)
+    */
+    void Initialize( Configuration::IConfiguration* configuration );
 
 
-		/*! Releases internal data of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		void Release( );
+    /*! Steps the System's internal data
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Messages the system with a command
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Releases internal data of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    void Release( );
 
 
-		/*! Returns the type of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::PHYSICS; };
+    /*! Messages the system with a command
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Creates a System Scene
-		*
-		*  @return (ISystemScene*)
-		*/
-		ISystemScene* CreateScene( );
+    /*! Returns the type of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::PHYSICS; };
 
 
-		/*! Gets the System's Properties
-		*
-		*  @return (AnyTypeMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
-		
-
-		/*! Sets a System Property
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] AnyType value
-		*  @return (void)
-		*/
-		inline void SetAttribute( const std::string& name, AnyType value ) { };
-		
-		
-		/*! Performs a Ray Query on the Scene, destination is not direction, its the end point of the Ray
-		 *
-		 *  @param[in] Maths::MathVector3 origin
-		 *  @param[in] Maths::MathVector3 destination
-		 *  @param[in] bool sortByDistance
-		 *  @return (std::vector< std::string >)
-		 */
-		std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults );
+    /*! Creates a System Scene
+    *
+    *  @return (ISystemScene*)
+    */
+    ISystemScene* CreateScene( );
 
 
-		/*! Returns the Physics World from within Havok
-		*
-		*  @return (hkpWorld*)
-		*/
-		hkpWorld* GetWorld( ) const { return m_world; };
+    /*! Gets the System's Properties
+    *
+    *  @return (AnyTypeMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    
 
-	private:
+    /*! Sets a System Property
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] AnyType value
+    *  @return (void)
+    */
+    inline void SetAttribute( const std::string& name, AnyType value ) { };
+    
+    
+    /*! Performs a Ray Query on the Scene, destination is not direction, its the end point of the Ray
+     *
+     *  @param[in] Maths::MathVector3 origin
+     *  @param[in] Maths::MathVector3 destination
+     *  @param[in] bool sortByDistance
+     *  @return (std::vector< std::string >)
+     */
+    std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults );
 
-		HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
-		HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };
 
-		Resources::IResourceCache* m_resourceCache;
+    /*! Returns the Physics World from within Havok
+    *
+    *  @return (hkpWorld*)
+    */
+    hkpWorld* GetWorld( ) const { return m_world; };
 
-		static void errorReportFunction( const char* str, void* errorOutputObject );
+  private:
 
-		HavokPhysicsSystemScene* m_scene;
+    HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
+    HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };
 
-		hkThreadMemory* m_threadMemory;
-		char* m_stackBuffer;
+    Resources::IResourceCache* m_resourceCache;
 
-		hkpPhysicsContext* m_context;
-		hkpGroupFilter* m_groupFilter;
+    static void errorReportFunction( const char* str, void* errorOutputObject );
 
-		hkpWorld* m_world;
+    HavokPhysicsSystemScene* m_scene;
+
+    hkThreadMemory* m_threadMemory;
+    char* m_stackBuffer;
+
+    hkpPhysicsContext* m_context;
+    hkpGroupFilter* m_groupFilter;
+
+    hkpWorld* m_world;
 #ifdef _DEBUG
-		hkVisualDebugger* m_vdb;
+    hkVisualDebugger* m_vdb;
 #endif
 
-		Services::IServiceManager* m_serviceManager;
+    Services::IServiceManager* m_serviceManager;
 
-	};
+  };
 };
 
 #endif

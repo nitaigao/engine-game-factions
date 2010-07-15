@@ -15,33 +15,33 @@
 
 namespace Network
 {
-	/*! 
-	 *  A communication provider to the Network
-	 */
-	class INetworkProviderOld
-	{
+  /*! 
+   *  A communication provider to the Network
+   */
+  class INetworkProviderOld
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkProviderOld( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkProviderOld( ) { };
 
-		virtual void Initialize( Configuration::IConfiguration* configuration ) = 0;
+    virtual void Initialize( Configuration::IConfiguration* configuration ) = 0;
 
-		virtual void Update( float deltaMilliseconds ) = 0;
+    virtual void Update( float deltaMilliseconds ) = 0;
 
-		virtual void Release( ) = 0;
+    virtual void Release( ) = 0;
 
-		virtual AnyType::AnyTypeMap Message( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    virtual AnyType::AnyTypeMap Message( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
-		virtual void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    virtual void PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
 
-		virtual void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
-		
-	};
+    virtual void PushMessage( const SystemAddress& address, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    
+  };
 };
 
 #endif

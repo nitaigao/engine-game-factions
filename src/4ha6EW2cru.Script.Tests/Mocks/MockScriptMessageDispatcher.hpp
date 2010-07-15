@@ -14,18 +14,18 @@
 
 namespace
 {
-	class MockScriptMessageDispatcher : public Script::IScriptMessageDispatcher
-	{
+  class MockScriptMessageDispatcher : public Script::IScriptMessageDispatcher
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD2( Dispatch_Message, void( const System::MessageType&, AnyType::AnyTypeMap& ) );
-		MOCK_METHOD2( AddMessageHandler, void( const System::MessageType&, luabind::object ) );
-		MOCK_METHOD2( HasHandler, bool( const System::MessageType&, luabind::object ) );
-		MOCK_METHOD2( RemoveHandler, void( const System::MessageType&, luabind::object ) );
-		MOCK_METHOD1( Update, void( float ) );
-		
-	};
+    MOCK_METHOD2( Dispatch_Message, void( const System::MessageType&, AnyType::AnyTypeMap& ) );
+    MOCK_METHOD2( AddMessageHandler, void( const System::MessageType&, luabind::object ) );
+    MOCK_METHOD2( HasHandler, bool( const System::MessageType&, luabind::object ) );
+    MOCK_METHOD2( RemoveHandler, void( const System::MessageType&, luabind::object ) );
+    MOCK_METHOD1( Update, void( float ) );
+    
+  };
 };
 
 #endif

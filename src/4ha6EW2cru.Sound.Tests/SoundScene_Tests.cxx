@@ -13,39 +13,39 @@ class SoundScene_Tests : public TestHarness< SoundScene >
 
 protected:
 
-	MockSoundComponentFactory* m_factory;
+  MockSoundComponentFactory* m_factory;
 
-	void EstablishContext( )
-	{
-		m_factory = new MockSoundComponentFactory( );
-	}
+  void EstablishContext( )
+  {
+    m_factory = new MockSoundComponentFactory( );
+  }
 
-	void DestroyContext( )
-	{
+  void DestroyContext( )
+  {
 
-	}
+  }
 
-	SoundScene* CreateSubject( )
-	{
-		return new SoundScene( m_factory ); 
-	}
+  SoundScene* CreateSubject( )
+  {
+    return new SoundScene( m_factory ); 
+  }
 };
 
 TEST_F( SoundScene_Tests, should_create_components )
 {
-	std::string name = "test";
-	std::string type = "default";
+  std::string name = "test";
+  std::string type = "default";
 
-	MockSoundSystemComponent component;
+  MockSoundSystemComponent component;
 
-	EXPECT_CALL( *m_factory, CreateComponent( name, type ) ).WillOnce( Return( &component ) );
-	m_subject->CreateComponent( name, type );
+  EXPECT_CALL( *m_factory, CreateComponent( name, type ) ).WillOnce( Return( &component ) );
+  m_subject->CreateComponent( name, type );
 }
 
 TEST_F( SoundScene_Tests, should_destroy_components )
 {
-	MockSoundSystemComponent* component = new MockSoundSystemComponent( );
-	EXPECT_CALL( *component, Destroy( ) );
+  MockSoundSystemComponent* component = new MockSoundSystemComponent( );
+  EXPECT_CALL( *component, Destroy( ) );
 
-	m_subject->DestroyComponent( component );
+  m_subject->DestroyComponent( component );
 }

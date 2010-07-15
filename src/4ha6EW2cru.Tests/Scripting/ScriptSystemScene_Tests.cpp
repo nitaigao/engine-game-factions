@@ -13,17 +13,17 @@ using namespace Script;
 
 void ScriptSystemScene_Tests::setUp()
 {
-	Management::Initialize( );
+  Management::Initialize( );
 }
 
 void ScriptSystemScene_Tests::tearDown()
 {
-	Management::Release( );
+  Management::Release( );
 }
 
 void ScriptSystemScene_Tests::Should_Initialize_Correctly()
 {
-	ScriptSystemScene scene( 0 );
-	scene.Initialize( );
-	scene.Destroy( );
+  ScriptSystemScene scene( 0 );
+  scene.Initialize( );
+  scene.Destroy( );
 }

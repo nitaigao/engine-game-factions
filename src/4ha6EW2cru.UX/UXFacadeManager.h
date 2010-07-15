@@ -14,57 +14,57 @@
 
 namespace UX
 {
-	/*! 
-	 *  Manages all of the Facades exposed to the Lua Script Engine
-	 */
-	class GAMEAPI UXFacadeManager : public Script::IScriptFacadeManager
-	{
+  /*! 
+   *  Manages all of the Facades exposed to the Lua Script Engine
+   */
+  class GAMEAPI UXFacadeManager : public Script::IScriptFacadeManager
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~UXFacadeManager( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		UXFacadeManager( Script::IScriptFacadeFactory* facadeFactory, Script::ILuaState* state )
-			: m_facadeFactory( facadeFactory )
-			, m_state( state )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~UXFacadeManager( ) { };
 
 
-		/*! Initializes the Facade Manager with the given ScriptComponent
-		*
-		* @param[in] IScriptComponent *
-		* @return ( void )
-		*/
-		void Initialize( ISystemComponent* scriptComponent );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    UXFacadeManager( Script::IScriptFacadeFactory* facadeFactory, Script::ILuaState* state )
+      : m_facadeFactory( facadeFactory )
+      , m_state( state )
+    {
+
+    }
 
 
-		/*! Destroys each ScriptFacade
-		*
-		* @return ( void )
-		*/
-		void Destroy( );
+    /*! Initializes the Facade Manager with the given ScriptComponent
+    *
+    * @param[in] IScriptComponent *
+    * @return ( void )
+    */
+    void Initialize( ISystemComponent* scriptComponent );
 
-	private:
 
-		UXFacadeManager( const UXFacadeManager & copy ) { };
-		UXFacadeManager & operator = ( const UXFacadeManager & copy ) { return *this; };
+    /*! Destroys each ScriptFacade
+    *
+    * @return ( void )
+    */
+    void Destroy( );
 
-		Script::IScriptFacadeFactory* m_facadeFactory;
-		Script::IScriptFacade::ScriptFacadeList m_facades;
-		Script::ILuaState* m_state;
-		
-	};
+  private:
+
+    UXFacadeManager( const UXFacadeManager & copy ) { };
+    UXFacadeManager & operator = ( const UXFacadeManager & copy ) { return *this; };
+
+    Script::IScriptFacadeFactory* m_facadeFactory;
+    Script::IScriptFacade::ScriptFacadeList m_facades;
+    Script::ILuaState* m_state;
+    
+  };
 };
 
 #endif

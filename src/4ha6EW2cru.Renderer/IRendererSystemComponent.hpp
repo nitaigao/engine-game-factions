@@ -12,23 +12,23 @@
 
 namespace Renderer
 {
-	/*!
-	 *  A Render System Component 
-	 */
-	class IRendererSystemComponent : public ISystemComponent
-	{
+  /*!
+   *  A Render System Component 
+   */
+  class IRendererSystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		typedef std::map< std::string, IRendererSystemComponent* > RendererSystemComponentList;
+    typedef std::map< std::string, IRendererSystemComponent* > RendererSystemComponentList;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IRendererSystemComponent( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IRendererSystemComponent( ) { };
 
-	};
+  };
 };
 
 #endif

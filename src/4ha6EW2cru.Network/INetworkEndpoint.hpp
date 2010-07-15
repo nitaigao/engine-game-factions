@@ -12,36 +12,36 @@
 
 namespace Network
 {
-	/*! 
-	 *  An Endpoint for receiving data from the network
-	 */
-	class GAMEAPI INetworkEndpoint
-	{
+  /*! 
+   *  An Endpoint for receiving data from the network
+   */
+  class GAMEAPI INetworkEndpoint
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkEndpoint( ) { };
-
-
-		/*! Initializes the Endpoint
-		 *
-		 * @return ( void )
-		 */
-		virtual void Initialize( ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkEndpoint( ) { };
 
 
-		/*! Updates the Endpoint
-		 *
-		 * @param[in] float deltaMilliseconds
-		 * @return ( void )
-		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
-		
-	};
+    /*! Initializes the Endpoint
+     *
+     * @return ( void )
+     */
+    virtual void Initialize( ) = 0;
+
+
+    /*! Updates the Endpoint
+     *
+     * @param[in] float deltaMilliseconds
+     * @return ( void )
+     */
+    virtual void Update( float deltaMilliseconds ) = 0;
+    
+  };
 };
 
 #endif

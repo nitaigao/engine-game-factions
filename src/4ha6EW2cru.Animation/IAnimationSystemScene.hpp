@@ -12,21 +12,21 @@
 
 namespace Animation
 {
-	/*! 
-	 *  The Animation System Scene
-	 */
-	class IAnimationSystemScene : public ISystemScene
-	{
+  /*! 
+   *  The Animation System Scene
+   */
+  class IAnimationSystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IAnimationSystemScene( ) { };
-		
-	};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IAnimationSystemScene( ) { };
+    
+  };
 };
 
 #endif

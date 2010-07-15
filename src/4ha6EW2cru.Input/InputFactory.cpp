@@ -6,8 +6,8 @@
 
 namespace Input
 {
-	IInputSystem* InputFactory::CreateInputSystem()
-	{
-		return new InputSystem( m_eventManager, m_platformManager, m_serviceManager );
-	}
+  IInputSystem* InputFactory::CreateInputSystem()
+  {
+    return new InputSystem( m_eventManager, m_platformManager, m_serviceManager );
+  }
 }

@@ -18,56 +18,56 @@
 
 namespace Network
 {
-	/*! 
-	 *  Receives and Transmits to Clients on the Network
-	 */
-	class GAMEAPI INetworkProvider
-	{
+  /*! 
+   *  Receives and Transmits to Clients on the Network
+   */
+  class GAMEAPI INetworkProvider
+  {
 
-	public:
+  public:
 
-		typedef std::vector< INetworkProvider* > NetworkProviderList;
+    typedef std::vector< INetworkProvider* > NetworkProviderList;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~INetworkProvider( ) { };
-
-
-		/*! Initializes the Network Interface
-		 *
-		 * @param[in] int maxConnections
-		 * @return ( void )
-		 */
-		virtual void Initialize( int maxConnections ) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~INetworkProvider( ) { };
 
 
-		/*! Updates the Network Provider
-		 *
-		 * @param[in] float deltaMilliseconds
-		 * @return ( void )
-		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
+    /*! Initializes the Network Interface
+     *
+     * @param[in] int maxConnections
+     * @return ( void )
+     */
+    virtual void Initialize( int maxConnections ) = 0;
 
 
-		/*! Distributes the message for the entity across the Network
-		 *
-		 * @param[in] ISystemComponent* subject
-		 * @param[in] const System::Message & message
-		 * @param[in] AnyType::AnyTypeMap parameters
-		 * @return ( void )
-		 */
-		virtual void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    /*! Updates the Network Provider
+     *
+     * @param[in] float deltaMilliseconds
+     * @return ( void )
+     */
+    virtual void Update( float deltaMilliseconds ) = 0;
 
 
-		/*! Destroys the Provider
-		 *
-		 * @return ( void )
-		 */
-		virtual void Destroy( ) = 0;
-		
-	};
+    /*! Distributes the message for the entity across the Network
+     *
+     * @param[in] ISystemComponent* subject
+     * @param[in] const System::Message & message
+     * @param[in] AnyType::AnyTypeMap parameters
+     * @return ( void )
+     */
+    virtual void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+
+
+    /*! Destroys the Provider
+     *
+     * @return ( void )
+     */
+    virtual void Destroy( ) = 0;
+    
+  };
 };
 
 #endif

@@ -5,8 +5,8 @@
 
 enum InputMessageBindingType
 {
-	BINDING_KEYBOARD, 
-	BINDING_MOUSE
+  BINDING_KEYBOARD, 
+  BINDING_MOUSE
 };
 
 #endif

@@ -10,36 +10,36 @@
 
 namespace Testing
 {
-	/*! 
-	 *  A Test Harness for Unit Tests
-	 */
-	template< class T >
-	class TestHarness : public testing::Test
-	{
+  /*! 
+   *  A Test Harness for Unit Tests
+   */
+  template< class T >
+  class TestHarness : public testing::Test
+  {
 
-	public:
+  public:
 
-		virtual void SetUp( )
-		{
-			EstablishContext( );
-			m_subject = CreateSubject( );
-		}
+    virtual void SetUp( )
+    {
+      EstablishContext( );
+      m_subject = CreateSubject( );
+    }
 
-		virtual void TearDown( )
-		{
-			DestroyContext( );
-			delete m_subject;
-		}
+    virtual void TearDown( )
+    {
+      DestroyContext( );
+      delete m_subject;
+    }
 
-	protected:
+  protected:
 
-		virtual void EstablishContext( ) { };
-		virtual void DestroyContext( ) { };
-		virtual T* CreateSubject( ) = 0;
+    virtual void EstablishContext( ) { };
+    virtual void DestroyContext( ) { };
+    virtual T* CreateSubject( ) = 0;
 
-		T* m_subject;
+    T* m_subject;
 
-	};
+  };
 
 };
 

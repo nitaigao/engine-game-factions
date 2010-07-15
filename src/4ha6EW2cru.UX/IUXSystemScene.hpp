@@ -12,21 +12,21 @@
 
 namespace UX
 {
-	/*! 
-	 *  A scene specific to the UX System
-	 */
-	class GAMEAPI IUXSystemScene : public ISystemScene
-	{
+  /*! 
+   *  A scene specific to the UX System
+   */
+  class GAMEAPI IUXSystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IUXSystemScene( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IUXSystemScene( ) { };
 
-	};
+  };
 };
 
 #endif

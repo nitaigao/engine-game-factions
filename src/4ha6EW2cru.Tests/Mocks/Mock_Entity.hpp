@@ -15,32 +15,32 @@ class Mock_Entity : public IWorldEntity, public MockObject
 
 public:
 
-	~Mock_Entity( ) { };
+  ~Mock_Entity( ) { };
 
-	Mock_Entity( )
-		: MockObject( "Mock_Entity", 0 )
-	{
+  Mock_Entity( )
+    : MockObject( "Mock_Entity", 0 )
+  {
 
-	}
+  }
 
 
-	void AddObserver( const System::Message& message, IObserver* observer ) {};
-	AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+  void AddObserver( const System::Message& message, IObserver* observer ) {};
+  AnyType PushMessage( const System::Message& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
 
-	const std::string& GetName( ) const { return "test_entity"; };
-	void AddComponent( ISystemComponent* component ) { _components.push_back( component ); }
-	ISystemComponent* FindComponent( const System::Types::Type& systemType ) const { return 0; };
-	ISystemComponent::SystemComponentList GetComponents( ) const { return _components; };
+  const std::string& GetName( ) const { return "test_entity"; };
+  void AddComponent( ISystemComponent* component ) { _components.push_back( component ); }
+  ISystemComponent* FindComponent( const System::Types::Type& systemType ) const { return 0; };
+  ISystemComponent::SystemComponentList GetComponents( ) const { return _components; };
 
-	AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { };
+  AnyType Message( const System::Message& message, AnyType::AnyTypeMap parameters ) { };
 
-	void Initialize() { };
+  void Initialize() { };
 
 private:
 
-	Mock_Entity & operator = ( const Mock_Entity & copy ) { return *this; };
+  Mock_Entity & operator = ( const Mock_Entity & copy ) { return *this; };
 
-	ISystemComponent::SystemComponentList _components;
+  ISystemComponent::SystemComponentList _components;
 };
 
 #endif

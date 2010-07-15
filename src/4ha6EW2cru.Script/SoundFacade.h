@@ -16,71 +16,71 @@
 
 namespace Script
 {
-	/*!
-	 *  An Interface to the Sound System for Script  
-	 */
-	class SoundFacade : public ISoundFacade
-	{
+  /*!
+   *  An Interface to the Sound System for Script  
+   */
+  class SoundFacade : public ISoundFacade
+  {
 
-	public:
+  public:
 
-		/*! Registers the Script functions with the given state
-		*
-		* @return ( void )
-		*/
-		static luabind::scope RegisterFunctions( );
+    /*! Registers the Script functions with the given state
+    *
+    * @return ( void )
+    */
+    static luabind::scope RegisterFunctions( );
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundFacade( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		SoundFacade( ISystemComponent* component, Services::IServiceManager* serviceManager )
-			: m_component( component )
-			, m_serviceManager( serviceManager )
-		{
-
-		}
-
-		/*! Returns the Name that the Facade will use in script
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) { return "sound"; };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundFacade( ) { };
 
 
-		void TriggerEvent( const std::string& eventPath );
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    SoundFacade( ISystemComponent* component, Services::IServiceManager* serviceManager )
+      : m_component( component )
+      , m_serviceManager( serviceManager )
+    {
 
-		void KeyOutEvent( const std::string& eventPath );
+    }
 
-		/*! Instructs the Sound System to play some music from the given event path
-		*
-		*  @param[in] const std::string & eventPath
-		*  @return (void)
-		*/
-		void PlayMusic( const std::string& eventPath );
+    /*! Returns the Name that the Facade will use in script
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) { return "sound"; };
 
 
-		/*! Initializes the Facade with the given ScriptComponent
-		*
-		* @return ( void )
-		*/
-		void Initialize( ) { };
+    void TriggerEvent( const std::string& eventPath );
 
-	private:
+    void KeyOutEvent( const std::string& eventPath );
 
-		SoundFacade( const SoundFacade & copy ) { };
-		SoundFacade & operator = ( const SoundFacade & copy ) { return *this; };
+    /*! Instructs the Sound System to play some music from the given event path
+    *
+    *  @param[in] const std::string & eventPath
+    *  @return (void)
+    */
+    void PlayMusic( const std::string& eventPath );
 
-		ISystemComponent* m_component;
-		Services::IServiceManager* m_serviceManager;
-	};
+
+    /*! Initializes the Facade with the given ScriptComponent
+    *
+    * @return ( void )
+    */
+    void Initialize( ) { };
+
+  private:
+
+    SoundFacade( const SoundFacade & copy ) { };
+    SoundFacade & operator = ( const SoundFacade & copy ) { return *this; };
+
+    ISystemComponent* m_component;
+    Services::IServiceManager* m_serviceManager;
+  };
 };
 
 #endif

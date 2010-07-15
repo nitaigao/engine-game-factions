@@ -13,25 +13,25 @@
 
 namespace Sound
 {
-	/*!
-	 *  A Sound Scene 
-	 */
-	class GAMEAPI ISoundScene : public ISystemScene
-	{
+  /*!
+   *  A Sound Scene 
+   */
+  class GAMEAPI ISoundScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~ISoundScene( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~ISoundScene( ) { };
 
-		virtual ISoundSystem* GetSoundSystem( ) = 0;
+    virtual ISoundSystem* GetSoundSystem( ) = 0;
 
-		
+    
 
-	};
+  };
 };
 
 #endif

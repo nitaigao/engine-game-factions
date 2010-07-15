@@ -13,8 +13,8 @@ using namespace System;
 
 namespace Geometry
 {
-	ISystemScene* GeometrySystem::CreateScene( )
-	{
-		return new GeometrySystemScene( this );
-	}
+  ISystemScene* GeometrySystem::CreateScene( )
+  {
+    return new GeometrySystemScene( this );
+  }
 };

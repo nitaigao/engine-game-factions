@@ -17,109 +17,109 @@
 
 namespace UX
 {
-	/*! 
-	 *  The System that controls the User Experience ( ie. GUI Elements )
-	 */
-	class GAMEAPI UXSystem : public IUXSystem, public Services::IService
-	{
+  /*! 
+   *  The System that controls the User Experience ( ie. GUI Elements )
+   */
+  class GAMEAPI UXSystem : public IUXSystem, public Services::IService
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~UXSystem( );
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		UXSystem( IGUI* gui, IUXSystemScene* scene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
-			: m_scene( scene )
-			, m_gui( gui )
-			, m_eventManager( eventManager )
-			, m_serviceManager( serviceManager )
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~UXSystem( );
 
 
-		/*! Initializes the System
-		*
-		*  @return (void)
-		*/
-		void Initialize( Configuration::IConfiguration* configuration );
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    UXSystem( IGUI* gui, IUXSystemScene* scene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
+      : m_scene( scene )
+      , m_gui( gui )
+      , m_eventManager( eventManager )
+      , m_serviceManager( serviceManager )
+    {
+
+    }
 
 
-		/*! Steps the System's internal data
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the System
+    *
+    *  @return (void)
+    */
+    void Initialize( Configuration::IConfiguration* configuration );
 
 
-		/*! Releases the System
-		*
-		*  @return (void)
-		*/
-		void Release( );
+    /*! Steps the System's internal data
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Messages the system with a command
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Releases the System
+    *
+    *  @return (void)
+    */
+    void Release( );
 
 
-		/*! Returns the type of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::UX; };
+    /*! Messages the system with a command
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Creates a System Scene
-		*
-		*  @return (ISystemScene*)
-		*/
-		ISystemScene* CreateScene( );
+    /*! Returns the type of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::UX; };
 
 
-		/*! Gets the System's Properties
-		*
-		*  @return (AnyTypeMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    /*! Creates a System Scene
+    *
+    *  @return (ISystemScene*)
+    */
+    ISystemScene* CreateScene( );
 
 
-		/*! Sets a System Property
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] AnyType value
-		*  @return (void)
-		*/
-		inline void SetAttribute( const std::string& name, AnyType value ) { };
+    /*! Gets the System's Properties
+    *
+    *  @return (AnyTypeMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
-		void OnMouseMoved( const Events::IEvent* event );
-		void OnMousePressed( const Events::IEvent* event );
-		void OnMouseReleased( const Events::IEvent* event );
-		void OnKeyUp( const Events::IEvent* event );
-		void OnKeyDown( const Events::IEvent* event );
 
-		AnyType::AnyTypeMap m_attributes;
+    /*! Sets a System Property
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] AnyType value
+    *  @return (void)
+    */
+    inline void SetAttribute( const std::string& name, AnyType value ) { };
 
-		IGUI* m_gui;
-		IUXSystemScene* m_scene;
-		Events::IEventManager* m_eventManager;
-		Services::IServiceManager* m_serviceManager;
+    void OnMouseMoved( const Events::IEvent* event );
+    void OnMousePressed( const Events::IEvent* event );
+    void OnMouseReleased( const Events::IEvent* event );
+    void OnKeyUp( const Events::IEvent* event );
+    void OnKeyDown( const Events::IEvent* event );
 
-	};
+    AnyType::AnyTypeMap m_attributes;
+
+    IGUI* m_gui;
+    IUXSystemScene* m_scene;
+    Events::IEventManager* m_eventManager;
+    Services::IServiceManager* m_serviceManager;
+
+  };
 };
 
 #endif

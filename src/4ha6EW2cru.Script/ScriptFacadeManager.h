@@ -14,57 +14,57 @@
 
 namespace Script
 {
-	/*! 
-	 *  Manages all of the Facades exposed to the Lua Script Engine
-	 */
-	class GAMEAPI ScriptFacadeManager : public IScriptFacadeManager
-	{
+  /*! 
+   *  Manages all of the Facades exposed to the Lua Script Engine
+   */
+  class GAMEAPI ScriptFacadeManager : public IScriptFacadeManager
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ScriptFacadeManager( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		ScriptFacadeManager( IScriptFacadeFactory* facadeFactory, ILuaState* state )
-			: m_facadeFactory( facadeFactory )
-			, m_state( state )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ScriptFacadeManager( ) { };
 
 
-		/*! Initializes the Facade Manager with the given ScriptComponent
-		*
-		* @param[in] IScriptComponent *
-		* @return ( void )
-		*/
-		void Initialize( ISystemComponent* scriptComponent );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    ScriptFacadeManager( IScriptFacadeFactory* facadeFactory, ILuaState* state )
+      : m_facadeFactory( facadeFactory )
+      , m_state( state )
+    {
+
+    }
 
 
-		/*! Destroys each ScriptFacade
-		*
-		* @return ( void )
-		*/
-		void Destroy( );
+    /*! Initializes the Facade Manager with the given ScriptComponent
+    *
+    * @param[in] IScriptComponent *
+    * @return ( void )
+    */
+    void Initialize( ISystemComponent* scriptComponent );
 
-	private:
 
-		ScriptFacadeManager( const ScriptFacadeManager & copy ) { };
-		ScriptFacadeManager & operator = ( const ScriptFacadeManager & copy ) { return *this; };
+    /*! Destroys each ScriptFacade
+    *
+    * @return ( void )
+    */
+    void Destroy( );
 
-		IScriptFacadeFactory* m_facadeFactory;
-		IScriptFacade::ScriptFacadeList m_facades;
-		ILuaState* m_state;
-		
-	};
+  private:
+
+    ScriptFacadeManager( const ScriptFacadeManager & copy ) { };
+    ScriptFacadeManager & operator = ( const ScriptFacadeManager & copy ) { return *this; };
+
+    IScriptFacadeFactory* m_facadeFactory;
+    IScriptFacade::ScriptFacadeList m_facades;
+    ILuaState* m_state;
+    
+  };
 };
 
 #endif

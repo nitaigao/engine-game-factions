@@ -25,142 +25,142 @@
 
 namespace Renderer 
 {
-	/*!
-	 *  The Render System 
-	 */
-	class RendererSystem : public IRendererSystem, public Services::IService, public Ogre::WindowEventListener
-	{
+  /*!
+   *  The Render System 
+   */
+  class RendererSystem : public IRendererSystem, public Services::IService, public Ogre::WindowEventListener
+  {
 
-		typedef std::deque< Ogre::MovableObjectFactory* > FactoryList;
+    typedef std::deque< Ogre::MovableObjectFactory* > FactoryList;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~RendererSystem( );
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		RendererSystem( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-			: m_configuration( 0 )
-			, m_root( 0 )
-			, m_window( 0 )
-			, m_sceneManager( 0 )
-			, m_scene( 0 )
-			, m_logListener( 0 )
-			, m_eventManager( eventManager )
-			, m_platformManager( platformManager )
-			, m_serviceManager( serviceManager )
-			, m_resourceCache( resourceCache )
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~RendererSystem( );
 
 
-		/*! Initializes the System
-		*
-		*  @return (void)
-		*/
-		void Initialize( Configuration::IConfiguration* configuration );
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    RendererSystem( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
+      : m_configuration( 0 )
+      , m_root( 0 )
+      , m_window( 0 )
+      , m_sceneManager( 0 )
+      , m_scene( 0 )
+      , m_logListener( 0 )
+      , m_eventManager( eventManager )
+      , m_platformManager( platformManager )
+      , m_serviceManager( serviceManager )
+      , m_resourceCache( resourceCache )
+    {
+
+    }
 
 
-		/*! Steps the System's internal data
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds );
+    /*! Initializes the System
+    *
+    *  @return (void)
+    */
+    void Initialize( Configuration::IConfiguration* configuration );
 
 
-		/*! Releases internal data of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		void Release( );
+    /*! Steps the System's internal data
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds );
 
 
-		/*! Messages the system with a command
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		inline AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Releases internal data of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    void Release( );
 
 
-		/*! Returns the type of the System
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType( ) const { return System::Types::RENDER; };
+    /*! Messages the system with a command
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    inline AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Creates a System Scene
-		*
-		*  @return (ISystemScene*)
-		*/
-		inline ISystemScene* CreateScene( );
+    /*! Returns the type of the System
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType( ) const { return System::Types::RENDER; };
 
 
-		/*! Gets the System's Properties
-		*
-		*  @return (AnyTypeMap)
-		*/
-		inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    /*! Creates a System Scene
+    *
+    *  @return (ISystemScene*)
+    */
+    inline ISystemScene* CreateScene( );
 
 
-		/*! Sets a System Property
-		*
-		*  @param[in] const std::string & name
-		*  @param[in] AnyType value
-		*  @return (void)
-		*/
-		inline void SetAttribute( const std::string& name, AnyType value );
+    /*! Gets the System's Properties
+    *
+    *  @return (AnyTypeMap)
+    */
+    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
-		void GetMeshInformation( const Ogre::Mesh* const mesh, size_t &vertex_count, Ogre::Vector3* &vertices, size_t &index_count, unsigned long* &indices, 
-			const Ogre::Vector3 &position = Ogre::Vector3::ZERO,
-			const Ogre::Quaternion &orient = Ogre::Quaternion::IDENTITY,
-			const Ogre::Vector3 &scale = Ogre::Vector3::UNIT_SCALE 
-			);
-		
+    /*! Sets a System Property
+    *
+    *  @param[in] const std::string & name
+    *  @param[in] AnyType value
+    *  @return (void)
+    */
+    inline void SetAttribute( const std::string& name, AnyType value );
 
-	private:
 
-		RendererSystem( const RendererSystem & copy ) { };
-		RendererSystem & operator = ( const RendererSystem & copy ) { return *this; };
+    void GetMeshInformation( const Ogre::Mesh* const mesh, size_t &vertex_count, Ogre::Vector3* &vertices, size_t &index_count, unsigned long* &indices, 
+      const Ogre::Vector3 &position = Ogre::Vector3::ZERO,
+      const Ogre::Quaternion &orient = Ogre::Quaternion::IDENTITY,
+      const Ogre::Vector3 &scale = Ogre::Vector3::UNIT_SCALE 
+      );
+    
 
-		void windowClosed( Ogre::RenderWindow* rw );
+  private:
 
-		void OnGameEnded( const Events::IEvent* event );
+    RendererSystem( const RendererSystem & copy ) { };
+    RendererSystem & operator = ( const RendererSystem & copy ) { return *this; };
 
-		void CreateRenderWindow( const std::string& windowTitle, int width, int height, bool fullScreen );
-		std::vector< std::string > GetVideoModes( ) const;
+    void windowClosed( Ogre::RenderWindow* rw );
 
-		AnyType::AnyTypeMap m_attributes;
-		Configuration::IConfiguration* m_configuration;
-		IRenderSystemScene* m_scene;
+    void OnGameEnded( const Events::IEvent* event );
 
-		std::string m_skyBoxMaterial;
+    void CreateRenderWindow( const std::string& windowTitle, int width, int height, bool fullScreen );
+    std::vector< std::string > GetVideoModes( ) const;
 
-		Ogre::Root* m_root;
-		Ogre::SceneManager* m_sceneManager;
-		Ogre::RenderWindow* m_window;
+    AnyType::AnyTypeMap m_attributes;
+    Configuration::IConfiguration* m_configuration;
+    IRenderSystemScene* m_scene;
 
-		FactoryList m_factories;
-		OgreLogListener* m_logListener;
+    std::string m_skyBoxMaterial;
 
-		Events::IEventManager* m_eventManager;
-		Platform::IPlatformManager* m_platformManager;
-		Services::IServiceManager* m_serviceManager;
-		Resources::IResourceCache* m_resourceCache; 
+    Ogre::Root* m_root;
+    Ogre::SceneManager* m_sceneManager;
+    Ogre::RenderWindow* m_window;
 
-	};
+    FactoryList m_factories;
+    OgreLogListener* m_logListener;
+
+    Events::IEventManager* m_eventManager;
+    Platform::IPlatformManager* m_platformManager;
+    Services::IServiceManager* m_serviceManager;
+    Resources::IResourceCache* m_resourceCache; 
+
+  };
 };
 
 #endif

@@ -14,7 +14,7 @@ class FileBufferFixture : public CPPUNIT_NS::TestFixture
 
 protected:
 
-	void Should_Contain_Given_Values( );
+  void Should_Contain_Given_Values( );
 
 };
 

@@ -12,36 +12,36 @@
 
 namespace Renderer
 {
-	/*! 
-	 *  A Listener to intercept log messages from OGRE
-	 */
-	class OgreLogListener : public Ogre::LogListener
-	{
+  /*! 
+   *  A Listener to intercept log messages from OGRE
+   */
+  class OgreLogListener : public Ogre::LogListener
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~OgreLogListener( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		OgreLogListener( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~OgreLogListener( ) { };
 
 
-		void messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    OgreLogListener( ) { };
 
-	private:
 
-		OgreLogListener( const OgreLogListener & copy ) { };
-		OgreLogListener & operator = ( const OgreLogListener & copy ) { return *this; };
-		
-	};
+    void messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName );
+
+  private:
+
+    OgreLogListener( const OgreLogListener & copy ) { };
+    OgreLogListener & operator = ( const OgreLogListener & copy ) { return *this; };
+    
+  };
 };
 
 #endif

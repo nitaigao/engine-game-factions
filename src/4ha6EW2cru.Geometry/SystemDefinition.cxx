@@ -26,7 +26,7 @@ using namespace Platform;
 
 BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
 {
-	return true;
+  return true;
 }
 
 extern "C" void __stdcall Initialize( Logger* logger )
@@ -35,19 +35,19 @@ extern "C" void __stdcall Initialize( Logger* logger )
 }
 
 extern "C" ISystem* __stdcall CreateSystem( 
-	IConfiguration* configuration, 
-	IServiceManager* serviceManager, 
-	IResourceCache* resourceCache, 
-	IEventManager* eventManager, 
-	IInstrumentation* instrumentation,
-	IPlatformManager* platformManager
-	)
+  IConfiguration* configuration, 
+  IServiceManager* serviceManager, 
+  IResourceCache* resourceCache, 
+  IEventManager* eventManager, 
+  IInstrumentation* instrumentation,
+  IPlatformManager* platformManager
+  )
 {
-	return new Geometry::GeometrySystem( );
+  return new Geometry::GeometrySystem( );
 }
 
 extern "C" void __stdcall DestroySystem( ISystem* system )
 {
-	delete system;
-	system = 0;
+  delete system;
+  system = 0;
 }

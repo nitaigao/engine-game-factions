@@ -18,29 +18,29 @@
 
 namespace Script
 {
-	/*! 
-	 *  Create ScriptFacade's
-	 */
-	class GAMEAPI IScriptFacadeFactory
-	{
+  /*! 
+   *  Create ScriptFacade's
+   */
+  class GAMEAPI IScriptFacadeFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IScriptFacadeFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IScriptFacadeFactory( ) { };
 
 
-		/*! Creates a ScriptFacade of the given type
-		 *
-		 * @param[in] IScriptFacade::FacadeType
-		 * @return ( IScriptFacade* )
-		 */
-		virtual IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state ) = 0;
-		
-	};
+    /*! Creates a ScriptFacade of the given type
+     *
+     * @param[in] IScriptFacade::FacadeType
+     * @return ( IScriptFacade* )
+     */
+    virtual IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state ) = 0;
+    
+  };
 };
 
 #endif

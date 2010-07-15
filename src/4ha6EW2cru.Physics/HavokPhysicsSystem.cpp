@@ -10,139 +10,139 @@ using namespace Logging;
 
 namespace Physics
 {
-	ISystemScene* HavokPhysicsSystem::CreateScene( )
-	{
-		m_scene = new HavokPhysicsSystemScene( this, m_resourceCache );
-		return m_scene;
-	}
+  ISystemScene* HavokPhysicsSystem::CreateScene( )
+  {
+    m_scene = new HavokPhysicsSystemScene( this, m_resourceCache );
+    return m_scene;
+  }
 
-	void HavokPhysicsSystem::Initialize( Configuration::IConfiguration* configuration )
-	{
-		hkPoolMemory* memoryManager = new hkPoolMemory( );
-		m_threadMemory = new hkThreadMemory( memoryManager );
-		hkBaseSystem::init( memoryManager, m_threadMemory, errorReportFunction );
-		memoryManager->removeReference( );
+  void HavokPhysicsSystem::Initialize( Configuration::IConfiguration* configuration )
+  {
+    hkPoolMemory* memoryManager = new hkPoolMemory( );
+    m_threadMemory = new hkThreadMemory( memoryManager );
+    hkBaseSystem::init( memoryManager, m_threadMemory, errorReportFunction );
+    memoryManager->removeReference( );
 
-		int stackSize = 0x100000;
-		m_stackBuffer = hkAllocate<char>( stackSize, HK_MEMORY_CLASS_BASE );
-		hkThreadMemory::getInstance( ).setStackArea( m_stackBuffer, stackSize );
+    int stackSize = 0x100000;
+    m_stackBuffer = hkAllocate<char>( stackSize, HK_MEMORY_CLASS_BASE );
+    hkThreadMemory::getInstance( ).setStackArea( m_stackBuffer, stackSize );
 
-		hkpWorldCinfo info;
+    hkpWorldCinfo info;
 
-		info.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_DISCRETE;
-		info.m_gravity.set( 0,-9.8f,0);
-		info.m_collisionTolerance = 0.1f; 
-		info.setBroadPhaseWorldSize( 10000.0f );
-		info.setupSolverInfo( hkpWorldCinfo::SOLVER_TYPE_4ITERS_MEDIUM );
+    info.m_simulationType = hkpWorldCinfo::SIMULATION_TYPE_DISCRETE;
+    info.m_gravity.set( 0,-9.8f,0);
+    info.m_collisionTolerance = 0.1f; 
+    info.setBroadPhaseWorldSize( 10000.0f );
+    info.setupSolverInfo( hkpWorldCinfo::SOLVER_TYPE_4ITERS_MEDIUM );
 
-		m_world = new hkpWorld( info );
-		m_groupFilter = new hkpGroupFilter( );
-		m_world->setCollisionFilter( m_groupFilter );
-		m_groupFilter->removeReference( );
+    m_world = new hkpWorld( info );
+    m_groupFilter = new hkpGroupFilter( );
+    m_world->setCollisionFilter( m_groupFilter );
+    m_groupFilter->removeReference( );
 
-		hkArray<hkProcessContext*> contexts;
+    hkArray<hkProcessContext*> contexts;
 
-		m_context = new hkpPhysicsContext( );
-		hkpPhysicsContext::registerAllPhysicsProcesses( );
-		m_context->addWorld( m_world );
-		contexts.pushBack( m_context );
+    m_context = new hkpPhysicsContext( );
+    hkpPhysicsContext::registerAllPhysicsProcesses( );
+    m_context->addWorld( m_world );
+    contexts.pushBack( m_context );
 
-		hkpAgentRegisterUtil::registerAllAgents( m_world->getCollisionDispatcher( ) );
-
-#ifdef _DEBUG
-		m_vdb = new hkVisualDebugger( contexts );
-		m_vdb->serve( );
-#endif
-
-		m_serviceManager->RegisterService( this );
-	}
-
-	void HavokPhysicsSystem::Update( float deltaMilliseconds )
-	{
-		m_world->stepDeltaTime( deltaMilliseconds );
+    hkpAgentRegisterUtil::registerAllAgents( m_world->getCollisionDispatcher( ) );
 
 #ifdef _DEBUG
-		m_vdb->step( deltaMilliseconds );
+    m_vdb = new hkVisualDebugger( contexts );
+    m_vdb->serve( );
 #endif
 
-		m_scene->Update( deltaMilliseconds );
-	}
+    m_serviceManager->RegisterService( this );
+  }
 
-	void HavokPhysicsSystem::Release()
-	{
-		m_world->markForWrite( );
-		m_world->removeReference( );
+  void HavokPhysicsSystem::Update( float deltaMilliseconds )
+  {
+    m_world->stepDeltaTime( deltaMilliseconds );
 
 #ifdef _DEBUG
-		m_vdb->removeReference( ); 
+    m_vdb->step( deltaMilliseconds );
 #endif
 
-		m_context->removeReference( );
+    m_scene->Update( deltaMilliseconds );
+  }
 
-		m_threadMemory->setStackArea(0, 0);
-		hkDeallocate( m_stackBuffer );
-		m_threadMemory->removeReference();
+  void HavokPhysicsSystem::Release()
+  {
+    m_world->markForWrite( );
+    m_world->removeReference( );
 
-		hkBaseSystem::quit( );
-	}
+#ifdef _DEBUG
+    m_vdb->removeReference( ); 
+#endif
 
-	void HavokPhysicsSystem::errorReportFunction( const char* errorMessage, void* errorOutputObject )
-	{
-		Warn( errorMessage );
-	}
+    m_context->removeReference( );
 
-	std::vector< std::string > HavokPhysicsSystem::RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults )
-	{
-		hkpWorldRayCastInput input;
-		input.m_from = MathTools::AshkVector4( origin );
-		input.m_to = MathTools::AshkVector4( destination );
+    m_threadMemory->setStackArea(0, 0);
+    hkDeallocate( m_stackBuffer );
+    m_threadMemory->removeReference();
 
-		hkpAllRayHitCollector collector;
+    hkBaseSystem::quit( );
+  }
 
-		m_scene->GetSystem( )->GetWorld( )->castRay( input, collector );
+  void HavokPhysicsSystem::errorReportFunction( const char* errorMessage, void* errorOutputObject )
+  {
+    Warn( errorMessage );
+  }
 
-		if( sortByDistance )
-		{
-			collector.sortHits( );
-		}
+  std::vector< std::string > HavokPhysicsSystem::RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults )
+  {
+    hkpWorldRayCastInput input;
+    input.m_from = MathTools::AshkVector4( origin );
+    input.m_to = MathTools::AshkVector4( destination );
 
-		std::vector< std::string > results;
-		unsigned int resultCount = 0;
-		for( int i = 0; i < collector.getHits( ).getSize( ); i++ )
-		{
-			if ( collector.getHits( )[ i ].hasHit( ) )
-			{
-				hkpRigidBody* body = hkGetRigidBody( collector.getHits( )[ i ].m_rootCollidable );
+    hkpAllRayHitCollector collector;
 
-				if ( body )
-				{
-					results.push_back( body->getName( ) );
-					
-					if ( ++resultCount >= maxResults )
-					{
-						break;
-					}
-				}
-			}
-		}
+    m_scene->GetSystem( )->GetWorld( )->castRay( input, collector );
 
-		return results;
-	}
+    if( sortByDistance )
+    {
+      collector.sortHits( );
+    }
 
-	AnyType::AnyTypeMap HavokPhysicsSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
-	{
-		AnyType::AnyTypeMap results;
+    std::vector< std::string > results;
+    unsigned int resultCount = 0;
+    for( int i = 0; i < collector.getHits( ).getSize( ); i++ )
+    {
+      if ( collector.getHits( )[ i ].hasHit( ) )
+      {
+        hkpRigidBody* body = hkGetRigidBody( collector.getHits( )[ i ].m_rootCollidable );
 
-		if ( message == System::Messages::RayQuery )
-		{
-			results[ "hits" ] = this->RayQuery( 
-				parameters[ System::Parameters::Origin ].As< MathVector3 >( ),
-				parameters[ System::Parameters::Destination ].As< MathVector3 >( ),
-				parameters[ System::Parameters::SortByyDistance ].As< bool >( ),
-				parameters[ System::Parameters::MaxResults ].As< int >( )
-				);
-		}
+        if ( body )
+        {
+          results.push_back( body->getName( ) );
+          
+          if ( ++resultCount >= maxResults )
+          {
+            break;
+          }
+        }
+      }
+    }
 
-		return results;
-	}
+    return results;
+  }
+
+  AnyType::AnyTypeMap HavokPhysicsSystem::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  {
+    AnyType::AnyTypeMap results;
+
+    if ( message == System::Messages::RayQuery )
+    {
+      results[ "hits" ] = this->RayQuery( 
+        parameters[ System::Parameters::Origin ].As< MathVector3 >( ),
+        parameters[ System::Parameters::Destination ].As< MathVector3 >( ),
+        parameters[ System::Parameters::SortByyDistance ].As< bool >( ),
+        parameters[ System::Parameters::MaxResults ].As< int >( )
+        );
+    }
+
+    return results;
+  }
 };

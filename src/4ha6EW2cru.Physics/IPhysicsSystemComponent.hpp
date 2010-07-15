@@ -14,30 +14,30 @@
 
 namespace Physics
 {
-	/*!
-	 *  A Physics System Component 
-	 */
-	class IPhysicsSystemComponent : public ISystemComponent
-	{
+  /*!
+   *  A Physics System Component 
+   */
+  class IPhysicsSystemComponent : public ISystemComponent
+  {
 
-	public:
+  public:
 
-		typedef std::map< std::string, IPhysicsSystemComponent* > PhysicsSystemComponentList;
+    typedef std::map< std::string, IPhysicsSystemComponent* > PhysicsSystemComponentList;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IPhysicsSystemComponent( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IPhysicsSystemComponent( ) { };
 
 
-		/*! Returns the RigidBody of the Component
-		 *
-		 *  @return (hkpRigidBody*)
-		 */
-		virtual hkpRigidBody* GetRigidBody( ) const = 0;
+    /*! Returns the RigidBody of the Component
+     *
+     *  @return (hkpRigidBody*)
+     */
+    virtual hkpRigidBody* GetRigidBody( ) const = 0;
 
-	};
+  };
 };
 
 #endif

@@ -13,96 +13,96 @@
 
 namespace Network
 {
-	/*! 
-	 *  Sends Client Information across the Network
-	 */
-	class GAMEAPI NetworkClientController : public INetworkClientController
-	{
+  /*! 
+   *  Sends Client Information across the Network
+   */
+  class GAMEAPI NetworkClientController : public INetworkClientController
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~NetworkClientController( ) { };
-
-
-		/*! Default Constructor
-		*
-		* @return (  )
-		*/
-		NetworkClientController( INetworkInterface* networkInterface )
-			: m_networkInterface( networkInterface )
-			, m_isPassive( false )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~NetworkClientController( ) { };
 
 
-		/*! Initializes the Controller
-		*
-		* @return ( void )
-		*/
-		void Initialize( );
+    /*! Default Constructor
+    *
+    * @return (  )
+    */
+    NetworkClientController( INetworkInterface* networkInterface )
+      : m_networkInterface( networkInterface )
+      , m_isPassive( false )
+    {
+
+    }
 
 
-		/*! Selects a character within the game
-		*
-		* @return ( void )
-		*/
-		void SelectCharacter( const std::string& characterName );
+    /*! Initializes the Controller
+    *
+    * @return ( void )
+    */
+    void Initialize( );
 
 
-		/*! Broadcasts the Network for Servers
-		*
-		* @return ( void )
-		*/
-		void FindServers( unsigned int port );
+    /*! Selects a character within the game
+    *
+    * @return ( void )
+    */
+    void SelectCharacter( const std::string& characterName );
 
 
-		/*! Tells the Server that the Client has finished loading the Level
-		*
-		* @return ( void )
-		*/
-		void LevelLoaded( );
+    /*! Broadcasts the Network for Servers
+    *
+    * @return ( void )
+    */
+    void FindServers( unsigned int port );
 
 
-		/*! Forwards the Message to the given Entity
-		*
-		* @param[in] const std::string & entityName
-		* @param[in] const System::MessageType & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
-		*/
-		void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Tells the Server that the Client has finished loading the Level
+    *
+    * @return ( void )
+    */
+    void LevelLoaded( );
 
 
-		/*! Stops the Controller from Sending client data
-		*
-		* @param[in] bool isPassive
-		* @return ( void )
-		*/
-		inline void SetPassive( bool isPassive ) { m_isPassive = isPassive; };
+    /*! Forwards the Message to the given Entity
+    *
+    * @param[in] const std::string & entityName
+    * @param[in] const System::MessageType & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return ( void )
+    */
+    void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Updates the internal state of the controller and processes the send queue at the send interval
-		*
-		* @param[in] float deltaMilliseconds
-		* @return ( void )
-		*/
-		void Update( float deltaMilliseconds ) { };
+    /*! Stops the Controller from Sending client data
+    *
+    * @param[in] bool isPassive
+    * @return ( void )
+    */
+    inline void SetPassive( bool isPassive ) { m_isPassive = isPassive; };
 
 
-	private:
+    /*! Updates the internal state of the controller and processes the send queue at the send interval
+    *
+    * @param[in] float deltaMilliseconds
+    * @return ( void )
+    */
+    void Update( float deltaMilliseconds ) { };
 
-		NetworkClientController( const NetworkClientController & copy ) { };
-		NetworkClientController & operator = ( const NetworkClientController & copy ) { return *this; };
 
-		INetworkInterface* m_networkInterface;
-		bool m_isPassive;
-		
-	};
+  private:
+
+    NetworkClientController( const NetworkClientController & copy ) { };
+    NetworkClientController & operator = ( const NetworkClientController & copy ) { return *this; };
+
+    INetworkInterface* m_networkInterface;
+    bool m_isPassive;
+    
+  };
 };
 
 #endif

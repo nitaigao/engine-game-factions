@@ -12,14 +12,14 @@
 
 namespace
 {
-	class MockNetworkSystemComponentFactory : public INetworkSystemComponentFactory
-	{
+  class MockNetworkSystemComponentFactory : public INetworkSystemComponentFactory
+  {
 
-	public:
+  public:
 
-		MOCK_METHOD1(Create, INetworkSystemComponent*(const std::string&));
+    MOCK_METHOD1(Create, INetworkSystemComponent*(const std::string&));
 
-	};
+  };
 };
 
 #endif

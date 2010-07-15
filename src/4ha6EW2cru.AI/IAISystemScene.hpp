@@ -12,34 +12,34 @@
 
 namespace AI
 {
-	/*! 
-	 *  An AI System Scene
-	 */
-	class IAISystemScene : public ISystemScene
-	{
+  /*! 
+   *  An AI System Scene
+   */
+  class IAISystemScene : public ISystemScene
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IAISystemScene( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IAISystemScene( ) { };
 
 
-		/*! Returns all way points in the Scene
-		*
-		* @return ( ISystemComponent::SystemComponentList )
-		*/
-		virtual ISystemComponent::SystemComponentList GetWaypoints( ) = 0;
+    /*! Returns all way points in the Scene
+    *
+    * @return ( ISystemComponent::SystemComponentList )
+    */
+    virtual ISystemComponent::SystemComponentList GetWaypoints( ) = 0;
 
-		/*! Returns the Navigation Mesh for the Scene
-		*
-		* @return ( INavigationMesh* )
-		*/
-		virtual ISystemComponent* GetNavigationMesh( ) = 0;
+    /*! Returns the Navigation Mesh for the Scene
+    *
+    * @return ( INavigationMesh* )
+    */
+    virtual ISystemComponent* GetNavigationMesh( ) = 0;
 
-	};
+  };
 };
 
 #endif

@@ -16,137 +16,137 @@
 
 namespace Sound
 {
-	/*!
-	 *  A Sound System Component 
-	 */
-	class GAMEAPI SoundSystemComponent : public ISoundSystemComponent
-	{
-		typedef std::multiset< std::string > TriggerRequestList;
-		typedef std::map< std::string, FMOD::Event* > SoundEventMap;
+  /*!
+   *  A Sound System Component 
+   */
+  class GAMEAPI SoundSystemComponent : public ISoundSystemComponent
+  {
+    typedef std::multiset< std::string > TriggerRequestList;
+    typedef std::map< std::string, FMOD::Event* > SoundEventMap;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~SoundSystemComponent( ) { };
-
-
-		/*! Default Constructor
-		*
-		*  @param[in] const std::string & name
-		*  @return ()
-		*/
-		SoundSystemComponent( const std::string& name, ISoundEventSystem* eventSystem )
-			: m_name( name )
-			, m_eventSystem( eventSystem )
-		{
-
-		}
-
-		/*! Initializes the Component
-		*
-		*  @param[in] AnyType::AnyValueMap properties
-		*  @return (void)
-		*/
-		inline void Initialize( ) { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~SoundSystemComponent( ) { };
 
 
-		/*! Steps the internal data of the Component
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update( float deltaMilliseconds ) { };
+    /*! Default Constructor
+    *
+    *  @param[in] const std::string & name
+    *  @return ()
+    */
+    SoundSystemComponent( const std::string& name, ISoundEventSystem* eventSystem )
+      : m_name( name )
+      , m_eventSystem( eventSystem )
+    {
+
+    }
+
+    /*! Initializes the Component
+    *
+    *  @param[in] AnyType::AnyValueMap properties
+    *  @return (void)
+    */
+    inline void Initialize( ) { };
 
 
-		/*! Destroys the Component
-		*
-		*  @return (void)
-		*/
-		void Destroy( );
+    /*! Steps the internal data of the Component
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update( float deltaMilliseconds ) { };
 
 
-		/*! Adds an Observer to the Component
-		*
-		*  @param[in] IObserver * observer
-		*  @return (void)
-		*/
-		inline void AddObserver( IObserver* observer ) { };
+    /*! Destroys the Component
+    *
+    *  @return (void)
+    */
+    void Destroy( );
 
 
-		/*! Gets the properties of the Component
-		*
-		*  @return (AnyTypeKeyMap)
-		*/
-		AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    /*! Adds an Observer to the Component
+    *
+    *  @param[in] IObserver * observer
+    *  @return (void)
+    */
+    inline void AddObserver( IObserver* observer ) { };
 
 
-		/*! Sets an Attribute on the Component *
-		*
-		*  @param[in] const unsigned int attributeId
-		*  @param[in] const AnyType & value
-		*/
-		inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    /*! Gets the properties of the Component
+    *
+    *  @return (AnyTypeKeyMap)
+    */
+    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
 
 
-		/*! Posts a message to observers
-		*
-		*  @param[in] const std::string & message
-		*  @param[in] AnyType::AnyValueMap parameters
-		*  @return (AnyType)
-		*/
-		inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+    /*! Sets an Attribute on the Component *
+    *
+    *  @param[in] const unsigned int attributeId
+    *  @param[in] const AnyType & value
+    */
+    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
 
 
-		/*! Messages the Component to influence its internal state
-		*
-		*  @param[in] const std::string & message
-		*  @return (AnyType)
-		*/
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    /*! Posts a message to observers
+    *
+    *  @param[in] const std::string & message
+    *  @param[in] AnyType::AnyValueMap parameters
+    *  @return (AnyType)
+    */
+    inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
 
 
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void Serialize( IO::IStream* stream ) { };
+    /*! Messages the Component to influence its internal state
+    *
+    *  @param[in] const std::string & message
+    *  @return (AnyType)
+    */
+    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
 
 
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return ( void )
-		*/
-		void DeSerialize( IO::IStream* stream ) { };
+    /*! Writes the contents of the object to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void Serialize( IO::IStream* stream ) { };
 
 
-		/*! Returns the Name of the Component
-		*
-		* @return ( std::string )
-		*/
-		inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    /*! Reads the contents of the object from the stream
+    *
+    * @param[in] IStream * stream
+    * @return ( void )
+    */
+    void DeSerialize( IO::IStream* stream ) { };
 
 
-		void KeyoutEvent( const std::string& eventPath );
+    /*! Returns the Name of the Component
+    *
+    * @return ( std::string )
+    */
+    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
 
-	private:
 
-		SoundSystemComponent( const SoundSystemComponent & copy ) { };
-		SoundSystemComponent & operator = ( const SoundSystemComponent & copy ) { return *this; };
+    void KeyoutEvent( const std::string& eventPath );
 
-		ISoundEventSystem* m_eventSystem;
+  private:
 
-		std::string m_name;
-		AnyType::AnyTypeMap m_attributes;
+    SoundSystemComponent( const SoundSystemComponent & copy ) { };
+    SoundSystemComponent & operator = ( const SoundSystemComponent & copy ) { return *this; };
 
-		TriggerRequestList m_triggerRequests;
-		SoundEventMap m_activeEvents;
+    ISoundEventSystem* m_eventSystem;
 
-	};
+    std::string m_name;
+    AnyType::AnyTypeMap m_attributes;
+
+    TriggerRequestList m_triggerRequests;
+    SoundEventMap m_activeEvents;
+
+  };
 };
 
 #endif

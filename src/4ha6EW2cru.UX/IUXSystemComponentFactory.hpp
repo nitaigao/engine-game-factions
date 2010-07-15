@@ -12,29 +12,29 @@
 
 namespace UX
 {
-	/*! 
-	 *  Creates UX System Components
-	 */
-	class IUXSystemComponentFactory
-	{
+  /*! 
+   *  Creates UX System Components
+   */
+  class IUXSystemComponentFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IUXSystemComponentFactory( ) { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IUXSystemComponentFactory( ) { };
 
 
-		/*! Creates a Script Component
-		*
-		* @param[in] const std::string & name
-		* @return ( IUXSystemComponent* )
-		*/
-		virtual IUXSystemComponent* CreateComponent( const std::string& name ) = 0;
-		
-	};
+    /*! Creates a Script Component
+    *
+    * @param[in] const std::string & name
+    * @return ( IUXSystemComponent* )
+    */
+    virtual IUXSystemComponent* CreateComponent( const std::string& name ) = 0;
+    
+  };
 };
 
 #endif

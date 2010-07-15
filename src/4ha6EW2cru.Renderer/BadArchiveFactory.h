@@ -15,62 +15,62 @@
 
 namespace Renderer
 {
-	/*! 
-	 *  A Factory class to produce BadArchives for Ogre
-	 */
-	class BadArchiveFactory : public Ogre::ArchiveFactory
-	{
+  /*! 
+   *  A Factory class to produce BadArchives for Ogre
+   */
+  class BadArchiveFactory : public Ogre::ArchiveFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~BadArchiveFactory( ) { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		BadArchiveFactory( Resources::IResourceCache* resourceCache )
-			: m_resourceCache( resourceCache )
-		{
-
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~BadArchiveFactory( ) { };
 
 
-		/*! Returns the archive type of the BadArchive, in this case it's "BAD"
-		 *
-		 *  @return (const Ogre::String&)
-		 */
-		const Ogre::String& getType( ) const;
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    BadArchiveFactory( Resources::IResourceCache* resourceCache )
+      : m_resourceCache( resourceCache )
+    {
+
+    }
 
 
-		/*! Creates an instance of a BadArchive
-		 *
-		 *  @param[in] const Ogre::String & name
-		 *  @return (Ogre::Archive*)
-		 */
-		Ogre::Archive* createInstance( const Ogre::String& name ); 
+    /*! Returns the archive type of the BadArchive, in this case it's "BAD"
+     *
+     *  @return (const Ogre::String&)
+     */
+    const Ogre::String& getType( ) const;
 
 
-		/*! Destroys an instance of a BadArchive
-		 *
-		 *  @param[in] Ogre::Archive *
-		 *  @return (void)
-		 */
-		void destroyInstance( Ogre::Archive* );  
+    /*! Creates an instance of a BadArchive
+     *
+     *  @param[in] const Ogre::String & name
+     *  @return (Ogre::Archive*)
+     */
+    Ogre::Archive* createInstance( const Ogre::String& name ); 
 
-	private:
 
-		BadArchiveFactory( const BadArchiveFactory & copy ) { };
-		BadArchiveFactory & operator = ( const BadArchiveFactory & copy ) { return *this; };
+    /*! Destroys an instance of a BadArchive
+     *
+     *  @param[in] Ogre::Archive *
+     *  @return (void)
+     */
+    void destroyInstance( Ogre::Archive* );  
 
-		Resources::IResourceCache* m_resourceCache;
+  private:
 
-	};
+    BadArchiveFactory( const BadArchiveFactory & copy ) { };
+    BadArchiveFactory & operator = ( const BadArchiveFactory & copy ) { return *this; };
+
+    Resources::IResourceCache* m_resourceCache;
+
+  };
 };
 
 #endif

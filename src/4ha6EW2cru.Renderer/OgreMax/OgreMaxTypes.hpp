@@ -363,8 +363,8 @@ namespace OgreMax
                 this->castShadows = true;
 
                 this->vertexBufferUsage = Ogre::HardwareBuffer::HBU_STATIC_WRITE_ONLY;
-	            this->indexBufferUsage = Ogre::HardwareBuffer::HBU_STATIC_WRITE_ONLY;
-	            this->vertexBufferShadowed = true;
+              this->indexBufferUsage = Ogre::HardwareBuffer::HBU_STATIC_WRITE_ONLY;
+              this->vertexBufferShadowed = true;
                 this->indexBufferShadowed = true;
             }
 
@@ -373,8 +373,8 @@ namespace OgreMax
             bool castShadows;
 
             Ogre::HardwareBuffer::Usage vertexBufferUsage;
-	        Ogre::HardwareBuffer::Usage indexBufferUsage;
-	        bool vertexBufferShadowed;
+          Ogre::HardwareBuffer::Usage indexBufferUsage;
+          bool vertexBufferShadowed;
             bool indexBufferShadowed;
 
             Ogre::String resourceGroupName;
@@ -977,7 +977,7 @@ namespace OgreMax
                     Ogre::Bone* bone = skeleton->getBone(this->boneName);
                     //TODO: Modify Ogre to accept name when creating TagPoint
                     Ogre::TagPoint* tagPoint = skeleton->createTagPointOnBone(bone);
-					tagPoint->setName( name );
+          tagPoint->setName( name );
                     tagPoint->setPosition(this->attachPosition);
                     tagPoint->setScale(this->attachScale);
                     tagPoint->setOrientation(this->attachRotation);
