@@ -26,55 +26,55 @@
 
 namespace Game
 {
-	/*! 
-	 *  Creates Game Instances
-	 */
-	class GAMEAPI GameFactory : public IGameFactory
-	{
+  /*! 
+   *  Creates Game Instances
+   */
+  class GAMEAPI GameFactory : public IGameFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~GameFactory();
-
-
-		/*! Default Constructor
-		*
-		* @return ()
-		*/
-		GameFactory();
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~GameFactory();
 
 
-		/*! Creates a Game System
-		*
-		* @return (IGame*)
-		*/
-		IGame* CreateGame() const;
+    /*! Default Constructor
+    *
+    * @return ()
+    */
+    GameFactory();
 
 
-	private:
+    /*! Creates a Game System
+    *
+    * @return (IGame*)
+    */
+    IGame* CreateGame() const;
 
-		GameFactory(const GameFactory & copy) { };
-		GameFactory & operator = (const GameFactory & copy) { return *this; };
+
+  private:
+
+    GameFactory(const GameFactory & copy) { };
+    GameFactory & operator = (const GameFactory & copy) { return *this; };
 
 
-		Platform::IProgramOptions* m_programOptions;
-		Configuration::IConfiguration* m_configuration;
-		Platform::IPlatformManager* m_platformManager;
-		ISystemManager* m_systemManager;
-		Events::IEventManager* m_eventManager;
-		Services::IServiceManager* m_serviceManager;
-		Resources::IResourceCache* m_resourceCache;
-		IO::IFileSystem* m_fileSystem;
-		IO::IPathInformation* m_pathInformation;
-		System::IInstrumentation* m_instrumentation;
-		Platform::IClock* m_clock;
+    Platform::IProgramOptions* m_programOptions;
+    Configuration::IConfiguration* m_configuration;
+    Platform::IPlatformManager* m_platformManager;
+    ISystemManager* m_systemManager;
+    Events::IEventManager* m_eventManager;
+    Services::IServiceManager* m_serviceManager;
+    Resources::IResourceCache* m_resourceCache;
+    IO::IFileSystem* m_fileSystem;
+    IO::IPathInformation* m_pathInformation;
+    System::IInstrumentation* m_instrumentation;
+    Platform::IClock* m_clock;
 
-		
-	};
+    
+  };
 };
 
 #endif

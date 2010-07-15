@@ -16,30 +16,30 @@
 
 namespace Utility
 {
-	/*! 
-	 *  String Utilities
-	 */
-	class StringUtils 
-	{
+  /*! 
+   *  String Utilities
+   */
+  class StringUtils 
+  {
 
-	public:
+  public:
 
-		typedef std::deque<std::string> StringList;
-		typedef std::map<std::string, std::string> StringMap;
+    typedef std::deque<std::string> StringList;
+    typedef std::map<std::string, std::string> StringMap;
 
-		static GAMEAPI std::string ToString(int input);
+    static GAMEAPI std::string ToString(int input);
 
-		static GAMEAPI std::string Replace(const std::string& input, const std::string& oldString, const std::string& newString);
+    static GAMEAPI std::string Replace(const std::string& input, const std::string& oldString, const std::string& newString);
 
-	private:
+  private:
 
-		~StringUtils() { };
+    ~StringUtils() { };
 
-		StringUtils() { };
-		StringUtils(const StringUtils & copy) { };
-		StringUtils & operator = (const StringUtils & copy) { return *this; };
-		
-	};
+    StringUtils() { };
+    StringUtils(const StringUtils & copy) { };
+    StringUtils & operator = (const StringUtils & copy) { return *this; };
+    
+  };
 };
 
 #endif

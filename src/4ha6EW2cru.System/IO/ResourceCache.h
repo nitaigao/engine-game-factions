@@ -15,71 +15,71 @@
 
 namespace Resources
 {
-	/*! 
-	*  A Cache of data retrieved from the FileSystem for fast access
-	*/
-	class GAMEAPI ResourceCache : public IResourceCache
-	{
+  /*! 
+  *  A Cache of data retrieved from the FileSystem for fast access
+  */
+  class GAMEAPI ResourceCache : public IResourceCache
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~ResourceCache();
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		ResourceCache(IO::IFileSystem* fileSystem)
-			: m_fileSystem(fileSystem)
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~ResourceCache();
 
 
-		/*! Returns a Resource from the given file path
-		*
-		*  @param[in] const std::string & filePath
-		*  @return (Resources::IResource*)
-		*/
-		IResource* GetResource(const std::string& filePath);
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    ResourceCache(IO::IFileSystem* fileSystem)
+      : m_fileSystem(fileSystem)
+    {
+
+    }
 
 
-		/*! Checks to see if the Resource Exists
-		*
-		* @param[in] const std::string & filePath
-		* @return (bool)
-		*/
-		bool ResourceExists(const std::string& filePath);
+    /*! Returns a Resource from the given file path
+    *
+    *  @param[in] const std::string & filePath
+    *  @return (Resources::IResource*)
+    */
+    IResource* GetResource(const std::string& filePath);
 
 
-		/*! Steps the internal data of the cache, may perform cache releases depending on resource age
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		inline void Update(float deltaMilliseconds) { };
+    /*! Checks to see if the Resource Exists
+    *
+    * @param[in] const std::string & filePath
+    * @return (bool)
+    */
+    bool ResourceExists(const std::string& filePath);
 
 
-		/*! Searches for a Resource in the cache
-		*
-		* @param[in] const std::string & path
-		* @param[in] const std::string & searchPattern
-		* @param[in] bool recursive
-		* @return (FileSearchResult::FileSearchResultList*)
-		*/
-		IO::FileSearchResult::FileSearchResultList* ResourceSearch(const std::string& path, const std::string& searchPattern, bool recursive) const;
+    /*! Steps the internal data of the cache, may perform cache releases depending on resource age
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    inline void Update(float deltaMilliseconds) { };
 
-	private:
 
-		IResource::ResourceMap m_resourceCache;
-		IO::IFileSystem* m_fileSystem;
+    /*! Searches for a Resource in the cache
+    *
+    * @param[in] const std::string & path
+    * @param[in] const std::string & searchPattern
+    * @param[in] bool recursive
+    * @return (FileSearchResult::FileSearchResultList*)
+    */
+    IO::FileSearchResult::FileSearchResultList* ResourceSearch(const std::string& path, const std::string& searchPattern, bool recursive) const;
 
-	};
+  private:
+
+    IResource::ResourceMap m_resourceCache;
+    IO::IFileSystem* m_fileSystem;
+
+  };
 };
 
 #endif

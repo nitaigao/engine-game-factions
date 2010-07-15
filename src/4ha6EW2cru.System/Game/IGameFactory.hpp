@@ -12,28 +12,28 @@
 
 namespace Game
 {
-	/*! 
-	 *  Create Game Instances
-	 */
-	class IGameFactory
-	{
+  /*! 
+   *  Create Game Instances
+   */
+  class IGameFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IGameFactory() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IGameFactory() { };
 
 
-		/*! Creates a Game System
-		 *
-		 * @return (IGame*)
-		 */
-		virtual IGame* CreateGame() const = 0;
-		
-	};
+    /*! Creates a Game System
+     *
+     * @return (IGame*)
+     */
+    virtual IGame* CreateGame() const = 0;
+    
+  };
 };
 
 #endif

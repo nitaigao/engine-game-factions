@@ -16,39 +16,39 @@ class AlreadyInitializedException : public std::exception
 
 public:
 
-	/*! Default Destructor
-	 *
-	 *  @return ()
-	 */
-	//~AlreadyInitializedException() { };
+  /*! Default Destructor
+   *
+   *  @return ()
+   */
+  //~AlreadyInitializedException() { };
 
 
-	/*! Constructor with default error message
-	 *
-	 *  @return ()
-	 */
-	AlreadyInitializedException()
-		//: std::exception("Object has already been Initialized")
-	{
+  /*! Constructor with default error message
+   *
+   *  @return ()
+   */
+  AlreadyInitializedException()
+    //: std::exception("Object has already been Initialized")
+  {
 
-	}
+  }
 
 
-	/*! Constructor with custom error message
-	 *
-	 *  @param[in] const std::string message
-	 *  @return ()
-	 */
-	AlreadyInitializedException(const std::string message)
-		//: std::exception(message.c_str())
-	{
+  /*! Constructor with custom error message
+   *
+   *  @param[in] const std::string message
+   *  @return ()
+   */
+  AlreadyInitializedException(const std::string message)
+    //: std::exception(message.c_str())
+  {
 
-	}
+  }
 
 private:
 
-	AlreadyInitializedException(const AlreadyInitializedException & copy) { };
-	AlreadyInitializedException & operator = (const AlreadyInitializedException & copy) { return *this; };
+  AlreadyInitializedException(const AlreadyInitializedException & copy) { };
+  AlreadyInitializedException & operator = (const AlreadyInitializedException & copy) { return *this; };
 
 };
 

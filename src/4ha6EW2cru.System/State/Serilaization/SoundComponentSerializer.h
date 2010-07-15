@@ -12,47 +12,47 @@
 
 namespace Serialization
 {
-	/*!
-	 *  The Sound Component Serializer 
-	 */
-	class SoundComponentSerializer : public IComponentSerializer
-	{
+  /*!
+   *  The Sound Component Serializer 
+   */
+  class SoundComponentSerializer : public IComponentSerializer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~SoundComponentSerializer() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~SoundComponentSerializer() { };
 
 
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		SoundComponentSerializer()
-		{
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    SoundComponentSerializer()
+    {
 
-		}
+    }
 
-		/*! DeSerializes the Component from the Supplied Element
-		*
-		* @param[in] const std::string entityName
-		* @param[in] const ticpp::Element & componentElement
-		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return (ISystemComponent*)
-		*/
-		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
-		
+    /*! DeSerializes the Component from the Supplied Element
+    *
+    * @param[in] const std::string entityName
+    * @param[in] const ticpp::Element & componentElement
+    * @param[in] const ISystemScene::SystemSceneMap & systemScenes
+    * @return (ISystemComponent*)
+    */
+    ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
+    
 
-	private:
+  private:
 
-		
-		SoundComponentSerializer(const SoundComponentSerializer & copy) { };
-		SoundComponentSerializer & operator = (const SoundComponentSerializer & copy) { return *this; };
+    
+    SoundComponentSerializer(const SoundComponentSerializer & copy) { };
+    SoundComponentSerializer & operator = (const SoundComponentSerializer & copy) { return *this; };
 
-	};
+  };
 };
 
 #endif

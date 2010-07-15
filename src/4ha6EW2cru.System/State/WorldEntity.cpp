@@ -5,92 +5,92 @@ using namespace IO;
 
 namespace State
 {
-	void WorldEntity::AddComponent(ISystemComponent* component)
-	{
-		m_components.push_back(component);
+  void WorldEntity::AddComponent(ISystemComponent* component)
+  {
+    m_components.push_back(component);
 
-		component->AddObserver(this);
+    component->AddObserver(this);
 
-		//TODO: Change this to message
-		component->Observe(0, System::Messages::AddedToComponent, AnyType::AnyTypeMap());
-	}
+    //TODO: Change this to message
+    component->Observe(0, System::Messages::AddedToComponent, AnyType::AnyTypeMap());
+  }
 
-	AnyType WorldEntity::Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters)
-	{
-		AnyType::AnyTypeKeyMap results;
+  AnyType WorldEntity::Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters)
+  {
+    AnyType::AnyTypeKeyMap results;
 
-		for(ISystemComponent::SystemComponentList::const_iterator i = m_components.begin(); i != m_components.end(); ++i)
-		{
-			if ((*i) != subject)
-			{
-				AnyType result = (*i)->Observe(subject, message, parameters);
-				System::Types::Type systemType = (*i)->GetAttributes()[ System::Attributes::SystemType ].As<System::Types::Type>();
-				results.insert(std::make_pair(systemType, result));
-			}
-		}
+    for(ISystemComponent::SystemComponentList::const_iterator i = m_components.begin(); i != m_components.end(); ++i)
+    {
+      if ((*i) != subject)
+      {
+        AnyType result = (*i)->Observe(subject, message, parameters);
+        System::Types::Type systemType = (*i)->GetAttributes()[ System::Attributes::SystemType ].As<System::Types::Type>();
+        results.insert(std::make_pair(systemType, result));
+      }
+    }
 
-		for (ObserverMap::iterator i = m_observers.begin(); i != m_observers.end(); ++i)
-		{
-			if ((*i).first == System::Messages::All_Messages || (*i).first == message)
-			{
-				(*i).second->Observe(subject, message, parameters);
-			}
-		}
+    for (ObserverMap::iterator i = m_observers.begin(); i != m_observers.end(); ++i)
+    {
+      if ((*i).first == System::Messages::All_Messages || (*i).first == message)
+      {
+        (*i).second->Observe(subject, message, parameters);
+      }
+    }
 
-		return results;
-	}
+    return results;
+  }
 
-	void WorldEntity::Initialize()
-	{
-		//TODO: Change this to message
-		this->Observe(0, System::Messages::PreInitialize, AnyType::AnyTypeMap());
+  void WorldEntity::Initialize()
+  {
+    //TODO: Change this to message
+    this->Observe(0, System::Messages::PreInitialize, AnyType::AnyTypeMap());
 
-		for(ISystemComponent::SystemComponentList::const_iterator i = m_components.begin(); i != m_components.end(); ++i)
-		{
-			(*i)->Initialize(); 
-		}
+    for(ISystemComponent::SystemComponentList::const_iterator i = m_components.begin(); i != m_components.end(); ++i)
+    {
+      (*i)->Initialize(); 
+    }
 
-		//TODO: Change this to message
-		this->Observe(0, System::Messages::PostInitialize, AnyType::AnyTypeMap());
-	}
+    //TODO: Change this to message
+    this->Observe(0, System::Messages::PostInitialize, AnyType::AnyTypeMap());
+  }
 
 
-	void WorldEntity::SetAttribute(const System::Attribute& attribute, const AnyType& value)
-	{
-		m_attributes[ attribute ] = value;
+  void WorldEntity::SetAttribute(const System::Attribute& attribute, const AnyType& value)
+  {
+    m_attributes[ attribute ] = value;
 
-		for(ISystemComponent::SystemComponentList::const_iterator i = m_components.begin(); i != m_components.end(); ++i)
-		{
-			(*i)->SetAttribute(attribute, value);
-		}
-	}
+    for(ISystemComponent::SystemComponentList::const_iterator i = m_components.begin(); i != m_components.end(); ++i)
+    {
+      (*i)->SetAttribute(attribute, value);
+    }
+  }
 
-	void WorldEntity::Serialize(IStream* stream)
-	{
-		stream->Write(m_name);
+  void WorldEntity::Serialize(IStream* stream)
+  {
+    stream->Write(m_name);
 
-		AnyType::AnyTypeMap::iterator entityType = m_attributes.find(System::Attributes::EntityType);
+    AnyType::AnyTypeMap::iterator entityType = m_attributes.find(System::Attributes::EntityType);
 
-		stream->Write((entityType != m_attributes.end()) ? 1 : 0);
-		stream->Write((entityType != m_attributes.end()) ? (*entityType).second.As<std::string>() : "");
+    stream->Write((entityType != m_attributes.end()) ? 1 : 0);
+    stream->Write((entityType != m_attributes.end()) ? (*entityType).second.As<std::string>() : "");
 
-		for(ISystemComponent::SystemComponentList::iterator i = m_components.begin(); i != m_components.end(); ++i)
-		{
-			(*i)->Serialize(stream);
-		}
-	}
+    for(ISystemComponent::SystemComponentList::iterator i = m_components.begin(); i != m_components.end(); ++i)
+    {
+      (*i)->Serialize(stream);
+    }
+  }
 
-	void WorldEntity::DeSerialize(IO::IStream* stream)
-	{
-		int systemType = 0;
-		stream->Read(systemType);
+  void WorldEntity::DeSerialize(IO::IStream* stream)
+  {
+    int systemType = 0;
+    stream->Read(systemType);
 
-		for(ISystemComponent::SystemComponentList::iterator i = m_components.begin(); i != m_components.end(); ++i)
-		{
-			if ((*i)->GetAttributes()[ System::Attributes::SystemType ].As<System::Types::Type>() == static_cast<System::Types::Type>(systemType))
-			{
-				(*i)->DeSerialize(stream);
-			}
-		}
-	}
+    for(ISystemComponent::SystemComponentList::iterator i = m_components.begin(); i != m_components.end(); ++i)
+    {
+      if ((*i)->GetAttributes()[ System::Attributes::SystemType ].As<System::Types::Type>() == static_cast<System::Types::Type>(systemType))
+      {
+        (*i)->DeSerialize(stream);
+      }
+    }
+  }
 }

@@ -7,17 +7,17 @@
 
 namespace IO
 {
-	struct FileSearchResult
-	{
+  struct FileSearchResult
+  {
 
-	public:
+  public:
 
-		typedef std::deque<FileSearchResult> FileSearchResultList;
+    typedef std::deque<FileSearchResult> FileSearchResultList;
 
-		std::string FileName;
-		std::string FilePath;
+    std::string FileName;
+    std::string FilePath;
 
-	};
+  };
 };
 
 #endif

@@ -16,33 +16,33 @@
 
 namespace Services
 {
-	/*! 
-	 *  An Anonymous Service Interface
-	 */
-	class GAMEAPI IService
-	{
+  /*! 
+   *  An Anonymous Service Interface
+   */
+  class GAMEAPI IService
+  {
 
-	public:
+  public:
 
-		typedef std::vector<IService*> ServiceList;
-
-
-		/*! Gets the System::Types::Type of the Service
-		 *
-		 *  @return (System::Types::Type)
-		 */
-		virtual System::Types::Type GetType() const = 0;
+    typedef std::vector<IService*> ServiceList;
 
 
-		/*! Messages the system with a command
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return (void)
-		*/
-		virtual AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
+    /*! Gets the System::Types::Type of the Service
+     *
+     *  @return (System::Types::Type)
+     */
+    virtual System::Types::Type GetType() const = 0;
 
-	};
+
+    /*! Messages the system with a command
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return (void)
+    */
+    virtual AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
+
+  };
 };
 
 #endif

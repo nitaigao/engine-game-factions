@@ -9,33 +9,33 @@ using namespace Utility;
 namespace IO
 {
 
-	void OSXPathInformation::Initialize()
-	{
-		
-	}
+  void OSXPathInformation::Initialize()
+  {
+    
+  }
 
-	std::string OSXPathInformation::GetGlobalDataPath() const
-	{
-		return "";
-	}
-
-	std::string OSXPathInformation::GetGlobalDevelopmentPath() const
-	{
-		return "";
-	}
-
-	std::string OSXPathInformation::GetGlobalUserPath() const
-	{
-    return "";
-	}
-
-	std::string OSXPathInformation::GetGlobalScreenShotsPath() const
-	{
+  std::string OSXPathInformation::GetGlobalDataPath() const
+  {
     return "";
   }
 
-	std::string OSXPathInformation::GetGlobalConfigPath() const
-	{
+  std::string OSXPathInformation::GetGlobalDevelopmentPath() const
+  {
+    return "";
+  }
+
+  std::string OSXPathInformation::GetGlobalUserPath() const
+  {
+    return "";
+  }
+
+  std::string OSXPathInformation::GetGlobalScreenShotsPath() const
+  {
+    return "";
+  }
+
+  std::string OSXPathInformation::GetGlobalConfigPath() const
+  {
     return "~/Desktop/config.ini";
-	}
+  }
 }

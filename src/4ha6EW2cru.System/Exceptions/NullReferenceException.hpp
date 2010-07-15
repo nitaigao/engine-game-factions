@@ -19,39 +19,39 @@ class NullReferenceException : public std::exception
 
 public:
 
-	/*! Default Destructor
-	*
-	*  @return ()
-	*/
-	//~NullReferenceException() { };
+  /*! Default Destructor
+  *
+  *  @return ()
+  */
+  //~NullReferenceException() { };
 
 
-	/*! Constructor with default error message
-	*
-	*  @return ()
-	*/
-	NullReferenceException()
-		//: std::exception("The referenced object is NULL")
-	{
+  /*! Constructor with default error message
+  *
+  *  @return ()
+  */
+  NullReferenceException()
+    //: std::exception("The referenced object is NULL")
+  {
 
-	}
+  }
 
 
-	/*! Constructor with custom error message
-	*
-	*  @param[in] const std::string message
-	*  @return ()
-	*/
-	NullReferenceException(const std::string message)
-		//: std::exception(message.c_str())
-	{
+  /*! Constructor with custom error message
+  *
+  *  @param[in] const std::string message
+  *  @return ()
+  */
+  NullReferenceException(const std::string message)
+    //: std::exception(message.c_str())
+  {
 
-	}
+  }
 
 private:
 
-	NullReferenceException(const NullReferenceException & copy) { };
-	NullReferenceException & operator = (const NullReferenceException & copy) { return *this; };
+  NullReferenceException(const NullReferenceException & copy) { };
+  NullReferenceException & operator = (const NullReferenceException & copy) { return *this; };
 
 };
 

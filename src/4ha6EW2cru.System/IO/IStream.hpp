@@ -17,86 +17,86 @@
 
 namespace IO
 {
-	/*! 
-	 *  A Stream interface for storing data
-	 */
-	class GAMEAPI IStream
-	{
+  /*! 
+   *  A Stream interface for storing data
+   */
+  class GAMEAPI IStream
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IStream() { };
-
-
-		/*! Writes a string to the Stream
-		 *
-		 * @param[in] const std::string & data
-		 * @return (void)
-		 */
-		virtual void Write(const std::string& data) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IStream() { };
 
 
-		/*! Reads a string from the Stream
-		*
-		* @param[in] const std::string & data
-		* @return (void)
-		*/
-		virtual void Read(std::string& data) = 0;
+    /*! Writes a string to the Stream
+     *
+     * @param[in] const std::string & data
+     * @return (void)
+     */
+    virtual void Write(const std::string& data) = 0;
 
 
-		/*! Writes an integer to the Stream
-		 *
-		 * @param[in] int data
-		 * @return (void)
-		 */
-		virtual void Write(int data) = 0;
+    /*! Reads a string from the Stream
+    *
+    * @param[in] const std::string & data
+    * @return (void)
+    */
+    virtual void Read(std::string& data) = 0;
 
 
-		/*! Reads an integer to the Stream
-		*
-		* @param[in] int data
-		* @return (void)
-		*/
-		virtual void Read(int& data) = 0;
+    /*! Writes an integer to the Stream
+     *
+     * @param[in] int data
+     * @return (void)
+     */
+    virtual void Write(int data) = 0;
 
 
-		/*! Writes a Vector to the Stream
-		*
-		* @param[in] const Maths::MathVector3 & data
-		* @return (void)
-		*/
-		virtual void Write(const Maths::MathVector3& data) = 0;
+    /*! Reads an integer to the Stream
+    *
+    * @param[in] int data
+    * @return (void)
+    */
+    virtual void Read(int& data) = 0;
 
 
-		/*! Reads a Vector from the Stream
-		 *
-		 * @param[in] Maths::MathVector3 & data
-		 * @return (void)
-		 */
-		virtual void Read(Maths::MathVector3& data) = 0;
+    /*! Writes a Vector to the Stream
+    *
+    * @param[in] const Maths::MathVector3 & data
+    * @return (void)
+    */
+    virtual void Write(const Maths::MathVector3& data) = 0;
 
 
-		/*! Writes a Quaternion to the Stream
-		 *
-		 * @param[in] const Maths::MathQuaternion & data
-		 * @return (void)
-		 */
-		virtual void Write(const Maths::MathQuaternion& data) = 0;
+    /*! Reads a Vector from the Stream
+     *
+     * @param[in] Maths::MathVector3 & data
+     * @return (void)
+     */
+    virtual void Read(Maths::MathVector3& data) = 0;
 
 
-		/*! Reads a Quaternion from the Stream
-		 *
-		 * @param[in] Maths::MathQuaternion & data
-		 * @return (void)
-		 */
-		virtual void Read(Maths::MathQuaternion& data) = 0;
+    /*! Writes a Quaternion to the Stream
+     *
+     * @param[in] const Maths::MathQuaternion & data
+     * @return (void)
+     */
+    virtual void Write(const Maths::MathQuaternion& data) = 0;
 
-		
-	};
+
+    /*! Reads a Quaternion from the Stream
+     *
+     * @param[in] Maths::MathQuaternion & data
+     * @return (void)
+     */
+    virtual void Read(Maths::MathQuaternion& data) = 0;
+
+    
+  };
 };
 
 #endif

@@ -6,18 +6,18 @@
 
 namespace Platform
 {
-	class GAMEAPI IClock
-	{
+  class GAMEAPI IClock
+  {
 
-	public:
+  public:
 
-		virtual ~IClock() { };
+    virtual ~IClock() { };
 
-		virtual float GetDeltaMilliseconds() = 0;
+    virtual float GetDeltaMilliseconds() = 0;
 
-		virtual float GetTime() const = 0;
+    virtual float GetTime() const = 0;
 
-	};
+  };
 }
 
 #endif

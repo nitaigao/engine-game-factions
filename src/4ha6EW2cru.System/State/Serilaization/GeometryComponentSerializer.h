@@ -12,43 +12,43 @@
 
 namespace Serialization
 {
-	/*!
-	 *  A Geometry Component Serializer 
-	 */
-	class GeometryComponentSerializer : public IComponentSerializer
-	{
+  /*!
+   *  A Geometry Component Serializer 
+   */
+  class GeometryComponentSerializer : public IComponentSerializer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~GeometryComponentSerializer() { };
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		GeometryComponentSerializer() { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~GeometryComponentSerializer() { };
 
 
-		/*! DeSerializes the Component from the Supplied Element
-		*
-		* @param[in] const std::string entityName
-		* @param[in] const ticpp::Element & componentElement
-		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return (ISystemComponent*)
-		*/
-		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    GeometryComponentSerializer() { };
 
-	private:
 
-		GeometryComponentSerializer(const GeometryComponentSerializer & copy) { };
-		GeometryComponentSerializer & operator = (const GeometryComponentSerializer & copy) { return *this; };
+    /*! DeSerializes the Component from the Supplied Element
+    *
+    * @param[in] const std::string entityName
+    * @param[in] const ticpp::Element & componentElement
+    * @param[in] const ISystemScene::SystemSceneMap & systemScenes
+    * @return (ISystemComponent*)
+    */
+    ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
-	};
+  private:
+
+    GeometryComponentSerializer(const GeometryComponentSerializer & copy) { };
+    GeometryComponentSerializer & operator = (const GeometryComponentSerializer & copy) { return *this; };
+
+  };
 };
 
 #endif

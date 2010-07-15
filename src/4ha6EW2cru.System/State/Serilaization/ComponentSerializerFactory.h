@@ -12,29 +12,29 @@
 
 namespace Serialization
 {
-	/*!
-	 *  An Abstract Factory For Creating Component Serializers 
-	 */
-	class ComponentSerializerFactory
-	{
+  /*!
+   *  An Abstract Factory For Creating Component Serializers 
+   */
+  class ComponentSerializerFactory
+  {
 
-	public:
+  public:
 
-		/*! Creates the correct Component Serializer given the System Type
-		 *
-		 *  @param[in] const System::Types::Type & systemType
-		 *  @return (IComponentSerializer*)
-		 */
-		static IComponentSerializer* Create(const System::Types::Type& systemType);
+    /*! Creates the correct Component Serializer given the System Type
+     *
+     *  @param[in] const System::Types::Type & systemType
+     *  @return (IComponentSerializer*)
+     */
+    static IComponentSerializer* Create(const System::Types::Type& systemType);
 
-	private:
+  private:
 
-		~ComponentSerializerFactory() { };
-		ComponentSerializerFactory() { };
-		ComponentSerializerFactory(const ComponentSerializerFactory & copy) { };
-		ComponentSerializerFactory & operator = (const ComponentSerializerFactory & copy) { return *this; };
+    ~ComponentSerializerFactory() { };
+    ComponentSerializerFactory() { };
+    ComponentSerializerFactory(const ComponentSerializerFactory & copy) { };
+    ComponentSerializerFactory & operator = (const ComponentSerializerFactory & copy) { return *this; };
 
-	};
+  };
 };
 
 #endif

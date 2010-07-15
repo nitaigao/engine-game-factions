@@ -12,113 +12,113 @@
 
 namespace State
 {
-	/*!
-	 *  A container for components that make up an Entity 
-	 */
-	class GAMEAPI WorldEntity : public IWorldEntity
-	{
+  /*!
+   *  A container for components that make up an Entity 
+   */
+  class GAMEAPI WorldEntity : public IWorldEntity
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~WorldEntity() { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] const std::string & name
-		 *  @return ()
-		 */
-		WorldEntity(const std::string& name)
-			: m_name(name)
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~WorldEntity() { };
 
 
-		/*! Returns the name of the Entity
-		*
-		*  @return (const std::string&)
-		*/
-		inline std::string GetName() const { return m_name; };
+    /*! Default Constructor
+     *
+     *  @param[in] const std::string & name
+     *  @return ()
+     */
+    WorldEntity(const std::string& name)
+      : m_name(name)
+    {
+
+    }
 
 
-		/*! Adds an Observer to the Subject
-		*
-		*  @param[in] IObserver * observer
-		*  @return (void)
-		*/
-		void AddObserver(const System::MessageType& message, IObserver* observer) { m_observers.insert(std::make_pair(message, observer)); };
+    /*! Returns the name of the Entity
+    *
+    *  @return (const std::string&)
+    */
+    inline std::string GetName() const { return m_name; };
 
 
-		/*! Initializes all of the components contained by the entity
-		*
-		* @return (void)
-		*/
-		void Initialize();
+    /*! Adds an Observer to the Subject
+    *
+    *  @param[in] IObserver * observer
+    *  @return (void)
+    */
+    void AddObserver(const System::MessageType& message, IObserver* observer) { m_observers.insert(std::make_pair(message, observer)); };
 
 
-		/*! Adds a System Component to the Entity
-		*
-		*  @param[in] ISystemComponent * component
-		*  @return (void)
-		*/
-		void AddComponent(ISystemComponent* component);
+    /*! Initializes all of the components contained by the entity
+    *
+    * @return (void)
+    */
+    void Initialize();
 
 
-		/*! Get a list of all System Components inside the Entity
-		*
-		*  @return (ISystemComponent::SystemComponentList&)
-		*/
-		inline ISystemComponent::SystemComponentList GetComponents() const { return m_components; };
+    /*! Adds a System Component to the Entity
+    *
+    *  @param[in] ISystemComponent * component
+    *  @return (void)
+    */
+    void AddComponent(ISystemComponent* component);
 
 
-		/*! Sets an Attribute on all of the sub components
-		*
-		* @param[in] const System::Attribute & attribute
-		* @param[in] AnyType value
-		* @return (void)
-		*/
-		void SetAttribute(const System::Attribute& attribute, const AnyType& value);
+    /*! Get a list of all System Components inside the Entity
+    *
+    *  @return (ISystemComponent::SystemComponentList&)
+    */
+    inline ISystemComponent::SystemComponentList GetComponents() const { return m_components; };
 
 
-		/*! Messages the Component to influence its internal state
-		 *
-		 *  @param[in] const std::string & message
-		 *  @return (AnyType)
-		 */
-		AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
+    /*! Sets an Attribute on all of the sub components
+    *
+    * @param[in] const System::Attribute & attribute
+    * @param[in] AnyType value
+    * @return (void)
+    */
+    void SetAttribute(const System::Attribute& attribute, const AnyType& value);
 
 
-		/*! Writes the contents of the entity to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return (void)
-		*/
-		void Serialize(IO::IStream* stream);
+    /*! Messages the Component to influence its internal state
+     *
+     *  @param[in] const std::string & message
+     *  @return (AnyType)
+     */
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
-		/*! Reads the contents of the entity from the stream
-		*
-		* @param[in] IStream * stream
-		* @return (void)
-		*/
-		void DeSerialize(IO::IStream* stream);
+    /*! Writes the contents of the entity to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return (void)
+    */
+    void Serialize(IO::IStream* stream);
 
-	private:
 
-		WorldEntity(const WorldEntity & copy) { };
-		WorldEntity & operator = (const WorldEntity & copy) { return *this; };
+    /*! Reads the contents of the entity from the stream
+    *
+    * @param[in] IStream * stream
+    * @return (void)
+    */
+    void DeSerialize(IO::IStream* stream);
 
-		std::string m_name;
-		ISystemComponent::SystemComponentList m_components;
-		ObserverMap m_observers;
-		AnyType::AnyTypeMap m_attributes;
+  private:
 
-	};
+    WorldEntity(const WorldEntity & copy) { };
+    WorldEntity & operator = (const WorldEntity & copy) { return *this; };
+
+    std::string m_name;
+    ISystemComponent::SystemComponentList m_components;
+    ObserverMap m_observers;
+    AnyType::AnyTypeMap m_attributes;
+
+  };
 };
 
 #endif

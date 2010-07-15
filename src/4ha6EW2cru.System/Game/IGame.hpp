@@ -12,50 +12,50 @@
 
 namespace Game
 {
-	/*! 
-	 *  Root of the Game Engine
-	 */
-	class GAMEAPI IGame
-	{
+  /*! 
+   *  Root of the Game Engine
+   */
+  class GAMEAPI IGame
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IGame() { };
-
-
-		/*! Initializes the GameRoot
-		*
-		*  @return (void)
-		*/
-		virtual void Initialize() = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IGame() { };
 
 
-		/*! Steps the GameRoot forward
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		virtual void Update() = 0;
+    /*! Initializes the GameRoot
+    *
+    *  @return (void)
+    */
+    virtual void Initialize() = 0;
 
 
-		/*! Releases the GameRoot
-		*
-		*  @return (void)
-		*/
-		virtual void Release() = 0;
+    /*! Steps the GameRoot forward
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    virtual void Update() = 0;
 
 
-		/*! Returns whether or not the GameRoot is ready to Quit
-		*
-		*  @return (bool)
-		*/
-		virtual bool IsQuitting() const = 0;
-		
-	};
+    /*! Releases the GameRoot
+    *
+    *  @return (void)
+    */
+    virtual void Release() = 0;
+
+
+    /*! Returns whether or not the GameRoot is ready to Quit
+    *
+    *  @return (bool)
+    */
+    virtual bool IsQuitting() const = 0;
+    
+  };
 };
 
 #endif

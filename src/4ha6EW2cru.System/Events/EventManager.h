@@ -18,92 +18,92 @@
 
 namespace Events
 {
-	/*! 
-	 *  Manages all Events distributed throughout the Game
-	 */
-	class GAMEAPI EventManager : public IEventManager
-	{
+  /*! 
+   *  Manages all Events distributed throughout the Game
+   */
+  class GAMEAPI EventManager : public IEventManager
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~EventManager();
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		EventManager() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~EventManager();
 
 
-		/*! Queues an Event for processing on the next call to Update
-		 *
-		 *  @param[in] const IEvent * event
-		 *  @return (void)
-		 */
-		void QueueEvent(const Events::IEvent* event);
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    EventManager() { };
 
 
-		/*! Queues an Event for processing on the next call to Update
-		*
-		* @param[in] const std::string &
-		* @param[in] IEventData *
-		* @return (void)
-		*/
-		void QueueEvent(const std::string& eventType, Events::IEventData* eventData);
+    /*! Queues an Event for processing on the next call to Update
+     *
+     *  @param[in] const IEvent * event
+     *  @return (void)
+     */
+    void QueueEvent(const Events::IEvent* event);
 
 
-		/*! Processes an Event immediately
-		 *
-		 *  @param[in] const IEvent * event
-		 *  @return (void)
-		 */
-		void TriggerEvent(const Events::IEvent* event);
-
-		
-		/*! Dispatched all events in the Event Queue to their Listening Event Handlers
-		 *
-		 *  @param[in] float deltaMilliseconds
-		 *  @return (void)
-		 */
-		void Update(float deltaMilliseconds);
+    /*! Queues an Event for processing on the next call to Update
+    *
+    * @param[in] const std::string &
+    * @param[in] IEventData *
+    * @return (void)
+    */
+    void QueueEvent(const std::string& eventType, Events::IEventData* eventData);
 
 
-		/*! Adds an EventListener for Event processing
-		*
-		* @param[in] const std::string & eventType
-		* @param[in] IEventListener * eventListener
-		* @return (void)
-		*/
-		void AddEventListener(const std::string& eventType, IEventListener* eventListener);
+    /*! Processes an Event immediately
+     *
+     *  @param[in] const IEvent * event
+     *  @return (void)
+     */
+    void TriggerEvent(const Events::IEvent* event);
+
+    
+    /*! Dispatched all events in the Event Queue to their Listening Event Handlers
+     *
+     *  @param[in] float deltaMilliseconds
+     *  @return (void)
+     */
+    void Update(float deltaMilliseconds);
 
 
-		/*! Marks an Event Listener for removal on the next call to Update
-		 *
-		 * @param[in] const std::string & eventType
-		 * @param[in] IEventListener * eventListener
-		 * @return (void)
-		 */
-		void RemoveEventListener(const std::string& eventType, IEventListener* eventListener);
-		
+    /*! Adds an EventListener for Event processing
+    *
+    * @param[in] const std::string & eventType
+    * @param[in] IEventListener * eventListener
+    * @return (void)
+    */
+    void AddEventListener(const std::string& eventType, IEventListener* eventListener);
 
-	private:
 
-		EventManager(const EventManager & copy) { };
-		EventManager & operator = (const EventManager & copy) { return *this; };
+    /*! Marks an Event Listener for removal on the next call to Update
+     *
+     * @param[in] const std::string & eventType
+     * @param[in] IEventListener * eventListener
+     * @return (void)
+     */
+    void RemoveEventListener(const std::string& eventType, IEventListener* eventListener);
+    
 
-		unsigned int GetEventTypeId(const std::string& eventType);
+  private:
 
-		IEvent::EventQueue m_eventQueue;
-		IEventListener::EventListenerMultiMap m_eventListeners;
-		IEventListener::EventListenerMultiMap m_eventListenersForRemoval;
-		EventTypeMap m_eventTypes;
+    EventManager(const EventManager & copy) { };
+    EventManager & operator = (const EventManager & copy) { return *this; };
 
-	};
+    unsigned int GetEventTypeId(const std::string& eventType);
+
+    IEvent::EventQueue m_eventQueue;
+    IEventListener::EventListenerMultiMap m_eventListeners;
+    IEventListener::EventListenerMultiMap m_eventListenersForRemoval;
+    EventTypeMap m_eventTypes;
+
+  };
 };
 
 #endif

@@ -14,83 +14,83 @@
 
 namespace Configuration
 {
-	/*! 
-	 *  Contains configuration items from the file system
-	 */
-	class GAMEAPI ClientConfiguration : public IConfiguration
-	{
-		typedef std::pair<std::string, AnyType> KeyValuePair;
-		typedef std::multimap<std::string, KeyValuePair> DefaultPropertyList;
+  /*! 
+   *  Contains configuration items from the file system
+   */
+  class GAMEAPI ClientConfiguration : public IConfiguration
+  {
+    typedef std::pair<std::string, AnyType> KeyValuePair;
+    typedef std::multimap<std::string, KeyValuePair> DefaultPropertyList;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ClientConfiguration();
-
-
-		ClientConfiguration(Configuration::IConfigurationFile* configurationFile)
-			: m_configFile(configurationFile)
-		{
-
-		};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ClientConfiguration();
 
 
-		/*! Initializes the Configuration from the given file path, if it doesn't exist it will be created
-		*
-		* @param[in] const std::string & filePath
-		* @return (void)
-		*/
-		void Initialize(const std::string& filePath);
+    ClientConfiguration(Configuration::IConfigurationFile* configurationFile)
+      : m_configFile(configurationFile)
+    {
+
+    };
 
 
-		/*! Finds a configuration item based on the specified section and key
-		 *
-		 *  @param[in] const std::string & section
-		 *  @param[in] const std::string & key
-		 *  @return (AnyType)
-		 */
-		AnyType Find(const std::string& section, const std::string& key);
+    /*! Initializes the Configuration from the given file path, if it doesn't exist it will be created
+    *
+    * @param[in] const std::string & filePath
+    * @return (void)
+    */
+    void Initialize(const std::string& filePath);
 
 
-		/*! Finds an entire section
-		*
-		* @param[in] const std::string & section
-		* @return (AnyType::AnyTypeMap)
-		*/
-		AnyType::AnyTypeMap FindSection(const std::string& section);
+    /*! Finds a configuration item based on the specified section and key
+     *
+     *  @param[in] const std::string & section
+     *  @param[in] const std::string & key
+     *  @return (AnyType)
+     */
+    AnyType Find(const std::string& section, const std::string& key);
 
 
-		/*! Sets the default value for a configuration item
-		 *
-		 *  @param[in] const std::string & section
-		 *  @param[in] const std::string & key
-		 *  @param[in] const AnyType & value
-		 *  @return (void)
-		 */
-		void SetDefault(const std::string& section, const std::string& key, const AnyType& value);
+    /*! Finds an entire section
+    *
+    * @param[in] const std::string & section
+    * @return (AnyType::AnyTypeMap)
+    */
+    AnyType::AnyTypeMap FindSection(const std::string& section);
 
 
-		/*! Sets the value for a configuration item
-		 *
-		 *  @param[in] const std::string & section
-		 *  @param[in] const std::string & key
-		 *  @param[in] const AnyType & value
-		 *  @return (void)
-		 */
-		void Set(const std::string& section, const std::string& key, const AnyType& value);
+    /*! Sets the default value for a configuration item
+     *
+     *  @param[in] const std::string & section
+     *  @param[in] const std::string & key
+     *  @param[in] const AnyType & value
+     *  @return (void)
+     */
+    void SetDefault(const std::string& section, const std::string& key, const AnyType& value);
 
-	private:
 
-		IConfigurationFile* m_configFile;
-		DefaultPropertyList m_defaultPropertyList;
+    /*! Sets the value for a configuration item
+     *
+     *  @param[in] const std::string & section
+     *  @param[in] const std::string & key
+     *  @param[in] const AnyType & value
+     *  @return (void)
+     */
+    void Set(const std::string& section, const std::string& key, const AnyType& value);
 
-		ClientConfiguration(const ClientConfiguration & copy) { };
-		ClientConfiguration & operator = (const ClientConfiguration & copy) { return *this; };
-		
-	};
+  private:
+
+    IConfigurationFile* m_configFile;
+    DefaultPropertyList m_defaultPropertyList;
+
+    ClientConfiguration(const ClientConfiguration & copy) { };
+    ClientConfiguration & operator = (const ClientConfiguration & copy) { return *this; };
+    
+  };
 };
 
 #endif

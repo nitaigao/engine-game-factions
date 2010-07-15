@@ -18,78 +18,78 @@
 
 namespace Configuration
 {
-	/*! 
-	 *  Loads and Saves Configuration Information to the File System
-	 */
-	class ConfigurationFile : public IConfigurationFile
-	{
+  /*! 
+   *  Loads and Saves Configuration Information to the File System
+   */
+  class ConfigurationFile : public IConfigurationFile
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ConfigurationFile();
-
-
-		ConfigurationFile(Platform::IPlatformManager* platformManager, IO::IFileSystem* fileSyostem);
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ConfigurationFile();
 
 
-		/*! Loads the given file contents into the configuration
-		*
-		* @param[in] const std::string & fileName
-		* @return (void)
-		*/
-		void Load(const std::string& fileName);
-		
-
-		/*! Finds a Configuration Item based on the given section and key
-		 *
-		 *  @param[in] const std::string & section
-		 *  @param[in] const std::string & key
-		 *  @param[in] const AnyType & defaultValue
-		 *  @return (AnyType)
-		 */
-		AnyType FindConfigItem(const std::string& section, const std::string& key, const AnyType& defaultValue);
+    ConfigurationFile(Platform::IPlatformManager* platformManager, IO::IFileSystem* fileSyostem);
 
 
-		/*! Returns an Entire Config Section
-		*
-		* @param[in] const std::string & section
-		* @return (AnyType::AnyTypeMap)
-		*/
-		AnyType::AnyTypeMap FindConfigSection(const std::string& section);
+    /*! Loads the given file contents into the configuration
+    *
+    * @param[in] const std::string & fileName
+    * @return (void)
+    */
+    void Load(const std::string& fileName);
+    
+
+    /*! Finds a Configuration Item based on the given section and key
+     *
+     *  @param[in] const std::string & section
+     *  @param[in] const std::string & key
+     *  @param[in] const AnyType & defaultValue
+     *  @return (AnyType)
+     */
+    AnyType FindConfigItem(const std::string& section, const std::string& key, const AnyType& defaultValue);
 
 
-		/*! Updates a configuration item based on the given section and key
-		 *
-		 *  @param[in] const std::string & section
-		 *  @param[in] const std::string & key
-		 *  @param[in] const AnyType & value
-		 *  @return (void)
-		 */
-		void Update(const std::string& section, const std::string& key, const AnyType& value);
+    /*! Returns an Entire Config Section
+    *
+    * @param[in] const std::string & section
+    * @return (AnyType::AnyTypeMap)
+    */
+    AnyType::AnyTypeMap FindConfigSection(const std::string& section);
 
 
-		/*! Saves the configuration file to the File System
-		 *
-		 *  @return (void)
-		 */
-		void Save();
+    /*! Updates a configuration item based on the given section and key
+     *
+     *  @param[in] const std::string & section
+     *  @param[in] const std::string & key
+     *  @param[in] const AnyType & value
+     *  @return (void)
+     */
+    void Update(const std::string& section, const std::string& key, const AnyType& value);
 
-	private:
 
-		CSimpleIni* m_ini;
-		std::string m_filePath;
+    /*! Saves the configuration file to the File System
+     *
+     *  @return (void)
+     */
+    void Save();
 
-		Platform::IPlatformManager* m_platformManager;
-		IO::IFileSystem* m_fileSystem;
+  private:
 
-		ConfigurationFile(const ConfigurationFile & copy) { };
-		ConfigurationFile & operator = (const ConfigurationFile & copy) { return *this; };
+    CSimpleIni* m_ini;
+    std::string m_filePath;
 
-	};
+    Platform::IPlatformManager* m_platformManager;
+    IO::IFileSystem* m_fileSystem;
+
+    ConfigurationFile(const ConfigurationFile & copy) { };
+    ConfigurationFile & operator = (const ConfigurationFile & copy) { return *this; };
+
+  };
 };
 
 #endif

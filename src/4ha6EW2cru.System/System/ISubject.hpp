@@ -19,28 +19,28 @@ class GAMEAPI ISubject
 
 public:
 
-	/*! Default Destructor
-	 *
-	 *  @return ()
-	 */
-	virtual ~ISubject() { };
+  /*! Default Destructor
+   *
+   *  @return ()
+   */
+  virtual ~ISubject() { };
 
 
-	/*! Adds an Observer to the Subject
-	*
-	*  @param[in] IObserver * observer
-	*  @return (void)
-	*/
-	virtual void AddObserver(IObserver* observer) = 0;
+  /*! Adds an Observer to the Subject
+  *
+  *  @param[in] IObserver * observer
+  *  @return (void)
+  */
+  virtual void AddObserver(IObserver* observer) = 0;
 
 
-	/*! Posts a message to observers
-	*
-	*  @param[in] const std::string & message
-	*  @param[in] AnyType::AnyValueMap parameters
-	*  @return (AnyType)
-	*/
-	virtual AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
+  /*! Posts a message to observers
+  *
+  *  @param[in] const std::string & message
+  *  @param[in] AnyType::AnyValueMap parameters
+  *  @return (AnyType)
+  */
+  virtual AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
 
 };
 

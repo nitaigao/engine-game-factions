@@ -25,122 +25,122 @@
 
 namespace Serialization
 {
-	/*!
-	 *  De serializes a world from storage  
-	 */
-	class GAMEAPI XMLSerializer : public IWorldSerializer, public Services::IService
-	{
-		typedef std::queue<ticpp::Node*> NodePtrList;
-		typedef std::map<System::Types::Type, ticpp::Node*> NodePtrMap;
+  /*!
+   *  De serializes a world from storage  
+   */
+  class GAMEAPI XMLSerializer : public IWorldSerializer, public Services::IService
+  {
+    typedef std::queue<ticpp::Node*> NodePtrList;
+    typedef std::map<System::Types::Type, ticpp::Node*> NodePtrMap;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~XMLSerializer();
-
-
-		/*! Default Constructor
-		 *
-		 * @param[in] Events::IEventManager * eventManager
-		 * @param[in] Resources::IResourceCache * resourceCache
-		 * @param[in] ISystemManager * systemManager
-		 * @param[in] Services::IServiceManager * serviceManager
-		 * @return ()
-		 */
-		XMLSerializer(Events::IEventManager* eventManager, Resources::IResourceCache* resourceCache, 
-			ISystemManager* systemManager, Services::IServiceManager* serviceManager)
-			: m_eventManager(eventManager)
-			, m_resourceCache(resourceCache)
-			, m_systemManager(systemManager)
-			, m_serviceManager(serviceManager)
-			, m_loadTotal(0)
-			, m_loadProgress(0)
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~XMLSerializer();
 
 
-		/*! De serializes the level path into the world
-		*
-		* @param[in] IWorld * world
-		* @param[in] const std::string & levelPath
-		* @return (void)
-		*/
-		void DeSerializeLevel(State::IWorld* world, const std::string& levelPath);
+    /*! Default Constructor
+     *
+     * @param[in] Events::IEventManager * eventManager
+     * @param[in] Resources::IResourceCache * resourceCache
+     * @param[in] ISystemManager * systemManager
+     * @param[in] Services::IServiceManager * serviceManager
+     * @return ()
+     */
+    XMLSerializer(Events::IEventManager* eventManager, Resources::IResourceCache* resourceCache, 
+      ISystemManager* systemManager, Services::IServiceManager* serviceManager)
+      : m_eventManager(eventManager)
+      , m_resourceCache(resourceCache)
+      , m_systemManager(systemManager)
+      , m_serviceManager(serviceManager)
+      , m_loadTotal(0)
+      , m_loadProgress(0)
+    {
+
+    }
 
 
-		/*! De serializes an entity file into the given entity
-		*
-		* @param[in] IWorldEntity *
-		* @param[in] const std::string & filepath
-		* @return (void)
-		*/
-		void DeSerializeEntity(State::IWorldEntity* entity, const std::string& filepath);
+    /*! De serializes the level path into the world
+    *
+    * @param[in] IWorld * world
+    * @param[in] const std::string & levelPath
+    * @return (void)
+    */
+    void DeSerializeLevel(State::IWorld* world, const std::string& levelPath);
 
 
-		/*! Steps the loading process
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update(float deltaMilliseconds);
+    /*! De serializes an entity file into the given entity
+    *
+    * @param[in] IWorldEntity *
+    * @param[in] const std::string & filepath
+    * @return (void)
+    */
+    void DeSerializeEntity(State::IWorldEntity* entity, const std::string& filepath);
 
 
-		/*! Returns whether or no the Serializer has finished its loading task
-		*
-		*  @return (bool)
-		*/
-		inline bool IsFinishedLoading() const { return (m_loadProgress == m_loadTotal); };
+    /*! Steps the loading process
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update(float deltaMilliseconds);
 
 
-		/*! Gets the System::Types::Type of the Service
-		*
-		*  @return (System::Types::Type)
-		*/
-		inline System::Types::Type GetType() const { return System::Types::ENTITY; };
+    /*! Returns whether or no the Serializer has finished its loading task
+    *
+    *  @return (bool)
+    */
+    inline bool IsFinishedLoading() const { return (m_loadProgress == m_loadTotal); };
 
 
-		/*! Executes a command on the Service
-		*
-		*  @param[in] const std::string & actionName
-		*  @param[in] AnyType::AnyTypeMap & parameters
-		*  @return (AnyType::AnyTypeMap)
-		*/
-		AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) { return AnyType::AnyTypeMap(); };
+    /*! Gets the System::Types::Type of the Service
+    *
+    *  @return (System::Types::Type)
+    */
+    inline System::Types::Type GetType() const { return System::Types::ENTITY; };
 
-	private:
 
-		XMLSerializer(const XMLSerializer & copy) { };
-		XMLSerializer & operator = (const XMLSerializer & copy) { return *this; };
+    /*! Executes a command on the Service
+    *
+    *  @param[in] const std::string & actionName
+    *  @param[in] AnyType::AnyTypeMap & parameters
+    *  @return (AnyType::AnyTypeMap)
+    */
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) { return AnyType::AnyTypeMap(); };
 
-		void LoadElement(ticpp::Element* element);
-		void DeserializeElement(ticpp::Element* element);
+  private:
 
-		void LoadColor(ticpp::Element* element);
-		void LoadEntity(ticpp::Element* element);
-		void LoadEntity(const std::string& name, const std::string& entityFilePath);
-		void LoadEntityComponents(ticpp::Element* element, NodePtrMap& components);
+    XMLSerializer(const XMLSerializer & copy) { };
+    XMLSerializer & operator = (const XMLSerializer & copy) { return *this; };
 
-		void ImportEntity(const std::string& src, NodePtrMap& components);
+    void LoadElement(ticpp::Element* element);
+    void DeserializeElement(ticpp::Element* element);
 
-		State::IWorldEntity* CreateEntity(const std::string& name, NodePtrMap& components);
-		void PopulateEntity(State::IWorldEntity* entity, NodePtrMap& components);
+    void LoadColor(ticpp::Element* element);
+    void LoadEntity(ticpp::Element* element);
+    void LoadEntity(const std::string& name, const std::string& entityFilePath);
+    void LoadEntityComponents(ticpp::Element* element, NodePtrMap& components);
 
-		NodePtrList m_loadQueueEl;
+    void ImportEntity(const std::string& src, NodePtrMap& components);
 
-		int m_loadProgress;
-		int m_loadTotal;
+    State::IWorldEntity* CreateEntity(const std::string& name, NodePtrMap& components);
+    void PopulateEntity(State::IWorldEntity* entity, NodePtrMap& components);
 
-		State::IWorld* m_world;
-		Events::IEventManager* m_eventManager;
-		Resources::IResourceCache* m_resourceCache;
-		ISystemManager* m_systemManager;
-		Services::IServiceManager* m_serviceManager;
+    NodePtrList m_loadQueueEl;
 
-	};
+    int m_loadProgress;
+    int m_loadTotal;
+
+    State::IWorld* m_world;
+    Events::IEventManager* m_eventManager;
+    Resources::IResourceCache* m_resourceCache;
+    ISystemManager* m_systemManager;
+    Services::IServiceManager* m_serviceManager;
+
+  };
 };
 
 #endif

@@ -27,94 +27,94 @@
 
 namespace Game
 {
-	/*! 
-	 *  The core container of the GameRoot
-	 */
-	class GAMEAPI GameRoot : public IGame
-	{
+  /*! 
+   *  The core container of the GameRoot
+   */
+  class GAMEAPI GameRoot : public IGame
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~GameRoot() { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		GameRoot(
-			Platform::IProgramOptions* programOptions, Configuration::IConfiguration* configuration, Platform::IPlatformManager* platformManager, 
-			ISystemManager* systemManager, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager, IO::IFileSystem* fileSystem
-			)
-			: m_isQuitting(false)
-			, m_isInitialized(false)
-			, m_world(0)
-			, m_platformManager(platformManager)
-			, m_programOptions(programOptions)
-			, m_systemManager(systemManager)
-			, m_configuration(configuration)
-			, m_eventManager(eventManager)
-			, m_serviceManager(serviceManager)
-			, m_fileSystem(fileSystem)
-		{
-
-		}
-		
-
-		/*! Initializes the GameRoot
-		 *
-		 *  @return (void)
-		 */
-		void Initialize();
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~GameRoot() { };
 
 
-		/*! Steps the GameRoot forward
-		 *
-		 *  @param[in] float deltaMilliseconds
-		 *  @return (void)
-		 */
-		void Update();
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    GameRoot(
+      Platform::IProgramOptions* programOptions, Configuration::IConfiguration* configuration, Platform::IPlatformManager* platformManager, 
+      ISystemManager* systemManager, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager, IO::IFileSystem* fileSystem
+      )
+      : m_isQuitting(false)
+      , m_isInitialized(false)
+      , m_world(0)
+      , m_platformManager(platformManager)
+      , m_programOptions(programOptions)
+      , m_systemManager(systemManager)
+      , m_configuration(configuration)
+      , m_eventManager(eventManager)
+      , m_serviceManager(serviceManager)
+      , m_fileSystem(fileSystem)
+    {
 
-		
-		/*! Releases the GameRoot
-		 *
-		 *  @return (void)
-		 */
-		void Release();
+    }
+    
+
+    /*! Initializes the GameRoot
+     *
+     *  @return (void)
+     */
+    void Initialize();
 
 
-		/*! Returns whether or not the GameRoot is ready to Quit
-		 *
-		 *  @return (bool)
-		 */
-		bool IsQuitting() const { return m_isQuitting; };
+    /*! Steps the GameRoot forward
+     *
+     *  @param[in] float deltaMilliseconds
+     *  @return (void)
+     */
+    void Update();
 
-	private:
+    
+    /*! Releases the GameRoot
+     *
+     *  @return (void)
+     */
+    void Release();
 
-		void OnGameQuit(const Events::IEvent* event);
-		void OnGameLevelChanged(const Events::IEvent* event);
-		void OnGameEnded(const Events::IEvent* event);
 
-		bool m_isQuitting;
-		bool m_isInitialized;
+    /*! Returns whether or not the GameRoot is ready to Quit
+     *
+     *  @return (bool)
+     */
+    bool IsQuitting() const { return m_isQuitting; };
 
-		Configuration::IConfiguration* m_configuration;
-		State::IWorld* m_world;
-		Platform::IPlatformManager* m_platformManager;
-		Platform::IProgramOptions* m_programOptions;
-		ISystemManager* m_systemManager;
-		Events::IEventManager* m_eventManager;
-		Services::IServiceManager* m_serviceManager;
-		IO::IFileSystem* m_fileSystem;
+  private:
 
-		GameRoot(const GameRoot & copy) { };
-		GameRoot & operator = (const GameRoot & copy) { return *this; };
+    void OnGameQuit(const Events::IEvent* event);
+    void OnGameLevelChanged(const Events::IEvent* event);
+    void OnGameEnded(const Events::IEvent* event);
 
-	};
+    bool m_isQuitting;
+    bool m_isInitialized;
+
+    Configuration::IConfiguration* m_configuration;
+    State::IWorld* m_world;
+    Platform::IPlatformManager* m_platformManager;
+    Platform::IProgramOptions* m_programOptions;
+    ISystemManager* m_systemManager;
+    Events::IEventManager* m_eventManager;
+    Services::IServiceManager* m_serviceManager;
+    IO::IFileSystem* m_fileSystem;
+
+    GameRoot(const GameRoot & copy) { };
+    GameRoot & operator = (const GameRoot & copy) { return *this; };
+
+  };
 };
 
 #endif

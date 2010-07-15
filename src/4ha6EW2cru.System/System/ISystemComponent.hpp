@@ -25,60 +25,60 @@ class GAMEAPI ISystemComponent : public IObserver, public ISubject, public Syste
 
 public:
 
-	typedef std::deque<ISystemComponent*> SystemComponentList;
-	typedef std::map<std::string, ISystemComponent*> SystemComponentMap;
-	typedef std::multimap<std::string, ISystemComponent*> SystemComponentMultiMap;
-	typedef std::map<System::Types::Type, ISystemComponent*> SystemComponentTypeMap;
+  typedef std::deque<ISystemComponent*> SystemComponentList;
+  typedef std::map<std::string, ISystemComponent*> SystemComponentMap;
+  typedef std::multimap<std::string, ISystemComponent*> SystemComponentMultiMap;
+  typedef std::map<System::Types::Type, ISystemComponent*> SystemComponentTypeMap;
 
-	/*! Default Destructor
-	 *
-	 *  @return ()
-	 */
-	virtual ~ISystemComponent() { };
-
-
-	/*! Initializes the Component
-	*
-	*  @param[in] AnyType::AnyValueMap properties
-	*  @return (void)
-	*/
-	virtual void Initialize() = 0;
+  /*! Default Destructor
+   *
+   *  @return ()
+   */
+  virtual ~ISystemComponent() { };
 
 
-	/*! Steps the internal data of the Component
-	*
-	*  @param[in] float deltaMilliseconds
-	*  @return (void)
-	*/
-	virtual void Update(float deltaMilliseconds) = 0;
+  /*! Initializes the Component
+  *
+  *  @param[in] AnyType::AnyValueMap properties
+  *  @return (void)
+  */
+  virtual void Initialize() = 0;
 
 
-	/*! Destroys the Component
-	*
-	*  @return (void)
-	*/
-	virtual void Destroy() = 0;
+  /*! Steps the internal data of the Component
+  *
+  *  @param[in] float deltaMilliseconds
+  *  @return (void)
+  */
+  virtual void Update(float deltaMilliseconds) = 0;
 
 
-	/*! Gets the attributes of the Component
-	*
-	*  @return (AnyValueMap)
-	*/
-	virtual AnyType::AnyTypeMap GetAttributes() const = 0;
+  /*! Destroys the Component
+  *
+  *  @return (void)
+  */
+  virtual void Destroy() = 0;
 
 
-	/*! Sets an Attribute on the Component *
-	 *  @param[in] const unsigned int attributeId
-	 *  @param[in] const AnyType & value
-	 */
-	virtual void SetAttribute(const System::Attribute& attributeId, const AnyType& value) = 0;
+  /*! Gets the attributes of the Component
+  *
+  *  @return (AnyValueMap)
+  */
+  virtual AnyType::AnyTypeMap GetAttributes() const = 0;
 
 
-	/*! Returns the Name of the Component
-	 *
-	 * @return (std::string)
-	 */
-	virtual std::string GetName() const = 0;
+  /*! Sets an Attribute on the Component *
+   *  @param[in] const unsigned int attributeId
+   *  @param[in] const AnyType & value
+   */
+  virtual void SetAttribute(const System::Attribute& attributeId, const AnyType& value) = 0;
+
+
+  /*! Returns the Name of the Component
+   *
+   * @return (std::string)
+   */
+  virtual std::string GetName() const = 0;
 
 };
 

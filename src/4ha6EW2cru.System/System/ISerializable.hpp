@@ -14,37 +14,37 @@
 
 namespace System
 {
-	/*! 
-	 *  A class that can Serialize / Deserialize itself
-	 */
-	class GAMEAPI ISerializable
-	{
+  /*! 
+   *  A class that can Serialize / Deserialize itself
+   */
+  class GAMEAPI ISerializable
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~ISerializable() { };
-
-
-		/*! Writes the contents of the object to the given stream
-		*
-		* @param[in] IStream * stream
-		* @return (void)
-		*/
-		virtual void Serialize(IO::IStream* stream) = 0;
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~ISerializable() { };
 
 
-		/*! Reads the contents of the object from the stream
-		*
-		* @param[in] IStream * stream
-		* @return (void)
-		*/
-		virtual void DeSerialize(IO::IStream* stream) = 0;
-		
-	};
+    /*! Writes the contents of the object to the given stream
+    *
+    * @param[in] IStream * stream
+    * @return (void)
+    */
+    virtual void Serialize(IO::IStream* stream) = 0;
+
+
+    /*! Reads the contents of the object from the stream
+    *
+    * @param[in] IStream * stream
+    * @return (void)
+    */
+    virtual void DeSerialize(IO::IStream* stream) = 0;
+    
+  };
 };
 
 #endif

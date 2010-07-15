@@ -12,54 +12,54 @@
 
 namespace IO
 {
-	/*! 
-	 *  A container for file data loaded from the file system
-	 */
-	struct FileBuffer
-	{
+  /*! 
+   *  A container for file data loaded from the file system
+   */
+  struct FileBuffer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~FileBuffer()
-		{
-			if(fileBytes != 0)
-			{
-				delete fileBytes;
-			}
-		}
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~FileBuffer()
+    {
+      if(fileBytes != 0)
+      {
+        delete fileBytes;
+      }
+    }
 
-		/*! Default Constructor
-		 *
-		 *  @param[in] char * fileBytes
-		 *  @param[in] const int & fileLength
-		 *  @param[in] const std::string & filePath
-		 *  @return ()
-		 */
-		FileBuffer(char* fileBytes, const unsigned int& fileLength, const std::string& filePath)
-			: fileBytes(fileBytes)
-			, fileLength(fileLength)
-			, filePath(filePath)
-			, filePosition(0)
-		{
+    /*! Default Constructor
+     *
+     *  @param[in] char * fileBytes
+     *  @param[in] const int & fileLength
+     *  @param[in] const std::string & filePath
+     *  @return ()
+     */
+    FileBuffer(char* fileBytes, const unsigned int& fileLength, const std::string& filePath)
+      : fileBytes(fileBytes)
+      , fileLength(fileLength)
+      , filePath(filePath)
+      , filePosition(0)
+    {
 
-		}
+    }
 
 
-		unsigned int fileLength;
-		unsigned int filePosition;
-		const std::string filePath;
-		char* fileBytes;
+    unsigned int fileLength;
+    unsigned int filePosition;
+    const std::string filePath;
+    char* fileBytes;
 
-	private:
+  private:
 
-		FileBuffer(const FileBuffer & copy) { };
-		FileBuffer & operator = (const FileBuffer & copy) { return *this; };
+    FileBuffer(const FileBuffer & copy) { };
+    FileBuffer & operator = (const FileBuffer & copy) { return *this; };
 
-	};
+  };
 };
 
 #endif

@@ -12,43 +12,43 @@
 
 namespace Serialization
 {
-	/*!
-	 *  A Graphics Component Serializer 
-	 */
-	class GraphicsComponentSerializer : public IComponentSerializer
-	{
+  /*!
+   *  A Graphics Component Serializer 
+   */
+  class GraphicsComponentSerializer : public IComponentSerializer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~GraphicsComponentSerializer() { };
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		GraphicsComponentSerializer() { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~GraphicsComponentSerializer() { };
 
 
-		/*! DeSerializes the Component from the Supplied Element
-		*
-		* @param[in] const std::string entityName
-		* @param[in] const ticpp::Element & componentElement
-		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return (ISystemComponent*)
-		*/
-		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    GraphicsComponentSerializer() { };
 
-	private:
 
-		GraphicsComponentSerializer(const GraphicsComponentSerializer & copy) { };
-		GraphicsComponentSerializer & operator = (const GraphicsComponentSerializer & copy) { return *this; };
+    /*! DeSerializes the Component from the Supplied Element
+    *
+    * @param[in] const std::string entityName
+    * @param[in] const ticpp::Element & componentElement
+    * @param[in] const ISystemScene::SystemSceneMap & systemScenes
+    * @return (ISystemComponent*)
+    */
+    ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
-	};
+  private:
+
+    GraphicsComponentSerializer(const GraphicsComponentSerializer & copy) { };
+    GraphicsComponentSerializer & operator = (const GraphicsComponentSerializer & copy) { return *this; };
+
+  };
 };
 
 #endif

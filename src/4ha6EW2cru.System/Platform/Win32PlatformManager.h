@@ -18,128 +18,128 @@
 
 namespace Platform
 {
-	/*! 
-	*  Interfaces with the Windows Platform
-	*/
-	class GAMEAPI Win32PlatformManager : public IPlatformManager
-	{
+  /*! 
+  *  Interfaces with the Windows Platform
+  */
+  class GAMEAPI Win32PlatformManager : public IPlatformManager
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~Win32PlatformManager();
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		Win32PlatformManager(Events::IEventManager* eventManager, IO::IPathInformation* pathInformation, IClock* clock)
-			: m_hWnd(0)
-			, m_pathInformation(pathInformation)
-			, m_eventManager(eventManager)
-			, m_clock(clock)
-		{
-
-		}
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~Win32PlatformManager();
 
 
-		/*! Initializes the Platform Manager and all Sub Components
-		*
-		* @return (void)
-		*/
-		void Initialize();
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    Win32PlatformManager(Events::IEventManager* eventManager, IO::IPathInformation* pathInformation, IClock* clock)
+      : m_hWnd(0)
+      , m_pathInformation(pathInformation)
+      , m_eventManager(eventManager)
+      , m_clock(clock)
+    {
+
+    }
 
 
-		/*! Creates an Interactive Window for the Player
-		*
-		*  @param[in] const std::string & title
-		*  @param[in] const int & width
-		*  @param[in] const int & height
-		*  @param[in] const bool & fullScreen
-		*  @return (void)
-		*/
-		void CreateInteractiveWindow(const std::string& title, int width, int height, bool fullScreen);
-		
-
-		/*! Closes the Open Window
-		*
-		*  @return (void)
-		*/
-		void CloseWindow();
+    /*! Initializes the Platform Manager and all Sub Components
+    *
+    * @return (void)
+    */
+    void Initialize();
 
 
-		/*! Creates a Console Window
-		*
-		*  @return (void)
-		*/
-		void CreateConsoleWindow();
+    /*! Creates an Interactive Window for the Player
+    *
+    *  @param[in] const std::string & title
+    *  @param[in] const int & width
+    *  @param[in] const int & height
+    *  @param[in] const bool & fullScreen
+    *  @return (void)
+    */
+    void CreateInteractiveWindow(const std::string& title, int width, int height, bool fullScreen);
+    
+
+    /*! Closes the Open Window
+    *
+    *  @return (void)
+    */
+    void CloseWindow();
 
 
-		/*! Outputs the given message to std::cout
-		*
-		* @param[in] const std::string & message
-		* @return (void)
-		*/
-		void OutputToConsole(const std::string& message);
+    /*! Creates a Console Window
+    *
+    *  @return (void)
+    */
+    void CreateConsoleWindow();
 
 
-		/*! Steps internal data structures
-		*
-		*  @param[in] float deltaMilliseconds
-		*  @return (void)
-		*/
-		void Update(float deltaMilliseconds);
-		
-
-		/*! Gets the id of the active game window
-		*
-		*  @return (size_t)
-		*/
-		size_t GetWindowId() const;
+    /*! Outputs the given message to std::cout
+    *
+    * @param[in] const std::string & message
+    * @return (void)
+    */
+    void OutputToConsole(const std::string& message);
 
 
-		/*! Returns the Clock from the Win32 Platform
-		*
-		* @return (IClock&)
-		*/
-		inline IClock* GetClock() { return m_clock; };
+    /*! Steps internal data structures
+    *
+    *  @param[in] float deltaMilliseconds
+    *  @return (void)
+    */
+    void Update(float deltaMilliseconds);
+    
+
+    /*! Gets the id of the active game window
+    *
+    *  @return (size_t)
+    */
+    size_t GetWindowId() const;
 
 
-		/*! Outputs a message to the Debug Console
-		*
-		*  @return (void)
-		*/
-		void OutputDebugMessage(const std::string& message);
+    /*! Returns the Clock from the Win32 Platform
+    *
+    * @return (IClock&)
+    */
+    inline IClock* GetClock() { return m_clock; };
 
 
-		/*! Generates a unique UUID
-		*
-		* @return (std::string)
-		*/
-		std::string GenUUID() const;
+    /*! Outputs a message to the Debug Console
+    *
+    *  @return (void)
+    */
+    void OutputDebugMessage(const std::string& message);
 
 
-		/*! Returns the Path Information for the platform
-		*
-		* @return (IPathInformation*)
-		*/
-		inline IO::IPathInformation* GetPathInformation() { return m_pathInformation; };
+    /*! Generates a unique UUID
+    *
+    * @return (std::string)
+    */
+    std::string GenUUID() const;
 
-	private:
 
-		size_t m_hWnd;
-		IClock* m_clock;
-		IO::IPathInformation* m_pathInformation;
-		Events::IEventManager* m_eventManager;
+    /*! Returns the Path Information for the platform
+    *
+    * @return (IPathInformation*)
+    */
+    inline IO::IPathInformation* GetPathInformation() { return m_pathInformation; };
 
-		Win32PlatformManager(const Win32PlatformManager & copy) { };
-		Win32PlatformManager & operator = (const Win32PlatformManager & copy) { return *this; };
+  private:
 
-	};
+    size_t m_hWnd;
+    IClock* m_clock;
+    IO::IPathInformation* m_pathInformation;
+    Events::IEventManager* m_eventManager;
+
+    Win32PlatformManager(const Win32PlatformManager & copy) { };
+    Win32PlatformManager & operator = (const Win32PlatformManager & copy) { return *this; };
+
+  };
 };
 
 #endif

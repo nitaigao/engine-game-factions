@@ -5,57 +5,57 @@
 
 namespace Platform
 {
-	OSXPlatformManager::~OSXPlatformManager()
-	{
-		if (0 != m_pathInformation)
-		{
-			delete m_pathInformation;
-			m_pathInformation = 0;
-		}
-	}
+  OSXPlatformManager::~OSXPlatformManager()
+  {
+    if (0 != m_pathInformation)
+    {
+      delete m_pathInformation;
+      m_pathInformation = 0;
+    }
+  }
 
-	void OSXPlatformManager::Initialize()
-	{
-		m_pathInformation->Initialize();
-	}
+  void OSXPlatformManager::Initialize()
+  {
+    m_pathInformation->Initialize();
+  }
 
-	void OSXPlatformManager::CreateInteractiveWindow(const std::string& title, int width, int height, bool fullScreen)
-	{
-		
-	}
+  void OSXPlatformManager::CreateInteractiveWindow(const std::string& title, int width, int height, bool fullScreen)
+  {
+    
+  }
 
-	void OSXPlatformManager::CreateConsoleWindow()
-	{
-		
-	}
+  void OSXPlatformManager::CreateConsoleWindow()
+  {
+    
+  }
 
-	void OSXPlatformManager::OutputToConsole(const std::string& message)
-	{
-		
-	}
+  void OSXPlatformManager::OutputToConsole(const std::string& message)
+  {
+    
+  }
 
-	void OSXPlatformManager::Update(float deltaMilliseconds)
-	{
-		
-	}
+  void OSXPlatformManager::Update(float deltaMilliseconds)
+  {
+    
+  }
 
-	void OSXPlatformManager::CloseWindow()
-	{
+  void OSXPlatformManager::CloseWindow()
+  {
 
-	}
+  }
 
-	size_t OSXPlatformManager::GetWindowId() const
-	{
+  size_t OSXPlatformManager::GetWindowId() const
+  {
     return 0;
-	}
+  }
 
-	void OSXPlatformManager::OutputDebugMessage(const std::string& message)
-	{
+  void OSXPlatformManager::OutputDebugMessage(const std::string& message)
+  {
 
-	}
+  }
 
-	std::string OSXPlatformManager::GenUUID() const
-	{
+  std::string OSXPlatformManager::GenUUID() const
+  {
     return "";
-	}
+  }
 }

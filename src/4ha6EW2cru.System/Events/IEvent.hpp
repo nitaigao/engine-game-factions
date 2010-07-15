@@ -16,37 +16,37 @@
 
 namespace Events
 {
-	/*! 
-	 *  Interface for all Events
-	 */
-	class GAMEAPI IEvent
-	{
+  /*! 
+   *  Interface for all Events
+   */
+  class GAMEAPI IEvent
+  {
 
-	public:
+  public:
 
-		typedef std::queue<const IEvent*> EventQueue;
+    typedef std::queue<const IEvent*> EventQueue;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IEvent() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IEvent() { };
 
-		
-		/*! Gets the type of the Event
-		 *
-		 *  @return (std::string)
-		 */
-		virtual std::string GetEventType() const = 0;
+    
+    /*! Gets the type of the Event
+     *
+     *  @return (std::string)
+     */
+    virtual std::string GetEventType() const = 0;
 
-		
-		/*! Returns Event Data attached to the event
-		 *
-		 *  @return (IEventData*)
-		 */
-		virtual IEventData* GetEventData() const = 0;
+    
+    /*! Returns Event Data attached to the event
+     *
+     *  @return (IEventData*)
+     */
+    virtual IEventData* GetEventData() const = 0;
 
-	};
+  };
 };
 
 #endif

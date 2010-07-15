@@ -12,46 +12,46 @@
 
 namespace Services
 {
-	/*! 
-	 *  Manages Registered System Services
-	 */
-	class IServiceManager
-	{
+  /*! 
+   *  Manages Registered System Services
+   */
+  class IServiceManager
+  {
 
-	public:
+  public:
 
-		/*! Unregisters all Services
-		 *
-		 *  @return ()
-		 */
-		virtual ~IServiceManager() { };
-
-
-		/*! Registers a Service
-		 *
-		 *  @param[in] IService * service
-		 *  @return (void)
-		 */
-		virtual void RegisterService(IService* service) = 0;
+    /*! Unregisters all Services
+     *
+     *  @return ()
+     */
+    virtual ~IServiceManager() { };
 
 
-		/*! Messages all Registered Services
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return AnyType::AnyTypeMap
-		*/
-		virtual AnyType::AnyTypeMap MessageAll(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
+    /*! Registers a Service
+     *
+     *  @param[in] IService * service
+     *  @return (void)
+     */
+    virtual void RegisterService(IService* service) = 0;
 
 
-		/*! Finds a Registered Service by System::Types::Type
-		 *
-		 *  @param[in] System::Types::Type systemType
-		 *  @return (IService*)
-		 */
-		virtual IService* FindService(System::Types::Type systemType) const = 0;
+    /*! Messages all Registered Services
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return AnyType::AnyTypeMap
+    */
+    virtual AnyType::AnyTypeMap MessageAll(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
 
-	};
+
+    /*! Finds a Registered Service by System::Types::Type
+     *
+     *  @param[in] System::Types::Type systemType
+     *  @return (IService*)
+     */
+    virtual IService* FindService(System::Types::Type systemType) const = 0;
+
+  };
 };
 
 #endif

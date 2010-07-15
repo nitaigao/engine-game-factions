@@ -10,21 +10,21 @@
 
 namespace Events
 {
-	/*! 
-	 *  Interface for all EventData
-	 */
-	class IEventData
-	{
+  /*! 
+   *  Interface for all EventData
+   */
+  class IEventData
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IEventData() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IEventData() { };
 
-	};
+  };
 };
 
 #endif

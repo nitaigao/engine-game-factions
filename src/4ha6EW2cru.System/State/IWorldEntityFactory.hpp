@@ -12,29 +12,29 @@
 
 namespace State
 {
-	/*! 
-	 *  A factory that created Entities
-	 */
-	class IWorldEntityFactory
-	{
+  /*! 
+   *  A factory that created Entities
+   */
+  class IWorldEntityFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IWorldEntityFactory() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IWorldEntityFactory() { };
 
 
-		/*! Creates an Entity
-		 *
-		 * @param[in] const std::string & name
-		 * @return (IWorldEntity*)
-		 */
-		virtual IWorldEntity* CreateEntity(const std::string& name) const = 0;
-		
-	};
+    /*! Creates an Entity
+     *
+     * @param[in] const std::string & name
+     * @return (IWorldEntity*)
+     */
+    virtual IWorldEntity* CreateEntity(const std::string& name) const = 0;
+    
+  };
 };
 
 #endif

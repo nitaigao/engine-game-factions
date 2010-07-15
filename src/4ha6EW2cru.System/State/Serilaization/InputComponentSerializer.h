@@ -12,43 +12,43 @@
 
 namespace Serialization
 {
-	/*!
-	 *  A Input Component Serializer 
-	 */
-	class InputComponentSerializer : public IComponentSerializer
-	{
+  /*!
+   *  A Input Component Serializer 
+   */
+  class InputComponentSerializer : public IComponentSerializer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~InputComponentSerializer() { };
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		InputComponentSerializer() { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~InputComponentSerializer() { };
 
 
-		/*! DeSerializes the Component from the Supplied Element
-		*
-		* @param[in] const std::string entityName
-		* @param[in] const ticpp::Element & componentElement
-		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return (ISystemComponent*)
-		*/
-		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    InputComponentSerializer() { };
 
-	private:
 
-		InputComponentSerializer(const InputComponentSerializer & copy) { };
-		InputComponentSerializer & operator = (const InputComponentSerializer & copy) { return *this; };
+    /*! DeSerializes the Component from the Supplied Element
+    *
+    * @param[in] const std::string entityName
+    * @param[in] const ticpp::Element & componentElement
+    * @param[in] const ISystemScene::SystemSceneMap & systemScenes
+    * @return (ISystemComponent*)
+    */
+    ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
-	};
+  private:
+
+    InputComponentSerializer(const InputComponentSerializer & copy) { };
+    InputComponentSerializer & operator = (const InputComponentSerializer & copy) { return *this; };
+
+  };
 };
 
 #endif

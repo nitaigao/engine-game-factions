@@ -12,60 +12,60 @@
 
 namespace Platform
 {
-	/*! 
-	 *  Stores options passed to the Game at the command line
-	 */
-	class ProgramOptions : public IProgramOptions
-	{
+  /*! 
+   *  Stores options passed to the Game at the command line
+   */
+  class ProgramOptions : public IProgramOptions
+  {
 
-		typedef std::map<std::string, std::string> ProgramOptionMap;
+    typedef std::map<std::string, std::string> ProgramOptionMap;
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~ProgramOptions() { };
-
-
-		/*! Default Constructor
-		*
-		* @return ()
-		*/
-		ProgramOptions() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~ProgramOptions() { };
 
 
-		/*! Initializes the program options from the command line arguments
-		*
-		* @return (void)
-		*/
-		void Initialize();
+    /*! Default Constructor
+    *
+    * @return ()
+    */
+    ProgramOptions() { };
 
 
-		/*! Detects whether the given option was passed to the program command line
-		*
-		* @param[in] const std::string & optionName
-		* @return (bool)
-		*/
-		bool HasOption(const std::string& optionName) const;
+    /*! Initializes the program options from the command line arguments
+    *
+    * @return (void)
+    */
+    void Initialize();
 
 
-		/*! Returns an option specified on the command line
-		*
-		* @param[in] const std::string & optionName
-		* @return (std::string)
-		*/
-		std::string GetOption(const std::string& optionName) const;
+    /*! Detects whether the given option was passed to the program command line
+    *
+    * @param[in] const std::string & optionName
+    * @return (bool)
+    */
+    bool HasOption(const std::string& optionName) const;
 
-	private:
 
-		ProgramOptions(const ProgramOptions & copy) { };
-		ProgramOptions & operator = (const ProgramOptions & copy) { return *this; };
+    /*! Returns an option specified on the command line
+    *
+    * @param[in] const std::string & optionName
+    * @return (std::string)
+    */
+    std::string GetOption(const std::string& optionName) const;
 
-		ProgramOptionMap m_programOptions;
-		
-	};
+  private:
+
+    ProgramOptions(const ProgramOptions & copy) { };
+    ProgramOptions & operator = (const ProgramOptions & copy) { return *this; };
+
+    ProgramOptionMap m_programOptions;
+    
+  };
 };
 
 #endif

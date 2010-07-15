@@ -14,78 +14,78 @@
 
 namespace Events
 {
-	/*! 
-	 *  A Game Event
-	 */
-	class GAMEAPI Event : public IEvent
-	{
+  /*! 
+   *  A Game Event
+   */
+  class GAMEAPI Event : public IEvent
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~Event()
-		{
-			if (m_eventData != 0)
-			{
-				delete m_eventData;
-				m_eventData = 0;
-			}
-		}
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] const EventType & eventType
-		 *  @return ()
-		 */
-		Event(const std::string& eventType)
-			: m_eventType(eventType)
-			, m_eventData(0)
-		{
-
-		};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~Event()
+    {
+      if (m_eventData != 0)
+      {
+        delete m_eventData;
+        m_eventData = 0;
+      }
+    }
 
 
-		/*! Constructor that accepts an object containing Event Data
-		*
-		*  @param[in] const EventType & eventType
-		*  @param[in] IEventData * eventData
-		*  @return ()
-		*/
-		Event(const std::string& eventType, IEventData* eventData)
-			: m_eventType(eventType)
-			, m_eventData(eventData)
-		{
+    /*! Default Constructor
+     *
+     *  @param[in] const EventType & eventType
+     *  @return ()
+     */
+    Event(const std::string& eventType)
+      : m_eventType(eventType)
+      , m_eventData(0)
+    {
 
-		};
+    };
 
 
-		/*! Gets the type of the Event
-		*
-		*  @return (std::string)
-		*/
-		inline std::string GetEventType() const { return m_eventType; };
+    /*! Constructor that accepts an object containing Event Data
+    *
+    *  @param[in] const EventType & eventType
+    *  @param[in] IEventData * eventData
+    *  @return ()
+    */
+    Event(const std::string& eventType, IEventData* eventData)
+      : m_eventType(eventType)
+      , m_eventData(eventData)
+    {
 
-		
-		/*! Returns Event Data attached to the Event
-		 *
-		 *  @return (IEventData*)
-		 */
-		inline IEventData* GetEventData() const { return m_eventData; };
+    };
 
-	private:
 
-		std::string m_eventType;
-		IEventData* m_eventData;
+    /*! Gets the type of the Event
+    *
+    *  @return (std::string)
+    */
+    inline std::string GetEventType() const { return m_eventType; };
 
-		Event() { };
-		Event(const Event & copy) { };
-		Event & operator = (const Event & copy) { return *this; };
+    
+    /*! Returns Event Data attached to the Event
+     *
+     *  @return (IEventData*)
+     */
+    inline IEventData* GetEventData() const { return m_eventData; };
 
-	};
+  private:
+
+    std::string m_eventType;
+    IEventData* m_eventData;
+
+    Event() { };
+    Event(const Event & copy) { };
+    Event & operator = (const Event & copy) { return *this; };
+
+  };
 };
 
 #endif

@@ -8,21 +8,21 @@
 
 namespace Maths
 {
-	class MathVector3;
+  class MathVector3;
 
-	class MathMatrix : public Ogre::Matrix3
-	{
+  class MathMatrix : public Ogre::Matrix3
+  {
 
-	public:
+  public:
 
-		MathMatrix(float angle, const MathVector3& axis);
+    MathMatrix(float angle, const MathVector3& axis);
 
-	};
+  };
 
-	class MathMatrix4 : public Ogre::Matrix4
-	{
+  class MathMatrix4 : public Ogre::Matrix4
+  {
 
-	};
+  };
 };
 
 #endif

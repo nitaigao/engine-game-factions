@@ -10,19 +10,19 @@
 
 namespace Logging
 {
-	/*! 
-	 *  Logging Level
-	 */
-	enum LogLevel
-	{
-		LEVEL_OFF = 0,
-		LEVEL_FATAL = 1,
-		LEVEL_INFO = 2,
-		LEVEL_WARN = 3,
-		LEVEL_DEBUG = 4,
-		LEVEL_NET = 5,
-		LEVEL_ALL = 99
-	};
+  /*! 
+   *  Logging Level
+   */
+  enum LogLevel
+  {
+    LEVEL_OFF = 0,
+    LEVEL_FATAL = 1,
+    LEVEL_INFO = 2,
+    LEVEL_WARN = 3,
+    LEVEL_DEBUG = 4,
+    LEVEL_NET = 5,
+    LEVEL_ALL = 99
+  };
 };
 
 #endif

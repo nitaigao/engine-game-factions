@@ -12,43 +12,43 @@
 
 namespace Serialization
 {
-	/*!
-	 *  A Script Component Serializer 
-	 */
-	class ScriptComponentSerializer : public IComponentSerializer
-	{
+  /*!
+   *  A Script Component Serializer 
+   */
+  class ScriptComponentSerializer : public IComponentSerializer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~ScriptComponentSerializer() { };
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		ScriptComponentSerializer() { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~ScriptComponentSerializer() { };
 
 
-		/*! DeSerializes the Component from the Supplied Element
-		*
-		* @param[in] const std::string entityName
-		* @param[in] const ticpp::Element & componentElement
-		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return (ISystemComponent*)
-		*/
-		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    ScriptComponentSerializer() { };
 
-	private:
 
-		ScriptComponentSerializer(const ScriptComponentSerializer & copy) { };
-		ScriptComponentSerializer & operator = (const ScriptComponentSerializer & copy) { return *this; };
+    /*! DeSerializes the Component from the Supplied Element
+    *
+    * @param[in] const std::string entityName
+    * @param[in] const ticpp::Element & componentElement
+    * @param[in] const ISystemScene::SystemSceneMap & systemScenes
+    * @return (ISystemComponent*)
+    */
+    ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
-	};
+  private:
+
+    ScriptComponentSerializer(const ScriptComponentSerializer & copy) { };
+    ScriptComponentSerializer & operator = (const ScriptComponentSerializer & copy) { return *this; };
+
+  };
 };
 
 #endif

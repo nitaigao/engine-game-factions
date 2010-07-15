@@ -20,85 +20,85 @@ class AnyType
 
 public:
 
-	typedef std::map<std::string, AnyType> AnyTypeMap;
-	typedef std::map<unsigned int, AnyType> AnyTypeKeyMap;
+  typedef std::map<std::string, AnyType> AnyTypeMap;
+  typedef std::map<unsigned int, AnyType> AnyTypeKeyMap;
 
 
-	/*! Default Destructor
-	 *
-	 *  @return ()
-	 */
-	~AnyType() { };
+  /*! Default Destructor
+   *
+   *  @return ()
+   */
+  ~AnyType() { };
 
 
-	/*! Default Constructor
-	 *
-	 *  @return ()
-	 */
-	AnyType() { };
+  /*! Default Constructor
+   *
+   *  @return ()
+   */
+  AnyType() { };
 
 
-	/*! Constructor to accept specific int values
-	 *
-	 *  @param[in] const int & value
-	 *  @return ()
-	 */
-	AnyType(int value)
-		: m_value(value)
-	{
+  /*! Constructor to accept specific int values
+   *
+   *  @param[in] const int & value
+   *  @return ()
+   */
+  AnyType(int value)
+    : m_value(value)
+  {
 
-	}
-
-
-	/*! Constructor to accept specific char* values
-	 *
-	 *  @param[in] const char * value
-	 *  @return ()
-	 */
-	AnyType(const char* value)
-		: m_value(std::string(value))
-	{
-
-	}
+  }
 
 
-	/*! Constructor that accepts any value
-	 *
-	 *  @param[in] const T & value
-	 *  @return ()
-	 */
-	template<class T>
-	AnyType(const T& value)
-		: m_value(value)
-	{
+  /*! Constructor to accept specific char* values
+   *
+   *  @param[in] const char * value
+   *  @return ()
+   */
+  AnyType(const char* value)
+    : m_value(std::string(value))
+  {
 
-	}
-
-
-	/*! Gets the contained Value and casts it to the specified type
-	 *
-	 *  @return (boost::T)
-	 */
-	template<class T>
-	T As() const { return boost::any_cast<T>(m_value); };
+  }
 
 
-	/*! Gets the Type of the contained Value
-	 *
-	 *  @return (const std::type_info&)
-	 */
-	const std::type_info& GetType() const { return m_value.type(); };
+  /*! Constructor that accepts any value
+   *
+   *  @param[in] const T & value
+   *  @return ()
+   */
+  template<class T>
+  AnyType(const T& value)
+    : m_value(value)
+  {
+
+  }
 
 
-	bool operator == (const AnyType& input) const
-	{
-		return false;
-	}
+  /*! Gets the contained Value and casts it to the specified type
+   *
+   *  @return (boost::T)
+   */
+  template<class T>
+  T As() const { return boost::any_cast<T>(m_value); };
+
+
+  /*! Gets the Type of the contained Value
+   *
+   *  @return (const std::type_info&)
+   */
+  const std::type_info& GetType() const { return m_value.type(); };
+
+
+  bool operator == (const AnyType& input) const
+  {
+    return false;
+  }
 
 
 private:
 
-	boost::any m_value;
+  boost::any m_value;
 
 };
 

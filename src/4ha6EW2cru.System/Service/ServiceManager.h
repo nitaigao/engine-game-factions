@@ -13,57 +13,57 @@
 
 namespace Services
 {
-	/*! 
-	*  Manages Registered System Services
-	*/
-	class ServiceManager : public IServiceManager
-	{
+  /*! 
+  *  Manages Registered System Services
+  */
+  class ServiceManager : public IServiceManager
+  {
 
-	public:
+  public:
 
-		/*! Unregisters all Services
-		*
-		*  @return ()
-		*/
-		~ServiceManager() { };
-
-
-		/*! Default Constructor
-		 *
-		 *  @return ()
-		 */
-		ServiceManager() { };
-
-		/*! Registers a Service
-		*
-		*  @param[in] IService * service
-		*  @return (void)
-		*/
-		inline void RegisterService(IService* service) { m_services.push_back(service); };
+    /*! Unregisters all Services
+    *
+    *  @return ()
+    */
+    ~ServiceManager() { };
 
 
-		/*! Messages all Registered Services
-		*
-		* @param[in] const std::string & message
-		* @param[in] AnyType::AnyTypeMap parameters
-		* @return (AnyType::AnyTypeMap)
-		*/
-		AnyType::AnyTypeMap MessageAll(const System::MessageType& message, AnyType::AnyTypeMap parameters);
+    /*! Default Constructor
+     *
+     *  @return ()
+     */
+    ServiceManager() { };
+
+    /*! Registers a Service
+    *
+    *  @param[in] IService * service
+    *  @return (void)
+    */
+    inline void RegisterService(IService* service) { m_services.push_back(service); };
 
 
-		/*! Finds a Registered Service by System::Types::Type
-		*
-		*  @param[in] System::Types::Type systemType
-		*  @return (IService*)
-		*/
-		IService* FindService(System::Types::Type systemType) const;
+    /*! Messages all Registered Services
+    *
+    * @param[in] const std::string & message
+    * @param[in] AnyType::AnyTypeMap parameters
+    * @return (AnyType::AnyTypeMap)
+    */
+    AnyType::AnyTypeMap MessageAll(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
-	private:
+    /*! Finds a Registered Service by System::Types::Type
+    *
+    *  @param[in] System::Types::Type systemType
+    *  @return (IService*)
+    */
+    IService* FindService(System::Types::Type systemType) const;
 
-		IService::ServiceList m_services;
 
-	};
+  private:
+
+    IService::ServiceList m_services;
+
+  };
 };
 
 #endif

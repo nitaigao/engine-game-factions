@@ -15,68 +15,68 @@
 
 namespace Events
 {
-	/*! 
-	 *  Interface that listens for Events and handles the appropriate action
-	 */
-	class IEventListener
-	{
+  /*! 
+   *  Interface that listens for Events and handles the appropriate action
+   */
+  class IEventListener
+  {
 
-	public:
+  public:
 
-		typedef std::multimap<unsigned int, IEventListener*> EventListenerMultiMap;
+    typedef std::multimap<unsigned int, IEventListener*> EventListenerMultiMap;
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		virtual ~IEventListener() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    virtual ~IEventListener() { };
 
-		
-		/*! Handles the Event that is being listened for
-		 *
-		 *  @param[in] const IEvent *
-		 *  @return (void)
-		 */
-		virtual void HandleEvent(const IEvent*) const = 0;
+    
+    /*! Handles the Event that is being listened for
+     *
+     *  @param[in] const IEvent *
+     *  @return (void)
+     */
+    virtual void HandleEvent(const IEvent*) const = 0;
 
-		
-		/*! Marks the EventHandler for Deletion on the Next Update
-		 *
-		 *  @return (void)
-		 */
-		virtual void MarkForDeletion() = 0;
-
-
-		/*! Gets whether the EventHandler is marked for deletion
-		 *
-		 *  @return (bool)
-		 */
-		virtual bool IsMarkedForDeletion() const = 0;
+    
+    /*! Marks the EventHandler for Deletion on the Next Update
+     *
+     *  @return (void)
+     */
+    virtual void MarkForDeletion() = 0;
 
 
-		/*! Returns the Address of the Class performing the Task
-		 *
-		 * @return (unsigned int)
-		 */
-		virtual unsigned int GetHandlerAddress() const = 0;
+    /*! Gets whether the EventHandler is marked for deletion
+     *
+     *  @return (bool)
+     */
+    virtual bool IsMarkedForDeletion() const = 0;
 
 
-		/*! Returns the name to the Function performing the Task
-		*
-		* @return (std::string)
-		*/
-		virtual std::string GetHandlerFunctionName() const = 0;
+    /*! Returns the Address of the Class performing the Task
+     *
+     * @return (unsigned int)
+     */
+    virtual unsigned int GetHandlerAddress() const = 0;
 
 
-		inline bool operator == (IEventListener* input) const
-		{
-			return (
-				this->GetHandlerAddress() == input->GetHandlerAddress() &&
-				this->GetHandlerFunctionName() == input->GetHandlerFunctionName()
-				);
-		}
+    /*! Returns the name to the Function performing the Task
+    *
+    * @return (std::string)
+    */
+    virtual std::string GetHandlerFunctionName() const = 0;
 
-	};
+
+    inline bool operator == (IEventListener* input) const
+    {
+      return (
+        this->GetHandlerAddress() == input->GetHandlerAddress() &&
+        this->GetHandlerFunctionName() == input->GetHandlerFunctionName()
+        );
+    }
+
+  };
 };
 
 #endif

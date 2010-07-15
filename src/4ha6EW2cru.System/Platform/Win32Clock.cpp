@@ -3,14 +3,14 @@
 
 namespace Platform
 {
-	float Win32Clock::GetDeltaMilliseconds()
-	{
-		m_endFrameTime = timeGetTime();
+  float Win32Clock::GetDeltaMilliseconds()
+  {
+    m_endFrameTime = timeGetTime();
 
-		float deltaMilliseconds = (m_endFrameTime - m_startFrameTime) / 1000.0f;
+    float deltaMilliseconds = (m_endFrameTime - m_startFrameTime) / 1000.0f;
 
-		m_startFrameTime = timeGetTime();
+    m_startFrameTime = timeGetTime();
 
-		return deltaMilliseconds;
-	}
+    return deltaMilliseconds;
+  }
 }

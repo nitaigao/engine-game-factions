@@ -16,77 +16,77 @@
 class Instrumentation : public System::IInstrumentation
 {
 
-	typedef std::map<System::Queues::Queue, float> RoundTimeList;
+  typedef std::map<System::Queues::Queue, float> RoundTimeList;
 
 public:
 
-	/*! Default Destructor
-	 *
-	 *  @return ()
-	 */
-	~Instrumentation() { };
+  /*! Default Destructor
+   *
+   *  @return ()
+   */
+  ~Instrumentation() { };
 
 
-	/*! Default Constructor
-	*
-	* @return ()
-	*/
-	Instrumentation() { };
+  /*! Default Constructor
+  *
+  * @return ()
+  */
+  Instrumentation() { };
 
 
-	/*! Gets the Frames Per Second Statistic
-	*
-	* @return (int)
-	*/
-	inline int GetFPS() const { return m_fps; };
+  /*! Gets the Frames Per Second Statistic
+  *
+  * @return (int)
+  */
+  inline int GetFPS() const { return m_fps; };
 
 
-	/*! Sets the Frames Per Second Statistic
-	*
-	* @return (void)
-	*/
-	inline void SetFPS(int fps) { m_fps = fps; };
+  /*! Sets the Frames Per Second Statistic
+  *
+  * @return (void)
+  */
+  inline void SetFPS(int fps) { m_fps = fps; };
 
 
-	/*! Gets the Round Time of the Given Queue
-	*
-	* @param[in] const System::Queues::Queue & queue
-	* @return (float)
-	*/
-	inline float GetRoundTime(const System::Queues::Queue& queue) { return m_roundTimes[ queue ]; };
+  /*! Gets the Round Time of the Given Queue
+  *
+  * @param[in] const System::Queues::Queue & queue
+  * @return (float)
+  */
+  inline float GetRoundTime(const System::Queues::Queue& queue) { return m_roundTimes[ queue ]; };
 
 
-	/*! Sets the Round Time of the Given Queue
-	*
-	* @param[in] const System::Queues::Queue & queue
-	* @param[in] const float & roundTime
-	* @return (void)
-	*/
-	inline void SetRoundTime(const System::Queues::Queue& queue, float roundTime) { m_roundTimes[ queue ] = roundTime; };
+  /*! Sets the Round Time of the Given Queue
+  *
+  * @param[in] const System::Queues::Queue & queue
+  * @param[in] const float & roundTime
+  * @return (void)
+  */
+  inline void SetRoundTime(const System::Queues::Queue& queue, float roundTime) { m_roundTimes[ queue ] = roundTime; };
 
 
-	/*! Sets the name of the active level
-	*
-	* @param[in] const std::string & levelName
-	* @return (void)
-	*/
-	inline void SetLevelName(const std::string& levelName) { m_levelName = levelName; };
+  /*! Sets the name of the active level
+  *
+  * @param[in] const std::string & levelName
+  * @return (void)
+  */
+  inline void SetLevelName(const std::string& levelName) { m_levelName = levelName; };
 
 
-	/*! Gets the name of the active level
-	*
-	* @return (std::string)
-	*/
-	inline std::string GetLevelName() const { return m_levelName; }
+  /*! Gets the name of the active level
+  *
+  * @return (std::string)
+  */
+  inline std::string GetLevelName() const { return m_levelName; }
 
 private:
 
-	Instrumentation(const Instrumentation & copy) { };
-	Instrumentation & operator = (const Instrumentation & copy) { return *this; };
+  Instrumentation(const Instrumentation & copy) { };
+  Instrumentation & operator = (const Instrumentation & copy) { return *this; };
 
-	int m_fps;
-	RoundTimeList m_roundTimes;
-	std::string m_levelName;
+  int m_fps;
+  RoundTimeList m_roundTimes;
+  std::string m_levelName;
 };
 
 #endif

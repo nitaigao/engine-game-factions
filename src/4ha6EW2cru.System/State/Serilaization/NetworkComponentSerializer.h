@@ -12,43 +12,43 @@
 
 namespace Serialization
 {
-	/*!
-	*  AI Component Serializer 
-	*/
-	class NetworkComponentSerializer : public IComponentSerializer
-	{
+  /*!
+  *  AI Component Serializer 
+  */
+  class NetworkComponentSerializer : public IComponentSerializer
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		*
-		*  @return ()
-		*/
-		~NetworkComponentSerializer() { };
-
-
-		/*! Default Constructor
-		*
-		*  @return ()
-		*/
-		NetworkComponentSerializer() { };
+    /*! Default Destructor
+    *
+    *  @return ()
+    */
+    ~NetworkComponentSerializer() { };
 
 
-		/*! DeSerializes the Component from the Supplied Element
-		*
-		* @param[in] const std::string entityName
-		* @param[in] const ticpp::Element & componentElement
-		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return (ISystemComponent*)
-		*/
-		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
+    /*! Default Constructor
+    *
+    *  @return ()
+    */
+    NetworkComponentSerializer() { };
 
-	private:
 
-		NetworkComponentSerializer(const NetworkComponentSerializer & copy) { };
-		NetworkComponentSerializer & operator = (const NetworkComponentSerializer & copy) { return *this; };
+    /*! DeSerializes the Component from the Supplied Element
+    *
+    * @param[in] const std::string entityName
+    * @param[in] const ticpp::Element & componentElement
+    * @param[in] const ISystemScene::SystemSceneMap & systemScenes
+    * @return (ISystemComponent*)
+    */
+    ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
-	};
+  private:
+
+    NetworkComponentSerializer(const NetworkComponentSerializer & copy) { };
+    NetworkComponentSerializer & operator = (const NetworkComponentSerializer & copy) { return *this; };
+
+  };
 };
 
 #endif

@@ -14,72 +14,72 @@
 
 namespace Resources
 {
-	/*! 
-	 *  A Game Resource
-	 */
-	class Resource : public IResource
-	{
+  /*! 
+   *  A Game Resource
+   */
+  class Resource : public IResource
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~Resource()
-		{
-			delete m_fileBuffer;
-		};
-
-
-		/*! Default Constructor
-		 *
-		 *  @param[in] FileBuffer * fileBuffer
-		 *  @return ()
-		 */
-		Resource(IO::FileBuffer* fileBuffer)
-			: m_fileBuffer(fileBuffer)
-		{
-
-		};
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~Resource()
+    {
+      delete m_fileBuffer;
+    };
 
 
-		/*! Returns the file data of the Resource
-		 *
-		 *  @return (FileBuffer*)
-		 */
-		inline IO::FileBuffer* GetFileBuffer() const { return m_fileBuffer; };
+    /*! Default Constructor
+     *
+     *  @param[in] FileBuffer * fileBuffer
+     *  @return ()
+     */
+    Resource(IO::FileBuffer* fileBuffer)
+      : m_fileBuffer(fileBuffer)
+    {
+
+    };
 
 
-		/*! Increments the reference count for this resource 
-		*   If it hit's 0 the resource will be queued for deletion
-		*
-		*  @return (void)
-		*/
-		inline void AddReference() { m_referenceCount++; };
+    /*! Returns the file data of the Resource
+     *
+     *  @return (FileBuffer*)
+     */
+    inline IO::FileBuffer* GetFileBuffer() const { return m_fileBuffer; };
 
 
-		/*! De increments the reference count for this resource 
-		*  If it hit's 0 the resource will be queued for deletion
-		*
-		*  @return (void)
-		*/
-		inline void RemoveReference()
-		{
-			/*if (m_referenceCount == 0)
-			{
-				throw OutOfRangeException("Attempted to de increment a reference on a Resource that already has a reference count of 0");
-			}*/
+    /*! Increments the reference count for this resource 
+    *   If it hit's 0 the resource will be queued for deletion
+    *
+    *  @return (void)
+    */
+    inline void AddReference() { m_referenceCount++; };
 
-			m_referenceCount--;
-		}
 
-	private:
+    /*! De increments the reference count for this resource 
+    *  If it hit's 0 the resource will be queued for deletion
+    *
+    *  @return (void)
+    */
+    inline void RemoveReference()
+    {
+      /*if (m_referenceCount == 0)
+      {
+        throw OutOfRangeException("Attempted to de increment a reference on a Resource that already has a reference count of 0");
+      }*/
 
-		IO::FileBuffer* m_fileBuffer;
-		unsigned int m_referenceCount;
+      m_referenceCount--;
+    }
 
-	};
+  private:
+
+    IO::FileBuffer* m_fileBuffer;
+    unsigned int m_referenceCount;
+
+  };
 }
 
 #endif

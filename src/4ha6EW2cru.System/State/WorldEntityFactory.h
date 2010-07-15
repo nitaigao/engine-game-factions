@@ -12,41 +12,41 @@
 
 namespace State
 {
-	/*! 
-	 *  A Factory for creating entities
-	 */
-	class WorldEntityFactory : public IWorldEntityFactory
-	{
+  /*! 
+   *  A Factory for creating entities
+   */
+  class WorldEntityFactory : public IWorldEntityFactory
+  {
 
-	public:
+  public:
 
-		/*! Default Destructor
-		 *
-		 *  @return ()
-		 */
-		~WorldEntityFactory() { };
-
-
-		/*! Default Constructor
-		*
-		* @return ()
-		*/
-		WorldEntityFactory() { };
+    /*! Default Destructor
+     *
+     *  @return ()
+     */
+    ~WorldEntityFactory() { };
 
 
-		/*! Creates an Entity
-		*
-		* @param[in] const std::string & name
-		* @return (IWorldEntity*)
-		*/
-		IWorldEntity* CreateEntity(const std::string& name) const;
+    /*! Default Constructor
+    *
+    * @return ()
+    */
+    WorldEntityFactory() { };
 
-	private:
 
-		WorldEntityFactory(const WorldEntityFactory & copy) { };
-		WorldEntityFactory & operator = (const WorldEntityFactory & copy) { return *this; };
-		
-	};
+    /*! Creates an Entity
+    *
+    * @param[in] const std::string & name
+    * @return (IWorldEntity*)
+    */
+    IWorldEntity* CreateEntity(const std::string& name) const;
+
+  private:
+
+    WorldEntityFactory(const WorldEntityFactory & copy) { };
+    WorldEntityFactory & operator = (const WorldEntityFactory & copy) { return *this; };
+    
+  };
 };
 
 #endif
