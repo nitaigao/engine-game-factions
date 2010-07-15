@@ -112,24 +112,24 @@ Application/fast:
 .PHONY : Application/fast
 
 #=============================================================================
-# Target rules for targets named System
+# Target rules for targets named Base
 
 # Build rule for target.
-System: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 System
-.PHONY : System
+Base: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Base
+.PHONY : Base
 
 # fast build rule for target.
-System/fast:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/build
-.PHONY : System/fast
+Base/fast:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/build
+.PHONY : Base/fast
 
 Configuration/Configuration.o: Configuration/Configuration.cpp.o
 .PHONY : Configuration/Configuration.o
 
 # target to build an object file
 Configuration/Configuration.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/Configuration.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Configuration/Configuration.cpp.o
 .PHONY : Configuration/Configuration.cpp.o
 
 Configuration/Configuration.i: Configuration/Configuration.cpp.i
@@ -137,7 +137,7 @@ Configuration/Configuration.i: Configuration/Configuration.cpp.i
 
 # target to preprocess a source file
 Configuration/Configuration.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/Configuration.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Configuration/Configuration.cpp.i
 .PHONY : Configuration/Configuration.cpp.i
 
 Configuration/Configuration.s: Configuration/Configuration.cpp.s
@@ -145,7 +145,7 @@ Configuration/Configuration.s: Configuration/Configuration.cpp.s
 
 # target to generate assembly for a file
 Configuration/Configuration.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/Configuration.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Configuration/Configuration.cpp.s
 .PHONY : Configuration/Configuration.cpp.s
 
 Configuration/ConfigurationFile.o: Configuration/ConfigurationFile.cpp.o
@@ -153,7 +153,7 @@ Configuration/ConfigurationFile.o: Configuration/ConfigurationFile.cpp.o
 
 # target to build an object file
 Configuration/ConfigurationFile.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Configuration/ConfigurationFile.cpp.o
 .PHONY : Configuration/ConfigurationFile.cpp.o
 
 Configuration/ConfigurationFile.i: Configuration/ConfigurationFile.cpp.i
@@ -161,7 +161,7 @@ Configuration/ConfigurationFile.i: Configuration/ConfigurationFile.cpp.i
 
 # target to preprocess a source file
 Configuration/ConfigurationFile.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Configuration/ConfigurationFile.cpp.i
 .PHONY : Configuration/ConfigurationFile.cpp.i
 
 Configuration/ConfigurationFile.s: Configuration/ConfigurationFile.cpp.s
@@ -169,7 +169,7 @@ Configuration/ConfigurationFile.s: Configuration/ConfigurationFile.cpp.s
 
 # target to generate assembly for a file
 Configuration/ConfigurationFile.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Configuration/ConfigurationFile.cpp.s
 .PHONY : Configuration/ConfigurationFile.cpp.s
 
 Events/EventManager.o: Events/EventManager.cpp.o
@@ -177,7 +177,7 @@ Events/EventManager.o: Events/EventManager.cpp.o
 
 # target to build an object file
 Events/EventManager.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Events/EventManager.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Events/EventManager.cpp.o
 .PHONY : Events/EventManager.cpp.o
 
 Events/EventManager.i: Events/EventManager.cpp.i
@@ -185,7 +185,7 @@ Events/EventManager.i: Events/EventManager.cpp.i
 
 # target to preprocess a source file
 Events/EventManager.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Events/EventManager.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Events/EventManager.cpp.i
 .PHONY : Events/EventManager.cpp.i
 
 Events/EventManager.s: Events/EventManager.cpp.s
@@ -193,7 +193,7 @@ Events/EventManager.s: Events/EventManager.cpp.s
 
 # target to generate assembly for a file
 Events/EventManager.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Events/EventManager.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Events/EventManager.cpp.s
 .PHONY : Events/EventManager.cpp.s
 
 Game/Game.o: Game/Game.cpp.o
@@ -201,7 +201,7 @@ Game/Game.o: Game/Game.cpp.o
 
 # target to build an object file
 Game/Game.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/Game.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Game/Game.cpp.o
 .PHONY : Game/Game.cpp.o
 
 Game/Game.i: Game/Game.cpp.i
@@ -209,7 +209,7 @@ Game/Game.i: Game/Game.cpp.i
 
 # target to preprocess a source file
 Game/Game.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/Game.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Game/Game.cpp.i
 .PHONY : Game/Game.cpp.i
 
 Game/Game.s: Game/Game.cpp.s
@@ -217,7 +217,7 @@ Game/Game.s: Game/Game.cpp.s
 
 # target to generate assembly for a file
 Game/Game.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/Game.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Game/Game.cpp.s
 .PHONY : Game/Game.cpp.s
 
 Game/GameFactory.o: Game/GameFactory.cpp.o
@@ -225,7 +225,7 @@ Game/GameFactory.o: Game/GameFactory.cpp.o
 
 # target to build an object file
 Game/GameFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/GameFactory.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Game/GameFactory.cpp.o
 .PHONY : Game/GameFactory.cpp.o
 
 Game/GameFactory.i: Game/GameFactory.cpp.i
@@ -233,7 +233,7 @@ Game/GameFactory.i: Game/GameFactory.cpp.i
 
 # target to preprocess a source file
 Game/GameFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/GameFactory.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Game/GameFactory.cpp.i
 .PHONY : Game/GameFactory.cpp.i
 
 Game/GameFactory.s: Game/GameFactory.cpp.s
@@ -241,7 +241,7 @@ Game/GameFactory.s: Game/GameFactory.cpp.s
 
 # target to generate assembly for a file
 Game/GameFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/GameFactory.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Game/GameFactory.cpp.s
 .PHONY : Game/GameFactory.cpp.s
 
 IO/FileSystem.o: IO/FileSystem.cpp.o
@@ -249,7 +249,7 @@ IO/FileSystem.o: IO/FileSystem.cpp.o
 
 # target to build an object file
 IO/FileSystem.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/FileSystem.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/FileSystem.cpp.o
 .PHONY : IO/FileSystem.cpp.o
 
 IO/FileSystem.i: IO/FileSystem.cpp.i
@@ -257,7 +257,7 @@ IO/FileSystem.i: IO/FileSystem.cpp.i
 
 # target to preprocess a source file
 IO/FileSystem.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/FileSystem.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/FileSystem.cpp.i
 .PHONY : IO/FileSystem.cpp.i
 
 IO/FileSystem.s: IO/FileSystem.cpp.s
@@ -265,7 +265,7 @@ IO/FileSystem.s: IO/FileSystem.cpp.s
 
 # target to generate assembly for a file
 IO/FileSystem.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/FileSystem.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/FileSystem.cpp.s
 .PHONY : IO/FileSystem.cpp.s
 
 IO/OSXPathInformation.o: IO/OSXPathInformation.cpp.o
@@ -273,7 +273,7 @@ IO/OSXPathInformation.o: IO/OSXPathInformation.cpp.o
 
 # target to build an object file
 IO/OSXPathInformation.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/OSXPathInformation.cpp.o
 .PHONY : IO/OSXPathInformation.cpp.o
 
 IO/OSXPathInformation.i: IO/OSXPathInformation.cpp.i
@@ -281,7 +281,7 @@ IO/OSXPathInformation.i: IO/OSXPathInformation.cpp.i
 
 # target to preprocess a source file
 IO/OSXPathInformation.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/OSXPathInformation.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/OSXPathInformation.cpp.i
 .PHONY : IO/OSXPathInformation.cpp.i
 
 IO/OSXPathInformation.s: IO/OSXPathInformation.cpp.s
@@ -289,7 +289,7 @@ IO/OSXPathInformation.s: IO/OSXPathInformation.cpp.s
 
 # target to generate assembly for a file
 IO/OSXPathInformation.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/OSXPathInformation.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/OSXPathInformation.cpp.s
 .PHONY : IO/OSXPathInformation.cpp.s
 
 IO/ResourceCache.o: IO/ResourceCache.cpp.o
@@ -297,7 +297,7 @@ IO/ResourceCache.o: IO/ResourceCache.cpp.o
 
 # target to build an object file
 IO/ResourceCache.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/ResourceCache.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/ResourceCache.cpp.o
 .PHONY : IO/ResourceCache.cpp.o
 
 IO/ResourceCache.i: IO/ResourceCache.cpp.i
@@ -305,7 +305,7 @@ IO/ResourceCache.i: IO/ResourceCache.cpp.i
 
 # target to preprocess a source file
 IO/ResourceCache.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/ResourceCache.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/ResourceCache.cpp.i
 .PHONY : IO/ResourceCache.cpp.i
 
 IO/ResourceCache.s: IO/ResourceCache.cpp.s
@@ -313,7 +313,7 @@ IO/ResourceCache.s: IO/ResourceCache.cpp.s
 
 # target to generate assembly for a file
 IO/ResourceCache.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/ResourceCache.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/IO/ResourceCache.cpp.s
 .PHONY : IO/ResourceCache.cpp.s
 
 Logging/Logger.o: Logging/Logger.cpp.o
@@ -321,7 +321,7 @@ Logging/Logger.o: Logging/Logger.cpp.o
 
 # target to build an object file
 Logging/Logger.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Logging/Logger.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Logging/Logger.cpp.o
 .PHONY : Logging/Logger.cpp.o
 
 Logging/Logger.i: Logging/Logger.cpp.i
@@ -329,7 +329,7 @@ Logging/Logger.i: Logging/Logger.cpp.i
 
 # target to preprocess a source file
 Logging/Logger.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Logging/Logger.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Logging/Logger.cpp.i
 .PHONY : Logging/Logger.cpp.i
 
 Logging/Logger.s: Logging/Logger.cpp.s
@@ -337,7 +337,7 @@ Logging/Logger.s: Logging/Logger.cpp.s
 
 # target to generate assembly for a file
 Logging/Logger.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Logging/Logger.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Logging/Logger.cpp.s
 .PHONY : Logging/Logger.cpp.s
 
 Maths/MathMatrix.o: Maths/MathMatrix.cpp.o
@@ -345,7 +345,7 @@ Maths/MathMatrix.o: Maths/MathMatrix.cpp.o
 
 # target to build an object file
 Maths/MathMatrix.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Maths/MathMatrix.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Maths/MathMatrix.cpp.o
 .PHONY : Maths/MathMatrix.cpp.o
 
 Maths/MathMatrix.i: Maths/MathMatrix.cpp.i
@@ -353,7 +353,7 @@ Maths/MathMatrix.i: Maths/MathMatrix.cpp.i
 
 # target to preprocess a source file
 Maths/MathMatrix.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Maths/MathMatrix.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Maths/MathMatrix.cpp.i
 .PHONY : Maths/MathMatrix.cpp.i
 
 Maths/MathMatrix.s: Maths/MathMatrix.cpp.s
@@ -361,7 +361,7 @@ Maths/MathMatrix.s: Maths/MathMatrix.cpp.s
 
 # target to generate assembly for a file
 Maths/MathMatrix.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Maths/MathMatrix.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Maths/MathMatrix.cpp.s
 .PHONY : Maths/MathMatrix.cpp.s
 
 Platform/OSXClock.o: Platform/OSXClock.cpp.o
@@ -369,7 +369,7 @@ Platform/OSXClock.o: Platform/OSXClock.cpp.o
 
 # target to build an object file
 Platform/OSXClock.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXClock.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/OSXClock.cpp.o
 .PHONY : Platform/OSXClock.cpp.o
 
 Platform/OSXClock.i: Platform/OSXClock.cpp.i
@@ -377,7 +377,7 @@ Platform/OSXClock.i: Platform/OSXClock.cpp.i
 
 # target to preprocess a source file
 Platform/OSXClock.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXClock.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/OSXClock.cpp.i
 .PHONY : Platform/OSXClock.cpp.i
 
 Platform/OSXClock.s: Platform/OSXClock.cpp.s
@@ -385,7 +385,7 @@ Platform/OSXClock.s: Platform/OSXClock.cpp.s
 
 # target to generate assembly for a file
 Platform/OSXClock.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXClock.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/OSXClock.cpp.s
 .PHONY : Platform/OSXClock.cpp.s
 
 Platform/OSXPlatformManager.o: Platform/OSXPlatformManager.cpp.o
@@ -393,7 +393,7 @@ Platform/OSXPlatformManager.o: Platform/OSXPlatformManager.cpp.o
 
 # target to build an object file
 Platform/OSXPlatformManager.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/OSXPlatformManager.cpp.o
 .PHONY : Platform/OSXPlatformManager.cpp.o
 
 Platform/OSXPlatformManager.i: Platform/OSXPlatformManager.cpp.i
@@ -401,7 +401,7 @@ Platform/OSXPlatformManager.i: Platform/OSXPlatformManager.cpp.i
 
 # target to preprocess a source file
 Platform/OSXPlatformManager.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/OSXPlatformManager.cpp.i
 .PHONY : Platform/OSXPlatformManager.cpp.i
 
 Platform/OSXPlatformManager.s: Platform/OSXPlatformManager.cpp.s
@@ -409,7 +409,7 @@ Platform/OSXPlatformManager.s: Platform/OSXPlatformManager.cpp.s
 
 # target to generate assembly for a file
 Platform/OSXPlatformManager.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/OSXPlatformManager.cpp.s
 .PHONY : Platform/OSXPlatformManager.cpp.s
 
 Platform/ProgramOptions.o: Platform/ProgramOptions.cpp.o
@@ -417,7 +417,7 @@ Platform/ProgramOptions.o: Platform/ProgramOptions.cpp.o
 
 # target to build an object file
 Platform/ProgramOptions.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/ProgramOptions.cpp.o
 .PHONY : Platform/ProgramOptions.cpp.o
 
 Platform/ProgramOptions.i: Platform/ProgramOptions.cpp.i
@@ -425,7 +425,7 @@ Platform/ProgramOptions.i: Platform/ProgramOptions.cpp.i
 
 # target to preprocess a source file
 Platform/ProgramOptions.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/ProgramOptions.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/ProgramOptions.cpp.i
 .PHONY : Platform/ProgramOptions.cpp.i
 
 Platform/ProgramOptions.s: Platform/ProgramOptions.cpp.s
@@ -433,7 +433,7 @@ Platform/ProgramOptions.s: Platform/ProgramOptions.cpp.s
 
 # target to generate assembly for a file
 Platform/ProgramOptions.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/ProgramOptions.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Platform/ProgramOptions.cpp.s
 .PHONY : Platform/ProgramOptions.cpp.s
 
 Service/ServiceManager.o: Service/ServiceManager.cpp.o
@@ -441,7 +441,7 @@ Service/ServiceManager.o: Service/ServiceManager.cpp.o
 
 # target to build an object file
 Service/ServiceManager.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Service/ServiceManager.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Service/ServiceManager.cpp.o
 .PHONY : Service/ServiceManager.cpp.o
 
 Service/ServiceManager.i: Service/ServiceManager.cpp.i
@@ -449,7 +449,7 @@ Service/ServiceManager.i: Service/ServiceManager.cpp.i
 
 # target to preprocess a source file
 Service/ServiceManager.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Service/ServiceManager.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Service/ServiceManager.cpp.i
 .PHONY : Service/ServiceManager.cpp.i
 
 Service/ServiceManager.s: Service/ServiceManager.cpp.s
@@ -457,7 +457,7 @@ Service/ServiceManager.s: Service/ServiceManager.cpp.s
 
 # target to generate assembly for a file
 Service/ServiceManager.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Service/ServiceManager.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Service/ServiceManager.cpp.s
 .PHONY : Service/ServiceManager.cpp.s
 
 State/Serilaization/AIComponentSerializer.o: State/Serilaization/AIComponentSerializer.cpp.o
@@ -465,7 +465,7 @@ State/Serilaization/AIComponentSerializer.o: State/Serilaization/AIComponentSeri
 
 # target to build an object file
 State/Serilaization/AIComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AIComponentSerializer.cpp.o
 .PHONY : State/Serilaization/AIComponentSerializer.cpp.o
 
 State/Serilaization/AIComponentSerializer.i: State/Serilaization/AIComponentSerializer.cpp.i
@@ -473,7 +473,7 @@ State/Serilaization/AIComponentSerializer.i: State/Serilaization/AIComponentSeri
 
 # target to preprocess a source file
 State/Serilaization/AIComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AIComponentSerializer.cpp.i
 .PHONY : State/Serilaization/AIComponentSerializer.cpp.i
 
 State/Serilaization/AIComponentSerializer.s: State/Serilaization/AIComponentSerializer.cpp.s
@@ -481,7 +481,7 @@ State/Serilaization/AIComponentSerializer.s: State/Serilaization/AIComponentSeri
 
 # target to generate assembly for a file
 State/Serilaization/AIComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AIComponentSerializer.cpp.s
 .PHONY : State/Serilaization/AIComponentSerializer.cpp.s
 
 State/Serilaization/AnimationComponentSerializer.o: State/Serilaization/AnimationComponentSerializer.cpp.o
@@ -489,7 +489,7 @@ State/Serilaization/AnimationComponentSerializer.o: State/Serilaization/Animatio
 
 # target to build an object file
 State/Serilaization/AnimationComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AnimationComponentSerializer.cpp.o
 .PHONY : State/Serilaization/AnimationComponentSerializer.cpp.o
 
 State/Serilaization/AnimationComponentSerializer.i: State/Serilaization/AnimationComponentSerializer.cpp.i
@@ -497,7 +497,7 @@ State/Serilaization/AnimationComponentSerializer.i: State/Serilaization/Animatio
 
 # target to preprocess a source file
 State/Serilaization/AnimationComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AnimationComponentSerializer.cpp.i
 .PHONY : State/Serilaization/AnimationComponentSerializer.cpp.i
 
 State/Serilaization/AnimationComponentSerializer.s: State/Serilaization/AnimationComponentSerializer.cpp.s
@@ -505,7 +505,7 @@ State/Serilaization/AnimationComponentSerializer.s: State/Serilaization/Animatio
 
 # target to generate assembly for a file
 State/Serilaization/AnimationComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AnimationComponentSerializer.cpp.s
 .PHONY : State/Serilaization/AnimationComponentSerializer.cpp.s
 
 State/Serilaization/ComponentSerializerFactory.o: State/Serilaization/ComponentSerializerFactory.cpp.o
@@ -513,7 +513,7 @@ State/Serilaization/ComponentSerializerFactory.o: State/Serilaization/ComponentS
 
 # target to build an object file
 State/Serilaization/ComponentSerializerFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ComponentSerializerFactory.cpp.o
 .PHONY : State/Serilaization/ComponentSerializerFactory.cpp.o
 
 State/Serilaization/ComponentSerializerFactory.i: State/Serilaization/ComponentSerializerFactory.cpp.i
@@ -521,7 +521,7 @@ State/Serilaization/ComponentSerializerFactory.i: State/Serilaization/ComponentS
 
 # target to preprocess a source file
 State/Serilaization/ComponentSerializerFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ComponentSerializerFactory.cpp.i
 .PHONY : State/Serilaization/ComponentSerializerFactory.cpp.i
 
 State/Serilaization/ComponentSerializerFactory.s: State/Serilaization/ComponentSerializerFactory.cpp.s
@@ -529,7 +529,7 @@ State/Serilaization/ComponentSerializerFactory.s: State/Serilaization/ComponentS
 
 # target to generate assembly for a file
 State/Serilaization/ComponentSerializerFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ComponentSerializerFactory.cpp.s
 .PHONY : State/Serilaization/ComponentSerializerFactory.cpp.s
 
 State/Serilaization/GeometryComponentSerializer.o: State/Serilaization/GeometryComponentSerializer.cpp.o
@@ -537,7 +537,7 @@ State/Serilaization/GeometryComponentSerializer.o: State/Serilaization/GeometryC
 
 # target to build an object file
 State/Serilaization/GeometryComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GeometryComponentSerializer.cpp.o
 .PHONY : State/Serilaization/GeometryComponentSerializer.cpp.o
 
 State/Serilaization/GeometryComponentSerializer.i: State/Serilaization/GeometryComponentSerializer.cpp.i
@@ -545,7 +545,7 @@ State/Serilaization/GeometryComponentSerializer.i: State/Serilaization/GeometryC
 
 # target to preprocess a source file
 State/Serilaization/GeometryComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GeometryComponentSerializer.cpp.i
 .PHONY : State/Serilaization/GeometryComponentSerializer.cpp.i
 
 State/Serilaization/GeometryComponentSerializer.s: State/Serilaization/GeometryComponentSerializer.cpp.s
@@ -553,7 +553,7 @@ State/Serilaization/GeometryComponentSerializer.s: State/Serilaization/GeometryC
 
 # target to generate assembly for a file
 State/Serilaization/GeometryComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GeometryComponentSerializer.cpp.s
 .PHONY : State/Serilaization/GeometryComponentSerializer.cpp.s
 
 State/Serilaization/GraphicsComponentSerializer.o: State/Serilaization/GraphicsComponentSerializer.cpp.o
@@ -561,7 +561,7 @@ State/Serilaization/GraphicsComponentSerializer.o: State/Serilaization/GraphicsC
 
 # target to build an object file
 State/Serilaization/GraphicsComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o
 .PHONY : State/Serilaization/GraphicsComponentSerializer.cpp.o
 
 State/Serilaization/GraphicsComponentSerializer.i: State/Serilaization/GraphicsComponentSerializer.cpp.i
@@ -569,7 +569,7 @@ State/Serilaization/GraphicsComponentSerializer.i: State/Serilaization/GraphicsC
 
 # target to preprocess a source file
 State/Serilaization/GraphicsComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i
 .PHONY : State/Serilaization/GraphicsComponentSerializer.cpp.i
 
 State/Serilaization/GraphicsComponentSerializer.s: State/Serilaization/GraphicsComponentSerializer.cpp.s
@@ -577,7 +577,7 @@ State/Serilaization/GraphicsComponentSerializer.s: State/Serilaization/GraphicsC
 
 # target to generate assembly for a file
 State/Serilaization/GraphicsComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s
 .PHONY : State/Serilaization/GraphicsComponentSerializer.cpp.s
 
 State/Serilaization/InputComponentSerializer.o: State/Serilaization/InputComponentSerializer.cpp.o
@@ -585,7 +585,7 @@ State/Serilaization/InputComponentSerializer.o: State/Serilaization/InputCompone
 
 # target to build an object file
 State/Serilaization/InputComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/InputComponentSerializer.cpp.o
 .PHONY : State/Serilaization/InputComponentSerializer.cpp.o
 
 State/Serilaization/InputComponentSerializer.i: State/Serilaization/InputComponentSerializer.cpp.i
@@ -593,7 +593,7 @@ State/Serilaization/InputComponentSerializer.i: State/Serilaization/InputCompone
 
 # target to preprocess a source file
 State/Serilaization/InputComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/InputComponentSerializer.cpp.i
 .PHONY : State/Serilaization/InputComponentSerializer.cpp.i
 
 State/Serilaization/InputComponentSerializer.s: State/Serilaization/InputComponentSerializer.cpp.s
@@ -601,7 +601,7 @@ State/Serilaization/InputComponentSerializer.s: State/Serilaization/InputCompone
 
 # target to generate assembly for a file
 State/Serilaization/InputComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/InputComponentSerializer.cpp.s
 .PHONY : State/Serilaization/InputComponentSerializer.cpp.s
 
 State/Serilaization/NetworkComponentSerializer.o: State/Serilaization/NetworkComponentSerializer.cpp.o
@@ -609,7 +609,7 @@ State/Serilaization/NetworkComponentSerializer.o: State/Serilaization/NetworkCom
 
 # target to build an object file
 State/Serilaization/NetworkComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/NetworkComponentSerializer.cpp.o
 .PHONY : State/Serilaization/NetworkComponentSerializer.cpp.o
 
 State/Serilaization/NetworkComponentSerializer.i: State/Serilaization/NetworkComponentSerializer.cpp.i
@@ -617,7 +617,7 @@ State/Serilaization/NetworkComponentSerializer.i: State/Serilaization/NetworkCom
 
 # target to preprocess a source file
 State/Serilaization/NetworkComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/NetworkComponentSerializer.cpp.i
 .PHONY : State/Serilaization/NetworkComponentSerializer.cpp.i
 
 State/Serilaization/NetworkComponentSerializer.s: State/Serilaization/NetworkComponentSerializer.cpp.s
@@ -625,7 +625,7 @@ State/Serilaization/NetworkComponentSerializer.s: State/Serilaization/NetworkCom
 
 # target to generate assembly for a file
 State/Serilaization/NetworkComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/NetworkComponentSerializer.cpp.s
 .PHONY : State/Serilaization/NetworkComponentSerializer.cpp.s
 
 State/Serilaization/PhysicsComponentSerializer.o: State/Serilaization/PhysicsComponentSerializer.cpp.o
@@ -633,7 +633,7 @@ State/Serilaization/PhysicsComponentSerializer.o: State/Serilaization/PhysicsCom
 
 # target to build an object file
 State/Serilaization/PhysicsComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o
 .PHONY : State/Serilaization/PhysicsComponentSerializer.cpp.o
 
 State/Serilaization/PhysicsComponentSerializer.i: State/Serilaization/PhysicsComponentSerializer.cpp.i
@@ -641,7 +641,7 @@ State/Serilaization/PhysicsComponentSerializer.i: State/Serilaization/PhysicsCom
 
 # target to preprocess a source file
 State/Serilaization/PhysicsComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i
 .PHONY : State/Serilaization/PhysicsComponentSerializer.cpp.i
 
 State/Serilaization/PhysicsComponentSerializer.s: State/Serilaization/PhysicsComponentSerializer.cpp.s
@@ -649,7 +649,7 @@ State/Serilaization/PhysicsComponentSerializer.s: State/Serilaization/PhysicsCom
 
 # target to generate assembly for a file
 State/Serilaization/PhysicsComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s
 .PHONY : State/Serilaization/PhysicsComponentSerializer.cpp.s
 
 State/Serilaization/ScriptComponentSerializer.o: State/Serilaization/ScriptComponentSerializer.cpp.o
@@ -657,7 +657,7 @@ State/Serilaization/ScriptComponentSerializer.o: State/Serilaization/ScriptCompo
 
 # target to build an object file
 State/Serilaization/ScriptComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ScriptComponentSerializer.cpp.o
 .PHONY : State/Serilaization/ScriptComponentSerializer.cpp.o
 
 State/Serilaization/ScriptComponentSerializer.i: State/Serilaization/ScriptComponentSerializer.cpp.i
@@ -665,7 +665,7 @@ State/Serilaization/ScriptComponentSerializer.i: State/Serilaization/ScriptCompo
 
 # target to preprocess a source file
 State/Serilaization/ScriptComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ScriptComponentSerializer.cpp.i
 .PHONY : State/Serilaization/ScriptComponentSerializer.cpp.i
 
 State/Serilaization/ScriptComponentSerializer.s: State/Serilaization/ScriptComponentSerializer.cpp.s
@@ -673,7 +673,7 @@ State/Serilaization/ScriptComponentSerializer.s: State/Serilaization/ScriptCompo
 
 # target to generate assembly for a file
 State/Serilaization/ScriptComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ScriptComponentSerializer.cpp.s
 .PHONY : State/Serilaization/ScriptComponentSerializer.cpp.s
 
 State/Serilaization/SoundComponentSerializer.o: State/Serilaization/SoundComponentSerializer.cpp.o
@@ -681,7 +681,7 @@ State/Serilaization/SoundComponentSerializer.o: State/Serilaization/SoundCompone
 
 # target to build an object file
 State/Serilaization/SoundComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/SoundComponentSerializer.cpp.o
 .PHONY : State/Serilaization/SoundComponentSerializer.cpp.o
 
 State/Serilaization/SoundComponentSerializer.i: State/Serilaization/SoundComponentSerializer.cpp.i
@@ -689,7 +689,7 @@ State/Serilaization/SoundComponentSerializer.i: State/Serilaization/SoundCompone
 
 # target to preprocess a source file
 State/Serilaization/SoundComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/SoundComponentSerializer.cpp.i
 .PHONY : State/Serilaization/SoundComponentSerializer.cpp.i
 
 State/Serilaization/SoundComponentSerializer.s: State/Serilaization/SoundComponentSerializer.cpp.s
@@ -697,7 +697,7 @@ State/Serilaization/SoundComponentSerializer.s: State/Serilaization/SoundCompone
 
 # target to generate assembly for a file
 State/Serilaization/SoundComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/SoundComponentSerializer.cpp.s
 .PHONY : State/Serilaization/SoundComponentSerializer.cpp.s
 
 State/Serilaization/XMLSerializer.o: State/Serilaization/XMLSerializer.cpp.o
@@ -705,7 +705,7 @@ State/Serilaization/XMLSerializer.o: State/Serilaization/XMLSerializer.cpp.o
 
 # target to build an object file
 State/Serilaization/XMLSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/XMLSerializer.cpp.o
 .PHONY : State/Serilaization/XMLSerializer.cpp.o
 
 State/Serilaization/XMLSerializer.i: State/Serilaization/XMLSerializer.cpp.i
@@ -713,7 +713,7 @@ State/Serilaization/XMLSerializer.i: State/Serilaization/XMLSerializer.cpp.i
 
 # target to preprocess a source file
 State/Serilaization/XMLSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/XMLSerializer.cpp.i
 .PHONY : State/Serilaization/XMLSerializer.cpp.i
 
 State/Serilaization/XMLSerializer.s: State/Serilaization/XMLSerializer.cpp.s
@@ -721,7 +721,7 @@ State/Serilaization/XMLSerializer.s: State/Serilaization/XMLSerializer.cpp.s
 
 # target to generate assembly for a file
 State/Serilaization/XMLSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/XMLSerializer.cpp.s
 .PHONY : State/Serilaization/XMLSerializer.cpp.s
 
 State/World.o: State/World.cpp.o
@@ -729,7 +729,7 @@ State/World.o: State/World.cpp.o
 
 # target to build an object file
 State/World.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/World.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/World.cpp.o
 .PHONY : State/World.cpp.o
 
 State/World.i: State/World.cpp.i
@@ -737,7 +737,7 @@ State/World.i: State/World.cpp.i
 
 # target to preprocess a source file
 State/World.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/World.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/World.cpp.i
 .PHONY : State/World.cpp.i
 
 State/World.s: State/World.cpp.s
@@ -745,7 +745,7 @@ State/World.s: State/World.cpp.s
 
 # target to generate assembly for a file
 State/World.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/World.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/World.cpp.s
 .PHONY : State/World.cpp.s
 
 State/WorldEntity.o: State/WorldEntity.cpp.o
@@ -753,7 +753,7 @@ State/WorldEntity.o: State/WorldEntity.cpp.o
 
 # target to build an object file
 State/WorldEntity.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntity.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntity.cpp.o
 .PHONY : State/WorldEntity.cpp.o
 
 State/WorldEntity.i: State/WorldEntity.cpp.i
@@ -761,7 +761,7 @@ State/WorldEntity.i: State/WorldEntity.cpp.i
 
 # target to preprocess a source file
 State/WorldEntity.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntity.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntity.cpp.i
 .PHONY : State/WorldEntity.cpp.i
 
 State/WorldEntity.s: State/WorldEntity.cpp.s
@@ -769,7 +769,7 @@ State/WorldEntity.s: State/WorldEntity.cpp.s
 
 # target to generate assembly for a file
 State/WorldEntity.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntity.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntity.cpp.s
 .PHONY : State/WorldEntity.cpp.s
 
 State/WorldEntityFactory.o: State/WorldEntityFactory.cpp.o
@@ -777,7 +777,7 @@ State/WorldEntityFactory.o: State/WorldEntityFactory.cpp.o
 
 # target to build an object file
 State/WorldEntityFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntityFactory.cpp.o
 .PHONY : State/WorldEntityFactory.cpp.o
 
 State/WorldEntityFactory.i: State/WorldEntityFactory.cpp.i
@@ -785,7 +785,7 @@ State/WorldEntityFactory.i: State/WorldEntityFactory.cpp.i
 
 # target to preprocess a source file
 State/WorldEntityFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntityFactory.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntityFactory.cpp.i
 .PHONY : State/WorldEntityFactory.cpp.i
 
 State/WorldEntityFactory.s: State/WorldEntityFactory.cpp.s
@@ -793,7 +793,7 @@ State/WorldEntityFactory.s: State/WorldEntityFactory.cpp.s
 
 # target to generate assembly for a file
 State/WorldEntityFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntityFactory.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntityFactory.cpp.s
 .PHONY : State/WorldEntityFactory.cpp.s
 
 System/SystemManager.o: System/SystemManager.cpp.o
@@ -801,7 +801,7 @@ System/SystemManager.o: System/SystemManager.cpp.o
 
 # target to build an object file
 System/SystemManager.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/System/SystemManager.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/SystemManager.cpp.o
 .PHONY : System/SystemManager.cpp.o
 
 System/SystemManager.i: System/SystemManager.cpp.i
@@ -809,7 +809,7 @@ System/SystemManager.i: System/SystemManager.cpp.i
 
 # target to preprocess a source file
 System/SystemManager.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/System/SystemManager.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/SystemManager.cpp.i
 .PHONY : System/SystemManager.cpp.i
 
 System/SystemManager.s: System/SystemManager.cpp.s
@@ -817,7 +817,7 @@ System/SystemManager.s: System/SystemManager.cpp.s
 
 # target to generate assembly for a file
 System/SystemManager.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/System/SystemManager.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/SystemManager.cpp.s
 .PHONY : System/SystemManager.cpp.s
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
@@ -825,7 +825,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.o: Users/NK/Devel
 
 # target to build an object file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
@@ -833,7 +833,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.i: Users/NK/Devel
 
 # target to preprocess a source file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
@@ -841,7 +841,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.s: Users/NK/Devel
 
 # target to generate assembly for a file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
@@ -849,7 +849,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.o: Users/NK/Dev
 
 # target to build an object file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
@@ -857,7 +857,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.i: Users/NK/Dev
 
 # target to preprocess a source file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
@@ -865,7 +865,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.s: Users/NK/Dev
 
 # target to generate assembly for a file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
@@ -873,7 +873,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.o: Users/N
 
 # target to build an object file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
@@ -881,7 +881,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.i: Users/N
 
 # target to preprocess a source file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
@@ -889,7 +889,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.s: Users/N
 
 # target to generate assembly for a file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
@@ -897,7 +897,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.o: Users/
 
 # target to build an object file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
@@ -905,7 +905,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.i: Users/
 
 # target to preprocess a source file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
 
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
@@ -913,7 +913,7 @@ Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.s: Users/
 
 # target to generate assembly for a file
 Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
 .PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
 
 Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.o: Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o
@@ -945,7 +945,7 @@ precompiled.o: precompiled.cpp.o
 
 # target to build an object file
 precompiled.cpp.o:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/precompiled.cpp.o
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/precompiled.cpp.o
 .PHONY : precompiled.cpp.o
 
 precompiled.i: precompiled.cpp.i
@@ -953,7 +953,7 @@ precompiled.i: precompiled.cpp.i
 
 # target to preprocess a source file
 precompiled.cpp.i:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/precompiled.cpp.i
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/precompiled.cpp.i
 .PHONY : precompiled.cpp.i
 
 precompiled.s: precompiled.cpp.s
@@ -961,7 +961,7 @@ precompiled.s: precompiled.cpp.s
 
 # target to generate assembly for a file
 precompiled.cpp.s:
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/precompiled.cpp.s
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/precompiled.cpp.s
 .PHONY : precompiled.cpp.s
 
 # Help Target
@@ -971,7 +971,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... Application"
-	@echo "... System"
+	@echo "... Base"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Configuration/Configuration.o"

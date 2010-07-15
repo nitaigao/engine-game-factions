@@ -9,11 +9,9 @@ INCLUDE_DIRECTORIES(.)
 INCLUDE_DIRECTORIES(../../etc/vendor/tinyxml/include)
 INCLUDE_DIRECTORIES(../../etc/vendor/physfs)
 INCLUDE_DIRECTORIES(../../etc/vendor/tclap/include)
-
 INCLUDE_DIRECTORIES(../../../ogre-prebuilt/include/OGRE)
 
 INCLUDE_DIRECTORIES(../4ha6EW2cru.Application)
-
 INCLUDE_DIRECTORIES(../../../boost-trunk)
 
 FIND_LIBRARY(PHYSFS_LIBRARY physfs PATHS ../../etc/vendor/physfs)
@@ -27,7 +25,7 @@ IF(APPLE)
    SET(CMAKE_OSX_ARCHITECTURES i386)
 ENDIF (APPLE)
 
-ADD_LIBRARY(System SHARED 
+ADD_LIBRARY(Base SHARED 
   
   #Deps -- need to be split out
   #tinyxml
@@ -81,7 +79,7 @@ ADD_LIBRARY(System SHARED
   
 )
   
-TARGET_LINK_LIBRARIES(System ${EXTRA_LIBS} ${PHYSFS_LIBRARY} ${BOOST_LIBRARY})
+TARGET_LINK_LIBRARIES(Base ${EXTRA_LIBS} ${PHYSFS_LIBRARY} ${BOOST_LIBRARY})
 
 ADD_EXECUTABLE (Application ../4ha6EW2cru.Application/main_osx.cpp) 
-TARGET_LINK_LIBRARIES (Application ${PHYSFS_LIBRARY} System) 
+TARGET_LINK_LIBRARIES (Application ${PHYSFS_LIBRARY} Base) 

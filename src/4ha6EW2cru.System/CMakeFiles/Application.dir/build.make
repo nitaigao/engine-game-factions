@@ -51,23 +51,23 @@ include CMakeFiles/Application.dir/flags.make
 
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o: CMakeFiles/Application.dir/flags.make
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o: /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp
-  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_1)
-  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o"
-  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o"
+	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp
 
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.i: cmake_force
-  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.i"
-  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp> CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.i
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.i"
+	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp > CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.i
 
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.s: cmake_force
-  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.s"
-  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp -o CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.s
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.s"
+	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp -o CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.s
 
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.requires:
 .PHONY : CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.requires
 
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.provides: CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.requires
-  $(MAKE) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.provides.build
+	$(MAKE) -f CMakeFiles/Application.dir/build.make CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.provides.build
 .PHONY : CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.provides
 
 CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o.provides.build: CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o
@@ -82,13 +82,13 @@ Application_EXTERNAL_OBJECTS =
 
 /Users/NK/Development/factions/build/bin/Application: CMakeFiles/Application.dir/Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o
 /Users/NK/Development/factions/build/bin/Application: /Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib
-/Users/NK/Development/factions/build/bin/Application: /Users/NK/Development/factions/build/bin/libSystem.dylib
+/Users/NK/Development/factions/build/bin/Application: /Users/NK/Development/factions/build/bin/libBase.dylib
 /Users/NK/Development/factions/build/bin/Application: /Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib
 /Users/NK/Development/factions/build/bin/Application: /Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib
 /Users/NK/Development/factions/build/bin/Application: CMakeFiles/Application.dir/build.make
 /Users/NK/Development/factions/build/bin/Application: CMakeFiles/Application.dir/link.txt
-  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /Users/NK/Development/factions/build/bin/Application"
-  $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Application.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /Users/NK/Development/factions/build/bin/Application"
+	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Application.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 CMakeFiles/Application.dir/build: /Users/NK/Development/factions/build/bin/Application
@@ -98,10 +98,10 @@ CMakeFiles/Application.dir/requires: CMakeFiles/Application.dir/Users/NK/Develop
 .PHONY : CMakeFiles/Application.dir/requires
 
 CMakeFiles/Application.dir/clean:
-  $(CMAKE_COMMAND) -P CMakeFiles/Application.dir/cmake_clean.cmake
+	$(CMAKE_COMMAND) -P CMakeFiles/Application.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/Application.dir/clean
 
 CMakeFiles/Application.dir/depend:
-  cd /Users/NK/Development/factions/src/4ha6EW2cru.System && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/Application.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/NK/Development/factions/src/4ha6EW2cru.System && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/Application.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Application.dir/depend
 
