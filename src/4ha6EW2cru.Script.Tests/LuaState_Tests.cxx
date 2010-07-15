@@ -7,7 +7,7 @@ using namespace Script;
 
 using namespace luabind;
 
-class LuaState_Tests : public TestHarness< LuaState >
+class LuaState_Tests : public TestHarness<LuaState>
 {
 
 protected:
@@ -41,7 +41,7 @@ TEST_F(LuaState_Tests, should_register_type)
 {
   m_subject->Initialize();
   
-  scope types = class_< std::string >("string");
+  scope types = class_<std::string>("string");
   m_subject->RegisterTypes(types);
 
   m_subject->Destroy();

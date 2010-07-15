@@ -22,7 +22,7 @@ namespace Physics
 
   public:
 
-    typedef std::map< std::string, IPhysicsSystemComponent* > PhysicsSystemComponentList;
+    typedef std::map<std::string, IPhysicsSystemComponent*> PhysicsSystemComponentList;
 
     /*! Default Destructor
      *

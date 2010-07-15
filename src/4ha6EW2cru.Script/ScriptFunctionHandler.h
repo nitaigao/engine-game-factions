@@ -83,7 +83,7 @@ namespace Script
 
     bool Compare(IScriptFunctionHandler* input)
     {
-      return static_cast< ScriptFunctionHandler* >(input)->m_functionHandler == m_functionHandler;
+      return static_cast<ScriptFunctionHandler*>(input)->m_functionHandler == m_functionHandler;
     }
 
 

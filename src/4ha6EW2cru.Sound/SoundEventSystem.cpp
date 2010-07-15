@@ -64,7 +64,7 @@ namespace Sound
       int numParameters = 0;
       event->getNumParameters(&numParameters);
 
-      for (int index = 0; index < numParameters; index++)
+      for (int index = 0; index <numParameters; index++)
       {
         FMOD::EventParameter* eventParameter = 0;
         event->getParameterByIndex(index, &eventParameter);

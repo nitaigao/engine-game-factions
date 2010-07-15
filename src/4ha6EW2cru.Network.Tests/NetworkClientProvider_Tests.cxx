@@ -15,7 +15,7 @@ using namespace Network;
 #include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
-class NetworkClientProvider_Tests : public TestHarness< NetworkClientProvider >
+class NetworkClientProvider_Tests : public TestHarness<NetworkClientProvider>
 {
 
 protected:
@@ -79,7 +79,7 @@ TEST_F(NetworkClientProvider_Tests, should_initialize_endpoint)
 {
   EXPECT_CALL(*m_controller, Initialize());
   EXPECT_CALL(*m_endpoint, Initialize());
-  EXPECT_CALL(*m_networkInterface, Initialize(An< unsigned int >(), An< int >()));
+  EXPECT_CALL(*m_networkInterface, Initialize(An<unsigned int>(), An<int>()));
 
   m_subject->Initialize(0);
 }
@@ -97,7 +97,7 @@ TEST_F(NetworkClientProvider_Tests, should_initialize_the_client_controller)
 {
   EXPECT_CALL(*m_controller, Initialize());
   EXPECT_CALL(*m_endpoint, Initialize());
-  EXPECT_CALL(*m_networkInterface, Initialize(An< unsigned int >(), An< int >()));
+  EXPECT_CALL(*m_networkInterface, Initialize(An<unsigned int>(), An<int>()));
 
   m_subject->Initialize(0);
 }
@@ -149,7 +149,7 @@ TEST_F(NetworkClientProvider_Tests, should_forward_input_events_to_the_network)
   AnyType::AnyTypeMap parameters;
   parameters[ System::Parameters::DeltaX ] = "1.0f";
 
-  EXPECT_CALL(*m_controller, MessageEntity(entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(*m_controller, MessageEntity(entityName, System::Messages::Mouse_Moved, An<AnyType::AnyTypeMap>()));
 
   m_subject->Message(&component, System::Messages::Mouse_Moved, parameters);
 }

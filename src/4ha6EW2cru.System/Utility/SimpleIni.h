@@ -191,7 +191,7 @@
 #ifndef INCLUDED_SimpleIni_h
 #define INCLUDED_SimpleIni_h
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER) && (_MSC_VER>= 1020)
 # pragma once
 #endif
 
@@ -230,14 +230,14 @@
 #endif
 
 enum SI_Error {
-    SI_OK       =  0,   //!< No error
-    SI_UPDATED  =  1,   //!< An existing value was updated
-    SI_INSERTED =  2,   //!< A new value was inserted
+    SI_OK       =  0,   //!<No error
+    SI_UPDATED  =  1,   //!<An existing value was updated
+    SI_INSERTED =  2,   //!<A new value was inserted
 
-    // note: test for any error with (retval < 0)
-    SI_FAIL     = -1,   //!< Generic failure
-    SI_NOMEM    = -2,   //!< Out of memory error
-    SI_FILE     = -3    //!< File error (see errno for detail error)
+    // note: test for any error with (retval <0)
+    SI_FAIL     = -1,   //!<Generic failure
+    SI_NOMEM    = -2,   //!<Out of memory error
+    SI_FILE     = -3    //!<File error (see errno for detail error)
 };
 
 #define SI_UTF8_SIGNATURE     "\xEF\xBB\xBF"
@@ -332,7 +332,7 @@ public:
         struct LoadOrder : std::binary_function<Entry, Entry, bool> {
             bool operator()(const Entry & lhs, const Entry & rhs) const {
                 if (lhs.nOrder != rhs.nOrder) {
-                    return lhs.nOrder < rhs.nOrder;
+                    return lhs.nOrder <rhs.nOrder;
                 }
                 return KeyOrder()(lhs.pItem, rhs.pItem);
             }
@@ -396,7 +396,7 @@ public:
     public:
         StreamWriter(std::ostream & a_ostream) : m_ostream(a_ostream) { }
         void Write(const char * a_pBuf) {
-            m_ostream << a_pBuf;
+            m_ostream <<a_pBuf;
         }
     private:
         StreamWriter(const StreamWriter &);             // disable
@@ -422,7 +422,7 @@ public:
             if (uLen == (size_t)(-1)) {
                 return false;
             }
-            while (uLen > m_scratch.size()) {
+            while (uLen> m_scratch.size()) {
                 m_scratch.resize(m_scratch.size() * 2);
             }
             return SI_CONVERTER::ConvertToStore(
@@ -811,7 +811,7 @@ public:
         @param a_pSection       Section to request data for
 
         @return -1              Section does not exist in the file
-        @return >=0             Number of keys in the section
+        @return>=0             Number of keys in the section
      */
     int GetSectionSize(
         const SI_CHAR * a_pSection
@@ -1294,7 +1294,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::LoadFile(
         return SI_FILE;
     }
     long lSize = ftell(a_fpFile);
-    if (lSize < 0) {
+    if (lSize <0) {
         return SI_FILE;
     }
     if (lSize == 0) {
@@ -1331,7 +1331,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::Load(
     }
 
     // consume the UTF-8 BOM if it exists
-    if (m_bStoreIsUtf8 && a_uDataLen >= 3) {
+    if (m_bStoreIsUtf8 && a_uDataLen>= 3) {
         if (memcmp(a_pData, SI_UTF8_SIGNATURE, 3) == 0) {
             a_pData    += 3;
             a_uDataLen -= 3;
@@ -1373,12 +1373,12 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::Load(
     // find a file comment if it exists, this is a comment that starts at the
     // beginning of the file and continues until the first blank line.
     SI_Error rc = FindFileComment(pWork, bCopyStrings);
-    if (rc < 0) return rc;
+    if (rc <0) return rc;
 
     // add every entry in the file to the data table
     while (FindEntry(pWork, pSection, pItem, pVal, pComment)) {
         rc = AddEntry(pSection, pItem, pVal, pComment, false, bCopyStrings);
-        if (rc < 0) return rc;
+        if (rc <0) return rc;
     }
 
     // store these strings if we didn't copy them
@@ -1432,7 +1432,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::FindFileComment(
     // copy the string if necessary
     if (a_bCopyStrings) {
         SI_Error rc = CopyString(m_pFileComment);
-        if (rc < 0) return rc;
+        if (rc <0) return rc;
     }
 
     return SI_OK;
@@ -1489,7 +1489,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::FindEntry(
 
             // remove trailing spaces from the section
             pTrail = a_pData - 1;
-            while (pTrail >= a_pSection && IsSpace(*pTrail)) {
+            while (pTrail>= a_pSection && IsSpace(*pTrail)) {
                 --pTrail;
             }
             ++pTrail;
@@ -1528,7 +1528,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::FindEntry(
 
         // remove trailing spaces from the key
         pTrail = a_pData - 1;
-        while (pTrail >= a_pKey && IsSpace(*pTrail)) {
+        while (pTrail>= a_pKey && IsSpace(*pTrail)) {
             --pTrail;
         }
         ++pTrail;
@@ -1551,7 +1551,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::FindEntry(
         if (*a_pData) { // prepare for the next round
             SkipNewLine(a_pData);
         }
-        while (pTrail >= a_pVal && IsSpace(*pTrail)) {
+        while (pTrail>= a_pVal && IsSpace(*pTrail)) {
             --pTrail;
         }
         ++pTrail;
@@ -1684,7 +1684,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::LoadMultiLineText(
             // we have a comment, add the blank lines to the output
             // and continue processing from here
             if (IsComment(*pCurr)) {
-                for (; nNewLines > 0; --nNewLines) *pDataLine++ = '\n';
+                for (; nNewLines> 0; --nNewLines) *pDataLine++ = '\n';
                 a_pData = pCurr;
                 continue;
             }
@@ -1698,7 +1698,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::LoadMultiLineText(
         while (*a_pData && !IsNewLineChar(*a_pData)) ++a_pData;
 
         // move this line down to the location that it should be if necessary
-        if (pDataLine < pCurrLine) {
+        if (pDataLine <pCurrLine) {
             size_t nLen = (size_t) (a_pData - pCurrLine);
             memmove(pDataLine, pCurrLine, nLen * sizeof(SI_CHAR));
             pDataLine[nLen] = '\0';
@@ -1801,7 +1801,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::AddEntry(
     // because we will need it when we add the entry.
     if (a_bCopyStrings && a_pComment) {
         rc = CopyString(a_pComment);
-        if (rc < 0) return rc;
+        if (rc <0) return rc;
     }
 
     // create the section entry if necessary
@@ -1811,7 +1811,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::AddEntry(
         // string needs to last beyond the end of this function
         if (a_bCopyStrings) {
             rc = CopyString(a_pSection);
-            if (rc < 0) return rc;
+            if (rc <0) return rc;
         }
 
         // only set the comment if this is a section only entry
@@ -1841,7 +1841,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::AddEntry(
     if (iKey != keyval.end() && m_bAllowMultiKey && a_bForceReplace) {
         const SI_CHAR * pComment = NULL;
         while (iKey != keyval.end() && !IsLess(a_pKey, iKey->first.pItem)) {
-            if (iKey->first.nOrder < nLoadOrder) {
+            if (iKey->first.nOrder <nLoadOrder) {
                 nLoadOrder = iKey->first.nOrder;
                 pComment   = iKey->first.pComment;
             }
@@ -1864,12 +1864,12 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::AddEntry(
             // string needs to last beyond the end of this function
             // because we will be inserting the key next
             rc = CopyString(a_pKey);
-            if (rc < 0) return rc;
+            if (rc <0) return rc;
         }
 
         // we always need a copy of the value
         rc = CopyString(a_pValue);
-        if (rc < 0) return rc;
+        if (rc <0) return rc;
     }
 
     // create the key entry
@@ -2466,7 +2466,7 @@ CSimpleIniTempl<SI_CHAR,SI_STRLESS,SI_CONVERTER>::DeleteString(
     // strings may exist either inside the data block, or they will be
     // individually allocated and stored in m_strings. We only physically
     // delete those stored in m_strings.
-    if (a_pString < m_pData || a_pString >= m_pData + m_uDataLen) {
+    if (a_pString <m_pData || a_pString>= m_pData + m_uDataLen) {
         typename TNamesDepend::iterator i = m_strings.begin();
         for (;i != m_strings.end(); ++i) {
             if (a_pString == i->pItem) {
@@ -2512,7 +2512,7 @@ struct SI_GenericCase {
         for (;*pLeft && *pRight; ++pLeft, ++pRight) {
             cmp = (long) *pLeft - (long) *pRight;
             if (cmp != 0) {
-                return cmp < 0;
+                return cmp <0;
             }
         }
         return *pRight != 0;
@@ -2528,14 +2528,14 @@ struct SI_GenericCase {
 template<class SI_CHAR>
 struct SI_GenericNoCase {
     inline SI_CHAR locase(SI_CHAR ch) const {
-        return (ch < 'A' || ch > 'Z') ? ch : (ch - 'A' + 'a');
+        return (ch <'A' || ch> 'Z') ? ch : (ch - 'A' + 'a');
     }
     bool operator()(const SI_CHAR * pLeft, const SI_CHAR * pRight) const {
         long cmp;
         for (;*pLeft && *pRight; ++pLeft, ++pRight) {
             cmp = (long) locase(*pLeft) - (long) locase(*pRight);
             if (cmp != 0) {
-                return cmp < 0;
+                return cmp <0;
             }
         }
         return *pRight != 0;
@@ -2604,7 +2604,7 @@ public:
         size_t          a_uOutputDataSize)
     {
         // ASCII/MBCS/UTF-8 needs no conversion
-        if (a_uInputDataLen > a_uOutputDataSize) {
+        if (a_uInputDataLen> a_uOutputDataSize) {
             return false;
         }
         memcpy(a_pOutputData, a_pInputData, a_uInputDataLen);
@@ -2648,7 +2648,7 @@ public:
     {
         // calc input string length (SI_CHAR type and size independent)
         size_t uInputLen = strlen((const char *)a_pInputData) + 1;
-        if (uInputLen > a_uOutputDataSize) {
+        if (uInputLen> a_uOutputDataSize) {
             return false;
         }
 
@@ -3084,11 +3084,11 @@ struct SI_NoCase {
     bool operator()(const SI_CHAR * pLeft, const SI_CHAR * pRight) const {
         if (sizeof(SI_CHAR) == sizeof(char)) {
             return _mbsicmp((const unsigned char *)pLeft,
-                (const unsigned char *)pRight) < 0;
+                (const unsigned char *)pRight) <0;
         }
         if (sizeof(SI_CHAR) == sizeof(wchar_t)) {
             return _wcsicmp((const wchar_t *)pLeft,
-                (const wchar_t *)pRight) < 0;
+                (const wchar_t *)pRight) <0;
         }
         return SI_GenericNoCase<SI_CHAR>()(pLeft, pRight);
     }
@@ -3141,7 +3141,7 @@ public:
             m_uCodePage, 0,
             a_pInputData, (int) a_uInputDataLen,
             0, 0);
-        return (size_t)(retval > 0 ? retval : -1);
+        return (size_t)(retval> 0 ? retval : -1);
     }
 
     /** Convert the input string from the storage format to SI_CHAR.
@@ -3167,7 +3167,7 @@ public:
             m_uCodePage, 0,
             a_pInputData, (int) a_uInputDataLen,
             (wchar_t *) a_pOutputData, (int) a_uOutputDataSize);
-        return (nSize > 0);
+        return (nSize> 0);
     }
 
     /** Calculate the number of char required by the storage format of this
@@ -3187,7 +3187,7 @@ public:
             m_uCodePage, 0,
             (const wchar_t *) a_pInputData, -1,
             0, 0, 0, 0);
-        return (size_t) (retval > 0 ? retval : -1);
+        return (size_t) (retval> 0 ? retval : -1);
     }
 
     /** Convert the input string to the storage format of this data.
@@ -3212,7 +3212,7 @@ public:
             m_uCodePage, 0,
             (const wchar_t *) a_pInputData, -1,
             a_pOutputData, (int) a_uOutputDataSize, 0, 0);
-        return retval > 0;
+        return retval> 0;
     }
 };
 
@@ -3224,20 +3224,20 @@ public:
 // ---------------------------------------------------------------------------
 
 typedef CSimpleIniTempl<char,
-    SI_NoCase<char>,SI_ConvertA<char> >                 CSimpleIniA;
+    SI_NoCase<char>,SI_ConvertA<char>>                 CSimpleIniA;
 typedef CSimpleIniTempl<char,
-    SI_Case<char>,SI_ConvertA<char> >                   CSimpleIniCaseA;
+    SI_Case<char>,SI_ConvertA<char>>                   CSimpleIniCaseA;
 
 #if defined(SI_CONVERT_ICU)
 typedef CSimpleIniTempl<UChar,
-    SI_NoCase<UChar>,SI_ConvertW<UChar> >               CSimpleIniW;
+    SI_NoCase<UChar>,SI_ConvertW<UChar>>               CSimpleIniW;
 typedef CSimpleIniTempl<UChar,
-    SI_Case<UChar>,SI_ConvertW<UChar> >                 CSimpleIniCaseW;
+    SI_Case<UChar>,SI_ConvertW<UChar>>                 CSimpleIniCaseW;
 #else
 typedef CSimpleIniTempl<wchar_t,
-    SI_NoCase<wchar_t>,SI_ConvertW<wchar_t> >           CSimpleIniW;
+    SI_NoCase<wchar_t>,SI_ConvertW<wchar_t>>           CSimpleIniW;
 typedef CSimpleIniTempl<wchar_t,
-    SI_Case<wchar_t>,SI_ConvertW<wchar_t> >             CSimpleIniCaseW;
+    SI_Case<wchar_t>,SI_ConvertW<wchar_t>>             CSimpleIniCaseW;
 #endif
 
 #ifdef _UNICODE

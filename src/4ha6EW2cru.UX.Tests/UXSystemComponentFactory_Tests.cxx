@@ -9,7 +9,7 @@ using namespace UX;
 #include "Mocks/MockEventManager.hpp"
 #include "Mocks/MockScriptFacadeFactory.hpp"
 
-class UXSystemComponentFactory_Tests : public TestHarness< UXSystemComponentFactory >
+class UXSystemComponentFactory_Tests : public TestHarness<UXSystemComponentFactory>
 {
 
 protected:

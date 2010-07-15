@@ -19,7 +19,7 @@ using namespace RakNet;
 
 namespace given_the_client_is_looking_for_servers
 {
-  class NetworkClientEndpoint_BaseContext : public TestHarness< NetworkClientEndpoint >
+  class NetworkClientEndpoint_BaseContext : public TestHarness<NetworkClientEndpoint>
   {
 
   protected:
@@ -68,7 +68,7 @@ namespace given_the_client_is_looking_for_servers
 
     void Expecting()
     {
-      EXPECT_CALL(*m_eventManager, QueueEvent(An< const IEvent* >()))
+      EXPECT_CALL(*m_eventManager, QueueEvent(An<const IEvent*>()))
         .WillOnce(Invoke(&MockEventManager::ConsumeEvent));
 
       EXPECT_CALL(*m_networkInterface, Receive())

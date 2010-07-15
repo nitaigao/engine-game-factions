@@ -6,7 +6,7 @@
   ProjectGUID="{CCBB2111-A4ED-48DF-9321-E022C519E38A}"
   RootNamespace="My4ha6EW2cruInput"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -21,7 +21,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.Input"
       ConfigurationType="2"
       CharacterSet="2"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -98,7 +98,7 @@
       ConfigurationType="2"
       CharacterSet="2"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -182,29 +182,29 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\InputFactory.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputSystem.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputSystemComponent.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputSystemScene.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.cpp"
-        >
+       >
         <FileConfiguration
           Name="Debug|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -212,7 +212,7 @@
         </FileConfiguration>
         <FileConfiguration
           Name="Release|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -221,68 +221,68 @@
       </File>
       <File
         RelativePath=".\SystemDefinition.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\SystemDefinition.def"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\IInputFactory.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IInputSystem.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IInputSystemComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IInputSystemScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputFactory.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputMessageBinding.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputMessageBindingType.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputSystem.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputSystemComponent.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\InputSystemScene.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.h"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
   </Files>
   <Globals>

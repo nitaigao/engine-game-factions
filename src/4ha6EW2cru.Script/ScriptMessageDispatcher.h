@@ -19,7 +19,7 @@ namespace Script
   class GAMEAPI ScriptMessageDispatcher : public IScriptMessageDispatcher
   {
 
-    typedef std::multimap< System::MessageType, IScriptFunctionHandler* > DelegateFunctionMap;
+    typedef std::multimap<System::MessageType, IScriptFunctionHandler*> DelegateFunctionMap;
 
   public:
 

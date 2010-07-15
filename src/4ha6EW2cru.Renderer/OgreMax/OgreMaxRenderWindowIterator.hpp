@@ -86,7 +86,7 @@ namespace OgreMax
 
         bool Start()
         {
-            this->iterationEnabled = this->renderWindowCount > 0;
+            this->iterationEnabled = this->renderWindowCount> 0;
             if (this->iterationEnabled)
                 this->iterationIndex = 0;
             return this->iterationEnabled;

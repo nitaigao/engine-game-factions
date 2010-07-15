@@ -27,7 +27,7 @@ namespace Renderer
   {
     m_sceneNode = m_scene->GetSceneManager()->createSceneNode(m_name);
 
-    this->LoadModel(m_sceneNode, m_attributes[ System::Parameters::Model ].As< std::string >());
+    this->LoadModel(m_sceneNode, m_attributes[ System::Parameters::Model ].As<std::string>());
 
     m_scene->GetSceneManager()->getRootSceneNode()->addChild(m_sceneNode);
   }
@@ -39,7 +39,7 @@ namespace Renderer
     try
     {
       std::stringstream prefix;
-      prefix << m_name << "_";
+      prefix <<m_name <<"_";
 
       model->Load(modelPath);
       model->CreateInstance(
@@ -69,13 +69,13 @@ namespace Renderer
   {
     if (message == System::Messages::SetPosition)
     {
-      MathVector3 position = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      MathVector3 position = parameters[ System::Attributes::Position ].As<MathVector3>();
       m_sceneNode->setPosition(MathTools::AsOgreVector3(position));
     }
 
     if (message == System::Messages::SetOrientation)
     {
-      MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
+      MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As<MathQuaternion>();
       m_sceneNode->setOrientation(MathTools::AsOgreQuaternion(orientation));
     }
 
@@ -97,7 +97,7 @@ namespace Renderer
 
     while(children.hasMoreElements())
     {
-      SceneNode* childSceneNode = static_cast< SceneNode* >(children.getNext());
+      SceneNode* childSceneNode = static_cast<SceneNode*>(children.getNext());
       this->DestroySceneNode(childSceneNode);
     }
 
@@ -160,7 +160,7 @@ namespace Renderer
 
     while(children.hasMoreElements())
     {
-      SceneNode* child = static_cast< SceneNode* >(children.getNext());
+      SceneNode* child = static_cast<SceneNode*>(children.getNext());
       this->LinkSkeletons(child, skeletons);
     }
   }

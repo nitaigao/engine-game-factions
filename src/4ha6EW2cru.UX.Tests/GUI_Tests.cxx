@@ -6,7 +6,7 @@ using namespace UX;
 
 #include <MyGUI.h>
 
-class GUI_Tests : public TestHarness< GUI >
+class GUI_Tests : public TestHarness<GUI>
 {
 
 protected:

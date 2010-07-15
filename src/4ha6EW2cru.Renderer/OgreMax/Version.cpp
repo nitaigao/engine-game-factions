@@ -26,7 +26,7 @@ using namespace OgreMax;
 //Implementation---------------------------------------------------------------
 Version::Version()
 {
-    for (int index = 0; index < MAX_COMPONENTS; index++)
+    for (int index = 0; index <MAX_COMPONENTS; index++)
         this->components[index] = 0;
 }
 
@@ -45,7 +45,7 @@ Version::Version(const String& version)
     String component;
 
     int index = 0;
-    while (index < MAX_COMPONENTS && offset < length)
+    while (index <MAX_COMPONENTS && offset <length)
     {
         //Extract the current component
         foundAt = version.find('.', offset);
@@ -60,7 +60,7 @@ Version::Version(const String& version)
         offset = foundAt + 1;
     }
     
-    for (; index < MAX_COMPONENTS; index++)
+    for (; index <MAX_COMPONENTS; index++)
         this->components[index] = 0;
 }
 
@@ -85,7 +85,7 @@ void Version::ToString(String& text) const
 
     //Find the last non-zero component
     int lastNonzeroComponent = -1;
-    for (int index = MAX_COMPONENTS - 1; index >= 0; index--)
+    for (int index = MAX_COMPONENTS - 1; index>= 0; index--)
     {
         if (this->components[index] != 0)
         {
@@ -95,19 +95,19 @@ void Version::ToString(String& text) const
     }
 
     //Output everything up to the last non-zero component
-    if (lastNonzeroComponent >= 0)
+    if (lastNonzeroComponent>= 0)
     {
         for (int index = 0; index <= lastNonzeroComponent; index++)
         {
-            versionText << this->components[index];
-            if (index < lastNonzeroComponent)
-                versionText << ".";
+            versionText <<this->components[index];
+            if (index <lastNonzeroComponent)
+                versionText <<".";
         }
     }
     else
     {
         //All components are zero
-        versionText << "0";
+        versionText <<"0";
     }
 
     text = versionText.str();
@@ -124,7 +124,7 @@ int Version::ToInt() const
 {
     int version = 0;
     int multiplier = 1;
-    for (int index = 0; index < MAX_COMPONENTS; index++)
+    for (int index = 0; index <MAX_COMPONENTS; index++)
     {
         version += this->components[index] * multiplier;
         multiplier *= 100;

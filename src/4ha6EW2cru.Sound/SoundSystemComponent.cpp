@@ -11,7 +11,7 @@ namespace Sound
   {
     if(message == System::Messages::TriggerSoundEvent )
     {
-      std::string eventPath = parameters[ System::Parameters::SoundEventPath ].As< std::string >();
+      std::string eventPath = parameters[ System::Parameters::SoundEventPath ].As<std::string>();
 
       if (m_triggerRequests.find(eventPath) == m_triggerRequests.end())
       {
@@ -29,7 +29,7 @@ namespace Sound
 
     if (message == System::Messages::KeyOutSoundEvent)
     {
-      std::string eventPath = parameters[ System::Parameters::SoundEventPath ].As< std::string >();
+      std::string eventPath = parameters[ System::Parameters::SoundEventPath ].As<std::string>();
 
       if (m_triggerRequests.find(eventPath) != m_triggerRequests.end())
       {
@@ -45,25 +45,25 @@ namespace Sound
 
     if (message == System::Messages::SetPosition)
     {
-      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As<MathVector3>();
 
       for (SoundEventMap::iterator i = m_activeEvents.begin(); i != m_activeEvents.end(); ++i)
       {
         FMOD_VECTOR position, velocity;
 
         (*i).second->get3DAttributes(&position, &velocity);
-        (*i).second->set3DAttributes(&MathTools::AsFMODVector(parameters[ System::Attributes::Position ].As< MathVector3 >()), &velocity);
+        (*i).second->set3DAttributes(&MathTools::AsFMODVector(parameters[ System::Attributes::Position ].As<MathVector3>()), &velocity);
       }
     }
 
     if (message == System::Messages::SetOrientation)
     {
-      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
+      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As<MathQuaternion>();
     }
 
     if (message == System::Messages::SetPlayerPosition)
     {
-      m_eventSystem->SetListenerPosition(parameters[ System::Attributes::Position ].As< MathVector3 >());
+      m_eventSystem->SetListenerPosition(parameters[ System::Attributes::Position ].As<MathVector3>());
     }
 
     return true;

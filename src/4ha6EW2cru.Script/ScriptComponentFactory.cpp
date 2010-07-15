@@ -31,7 +31,7 @@ namespace Script
 
     if (typeid(*childState) == typeid(LuaState)) 
     {
-      static_cast< LuaState* >(childState)->SetGlobal("script", static_cast< ScriptComponent* >(component));
+      static_cast<LuaState*>(childState)->SetGlobal("script", static_cast<ScriptComponent*>(component));
     }
 
     return component;

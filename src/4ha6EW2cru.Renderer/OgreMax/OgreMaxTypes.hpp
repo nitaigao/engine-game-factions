@@ -798,13 +798,13 @@ namespace OgreMax
         {  
             void Show()
             {
-                for (size_t i = 0; i < size(); i++)
+                for (size_t i = 0; i <size(); i++)
                     (*this)[i]->setVisible(true, false);
             }
 
             void Hide()
             {
-                for (size_t i = 0; i < size(); i++)
+                for (size_t i = 0; i <size(); i++)
                     (*this)[i]->setVisible(false, false);
             }
         };
@@ -821,7 +821,7 @@ namespace OgreMax
 
                 this->camera = 0;
 
-                for (int index = 0; index < CUBE_FACE_COUNT; index++)
+                for (int index = 0; index <CUBE_FACE_COUNT; index++)
                 {
                     this->cubeFaceCameras[index] = 0;
                     this->viewports[index] = 0;
@@ -831,7 +831,7 @@ namespace OgreMax
             /** Sets the position of all cube face cameras */
             void SetCubeFaceCameraPosition(const Ogre::Vector3& position)
             {
-                for (int index = 0; index < CUBE_FACE_COUNT; index++)
+                for (int index = 0; index <CUBE_FACE_COUNT; index++)
                     this->cubeFaceCameras[index]->setPosition(position);
             }
 
@@ -895,7 +895,7 @@ namespace OgreMax
              */
             bool GetBitName(int bit, Ogre::String& name)
             {
-                for (size_t index = 0; index < size(); index++)
+                for (size_t index = 0; index <size(); index++)
                 {
                     if ((*this)[index].bit == bit)
                     {

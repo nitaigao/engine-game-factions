@@ -703,7 +703,7 @@ SceneNode* OgreMaxModel::CreateInstance
     bool isInitialStateSet = false;
     if (!nodeParams.animations.empty())
     {
-        for (size_t animationIndex = 0; animationIndex < nodeParams.animations.size(); animationIndex++)
+        for (size_t animationIndex = 0; animationIndex <nodeParams.animations.size(); animationIndex++)
         {
             const NodeAnimationParameters& animationParams = nodeParams.animations[animationIndex];
             String animationName = baseName + animationParams.name;
@@ -720,7 +720,7 @@ SceneNode* OgreMaxModel::CreateInstance
                 NodeAnimationTrack* animationTrack = animation->createNodeTrack(animation->getNumNodeTracks() + 1, node);
 
                 //Load animation keyframes
-                for (size_t keyframeIndex = 0; keyframeIndex < animationParams.keyframes.size(); keyframeIndex++)
+                for (size_t keyframeIndex = 0; keyframeIndex <animationParams.keyframes.size(); keyframeIndex++)
                 {
                     const NodeAnimationParameters::KeyFrame& keyframeParams = animationParams.keyframes[keyframeIndex];
                     TransformKeyFrame* keyFrame = animationTrack->createNodeKeyFrame(keyframeParams.time);    
@@ -753,7 +753,7 @@ SceneNode* OgreMaxModel::CreateInstance
     }
     
     //Iterate over all the node children
-    for (size_t childNodeIndex = 0; childNodeIndex < nodeParams.childNodes.size(); childNodeIndex++)
+    for (size_t childNodeIndex = 0; childNodeIndex <nodeParams.childNodes.size(); childNodeIndex++)
     {
         CreateInstance
             (
@@ -885,7 +885,7 @@ void OgreMaxModel::CreateEntity
 
     //Set subentity materials
     size_t subentityCount = std::min(entityParams->subentities.size(), (size_t)entity->getNumSubEntities());
-    for (size_t subentityIndex = 0; subentityIndex < subentityCount; subentityIndex++)
+    for (size_t subentityIndex = 0; subentityIndex <subentityCount; subentityIndex++)
     {
         SubEntity* subentity = entity->getSubEntity((unsigned int)subentityIndex);
         if (!entityParams->subentities[subentityIndex].materialName.empty())
@@ -897,7 +897,7 @@ void OgreMaxModel::CreateEntity
     {
         MovableObjectOwner entityOwner(entity);
         
-        for (size_t boneAttachmentIndex = 0; boneAttachmentIndex < entityParams->boneAttachments.size(); boneAttachmentIndex++)
+        for (size_t boneAttachmentIndex = 0; boneAttachmentIndex <entityParams->boneAttachments.size(); boneAttachmentIndex++)
         {
             EntityParameters::BoneAttachment& boneAttachment = entityParams->boneAttachments[boneAttachmentIndex];            
             entityOwner.boneName = boneAttachment.boneName;
@@ -1081,7 +1081,7 @@ void OgreMaxModel::CreateBillboardSet
     billboardSet->setBillboardRotationType(billboardSetParams->rotationType);
     billboardSet->setCommonDirection(billboardSetParams->commonDirection);
     billboardSet->setCommonUpVector(billboardSetParams->commonUpVector);
-    if (billboardSetParams->poolSize > 0)
+    if (billboardSetParams->poolSize> 0)
         billboardSet->setPoolSize(billboardSetParams->poolSize);
     billboardSet->setAutoextend(billboardSetParams->autoExtendPool);
     billboardSet->setCullIndividually(billboardSetParams->cullIndividual);
@@ -1089,7 +1089,7 @@ void OgreMaxModel::CreateBillboardSet
     billboardSet->setUseAccurateFacing(billboardSetParams->accurateFacing);
     
     //Load billboards
-    for (size_t billboardIndex = 0; billboardIndex < billboardSetParams->billboards.size(); billboardIndex++)
+    for (size_t billboardIndex = 0; billboardIndex <billboardSetParams->billboards.size(); billboardIndex++)
     {
         BillboardSetParameters::Billboard& billboardParams = billboardSetParams->billboards[billboardIndex];
 

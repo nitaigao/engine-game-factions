@@ -36,7 +36,7 @@ void TeamcityMessages::setOutput(ostream &out) {
 string TeamcityMessages::escape(string s) {
     string result;
     
-    for (int i = 0; i < s.length(); i++) {
+    for (int i = 0; i <s.length(); i++) {
         char c = s[i];
         
         switch (c) {
@@ -54,18 +54,18 @@ string TeamcityMessages::escape(string s) {
 
 void TeamcityMessages::openMsg(const string &name) {
     // endl for http://jetbrains.net/tracker/issue/TW-4412
-    *m_out << endl << "##teamcity[" << name;
+    *m_out <<endl <<"##teamcity[" <<name;
 }
 
 void TeamcityMessages::closeMsg() {
-    *m_out << "]";
+    *m_out <<"]";
     // endl for http://jetbrains.net/tracker/issue/TW-4412
-    *m_out << endl;
+    *m_out <<endl;
     m_out->flush();
 }
 
 void TeamcityMessages::writeProperty(string name, string value) {
-    *m_out << " " << name << "='" << escape(value) << "'";
+    *m_out <<" " <<name <<"='" <<escape(value) <<"'";
 }
 
 void TeamcityMessages::suiteStarted(string name) {

@@ -14,7 +14,7 @@ namespace Animation
     if (m_animationControllers.find(animationName) == m_animationControllers.end())
     {
       std::stringstream logMessage;
-      logMessage << "AnimationBlender::Blend: " << animationName << " doesn't exist";
+      logMessage <<"AnimationBlender::Blend: " <<animationName <<" doesn't exist";
       Warn(logMessage.str());
     }
     else
@@ -35,7 +35,7 @@ namespace Animation
     if (m_animationControllers.find(animationName) == m_animationControllers.end())
     {
       std::stringstream logMessage;
-      logMessage << "AnimationBlender::UnBlend: " << animationName << " doesn't exist";
+      logMessage <<"AnimationBlender::UnBlend: " <<animationName <<" doesn't exist";
       Warn(logMessage.str());
     }
     else
@@ -57,7 +57,7 @@ namespace Animation
     {
       (*i).second->setMasterWeight((*i).second->getMasterWeight() + 0.1f);
 
-      if ((*i).second->getMasterWeight() >= 1.0f)
+      if ((*i).second->getMasterWeight()>= 1.0f)
       {
         i = m_blendAnimations.erase(i);
       }

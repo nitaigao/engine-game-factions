@@ -8,7 +8,7 @@ using namespace Sound;
 #include "Mocks/MockSoundComponentFactory.hpp"
 #include "Mocks/MockSoundSystemComponent.hpp"
 
-class SoundScene_Tests : public TestHarness< SoundScene >
+class SoundScene_Tests : public TestHarness<SoundScene>
 {
 
 protected:

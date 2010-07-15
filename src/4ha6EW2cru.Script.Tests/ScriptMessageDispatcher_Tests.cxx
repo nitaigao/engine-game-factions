@@ -6,7 +6,7 @@ using namespace Script;
 
 #include "Mocks/MockScriptFunctionHandler.hpp"
 
-class ScriptMessageDispatcher_Tests : public TestHarness< ScriptMessageDispatcher >
+class ScriptMessageDispatcher_Tests : public TestHarness<ScriptMessageDispatcher>
 {
 
 protected:

@@ -28,7 +28,7 @@ namespace Script
 
   void ScriptMessageDispatcher::AddMessageHandler(const System::MessageType& message, luabind::object delegateFunction)
   {
-    std::pair< System::MessageType, IScriptFunctionHandler* > messagePair = std::make_pair(message, new ScriptFunctionHandler(delegateFunction));
+    std::pair<System::MessageType, IScriptFunctionHandler*> messagePair = std::make_pair(message, new ScriptFunctionHandler(delegateFunction));
     m_handlers.insert(messagePair);
   }
 
@@ -59,7 +59,7 @@ namespace Script
 
     for(DelegateFunctionMap::iterator i = it1; i != it2; ++i)
     {
-      if (static_cast< ScriptFunctionHandler* >((*i).second)->Compare(&handler))
+      if (static_cast<ScriptFunctionHandler*>((*i).second)->Compare(&handler))
       {
         (*i).second->MarkForDeletion();
       }

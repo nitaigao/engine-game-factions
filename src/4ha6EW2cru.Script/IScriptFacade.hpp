@@ -24,7 +24,7 @@ namespace Script
 
   public:
 
-    typedef std::deque< IScriptFacade* > ScriptFacadeList;
+    typedef std::deque<IScriptFacade*> ScriptFacadeList;
 
     /*! Default Destructor
      *

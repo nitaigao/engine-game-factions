@@ -14,7 +14,7 @@ void EventFixture::Should_Return_Correct_Data()
   MockEventData* testEventData = new MockEventData(99);
   Event event(TEST_EVENT, testEventData);
 
-  MockEventData* eventData = static_cast< MockEventData* >(event.GetEventData()) ;
+  MockEventData* eventData = static_cast<MockEventData*>(event.GetEventData()) ;
   CPPUNIT_ASSERT(testEventData->GetData() == eventData->GetData());
 }
 

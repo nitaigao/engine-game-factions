@@ -20,7 +20,7 @@ namespace Sound
 
   public:
 
-    typedef std::map< std::string, FMOD::Event* > SoundEventList;
+    typedef std::map<std::string, FMOD::Event*> SoundEventList;
 
     /*! Default Destructor
      *

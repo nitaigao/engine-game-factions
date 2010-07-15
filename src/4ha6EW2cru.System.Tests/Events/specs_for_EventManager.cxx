@@ -10,7 +10,7 @@ using namespace Events;
 
 namespace in_general
 {
-  class EventManager_BaseContext : public TestHarness< EventManager >
+  class EventManager_BaseContext : public TestHarness<EventManager>
   {
 
   protected:
@@ -40,7 +40,7 @@ namespace in_general
   
     void Expecting()
     {
-      EXPECT_CALL(*m_eventListener, HandleEvent(A< const IEvent* >()));
+      EXPECT_CALL(*m_eventListener, HandleEvent(A<const IEvent*>()));
     }
   
     void When()

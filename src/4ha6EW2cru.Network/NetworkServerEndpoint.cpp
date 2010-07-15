@@ -85,7 +85,7 @@ namespace Network
     std::string fileExtension = (clientAddress == serverAddress) ? "-fps.xml" : ".xml";
 
     std::stringstream entityFilePath;
-    entityFilePath << "/data/entities/" << characterName << fileExtension;
+    entityFilePath <<"/data/entities/" <<characterName <<fileExtension;
     parameters[ System::Attributes::FilePath ] = entityFilePath.str();
 
     m_serviceManager->FindService(System::Types::ENTITY)

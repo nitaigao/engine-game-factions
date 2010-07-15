@@ -8,7 +8,7 @@ using namespace Resources;
 
 namespace base_context
 {
-  class ResourceCache_BaseContext : public TestHarness< ResourceCache >
+  class ResourceCache_BaseContext : public TestHarness<ResourceCache>
   {
 
   protected:

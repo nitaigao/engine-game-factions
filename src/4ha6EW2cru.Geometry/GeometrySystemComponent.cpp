@@ -10,12 +10,12 @@ namespace Geometry
   {
     if (message == System::Messages::SetPosition)
     {
-      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As<MathVector3>();
     }
 
     if (message == System::Messages::SetOrientation)
     {
-      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
+      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As<MathQuaternion>();
     }
 
     if(message == System::Messages::PostInitialize)
@@ -39,10 +39,10 @@ namespace Geometry
 
   void GeometrySystemComponent::Serialize(IO::IStream* stream)
   {
-    System::Types::Type systemType = m_attributes[ System::Attributes::SystemType ].As< System::Types::Type >();
-    stream->Write(static_cast< int >(systemType));
-    stream->Write(m_attributes[ System::Attributes::Position ].As< MathVector3 >());
-    stream->Write(m_attributes[ System::Attributes::Orientation ].As< MathQuaternion >());
+    System::Types::Type systemType = m_attributes[ System::Attributes::SystemType ].As<System::Types::Type>();
+    stream->Write(static_cast<int>(systemType));
+    stream->Write(m_attributes[ System::Attributes::Position ].As<MathVector3>());
+    stream->Write(m_attributes[ System::Attributes::Orientation ].As<MathQuaternion>());
   }
 
   void GeometrySystemComponent::DeSerialize(IO::IStream* stream)

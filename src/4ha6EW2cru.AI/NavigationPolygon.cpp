@@ -20,7 +20,7 @@ namespace AI
   {
     PolyEdgeList edges;
 
-    for (unsigned int i = 1; i < m_offsetVertices.size(); i++)
+    for (unsigned int i = 1; i <m_offsetVertices.size(); i++)
     {
       PolyEdge edge(m_offsetVertices[ i - 1 ], m_offsetVertices[ i ]);
       edges.push_back(edge);
@@ -66,7 +66,7 @@ namespace AI
     Maths::MathVector3 crossPoint1 = (b - a).CrossProduct(point1 - a);
     Maths::MathVector3 crossPoint2 = (b - a).CrossProduct(point2 - a);
 
-    return (crossPoint1.DotProduct(crossPoint2) >= 0);
+    return (crossPoint1.DotProduct(crossPoint2)>= 0);
   }
 
   bool NavigationPolygon::IsNeighbour(const NavigationPolygon* polygon) const
@@ -122,7 +122,7 @@ namespace AI
   {
     m_parent = parent;
 
-    for(unsigned int i = 0; i < this->GetNeighbours().size(); i++)
+    for(unsigned int i = 0; i <this->GetNeighbours().size(); i++)
     {
       if (this->GetNeighbours()[ i ] == parent)
       {

@@ -49,7 +49,7 @@ namespace UX
 
     for(AnyType::AnyTypeMap::iterator i = results.begin(); i != results.end(); ++i)
     {
-      m_masterState->RegisterTypes((*i).second.As< scope >());
+      m_masterState->RegisterTypes((*i).second.As<scope>());
     }
 
     m_masterState->RegisterTypes(SystemFacade::RegisterFunctions());
@@ -61,8 +61,8 @@ namespace UX
 
     if (typeid(*m_masterState) == typeid(LuaState))
     {
-      static_cast< LuaState* >(m_masterState)->SetGlobal("ux", this);
-      static_cast< LuaState* >(m_masterState)->SetGlobal("Configuration", static_cast< ScriptConfiguration* >(m_scriptConfiguration));
+      static_cast<LuaState*>(m_masterState)->SetGlobal("ux", this);
+      static_cast<LuaState*>(m_masterState)->SetGlobal("Configuration", static_cast<ScriptConfiguration*>(m_scriptConfiguration));
     }
 
     m_masterState->LoadScript("/data/interface/interface.lua");
@@ -127,7 +127,7 @@ namespace UX
   void UXSystemScene::UnScriptWidget(MyGUI::Widget* widget, const std::string& eventName, luabind::object function)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     if (0 != widgetUserData)
     {
@@ -152,22 +152,22 @@ namespace UX
 
           if (eventName == "onListSelectAccept")
           {
-            static_cast< MultiList* >(widget)->eventListSelectAccept = 0;
+            static_cast<MultiList*>(widget)->eventListSelectAccept = 0;
           }
 
           if(eventName == "onScrollChangePosition")
           {
-            static_cast< VScroll* >(widget)->eventScrollChangePosition = 0;
+            static_cast<VScroll*>(widget)->eventScrollChangePosition = 0;
           }
 
           if (eventName == "onWindowButtonPressed")
           {
-            static_cast< Window* >(widget)->eventWindowButtonPressed = 0;
+            static_cast<Window*>(widget)->eventWindowButtonPressed = 0;
           }
 
           if (eventName == "onWindowChangeCoord")
           {
-            static_cast< Window* >(widget)->eventWindowChangeCoord = 0;
+            static_cast<Window*>(widget)->eventWindowChangeCoord = 0;
           }
 
           widgetUserData->erase(i);
@@ -182,7 +182,7 @@ namespace UX
   {
     void* userData = widget->getUserData();
 
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     if (widgetUserData == 0)
     {
@@ -192,7 +192,7 @@ namespace UX
     object* handlerFunctionPtr = new object(function);
     widgetUserData->insert(std::make_pair(eventName, handlerFunctionPtr));
 
-    widget->setUserData(static_cast< void* >(widgetUserData));
+    widget->setUserData(static_cast<void*>(widgetUserData));
 
     if (eventName == "onRelease")
     {
@@ -211,29 +211,29 @@ namespace UX
 
     if (eventName == "onListSelectAccept")
     {
-      static_cast< MultiList* >(widget)->eventListSelectAccept = newDelegate(&UXSystemScene::OnListSelectAccept);
+      static_cast<MultiList*>(widget)->eventListSelectAccept = newDelegate(&UXSystemScene::OnListSelectAccept);
     }
 
     if(eventName == "onScrollChangePosition")
     {
-      static_cast< VScroll* >(widget)->eventScrollChangePosition = newDelegate(&UXSystemScene::OnEventScrollChangePosition);
+      static_cast<VScroll*>(widget)->eventScrollChangePosition = newDelegate(&UXSystemScene::OnEventScrollChangePosition);
     }
 
     if (eventName == "onWindowButtonPressed")
     {
-      static_cast< Window* >(widget)->eventWindowButtonPressed = newDelegate(&UXSystemScene::OnWindowButtonPressed);
+      static_cast<Window*>(widget)->eventWindowButtonPressed = newDelegate(&UXSystemScene::OnWindowButtonPressed);
     }
 
     if (eventName == "onWindowChangeCoord")
     {
-      static_cast< Window* >(widget)->eventWindowChangeCoord = newDelegate(&UXSystemScene::OnWindowChangeCoord);
+      static_cast<Window*>(widget)->eventWindowChangeCoord = newDelegate(&UXSystemScene::OnWindowChangeCoord);
     }
   }
 
   void UXSystemScene::OnMouseReleased(MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -243,13 +243,13 @@ namespace UX
 
         try
         {
-          eventHandler(static_cast< int >(id.value), left, top);
+          eventHandler(static_cast<int>(id.value), left, top);
         }
         catch(error& e)
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
@@ -259,7 +259,7 @@ namespace UX
   void UXSystemScene::OnMousePressed(MyGUI::WidgetPtr widget, int left, int top, MyGUI::MouseButton id)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -269,13 +269,13 @@ namespace UX
 
         try
         {
-          eventHandler(static_cast< int >(id.value), left, top);
+          eventHandler(static_cast<int>(id.value), left, top);
         }
         catch(error& e)
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
@@ -285,7 +285,7 @@ namespace UX
   void UXSystemScene::OnKeyUp(MyGUI::WidgetPtr widget, MyGUI::KeyCode key)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -298,13 +298,13 @@ namespace UX
 
         try
         {
-          eventHandler(static_cast< int >(key.value), std::string(keyText));
+          eventHandler(static_cast<int>(key.value), std::string(keyText));
         }
         catch(error& e)
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
@@ -314,7 +314,7 @@ namespace UX
   void UXSystemScene::OnListSelectAccept(MultiListPtr widget, size_t index)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -330,7 +330,7 @@ namespace UX
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
@@ -340,7 +340,7 @@ namespace UX
   void UXSystemScene::OnEventScrollChangePosition(MyGUI::VScrollPtr widget, size_t position)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -350,13 +350,13 @@ namespace UX
 
         try
         {
-          eventHandler(static_cast< int >(position));
+          eventHandler(static_cast<int>(position));
         }
         catch(error& e)
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
@@ -366,7 +366,7 @@ namespace UX
   void UXSystemScene::OnWindowButtonPressed(MyGUI::WindowPtr widget, const std::string& name)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -382,7 +382,7 @@ namespace UX
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
@@ -392,7 +392,7 @@ namespace UX
   void UXSystemScene::OnWindowChangeCoord(MyGUI::WindowPtr widget)
   {
     void* userData = widget->getUserData();
-    IGUI::WidgetUserData* widgetUserData = static_cast< IGUI::WidgetUserData* >(userData);
+    IGUI::WidgetUserData* widgetUserData = static_cast<IGUI::WidgetUserData*>(userData);
 
     for (IGUI::WidgetUserData::iterator i = widgetUserData->begin(); i != widgetUserData->end(); ++i)
     {
@@ -408,37 +408,37 @@ namespace UX
         {
           object error_msg(from_stack(e.state() , -1));
           std::stringstream logMessage;
-          logMessage << error_msg;
+          logMessage <<error_msg;
           Warn(logMessage.str());
         }
       }
     }
   }
 
-  std::vector< std::string > UXSystemScene::GetSupportedResolutions()
+  std::vector<std::string> UXSystemScene::GetSupportedResolutions()
   {
-    typedef std::vector< std::string > StringVector;
+    typedef std::vector<std::string> StringVector;
 
     IService* renderService = m_serviceManager->FindService(System::Types::RENDER);
-    StringVector resolutions = renderService->ProcessMessage("getAvailableVideoModes", AnyType::AnyTypeMap())[ "availableVideoModes" ].As< StringVector >();
+    StringVector resolutions = renderService->ProcessMessage("getAvailableVideoModes", AnyType::AnyTypeMap())[ "availableVideoModes" ].As<StringVector>();
 
-    std::multimap< int, std::string > resolutionWidths;
+    std::multimap<int, std::string> resolutionWidths;
 
     for(StringVector::iterator i = resolutions.begin(); i != resolutions.end(); ++i)
     {
       std::string resolution = (*i);
 
       std::stringstream resolutionStream;
-      resolutionStream << resolution.substr(0, resolution.find(" x "));
+      resolutionStream <<resolution.substr(0, resolution.find(" x "));
 
       int resolutionWidth = 0;
-      resolutionStream >> resolutionWidth;
+      resolutionStream>> resolutionWidth;
       resolutionWidths.insert(std::make_pair(resolutionWidth, resolution));
     }
 
     resolutions.clear();
 
-    for(std::multimap< int, std::string >::iterator i = resolutionWidths.begin(); i != resolutionWidths.end(); ++i)
+    for(std::multimap<int, std::string>::iterator i = resolutionWidths.begin(); i != resolutionWidths.end(); ++i)
     {
       resolutions.push_back((*i).second);
     }

@@ -6,7 +6,7 @@
   ProjectGUID="{29BDC832-1CA6-43C0-B0D1-2908EFBB057B}"
   RootNamespace="My4ha6EW2cruRenderer"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -21,7 +21,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.Renderer"
       ConfigurationType="2"
       CharacterSet="2"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -98,7 +98,7 @@
       ConfigurationType="2"
       CharacterSet="2"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -182,53 +182,53 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\BadArchive.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\BadArchiveFactory.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\CameraComponent.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\FPSCameraComponent.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Line3d.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\LineFactory.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreLogListener.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxModel.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxScene.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxUtilities.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.cpp"
-        >
+       >
         <FileConfiguration
           Name="Debug|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -236,7 +236,7 @@
         </FileConfiguration>
         <FileConfiguration
           Name="Release|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -245,132 +245,132 @@
       </File>
       <File
         RelativePath=".\OgreMax\ProgressCalculator.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\RendererSystem.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\RendererSystemComponent.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\RendererSystemScene.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\SystemDefinition.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\SystemDefinition.def"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\Version.cpp"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\BadArchive.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\BadArchiveFactory.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\CameraComponent.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\FPSCameraComponent.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\IRendererSystem.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IRendererSystemComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IRenderSystemScene.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\Line3d.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\LineFactory.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreLogListener.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxModel.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxPlatform.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxRenderWindowIterator.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxTypes.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\OgreMaxUtilities.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\ProgressCalculator.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\RendererSystem.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\RendererSystemComponent.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\RendererSystemScene.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\OgreMax\Version.hpp"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
   </Files>
   <Globals>

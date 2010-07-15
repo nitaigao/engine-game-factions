@@ -15,7 +15,7 @@ namespace Testing
   /*!
    *  A BDD Specification 
    */
-  template< class T >
+  template<class T>
   class Specificaton : public CPPUNIT_NS::TestFixture
   {
 

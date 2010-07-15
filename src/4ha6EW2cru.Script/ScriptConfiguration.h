@@ -23,7 +23,7 @@ namespace Script
   class ScriptConfiguration : public IScriptConfiguration
   {
 
-    typedef std::vector< std::string > StringList;
+    typedef std::vector<std::string> StringList;
 
   public:
 
@@ -51,7 +51,7 @@ namespace Script
     *
     *  @return (bool)
     */
-    inline bool IsFullScreen() const { return m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::FullScreen).As< bool >(); };
+    inline bool IsFullScreen() const { return m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::FullScreen).As<bool>(); };
     
     
     /*! Sets whether the game is in Full Screen
@@ -66,7 +66,7 @@ namespace Script
     *
     *  @return (int)
     */
-    inline int GetDisplayWidth () const { return m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Width).As< int >(); };
+    inline int GetDisplayWidth () const { return m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Width).As<int>(); };
     
     
     /*! Sets the Game window Width
@@ -81,7 +81,7 @@ namespace Script
     *
     *  @return (int)
     */
-    inline int GetDisplayHeight () const { return  m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Height).As< int >(); };
+    inline int GetDisplayHeight () const { return  m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Height).As<int>(); };
     
     
     /*! Sets the Game window Height
@@ -96,14 +96,14 @@ namespace Script
     *
     *  @return (int)
     */
-    inline int GetColorDepth() const { return m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Depth).As< int >(); };
+    inline int GetColorDepth() const { return m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Depth).As<int>(); };
 
 
     /*! Returns whether the Developer Console is Enabled
     *
     *  @return (bool)
     */
-    inline bool IsConsole() const { return m_configuration->Find(Configuration::ConfigSections::Developer, Configuration::ConfigItems::Developer::Console).As< bool >(); };
+    inline bool IsConsole() const { return m_configuration->Find(Configuration::ConfigSections::Developer, Configuration::ConfigItems::Developer::Console).As<bool>(); };
     
     
     /*! Sets whether the Developer Console is Enabled
@@ -118,7 +118,7 @@ namespace Script
     *
     * @return (bool)
     */
-    inline bool IsInvertY() const { return m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::InvertY).As< bool >(); };
+    inline bool IsInvertY() const { return m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::InvertY).As<bool>(); };
 
 
     /*! Sets whether the Mouse has an inverted Y axis
@@ -133,7 +133,7 @@ namespace Script
     *
     * @return (bool)
     */
-    inline bool IsSmoothMouse() const { return m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::SmoothMouse).As< bool >(); };
+    inline bool IsSmoothMouse() const { return m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::SmoothMouse).As<bool>(); };
 
 
     /*! Sets whether the Mouse is smoothed
@@ -148,7 +148,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetMouseSmoothAmount() const { return m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount).As< int >(); };
+    inline int GetMouseSmoothAmount() const { return m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount).As<int>(); };
 
 
     /*! Sets the amount of mouse smoothing used
@@ -163,7 +163,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetSFXVolume() const { return m_configuration->Find(Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::SFXVolume).As< int >(); };
+    inline int GetSFXVolume() const { return m_configuration->Find(Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::SFXVolume).As<int>(); };
 
 
     /*! Sets the SFX Volume
@@ -178,7 +178,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetMusicVolume() const { return m_configuration->Find(Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::MusicVolume).As< int >(); };
+    inline int GetMusicVolume() const { return m_configuration->Find(Configuration::ConfigSections::Sound, Configuration::ConfigItems::Sound::MusicVolume).As<int>(); };
 
 
     /*! Sets the Music Volume
@@ -201,7 +201,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetServerPort() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort).As< int >(); };
+    inline int GetServerPort() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerPort).As<int>(); };
 
 
     /*! Sets the Bot Count
@@ -216,7 +216,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetServerBotCount() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount).As< int >(); };
+    inline int GetServerBotCount() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerBotCount).As<int>(); };
 
 
     /*! Sets the Server Name
@@ -231,7 +231,7 @@ namespace Script
     *
     * @return (std::string)
     */
-    inline std::string GetServerName() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName).As< std::string >(); };
+    inline std::string GetServerName() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerName).As<std::string>(); };
 
 
     /*! Sets the Server Time Limit
@@ -246,7 +246,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetServerTimeLimit() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit).As< int >(); };
+    inline int GetServerTimeLimit() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerTimeLimit).As<int>(); };
 
 
     /*! Sets the Frag Limit for the Server
@@ -261,7 +261,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetServerFragLimit() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit).As< int >(); };
+    inline int GetServerFragLimit() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerFragLimit).As<int>(); };
 
 
     /*! Sets the Max Players for the Server
@@ -276,7 +276,7 @@ namespace Script
     *
     * @return (int)
     */
-    inline int GetServerMaxPlayers() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers).As< int >(); };
+    inline int GetServerMaxPlayers() const { return m_configuration->Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers).As<int>(); };
 
   private:
 

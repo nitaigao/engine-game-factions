@@ -10,7 +10,7 @@ using namespace Script;
 #include "Mocks/MockScriptComponent.hpp"
 #include "Mocks/MockConfiguration.hpp"
 
-class ScriptSystem_Tests : public TestHarness< ScriptSystem >
+class ScriptSystem_Tests : public TestHarness<ScriptSystem>
 {
 
 protected:

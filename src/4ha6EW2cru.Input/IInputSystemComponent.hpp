@@ -23,7 +23,7 @@ namespace Input
 
   public:
 
-    typedef std::deque< IInputSystemComponent* > InputSystemComponentList;
+    typedef std::deque<IInputSystemComponent*> InputSystemComponentList;
 
     /*! Default Destructor
      *

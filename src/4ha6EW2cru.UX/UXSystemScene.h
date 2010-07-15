@@ -276,9 +276,9 @@ namespace UX
 
     /*! Returns a list of supported Video Resolutions
     *
-    *  @return (std::vector< std::string >)
+    *  @return (std::vector<std::string>)
     */
-    std::vector< std::string > GetSupportedResolutions();
+    std::vector<std::string> GetSupportedResolutions();
 
 
     void ShowScreen(const std::string& screenName);
@@ -308,22 +308,22 @@ namespace UX
 
     static inline void MultiList_AddColumn(MyGUI::MultiListPtr widget, const std::string& name, int width) { widget->addColumn(name, width); };
     static inline void MultiList_AddItem(MyGUI::MultiListPtr widget, const std::string& name) { widget->addItem(name); };
-    static inline int MultiList_GetSelectedIndex(MyGUI::MultiListPtr widget) { return static_cast< int >(widget->getIndexSelected()); };
-    static inline int MultiList_GetColumnCount(MyGUI::MultiListPtr widget) { return static_cast< int >(widget->getColumnCount()); };
+    static inline int MultiList_GetSelectedIndex(MyGUI::MultiListPtr widget) { return static_cast<int>(widget->getIndexSelected()); };
+    static inline int MultiList_GetColumnCount(MyGUI::MultiListPtr widget) { return static_cast<int>(widget->getColumnCount()); };
     static inline int MultiList_GetColumnWidthAt(MyGUI::MultiListPtr widget, int index) { return widget->getColumnWidthAt(index); };
     static inline void MultiList_SetColumnWidthAt(MyGUI::MultiListPtr widget, int index, int width) { return widget->setColumnWidthAt(index, width); };
     static inline std::string MultiList_GetItemName(MyGUI::MultiListPtr widget, int index) { return widget->getItemNameAt(index); };
     static inline std::string MultiList_GetSubItemName(MyGUI::MultiListPtr widget, int column, int index) { return widget->getSubItemNameAt(column, index); };
-    static inline int MultiList_GetItemCount(MyGUI::MultiListPtr widget) { return static_cast< int >(widget->getItemCount()); };
+    static inline int MultiList_GetItemCount(MyGUI::MultiListPtr widget) { return static_cast<int>(widget->getItemCount()); };
     static inline void MultiList_SetSubItemName(MyGUI::MultiListPtr widget, int column, int index, const std::string& name) { widget->setSubItemNameAt(column,index, name); };
 
-    static inline MyGUI::ButtonPtr AsButton(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::ButtonPtr >(widget); };
-    static inline MyGUI::ComboBoxPtr AsComboBox(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::ComboBoxPtr >(widget); };
-    static inline MyGUI::EditPtr AsEditBox(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::EditPtr >(widget); };
-    static inline MyGUI::ProgressPtr AsProgressBar(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::ProgressPtr >(widget); };
-    static inline MyGUI::MultiListPtr AsMultiList(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::MultiListPtr >(widget); };
-    static inline MyGUI::VScrollPtr AsScrollBar(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::VScrollPtr > (widget); };
-    static inline MyGUI::WindowPtr AsWindow(MyGUI::WidgetPtr widget) { return static_cast< MyGUI::WindowPtr >(widget); };
+    static inline MyGUI::ButtonPtr AsButton(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::ButtonPtr>(widget); };
+    static inline MyGUI::ComboBoxPtr AsComboBox(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::ComboBoxPtr>(widget); };
+    static inline MyGUI::EditPtr AsEditBox(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::EditPtr>(widget); };
+    static inline MyGUI::ProgressPtr AsProgressBar(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::ProgressPtr>(widget); };
+    static inline MyGUI::MultiListPtr AsMultiList(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::MultiListPtr>(widget); };
+    static inline MyGUI::VScrollPtr AsScrollBar(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::VScrollPtr> (widget); };
+    static inline MyGUI::WindowPtr AsWindow(MyGUI::WidgetPtr widget) { return static_cast<MyGUI::WindowPtr>(widget); };
 
   private:
 

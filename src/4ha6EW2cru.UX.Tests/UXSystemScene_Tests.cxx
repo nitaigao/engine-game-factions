@@ -17,7 +17,7 @@ using namespace UX;
 #include <MyGUI.h>
 using namespace MyGUI;
 
-class UXSystemScene_Tests : public TestHarness< UXSystemScene >
+class UXSystemScene_Tests : public TestHarness<UXSystemScene>
 {
 
 protected:
@@ -64,7 +64,7 @@ TEST_F(UXSystemScene_Tests, should_initialize)
   AnyType::AnyTypeMap results;
 
   // poll systems for script functions
-  EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::RegisterScriptFunctions, An< AnyType::AnyTypeMap >()))
+  EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::RegisterScriptFunctions, An<AnyType::AnyTypeMap>()))
     .WillOnce(Return(results));
 
   m_subject->Initialize();
@@ -125,7 +125,7 @@ TEST_F(UXSystemScene_Tests, should_change_resolution)
 
   EXPECT_CALL(*m_gui, WindowResized());
   EXPECT_CALL(*m_serviceManager, FindService(System::Types::RENDER)).WillOnce(Return(&service));
-  EXPECT_CALL(service, ProcessMessage(System::Messages::Graphics::ChangeResolution, An< AnyType::AnyTypeMap >()))
+  EXPECT_CALL(service, ProcessMessage(System::Messages::Graphics::ChangeResolution, An<AnyType::AnyTypeMap>()))
     .WillOnce(Return(AnyType::AnyTypeMap()));
 
   m_subject->ChangeResolution(90, 10, true);

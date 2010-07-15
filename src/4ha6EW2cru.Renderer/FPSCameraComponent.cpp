@@ -19,7 +19,7 @@ namespace Renderer
 
     if (message == System::Messages::Mouse_Moved)
     {
-      m_attributes[ System::Parameters::DeltaY ] = parameters[ System::Parameters::DeltaY ].As< float >();
+      m_attributes[ System::Parameters::DeltaY ] = parameters[ System::Parameters::DeltaY ].As<float>();
     }
 
     return result;
@@ -29,10 +29,10 @@ namespace Renderer
   {
     RendererSystemComponent::Update(deltaMilliseconds);
 
-    float pitchDelta = m_attributes[ System::Parameters::DeltaY ].As< float >();
+    float pitchDelta = m_attributes[ System::Parameters::DeltaY ].As<float>();
     float pitch = m_cameraNode->getOrientation().getPitch().valueDegrees();
 
-    if(pitch + -pitchDelta < 90.0f && pitch + -pitchDelta > -90.0f)
+    if(pitch + -pitchDelta <90.0f && pitch + -pitchDelta> -90.0f)
     {
       m_cameraNode->pitch(Degree(-pitchDelta));
     } 
@@ -79,12 +79,12 @@ namespace Renderer
     m_scene->GetSceneManager()->getRootSceneNode()->addChild(m_sceneNode);
 
     std::stringstream cameraNodeName;
-    cameraNodeName << m_name << "_cameraNode";
+    cameraNodeName <<m_name <<"_cameraNode";
 
     m_cameraNode = m_sceneNode->createChildSceneNode(cameraNodeName.str());
 
     std::stringstream cameraName;
-    cameraName << m_name << "_camera";
+    cameraName <<m_name <<"_camera";
 
     Camera* camera = m_scene->GetSceneManager()->createCamera(cameraName.str());
     camera->setNearClipDistance(0.14f);
@@ -97,10 +97,10 @@ namespace Renderer
     m_scene->GetSceneManager()->getCurrentViewport()->setCamera(camera);
 
     std::stringstream modelNodeName;
-    modelNodeName << m_name << "_modelNode";
+    modelNodeName <<m_name <<"_modelNode";
 
     SceneNode* modelNode = m_cameraNode->createChildSceneNode(modelNodeName.str());
-    this->LoadModel(modelNode, m_attributes[ System::Parameters::Model ].As< std::string >());
+    this->LoadModel(modelNode, m_attributes[ System::Parameters::Model ].As<std::string>());
     modelNode->setPosition(modelNode->getPosition() - cameraOffset);
 
     /*Entity *axis = m_scene->GetSceneManager()->createEntity("poi_axis", "/data/entities/meshes/axes.mesh");

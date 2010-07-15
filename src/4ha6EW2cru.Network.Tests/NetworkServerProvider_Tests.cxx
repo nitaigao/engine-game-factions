@@ -25,7 +25,7 @@ using namespace RakNet;
 #include "Configuration/ConfigurationTypes.hpp"
 using namespace Configuration;
 
-class NetworkServerProvider_Tests : public TestHarness< NetworkServerProvider >
+class NetworkServerProvider_Tests : public TestHarness<NetworkServerProvider>
 {
   
 protected:
@@ -57,7 +57,7 @@ protected:
 
 TEST_F(NetworkServerProvider_Tests, should_initialize_network_interface)
 {
-  EXPECT_CALL(*m_networkInterface, Initialize(An< unsigned int >(), An< int >()));
+  EXPECT_CALL(*m_networkInterface, Initialize(An<unsigned int>(), An<int>()));
 
   EXPECT_CALL(*m_configuration, Find(ConfigSections::Network, ConfigItems::Network::ServerPort))
     .WillRepeatedly(Return(8989));
@@ -83,7 +83,7 @@ TEST_F(NetworkServerProvider_Tests, should_set_offline_message_on_level_changed)
   EXPECT_CALL(*m_configuration, Find(ConfigSections::Network, ConfigItems::Network::MaxPlayers))
     .WillOnce(Return(10));
 
-  EXPECT_CALL(*m_networkInterface, SetOfflinePingInformation(A< BitStream* >()));
+  EXPECT_CALL(*m_networkInterface, SetOfflinePingInformation(A<BitStream*>()));
 
   EXPECT_CALL(*m_configuration, Find(ConfigSections::Network, ConfigItems::Network::ServerPort))
     .WillRepeatedly(Return(8989));
@@ -144,7 +144,7 @@ TEST_F(NetworkServerProvider_Tests, should_forward_mouse_moved_events_to_the_net
   AnyType::AnyTypeMap parameters;
   parameters[ System::Parameters::DeltaX ] = "1.0f";
 
-  EXPECT_CALL(*m_controller, MessageEntity(entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(*m_controller, MessageEntity(entityName, System::Messages::Mouse_Moved, An<AnyType::AnyTypeMap>()));
 
   m_subject->Message(&component, System::Messages::Mouse_Moved, parameters);
 }

@@ -6,7 +6,7 @@
 #include "Sound/SoundScene.h"
 using namespace Sound;
 
-class SoundScene_Specs_BaseContext : public Testing::Specificaton< SoundScene >
+class SoundScene_Specs_BaseContext : public Testing::Specificaton<SoundScene>
 {
 
 public:

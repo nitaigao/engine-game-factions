@@ -6,9 +6,9 @@ namespace Script
 {
   void ScriptFacadeManager::Initialize(ISystemComponent* scriptComponent)
   {
-    for(int i = 0; i < IScriptFacade::FACADETYPE_MAX; i++)
+    for(int i = 0; i <IScriptFacade::FACADETYPE_MAX; i++)
     {
-      IScriptFacade* facade = m_facadeFactory->CreateScriptFacade(static_cast< IScriptFacade::FacadeType >(i), scriptComponent, m_state);
+      IScriptFacade* facade = m_facadeFactory->CreateScriptFacade(static_cast<IScriptFacade::FacadeType>(i), scriptComponent, m_state);
       m_facades.push_back(facade);
       facade->Initialize();
     }

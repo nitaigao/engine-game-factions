@@ -25,8 +25,8 @@ namespace Script
 
   public:
 
-    typedef std::deque< IScriptFunctionHandler* > FunctionList;
-    typedef std::multimap< unsigned int, IScriptFunctionHandler* > FunctionMap;
+    typedef std::deque<IScriptFunctionHandler*> FunctionList;
+    typedef std::multimap<unsigned int, IScriptFunctionHandler*> FunctionMap;
 
     /*! Default Destructor
      *

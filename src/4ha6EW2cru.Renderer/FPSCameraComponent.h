@@ -19,7 +19,7 @@ namespace Renderer
   class FPSCameraComponent : public RendererSystemComponent
   {
 
-    typedef std::deque< float > InputHistory;
+    typedef std::deque<float> InputHistory;
 
   public:
 

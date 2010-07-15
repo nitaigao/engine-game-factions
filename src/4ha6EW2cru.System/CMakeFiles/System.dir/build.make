@@ -51,23 +51,23 @@ include CMakeFiles/System.dir/flags.make
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o: /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_1)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_1)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp > CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp> CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.requires
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.provides: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.provides
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o.provides.build: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
@@ -75,23 +75,23 @@ CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/t
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o: /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_2)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp > CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp> CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.requires
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.provides: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.provides
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o.provides.build: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
@@ -99,23 +99,23 @@ CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/t
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o: /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_3)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_3)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp > CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp> CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.requires
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.provides: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.provides
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o.provides.build: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
@@ -123,23 +123,23 @@ CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/t
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o: /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_4)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_4)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o -c /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp > CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp> CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp -o CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.requires
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.provides: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.provides
 
 CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o.provides.build: CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
@@ -147,23 +147,23 @@ CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/t
 
 CMakeFiles/System.dir/precompiled.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/precompiled.cpp.o: precompiled.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_5)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/precompiled.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/precompiled.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_5)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/precompiled.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/precompiled.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp
 
 CMakeFiles/System.dir/precompiled.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/precompiled.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp > CMakeFiles/System.dir/precompiled.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/precompiled.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp> CMakeFiles/System.dir/precompiled.cpp.i
 
 CMakeFiles/System.dir/precompiled.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/precompiled.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp -o CMakeFiles/System.dir/precompiled.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/precompiled.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp -o CMakeFiles/System.dir/precompiled.cpp.s
 
 CMakeFiles/System.dir/precompiled.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/precompiled.cpp.o.requires
 
 CMakeFiles/System.dir/precompiled.cpp.o.provides: CMakeFiles/System.dir/precompiled.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/precompiled.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/precompiled.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/precompiled.cpp.o.provides
 
 CMakeFiles/System.dir/precompiled.cpp.o.provides.build: CMakeFiles/System.dir/precompiled.cpp.o
@@ -171,23 +171,23 @@ CMakeFiles/System.dir/precompiled.cpp.o.provides.build: CMakeFiles/System.dir/pr
 
 CMakeFiles/System.dir/Configuration/Configuration.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Configuration/Configuration.cpp.o: Configuration/Configuration.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_6)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Configuration/Configuration.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Configuration/Configuration.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_6)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Configuration/Configuration.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Configuration/Configuration.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp
 
 CMakeFiles/System.dir/Configuration/Configuration.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Configuration/Configuration.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp > CMakeFiles/System.dir/Configuration/Configuration.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Configuration/Configuration.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp> CMakeFiles/System.dir/Configuration/Configuration.cpp.i
 
 CMakeFiles/System.dir/Configuration/Configuration.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Configuration/Configuration.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp -o CMakeFiles/System.dir/Configuration/Configuration.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Configuration/Configuration.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp -o CMakeFiles/System.dir/Configuration/Configuration.cpp.s
 
 CMakeFiles/System.dir/Configuration/Configuration.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Configuration/Configuration.cpp.o.requires
 
 CMakeFiles/System.dir/Configuration/Configuration.cpp.o.provides: CMakeFiles/System.dir/Configuration/Configuration.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/Configuration.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/Configuration.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Configuration/Configuration.cpp.o.provides
 
 CMakeFiles/System.dir/Configuration/Configuration.cpp.o.provides.build: CMakeFiles/System.dir/Configuration/Configuration.cpp.o
@@ -195,23 +195,23 @@ CMakeFiles/System.dir/Configuration/Configuration.cpp.o.provides.build: CMakeFil
 
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o: Configuration/ConfigurationFile.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_7)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/ConfigurationFile.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_7)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/ConfigurationFile.cpp
 
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/ConfigurationFile.cpp > CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/ConfigurationFile.cpp> CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.i
 
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/ConfigurationFile.cpp -o CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/ConfigurationFile.cpp -o CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.s
 
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.requires
 
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.provides: CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.provides
 
 CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.provides.build: CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o
@@ -219,23 +219,23 @@ CMakeFiles/System.dir/Configuration/ConfigurationFile.cpp.o.provides.build: CMak
 
 CMakeFiles/System.dir/Logging/Logger.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Logging/Logger.cpp.o: Logging/Logger.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Logging/Logger.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Logging/Logger.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Logging/Logger.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_8)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Logging/Logger.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Logging/Logger.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Logging/Logger.cpp
 
 CMakeFiles/System.dir/Logging/Logger.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Logging/Logger.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Logging/Logger.cpp > CMakeFiles/System.dir/Logging/Logger.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Logging/Logger.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Logging/Logger.cpp> CMakeFiles/System.dir/Logging/Logger.cpp.i
 
 CMakeFiles/System.dir/Logging/Logger.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Logging/Logger.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Logging/Logger.cpp -o CMakeFiles/System.dir/Logging/Logger.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Logging/Logger.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Logging/Logger.cpp -o CMakeFiles/System.dir/Logging/Logger.cpp.s
 
 CMakeFiles/System.dir/Logging/Logger.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Logging/Logger.cpp.o.requires
 
 CMakeFiles/System.dir/Logging/Logger.cpp.o.provides: CMakeFiles/System.dir/Logging/Logger.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Logging/Logger.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Logging/Logger.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Logging/Logger.cpp.o.provides
 
 CMakeFiles/System.dir/Logging/Logger.cpp.o.provides.build: CMakeFiles/System.dir/Logging/Logger.cpp.o
@@ -243,23 +243,23 @@ CMakeFiles/System.dir/Logging/Logger.cpp.o.provides.build: CMakeFiles/System.dir
 
 CMakeFiles/System.dir/Events/EventManager.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Events/EventManager.cpp.o: Events/EventManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_9)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Events/EventManager.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Events/EventManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Events/EventManager.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_9)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Events/EventManager.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Events/EventManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Events/EventManager.cpp
 
 CMakeFiles/System.dir/Events/EventManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Events/EventManager.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Events/EventManager.cpp > CMakeFiles/System.dir/Events/EventManager.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Events/EventManager.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Events/EventManager.cpp> CMakeFiles/System.dir/Events/EventManager.cpp.i
 
 CMakeFiles/System.dir/Events/EventManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Events/EventManager.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Events/EventManager.cpp -o CMakeFiles/System.dir/Events/EventManager.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Events/EventManager.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Events/EventManager.cpp -o CMakeFiles/System.dir/Events/EventManager.cpp.s
 
 CMakeFiles/System.dir/Events/EventManager.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Events/EventManager.cpp.o.requires
 
 CMakeFiles/System.dir/Events/EventManager.cpp.o.provides: CMakeFiles/System.dir/Events/EventManager.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Events/EventManager.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Events/EventManager.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Events/EventManager.cpp.o.provides
 
 CMakeFiles/System.dir/Events/EventManager.cpp.o.provides.build: CMakeFiles/System.dir/Events/EventManager.cpp.o
@@ -267,23 +267,23 @@ CMakeFiles/System.dir/Events/EventManager.cpp.o.provides.build: CMakeFiles/Syste
 
 CMakeFiles/System.dir/Service/ServiceManager.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Service/ServiceManager.cpp.o: Service/ServiceManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_10)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Service/ServiceManager.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Service/ServiceManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Service/ServiceManager.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_10)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Service/ServiceManager.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Service/ServiceManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Service/ServiceManager.cpp
 
 CMakeFiles/System.dir/Service/ServiceManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Service/ServiceManager.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Service/ServiceManager.cpp > CMakeFiles/System.dir/Service/ServiceManager.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Service/ServiceManager.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Service/ServiceManager.cpp> CMakeFiles/System.dir/Service/ServiceManager.cpp.i
 
 CMakeFiles/System.dir/Service/ServiceManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Service/ServiceManager.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Service/ServiceManager.cpp -o CMakeFiles/System.dir/Service/ServiceManager.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Service/ServiceManager.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Service/ServiceManager.cpp -o CMakeFiles/System.dir/Service/ServiceManager.cpp.s
 
 CMakeFiles/System.dir/Service/ServiceManager.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Service/ServiceManager.cpp.o.requires
 
 CMakeFiles/System.dir/Service/ServiceManager.cpp.o.provides: CMakeFiles/System.dir/Service/ServiceManager.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Service/ServiceManager.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Service/ServiceManager.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Service/ServiceManager.cpp.o.provides
 
 CMakeFiles/System.dir/Service/ServiceManager.cpp.o.provides.build: CMakeFiles/System.dir/Service/ServiceManager.cpp.o
@@ -291,23 +291,23 @@ CMakeFiles/System.dir/Service/ServiceManager.cpp.o.provides.build: CMakeFiles/Sy
 
 CMakeFiles/System.dir/System/SystemManager.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/System/SystemManager.cpp.o: System/SystemManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_11)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/System/SystemManager.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/System/SystemManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/System/SystemManager.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_11)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/System/SystemManager.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/System/SystemManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/System/SystemManager.cpp
 
 CMakeFiles/System.dir/System/SystemManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/System/SystemManager.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/System/SystemManager.cpp > CMakeFiles/System.dir/System/SystemManager.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/System/SystemManager.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/System/SystemManager.cpp> CMakeFiles/System.dir/System/SystemManager.cpp.i
 
 CMakeFiles/System.dir/System/SystemManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/System/SystemManager.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/System/SystemManager.cpp -o CMakeFiles/System.dir/System/SystemManager.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/System/SystemManager.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/System/SystemManager.cpp -o CMakeFiles/System.dir/System/SystemManager.cpp.s
 
 CMakeFiles/System.dir/System/SystemManager.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/System/SystemManager.cpp.o.requires
 
 CMakeFiles/System.dir/System/SystemManager.cpp.o.provides: CMakeFiles/System.dir/System/SystemManager.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/System/SystemManager.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/System/SystemManager.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/System/SystemManager.cpp.o.provides
 
 CMakeFiles/System.dir/System/SystemManager.cpp.o.provides.build: CMakeFiles/System.dir/System/SystemManager.cpp.o
@@ -315,23 +315,23 @@ CMakeFiles/System.dir/System/SystemManager.cpp.o.provides.build: CMakeFiles/Syst
 
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.o: Maths/MathMatrix.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_12)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Maths/MathMatrix.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Maths/MathMatrix.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Maths/MathMatrix.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_12)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Maths/MathMatrix.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Maths/MathMatrix.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Maths/MathMatrix.cpp
 
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Maths/MathMatrix.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Maths/MathMatrix.cpp > CMakeFiles/System.dir/Maths/MathMatrix.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Maths/MathMatrix.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Maths/MathMatrix.cpp> CMakeFiles/System.dir/Maths/MathMatrix.cpp.i
 
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Maths/MathMatrix.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Maths/MathMatrix.cpp -o CMakeFiles/System.dir/Maths/MathMatrix.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Maths/MathMatrix.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Maths/MathMatrix.cpp -o CMakeFiles/System.dir/Maths/MathMatrix.cpp.s
 
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.requires
 
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.provides: CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.provides
 
 CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.provides.build: CMakeFiles/System.dir/Maths/MathMatrix.cpp.o
@@ -339,23 +339,23 @@ CMakeFiles/System.dir/Maths/MathMatrix.cpp.o.provides.build: CMakeFiles/System.d
 
 CMakeFiles/System.dir/Game/Game.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Game/Game.cpp.o: Game/Game.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_13)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Game/Game.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Game/Game.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/Game.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_13)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Game/Game.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Game/Game.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/Game.cpp
 
 CMakeFiles/System.dir/Game/Game.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Game/Game.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/Game.cpp > CMakeFiles/System.dir/Game/Game.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Game/Game.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/Game.cpp> CMakeFiles/System.dir/Game/Game.cpp.i
 
 CMakeFiles/System.dir/Game/Game.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Game/Game.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/Game.cpp -o CMakeFiles/System.dir/Game/Game.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Game/Game.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/Game.cpp -o CMakeFiles/System.dir/Game/Game.cpp.s
 
 CMakeFiles/System.dir/Game/Game.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Game/Game.cpp.o.requires
 
 CMakeFiles/System.dir/Game/Game.cpp.o.provides: CMakeFiles/System.dir/Game/Game.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/Game.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/Game.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Game/Game.cpp.o.provides
 
 CMakeFiles/System.dir/Game/Game.cpp.o.provides.build: CMakeFiles/System.dir/Game/Game.cpp.o
@@ -363,23 +363,23 @@ CMakeFiles/System.dir/Game/Game.cpp.o.provides.build: CMakeFiles/System.dir/Game
 
 CMakeFiles/System.dir/Game/GameFactory.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Game/GameFactory.cpp.o: Game/GameFactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_14)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Game/GameFactory.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Game/GameFactory.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/GameFactory.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_14)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Game/GameFactory.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Game/GameFactory.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/GameFactory.cpp
 
 CMakeFiles/System.dir/Game/GameFactory.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Game/GameFactory.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/GameFactory.cpp > CMakeFiles/System.dir/Game/GameFactory.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Game/GameFactory.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/GameFactory.cpp> CMakeFiles/System.dir/Game/GameFactory.cpp.i
 
 CMakeFiles/System.dir/Game/GameFactory.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Game/GameFactory.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/GameFactory.cpp -o CMakeFiles/System.dir/Game/GameFactory.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Game/GameFactory.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Game/GameFactory.cpp -o CMakeFiles/System.dir/Game/GameFactory.cpp.s
 
 CMakeFiles/System.dir/Game/GameFactory.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Game/GameFactory.cpp.o.requires
 
 CMakeFiles/System.dir/Game/GameFactory.cpp.o.provides: CMakeFiles/System.dir/Game/GameFactory.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/GameFactory.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Game/GameFactory.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Game/GameFactory.cpp.o.provides
 
 CMakeFiles/System.dir/Game/GameFactory.cpp.o.provides.build: CMakeFiles/System.dir/Game/GameFactory.cpp.o
@@ -387,23 +387,23 @@ CMakeFiles/System.dir/Game/GameFactory.cpp.o.provides.build: CMakeFiles/System.d
 
 CMakeFiles/System.dir/IO/ResourceCache.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/IO/ResourceCache.cpp.o: IO/ResourceCache.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_15)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/IO/ResourceCache.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/IO/ResourceCache.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/ResourceCache.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_15)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/IO/ResourceCache.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/IO/ResourceCache.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/ResourceCache.cpp
 
 CMakeFiles/System.dir/IO/ResourceCache.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/IO/ResourceCache.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/ResourceCache.cpp > CMakeFiles/System.dir/IO/ResourceCache.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/IO/ResourceCache.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/ResourceCache.cpp> CMakeFiles/System.dir/IO/ResourceCache.cpp.i
 
 CMakeFiles/System.dir/IO/ResourceCache.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/IO/ResourceCache.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/ResourceCache.cpp -o CMakeFiles/System.dir/IO/ResourceCache.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/IO/ResourceCache.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/ResourceCache.cpp -o CMakeFiles/System.dir/IO/ResourceCache.cpp.s
 
 CMakeFiles/System.dir/IO/ResourceCache.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/IO/ResourceCache.cpp.o.requires
 
 CMakeFiles/System.dir/IO/ResourceCache.cpp.o.provides: CMakeFiles/System.dir/IO/ResourceCache.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/ResourceCache.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/ResourceCache.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/IO/ResourceCache.cpp.o.provides
 
 CMakeFiles/System.dir/IO/ResourceCache.cpp.o.provides.build: CMakeFiles/System.dir/IO/ResourceCache.cpp.o
@@ -411,23 +411,23 @@ CMakeFiles/System.dir/IO/ResourceCache.cpp.o.provides.build: CMakeFiles/System.d
 
 CMakeFiles/System.dir/IO/FileSystem.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/IO/FileSystem.cpp.o: IO/FileSystem.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_16)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/IO/FileSystem.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/IO/FileSystem.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/FileSystem.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_16)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/IO/FileSystem.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/IO/FileSystem.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/FileSystem.cpp
 
 CMakeFiles/System.dir/IO/FileSystem.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/IO/FileSystem.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/FileSystem.cpp > CMakeFiles/System.dir/IO/FileSystem.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/IO/FileSystem.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/FileSystem.cpp> CMakeFiles/System.dir/IO/FileSystem.cpp.i
 
 CMakeFiles/System.dir/IO/FileSystem.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/IO/FileSystem.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/FileSystem.cpp -o CMakeFiles/System.dir/IO/FileSystem.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/IO/FileSystem.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/FileSystem.cpp -o CMakeFiles/System.dir/IO/FileSystem.cpp.s
 
 CMakeFiles/System.dir/IO/FileSystem.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/IO/FileSystem.cpp.o.requires
 
 CMakeFiles/System.dir/IO/FileSystem.cpp.o.provides: CMakeFiles/System.dir/IO/FileSystem.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/FileSystem.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/FileSystem.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/IO/FileSystem.cpp.o.provides
 
 CMakeFiles/System.dir/IO/FileSystem.cpp.o.provides.build: CMakeFiles/System.dir/IO/FileSystem.cpp.o
@@ -435,23 +435,23 @@ CMakeFiles/System.dir/IO/FileSystem.cpp.o.provides.build: CMakeFiles/System.dir/
 
 CMakeFiles/System.dir/State/World.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/World.cpp.o: State/World.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_17)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/World.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/World.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/World.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_17)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/World.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/World.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/World.cpp
 
 CMakeFiles/System.dir/State/World.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/World.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/World.cpp > CMakeFiles/System.dir/State/World.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/World.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/World.cpp> CMakeFiles/System.dir/State/World.cpp.i
 
 CMakeFiles/System.dir/State/World.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/World.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/World.cpp -o CMakeFiles/System.dir/State/World.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/World.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/World.cpp -o CMakeFiles/System.dir/State/World.cpp.s
 
 CMakeFiles/System.dir/State/World.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/World.cpp.o.requires
 
 CMakeFiles/System.dir/State/World.cpp.o.provides: CMakeFiles/System.dir/State/World.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/World.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/World.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/World.cpp.o.provides
 
 CMakeFiles/System.dir/State/World.cpp.o.provides.build: CMakeFiles/System.dir/State/World.cpp.o
@@ -459,23 +459,23 @@ CMakeFiles/System.dir/State/World.cpp.o.provides.build: CMakeFiles/System.dir/St
 
 CMakeFiles/System.dir/State/WorldEntity.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/WorldEntity.cpp.o: State/WorldEntity.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_18)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/WorldEntity.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/WorldEntity.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntity.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_18)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/WorldEntity.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/WorldEntity.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntity.cpp
 
 CMakeFiles/System.dir/State/WorldEntity.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/WorldEntity.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntity.cpp > CMakeFiles/System.dir/State/WorldEntity.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/WorldEntity.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntity.cpp> CMakeFiles/System.dir/State/WorldEntity.cpp.i
 
 CMakeFiles/System.dir/State/WorldEntity.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/WorldEntity.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntity.cpp -o CMakeFiles/System.dir/State/WorldEntity.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/WorldEntity.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntity.cpp -o CMakeFiles/System.dir/State/WorldEntity.cpp.s
 
 CMakeFiles/System.dir/State/WorldEntity.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/WorldEntity.cpp.o.requires
 
 CMakeFiles/System.dir/State/WorldEntity.cpp.o.provides: CMakeFiles/System.dir/State/WorldEntity.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntity.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntity.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/WorldEntity.cpp.o.provides
 
 CMakeFiles/System.dir/State/WorldEntity.cpp.o.provides.build: CMakeFiles/System.dir/State/WorldEntity.cpp.o
@@ -483,23 +483,23 @@ CMakeFiles/System.dir/State/WorldEntity.cpp.o.provides.build: CMakeFiles/System.
 
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o: State/WorldEntityFactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_19)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntityFactory.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_19)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntityFactory.cpp
 
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/WorldEntityFactory.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntityFactory.cpp > CMakeFiles/System.dir/State/WorldEntityFactory.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/WorldEntityFactory.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntityFactory.cpp> CMakeFiles/System.dir/State/WorldEntityFactory.cpp.i
 
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/WorldEntityFactory.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntityFactory.cpp -o CMakeFiles/System.dir/State/WorldEntityFactory.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/WorldEntityFactory.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/WorldEntityFactory.cpp -o CMakeFiles/System.dir/State/WorldEntityFactory.cpp.s
 
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.requires
 
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.provides: CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.provides
 
 CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.provides.build: CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o
@@ -507,23 +507,23 @@ CMakeFiles/System.dir/State/WorldEntityFactory.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o: Platform/ProgramOptions.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_20)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/ProgramOptions.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_20)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/ProgramOptions.cpp
 
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Platform/ProgramOptions.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/ProgramOptions.cpp > CMakeFiles/System.dir/Platform/ProgramOptions.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Platform/ProgramOptions.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/ProgramOptions.cpp> CMakeFiles/System.dir/Platform/ProgramOptions.cpp.i
 
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Platform/ProgramOptions.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/ProgramOptions.cpp -o CMakeFiles/System.dir/Platform/ProgramOptions.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Platform/ProgramOptions.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/ProgramOptions.cpp -o CMakeFiles/System.dir/Platform/ProgramOptions.cpp.s
 
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.requires
 
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.provides: CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.provides
 
 CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.provides.build: CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o
@@ -531,23 +531,23 @@ CMakeFiles/System.dir/Platform/ProgramOptions.cpp.o.provides.build: CMakeFiles/S
 
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o: Platform/OSXPlatformManager.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_21)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXPlatformManager.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_21)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXPlatformManager.cpp
 
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXPlatformManager.cpp > CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXPlatformManager.cpp> CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.i
 
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXPlatformManager.cpp -o CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXPlatformManager.cpp -o CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.s
 
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.requires
 
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.provides: CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.provides
 
 CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.provides.build: CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o
@@ -555,23 +555,23 @@ CMakeFiles/System.dir/Platform/OSXPlatformManager.cpp.o.provides.build: CMakeFil
 
 CMakeFiles/System.dir/Platform/OSXClock.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/Platform/OSXClock.cpp.o: Platform/OSXClock.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_22)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Platform/OSXClock.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Platform/OSXClock.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXClock.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_22)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/Platform/OSXClock.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/Platform/OSXClock.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXClock.cpp
 
 CMakeFiles/System.dir/Platform/OSXClock.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Platform/OSXClock.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXClock.cpp > CMakeFiles/System.dir/Platform/OSXClock.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/Platform/OSXClock.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXClock.cpp> CMakeFiles/System.dir/Platform/OSXClock.cpp.i
 
 CMakeFiles/System.dir/Platform/OSXClock.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Platform/OSXClock.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXClock.cpp -o CMakeFiles/System.dir/Platform/OSXClock.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/Platform/OSXClock.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/Platform/OSXClock.cpp -o CMakeFiles/System.dir/Platform/OSXClock.cpp.s
 
 CMakeFiles/System.dir/Platform/OSXClock.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/Platform/OSXClock.cpp.o.requires
 
 CMakeFiles/System.dir/Platform/OSXClock.cpp.o.provides: CMakeFiles/System.dir/Platform/OSXClock.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXClock.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/Platform/OSXClock.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/Platform/OSXClock.cpp.o.provides
 
 CMakeFiles/System.dir/Platform/OSXClock.cpp.o.provides.build: CMakeFiles/System.dir/Platform/OSXClock.cpp.o
@@ -579,23 +579,23 @@ CMakeFiles/System.dir/Platform/OSXClock.cpp.o.provides.build: CMakeFiles/System.
 
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o: IO/OSXPathInformation.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_23)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/OSXPathInformation.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_23)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/OSXPathInformation.cpp
 
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/IO/OSXPathInformation.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/OSXPathInformation.cpp > CMakeFiles/System.dir/IO/OSXPathInformation.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/IO/OSXPathInformation.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/OSXPathInformation.cpp> CMakeFiles/System.dir/IO/OSXPathInformation.cpp.i
 
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/IO/OSXPathInformation.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/OSXPathInformation.cpp -o CMakeFiles/System.dir/IO/OSXPathInformation.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/IO/OSXPathInformation.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/IO/OSXPathInformation.cpp -o CMakeFiles/System.dir/IO/OSXPathInformation.cpp.s
 
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.requires
 
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.provides: CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.provides
 
 CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.provides.build: CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o
@@ -603,23 +603,23 @@ CMakeFiles/System.dir/IO/OSXPathInformation.cpp.o.provides.build: CMakeFiles/Sys
 
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o: State/Serilaization/AIComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_24)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AIComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_24)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AIComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AIComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AIComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AIComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AIComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o
@@ -627,23 +627,23 @@ CMakeFiles/System.dir/State/Serilaization/AIComponentSerializer.cpp.o.provides.b
 
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o: State/Serilaization/AnimationComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_25)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AnimationComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_25)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AnimationComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AnimationComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AnimationComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AnimationComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/AnimationComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o
@@ -651,23 +651,23 @@ CMakeFiles/System.dir/State/Serilaization/AnimationComponentSerializer.cpp.o.pro
 
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o: State/Serilaization/GeometryComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_26)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GeometryComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_26)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GeometryComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GeometryComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GeometryComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GeometryComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GeometryComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o
@@ -675,23 +675,23 @@ CMakeFiles/System.dir/State/Serilaization/GeometryComponentSerializer.cpp.o.prov
 
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o: State/Serilaization/GraphicsComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_27)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GraphicsComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_27)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GraphicsComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GraphicsComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GraphicsComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GraphicsComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/GraphicsComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o
@@ -699,23 +699,23 @@ CMakeFiles/System.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o.prov
 
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o: State/Serilaization/InputComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_28)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/InputComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_28)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/InputComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/InputComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/InputComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/InputComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/InputComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o
@@ -723,23 +723,23 @@ CMakeFiles/System.dir/State/Serilaization/InputComponentSerializer.cpp.o.provide
 
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o: State/Serilaization/NetworkComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_29)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/NetworkComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_29)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/NetworkComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/NetworkComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/NetworkComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/NetworkComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/NetworkComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o
@@ -747,23 +747,23 @@ CMakeFiles/System.dir/State/Serilaization/NetworkComponentSerializer.cpp.o.provi
 
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o: State/Serilaization/PhysicsComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_30)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/PhysicsComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_30)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/PhysicsComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/PhysicsComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/PhysicsComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/PhysicsComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/PhysicsComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o
@@ -771,23 +771,23 @@ CMakeFiles/System.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o.provi
 
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o: State/Serilaization/ScriptComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_31)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ScriptComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_31)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ScriptComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ScriptComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ScriptComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ScriptComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ScriptComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o
@@ -795,23 +795,23 @@ CMakeFiles/System.dir/State/Serilaization/ScriptComponentSerializer.cpp.o.provid
 
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o: State/Serilaization/SoundComponentSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_32)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/SoundComponentSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_32)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/SoundComponentSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/SoundComponentSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/SoundComponentSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/SoundComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/SoundComponentSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o
@@ -819,23 +819,23 @@ CMakeFiles/System.dir/State/Serilaization/SoundComponentSerializer.cpp.o.provide
 
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o: State/Serilaization/ComponentSerializerFactory.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_33)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ComponentSerializerFactory.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_33)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ComponentSerializerFactory.cpp
 
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ComponentSerializerFactory.cpp > CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ComponentSerializerFactory.cpp> CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ComponentSerializerFactory.cpp -o CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/ComponentSerializerFactory.cpp -o CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o
@@ -843,23 +843,23 @@ CMakeFiles/System.dir/State/Serilaization/ComponentSerializerFactory.cpp.o.provi
 
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o: CMakeFiles/System.dir/flags.make
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o: State/Serilaization/XMLSerializer.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_34)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o"
-	/opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/XMLSerializer.cpp
+  $(CMAKE_COMMAND) -E cmake_progress_report /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles $(CMAKE_PROGRESS_34)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o"
+  /opt/local/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o -c /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/XMLSerializer.cpp
 
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.i"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/XMLSerializer.cpp > CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.i
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.i"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/XMLSerializer.cpp> CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.i
 
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.s"
-	/opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/XMLSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.s
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.s"
+  /opt/local/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/NK/Development/factions/src/4ha6EW2cru.System/State/Serilaization/XMLSerializer.cpp -o CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.s
 
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.requires:
 .PHONY : CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.requires
 
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.provides: CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.provides.build
+  $(MAKE) -f CMakeFiles/System.dir/build.make CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.provides.build
 .PHONY : CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.provides
 
 CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o.provides.build: CMakeFiles/System.dir/State/Serilaization/XMLSerializer.cpp.o
@@ -943,8 +943,8 @@ System_EXTERNAL_OBJECTS =
 /Users/NK/Development/factions/build/bin/libSystem.dylib: /Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib
 /Users/NK/Development/factions/build/bin/libSystem.dylib: CMakeFiles/System.dir/build.make
 /Users/NK/Development/factions/build/bin/libSystem.dylib: CMakeFiles/System.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library /Users/NK/Development/factions/build/bin/libSystem.dylib"
-	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/System.dir/link.txt --verbose=$(VERBOSE)
+  @$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX shared library /Users/NK/Development/factions/build/bin/libSystem.dylib"
+  $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/System.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 CMakeFiles/System.dir/build: /Users/NK/Development/factions/build/bin/libSystem.dylib
@@ -987,10 +987,10 @@ CMakeFiles/System.dir/requires: CMakeFiles/System.dir/State/Serilaization/XMLSer
 .PHONY : CMakeFiles/System.dir/requires
 
 CMakeFiles/System.dir/clean:
-	$(CMAKE_COMMAND) -P CMakeFiles/System.dir/cmake_clean.cmake
+  $(CMAKE_COMMAND) -P CMakeFiles/System.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/System.dir/clean
 
 CMakeFiles/System.dir/depend:
-	cd /Users/NK/Development/factions/src/4ha6EW2cru.System && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/System.dir/DependInfo.cmake --color=$(COLOR)
+  cd /Users/NK/Development/factions/src/4ha6EW2cru.System && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/System.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/System.dir/depend
 

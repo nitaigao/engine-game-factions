@@ -130,14 +130,14 @@ namespace Network
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
 
     /*! Returns the Position of the parent Entity in the scene
     *
     * @return (Maths::MathVector3&)
     */
-    inline Maths::MathVector3 GetPosition() const { return (*m_attributes.find(System::Attributes::Position)).second.As< Maths::MathVector3 >(); };
+    inline Maths::MathVector3 GetPosition() const { return (*m_attributes.find(System::Attributes::Position)).second.As<Maths::MathVector3>(); };
 
   private:
 

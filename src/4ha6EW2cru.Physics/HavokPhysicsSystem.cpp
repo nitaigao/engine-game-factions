@@ -91,7 +91,7 @@ namespace Physics
     Warn(errorMessage);
   }
 
-  std::vector< std::string > HavokPhysicsSystem::RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults)
+  std::vector<std::string> HavokPhysicsSystem::RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults)
   {
     hkpWorldRayCastInput input;
     input.m_from = MathTools::AshkVector4(origin);
@@ -106,9 +106,9 @@ namespace Physics
       collector.sortHits();
     }
 
-    std::vector< std::string > results;
+    std::vector<std::string> results;
     unsigned int resultCount = 0;
-    for(int i = 0; i < collector.getHits().getSize(); i++)
+    for(int i = 0; i <collector.getHits().getSize(); i++)
     {
       if (collector.getHits()[ i ].hasHit())
       {
@@ -118,7 +118,7 @@ namespace Physics
         {
           results.push_back(body->getName());
           
-          if (++resultCount >= maxResults)
+          if (++resultCount>= maxResults)
           {
             break;
           }
@@ -136,10 +136,10 @@ namespace Physics
     if (message == System::Messages::RayQuery)
     {
       results[ "hits" ] = this->RayQuery(
-        parameters[ System::Parameters::Origin ].As< MathVector3 >(),
-        parameters[ System::Parameters::Destination ].As< MathVector3 >(),
-        parameters[ System::Parameters::SortByyDistance ].As< bool >(),
-        parameters[ System::Parameters::MaxResults ].As< int >()
+        parameters[ System::Parameters::Origin ].As<MathVector3>(),
+        parameters[ System::Parameters::Destination ].As<MathVector3>(),
+        parameters[ System::Parameters::SortByyDistance ].As<bool>(),
+        parameters[ System::Parameters::MaxResults ].As<int>()
        );
     }
 

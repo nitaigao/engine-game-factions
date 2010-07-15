@@ -64,9 +64,9 @@ namespace Script
      * @param[in] float length
      * @param[in] bool sortByDistance
      * @param[in] int maxResults
-     * @return (std::vector< std::string >)
+     * @return (std::vector<std::string>)
      */
-    std::vector< std::string > RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults);
+    std::vector<std::string> RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults);
 
 
     /*! Initializes the Facade with the given ScriptComponent

@@ -9,7 +9,7 @@ using namespace Network;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-class NetworkSystemComponent_Tests : public TestHarness< NetworkSystemComponent >
+class NetworkSystemComponent_Tests : public TestHarness<NetworkSystemComponent>
 {
 
 protected:
@@ -40,7 +40,7 @@ TEST_F(NetworkSystemComponent_Tests, should_forward_internal_messages_to_registe
   System::MessageType message = System::Messages::SetPosition;
 
   MockNetworkSystemProvider provider;
-  EXPECT_CALL(provider, Message(m_subject, message, A< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(provider, Message(m_subject, message, A<AnyType::AnyTypeMap>()));
 
   m_subject->SetAttribute(System::Attributes::Name, entityName);
   m_subject->AddProvider(&provider);
@@ -53,7 +53,7 @@ TEST_F(NetworkSystemComponent_Tests, should_notify_network_when_created)
   System::MessageType message = System::Messages::Entity::CreateEntity;
 
   MockNetworkSystemProvider provider;
-  EXPECT_CALL(provider, Message(m_subject, message, An< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(provider, Message(m_subject, message, An<AnyType::AnyTypeMap>()));
 
   m_subject->SetAttribute(System::Attributes::Name, entityName);
   m_subject->AddProvider(&provider);
@@ -66,7 +66,7 @@ TEST_F(NetworkSystemComponent_Tests, should_notify_network_when_destroyed)
   System::MessageType message = System::Messages::Entity::DestroyEntity;
 
   MockNetworkSystemProvider provider;
-  EXPECT_CALL(provider, Message(m_subject, message, An< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(provider, Message(m_subject, message, An<AnyType::AnyTypeMap>()));
 
   m_subject->SetAttribute(System::Attributes::Name, entityName);
   m_subject->AddProvider(&provider);

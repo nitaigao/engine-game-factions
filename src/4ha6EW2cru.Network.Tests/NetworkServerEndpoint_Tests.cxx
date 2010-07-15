@@ -16,7 +16,7 @@ using namespace Network;
 using namespace RakNet;
 
 
-class NetworkServerEndpoint_Tests : public TestHarness< NetworkServerEndpoint >
+class NetworkServerEndpoint_Tests : public TestHarness<NetworkServerEndpoint>
 {
 
 protected:
@@ -98,7 +98,7 @@ TEST_F(NetworkServerEndpoint_Tests, should_message_entity_mouse_moved)
   AnyType::AnyTypeMap parameters;
   parameters[ System::Parameters::DeltaX ] = 0.1f;
 
-  EXPECT_CALL(*m_scene, MessageComponent(entityName, System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(*m_scene, MessageComponent(entityName, System::Messages::Mouse_Moved, An<AnyType::AnyTypeMap>()));
 
   m_subject->MessageEntity(entityName, System::Messages::Mouse_Moved, parameters, 0);
 }

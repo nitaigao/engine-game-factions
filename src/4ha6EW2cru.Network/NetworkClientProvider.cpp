@@ -21,7 +21,7 @@ namespace Network
 
   void NetworkClientProvider::Connect(const std::string& serverAddress)
   {
-    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As< int >();
+    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As<int>();
     m_networkInterface->Connect(serverPort, serverAddress);
   }
 
@@ -49,7 +49,7 @@ namespace Network
 
   void NetworkClientProvider::FindServers()
   {
-    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As< int >();
+    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As<int>();
     m_controller->FindServers(serverPort);
   }
 

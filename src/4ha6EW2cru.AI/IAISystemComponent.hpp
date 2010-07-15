@@ -20,7 +20,7 @@ namespace AI
 
   public:
 
-    typedef std::deque< IAISystemComponent* > AISystemComponentList;
+    typedef std::deque<IAISystemComponent*> AISystemComponentList;
 
     /*! Default Destructor
      *

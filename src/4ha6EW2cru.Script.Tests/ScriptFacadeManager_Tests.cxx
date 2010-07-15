@@ -9,7 +9,7 @@ using namespace Script;
 #include "Mocks/MockScriptComponent.hpp"
 #include "Mocks/MockLuaState.hpp"
 
-class ScriptFacadeManager_Tests : public TestHarness< ScriptFacadeManager >
+class ScriptFacadeManager_Tests : public TestHarness<ScriptFacadeManager>
 {
 
 protected:

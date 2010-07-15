@@ -24,7 +24,7 @@ namespace Input
 
     component->SetAttribute(System::Attributes::Name, name);
     component->SetAttribute(System::Attributes::SystemType, System::Types::INPUT);
-    component->SetAttribute(System::Attributes::Parent, static_cast< IInputSystemScene* >(this));
+    component->SetAttribute(System::Attributes::Parent, static_cast<IInputSystemScene*>(this));
 
     m_inputComponents.push_back(component);
 
@@ -52,14 +52,14 @@ namespace Input
     {
       for(IInputSystemComponent::InputSystemComponentList::iterator i = m_inputComponents.begin(); i != m_inputComponents.end(); ++i )
       {
-        (*i)->SetAttribute(System::Parameters::InvertYAxis, m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::InvertY).As< bool >());
-        (*i)->SetAttribute(System::Parameters::SmoothMouse, m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::SmoothMouse).As< bool >());
-        (*i)->SetAttribute(System::Parameters::MouseSensitivity, m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount).As< int >());
+        (*i)->SetAttribute(System::Parameters::InvertYAxis, m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::InvertY).As<bool>());
+        (*i)->SetAttribute(System::Parameters::SmoothMouse, m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::SmoothMouse).As<bool>());
+        (*i)->SetAttribute(System::Parameters::MouseSensitivity, m_configuration->Find(Configuration::ConfigSections::Input, Configuration::ConfigItems::Input::MouseSmoothAmount).As<int>());
         (*i)->Update(deltaMilliseconds);
       }
 
-      const_cast< MouseState& >(m_system->GetMouse()->getMouseState()).X.abs = m_system->GetMouse()->getMouseState().width / 2;
-      const_cast< MouseState& >(m_system->GetMouse()->getMouseState()).Y.abs = m_system->GetMouse()->getMouseState().height / 2;
+      const_cast<MouseState&>(m_system->GetMouse()->getMouseState()).X.abs = m_system->GetMouse()->getMouseState().width / 2;
+      const_cast<MouseState&>(m_system->GetMouse()->getMouseState()).Y.abs = m_system->GetMouse()->getMouseState().height / 2;
     }
   }
 

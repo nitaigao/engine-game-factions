@@ -18,7 +18,7 @@ using namespace Network;
 #include "Service/IService.hpp"
 using namespace Services;
 
-class NetworkSystem_Tests : public TestHarness< NetworkSystem >
+class NetworkSystem_Tests : public TestHarness<NetworkSystem>
 {
 
 protected:
@@ -59,14 +59,14 @@ protected:
 
 TEST_F(NetworkSystem_Tests, should_add_server_network_provider_to_scene)
 {
-  EXPECT_CALL(*m_serviceManager, RegisterService(An< IService* >()));
-  EXPECT_CALL(*m_scene, AddNetworkProvider(An< INetworkProvider* >()))
+  EXPECT_CALL(*m_serviceManager, RegisterService(An<IService*>()));
+  EXPECT_CALL(*m_scene, AddNetworkProvider(An<INetworkProvider*>()))
     .Times(AtLeast(1));
 
   m_subject->Initialize(m_configuration);
   
   AnyType::AnyTypeMap parameters;
-  parameters[ System::Parameters::Network::Port ] = static_cast< unsigned int >(8989);
+  parameters[ System::Parameters::Network::Port ] = static_cast<unsigned int>(8989);
   parameters[ System::Parameters::Network::Server::MaxPlayers ] = 10;
   parameters[ System::Parameters::Game::LevelName ] = "test";
 
@@ -75,8 +75,8 @@ TEST_F(NetworkSystem_Tests, should_add_server_network_provider_to_scene)
 
 TEST_F(NetworkSystem_Tests, should_add_client_network_provider_to_the_scene)
 {
-  EXPECT_CALL(*m_serviceManager, RegisterService(An< IService* >()));
-  EXPECT_CALL(*m_scene, AddNetworkProvider(An< INetworkProvider* >()));
+  EXPECT_CALL(*m_serviceManager, RegisterService(An<IService*>()));
+  EXPECT_CALL(*m_scene, AddNetworkProvider(An<INetworkProvider*>()));
 
   m_subject->SetAttribute(System::Attributes::Network::IsServer, false);
   m_subject->Initialize(m_configuration);
@@ -88,7 +88,7 @@ TEST_F(NetworkSystem_Tests, should_set_client_to_passive_if_server)
   EXPECT_CALL(*m_clientProvider, SetPassive(true));
 
   AnyType::AnyTypeMap parameters;
-  parameters[ System::Parameters::Network::Port ] = static_cast< unsigned int >(8989);
+  parameters[ System::Parameters::Network::Port ] = static_cast<unsigned int>(8989);
   parameters[ System::Parameters::Network::Server::MaxPlayers ] = 10;
   parameters[ System::Parameters::Game::LevelName ] = "test";
 

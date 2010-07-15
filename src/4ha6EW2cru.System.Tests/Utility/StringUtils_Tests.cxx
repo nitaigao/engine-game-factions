@@ -27,7 +27,7 @@ TEST(StringVector_Tests, should_convert_int_to_string)
   std::string actual = StringUtils::ToString(input);
 
   std::stringstream expected;
-  expected << input;
+  expected <<input;
 
   EXPECT_EQ(expected.str(), actual);
 }

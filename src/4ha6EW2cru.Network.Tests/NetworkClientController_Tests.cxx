@@ -6,7 +6,7 @@ using namespace Network;
 
 #include "Mocks/MockNetworkInterface.hpp"
 
-class NetworkClientController_Tests : public TestHarness< NetworkClientController >
+class NetworkClientController_Tests : public TestHarness<NetworkClientController>
 {
 
 protected:

@@ -14,7 +14,7 @@ namespace Input
 
   public:
 
-    typedef std::deque< InputMessageBinding > InputMessageBindingList;
+    typedef std::deque<InputMessageBinding> InputMessageBindingList;
 
     /*! Default Destructor
     *
@@ -42,7 +42,7 @@ namespace Input
         std::string codeText = fullCode.substr(fullCode.find(keyIdentifier) + keyIdentifier.size());
         std::stringstream codeStream(codeText);
 
-        codeStream >> m_code;
+        codeStream>> m_code;
 
         m_type = BINDING_KEYBOARD;
       }
@@ -54,11 +54,11 @@ namespace Input
         std::string codeText = fullCode.substr(fullCode.find(mouseIdentifier) + mouseIdentifier.size());
         
         std::stringstream codeStream(codeText);
-        codeStream >> m_code;
+        codeStream>> m_code;
 
         m_type = BINDING_MOUSE;
 
-        switch(static_cast< OIS::MouseButtonID >(m_code))
+        switch(static_cast<OIS::MouseButtonID>(m_code))
         {
 
         case OIS::MB_Left: m_text = "MOUSE1"; break;

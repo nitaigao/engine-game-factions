@@ -60,7 +60,7 @@ namespace Script
 
   void ScriptSystemScene::DestroyComponent(ISystemComponent* component)
   {
-    m_components.erase(component->GetAttributes()[ System::Attributes::Name ].As< std::string >());
+    m_components.erase(component->GetAttributes()[ System::Attributes::Name ].As<std::string>());
     component->Destroy();
     delete component;
     component = 0;
@@ -74,7 +74,7 @@ namespace Script
 
     for(AnyType::AnyTypeMap::iterator i = results.begin(); i != results.end(); ++i)
     {
-      m_masterState->RegisterTypes((*i).second.As< scope >());
+      m_masterState->RegisterTypes((*i).second.As<scope>());
     }
 
     m_masterState->RegisterTypes(SystemFacade::RegisterFunctions());
@@ -89,7 +89,7 @@ namespace Script
 
     if (typeid(*m_masterState) == typeid(LuaState))
     {
-      static_cast< LuaState* >(m_masterState)->SetGlobal("Configuration", m_scriptConfiguration);
+      static_cast<LuaState*>(m_masterState)->SetGlobal("Configuration", m_scriptConfiguration);
     }
   }
 

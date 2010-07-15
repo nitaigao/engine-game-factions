@@ -136,7 +136,7 @@ namespace AI
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
   protected:
 

@@ -108,7 +108,7 @@ namespace Physics
 
       hkReal lengthSquared = m_characterInput.m_inputUD * m_characterInput.m_inputUD + m_characterInput.m_inputLR * m_characterInput.m_inputLR;
 
-      if (lengthSquared > HK_REAL_MIN)
+      if (lengthSquared> HK_REAL_MIN)
       {
         lengthSquared = hkMath::sqrt(lengthSquared);
         m_characterInput.m_inputUD /= lengthSquared;
@@ -136,7 +136,7 @@ namespace Physics
 
       if (ground.m_supportedState != hkpSurfaceInfo::SUPPORTED)
       {
-        if (m_framesInAir < skipFramesInAir)
+        if (m_framesInAir <skipFramesInAir)
         {
           m_characterInput.m_surfaceInfo.m_supportedState = hkpSurfaceInfo::SUPPORTED;
           m_characterInput.m_surfaceInfo.m_surfaceNormal = m_previousGround->m_surfaceNormal;
@@ -159,7 +159,7 @@ namespace Physics
 
         m_previousGround->set(ground);
 
-        if (m_framesInAir > skipFramesInAir)
+        if (m_framesInAir> skipFramesInAir)
         {
           m_framesInAir = 0;
         }      
@@ -171,7 +171,7 @@ namespace Physics
 
       MathVector3 newPosition = MathTools::FromhkVector4(m_body->getPosition());
 
-      if (m_attributes[ System::Attributes::Position ].As< MathVector3 >() != newPosition)
+      if (m_attributes[ System::Attributes::Position ].As<MathVector3>() != newPosition)
       {
         m_attributes[ System::Attributes::Position ] = newPosition;
         this->PushMessage(System::Messages::SetPosition, m_attributes);
@@ -179,7 +179,7 @@ namespace Physics
 
       MathQuaternion newOrientation = MathTools::FromhkQuaternion(m_body->getRotation());
 
-      if (m_attributes[ System::Attributes::Orientation ].As< MathQuaternion >() != newOrientation)
+      if (m_attributes[ System::Attributes::Orientation ].As<MathQuaternion>() != newOrientation)
       {
         m_attributes[ System::Attributes::Orientation ] = newOrientation;
         this->PushMessage(System::Messages::SetOrientation, m_attributes);
@@ -241,7 +241,7 @@ namespace Physics
 
     if(message == System::Messages::Mouse_Moved)
     {
-      float yawDelta = parameters[ System::Parameters::DeltaX ].As< float >();
+      float yawDelta = parameters[ System::Parameters::DeltaX ].As<float>();
 
       hkQuaternion rotation;
       rotation.setAxisAngle(MathTools::AshkVector4(MathVector3::Up()), MathUnits::ToRadians(yawDelta));

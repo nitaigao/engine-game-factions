@@ -33,7 +33,7 @@ namespace Network
 
     if ((unsigned char) packet->data[ 0 ] == ID_TIMESTAMP)
     {
-      assert(packet->length > sizeof(unsigned char) + sizeof(unsigned long));
+      assert(packet->length> sizeof(unsigned char) + sizeof(unsigned long));
       return (unsigned char) packet->data[ sizeof(unsigned char) + sizeof(unsigned long) ];
     }
 

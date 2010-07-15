@@ -31,7 +31,7 @@ namespace Renderer
   class RendererSystem : public IRendererSystem, public Services::IService, public Ogre::WindowEventListener
   {
 
-    typedef std::deque< Ogre::MovableObjectFactory* > FactoryList;
+    typedef std::deque<Ogre::MovableObjectFactory*> FactoryList;
 
   public:
 
@@ -140,7 +140,7 @@ namespace Renderer
     void OnGameEnded(const Events::IEvent* event);
 
     void CreateRenderWindow(const std::string& windowTitle, int width, int height, bool fullScreen);
-    std::vector< std::string > GetVideoModes() const;
+    std::vector<std::string> GetVideoModes() const;
 
     AnyType::AnyTypeMap m_attributes;
     Configuration::IConfiguration* m_configuration;

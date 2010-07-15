@@ -12,7 +12,7 @@ using namespace Script;
 #include "Mocks/MockInstrumentation.hpp"
 #include "Mocks/MockResourceCache.hpp"
 
-class ScriptFacadeFactory_Tests : public TestHarness< ScriptFacadeFactory >
+class ScriptFacadeFactory_Tests : public TestHarness<ScriptFacadeFactory>
 {
 
 protected:

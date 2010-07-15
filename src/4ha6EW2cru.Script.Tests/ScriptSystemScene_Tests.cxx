@@ -14,7 +14,7 @@ using namespace luabind;
 #include "Mocks/MockServiceManager.hpp"
 #include "Mocks/MockConfiguration.hpp"
 
-class ScriptSystemScene_Tests : public TestHarness< ScriptSystemScene >
+class ScriptSystemScene_Tests : public TestHarness<ScriptSystemScene>
 {
 
 protected:
@@ -63,15 +63,15 @@ TEST_F(ScriptSystemScene_Tests, should_initialize)
   // init master state
   EXPECT_CALL(*m_masterState, Initialize());
 
-  scope classScope = class_< std::string >("string");
+  scope classScope = class_<std::string>("string");
   AnyType::AnyTypeMap results;
   results[ System::Attributes::SystemType ] = classScope;
 
   // poll systems for script functions
-  EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::RegisterScriptFunctions, An< AnyType::AnyTypeMap >()))
+  EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::RegisterScriptFunctions, An<AnyType::AnyTypeMap>()))
     .WillOnce(Return(results));
 
-  EXPECT_CALL(*m_masterState, RegisterTypes(A< const scope& >()))
+  EXPECT_CALL(*m_masterState, RegisterTypes(A<const scope&>()))
     .Times(AtLeast(1)); // allows for extra scope registrations
 
   m_subject->Initialize();

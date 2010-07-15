@@ -104,7 +104,7 @@ namespace AI
     *
     * @return (Maths::MathVector3)
     */
-    inline Maths::MathVector3 GetPlayerPosition() { return m_attributes[ System::Parameters::PlayerPosition ].As< Maths::MathVector3 >(); };
+    inline Maths::MathVector3 GetPlayerPosition() { return m_attributes[ System::Parameters::PlayerPosition ].As<Maths::MathVector3>(); };
 
 
     /*! Returns the number of waypoints left to process
@@ -159,7 +159,7 @@ namespace AI
     *
     *  @return (const std::string&)
     */
-    inline std::string GetName() { return m_attributes[ System::Attributes::Name ].As< std::string >(); };
+    inline std::string GetName() { return m_attributes[ System::Attributes::Name ].As<std::string>(); };
     
   private:
 

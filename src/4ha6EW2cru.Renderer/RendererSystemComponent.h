@@ -21,7 +21,7 @@ namespace Renderer
   class RendererSystemComponent : public IRendererSystemComponent
   {
 
-    typedef std::deque< Ogre::Skeleton* > SkeletonList;
+    typedef std::deque<Ogre::Skeleton*> SkeletonList;
 
   public:
 
@@ -138,7 +138,7 @@ namespace Renderer
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
   protected:
 

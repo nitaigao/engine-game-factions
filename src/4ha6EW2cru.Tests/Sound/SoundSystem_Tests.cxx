@@ -9,7 +9,7 @@
 #include "Sound/SoundSystem.h"
 using namespace Sound;
 
-class SoundSystem_Specs_BaseContext : public Testing::Specificaton< Sound::SoundSystem >
+class SoundSystem_Specs_BaseContext : public Testing::Specificaton<Sound::SoundSystem>
 {
 
 protected:

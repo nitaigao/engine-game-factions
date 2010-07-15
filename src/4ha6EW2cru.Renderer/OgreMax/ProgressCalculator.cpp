@@ -81,7 +81,7 @@ void ProgressCalculator::SetProgress(Ogre::Real progress)
 
 void ProgressCalculator::Update(Real amount)
 {
-    if (this->range > 0)
+    if (this->range> 0)
     {
         //Update the progress, scaling it by the inverse range
         this->progress += amount / this->range;

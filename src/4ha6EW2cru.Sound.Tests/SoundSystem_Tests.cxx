@@ -13,7 +13,7 @@ using namespace Sound;
 
 #include <fmod.h>
 
-class SoundSystem_Tests : public TestHarness< SoundSystem >
+class SoundSystem_Tests : public TestHarness<SoundSystem>
 {
 
 protected:
@@ -69,7 +69,7 @@ TEST_F(SoundSystem_Tests, should_update_the_event_system)
 
 TEST_F(SoundSystem_Tests, should_initialize_the_event_system)
 {
-  EXPECT_CALL(*m_eventSystem, Initialize(An< FMOD::System* >()));
+  EXPECT_CALL(*m_eventSystem, Initialize(An<FMOD::System*>()));
   m_subject->Initialize(m_configuration);
 }
 

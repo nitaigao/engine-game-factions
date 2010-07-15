@@ -22,7 +22,7 @@ namespace UX
   IUXSystemComponent* UXSystemComponentFactory::CreateComponent(const std::string& name)
   {
     std::stringstream layoutPath;
-    layoutPath << "/data/interface/components/" << name << ".layout";
+    layoutPath <<"/data/interface/components/" <<name <<".layout";
     m_gui->LoadLayout(layoutPath.str());
 
     ILuaState* childState = m_masterState->CreateChild();
@@ -37,11 +37,11 @@ namespace UX
 
     if (typeid(*childState) == typeid(LuaState)) 
     {
-      static_cast< LuaState* >(childState)->SetGlobal("script", component);
+      static_cast<LuaState*>(childState)->SetGlobal("script", component);
     }
 
     std::stringstream scriptPath;
-    scriptPath << "/data/interface/components/" << name << ".lua";
+    scriptPath <<"/data/interface/components/" <<name <<".lua";
     childState->LoadScript(scriptPath.str());
 
     return component;

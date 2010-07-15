@@ -26,7 +26,7 @@ namespace UX
 
   public:
 
-    typedef std::map< std::string, luabind::object* > WidgetUserData;
+    typedef std::map<std::string, luabind::object*> WidgetUserData;
 
     /*! Default Destructor
      *

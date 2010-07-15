@@ -85,10 +85,10 @@ namespace OgreMax
 
         //Comparison operators
         bool operator == (const Version& v) const {return Compare(*this, v) == 0;}
-        bool operator < (const Version& v) const {return Compare(*this, v) < 0;}
+        bool operator <(const Version& v) const {return Compare(*this, v) <0;}
         bool operator <= (const Version& v) const {return Compare(*this, v) <= 0;}
-        bool operator > (const Version& v) const {return Compare(*this, v) > 0;}
-        bool operator >= (const Version& v) const {return Compare(*this, v) >= 0;}
+        bool operator> (const Version& v) const {return Compare(*this, v)> 0;}
+        bool operator>= (const Version& v) const {return Compare(*this, v)>= 0;}
         
         /**
          * Compares two versions.

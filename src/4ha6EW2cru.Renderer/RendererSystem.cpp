@@ -97,14 +97,14 @@ namespace Renderer
     m_root->setRenderSystem(*renderSystemIterator);
 
     std::stringstream videoModeDesc;
-    videoModeDesc << m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Width).As< int >();   
-    videoModeDesc << " x ";
-    videoModeDesc << m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Height).As< int >();
-    videoModeDesc << " @ " << defaultDepth << "-bit colour";
+    videoModeDesc <<m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Width).As<int>();   
+    videoModeDesc <<" x ";
+    videoModeDesc <<m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Height).As<int>();
+    videoModeDesc <<" @ " <<defaultDepth <<"-bit colour";
 
     (*renderSystemIterator)->setConfigOption("Video Mode", videoModeDesc.str());
-    (*renderSystemIterator)->setConfigOption("Full Screen", m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::FullScreen).As< bool >() ? "Yes" : "No");
-    (*renderSystemIterator)->setConfigOption("VSync", m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::VSync).As< bool >() ? "Yes" : "No");
+    (*renderSystemIterator)->setConfigOption("Full Screen", m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::FullScreen).As<bool>() ? "Yes" : "No");
+    (*renderSystemIterator)->setConfigOption("VSync", m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::VSync).As<bool>() ? "Yes" : "No");
 
     m_root->initialise(false);
 
@@ -115,10 +115,10 @@ namespace Renderer
     try
     {
       this->CreateRenderWindow(
-        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::WindowTitle).As< std::string >(), 
-        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Width).As< int >(), 
-        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Height).As< int >(),
-        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::FullScreen).As< bool >()
+        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::WindowTitle).As<std::string>(), 
+        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Width).As<int>(), 
+        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Height).As<int>(),
+        m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::FullScreen).As<bool>()
        );
     }
     catch(Exception e)
@@ -179,19 +179,19 @@ namespace Renderer
 
     if (name == "activeCamera")
     {
-      std::string cameraName = value.As< std::string >();
+      std::string cameraName = value.As<std::string>();
       Camera* camera = m_sceneManager->getCamera(cameraName);
       m_sceneManager->getCurrentViewport()->setCamera(camera);
     }
 
     if (name == "colourAmbient")
     {
-      AnyType::AnyTypeMap parameters = value.As< AnyType::AnyTypeMap >();
+      AnyType::AnyTypeMap parameters = value.As<AnyType::AnyTypeMap>();
 
       ColourValue colorValue(
-        parameters[ "r" ].As< float >(),
-        parameters[ "g" ].As< float >(),
-        parameters[ "b" ].As< float >()
+        parameters[ "r" ].As<float>(),
+        parameters[ "g" ].As<float>(),
+        parameters[ "b" ].As<float>()
        );
 
       m_sceneManager->setAmbientLight(colorValue);
@@ -199,12 +199,12 @@ namespace Renderer
 
     if (name == "colourBackground")
     {
-      AnyType::AnyTypeMap parameters = value.As< AnyType::AnyTypeMap >();
+      AnyType::AnyTypeMap parameters = value.As<AnyType::AnyTypeMap>();
 
       ColourValue colorValue(
-        parameters[ "r" ].As< float >(),
-        parameters[ "g" ].As< float >(),
-        parameters[ "b" ].As< float >()
+        parameters[ "r" ].As<float>(),
+        parameters[ "g" ].As<float>(),
+        parameters[ "b" ].As<float>()
        );
 
       m_sceneManager->getCurrentViewport()->setBackgroundColour(colorValue);
@@ -212,7 +212,7 @@ namespace Renderer
 
     if (name == "farClip")
     {
-      float farClip = value.As< float >();
+      float farClip = value.As<float>();
 
       if (m_sceneManager->isSkyBoxEnabled())
       {
@@ -225,20 +225,20 @@ namespace Renderer
 
     if(name == "fog")
     {
-      AnyType::AnyTypeMap parameters = value.As< AnyType::AnyTypeMap >();
+      AnyType::AnyTypeMap parameters = value.As<AnyType::AnyTypeMap>();
       
       ColourValue colorValue(
-        parameters[ "r" ].As< float >(),
-        parameters[ "g" ].As< float >(),
-        parameters[ "b" ].As< float >()
+        parameters[ "r" ].As<float>(),
+        parameters[ "g" ].As<float>(),
+        parameters[ "b" ].As<float>()
        );
 
       m_sceneManager->setFog(
         FOG_LINEAR, 
         colorValue,
         0.001000, 
-        parameters[ "linearStart" ].As< float >(), 
-        parameters[ "linearEnd" ].As< float >() 
+        parameters[ "linearStart" ].As<float>(), 
+        parameters[ "linearEnd" ].As<float>() 
        );        
 
       /*Ogre::Plane skyPlane;
@@ -250,9 +250,9 @@ namespace Renderer
 
     if (name == "skyBox")
     {
-      AnyType::AnyTypeMap parameters = value.As< AnyType::AnyTypeMap >();
+      AnyType::AnyTypeMap parameters = value.As<AnyType::AnyTypeMap>();
 
-      std::string material = parameters[ "material" ].As< std::string >();
+      std::string material = parameters[ "material" ].As<std::string>();
 
       if (material.empty())
       {
@@ -265,7 +265,7 @@ namespace Renderer
         m_sceneManager->setSkyBox(
           true, 
           m_skyBoxMaterial, 
-          parameters[ "distance" ].As< float >());
+          parameters[ "distance" ].As<float>());
       }
     }
   }
@@ -281,9 +281,9 @@ namespace Renderer
     m_eventManager->QueueEvent(new Event(EventTypes::GAME_QUIT));
   }
 
-  std::vector< std::string > RendererSystem::GetVideoModes() const
+  std::vector<std::string> RendererSystem::GetVideoModes() const
   {
-    std::vector< std::string > availableDisplayModes;
+    std::vector<std::string> availableDisplayModes;
     ConfigOptionMap options = m_root->getRenderSystem()->getConfigOptions();
 
     for(ConfigOptionMap::iterator cm = options.begin(); cm != options.end(); ++cm)
@@ -295,11 +295,11 @@ namespace Renderer
         for(StringVector::iterator i = possibleModes.begin(); i != possibleModes.end(); ++i)
         {
           std::stringstream currentColorDepth;
-          currentColorDepth << m_window->getColourDepth();
+          currentColorDepth <<m_window->getColourDepth();
 
           int result = (*i).find(currentColorDepth.str());
 
-          if (result > -1)
+          if (result> -1)
           {
             std::string mode = (*i).substr(0, (*i).find(" @ "));
             availableDisplayModes.push_back(mode);
@@ -317,7 +317,7 @@ namespace Renderer
     
     NameValuePairList params;
     params[ "externalWindowHandle" ] = StringConverter::toString((int) m_platformManager->GetWindowId());
-    params[ ConfigItems::Graphics::VSync ] = m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::VSync).As< bool >() ? "true" : "false";
+    params[ ConfigItems::Graphics::VSync ] = m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::VSync).As<bool>() ? "true" : "false";
 
     m_window = m_root->createRenderWindow(windowTitle, width, height, fullScreen, &params); 
   }
@@ -335,7 +335,7 @@ namespace Renderer
     vertexCount = indexCount = 0;
 
     // Calculate how many vertices and indices we're going to need
-    for (unsigned short i = 0; i < mesh->getNumSubMeshes(); ++i)
+    for (unsigned short i = 0; i <mesh->getNumSubMeshes(); ++i)
     {
       Ogre::SubMesh* submesh = mesh->getSubMesh(i);
       // We only need to add the shared vertices once
@@ -363,7 +363,7 @@ namespace Renderer
     added_shared = false;
 
     // Run through the submeshes again, adding the data into the arrays
-    for (unsigned short i = 0; i < mesh->getNumSubMeshes(); ++i)
+    for (unsigned short i = 0; i <mesh->getNumSubMeshes(); ++i)
     {
       Ogre::SubMesh* submesh = mesh->getSubMesh(i);
 
@@ -389,7 +389,7 @@ namespace Renderer
         //Ogre::Real* pReal;
         float* pReal;
 
-        for(size_t j = 0; j < vertex_data->vertexCount; ++j, vertex += vbuf->getVertexSize())
+        for(size_t j = 0; j <vertex_data->vertexCount; ++j, vertex += vbuf->getVertexSize())
         {
           posElem->baseVertexPointerToElement(vertex, &pReal);
           Ogre::Vector3 pt(pReal[0], pReal[1], pReal[2]);
@@ -414,14 +414,14 @@ namespace Renderer
 
       if (use32bitindexes)
       {
-        for (size_t k = 0; k < numTris*3; ++k)
+        for (size_t k = 0; k <numTris*3; ++k)
         {
           indices[index_offset++] = pLong[k] + static_cast<unsigned long>(offset);
         }
       }
       else
       {
-        for (size_t k = 0; k < numTris*3; ++k)
+        for (size_t k = 0; k <numTris*3; ++k)
         {
           indices[index_offset++] = static_cast<unsigned long>(pShort[k]) + static_cast<unsigned long>(offset);
         }
@@ -461,9 +461,9 @@ namespace Renderer
     if (message == System::Messages::Graphics::ChangeResolution)
     {
       m_window->setFullscreen( 
-        parameters[ System::Parameters::Graphics::FullScreen ].As< bool >(),
-        parameters[ System::Parameters::Graphics::Width ].As< int >(),
-        parameters[ System::Parameters::Graphics::Height ].As< int >()
+        parameters[ System::Parameters::Graphics::FullScreen ].As<bool>(),
+        parameters[ System::Parameters::Graphics::Width ].As<int>(),
+        parameters[ System::Parameters::Graphics::Height ].As<int>()
        );
     }
 
@@ -475,13 +475,13 @@ namespace Renderer
     if (message == "drawLine")
     {
       std::stringstream lineName;
-      lineName << "line-" << m_platformManager->GenUUID();
+      lineName <<"line-" <<m_platformManager->GenUUID();
 
-      Line3D* line = static_cast< Line3D* >(m_sceneManager->createMovableObject(lineName.str(), Line3D::TypeName()));
+      Line3D* line = static_cast<Line3D*>(m_sceneManager->createMovableObject(lineName.str(), Line3D::TypeName()));
 
       line->drawLine(
-        MathTools::AsOgreVector3(parameters[ "origin" ].As< MathVector3 >()), 
-        MathTools::AsOgreVector3(parameters[ "destination" ].As< MathVector3 >())
+        MathTools::AsOgreVector3(parameters[ "origin" ].As<MathVector3>()), 
+        MathTools::AsOgreVector3(parameters[ "destination" ].As<MathVector3>())
        );
 
       SceneNode* lineNode = m_sceneManager->createSceneNode();
@@ -491,19 +491,19 @@ namespace Renderer
 
     if (message == System::Messages::Graphics::SetCamera)
     {
-      this->SetAttribute("activeCamera", parameters[ System::Parameters::Graphics::CameraName ].As< std::string >());
+      this->SetAttribute("activeCamera", parameters[ System::Parameters::Graphics::CameraName ].As<std::string>());
     }
 
     if (message == System::Messages::Graphics::ScreenShot)
     {
       std::stringstream filePath;
-      filePath << m_platformManager->GetPathInformation()->GetGlobalScreenShotsPath() << "\\";
+      filePath <<m_platformManager->GetPathInformation()->GetGlobalScreenShotsPath() <<"\\";
       m_window->writeContentsToTimestampedFile(filePath.str(), ".jpg");
     }
 
     if (message == System::Messages::LoadMesh)
     {
-      Ogre::MeshPtr mesh = m_root->getMeshManager()->load(parameters[ System::Parameters::NavigationMesh ].As< std::string >(), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+      Ogre::MeshPtr mesh = m_root->getMeshManager()->load(parameters[ System::Parameters::NavigationMesh ].As<std::string>(), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
       size_t vertexCount, indexCount;
       Vector3* vertices;
@@ -513,7 +513,7 @@ namespace Renderer
 
       MathVector3::MathVector3List verts;
 
-      for(size_t i = 0; i < indexCount; i++)
+      for(size_t i = 0; i <indexCount; i++)
       {
         verts.push_back(MathTools::FromOgreVector3(vertices[ indices[ i ] ]));
       }
@@ -526,7 +526,7 @@ namespace Renderer
 
     if (message == System::Messages::RenderMesh)
     {
-      std::string name = parameters[ System::Attributes::Name ].As< std::string >();
+      std::string name = parameters[ System::Attributes::Name ].As<std::string>();
 
       if (m_sceneManager->hasManualObject(name))
       {
@@ -537,7 +537,7 @@ namespace Renderer
       Ogre::ManualObject* mesh = m_sceneManager->createManualObject(name);
       mesh->begin("Yellow", Ogre::RenderOperation::OT_LINE_STRIP);
 
-      MathVector3::MathVector3List vertices = parameters[ System::Parameters::Vertices ].As< MathVector3::MathVector3List >();
+      MathVector3::MathVector3List vertices = parameters[ System::Parameters::Vertices ].As<MathVector3::MathVector3List>();
 
       for(MathVector3::MathVector3List::iterator i = vertices.begin(); i != vertices.end(); ++i)
       {
@@ -546,14 +546,14 @@ namespace Renderer
 
       mesh->end();
 
-      Ogre::SceneNode* sceneNode = m_sceneManager->createSceneNode(parameters[ System::Attributes::Name ].As< std::string >());
+      Ogre::SceneNode* sceneNode = m_sceneManager->createSceneNode(parameters[ System::Attributes::Name ].As<std::string>());
       sceneNode->attachObject(mesh);
       m_sceneManager->getRootSceneNode()->addChild(sceneNode);
     }
 
     if (message == System::Messages::DestroyMesh)
     {
-      std::string name = parameters[ System::Attributes::Name ].As< std::string >();
+      std::string name = parameters[ System::Attributes::Name ].As<std::string>();
       m_sceneManager->destroySceneNode(name);
       m_sceneManager->destroyManualObject(name);
     }

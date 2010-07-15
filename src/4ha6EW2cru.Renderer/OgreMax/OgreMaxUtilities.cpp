@@ -38,7 +38,7 @@ void OgreMaxUtilities::LoadXmlDocument(const String& fileName, TiXmlDocument& do
     if (stream.isNull())
     {
         StringUtil::StrStreamType errorMessage;
-        errorMessage << "Could not open XML file: " << fileName;
+        errorMessage <<"Could not open XML file: " <<fileName;
 
         OGRE_EXCEPT
             (
@@ -57,7 +57,7 @@ void OgreMaxUtilities::LoadXmlDocument(const String& fileName, TiXmlDocument& do
     if (document.Error())
     {
         StringUtil::StrStreamType errorMessage;
-        errorMessage << "There was an error with the XML file: " << fileName;
+        errorMessage <<"There was an error with the XML file: " <<fileName;
 
         OGRE_EXCEPT
             (
@@ -138,7 +138,7 @@ Quaternion OgreMaxUtilities::LoadRotation(const TiXmlElement* objectElement)
 
         //Convert Euler angles to a matrix
         Matrix3 rotationMatrix;
-        if (order.length() < 2)
+        if (order.length() <2)
             rotationMatrix.FromEulerAnglesXYZ(Radian(euler.x), Radian(euler.y), Radian(euler.z));
         else
         {
@@ -196,7 +196,7 @@ void OgreMaxUtilities::LoadBoundingVolume(const TiXmlElement* objectElement, Bou
     volume.type = ParseBoundingVolumeType(type);
     volume.sphereRadius = OgreMaxUtilities::GetRealAttribute(objectElement, "radius", 0);
     int faceCount = OgreMaxUtilities::GetIntAttribute(objectElement, "faceCount", 0);
-    if (faceCount > 0)
+    if (faceCount> 0)
         volume.meshFaces.resize(faceCount);
 
     //Parse child elements
@@ -218,14 +218,14 @@ void OgreMaxUtilities::LoadBoundingVolumeFaces(const TiXmlElement* objectElement
     //Parse child elements, treating them all as faces
     int faceIndex = 0;
     const TiXmlElement* childElement = 0;
-    while ((childElement = IterateChildElements(objectElement, childElement)) && faceIndex < faceCount)
+    while ((childElement = IterateChildElements(objectElement, childElement)) && faceIndex <faceCount)
     {
         BoundingVolume::Face& face = faces[faceIndex++];
 
         //Load the vertices
         int vertexIndex = 0;
         const TiXmlElement* vertexElement = 0;
-        while ((vertexElement = IterateChildElements(childElement, vertexElement)) && vertexIndex < 3)
+        while ((vertexElement = IterateChildElements(childElement, vertexElement)) && vertexIndex <3)
             LoadXYZ(vertexElement, face.vertex[vertexIndex++]);
     }
 }
@@ -274,7 +274,7 @@ Light::LightTypes OgreMaxUtilities::ParseLightType(const String& type)
         return Light::LT_SPOTLIGHT;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid light type specified: " << type;
+    errorMessage <<"Invalid light type specified: " <<type;
 
     OGRE_EXCEPT
         (
@@ -295,7 +295,7 @@ ProjectionType OgreMaxUtilities::ParseProjectionType(const String& type)
         return PT_ORTHOGRAPHIC;
     
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid projection type specified: " << type;
+    errorMessage <<"Invalid projection type specified: " <<type;
 
     OGRE_EXCEPT
         (
@@ -322,7 +322,7 @@ BillboardType OgreMaxUtilities::ParseBillboardType(const String& type)
         return BBT_PERPENDICULAR_SELF;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid billboard type specified: " << type;
+    errorMessage <<"Invalid billboard type specified: " <<type;
 
     OGRE_EXCEPT
         (
@@ -357,7 +357,7 @@ BillboardOrigin OgreMaxUtilities::ParseBillboardOrigin(const String& origin)
         return BBO_BOTTOM_RIGHT;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid billboard origin specified: " << origin;
+    errorMessage <<"Invalid billboard origin specified: " <<origin;
 
     OGRE_EXCEPT
         (
@@ -378,7 +378,7 @@ BillboardRotationType OgreMaxUtilities::ParseBillboardRotationType(const String&
         return BBR_TEXCOORD;
     
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid billboard rotation type specified: " << rotationType;
+    errorMessage <<"Invalid billboard rotation type specified: " <<rotationType;
 
     OGRE_EXCEPT
         (
@@ -403,7 +403,7 @@ FogMode OgreMaxUtilities::ParseFogMode(const String& mode)
         return FOG_NONE;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid fog mode specified: " << mode;
+    errorMessage <<"Invalid fog mode specified: " <<mode;
 
     OGRE_EXCEPT
         (
@@ -430,7 +430,7 @@ HardwareBuffer::Usage OgreMaxUtilities::ParseHardwareBufferUsage(const String& u
         return HardwareBuffer::HBU_DYNAMIC_WRITE_ONLY;
     
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid hardware buffer usage specified: " << usage;
+    errorMessage <<"Invalid hardware buffer usage specified: " <<usage;
 
     OGRE_EXCEPT
         (
@@ -453,7 +453,7 @@ Node::TransformSpace OgreMaxUtilities::ParseTransformSpace(const String& space)
         return Node::TS_WORLD;
     
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid transform space specified: " << space;
+    errorMessage <<"Invalid transform space specified: " <<space;
 
     OGRE_EXCEPT
         (
@@ -476,7 +476,7 @@ BoundingVolume::Type OgreMaxUtilities::ParseBoundingVolumeType(const String& typ
         return BoundingVolume::MESH;
     
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid bounding volume type specified: " << type;
+    errorMessage <<"Invalid bounding volume type specified: " <<type;
 
     OGRE_EXCEPT
         (
@@ -589,7 +589,7 @@ ShadowTechnique OgreMaxUtilities::ParseShadowTechnique(const String& technique)
         return SHADOWTYPE_TEXTURE_ADDITIVE_INTEGRATED;    
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid shadow technique specified: " << technique;
+    errorMessage <<"Invalid shadow technique specified: " <<technique;
 
     OGRE_EXCEPT
         (
@@ -610,7 +610,7 @@ UpAxis OgreMaxUtilities::ParseUpAxis(const String& upAxis)
         return UP_AXIS_Z;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid up axis specified: " << upAxis;
+    errorMessage <<"Invalid up axis specified: " <<upAxis;
 
     OGRE_EXCEPT
         (
@@ -631,7 +631,7 @@ Animation::InterpolationMode OgreMaxUtilities::ParseAnimationInterpolationMode(c
         return Animation::IM_SPLINE;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid animation interpolation mode specified: " << mode;
+    errorMessage <<"Invalid animation interpolation mode specified: " <<mode;
 
     OGRE_EXCEPT
         (
@@ -652,7 +652,7 @@ Animation::RotationInterpolationMode OgreMaxUtilities::ParseAnimationRotationInt
         return Animation::RIM_SPHERICAL;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid animation rotation interpolation mode specified: " << mode;
+    errorMessage <<"Invalid animation rotation interpolation mode specified: " <<mode;
 
     OGRE_EXCEPT
         (
@@ -748,7 +748,7 @@ uint8 OgreMaxUtilities::ParseRenderQueue(const String& renderQueue)
         else
         {
             StringUtil::StrStreamType errorMessage;
-            errorMessage << "Invalid render queue specified: " << renderQueue;
+            errorMessage <<"Invalid render queue specified: " <<renderQueue;
 
             OGRE_EXCEPT
                 (
@@ -807,7 +807,7 @@ PixelFormat OgreMaxUtilities::ParsePixelFormat(const String& pixelFormat)
         return format->second;
     
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid pixel format specified: " << pixelFormat;
+    errorMessage <<"Invalid pixel format specified: " <<pixelFormat;
 
     OGRE_EXCEPT
         (
@@ -832,7 +832,7 @@ TextureType OgreMaxUtilities::ParseTextureType(const String& textureType)
         return TEX_TYPE_CUBE_MAP;
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid texture type specified: " << textureType;
+    errorMessage <<"Invalid texture type specified: " <<textureType;
 
     OGRE_EXCEPT
         (
@@ -998,7 +998,7 @@ const TiXmlElement* OgreMaxUtilities::IterateChildElements(const TiXmlElement* x
 
 bool OgreMaxUtilities::AllDigits(const String& text)
 {
-    for (size_t i = 0; i < text.length(); i++)
+    for (size_t i = 0; i <text.length(); i++)
     {
         if (!isdigit(text[i]))
             return false;
@@ -1015,11 +1015,11 @@ bool OgreMaxUtilities::IsPowerOfTwo(unsigned int value)
 unsigned int OgreMaxUtilities::NextLargestPowerOfTwo(unsigned int value)
 {
     //From Ice/IceUtils.c in the ODE physics library
-    value |= (value >> 1);
-    value |= (value >> 2);
-    value |= (value >> 4);
-    value |= (value >> 8);
-    value |= (value >> 16);
+    value |= (value>> 1);
+    value |= (value>> 2);
+    value |= (value>> 4);
+    value |= (value>> 8);
+    value |= (value>> 16);
     return value + 1;
 }
 
@@ -1032,7 +1032,7 @@ unsigned int OgreMaxUtilities::NextSmallestPowerOfTwo(unsigned int value)
     }
  
     //The value is a power of 2. Shift downward to get the next smallest power of 2
-    return value >> 1;        
+    return value>> 1;        
 }
 
 void OgreMaxUtilities::SetNodeVisibility(SceneNode* node, NodeVisibility visibility)
@@ -1048,13 +1048,13 @@ void OgreMaxUtilities::SetNodeVisibility(SceneNode* node, NodeVisibility visibil
 
 void OgreMaxUtilities::SetCustomParameters(Renderable* renderable, const std::vector<CustomParameter>& customParameters)
 {
-    for (size_t customParameterIndex = 0; customParameterIndex < customParameters.size(); customParameterIndex++)
+    for (size_t customParameterIndex = 0; customParameterIndex <customParameters.size(); customParameterIndex++)
         renderable->setCustomParameter(customParameters[customParameterIndex].id, customParameters[customParameterIndex].value);
 }
 
 void OgreMaxUtilities::SetCustomParameters(Entity* entity, const std::vector<CustomParameter>& customParameters)
 {
-    for (unsigned int subentityIndex = 0; subentityIndex < entity->getNumSubEntities(); subentityIndex++)
+    for (unsigned int subentityIndex = 0; subentityIndex <entity->getNumSubEntities(); subentityIndex++)
         SetCustomParameters(entity->getSubEntity(subentityIndex), customParameters);
 }
 
@@ -1096,7 +1096,7 @@ Entity* OgreMaxUtilities::CreateEntity
 
     //Set subentity materials
     size_t subentityCount = std::min(subentities.size(), (size_t)entity->getNumSubEntities());
-    for (size_t subentityIndex = 0; subentityIndex < subentityCount; subentityIndex++)
+    for (size_t subentityIndex = 0; subentityIndex <subentityCount; subentityIndex++)
     {
         SubEntity* subentity = entity->getSubEntity((unsigned int)subentityIndex);
         subentity->setMaterialName(subentities[subentityIndex].materialName);
@@ -1112,7 +1112,7 @@ bool OgreMaxUtilities::IsSeparator(char c)
 
 void OgreMaxUtilities::EnsureTrailingPathSeparator(String& path)
 {
-    if (path.length() > 0)
+    if (path.length()> 0)
     {
         char lastChar = path[path.size() - 1];
         if (!IsSeparator(lastChar))
@@ -1130,7 +1130,7 @@ void OgreMaxUtilities::MakeFullPath(String& path)
     
     char* filePath;
     DWORD result = GetFullPathName(path.c_str(), maxLength, &fullPath[0], &filePath);
-    if (result > maxLength)
+    if (result> maxLength)
     {     
         fullPath.resize(result);
         result = GetFullPathName(path.c_str(), result, &fullPath[0], &filePath);
@@ -1144,7 +1144,7 @@ bool OgreMaxUtilities::IsAbsolutePath(const String& path)
 {
     if (path.empty())
         return false;    
-    else if (path.length() > 1)
+    else if (path.length()> 1)
     {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
         return path[1] == ':' || (path[0] == '\\' && path[1] == '\\');
@@ -1168,11 +1168,11 @@ String OgreMaxUtilities::JoinPath(const String& path1, const String& path2)
     
     //Skip leading separators in path2
     size_t charIndex = 0;
-    while (charIndex < path2.length() && IsSeparator(path2[charIndex]))
+    while (charIndex <path2.length() && IsSeparator(path2[charIndex]))
         charIndex++;
 
     //If not at the end of path2, append it
-    if (charIndex < path2.length())
+    if (charIndex <path2.length())
         joined += path2.substr(charIndex, path2.length() - charIndex);
 
     //Remove relative components
@@ -1233,7 +1233,7 @@ bool OgreMaxUtilities::IsInternalResourceGroup(const String& resourceGroupName)
 void OgreMaxUtilities::ResetResourceGroups(const String& defaultResourceGroup)
 {
     StringVector resourceGroups = ResourceGroupManager::getSingleton().getResourceGroups();
-    for (size_t index = 0; index < resourceGroups.size(); index++)
+    for (size_t index = 0; index <resourceGroups.size(); index++)
     {
         if (!IsInternalResourceGroup(resourceGroups[index]))
             ResourceGroupManager::getSingleton().destroyResourceGroup(resourceGroups[index]);        

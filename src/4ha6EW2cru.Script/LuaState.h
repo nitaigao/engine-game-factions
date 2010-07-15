@@ -68,7 +68,7 @@ namespace Script
      * @param[in] T * subject
      * @return (void)
      */
-    template< class T >
+    template<class T>
     void SetGlobal(const std::string& globalName, T* subject)
     {
       luabind::globals(m_state)[ globalName ] = subject;

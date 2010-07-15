@@ -20,7 +20,7 @@ using namespace Configuration;
 #include "Events/EventType.hpp"
 using namespace Events;
 
-class UXSystem_Tests : public TestHarness< UXSystem >
+class UXSystem_Tests : public TestHarness<UXSystem>
 {
 
 protected:
@@ -59,7 +59,7 @@ TEST_F(UXSystem_Tests, should_initialize)
 {
   MockService service;
 
-  EXPECT_CALL(*m_eventManager, AddEventListener(A< const std::string& >(), An< IEventListener* >()))
+  EXPECT_CALL(*m_eventManager, AddEventListener(A<const std::string&>(), An<IEventListener*>()))
     .WillRepeatedly(Invoke(MockEventManager::ConsumeEventListener));
 
   m_subject->Initialize(m_configuration);
@@ -67,7 +67,7 @@ TEST_F(UXSystem_Tests, should_initialize)
 
 TEST_F(UXSystem_Tests, should_destroy_the_gui)
 {
-  EXPECT_CALL(*m_eventManager, RemoveEventListener(A< const std::string& >(), An< IEventListener* >()))
+  EXPECT_CALL(*m_eventManager, RemoveEventListener(A<const std::string&>(), An<IEventListener*>()))
     .WillRepeatedly(Invoke(MockEventManager::ConsumeEventListener));
 
   EXPECT_CALL(*m_gui, Destroy());

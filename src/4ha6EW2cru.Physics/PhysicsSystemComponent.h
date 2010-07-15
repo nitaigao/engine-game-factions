@@ -138,7 +138,7 @@ namespace Physics
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
 
     /*! Returns the RigidBody of the Component

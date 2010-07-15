@@ -13,7 +13,7 @@ namespace Testing
   /*! 
    *  A Test Harness for Unit Tests
    */
-  template< class T >
+  template<class T>
   class TestHarness : public testing::Test
   {
 

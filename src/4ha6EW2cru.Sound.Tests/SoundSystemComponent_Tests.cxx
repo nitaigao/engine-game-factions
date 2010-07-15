@@ -9,7 +9,7 @@ using namespace Sound;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-class SoundSystemComponent_Tests : public TestHarness< SoundSystemComponent >
+class SoundSystemComponent_Tests : public TestHarness<SoundSystemComponent>
 {
 
 protected:

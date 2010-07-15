@@ -26,7 +26,7 @@ namespace Network
 
   public:
 
-    typedef std::vector< INetworkProvider* > NetworkProviderList;
+    typedef std::vector<INetworkProvider*> NetworkProviderList;
 
     /*! Default Destructor
      *

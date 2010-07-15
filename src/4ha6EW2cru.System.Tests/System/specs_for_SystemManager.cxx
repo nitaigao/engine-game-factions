@@ -13,7 +13,7 @@ using namespace System;
 
 namespace base_context
 {
-  class SystemManager_BaseContext : public TestHarness< SystemManager >
+  class SystemManager_BaseContext : public TestHarness<SystemManager>
   {
 
   protected:

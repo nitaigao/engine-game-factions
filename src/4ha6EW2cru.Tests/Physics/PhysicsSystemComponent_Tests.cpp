@@ -12,9 +12,9 @@ void PhysicsSystemComponent_Tests::Should_Observe_A_Geometry_Change()
   PhysicsSystemComponent component("Test Physics Component", 0);
   component.Observe(&geomComponent, System::Changes::Geometry::Position);*/
 
-  unsigned int SomeValue = (1 << 0);
-  unsigned int AnotherValue = (1 << 1);
-  unsigned int LastValue = (1 << 2);
+  unsigned int SomeValue = (1 <<0);
+  unsigned int AnotherValue = (1 <<1);
+  unsigned int LastValue = (1 <<2);
 
   unsigned int changes = SomeValue | AnotherValue | LastValue;
 

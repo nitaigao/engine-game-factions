@@ -20,9 +20,9 @@ namespace AI
 
   public:
 
-    typedef std::deque< NavigationPolygon* > NavPolyList;
-    typedef std::pair< Maths::MathVector3, Maths::MathVector3 > PolyEdge;
-    typedef std::deque< PolyEdge > PolyEdgeList;
+    typedef std::deque<NavigationPolygon*> NavPolyList;
+    typedef std::pair<Maths::MathVector3, Maths::MathVector3> PolyEdge;
+    typedef std::deque<PolyEdge> PolyEdgeList;
 
 
     /*! Default Destructor

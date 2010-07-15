@@ -244,7 +244,7 @@ void OgreMaxScene::Load
             else
             {
                 StringUtil::StrStreamType errorMessage;
-                errorMessage << "Unable to load OgreMax scene file: " << absoluteFileName;
+                errorMessage <<"Unable to load OgreMax scene file: " <<absoluteFileName;
 
                 OGRE_EXCEPT
                     (
@@ -258,7 +258,7 @@ void OgreMaxScene::Load
         {
             //File isn't readable and the caller wanted it to be
             StringUtil::StrStreamType errorMessage;
-            errorMessage << "Unable to read OgreMax scene file: " << absoluteFileName;
+            errorMessage <<"Unable to read OgreMax scene file: " <<absoluteFileName;
 
             OGRE_EXCEPT
                 (
@@ -280,7 +280,7 @@ void OgreMaxScene::Load
         if (document.Error())
         {
             StringUtil::StrStreamType errorMessage;
-            errorMessage << "There was an error parsing the scene XML content: " << document.ErrorDesc();
+            errorMessage <<"There was an error parsing the scene XML content: " <<document.ErrorDesc();
 
             OGRE_EXCEPT
                 (
@@ -374,12 +374,12 @@ void OgreMaxScene::Destroy()
 
     //Delete render textures
     //Note that this does not destroy the Ogre resources that the render textures use
-    for (size_t renderTextureIndex = 0; renderTextureIndex < this->loadedRenderTextures.size(); renderTextureIndex++)
+    for (size_t renderTextureIndex = 0; renderTextureIndex <this->loadedRenderTextures.size(); renderTextureIndex++)
     {
         LoadedRenderTexture* loadedRenderTexture = this->loadedRenderTextures[renderTextureIndex];
 
         size_t faceCount = loadedRenderTexture->renderTexture->getNumFaces();
-        for (size_t faceIndex = 0; faceIndex < faceCount; faceIndex++)
+        for (size_t faceIndex = 0; faceIndex <faceCount; faceIndex++)
         {
             RenderTarget* renderTarget = loadedRenderTexture->renderTexture->getBuffer(faceIndex)->getRenderTarget();
             renderTarget->removeListener(this);        
@@ -686,7 +686,7 @@ void OgreMaxScene::preRenderTargetUpdate(const RenderTargetEvent& e)
 
             //Set position into cube face cameras
             size_t faceCount = loadedRenderTexture.renderTexture->getNumFaces();
-            for (size_t faceIndex = 0; faceIndex < faceCount; faceIndex++)
+            for (size_t faceIndex = 0; faceIndex <faceCount; faceIndex++)
                 loadedRenderTexture.cubeFaceCameras[faceIndex]->setPosition(position);
         }
     }    
@@ -727,7 +727,7 @@ String OgreMaxScene::GetNewObjectName(const TiXmlElement* objectElement, SceneNo
     if (this->loadedObjects.find(prefixedName) != this->loadedObjects.end())
     {
         StringUtil::StrStreamType errorMessage;
-        errorMessage << "Duplicate object name: " << prefixedName;
+        errorMessage <<"Duplicate object name: " <<prefixedName;
 
         OGRE_EXCEPT
             (
@@ -767,12 +767,12 @@ void OgreMaxScene::LoadScene(const TiXmlElement* objectElement)
 
     //Make sure the Ogre version used to compile this viewer supports the Ogre version 
     //required by the scene file
-    if (this->minOgreVersion > CURRENT_OGRE_VERSION)
+    if (this->minOgreVersion> CURRENT_OGRE_VERSION)
     {
         StringUtil::StrStreamType errorMessage;
         errorMessage 
-            << "The scene file's required Ogre version (" << this->minOgreVersion.ToString()
-            << ") is not supported by the Ogre version this viewer uses (" << CURRENT_OGRE_VERSION_STRING << ")";
+            <<"The scene file's required Ogre version (" <<this->minOgreVersion.ToString()
+            <<") is not supported by the Ogre version this viewer uses (" <<CURRENT_OGRE_VERSION_STRING <<")";
 
         OGRE_EXCEPT
             (
@@ -1033,7 +1033,7 @@ void OgreMaxScene::LoadInstancedGeometry(const TiXmlElement* objectElement)
     instancedGeometry->build();
 
     //Add additional batch instances
-    for (unsigned int batchIndex = 0; batchIndex < batchCount; batchIndex++)
+    for (unsigned int batchIndex = 0; batchIndex <batchCount; batchIndex++)
         instancedGeometry->addBatchInstance();    
 }
 
@@ -1181,7 +1181,7 @@ void OgreMaxScene::LoadStaticGeometryEntity(const TiXmlElement* objectElement, S
 
 void OgreMaxScene::LoadPortalConnectedZones(const TiXmlElement* objectElement)
 {
-#if OGRE_VERSION_MAJOR > 1 && OGRE_VERSION_MINOR >= 5
+#if OGRE_VERSION_MAJOR> 1 && OGRE_VERSION_MINOR>= 5
     //TODO: Implement this
 #endif
 }
@@ -1222,7 +1222,7 @@ bool OgreMaxScene::LoadResourceLocations(const TiXmlElement* objectElement)
         }
     }
 
-    return locationCount > 0;
+    return locationCount> 0;
 }
 
 bool OgreMaxScene::AddResourceLocation(const ResourceLocation& resourceLocation)
@@ -1272,7 +1272,7 @@ void OgreMaxScene::CommitResourceLocations()
         }
     }
 
-    if (newResourceLocationCount > 0)
+    if (newResourceLocationCount> 0)
         ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
@@ -1408,7 +1408,7 @@ void OgreMaxScene::LoadEnvironment(const TiXmlElement* objectElement)
                 {
                     RenderWindow* renderWindow = this->renderWindows->GetCurrent();
                     unsigned short viewportCount = renderWindow->getNumViewports();
-                    for (unsigned short viewportIndex = 0; viewportIndex < viewportCount; viewportIndex++)
+                    for (unsigned short viewportIndex = 0; viewportIndex <viewportCount; viewportIndex++)
                         renderWindow->getViewport(viewportIndex)->setBackgroundColour(backgroundColor);
                 }while (this->renderWindows->MoveNext());
             }
@@ -1508,7 +1508,7 @@ void OgreMaxScene::LoadRenderTextures(const TiXmlElement* objectElement)
         
         //Initialize all the texture's render targets
         size_t faceCount = loadedRenderTexture->renderTexture->getNumFaces();
-        for (size_t faceIndex = 0; faceIndex < faceCount; faceIndex++)
+        for (size_t faceIndex = 0; faceIndex <faceCount; faceIndex++)
         {
             RenderTarget* renderTarget = loadedRenderTexture->renderTexture->getBuffer(faceIndex)->getRenderTarget();
             renderTarget->setAutoUpdated(renderTextureParams.autoUpdate);
@@ -1530,7 +1530,7 @@ void OgreMaxScene::FinishLoadingRenderTextures()
         Quaternion(0, 0, -1, 0)
         };
 
-    for (; this->currentRenderTextureIndex < this->loadedRenderTextures.size(); this->currentRenderTextureIndex++)
+    for (; this->currentRenderTextureIndex <this->loadedRenderTextures.size(); this->currentRenderTextureIndex++)
     {
         LoadedRenderTexture* loadedRenderTexture = this->loadedRenderTextures[this->currentRenderTextureIndex];
         const RenderTextureParameters& renderTextureParams = loadedRenderTexture->parameters;
@@ -1593,7 +1593,7 @@ void OgreMaxScene::FinishLoadingRenderTextures()
                     }
 
                     //Configure reflection
-                    for (size_t materialIndex = 0; materialIndex < renderTextureParams.materials.size(); materialIndex++)
+                    for (size_t materialIndex = 0; materialIndex <renderTextureParams.materials.size(); materialIndex++)
                     {
                         const RenderTextureParameters::Material& renderTextureMaterial = 
                             renderTextureParams.materials[materialIndex];
@@ -1601,13 +1601,13 @@ void OgreMaxScene::FinishLoadingRenderTextures()
                         MaterialPtr material = MaterialManager::getSingleton().getByName(renderTextureMaterial.name);
                         if (!material.isNull())
                         {
-                            if (renderTextureMaterial.techniqueIndex < material->getNumTechniques())
+                            if (renderTextureMaterial.techniqueIndex <material->getNumTechniques())
                             {
                                 Technique* technique = material->getTechnique(renderTextureMaterial.techniqueIndex);
-                                if (renderTextureMaterial.passIndex < technique->getNumPasses())
+                                if (renderTextureMaterial.passIndex <technique->getNumPasses())
                                 {
                                     Pass* pass = technique->getPass(renderTextureMaterial.passIndex);
-                                    if (renderTextureMaterial.textureUnitIndex < pass->getNumTextureUnitStates())
+                                    if (renderTextureMaterial.textureUnitIndex <pass->getNumTextureUnitStates())
                                     {
                                         TextureUnitState* textureUnit = 
                                             pass->getTextureUnitState(renderTextureMaterial.textureUnitIndex);
@@ -1634,7 +1634,7 @@ void OgreMaxScene::FinishLoadingRenderTextures()
             
             //Create a camera and viewport for each cube face
             String cameraName;
-            for (size_t faceIndex = 0; faceIndex < faceCount; faceIndex++)
+            for (size_t faceIndex = 0; faceIndex <faceCount; faceIndex++)
             {
                 //Build a unique camera name
                 cameraName = loadedRenderTexture->camera->getName() + "_CubeFaceCamera" + StringConverter::toString(faceIndex);
@@ -1679,7 +1679,7 @@ void OgreMaxScene::GetRenderTextureObjects(LoadedRenderTexture* loadedRenderText
 
     //Get hidden objects
     loadedRenderTexture->hiddenObjects.reserve(renderTextureParams.hiddenObjects.size());
-    for (size_t hiddenIndex = 0; hiddenIndex < renderTextureParams.hiddenObjects.size(); hiddenIndex++)
+    for (size_t hiddenIndex = 0; hiddenIndex <renderTextureParams.hiddenObjects.size(); hiddenIndex++)
     {
         if (this->sceneManager->hasSceneNode(renderTextureParams.hiddenObjects[hiddenIndex]))
         {
@@ -1691,7 +1691,7 @@ void OgreMaxScene::GetRenderTextureObjects(LoadedRenderTexture* loadedRenderText
 
     //Get exclusive objects
     loadedRenderTexture->exclusiveObjects.reserve(renderTextureParams.exclusiveObjects.size());
-    for (size_t exclusiveIndex = 0; exclusiveIndex < renderTextureParams.exclusiveObjects.size(); exclusiveIndex++)
+    for (size_t exclusiveIndex = 0; exclusiveIndex <renderTextureParams.exclusiveObjects.size(); exclusiveIndex++)
     {
         if (this->sceneManager->hasSceneNode(renderTextureParams.exclusiveObjects[exclusiveIndex]))
         {
@@ -2096,7 +2096,7 @@ void OgreMaxScene::LoadShadows(const TiXmlElement* objectElement)
         this->sceneManager->setShadowTechnique(params.shadowTechnique);
         this->sceneManager->setShadowTextureSelfShadow(params.selfShadow);         
         this->sceneManager->setShadowColour(params.shadowColor);
-        if (params.farDistance > 0)
+        if (params.farDistance> 0)
             this->sceneManager->setShadowFarDistance(params.farDistance);
 
         //Set shadow texture parameters if necessary
@@ -2311,7 +2311,7 @@ void OgreMaxScene::LoadEntity(const TiXmlElement* objectElement, const MovableOb
 
     //Set subentity materials
     size_t subentityCount = std::min(parameters.subentities.size(), (size_t)entity->getNumSubEntities());
-    for (size_t subentityIndex = 0; subentityIndex < subentityCount; subentityIndex++)
+    for (size_t subentityIndex = 0; subentityIndex <subentityCount; subentityIndex++)
     {
         SubEntity* subentity = entity->getSubEntity((unsigned int)subentityIndex);
         if (!parameters.subentities[subentityIndex].materialName.empty())
@@ -2592,7 +2592,7 @@ void OgreMaxScene::LoadBillboardSet(const TiXmlElement* objectElement, const Mov
     billboardSet->setBillboardType(OgreMaxUtilities::ParseBillboardType(type));
     billboardSet->setBillboardOrigin(OgreMaxUtilities::ParseBillboardOrigin(origin));
     billboardSet->setBillboardRotationType(OgreMaxUtilities::ParseBillboardRotationType(rotationType));
-    if (poolSize > 0)
+    if (poolSize> 0)
         billboardSet->setPoolSize(poolSize);
     billboardSet->setAutoextend(autoExtendPool);
     billboardSet->setCullIndividually(cullIndividual);
@@ -3153,7 +3153,7 @@ ShadowCameraSetup* OgreMaxScene::ParseShadowCameraSetup(const String& type, Plan
     }
 
     StringUtil::StrStreamType errorMessage;
-    errorMessage << "Invalid shadow camera setup specified: " << type;
+    errorMessage <<"Invalid shadow camera setup specified: " <<type;
 
     OGRE_EXCEPT
         (

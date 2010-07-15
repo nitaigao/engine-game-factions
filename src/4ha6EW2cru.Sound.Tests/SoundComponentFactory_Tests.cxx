@@ -6,7 +6,7 @@ using namespace Sound;
 
 #include "Mocks/MockSoundEventSystem.hpp"
 
-class SoundComponentFactory_Tests : public TestHarness< SoundComponentFactory >
+class SoundComponentFactory_Tests : public TestHarness<SoundComponentFactory>
 {
 
 protected:

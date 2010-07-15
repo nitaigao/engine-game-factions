@@ -39,7 +39,7 @@ namespace Animation
 
     m_animationBlender = new AnimationBlender();
 
-    std::string bindPose = m_attributes[ System::Attributes::Animation::BindPose ].As< std::string >();
+    std::string bindPose = m_attributes[ System::Attributes::Animation::BindPose ].As<std::string>();
     IResource* resource = m_resourceCache->GetResource(bindPose);
 
     hkIstream istreamFromMemory(resource->GetFileBuffer()->fileBytes, resource->GetFileBuffer()->fileLength);
@@ -54,27 +54,27 @@ namespace Animation
     m_loadedData.push_back(loadedData);
     loadedData->addReference();
 
-    hkRootLevelContainer* container = static_cast< hkRootLevelContainer* >(reader.getContents("hkRootLevelContainer"));
-    hkaAnimationContainer* animationContainer = reinterpret_cast< hkaAnimationContainer* >(container->findObjectByType(hkaAnimationContainerClass.getName()));
+    hkRootLevelContainer* container = static_cast<hkRootLevelContainer*>(reader.getContents("hkRootLevelContainer"));
+    hkaAnimationContainer* animationContainer = reinterpret_cast<hkaAnimationContainer*>(container->findObjectByType(hkaAnimationContainerClass.getName()));
 
     m_skeleton = animationContainer->m_skeletons[ 0 ];
     m_skeletonInstance = new hkaAnimatedSkeleton(m_skeleton);
 
-    typedef std::map< std::string, std::string > AnimationList;
-    AnimationList animations = m_attributes[ System::Attributes::Animation::Animations ].As< AnimationList >();
+    typedef std::map<std::string, std::string> AnimationList;
+    AnimationList animations = m_attributes[ System::Attributes::Animation::Animations ].As<AnimationList>();
 
     for(AnimationList::iterator i = animations.begin(); i != animations.end(); ++i)
     {
       this->LoadAnimation((*i).first, (*i).second);
 
-      if ((*i).first == m_attributes[ System::Attributes::Animation::DefaultAnimation ].As< std::string >())
+      if ((*i).first == m_attributes[ System::Attributes::Animation::DefaultAnimation ].As<std::string>())
       {
         m_animationBlender->Blend((*i).first);
       }
     }
 
-    AnyType::AnyTypeKeyMap results = this->PushMessage(System::Messages::GetAnimationState, AnyType::AnyTypeMap()).As< AnyType::AnyTypeKeyMap >();
-    m_ogreSkeletons = results[ System::Types::RENDER ].As< SkeletonList >();
+    AnyType::AnyTypeKeyMap results = this->PushMessage(System::Messages::GetAnimationState, AnyType::AnyTypeMap()).As<AnyType::AnyTypeKeyMap>();
+    m_ogreSkeletons = results[ System::Types::RENDER ].As<SkeletonList>();
   }
 
   void AnimationSystemComponent::LoadAnimation(const std::string& animationName, const std::string& animationPath)
@@ -93,8 +93,8 @@ namespace Animation
     m_loadedData.push_back(loadedData);
     loadedData->addReference();
 
-    hkRootLevelContainer* container = static_cast< hkRootLevelContainer* >(reader.getContents("hkRootLevelContainer"));
-    hkaAnimationContainer* animationContainer = reinterpret_cast< hkaAnimationContainer* >(container->findObjectByType(hkaAnimationContainerClass.getName()));
+    hkRootLevelContainer* container = static_cast<hkRootLevelContainer*>(reader.getContents("hkRootLevelContainer"));
+    hkaAnimationContainer* animationContainer = reinterpret_cast<hkaAnimationContainer*>(container->findObjectByType(hkaAnimationContainerClass.getName()));
 
     m_animations.push_back(animationContainer->m_animations[ 0 ]);
     m_animationBindings.push_back(animationContainer->m_bindings[ 0 ]);
@@ -114,27 +114,27 @@ namespace Animation
 
     if (message == System::Messages::StartAnimation)
     {
-      std::string animationName = parameters[ System::Parameters::AnimationName ].As< std::string >();
-      Debug(m_attributes[ System::Attributes::Name ].As< std::string >(), "StartAnimation:", animationName);
+      std::string animationName = parameters[ System::Parameters::AnimationName ].As<std::string>();
+      Debug(m_attributes[ System::Attributes::Name ].As<std::string>(), "StartAnimation:", animationName);
       m_animationBlender->Blend(animationName);
     }
 
     if (message == System::Messages::StopAnimation)
     {
-      std::string animationName = parameters[ System::Parameters::AnimationName ].As< std::string >();
-      Debug(m_attributes[ System::Attributes::Name ].As< std::string >(), "StopAnimation:", animationName);
+      std::string animationName = parameters[ System::Parameters::AnimationName ].As<std::string>();
+      Debug(m_attributes[ System::Attributes::Name ].As<std::string>(), "StopAnimation:", animationName);
       m_animationBlender->UnBlend(animationName);
     }
 
     if (message == System::Messages::SetLookAt)
     {
-      m_attributes[ System::Attributes::LookAt ] = parameters[ System::Attributes::LookAt ].As< MathVector3 >();
-      m_attributes[ System::Attributes::POI ] = parameters[ System::Attributes::POI ].As< MathVector3 >();
+      m_attributes[ System::Attributes::LookAt ] = parameters[ System::Attributes::LookAt ].As<MathVector3>();
+      m_attributes[ System::Attributes::POI ] = parameters[ System::Attributes::POI ].As<MathVector3>();
     }
 
     if (message == System::Messages::SetPosition)
     {
-      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As<MathVector3>();
     }
 
     return result;
@@ -168,7 +168,7 @@ namespace Animation
   
     int boneIndex = hkaSkeletonUtils::findBoneWithName(*pose->getSkeleton(), bone->getName().c_str());
 
-    if (boneIndex > -1)
+    if (boneIndex> -1)
     {
       const hkQsTransform hBone = poseBones[ boneIndex ];
 

@@ -212,12 +212,12 @@ namespace Script
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
 
     inline Maths::MathVector3 GetLookAt() const { return m_lookAt; };
 
-    inline Maths::MathVector3 GetPosition() { return m_attributes[ System::Attributes::Position ].As< Maths::MathVector3 >(); };
+    inline Maths::MathVector3 GetPosition() { return m_attributes[ System::Attributes::Position ].As<Maths::MathVector3>(); };
 
     inline void SetPosition(const Maths::MathVector3& position);
 

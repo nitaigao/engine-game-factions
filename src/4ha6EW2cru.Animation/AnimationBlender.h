@@ -19,8 +19,8 @@ namespace Animation
    */
   class AnimationBlender : public IAnimationBlender
   {
-    typedef std::deque< hkaDefaultAnimationControl* > AnimationList;
-    typedef std::map< std::string, hkaDefaultAnimationControl* > AnimationControllerList;
+    typedef std::deque<hkaDefaultAnimationControl*> AnimationList;
+    typedef std::map<std::string, hkaDefaultAnimationControl*> AnimationControllerList;
 
   public:
 

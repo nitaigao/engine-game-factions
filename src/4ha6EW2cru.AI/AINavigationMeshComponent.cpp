@@ -20,7 +20,7 @@ namespace AI
   void AINavigationMeshComponent::Destroy()
   {
     /*AnyType::AnyTypeMap parameters;
-    parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >();
+    parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As<std::string>();
 
     IService* renderService = Management::Get()->GetServiceManager()->FindService(System::Types::RENDER);
     renderService->MessageType(System::Messages::DestroyMesh, parameters);*/
@@ -30,7 +30,7 @@ namespace AI
   {
     IService* renderService = m_serviceManager->FindService(System::Types::RENDER);
     AnyType::AnyTypeMap results = renderService->ProcessMessage(System::Messages::LoadMesh, m_attributes);
-    MathVector3::MathVector3List vertices = results[ "vertices" ].As< MathVector3::MathVector3List >();
+    MathVector3::MathVector3List vertices = results[ "vertices" ].As<MathVector3::MathVector3List>();
 
     NavigationPolygon* polygon = new NavigationPolygon();
 
@@ -104,7 +104,7 @@ namespace AI
           {
             onOpenList = true;
 
-            if(currentNode->GetCost() < (*open)->GetCost())
+            if(currentNode->GetCost() <(*open)->GetCost())
             {
               (*open)->SetParent(currentNode, finish);
 
@@ -157,7 +157,7 @@ namespace AI
       
       for (NavigationPolygon::NavPolyList::iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
       {
-        (*i)->SetPosition(parameters[ System::Attributes::Position ].As< MathVector3 >());
+        (*i)->SetPosition(parameters[ System::Attributes::Position ].As<MathVector3>());
 
         MathVector3::MathVector3List polyVerts = (*i)->GetVertices();
         for(Maths::MathVector3::MathVector3List::const_iterator i = polyVerts.begin(); i != polyVerts.end(); ++i)
@@ -169,15 +169,15 @@ namespace AI
       this->RecalculateNeighbours();
 
       renderParameters[ System::Parameters::Vertices ] = vertices;
-      renderParameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >();
+      renderParameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As<std::string>();
       renderService->ProcessMessage(System::Messages::RenderMesh, renderParameters);
     }
 
     if (message == System::Messages::FindPath)
     {
       result = this->FindPath( 
-        parameters[ System::Parameters::Origin ].As< MathVector3 >(),
-        parameters[ System::Parameters::Destination ].As< MathVector3 >()
+        parameters[ System::Parameters::Origin ].As<MathVector3>(),
+        parameters[ System::Parameters::Destination ].As<MathVector3>()
        );
     }
 

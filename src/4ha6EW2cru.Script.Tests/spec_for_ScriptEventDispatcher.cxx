@@ -12,7 +12,7 @@ using namespace Events;
 
 namespace given_a_script_is_running
 {
-  class ScriptEventDispatcher_BaseContext : public TestHarness< ScriptEventDispatcher >
+  class ScriptEventDispatcher_BaseContext : public TestHarness<ScriptEventDispatcher>
   {
 
   protected:
@@ -42,10 +42,10 @@ namespace given_a_script_is_running
   
     void Expecting()
     {
-      EXPECT_CALL(*m_eventManager, AddEventListener(A< const std::string& >(), An< IEventListener* >()))
+      EXPECT_CALL(*m_eventManager, AddEventListener(A<const std::string&>(), An<IEventListener*>()))
         .WillOnce(Invoke(MockEventManager::ConsumeEventListener));
 
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(A< const std::string& >(), An< IEventListener* >()))
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(A<const std::string&>(), An<IEventListener*>()))
         .WillOnce(Invoke(MockEventManager::ConsumeEventListener));
     }
 

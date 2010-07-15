@@ -324,9 +324,9 @@ namespace OgreMax
                 this->initialized = false;
             }
             
-            bool operator < (const ResourceLocation& other) const
+            bool operator <(const ResourceLocation& other) const
             {
-                return this->name < other.name;
+                return this->name <other.name;
             }
 
             Ogre::String name;    

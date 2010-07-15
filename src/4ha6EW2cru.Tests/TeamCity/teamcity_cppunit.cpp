@@ -40,7 +40,7 @@ void TeamcityProgressListener::startTest(Test *test) {
 static string sourceLine2string(const SourceLine &sline) {
     stringstream ss;
         
-    ss << sline.fileName() << ":" << sline.lineNumber();
+    ss <<sline.fileName() <<":" <<sline.lineNumber();
     
     return ss.str();
 }

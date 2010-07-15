@@ -15,7 +15,7 @@ namespace Script
   luabind::scope InputFacade::RegisterFunctions()
   {
     return (
-      class_< InputFacade >("InputFacade")
+      class_<InputFacade>("InputFacade")
         .def("getTextForMessage", &InputFacade::GetTextForMessage)
         .def("setMessageBinding", &InputFacade::SetMessageBinding)
         .def("setDefaultMessageBinding", &InputFacade::SetDefaultMessageBinding)
@@ -29,7 +29,7 @@ namespace Script
     AnyType::AnyTypeMap parameters;
     parameters[ System::Attributes::Message ] = message;
 
-    return inputService->ProcessMessage(System::Messages::Input::GetTextForMessage, parameters)[ "result" ].As< std::string >();
+    return inputService->ProcessMessage(System::Messages::Input::GetTextForMessage, parameters)[ "result" ].As<std::string>();
   }
 
 

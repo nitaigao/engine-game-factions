@@ -48,7 +48,7 @@ namespace Script
   };
 
 
-  template< int T0 = 0 >
+  template<int T0 = 0>
   class ScriptEventT0 : public IScriptEvent
   {
 
@@ -97,7 +97,7 @@ namespace Script
     */
     virtual void ExecuteHandler(const luabind::object& handlerFunction) const
     {
-      luabind::call_function< void >(handlerFunction, m_eventName);
+      luabind::call_function<void>(handlerFunction, m_eventName);
     }
 
   protected:
@@ -107,8 +107,8 @@ namespace Script
   };
 
 
-  template< class T1, int T0 = 1 >
-  class ScriptEventT1 : public ScriptEventT0< T0 >
+  template<class T1, int T0 = 1>
+  class ScriptEventT1 : public ScriptEventT0<T0>
   {
 
   public:
@@ -134,7 +134,7 @@ namespace Script
     */
     virtual void ExecuteHandler(const luabind::object& handlerFunction) const
     {
-      luabind::call_function< void >(handlerFunction, m_eventName, m_param1);
+      luabind::call_function<void>(handlerFunction, m_eventName, m_param1);
     }
 
   protected:
@@ -143,8 +143,8 @@ namespace Script
 
   };
 
-  template< class T1, class T2, int T0 = 2 >
-  class ScriptEventT2 : public ScriptEventT1< T1, T0 >
+  template<class T1, class T2, int T0 = 2>
+  class ScriptEventT2 : public ScriptEventT1<T1, T0>
   {
 
   public:
@@ -170,7 +170,7 @@ namespace Script
     */
     virtual void ExecuteHandler(const luabind::object& handlerFunction) const
     {
-      luabind::call_function< void >(handlerFunction, m_eventName, m_param2);
+      luabind::call_function<void>(handlerFunction, m_eventName, m_param2);
     }
 
   protected:

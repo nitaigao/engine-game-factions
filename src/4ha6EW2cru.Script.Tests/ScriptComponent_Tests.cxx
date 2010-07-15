@@ -18,7 +18,7 @@ using namespace Maths;
 
 using namespace Events;
 
-class ScriptComponent_Tests : public TestHarness< ScriptComponent >
+class ScriptComponent_Tests : public TestHarness<ScriptComponent>
 {
 
 protected:
@@ -121,7 +121,7 @@ TEST_F(ScriptComponent_Tests, should_dispatch_subscribed_messages)
   AnyType::AnyTypeMap parameters;
   parameters[ System::Attributes::Position ] = MathVector3::Forward();
 
-  EXPECT_CALL(*m_messageDispatcher, Dispatch_Message(message, An< AnyType::AnyTypeMap& >()));
+  EXPECT_CALL(*m_messageDispatcher, Dispatch_Message(message, An<AnyType::AnyTypeMap&>()));
 
   m_subject->Observe(0, message, parameters);
 }

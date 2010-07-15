@@ -28,9 +28,9 @@ namespace AI
     parameters[ System::Attributes::Name ] = m_name + "_ai";
     parameters[ System::Parameters::ScriptPath ] = m_attributes[ System::Parameters::ScriptPath ];
 
-    ISystemComponent* scriptComponent = scriptService->ProcessMessage(System::Messages::LoadScript, parameters)[ "component" ].As< ISystemComponent* >();
+    ISystemComponent* scriptComponent = scriptService->ProcessMessage(System::Messages::LoadScript, parameters)[ "component" ].As<ISystemComponent*>();
 
-    lua_State* scriptState = scriptComponent->Observe(this, System::Messages::GetState, AnyType::AnyTypeMap()).As< lua_State* >();
+    lua_State* scriptState = scriptComponent->Observe(this, System::Messages::GetState, AnyType::AnyTypeMap()).As<lua_State*>();
     globals(scriptState)[ "ai" ] = this;
 
     scriptComponent->Observe(this, System::Messages::RunScript, AnyType::AnyTypeMap());
@@ -59,7 +59,7 @@ namespace AI
   {
     // Angle from Origin to Player
 
-    MathVector3 aiPosition = m_attributes[ System::Attributes::Position ].As< MathVector3 >();
+    MathVector3 aiPosition = m_attributes[ System::Attributes::Position ].As<MathVector3>();
     MathVector3 aiToPlayer = (target - aiPosition).Normalize();
     MathVector3 aiToOrigin = (MathVector3::Zero() - aiPosition).Normalize();
 
@@ -68,7 +68,7 @@ namespace AI
 
     MathVector3 aiToTargetCross = aiToOrigin.CrossProduct(aiToPlayer);
 
-    if(aiToTargetCross.Y < 0)
+    if(aiToTargetCross.Y <0)
     {
       float delta = MathUnits::PI() - aiToTargetAngle;
       aiToTargetAngle = MathUnits::PI() + delta;
@@ -84,7 +84,7 @@ namespace AI
 
     MathVector3 aiForwardToOriginCross = aiToForward.CrossProduct(aiToOrigin);
 
-    if(aiForwardToOriginCross.Y < 0)
+    if(aiForwardToOriginCross.Y <0)
     {
       float delta = MathUnits::PI() - aiForwardToOriginAngle;
       aiForwardToOriginAngle = MathUnits::PI() + delta;
@@ -119,7 +119,7 @@ namespace AI
 
   void AIScriptComponent::Update(float deltaMilliseconds)
   {
-    MathVector3 position = m_attributes[ System::Attributes::Position ].As< MathVector3 >();
+    MathVector3 position = m_attributes[ System::Attributes::Position ].As<MathVector3>();
 
     if (!m_activeWaypoints.empty())
     {
@@ -143,9 +143,9 @@ namespace AI
 
   Maths::MathVector3 AIScriptComponent::FindRandomWaypoint()
   {
-    IAISystemScene* scene = m_attributes[ System::Attributes::Parent ].As< IAISystemScene* >();
+    IAISystemScene* scene = m_attributes[ System::Attributes::Parent ].As<IAISystemScene*>();
     ISystemComponent::SystemComponentList waypoints = scene->GetWaypoints();
-    return waypoints[ rand() % waypoints.size() ]->GetAttributes()[ System::Attributes::Position ].As< MathVector3 >();
+    return waypoints[ rand() % waypoints.size() ]->GetAttributes()[ System::Attributes::Position ].As<MathVector3>();
   }
 
   void AIScriptComponent::NavigateTo(const Maths::MathVector3& destination)
@@ -158,24 +158,24 @@ namespace AI
     IService* physicsService = m_serviceManager->FindService(System::Types::PHYSICS);
 
     AnyType::AnyTypeMap parameters;
-    parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As< MathVector3 >() + MathVector3(0.0f, 1.0f, 0.0f);
+    parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As<MathVector3>() + MathVector3(0.0f, 1.0f, 0.0f);
     parameters[ System::Parameters::Destination ] = position + MathVector3(0.0f, 1.0f, 0.0f);
     parameters[ System::Parameters::SortByyDistance ] = true;
     parameters[ System::Parameters::MaxResults ] = 1;
 
-    std::vector< std::string > results = physicsService->ProcessMessage(System::Messages::RayQuery, parameters)[ "hits" ].As< std::vector< std::string > >();
+    std::vector<std::string> results = physicsService->ProcessMessage(System::Messages::RayQuery, parameters)[ "hits" ].As<std::vector<std::string>>();
 
-    return results.size() > 0;
+    return results.size()> 0;
   }
 
   MathVector3::MathVector3List AIScriptComponent::GetPathTo(const MathVector3& position)
   {
-    IAISystemScene* scene = m_attributes[ System::Attributes::Parent ].As< IAISystemScene* >();
+    IAISystemScene* scene = m_attributes[ System::Attributes::Parent ].As<IAISystemScene*>();
 
     AnyType::AnyTypeMap parameters;
-    parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As< MathVector3 >();
+    parameters[ System::Parameters::Origin ] = m_attributes[ System::Attributes::Position ].As<MathVector3>();
     parameters[ System::Parameters::Destination ] = position;
 
-    return scene->GetNavigationMesh()->Observe(this, System::Messages::FindPath, parameters).As< MathVector3::MathVector3List >();
+    return scene->GetNavigationMesh()->Observe(this, System::Messages::FindPath, parameters).As<MathVector3::MathVector3List>();
   }
 }

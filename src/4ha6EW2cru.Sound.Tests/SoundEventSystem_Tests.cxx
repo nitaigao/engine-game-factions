@@ -4,7 +4,7 @@ using namespace testing;
 #include "SoundEventSystem.h"
 using namespace Sound;
 
-class SoundEventSystem_Tests : public TestHarness< SoundEventSystem >
+class SoundEventSystem_Tests : public TestHarness<SoundEventSystem>
 {
 
 protected:

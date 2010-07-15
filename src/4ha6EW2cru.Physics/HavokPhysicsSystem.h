@@ -115,9 +115,9 @@ namespace Physics
      *  @param[in] Maths::MathVector3 origin
      *  @param[in] Maths::MathVector3 destination
      *  @param[in] bool sortByDistance
-     *  @return (std::vector< std::string >)
+     *  @return (std::vector<std::string>)
      */
-    std::vector< std::string > RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults);
+    std::vector<std::string> RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults);
 
 
     /*! Returns the Physics World from within Havok

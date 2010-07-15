@@ -41,10 +41,10 @@ namespace Network
 
     if (message == System::Messages::Mouse_Moved)
     {
-      float deltaX = parameters[ System::Parameters::DeltaX ].As< float >();
+      float deltaX = parameters[ System::Parameters::DeltaX ].As<float>();
       stream.Write(deltaX);
 
-      float deltaY = parameters[ System::Parameters::DeltaY ].As< float >();
+      float deltaY = parameters[ System::Parameters::DeltaY ].As<float>();
       stream.Write(deltaY);
     }
 

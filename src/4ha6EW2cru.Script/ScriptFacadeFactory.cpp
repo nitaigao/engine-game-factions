@@ -20,7 +20,7 @@ namespace Script
 
     if (typeid(*state) == typeid(LuaState))
     {
-      LuaState* luaState = static_cast< LuaState* >(state);
+      LuaState* luaState = static_cast<LuaState*>(state);
 
       switch(facadeType)
       {
@@ -28,49 +28,49 @@ namespace Script
       case IScriptFacade::ANIMATION:
 
         facade = new AnimationFacade(component);
-        luaState->SetGlobal("animation", static_cast< AnimationFacade* >(facade));
+        luaState->SetGlobal("animation", static_cast<AnimationFacade*>(facade));
 
         break;
 
       case IScriptFacade::INPUT:
 
         facade = new InputFacade(m_serviceManager);
-        luaState->SetGlobal("input", static_cast< InputFacade* >(facade));
+        luaState->SetGlobal("input", static_cast<InputFacade*>(facade));
 
         break;
 
       case IScriptFacade::INSTRUMENTATION:
 
         facade = new InstrumentationFacade(m_instrumentation);
-        luaState->SetGlobal("instrumentation", static_cast< InstrumentationFacade* >(facade));
+        luaState->SetGlobal("instrumentation", static_cast<InstrumentationFacade*>(facade));
 
         break;
 
       case IScriptFacade::NETWORK:
 
         facade = new NetworkFacade(m_serviceManager, m_resourceCache);
-        luaState->SetGlobal("network", static_cast< NetworkFacade* >(facade));
+        luaState->SetGlobal("network", static_cast<NetworkFacade*>(facade));
 
         break;
 
       case IScriptFacade::PHYSICS:
 
         facade = new PhysicsFacade(m_serviceManager);
-        luaState->SetGlobal("physics", static_cast< PhysicsFacade* >(facade));
+        luaState->SetGlobal("physics", static_cast<PhysicsFacade*>(facade));
 
         break;
 
       case IScriptFacade::SOUND:
 
         facade = new SoundFacade(component, m_serviceManager);
-        luaState->SetGlobal("sfx", static_cast< SoundFacade* >(facade));
+        luaState->SetGlobal("sfx", static_cast<SoundFacade*>(facade));
 
         break;
 
       case IScriptFacade::SYSTEM:
 
         facade = new SystemFacade(m_eventManager, m_platformManager) ;
-        luaState->SetGlobal("system", static_cast< SystemFacade* >(facade));
+        luaState->SetGlobal("system", static_cast<SystemFacade*>(facade));
 
         break;
       }

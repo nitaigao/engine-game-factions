@@ -39,7 +39,7 @@ namespace AI
     component->SetAttribute(System::Attributes::Name, name);
     component->SetAttribute(System::Attributes::SystemType, System::Types::AI);
     component->SetAttribute(System::Attributes::ComponentType, type);
-    component->SetAttribute(System::Attributes::Parent, static_cast< IAISystemScene* >(this));
+    component->SetAttribute(System::Attributes::Parent, static_cast<IAISystemScene*>(this));
 
     m_componentsByName.insert(std::make_pair(name, component));
     m_componentsByType.insert(std::make_pair(type, component));
@@ -49,15 +49,15 @@ namespace AI
 
   void AISystemScene::DestroyComponent(ISystemComponent* component)
   {
-    std::string componentName = component->GetAttributes() [ System::Attributes::Name ].As< std::string >();
+    std::string componentName = component->GetAttributes() [ System::Attributes::Name ].As<std::string>();
     m_componentsByName.erase(componentName);
 
-    std::string componentType = component->GetAttributes()[ System::Attributes::ComponentType ].As< std::string >();
+    std::string componentType = component->GetAttributes()[ System::Attributes::ComponentType ].As<std::string>();
     ISystemComponent::SystemComponentMultiMap::iterator waypoints = m_componentsByType.find(componentType);
 
     while(waypoints != m_componentsByType.end())
     {
-      if ((*waypoints).second->GetAttributes()[ System::Attributes::Name ].As< std::string >() == componentName)
+      if ((*waypoints).second->GetAttributes()[ System::Attributes::Name ].As<std::string>() == componentName)
       {
         m_componentsByType.erase(waypoints);
         break;
@@ -73,11 +73,11 @@ namespace AI
   void AISystemScene::Initialize()
   {
     IService* scriptService = m_serviceManager->FindService(System::Types::SCRIPT);
-    lua_State* state = scriptService->ProcessMessage("getMasterState", AnyType::AnyTypeMap())[ "masterState" ].As< lua_State* >();
+    lua_State* state = scriptService->ProcessMessage("getMasterState", AnyType::AnyTypeMap())[ "masterState" ].As<lua_State*>();
 
     module(state)
     [
-      class_< AIScriptComponent >("AISystemComponent")
+      class_<AIScriptComponent>("AISystemComponent")
         .def("getName", &AIScriptComponent::GetName)
         .def("walkForward", &AIScriptComponent::WalkForward)
         .def("walkBackward", &AIScriptComponent::WalkBackward)

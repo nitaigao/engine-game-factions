@@ -20,7 +20,7 @@ namespace Script
     return (
       def("print", &SystemFacade::Print),
 
-      class_< SystemFacade >("SystemFacade")
+      class_<SystemFacade>("SystemFacade")
         .def("quit", &SystemFacade::Quit)
         .def("loadLevel", &SystemFacade::LoadLevel)
         .def("endGame", &SystemFacade::EndGame)

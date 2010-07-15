@@ -27,9 +27,9 @@ namespace Script
    */
   class GAMEAPI ScriptSystemScene : public IScriptSystemScene
   {
-    typedef std::pair< Events::EventType, luabind::object > EventHandler;
-    typedef std::deque< EventHandler > EventHandlerList;
-    typedef std::map< std::string, IScriptComponent* > ScriptComponentList;
+    typedef std::pair<Events::EventType, luabind::object> EventHandler;
+    typedef std::deque<EventHandler> EventHandlerList;
+    typedef std::map<std::string, IScriptComponent*> ScriptComponentList;
 
   public:
 

@@ -34,11 +34,11 @@ namespace Animation
   class AnimationSystemComponent : public IAnimationSystemComponent
   {
 
-    typedef std::deque< hkPackfileData* > LoadedDataList;
-    typedef std::deque< hkaAnimationBinding* > AnimationBindingList;
-    typedef std::deque< hkaAnimation* > AnimationList;
-    typedef std::map< std::string, hkaDefaultAnimationControl* > AnimationControlList;
-    typedef std::deque< Ogre::Skeleton* > SkeletonList;
+    typedef std::deque<hkPackfileData*> LoadedDataList;
+    typedef std::deque<hkaAnimationBinding*> AnimationBindingList;
+    typedef std::deque<hkaAnimation*> AnimationList;
+    typedef std::map<std::string, hkaDefaultAnimationControl*> AnimationControlList;
+    typedef std::deque<Ogre::Skeleton*> SkeletonList;
 
   public:
 
@@ -147,7 +147,7 @@ namespace Animation
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
 
     void TransformBone(hkaPose* pose, Ogre::Node* bone);

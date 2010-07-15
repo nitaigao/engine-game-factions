@@ -6,7 +6,7 @@
   ProjectGUID="{BDC25B19-F2FC-4F40-8395-8BC7AB10B326}"
   RootNamespace="My4ha6EW2cruUX"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -21,7 +21,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.UX"
       ConfigurationType="2"
       CharacterSet="2"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -99,7 +99,7 @@
       ConfigurationType="2"
       CharacterSet="2"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -187,17 +187,17 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\GUI.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.cpp"
-        >
+       >
         <FileConfiguration
           Name="Debug|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -205,7 +205,7 @@
         </FileConfiguration>
         <FileConfiguration
           Name="Release|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -214,100 +214,100 @@
       </File>
       <File
         RelativePath=".\SystemDefinition.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\SystemDefinition.def"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXFacadeManager.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXFactory.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystem.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystemComponent.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystemComponentFactory.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystemScene.cpp"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\GUI.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\IGUI.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IUXSystem.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IUXSystemComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IUXSystemComponentFactory.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IUXSystemScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXFacadeManager.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXFactory.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystem.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystemComponent.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystemComponentFactory.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\UXSystemScene.h"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
   </Files>
   <Globals>

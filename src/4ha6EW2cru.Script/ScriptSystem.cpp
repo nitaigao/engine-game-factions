@@ -56,15 +56,15 @@ namespace Script
 
     if(message == System::Messages::LoadScript)
     {
-      ISystemComponent* component = m_auxScene->CreateComponent(parameters[ System::Attributes::Name ].As< std::string >(), "default");
-      component->SetAttribute(System::Parameters::ScriptPath, parameters[ System::Parameters::ScriptPath ].As< std::string >());
+      ISystemComponent* component = m_auxScene->CreateComponent(parameters[ System::Attributes::Name ].As<std::string>(), "default");
+      component->SetAttribute(System::Parameters::ScriptPath, parameters[ System::Parameters::ScriptPath ].As<std::string>());
       component->Initialize();
       results[ "component" ] = component;
     }
 
     if (message == System::Messages::UnloadComponent)
     {
-      m_auxScene->UnloadComponent(parameters[ System::Attributes::Name ].As< std::string >());
+      m_auxScene->UnloadComponent(parameters[ System::Attributes::Name ].As<std::string>());
     }
 
     /*from AI
@@ -78,7 +78,7 @@ namespace Script
       scope luaScope = 
         (
 
-        class_< ScriptConfiguration >("Config")
+        class_<ScriptConfiguration>("Config")
             .property("isFullScreen", &ScriptConfiguration::IsFullScreen, &ScriptConfiguration::SetFullScreen)
             .property("displayWidth", &ScriptConfiguration::GetDisplayWidth, &ScriptConfiguration::SetDisplayWidth)
             .property("displayHeight", &ScriptConfiguration::GetDisplayHeight, &ScriptConfiguration::SetDisplayHeight)
@@ -95,7 +95,7 @@ namespace Script
             .property("serverFragLimit", &ScriptConfiguration::GetServerFragLimit, &ScriptConfiguration::SetServerFragLimit)
             .property("serverMaxPlayers", &ScriptConfiguration::GetServerMaxPlayers, &ScriptConfiguration::SetServerMaxPlayers),
 
-        class_< ScriptComponent >("ScriptComponent")
+        class_<ScriptComponent>("ScriptComponent")
           .def("include", &ScriptComponent::IncludeScript)
           .def("registerEventHandler", (void (ScriptComponent::*) (const std::string&, const luabind::object&)) &ScriptComponent::RegisterEventHandler)
           .def("registerUpdateHandler", &ScriptComponent::RegisterUpdateHandler)
@@ -108,14 +108,14 @@ namespace Script
           .def("setPosition", &ScriptComponent::SetPosition),
         
 
-        class_< MathVector3 >("Vector")
-          .def(constructor< float, float, float >())
+        class_<MathVector3>("Vector")
+          .def(constructor<float, float, float>())
           .def(self + MathVector3()),
 
-        class_< MathQuaternion >("Quaternion")
-          .def(constructor< float, float, float, float >()),
+        class_<MathQuaternion>("Quaternion")
+          .def(constructor<float, float, float, float>()),
 
-        class_< AnyType::AnyTypeMap >("AnyType")
+        class_<AnyType::AnyTypeMap>("AnyType")
        );
 
       results[ System::TypeStrings::SCRIPT ] = luaScope;

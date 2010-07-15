@@ -58,7 +58,7 @@ namespace Sound
 
     result = m_fmodSystem->getVersion(&version);
 
-    if (version < FMOD_VERSION)
+    if (version <FMOD_VERSION)
     {
       // wrong FMOD version
     }
@@ -67,7 +67,7 @@ namespace Sound
     result = m_fmodSystem->getNumDrivers(&driverCount);
 
 
-    if (driverCount < 1)
+    if (driverCount <1)
     {
       result = m_fmodSystem->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
     }
@@ -148,7 +148,7 @@ namespace Sound
 
     /*FMOD::EventCategory* masterCategory = 0;
     m_eventSystem->getCategory("master", &masterCategory);
-    float sfxVolume = static_cast< float >(m_configuration->Find(ConfigSections::Sound, "sfx_volume").As< int >()) / 100;
+    float sfxVolume = static_cast<float>(m_configuration->Find(ConfigSections::Sound, "sfx_volume").As<int>()) / 100;
     masterCategory->setVolume(sfxVolume);*/
   }
 
@@ -174,7 +174,7 @@ namespace Sound
   }
   FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileClose(void* handle, void* userdata)
   {
-    IResource* resource = reinterpret_cast< IResource* >(handle);
+    IResource* resource = reinterpret_cast<IResource*>(handle);
     resource->RemoveReference();
 
     return FMOD_OK;
@@ -182,7 +182,7 @@ namespace Sound
 
   FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileRead(void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata)
   {
-    IResource* resource = reinterpret_cast< IResource* >(handle);
+    IResource* resource = reinterpret_cast<IResource*>(handle);
     FileBuffer* fileBuffer = resource->GetFileBuffer();
 
     memcpy(buffer, fileBuffer->fileBytes + fileBuffer->filePosition, sizebytes);
@@ -194,7 +194,7 @@ namespace Sound
 
   FMOD_RESULT F_CALLBACK SoundSystem::FMOD_FileSeek(void* handle, unsigned int pos, void* userdata)
   {
-    IResource* resource = reinterpret_cast< IResource* >(handle);
+    IResource* resource = reinterpret_cast<IResource*>(handle);
     FileBuffer* fileBuffer = resource->GetFileBuffer();
 
     fileBuffer->filePosition = pos;
@@ -208,14 +208,14 @@ namespace Sound
 
     if(message == "load")
     {
-      std::string filePath = parameters[ "filePath" ].As< std::string >();
+      std::string filePath = parameters[ "filePath" ].As<std::string>();
       result = m_eventSystem->load(filePath.c_str(), 0, 0);
       results[ "result" ] = (result == FMOD_OK);
     }*/
 
     if (message == System::Messages::PlayMusic)
     {
-      m_eventSystem->TriggerEvent(parameters[ System::Parameters::SoundEventPath ].As< std::string >());
+      m_eventSystem->TriggerEvent(parameters[ System::Parameters::SoundEventPath ].As<std::string>());
     }
 
     return results;

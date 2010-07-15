@@ -10,7 +10,7 @@ using namespace Script;
 
 using namespace luabind::adl;
 
-class ScriptComponentFactory_Tests : public TestHarness< ScriptComponentFactory >
+class ScriptComponentFactory_Tests : public TestHarness<ScriptComponentFactory>
 {
 
 protected:

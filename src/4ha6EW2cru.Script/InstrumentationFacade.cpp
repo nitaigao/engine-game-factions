@@ -9,11 +9,11 @@ namespace Script
   scope InstrumentationFacade::RegisterFunctions()
   {
     return (
-      class_< InstrumentationFacade >("InstrumentationFacade")
+      class_<InstrumentationFacade>("InstrumentationFacade")
         .def("getFps", &InstrumentationFacade::GetFPS)
         .def("getRoundTime", &InstrumentationFacade::GetRoundTime),
 
-      class_< System::Queues::Queue >("Queues")
+      class_<System::Queues::Queue>("Queues")
           .enum_("constants")
           [
             value("LOGIC", System::Queues::LOGIC),

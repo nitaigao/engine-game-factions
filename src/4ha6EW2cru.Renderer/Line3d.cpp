@@ -29,7 +29,7 @@ namespace Renderer
 
   const Vector3 &Line3D::getPoint(unsigned short index) const
   {
-    assert(index < mPoints.size() && "Point index is out of bounds!!");
+    assert(index <mPoints.size() && "Point index is out of bounds!!");
 
     return mPoints[index];
   }
@@ -41,7 +41,7 @@ namespace Renderer
 
   void Line3D::updatePoint(unsigned short index, const Vector3 &value)
   {
-    assert(index < mPoints.size() && "Point index is out of bounds!!");
+    assert(index <mPoints.size() && "Point index is out of bounds!!");
 
     mPoints[index] = value;
   }
@@ -91,24 +91,24 @@ namespace Renderer
 
     Real *prPos = static_cast<Real*>(vbuf->lock(HardwareBuffer::HBL_DISCARD));
 
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i <size; i++)
     {
       *prPos++ = mPoints[i].x;
       *prPos++ = mPoints[i].y;
       *prPos++ = mPoints[i].z;
 
-      if(mPoints[i].x < vaabMin.x)
+      if(mPoints[i].x <vaabMin.x)
         vaabMin.x = mPoints[i].x;
-      if(mPoints[i].y < vaabMin.y)
+      if(mPoints[i].y <vaabMin.y)
         vaabMin.y = mPoints[i].y;
-      if(mPoints[i].z < vaabMin.z)
+      if(mPoints[i].z <vaabMin.z)
         vaabMin.z = mPoints[i].z;
 
-      if(mPoints[i].x > vaabMax.x)
+      if(mPoints[i].x> vaabMax.x)
         vaabMax.x = mPoints[i].x;
-      if(mPoints[i].y > vaabMax.y)
+      if(mPoints[i].y> vaabMax.y)
         vaabMax.y = mPoints[i].y;
-      if(mPoints[i].z > vaabMax.z)
+      if(mPoints[i].z> vaabMax.z)
         vaabMax.z = mPoints[i].z;
     }
 

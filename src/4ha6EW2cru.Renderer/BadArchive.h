@@ -21,7 +21,7 @@ namespace Renderer
    */
   class BadArchive : public Ogre::Archive
   {
-    typedef std::map< std::string, IO::FileSearchResult > TableOfContents;
+    typedef std::map<std::string, IO::FileSearchResult> TableOfContents;
 
   public:
 

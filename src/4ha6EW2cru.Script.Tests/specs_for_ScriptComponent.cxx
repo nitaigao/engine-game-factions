@@ -19,7 +19,7 @@ using namespace Events;
 
 namespace given_a_script_is_running
 {
-  class ScriptComponent_BaseContext : public TestHarness< ScriptComponent >
+  class ScriptComponent_BaseContext : public TestHarness<ScriptComponent>
   {
 
   protected:
@@ -67,7 +67,7 @@ namespace given_a_script_is_running
   
     void Expecting()
     {
-      EXPECT_CALL(*m_eventDispatcher, RegisterEventHandler(m_eventType, A< IScriptFunctionHandler* >()))
+      EXPECT_CALL(*m_eventDispatcher, RegisterEventHandler(m_eventType, A<IScriptFunctionHandler*>()))
         .WillOnce(Invoke(MockScriptEventDispatcher::ConsumeFunctionHandler));
     }
   
@@ -96,7 +96,7 @@ namespace given_a_script_is_running
 
     void Expecting()
     {
-      EXPECT_CALL(*m_updateDispatcher, RegisterUpdateHandler(An< IScriptFunctionHandler* >()))
+      EXPECT_CALL(*m_updateDispatcher, RegisterUpdateHandler(An<IScriptFunctionHandler*>()))
         .WillOnce(Invoke(MockScriptUpdateDispatcher::ConsumeFunctionHandler));
 
       EXPECT_CALL(*m_updateDispatcher, Update(m_delta));
@@ -129,7 +129,7 @@ namespace given_a_script_is_running
 
     void Expecting()
     {
-      EXPECT_CALL(*m_updateDispatcher, UnRegisterUpdateHandler(An< IScriptFunctionHandler* >()))
+      EXPECT_CALL(*m_updateDispatcher, UnRegisterUpdateHandler(An<IScriptFunctionHandler*>()))
         .WillOnce(Invoke(MockScriptUpdateDispatcher::ConsumeFunctionHandler));
     }
 

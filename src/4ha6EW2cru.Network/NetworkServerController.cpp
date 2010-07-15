@@ -49,7 +49,7 @@ namespace Network
     NetworkStream networkStream(&stream);
 
     AnyType::AnyTypeMap parameters;
-    parameters[ System::Parameters::IO::Stream ] = static_cast< IStream* >(&networkStream);
+    parameters[ System::Parameters::IO::Stream ] = static_cast<IStream*>(&networkStream);
 
     m_serviceManager->FindService(System::Types::ENTITY)
       ->ProcessMessage(System::Messages::Entity::SerializeWorld, parameters);
@@ -72,22 +72,22 @@ namespace Network
 
     if (message == System::Messages::Mouse_Moved)
     {
-      float deltaX = parameters[ System::Parameters::DeltaX ].As< float >();
+      float deltaX = parameters[ System::Parameters::DeltaX ].As<float>();
       stream.Write(deltaX);
 
-      float deltaY = parameters[ System::Parameters::DeltaY ].As< float >();
+      float deltaY = parameters[ System::Parameters::DeltaY ].As<float>();
       stream.Write(deltaY);
     }
 
     if (message == System::Messages::SetPosition)
     {
-      MathVector3 position = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      MathVector3 position = parameters[ System::Attributes::Position ].As<MathVector3>();
       stream.WriteVector(position.X, position.Y, position.Z);
     }
 
     if (message == System::Messages::SetOrientation)
     {
-      MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
+      MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As<MathQuaternion>();
       stream.WriteNormQuat(orientation.W, orientation.X, orientation.Y, orientation.Z);
     }
 

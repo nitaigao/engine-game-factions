@@ -10,7 +10,7 @@ using namespace Maths;
 
 #include "Mocks/MockStream.h"
 
-class GeometrySystemComponent_Tests : public TestHarness< GeometrySystemComponent >
+class GeometrySystemComponent_Tests : public TestHarness<GeometrySystemComponent>
 {
 
 protected:
@@ -59,8 +59,8 @@ TEST_F(GeometrySystemComponent_Tests, should_deserialize_component)
 {
   MockStream stream;
 
-  EXPECT_CALL(stream, Read(A< MathVector3& >())).WillOnce(Invoke(ReturnVector));
-  EXPECT_CALL(stream, Read(A< MathQuaternion& >())).WillOnce(Invoke(ReturnQuaternion));
+  EXPECT_CALL(stream, Read(A<MathVector3&>())).WillOnce(Invoke(ReturnVector));
+  EXPECT_CALL(stream, Read(A<MathQuaternion&>())).WillOnce(Invoke(ReturnQuaternion));
 
   m_subject->DeSerialize(&stream);
 }

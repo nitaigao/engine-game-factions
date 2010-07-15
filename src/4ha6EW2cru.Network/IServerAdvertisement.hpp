@@ -21,8 +21,8 @@ namespace Network
 
   public:
 
-    typedef std::deque< IServerAdvertisement* > ServerAdvertisementList;
-    typedef std::map< std::string, IServerAdvertisement* > ServerAdvertisementMap;
+    typedef std::deque<IServerAdvertisement*> ServerAdvertisementList;
+    typedef std::map<std::string, IServerAdvertisement*> ServerAdvertisementMap;
 
     /*! Default Destructor
      *

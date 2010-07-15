@@ -6,7 +6,7 @@
   ProjectGUID="{A88E1A6E-729F-451D-AD46-66C764A8EE9E}"
   RootNamespace="My4ha6EW2cruAnimation"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -21,7 +21,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.Animation"
       ConfigurationType="2"
       CharacterSet="2"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -98,7 +98,7 @@
       ConfigurationType="2"
       CharacterSet="2"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -186,29 +186,29 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\AnimationBlender.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\AnimationSystem.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\AnimationSystemComponent.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\AnimationSystemScene.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.cpp"
-        >
+       >
         <FileConfiguration
           Name="Debug|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -216,7 +216,7 @@
         </FileConfiguration>
         <FileConfiguration
           Name="Release|Win32"
-          >
+         >
           <Tool
             Name="VCCLCompilerTool"
             UsePrecompiledHeader="1"
@@ -225,60 +225,60 @@
       </File>
       <File
         RelativePath=".\SystemDefinition.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\SystemDefinition.def"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\AnimationBlender.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\AnimationSystem.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\AnimationSystemComponent.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\AnimationSystemScene.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\IAnimationBlender.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IAnimationSystem.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IAnimationSystemComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IAnimationSystemScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\precompiled.h"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
   </Files>
   <Globals>

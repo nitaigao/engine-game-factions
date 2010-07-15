@@ -48,14 +48,14 @@ void EventManagerFixture:: Should_Update_Given_Intialized()
 void EventManagerFixture:: Should_Throw_On_AddEventListener_Given_NULL_Target()
 {
   EventManager eventManager;
-  CPPUNIT_ASSERT_THROW(eventManager.AddEventListener< Mock_EventSubject >(TEST_EVENT, 0, &Mock_EventSubject::EventHandler), NullReferenceException);
+  CPPUNIT_ASSERT_THROW(eventManager.AddEventListener<Mock_EventSubject>(TEST_EVENT, 0, &Mock_EventSubject::EventHandler), NullReferenceException);
 }
 
 void EventManagerFixture:: Should_Throw_On_AddEventListener_Given_NULL_HandlerFunctor()
 {
   Mock_EventSubject* eventSubject = new Mock_EventSubject();
   EventManager eventManager;
-  CPPUNIT_ASSERT_THROW(eventManager.AddEventListener< Mock_EventSubject >(TEST_EVENT, eventSubject, 0), NullReferenceException);
+  CPPUNIT_ASSERT_THROW(eventManager.AddEventListener<Mock_EventSubject>(TEST_EVENT, eventSubject, 0), NullReferenceException);
 
   delete eventSubject;
 }
@@ -64,7 +64,7 @@ void EventManagerFixture:: Should_Add_Listener_Given_Correct_Listener_And_Initia
 {
   Mock_EventSubject* eventSubject = new Mock_EventSubject();
   EventManager eventManager;
-  eventManager.AddEventListener< Mock_EventSubject >(TEST_EVENT, eventSubject, &Mock_EventSubject::EventHandler);
+  eventManager.AddEventListener<Mock_EventSubject>(TEST_EVENT, eventSubject, &Mock_EventSubject::EventHandler);
 
   delete eventSubject;
 }
@@ -72,7 +72,7 @@ void EventManagerFixture:: Should_Add_Listener_Given_Correct_Listener_And_Initia
 void EventManagerFixture:: Should_Throw_On_RemoveEventListener_Given_NULL_Target()
 {
   EventManager eventManager;
-  CPPUNIT_ASSERT_THROW(eventManager.RemoveEventListener< Mock_EventSubject > (TEST_EVENT, 0, &Mock_EventSubject::EventHandler), NullReferenceException);
+  CPPUNIT_ASSERT_THROW(eventManager.RemoveEventListener<Mock_EventSubject> (TEST_EVENT, 0, &Mock_EventSubject::EventHandler), NullReferenceException);
 }
 
 void EventManagerFixture:: Should_Throw_On_RemoveEventListener_Given_NULL_HandlerFunctor()
@@ -80,7 +80,7 @@ void EventManagerFixture:: Should_Throw_On_RemoveEventListener_Given_NULL_Handle
   Mock_EventSubject* eventSubject = new Mock_EventSubject();
 
   EventManager eventManager;
-  CPPUNIT_ASSERT_THROW(eventManager.RemoveEventListener< Mock_EventSubject > (TEST_EVENT, eventSubject, 0), NullReferenceException);
+  CPPUNIT_ASSERT_THROW(eventManager.RemoveEventListener<Mock_EventSubject> (TEST_EVENT, eventSubject, 0), NullReferenceException);
 
   delete eventSubject;
 }

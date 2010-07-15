@@ -33,7 +33,7 @@ public:
 
   FileBuffer* GetFile(const std::string filePath) const
   {
-    Mock_FileManager* fileManager = const_cast< Mock_FileManager* >(this);
+    Mock_FileManager* fileManager = const_cast<Mock_FileManager*>(this);
     fileManager->getFile_count.inc();
     int length = 5;
     char* fileBytes = new char[ length ];

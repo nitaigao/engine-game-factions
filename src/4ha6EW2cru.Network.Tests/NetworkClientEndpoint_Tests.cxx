@@ -20,7 +20,7 @@ using namespace Events;
 #include "Maths/MathVector3.hpp"
 using namespace Maths;
 
-class NetworkClientEndpoint_Tests : public TestHarness< NetworkClientEndpoint >
+class NetworkClientEndpoint_Tests : public TestHarness<NetworkClientEndpoint>
 {
 
 protected:
@@ -93,7 +93,7 @@ TEST_F(NetworkClientEndpoint_Tests, should_destroy_an_entity_if_not_passive)
 
   std::string entityName = "test";
   
-  EXPECT_CALL(mockService, ProcessMessage(System::Messages::Entity::DestroyEntity, An< AnyType::AnyTypeMap >()))
+  EXPECT_CALL(mockService, ProcessMessage(System::Messages::Entity::DestroyEntity, An<AnyType::AnyTypeMap>()))
     .WillOnce(Return(AnyType::AnyTypeMap()));
 
   m_subject->DestroyEntity(entityName, 0);
@@ -108,7 +108,7 @@ TEST_F(NetworkClientEndpoint_Tests, should_message_entity_mouse_moved_if_not_pas
 
   SystemAddress sender("127.0.0.1", 8989);
 
-  EXPECT_CALL(*m_scene, MessageComponent(entityName.ToString(), System::Messages::Mouse_Moved, An< AnyType::AnyTypeMap >()));
+  EXPECT_CALL(*m_scene, MessageComponent(entityName.ToString(), System::Messages::Mouse_Moved, An<AnyType::AnyTypeMap>()));
 
   m_subject->MessageEntity(entityName.ToString(), System::Messages::Mouse_Moved, parameters, sender);
 }

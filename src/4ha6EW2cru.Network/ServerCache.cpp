@@ -9,7 +9,7 @@ namespace Network
   bool ServerCache::Exists(const std::string& systemAddress) const
   {
     std::stringstream serverName;
-    serverName << systemAddress;
+    serverName <<systemAddress;
 
     return (m_advertCache.find(serverName.str()) != m_advertCache.end());
   }

@@ -21,8 +21,8 @@ namespace Sound
    */
   class GAMEAPI SoundSystemComponent : public ISoundSystemComponent
   {
-    typedef std::multiset< std::string > TriggerRequestList;
-    typedef std::map< std::string, FMOD::Event* > SoundEventMap;
+    typedef std::multiset<std::string> TriggerRequestList;
+    typedef std::map<std::string, FMOD::Event*> SoundEventMap;
 
   public:
 
@@ -128,7 +128,7 @@ namespace Sound
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
 
     void KeyoutEvent(const std::string& eventPath);

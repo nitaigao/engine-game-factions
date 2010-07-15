@@ -7,7 +7,7 @@
   RootNamespace="My4ha6EW2cruNetworkTests"
   Keyword="Win32Proj"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -22,7 +22,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.Network.Tests"
       ConfigurationType="1"
       CharacterSet="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -97,7 +97,7 @@
       ConfigurationType="1"
       CharacterSet="1"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -183,135 +183,135 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\main.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkInterface.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkClientController_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkClientEndpoint_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkClientProvider_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkServer_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkServerController_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkServerEndpoint_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkServerProvider_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkStream_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkSystem_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkSystemComponent_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\NetworkSystemScene_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\ServerAdvertisement_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\ServerCache_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\specs_for_NetworkClientEndpoint.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\specs_for_NetworkServerProvider.cxx"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\Mocks\MockNetworkClientController.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkClientEndpoint.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkClientProvider.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkServerController.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkServerEndpoint.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkServerProvider.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkSystemComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkSystemComponentFactory.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkSystemProvider.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockNetworkSystemScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockServerCache.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockService.h"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
   </Files>
   <Globals>

@@ -23,7 +23,7 @@ namespace UX
 
   public:
 
-    typedef std::deque< IUXSystemComponent* > UXSystemComponentList;
+    typedef std::deque<IUXSystemComponent*> UXSystemComponentList;
 
     virtual ~IUXSystemComponent() { };
 

@@ -6,7 +6,7 @@
   ProjectGUID="{AD4BF66A-BD18-4E12-AE35-2025E5190266}"
   RootNamespace="My4ha6EW2cru"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -23,7 +23,7 @@
       UseOfMFC="0"
       CharacterSet="2"
       BuildLogFile="$(IntDir)\$(TARGETNAME).htm"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -97,7 +97,7 @@
       ConfigurationType="1"
       CharacterSet="2"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -215,23 +215,23 @@
   <Files>
     <File
       RelativePath="..\..\etc\assets\icons\file1.bin"
-      >
+     >
     </File>
     <File
       RelativePath="..\..\media\icons\gun.ico"
-      >
+     >
     </File>
     <File
       RelativePath=".\main.cpp"
-      >
+     >
     </File>
     <File
       RelativePath=".\resource.h"
-      >
+     >
     </File>
     <File
       RelativePath=".\resources.rc"
-      >
+     >
     </File>
   </Files>
   <Globals>

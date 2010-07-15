@@ -7,7 +7,7 @@
   RootNamespace="My4ha6EW2cruSystemTests"
   Keyword="Win32Proj"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -22,7 +22,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.System.Tests"
       ConfigurationType="1"
       CharacterSet="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -98,7 +98,7 @@
       ConfigurationType="1"
       CharacterSet="1"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -180,135 +180,135 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\main.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Maths\MathVector3_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\Events\specs_for_EventManager.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\Game\specs_for_Game.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\Utility\StringUtils_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\IO\Win32PathInformation_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\State\World_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\State\WorldEntity_Tests.cxx"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\Mocks\MockConfiguration.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockEntity.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockEntityFactory.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockEventListener.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockEventManager.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockFileSystem.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockInstrumentation.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockPlatformManager.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockProgramOptions.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockResourceCache.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockSerializer.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockService.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockServiceManager.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockStream.h"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockSystemComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockSystemManager.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockSystemScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockWorld.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\IO\specs_for_ResourceCache.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\System\specs_for_SystemManager.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\TestEnvironment.hpp"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
   </Files>
   <Globals>

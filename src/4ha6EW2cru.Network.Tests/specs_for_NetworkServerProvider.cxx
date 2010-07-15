@@ -12,7 +12,7 @@ using namespace Network;
 
 namespace BaseContext
 {
-  class NetworkServerProvider_BaseContext : public TestHarness< NetworkServerProvider >
+  class NetworkServerProvider_BaseContext : public TestHarness<NetworkServerProvider>
   {
 
   protected:

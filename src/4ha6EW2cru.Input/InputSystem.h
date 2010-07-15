@@ -27,7 +27,7 @@ namespace Input
   class InputSystem : public IInputSystem, public Services::IService, public OIS::KeyListener, public OIS::MouseListener
   {
   
-    typedef std::deque< InputSystemScene* > InputSystemSceneList;
+    typedef std::deque<InputSystemScene*> InputSystemSceneList;
   
   public:
   

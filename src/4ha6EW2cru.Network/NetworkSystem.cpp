@@ -58,7 +58,7 @@ namespace Network
   {
     m_serviceManager->RegisterService(this);
 
-    if (!m_attributes[ System::Attributes::Network::IsServer ].As< bool >())
+    if (!m_attributes[ System::Attributes::Network::IsServer ].As<bool>())
     {
       m_clientProvider->Initialize(1);
       m_scene->AddNetworkProvider(m_clientProvider);
@@ -85,8 +85,8 @@ namespace Network
     {
       scope luaScope = 
         (
-        class_< ServerEventData >("ServerEventData")
-          .def(constructor< const std::string&, const std::string&, int, int, int, const std::string& >())
+        class_<ServerEventData>("ServerEventData")
+          .def(constructor<const std::string&, const std::string&, int, int, int, const std::string&>())
           .def("getServerName", &ServerEventData::GetServerName)
           .def("getMaxPlayers", &ServerEventData::GetMaxPlayers)
           .def("getMapName", &ServerEventData::GetMapName)
@@ -100,20 +100,20 @@ namespace Network
 
     if (message == System::Messages::Network::CreateServer)
     {
-      m_instrumentation->SetLevelName(parameters[ System::Parameters::Game::LevelName ].As< std::string >());
+      m_instrumentation->SetLevelName(parameters[ System::Parameters::Game::LevelName ].As<std::string>());
 
       m_clientProvider->SetPassive(true);
 
-      m_serverProvider->Initialize(parameters[ System::Parameters::Network::Server::MaxPlayers ].As< int >());
+      m_serverProvider->Initialize(parameters[ System::Parameters::Network::Server::MaxPlayers ].As<int>());
 
       m_scene->AddNetworkProvider(m_serverProvider);
-      m_eventManager->AddEventListener(EventTypes::GAME_LEVEL_CHANGED, MakeEventListener(static_cast< NetworkServerProvider* >(m_serverProvider), &NetworkServerProvider::OnGameLevelChanged));
+      m_eventManager->AddEventListener(EventTypes::GAME_LEVEL_CHANGED, MakeEventListener(static_cast<NetworkServerProvider*>(m_serverProvider), &NetworkServerProvider::OnGameLevelChanged));
     }
 
     if (message == System::Messages::Network::Connect)
     {
       m_clientProvider->Connect(
-        parameters[ System::Parameters::Network::HostAddress ].As< std::string >().c_str()
+        parameters[ System::Parameters::Network::HostAddress ].As<std::string>().c_str()
        );
     }
 
@@ -124,7 +124,7 @@ namespace Network
 
     if (message == System::Messages::Network::Client::CharacterSelected)
     {
-      m_clientProvider->SelectCharacter(parameters[ System::Parameters::Network::Client::CharacterName ].As< std::string >());
+      m_clientProvider->SelectCharacter(parameters[ System::Parameters::Network::Client::CharacterName ].As<std::string>());
     }
 
     if(message == System::Messages::Network::Client::FindServers)

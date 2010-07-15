@@ -12,8 +12,8 @@ namespace Script
   scope AnimationFacade::RegisterFunctions()
   {
     return
-      class_< AnimationFacade >("AnimationFacade")
-        .def(constructor< ISystemComponent* >())
+      class_<AnimationFacade>("AnimationFacade")
+        .def(constructor<ISystemComponent*>())
         .def("startAnimation", &AnimationFacade::StartAnimation)
         .def("stopAnimation", &AnimationFacade::StopAnimation);
   }

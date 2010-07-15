@@ -5,7 +5,7 @@ using namespace testing;
 #include "ServerAdvertisement.hpp"
 using namespace Network;
 
-class ServerCache_Tests : public TestHarness< ServerCache >
+class ServerCache_Tests : public TestHarness<ServerCache>
 {
   ServerCache* CreateSubject()
   {

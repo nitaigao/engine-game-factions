@@ -25,7 +25,7 @@ using namespace Configuration;
 
 namespace base_context
 {
-  class Game_BaseContext : public TestHarness< GameRoot >
+  class Game_BaseContext : public TestHarness<GameRoot>
   {
 
   protected:
@@ -85,15 +85,15 @@ namespace given_the_game_is_a_dedicated_server
       EXPECT_CALL(*m_systemManager, LoadSystems(true));
       EXPECT_CALL(*m_systemManager, InitializeAllSystems());
 
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_QUIT, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_ENDED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_QUIT, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_LEVEL_CHANGED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_ENDED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
 
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_QUIT, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_ENDED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_QUIT, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_LEVEL_CHANGED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_ENDED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
 
-      EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::PostInitialize, An< AnyType::AnyTypeMap >())).WillOnce(Return(AnyType::AnyTypeMap()));
+      EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::PostInitialize, An<AnyType::AnyTypeMap>())).WillOnce(Return(AnyType::AnyTypeMap()));
 
       EXPECT_CALL(*m_systemManager, CreateWorld()).WillOnce(Return(m_world));
 
@@ -148,24 +148,24 @@ namespace given_a_level_has_been_passed_on_the_command_line
       EXPECT_CALL(*m_configuration, Find(Configuration::ConfigSections::Network, Configuration::ConfigItems::Network::ServerMaxPlayers)).WillOnce(Return(10));
   
       EXPECT_CALL(*m_serviceManager, FindService(System::Types::NETWORK)).WillOnce(Return(m_networkService));
-      EXPECT_CALL(*m_networkService, ProcessMessage(System::Messages::Network::CreateServer, An< AnyType::AnyTypeMap >()))
+      EXPECT_CALL(*m_networkService, ProcessMessage(System::Messages::Network::CreateServer, An<AnyType::AnyTypeMap>()))
         .WillOnce(Return(AnyType::AnyTypeMap()));
 
       EXPECT_CALL(*m_systemManager, LoadSystems(isDedicated));
       EXPECT_CALL(*m_systemManager, InitializeAllSystems());
 
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_QUIT, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_ENDED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_QUIT, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_LEVEL_CHANGED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_ENDED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
 
 
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_QUIT, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_ENDED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_QUIT, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_LEVEL_CHANGED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_ENDED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
 
-      EXPECT_CALL(*m_eventManager, QueueEvent(EventTypes::GAME_LEVEL_CHANGED, An< IEventData* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventData));
+      EXPECT_CALL(*m_eventManager, QueueEvent(EventTypes::GAME_LEVEL_CHANGED, An<IEventData*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventData));
 
-      EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::PostInitialize, An< AnyType::AnyTypeMap >())).WillOnce(Return(AnyType::AnyTypeMap()));
+      EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::PostInitialize, An<AnyType::AnyTypeMap>())).WillOnce(Return(AnyType::AnyTypeMap()));
 
       EXPECT_CALL(*m_systemManager, CreateWorld()).WillOnce(Return(m_world));
 
@@ -193,16 +193,16 @@ namespace given_in_general
   
     void Expecting()
     {
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_QUIT, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_ENDED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_QUIT, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_LEVEL_CHANGED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, AddEventListener(EventTypes::GAME_ENDED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
 
 
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_QUIT, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_LEVEL_CHANGED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
-      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_ENDED, An< IEventListener* >())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_QUIT, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_LEVEL_CHANGED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(EventTypes::GAME_ENDED, An<IEventListener*>())).WillOnce(Invoke(&MockEventManager::ConsumeEventListener));
 
-      EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::PostInitialize, An< AnyType::AnyTypeMap >())).WillOnce(Return(AnyType::AnyTypeMap()));
+      EXPECT_CALL(*m_serviceManager, MessageAll(System::Messages::PostInitialize, An<AnyType::AnyTypeMap>())).WillOnce(Return(AnyType::AnyTypeMap()));
 
       EXPECT_CALL(*m_systemManager, CreateWorld()).WillOnce(Return(m_world));
 

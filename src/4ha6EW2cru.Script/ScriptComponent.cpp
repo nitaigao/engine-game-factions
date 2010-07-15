@@ -47,7 +47,7 @@ namespace Script
 
   void ScriptComponent::Initialize()
   {
-    m_state->LoadScript(m_attributes[ System::Parameters::ScriptPath ].As< std::string >());
+    m_state->LoadScript(m_attributes[ System::Parameters::ScriptPath ].As<std::string>());
 
     m_facadeManager->Initialize(this);
   }
@@ -89,17 +89,17 @@ namespace Script
 
     if (message == System::Messages::SetPosition )
     {
-      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As<MathVector3>();
     }
 
     if (message ==  System::Messages::SetOrientation)
     {
-      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
+      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As<MathQuaternion>();
     }
 
     if (message == System::Messages::SetLookAt)
     {
-      m_lookAt = parameters[ System::Attributes::LookAt ].As< MathVector3 >();
+      m_lookAt = parameters[ System::Attributes::LookAt ].As<MathVector3>();
     }
 
     if (message == System::Messages::RunScript || message == System::Messages::PostInitialize)

@@ -124,7 +124,7 @@ namespace Network
     NetworkStream networkStream(&stream);
 
     AnyType::AnyTypeMap parameters;
-    parameters [ System::Parameters::IO::Stream ] = static_cast< IStream* >(&networkStream);
+    parameters [ System::Parameters::IO::Stream ] = static_cast<IStream*>(&networkStream);
 
     m_serviceManager->FindService(System::Types::ENTITY)
       ->ProcessMessage(System::Messages::Entity::DeSerializeWorld, parameters);
@@ -141,7 +141,7 @@ namespace Network
       std::string fileExtension = (entityName == m_networkInterface->GetAddress(rpcFromNetwork->GetLastSenderAddress()).ToString()) ? "-fps.xml" : ".xml";
 
       std::stringstream entityFilePath;
-      entityFilePath << "/data/entities/" << entityType << fileExtension;
+      entityFilePath <<"/data/entities/" <<entityType <<fileExtension;
       parameters[ System::Attributes::FilePath ] = entityFilePath.str();
 
       m_serviceManager->FindService(System::Types::ENTITY)

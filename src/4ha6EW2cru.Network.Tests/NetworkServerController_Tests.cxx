@@ -12,7 +12,7 @@ using namespace Network;
 #include "Mocks/MockService.h"
 #include "Mocks/MockInstrumentation.hpp"
 
-class NetworkServerController_Tests : public TestHarness< NetworkServerController >
+class NetworkServerController_Tests : public TestHarness<NetworkServerController>
 {
 
 protected:
@@ -49,7 +49,7 @@ TEST_F(NetworkServerController_Tests, should_destroy_entity_on_client_disconnect
   EXPECT_CALL(*m_serviceManager, FindService(System::Types::ENTITY))
     .WillOnce(Return(&service));
 
-  EXPECT_CALL(service, ProcessMessage(System::Messages::Entity::DestroyEntity, An< AnyType::AnyTypeMap >()))
+  EXPECT_CALL(service, ProcessMessage(System::Messages::Entity::DestroyEntity, An<AnyType::AnyTypeMap>()))
     .WillOnce(Return(AnyType::AnyTypeMap()));
 
   m_subject->ClientDisconnected(SystemAddress("127.0.0.1", 3242));

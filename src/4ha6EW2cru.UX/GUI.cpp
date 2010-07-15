@@ -52,9 +52,9 @@ namespace UX
   void GUI::Initialize(const std::string& skinPath)
   {
     IService* renderService = m_serviceManager->FindService(System::Types::RENDER);
-    Root* root = renderService->ProcessMessage(System::Messages::Graphics::GetRootSingleton, AnyType::AnyTypeMap())[ "result" ].As< Root* >();
+    Root* root = renderService->ProcessMessage(System::Messages::Graphics::GetRootSingleton, AnyType::AnyTypeMap())[ "result" ].As<Root*>();
     Root::initFromPtr(root); 
-    RenderWindow* renderWindow = renderService->ProcessMessage(System::Messages::Graphics::GetRenderWindow, AnyType::AnyTypeMap())[ "renderWindow" ].As< Ogre::RenderWindow* >();
+    RenderWindow* renderWindow = renderService->ProcessMessage(System::Messages::Graphics::GetRenderWindow, AnyType::AnyTypeMap())[ "renderWindow" ].As<Ogre::RenderWindow*>();
     m_gui->initialise(renderWindow, skinPath, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, "");
 
     WidgetManager::getInstancePtr()->registerUnlinker(this);
@@ -109,7 +109,7 @@ namespace UX
   void GUI::_unlinkWidget(WidgetPtr widget)
   {
     void* userData = widget->getUserData();
-    WidgetUserData* widgetUserData = static_cast< WidgetUserData* >(userData);
+    WidgetUserData* widgetUserData = static_cast<WidgetUserData*>(userData);
 
     if (0 != widgetUserData)
     {

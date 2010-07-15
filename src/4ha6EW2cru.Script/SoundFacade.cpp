@@ -12,7 +12,7 @@ namespace Script
   scope SoundFacade::RegisterFunctions()
   {
     return
-      class_< SoundFacade >("SoundFacade")
+      class_<SoundFacade>("SoundFacade")
         .def("playMusic", &SoundFacade::PlayMusic)
         .def("triggerEvent", &SoundFacade::TriggerEvent)
         .def("keyOutEvent", &SoundFacade::KeyOutEvent);

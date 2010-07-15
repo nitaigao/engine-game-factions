@@ -41,10 +41,10 @@ namespace Input
   
     m_inputManager = OIS::InputManager::createInputSystem(m_platformManager->GetWindowId());
   
-    m_keyboard = static_cast< OIS::Keyboard* >(m_inputManager->createInputObject(OIS::OISKeyboard, true));
+    m_keyboard = static_cast<OIS::Keyboard*>(m_inputManager->createInputObject(OIS::OISKeyboard, true));
     m_keyboard->setEventCallback(this);
   
-    m_mouse = static_cast< OIS::Mouse* >(m_inputManager->createInputObject(OIS::OISMouse, true));
+    m_mouse = static_cast<OIS::Mouse*>(m_inputManager->createInputObject(OIS::OISMouse, true));
     m_mouse->setEventCallback(this);
 
     this->LoadMessageBindings();
@@ -67,7 +67,7 @@ namespace Input
     {
       for(InputSystemSceneList::iterator j = m_inputScenes.begin(); j != m_inputScenes.end(); ++j)
       {
-        (*j)->SetInputAllowed(value.As< bool >());
+        (*j)->SetInputAllowed(value.As<bool>());
       }
     }
   }
@@ -77,8 +77,8 @@ namespace Input
     m_mouse->capture();
     m_keyboard->capture();
 
-    m_mouse->getMouseState().width = m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Width).As< int >();
-    m_mouse->getMouseState().height = m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Height).As< int >();
+    m_mouse->getMouseState().width = m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Width).As<int>();
+    m_mouse->getMouseState().height = m_configuration->Find(Configuration::ConfigSections::Graphics, Configuration::ConfigItems::Graphics::Height).As<int>();
 
     for(InputSystemSceneList::iterator i = m_inputScenes.begin(); i != m_inputScenes.end(); ++i)
     {
@@ -144,11 +144,11 @@ namespace Input
 
     for (AnyType::AnyTypeMap::iterator i = bindings.begin(); i != bindings.end(); ++i)
     {
-      InputMessageBinding binding((*i).first, (*i).second.As< std::string >());
+      InputMessageBinding binding((*i).first, (*i).second.As<std::string>());
 
       if (binding.GetType() == BINDING_KEYBOARD && !binding.GetFullCode().empty()) 
       {
-        binding.SetText(m_keyboard->getAsString(static_cast< OIS::KeyCode >(binding.GetCode())));
+        binding.SetText(m_keyboard->getAsString(static_cast<OIS::KeyCode>(binding.GetCode())));
       }
 
       m_messageBindings.push_back(binding);
@@ -168,7 +168,7 @@ namespace Input
     {
       for (InputMessageBinding::InputMessageBindingList::iterator i = m_messageBindings.begin(); i != m_messageBindings.end(); ++i)
       {
-        if ((*i).GetMessage() == parameters[ System::Attributes::Message ].As< std::string >())
+        if ((*i).GetMessage() == parameters[ System::Attributes::Message ].As<std::string>())
         {
           results[ "result" ] = (*i).GetText();
           return results;
@@ -180,14 +180,14 @@ namespace Input
     {
       for (InputMessageBinding::InputMessageBindingList::iterator i = m_messageBindings.begin(); i != m_messageBindings.end(); ++i)
       {
-        if ((*i).GetMessage() == parameters[ System::Attributes::Message ].As< std::string >())
+        if ((*i).GetMessage() == parameters[ System::Attributes::Message ].As<std::string>())
         {
           results[ "result" ] = (*i);
           return results;
         }
       }
 
-      results[ "result" ] = InputMessageBinding(parameters[ System::Attributes::Message ].As< std::string >(), "");
+      results[ "result" ] = InputMessageBinding(parameters[ System::Attributes::Message ].As<std::string>(), "");
       return results;
     }
 
@@ -197,8 +197,8 @@ namespace Input
       for (InputMessageBinding::InputMessageBindingList::iterator i = m_messageBindings.begin(); i != m_messageBindings.end(); ++i)
       {
         if(
-          (*i).GetFullCode() == parameters[ System::Parameters::Binding ].As< std::string >() &&
-          (*i).GetMessage() != parameters[ System::Attributes::Message ].As< std::string >()
+          (*i).GetFullCode() == parameters[ System::Parameters::Binding ].As<std::string>() &&
+          (*i).GetMessage() != parameters[ System::Attributes::Message ].As<std::string>()
          )
         {
           m_configuration->Set(Configuration::ConfigSections::Bindings, (*i).GetMessage(), "");
@@ -207,8 +207,8 @@ namespace Input
 
       m_configuration->Set(
         Configuration::ConfigSections::Bindings, 
-        parameters[ System::Attributes::Message ].As< std::string >(), 
-        parameters[ System::Parameters::Binding ].As< std::string >() 
+        parameters[ System::Attributes::Message ].As<std::string>(), 
+        parameters[ System::Parameters::Binding ].As<std::string>() 
        );
 
       this->LoadMessageBindings();
@@ -222,8 +222,8 @@ namespace Input
       for (InputMessageBinding::InputMessageBindingList::iterator i = m_messageBindings.begin(); i != m_messageBindings.end(); ++i)
       {
         if(
-          (*i).GetFullCode() == parameters[ System::Parameters::Binding ].As< std::string >() &&
-          (*i).GetMessage() != parameters[ System::Attributes::Message ].As< std::string >()
+          (*i).GetFullCode() == parameters[ System::Parameters::Binding ].As<std::string>() &&
+          (*i).GetMessage() != parameters[ System::Attributes::Message ].As<std::string>()
          )
         {
           m_configuration->Set(Configuration::ConfigSections::Bindings, (*i).GetMessage(), "");
@@ -232,8 +232,8 @@ namespace Input
 
       m_configuration->SetDefault(
         Configuration::ConfigSections::Bindings, 
-        parameters[ System::Attributes::Message ].As< std::string >(), 
-        parameters[ System::Parameters::Binding ].As< std::string >() 
+        parameters[ System::Attributes::Message ].As<std::string>(), 
+        parameters[ System::Parameters::Binding ].As<std::string>() 
        );
 
       this->LoadMessageBindings();
@@ -243,8 +243,8 @@ namespace Input
     {
       m_configuration->Set(
         Configuration::ConfigSections::Input,
-        parameters[ System::Attributes::Message ].As< std::string >(),
-        parameters[ System::Parameters::InvertYAxis ].As< bool >()
+        parameters[ System::Attributes::Message ].As<std::string>(),
+        parameters[ System::Parameters::InvertYAxis ].As<bool>()
        );
     }
 
@@ -252,7 +252,7 @@ namespace Input
     {
       for(InputSystemSceneList::iterator i = m_inputScenes.begin(); i != m_inputScenes.end(); ++i)
       {
-        (*i)->SetInputAllowed(parameters[ "inputAllowed" ].As< bool >());
+        (*i)->SetInputAllowed(parameters[ "inputAllowed" ].As<bool>());
       }
     }
 
@@ -265,11 +265,11 @@ namespace Input
     {
       scope luaScope = 
         (
-        class_< IEventData >("IEventData"),
-        class_< KeyEventData >("KeyEventData")
+        class_<IEventData>("IEventData"),
+        class_<KeyEventData>("KeyEventData")
           .def("getKeyCode", &KeyEventData::GetKeyCode)
         ,
-        class_< MouseEventData >("MouseEventData")
+        class_<MouseEventData>("MouseEventData")
         .def("getMouseId", &MouseEventData::GetMouseButtonId)
        );
 

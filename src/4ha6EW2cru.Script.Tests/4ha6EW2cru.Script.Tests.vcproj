@@ -6,7 +6,7 @@
   ProjectGUID="{DDF43841-8AF4-47E8-83E3-57F16703F1BB}"
   RootNamespace="My4ha6EW2cruScriptTests"
   TargetFrameworkVersion="196613"
-  >
+ >
   <Platforms>
     <Platform
       Name="Win32"
@@ -21,7 +21,7 @@
       IntermediateDirectory="../../build/debug/obj/4ha6EW2cru.Script.Tests"
       ConfigurationType="1"
       CharacterSet="2"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -93,7 +93,7 @@
       ConfigurationType="1"
       CharacterSet="2"
       WholeProgramOptimization="1"
-      >
+     >
       <Tool
         Name="VCPreBuildEventTool"
       />
@@ -180,111 +180,111 @@
       Name="Source Files"
       Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
       UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-      >
+     >
       <File
         RelativePath=".\LuaState_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\main.cpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\ScriptComponent_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\ScriptComponentFactory_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\ScriptFacadeFactory_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\ScriptFacadeManager_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\ScriptMessageDispatcher_Tests.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\spec_for_ScriptEventDispatcher.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\specs_for_ScriptComponent.cxx"
-        >
+       >
       </File>
       <File
         RelativePath=".\specs_for_ScriptUpdateDispatcher.cxx"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Header Files"
       Filter="h;hpp;hxx;hm;inl;inc;xsd"
       UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-      >
+     >
       <File
         RelativePath=".\Mocks\MockLuaState.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptComponent.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptComponentFactory.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptEventDispatcher.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptFacade.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptFacadeFactory.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptFacadeManager.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptFunctionHandler.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptMessageDispatcher.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptSystemScene.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\Mocks\MockScriptUpdateDispatcher.hpp"
-        >
+       >
       </File>
       <File
         RelativePath=".\ScriptSystemScene_Tests.cxx"
-        >
+       >
       </File>
     </Filter>
     <Filter
       Name="Resource Files"
       Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
       UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-      >
+     >
     </Filter>
     <File
       RelativePath=".\ScriptSystem_Tests.cxx"
-      >
+     >
     </File>
   </Files>
   <Globals>

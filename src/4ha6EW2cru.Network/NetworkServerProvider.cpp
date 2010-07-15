@@ -36,7 +36,7 @@ namespace Network
     m_configuration->SetDefault(ConfigSections::Network, ConfigItems::Network::MaxPlayers, 10);
     m_configuration->SetDefault(ConfigSections::Network, ConfigItems::Network::ServerSnapshotRate, 33);
 
-    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As< int >();
+    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As<int>();
     m_networkInterface->Initialize(serverPort, maxConnections);
     m_controller->Initialize();
     m_endpoint->Initialize();
@@ -46,7 +46,7 @@ namespace Network
   {
     if (message == System::Messages::Entity::CreateEntity)
     {
-      m_controller->CreateEntity(subject->GetName(), parameters[ System::Attributes::EntityType ].As< std::string >());
+      m_controller->CreateEntity(subject->GetName(), parameters[ System::Attributes::EntityType ].As<std::string>());
     }
 
     if (message == System::Messages::Entity::DestroyEntity)
@@ -83,11 +83,11 @@ namespace Network
 
   void NetworkServerProvider::OnGameLevelChanged(const IEvent* event)
   {
-    LevelChangedEventData* eventData = static_cast< LevelChangedEventData* >(event->GetEventData());
+    LevelChangedEventData* eventData = static_cast<LevelChangedEventData*>(event->GetEventData());
 
     BitStream stream;
-    stream.Write(RakString(m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerName).As< std::string >()));
-    stream.Write(m_configuration->Find(ConfigSections::Network, ConfigItems::Network::MaxPlayers).As< int >());
+    stream.Write(RakString(m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerName).As<std::string>()));
+    stream.Write(m_configuration->Find(ConfigSections::Network, ConfigItems::Network::MaxPlayers).As<int>());
     stream.Write(m_networkInterface->GetConnectionCount());
     stream.Write(RakString(eventData->GetLevelName()));
 

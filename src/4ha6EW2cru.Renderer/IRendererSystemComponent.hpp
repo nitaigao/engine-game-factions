@@ -20,7 +20,7 @@ namespace Renderer
 
   public:
 
-    typedef std::map< std::string, IRendererSystemComponent* > RendererSystemComponentList;
+    typedef std::map<std::string, IRendererSystemComponent*> RendererSystemComponentList;
 
     /*! Default Destructor
      *

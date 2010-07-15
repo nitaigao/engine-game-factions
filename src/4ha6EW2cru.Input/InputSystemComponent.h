@@ -24,7 +24,7 @@ namespace Input
    */
   class InputSystemComponent : public IInputSystemComponent
   {
-    typedef std::deque< float > InputHistory;
+    typedef std::deque<float> InputHistory;
   
   public:
   
@@ -120,7 +120,7 @@ namespace Input
     *
     * @return (std::string)
     */
-    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As<std::string>(); };
 
 
     /*! Posts a message to observers

@@ -95,7 +95,7 @@ namespace Script
     if (LUA_ERRSYNTAX == result)
     {
       std::stringstream errorMessage;
-      errorMessage << lua_tostring(m_state, -1);
+      errorMessage <<lua_tostring(m_state, -1);
       Warn(errorMessage.str());
       lua_pop(m_state, 1);
     }
@@ -112,13 +112,13 @@ namespace Script
   {
     try
     {
-      resume< void >(m_state);
+      resume<void>(m_state);
     }
     catch(error& e)
     {
       object error_msg(from_stack(e.state() , -1));
       std::stringstream logMessage;
-      logMessage << error_msg;
+      logMessage <<error_msg;
       Warn(logMessage.str());
     }
   }
@@ -128,7 +128,7 @@ namespace Script
     if (luaL_dostring(m_state, scriptString.c_str()))
     {
       std::stringstream errorMessage;
-      errorMessage << lua_tostring(m_state, -1);
+      errorMessage <<lua_tostring(m_state, -1);
       Warn(errorMessage.str());
       lua_pop(m_state, 1);
     }
@@ -139,7 +139,7 @@ namespace Script
     if (lua_pcall(m_state, 0, 0, 0))
     {
       std::stringstream errorMessage;
-      errorMessage << lua_tostring(m_state, -1);
+      errorMessage <<lua_tostring(m_state, -1);
       Warn(errorMessage.str());
       lua_pop(m_state, 1);
     }

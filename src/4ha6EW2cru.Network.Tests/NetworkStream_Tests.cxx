@@ -11,7 +11,7 @@ using namespace RakNet;
 #include "Maths/MathQuaternion.hpp"
 using namespace Maths;
 
-class NetworkStream_Tests : public TestHarness< NetworkStream >
+class NetworkStream_Tests : public TestHarness<NetworkStream>
 {
 
 protected:

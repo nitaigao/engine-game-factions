@@ -15,7 +15,7 @@ namespace Script
   scope NetworkFacade::RegisterFunctions()
   {
     return
-      class_< NetworkFacade >("NetworkFacade")
+      class_<NetworkFacade>("NetworkFacade")
         .def("connect", &NetworkFacade::Connect)
         .def("disconnect", &NetworkFacade::Disconnect)
         .def("selectCharacter", &NetworkFacade::SelectCharacter)

@@ -8,7 +8,7 @@ using namespace Script;
 
 namespace given_a_script_is_running
 {
-  class ScriptUpdateDispatcher_BaseContext : public TestHarness< ScriptUpdateDispatcher >
+  class ScriptUpdateDispatcher_BaseContext : public TestHarness<ScriptUpdateDispatcher>
   {
 
   protected:

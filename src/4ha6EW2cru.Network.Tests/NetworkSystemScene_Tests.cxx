@@ -8,7 +8,7 @@ using namespace Network;
 #include "Mocks/MockNetworkSystemComponentFactory.hpp"
 #include "Mocks/MockNetworkSystemComponent.hpp"
 
-class NetworkSystemScene_Tests : public TestHarness< NetworkSystemScene >
+class NetworkSystemScene_Tests : public TestHarness<NetworkSystemScene>
 {
 
 protected:

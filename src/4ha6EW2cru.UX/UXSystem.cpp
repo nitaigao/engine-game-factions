@@ -46,7 +46,7 @@ namespace UX
       scope luaScope = 
       (
 
-      class_< UXSystemComponent >("UXSystemComponent")
+      class_<UXSystemComponent>("UXSystemComponent")
         .def("registerEventHandler", (void (UXSystemComponent::*) (const std::string&, const luabind::object&)) &UXSystemComponent::RegisterEventHandler)
         .def("unregisterEventHandler", (void (UXSystemComponent::*) (const std::string&, const luabind::object&)) &UXSystemComponent::UnregisterEventHandler)
         .def("registerUpdateHandler", &UXSystemComponent::RegisterUpdate)
@@ -54,7 +54,7 @@ namespace UX
         .def("executeString", &UXSystemComponent::ExecuteString)
         ,
 
-      class_< UXSystemScene >("UXSystemScene")
+      class_<UXSystemScene>("UXSystemScene")
         .def("findWidget", &UXSystemScene::FindWidget)
         .def("loadComponent", &UXSystemScene::LoadComponent)
         .def("getScreenWidth", &UXSystemScene::GetScreenWidth)
@@ -69,8 +69,8 @@ namespace UX
         .def("showScreen", &UXSystemScene::ShowScreen)
         ,
 
-      class_< Widget >("Widget")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<Widget>("Widget")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("getDimensions", &Widget::getClientCoord)
         .def("setSize", (void(Widget::*)(int, int)) &Widget::setSize)
         .def("setPosition", (void(Widget::*)(int, int)) &Widget::setPosition)
@@ -91,33 +91,33 @@ namespace UX
         .def("setFocus", &UXSystemScene::SetFocus)
         ,
 
-      class_< Button, Widget >("Button")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<Button, Widget>("Button")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("setChecked", &Button::setStateCheck)
         .def("getChecked", &Button::getStateCheck)
         ,
 
-      class_< ComboBox, Widget >("ComboBox")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<ComboBox, Widget>("ComboBox")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("addItem", (void (ComboBox::*) (const std::string&, const std::string&)) &ComboBox::addItem)
         .def("getValueAt", (const std::string& (ComboBox::*) (int)) &ComboBox::getItemNameAt)
         .def("getSelectedIndex", &ComboBox::getIndexSelected)
         .def("setSelectedIndex", &ComboBox::setIndexSelected)
         ,
 
-      class_< Edit, Widget >("EditBox")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<Edit, Widget>("EditBox")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("addText", &UXSystemScene::Edit_AddText)
         .def("eraseText", &UXSystemScene::Edit_EraseText)
         .def("getLength", &UXSystemScene::Edit_GetLength)
         ,
 
-      class_< Progress, Widget >("ProgressBar")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<Progress, Widget>("ProgressBar")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("setProgress", &Progress::setProgressPosition),
 
-      class_< MultiList, Widget >("MultiList")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<MultiList, Widget>("MultiList")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("addColumn", &UXSystemScene::MultiList_AddColumn)
         .def("removeAllColumns", &MultiList::removeAllColumns)
         .def("removeAllItems", &MultiList::removeAllItems)
@@ -132,32 +132,32 @@ namespace UX
         .def("getSelectedIndex", &UXSystemScene::MultiList_GetSelectedIndex)
         ,
 
-      class_< VScroll, Widget >("Scrollbar")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<VScroll, Widget>("Scrollbar")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         .def("getScrollPosition", &VScroll::getScrollPosition)
         .def("setScrollPosition", &VScroll::setScrollPosition)
         ,
 
-      class_< Window, Widget >("Window")
-        .def(constructor< WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string& >())
+      class_<Window, Widget>("Window")
+        .def(constructor<WidgetStyle, const IntCoord&, Align, WidgetSkinInfo*, WidgetPtr, ICroppedRectangle*, IWidgetCreator*, const std::string&>())
         ,
 
-      class_< IntCoord >("IntCoord")
-        .def(constructor< >())
+      class_<IntCoord>("IntCoord")
+        .def(constructor<>())
         .def_readonly("x" , &IntCoord::left)
         .def_readonly("y" , &IntCoord::top)
         .def_readonly("width" , &IntCoord::width)
         .def_readonly("height" , &IntCoord::height)
         ,
 
-      class_< Any >("Any")
+      class_<Any>("Any")
         .def(constructor<>())
         ,
 
-      class_< EventType >("EventType")
+      class_<EventType>("EventType")
       ,
 
-      class_< UIEventData, IEventData >("UIEventData")
+      class_<UIEventData, IEventData>("UIEventData")
         .def("getParam1", &UIEventData::GetParameter1)
         .def("getParam2", &UIEventData::GetParameter2)
 
@@ -207,31 +207,31 @@ namespace UX
 
   void UXSystem::OnMouseMoved(const IEvent* event)
   {
-    MouseEventData* eventData = static_cast< MouseEventData* >(event->GetEventData());
+    MouseEventData* eventData = static_cast<MouseEventData*>(event->GetEventData());
     m_gui->MouseMoved(eventData->GetX(), eventData->GetY(), eventData->GetZ());
   }
 
   void UXSystem::OnMousePressed(const IEvent* event)
   {
-    MouseEventData* eventData = static_cast< MouseEventData* >(event->GetEventData());
+    MouseEventData* eventData = static_cast<MouseEventData*>(event->GetEventData());
     m_gui->MousePressed(eventData->GetX(), eventData->GetY(), MouseButton::Enum(eventData->GetMouseButtonId()));
   }
 
   void UXSystem::OnMouseReleased(const IEvent* event)
   {
-    MouseEventData* eventData = static_cast< MouseEventData* >(event->GetEventData());
+    MouseEventData* eventData = static_cast<MouseEventData*>(event->GetEventData());
     m_gui->MouseReleased(eventData->GetX(), eventData->GetY(), MouseButton::Enum(eventData->GetMouseButtonId()));
   }
 
   void UXSystem::OnKeyUp(const IEvent* event)
   {
-    KeyEventData* eventData = static_cast< KeyEventData* >(event->GetEventData());
+    KeyEventData* eventData = static_cast<KeyEventData*>(event->GetEventData());
     m_gui->KeyReleased(KeyCode::Enum(eventData->GetKeyCode()));
   }
 
   void UXSystem::OnKeyDown(const IEvent* event)
   {
-    KeyEventData* eventData = static_cast< KeyEventData* >(event->GetEventData());
+    KeyEventData* eventData = static_cast<KeyEventData*>(event->GetEventData());
     m_gui->KeyPressed(KeyCode::Enum(eventData->GetKeyCode()));
   }
 };
