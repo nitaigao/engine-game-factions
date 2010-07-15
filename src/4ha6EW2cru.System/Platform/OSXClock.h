@@ -12,18 +12,18 @@ namespace Platform
 
 	public:
 
-		~OSXClock( ) { };
+		~OSXClock() { };
 
-		OSXClock( )
-			: m_endFrameTime( 0 )
-			, m_startFrameTime( 0 )
+		OSXClock()
+			: m_endFrameTime(0)
+			, m_startFrameTime(0)
 		{
 
 		}
 
-		float GetDeltaMilliseconds( );
+		float GetDeltaMilliseconds();
 
-    float GetTime( ) const;
+    float GetTime() const;
 
 	private:
 

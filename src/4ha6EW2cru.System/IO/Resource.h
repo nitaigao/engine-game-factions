@@ -26,7 +26,7 @@ namespace Resources
 		 *
 		 *  @return ()
 		 */
-		~Resource( )
+		~Resource()
 		{
 			delete m_fileBuffer;
 		};
@@ -37,8 +37,8 @@ namespace Resources
 		 *  @param[in] FileBuffer * fileBuffer
 		 *  @return ()
 		 */
-		Resource( IO::FileBuffer* fileBuffer )
-			: m_fileBuffer( fileBuffer )
+		Resource(IO::FileBuffer* fileBuffer)
+			: m_fileBuffer(fileBuffer)
 		{
 
 		};
@@ -48,7 +48,7 @@ namespace Resources
 		 *
 		 *  @return (FileBuffer*)
 		 */
-		inline IO::FileBuffer* GetFileBuffer( ) const { return m_fileBuffer; };
+		inline IO::FileBuffer* GetFileBuffer() const { return m_fileBuffer; };
 
 
 		/*! Increments the reference count for this resource 
@@ -56,7 +56,7 @@ namespace Resources
 		*
 		*  @return (void)
 		*/
-		inline void AddReference( ) { m_referenceCount++; };
+		inline void AddReference() { m_referenceCount++; };
 
 
 		/*! De increments the reference count for this resource 
@@ -64,11 +64,11 @@ namespace Resources
 		*
 		*  @return (void)
 		*/
-		inline void RemoveReference( )
+		inline void RemoveReference()
 		{
-			/*if ( m_referenceCount == 0 )
+			/*if (m_referenceCount == 0)
 			{
-				throw OutOfRangeException( "Attempted to de increment a reference on a Resource that already has a reference count of 0" );
+				throw OutOfRangeException("Attempted to de increment a reference on a Resource that already has a reference count of 0");
 			}*/
 
 			m_referenceCount--;

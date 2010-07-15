@@ -21,7 +21,7 @@ namespace Maths
 
 	public:
 
-		typedef std::deque< MathVector3 > MathVector3List;
+		typedef std::deque<MathVector3> MathVector3List;
 
 		float X, Y, Z;
 
@@ -29,10 +29,10 @@ namespace Maths
 		 *
 		 *  @return ()
 		 */
-		MathVector3( )
-			: X( 0 )
-			, Y( 0 )
-			, Z( 0 )
+		MathVector3()
+			: X(0)
+			, Y(0)
+			, Z(0)
 		{
 
 		}
@@ -45,10 +45,10 @@ namespace Maths
 		 *  @param[in] float z
 		 *  @return ()
 		 */
-		MathVector3( float x, float y, float z )
-			: X( x )
-			, Y( y )
-			, Z( z )
+		MathVector3(float x, float y, float z)
+			: X(x)
+			, Y(y)
+			, Z(z)
 		{
 
 		}
@@ -59,7 +59,7 @@ namespace Maths
 		 *  @param[in] const MathVector3 & input
 		 *  @return (float)
 		 */
-		inline float DotProduct( const MathVector3& input ) const
+		inline float DotProduct(const MathVector3& input) const
 		{
 			return X * input.X + Y * input.Y + Z * input.Z;
 		}
@@ -69,9 +69,9 @@ namespace Maths
 		 *
 		 *  @return (float)
 		 */
-		inline float Length( ) const
+		inline float Length() const
 		{
-			return sqrt( X * X + Y * Y + Z * Z );
+			return sqrt(X * X + Y * Y + Z * Z);
 		}
 
 
@@ -81,10 +81,10 @@ namespace Maths
 		*  @param[in] float amount
 		*  @return (MathVector3)
 		*/
-		inline MathVector3 Interpolate( const MathVector3& input, float amount )
+		inline MathVector3 Interpolate(const MathVector3& input, float amount)
 		{
 			MathVector3 positionDifference = input - *this;
-			return *this + ( positionDifference * amount );
+			return *this + (positionDifference * amount);
 		}
 
 
@@ -93,7 +93,7 @@ namespace Maths
 		 *  @param[in] const MathVector3 & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 CrossProduct( const MathVector3& input ) const
+		inline MathVector3 CrossProduct(const MathVector3& input) const
 		{
 			return MathVector3(
 				Y * input.Z - Z * input.Y,
@@ -107,26 +107,26 @@ namespace Maths
 		 *
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 Normalize( ) const
+		inline MathVector3 Normalize() const
 		{
-			float length = sqrt( X * X + Y * Y + Z * Z  );
+			float length = sqrt(X * X + Y * Y + Z * Z );
 
-			return ( length > 0.0f ) 
-				? MathVector3( X, Y, Z ) / length
-				: MathVector3( X, Y, Z );
+			return (length> 0.0f) 
+				? MathVector3(X, Y, Z) / length
+				: MathVector3(X, Y, Z);
 		}
 
 
 		/*! Rounds the Vector Values to the nearest whole number
 		*
-		* @return ( Maths::MathVector3 )
+		* @return (Maths::MathVector3)
 		*/
-		inline MathVector3 Round( ) const
+		inline MathVector3 Round() const
 		{
 			return MathVector3(
-				MathUnits::Round( X ),
-				MathUnits::Round( Y ),
-				MathUnits::Round( Z )
+				MathUnits::Round(X),
+				MathUnits::Round(Y),
+				MathUnits::Round(Z)
 				);
 		}
 
@@ -136,7 +136,7 @@ namespace Maths
 		 *  @param[in] const float & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator / ( float input ) const
+		inline MathVector3 operator / (float input) const
 		{
 			return MathVector3(
 				X / input,
@@ -151,7 +151,7 @@ namespace Maths
 		 *  @param[in] const MathVector3 & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator + ( const MathVector3& input ) const
+		inline MathVector3 operator + (const MathVector3& input) const
 		{
 			return MathVector3(
 				input.X + X,
@@ -166,7 +166,7 @@ namespace Maths
 		 *  @param[in] const MathVector3 & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator += ( const MathVector3& input ) const
+		inline MathVector3 operator += (const MathVector3& input) const
 		{
 			return *this + input;
 		};
@@ -177,7 +177,7 @@ namespace Maths
 		 *  @param[in] const MathVector3 & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator - ( const MathVector3& input ) const
+		inline MathVector3 operator - (const MathVector3& input) const
 		{
 			return MathVector3(
 				X - input.X,
@@ -192,7 +192,7 @@ namespace Maths
 		 *  @param[in] const float & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator * ( float input ) const
+		inline MathVector3 operator * (float input) const
 		{
 			return MathVector3(
 				input * X,
@@ -207,7 +207,7 @@ namespace Maths
 		 *  @param[in] const MathVector3 & input
 		 *  @return (Maths::MathVector3)
 		 */
-		inline MathVector3 operator * ( const MathVector3& input ) const
+		inline MathVector3 operator * (const MathVector3& input) const
 		{
 			return MathVector3(
 				X * input.X,
@@ -220,25 +220,25 @@ namespace Maths
 		/*! Returns whether the vector values match the input vector values
 		*
 		* @param[in] const MathVector3 & input
-		* @return ( bool )
+		* @return (bool)
 		*/
-		inline bool operator == ( const MathVector3& input ) const
+		inline bool operator == (const MathVector3& input) const
 		{
 			return (
 				X == input.X && 
 				Y == input.Y &&
-				Z == input.Z );
+				Z == input.Z);
 		}
 
 
 		/*! Returns whether the vector values do not match the input vector values
 		*
 		* @param[in] const MathVector3 & input
-		* @return ( bool )
+		* @return (bool)
 		*/
-		inline bool operator != ( const MathVector3& input ) const
+		inline bool operator != (const MathVector3& input) const
 		{
-			return !( * this == input );
+			return !(* this == input);
 		}
 
 
@@ -246,11 +246,11 @@ namespace Maths
 		 *
 		 * @param[in] std::ostream & stream
 		 * @param[in] const MathVector3 & vector
-		 * @return ( friend std::ostream& )
+		 * @return (friend std::ostream&)
 		 */
-		friend std::ostream& operator << ( std::ostream& stream, const MathVector3& input ) 
+		friend std::ostream& operator <<(std::ostream& stream, const MathVector3& input) 
 		{
-			stream << "X:" << input.X << " Y:" << input.Y << " Z:" << input.Z;
+			stream <<"X:" <<input.X <<" Y:" <<input.Y <<" Z:" <<input.Z;
 			return stream;
 		}
 
@@ -260,9 +260,9 @@ namespace Maths
 		 *  @param[in] const MathMatrix & input
 		 *  @return (Maths::MathVector3)
 		 */
-		/*inline MathVector3 operator * ( const MathMatrix& input ) const
+		/*inline MathVector3 operator * (const MathMatrix& input) const
 		{
-			return MathTools::AsOgreVector3( this ) * input;
+			return MathTools::AsOgreVector3(this) * input;
 		}*/
 
 
@@ -270,21 +270,21 @@ namespace Maths
 		 *
 		 *  @return (Maths::MathVector3)
 		 */
-		static inline MathVector3 Up( ) { return MathVector3( 0.0f, 1.0f, 0.0f ); };
+		static inline MathVector3 Up() { return MathVector3(0.0f, 1.0f, 0.0f); };
 
 
 		/*! Returns a Vector pointing FORWARD
 		 *
 		 *  @return (Maths::MathVector3)
 		 */
-		static inline MathVector3 Forward( ) { return MathVector3( 0.0f, 0.0f, -1.0f ); };
+		static inline MathVector3 Forward() { return MathVector3(0.0f, 0.0f, -1.0f); };
 
 
 		/*! Returns a Zero Vector
 		 *
 		 *  @return (Maths::MathVector3)
 		 */
-		static inline MathVector3 Zero( ) { return MathVector3( 0.0f, 0.0f, 0.0f ); };
+		static inline MathVector3 Zero() { return MathVector3(0.0f, 0.0f, 0.0f); };
 
 	};
 };

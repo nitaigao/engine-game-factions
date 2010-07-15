@@ -25,30 +25,30 @@ namespace Platform
 		 *
 		 *  @return ()
 		 */
-		virtual ~IProgramOptions( ) { };
+		virtual ~IProgramOptions() { };
 
 
 		/*! Initializes the program options from the command line arguments
 		 *
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void Initialize( ) = 0;
+		virtual void Initialize() = 0;
 
 
 		/*! Detects whether the given option was passed to the program command line
 		 *
 		 * @param[in] const std::string & optionName
-		 * @return ( bool )
+		 * @return (bool)
 		 */
-		virtual bool HasOption( const std::string& optionName ) const = 0;
+		virtual bool HasOption(const std::string& optionName) const = 0;
 
 
 		/*! Returns an option specified on the command line
 		 *
 		 * @param[in] const std::string & optionName
-		 * @return ( std::string )
+		 * @return (std::string)
 		 */
-		virtual std::string GetOption( const std::string& optionName ) const = 0;
+		virtual std::string GetOption(const std::string& optionName) const = 0;
 		
 	};
 };

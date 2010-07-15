@@ -24,9 +24,9 @@ namespace IO
 		 *
 		 *  @return ()
 		 */
-		~FileBuffer( )
+		~FileBuffer()
 		{
-			if( fileBytes != 0 )
+			if(fileBytes != 0)
 			{
 				delete fileBytes;
 			}
@@ -39,11 +39,11 @@ namespace IO
 		 *  @param[in] const std::string & filePath
 		 *  @return ()
 		 */
-		FileBuffer( char* fileBytes, const unsigned int& fileLength, const std::string& filePath )
-			: fileBytes( fileBytes )
-			, fileLength( fileLength )
-			, filePath( filePath )
-			, filePosition( 0 )
+		FileBuffer(char* fileBytes, const unsigned int& fileLength, const std::string& filePath)
+			: fileBytes(fileBytes)
+			, fileLength(fileLength)
+			, filePath(filePath)
+			, filePosition(0)
 		{
 
 		}
@@ -56,8 +56,8 @@ namespace IO
 
 	private:
 
-		FileBuffer( const FileBuffer & copy ) { };
-		FileBuffer & operator = ( const FileBuffer & copy ) { return *this; };
+		FileBuffer(const FileBuffer & copy) { };
+		FileBuffer & operator = (const FileBuffer & copy) { return *this; };
 
 	};
 };

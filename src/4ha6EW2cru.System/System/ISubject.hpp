@@ -23,7 +23,7 @@ public:
 	 *
 	 *  @return ()
 	 */
-	virtual ~ISubject( ) { };
+	virtual ~ISubject() { };
 
 
 	/*! Adds an Observer to the Subject
@@ -31,7 +31,7 @@ public:
 	*  @param[in] IObserver * observer
 	*  @return (void)
 	*/
-	virtual void AddObserver( IObserver* observer ) = 0;
+	virtual void AddObserver(IObserver* observer) = 0;
 
 
 	/*! Posts a message to observers
@@ -40,7 +40,7 @@ public:
 	*  @param[in] AnyType::AnyValueMap parameters
 	*  @return (AnyType)
 	*/
-	virtual AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+	virtual AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
 
 };
 

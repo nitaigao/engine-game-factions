@@ -38,27 +38,27 @@ namespace Game
 		 *
 		 *  @return ()
 		 */
-		~GameFactory( );
+		~GameFactory();
 
 
 		/*! Default Constructor
 		*
-		* @return (  )
+		* @return ()
 		*/
-		GameFactory( );
+		GameFactory();
 
 
 		/*! Creates a Game System
 		*
-		* @return ( IGame* )
+		* @return (IGame*)
 		*/
-		IGame* CreateGame( ) const;
+		IGame* CreateGame() const;
 
 
 	private:
 
-		GameFactory( const GameFactory & copy ) { };
-		GameFactory & operator = ( const GameFactory & copy ) { return *this; };
+		GameFactory(const GameFactory & copy) { };
+		GameFactory & operator = (const GameFactory & copy) { return *this; };
 
 
 		Platform::IProgramOptions* m_programOptions;

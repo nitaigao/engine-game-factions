@@ -29,14 +29,14 @@ namespace Platform
 		 *
 		 *  @return ()
 		 */
-		virtual ~IPlatformManager( ) {  };
+		virtual ~IPlatformManager() {  };
 
 
 		/*! Initializes the Platform Manager and all Sub Components
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void Initialize( ) = 0;
+		virtual void Initialize() = 0;
 
 
 		/*! Creates an Interactive Window for the Player
@@ -47,29 +47,29 @@ namespace Platform
 		 *  @param[in] const bool & fullScreen
 		 *  @return (void)
 		 */
-		virtual void CreateInteractiveWindow( const std::string& title, int width, int height, bool fullScreen ) = 0;
+		virtual void CreateInteractiveWindow(const std::string& title, int width, int height, bool fullScreen) = 0;
 
 
 		/*! Closes the Open Window
 		 *
 		 *  @return (void)
 		 */
-		virtual void CloseWindow( ) = 0;
+		virtual void CloseWindow() = 0;
 
 
 		/*! Creates a Console Window
 		 *
 		 *  @return (void)
 		 */
-		virtual void CreateConsoleWindow( ) = 0;
+		virtual void CreateConsoleWindow() = 0;
 
 
 		/*! Outputs the given message to std::cout
 		*
 		* @param[in] const std::string & message
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void OutputToConsole( const std::string& message ) = 0;
+		virtual void OutputToConsole(const std::string& message) = 0;
 
 
 		/*! Steps internal data structures
@@ -77,42 +77,42 @@ namespace Platform
 		 *  @param[in] float deltaMilliseconds
 		 *  @return (void)
 		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
+		virtual void Update(float deltaMilliseconds) = 0;
 
 
 		/*! Gets the Id of the active game window
 		 *
 		 *  @return (size_t)
 		 */
-		virtual size_t GetWindowId( ) const = 0;
+		virtual size_t GetWindowId() const = 0;
 
 		
 		/*! Returns the Clock from the given Platform
 		*
-		* @return ( IClock& )
+		* @return (IClock&)
 		*/
-		virtual IClock* GetClock( ) = 0;
+		virtual IClock* GetClock() = 0;
 
 
 		/*! Outputs a message to the Debug Console
 		 *
 		 *  @return (void)
 		 */
-		virtual void OutputDebugMessage( const std::string& message ) = 0;
+		virtual void OutputDebugMessage(const std::string& message) = 0;
 
 
 		/*! Generates a unique UUID
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		virtual std::string GenUUID( ) const = 0;
+		virtual std::string GenUUID() const = 0;
 
 
 		/*! Returns the Path Information for the platform
 		*
-		* @return ( IPathInformation* )
+		* @return (IPathInformation*)
 		*/
-		virtual IO::IPathInformation* GetPathInformation( ) = 0;
+		virtual IO::IPathInformation* GetPathInformation() = 0;
 	};
 };
 

@@ -26,9 +26,9 @@ namespace Events
 		 *
 		 *  @return ()
 		 */
-		~Event( )
+		~Event()
 		{
-			if ( m_eventData != 0 )
+			if (m_eventData != 0)
 			{
 				delete m_eventData;
 				m_eventData = 0;
@@ -41,9 +41,9 @@ namespace Events
 		 *  @param[in] const EventType & eventType
 		 *  @return ()
 		 */
-		Event( const std::string& eventType )
-			: m_eventType( eventType )
-			, m_eventData( 0 )
+		Event(const std::string& eventType)
+			: m_eventType(eventType)
+			, m_eventData(0)
 		{
 
 		};
@@ -55,9 +55,9 @@ namespace Events
 		*  @param[in] IEventData * eventData
 		*  @return ()
 		*/
-		Event( const std::string& eventType, IEventData* eventData )
-			: m_eventType( eventType )
-			, m_eventData( eventData )
+		Event(const std::string& eventType, IEventData* eventData)
+			: m_eventType(eventType)
+			, m_eventData(eventData)
 		{
 
 		};
@@ -67,23 +67,23 @@ namespace Events
 		*
 		*  @return (std::string)
 		*/
-		inline std::string GetEventType( ) const { return m_eventType; };
+		inline std::string GetEventType() const { return m_eventType; };
 
 		
 		/*! Returns Event Data attached to the Event
 		 *
 		 *  @return (IEventData*)
 		 */
-		inline IEventData* GetEventData( ) const { return m_eventData; };
+		inline IEventData* GetEventData() const { return m_eventData; };
 
 	private:
 
 		std::string m_eventType;
 		IEventData* m_eventData;
 
-		Event( ) { };
-		Event( const Event & copy ) { };
-		Event & operator = ( const Event & copy ) { return *this; };
+		Event() { };
+		Event(const Event & copy) { };
+		Event & operator = (const Event & copy) { return *this; };
 
 	};
 };

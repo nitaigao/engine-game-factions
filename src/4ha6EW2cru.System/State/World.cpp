@@ -17,153 +17,153 @@ using namespace IO;
 
 namespace State
 {
-	World::~World( )
+	World::~World()
 	{
-		for ( ISystemScene::SystemSceneMap::reverse_iterator i = m_systemScenes.rbegin( ); i != m_systemScenes.rend( ); ++i )
+		for (ISystemScene::SystemSceneMap::reverse_iterator i = m_systemScenes.rbegin(); i != m_systemScenes.rend(); ++i)
 		{
-			delete ( *i ).second;
+			delete (*i).second;
 		}
 
 		delete m_serializer;
 		delete m_entityFactory;
 	}
 	
-	IWorldEntity* World::CreateEntity( const std::string& name )
+	IWorldEntity* World::CreateEntity(const std::string& name)
 	{
-		IWorldEntity* entity = m_entityFactory->CreateEntity( name );
-		m_entities.insert( std::make_pair( name, entity ) );
+		IWorldEntity* entity = m_entityFactory->CreateEntity(name);
+		m_entities.insert(std::make_pair(name, entity));
 		return entity;
 	}
 
-	IWorldEntity* World::CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType )
+	IWorldEntity* World::CreateEntity(const std::string& name, const std::string& filePath, const std::string& entityType)
 	{
-		IWorldEntity* entity = this->CreateEntity( name );
-		m_serializer->DeSerializeEntity( entity, filePath );
+		IWorldEntity* entity = this->CreateEntity(name);
+		m_serializer->DeSerializeEntity(entity, filePath);
 		
-		entity->SetAttribute( System::Attributes::EntityType, entityType );
-		entity->SetAttribute( System::Attributes::FilePath, filePath );
+		entity->SetAttribute(System::Attributes::EntityType, entityType);
+		entity->SetAttribute(System::Attributes::FilePath, filePath);
 
-		entity->Initialize( ); 
+		entity->Initialize(); 
 
 		return entity;
 	}
 
-	void World::DestroyEntity( const std::string& name )
+	void World::DestroyEntity(const std::string& name)
 	{
-		IWorldEntity::WorldEntityMap::iterator entity = m_entities.find( name );
+		IWorldEntity::WorldEntityMap::iterator entity = m_entities.find(name);
 
-		if ( entity != m_entities.end( ) )
+		if (entity != m_entities.end())
 		{
-			ISystemComponent::SystemComponentList components = ( *entity ).second->GetComponents( );
+			ISystemComponent::SystemComponentList components = (*entity).second->GetComponents();
 
-			for( ISystemComponent::SystemComponentList::iterator c = components.begin( ); c != components.end( ); ++c )
+			for(ISystemComponent::SystemComponentList::iterator c = components.begin(); c != components.end(); ++c)
 			{
-				m_systemScenes[ ( *c )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( ) ]->DestroyComponent( ( *c ) );
+				m_systemScenes[ (*c)->GetAttributes()[ System::Attributes::SystemType ].As<System::Types::Type>() ]->DestroyComponent((*c));
 			}
 
-			delete ( *entity ).second;
+			delete (*entity).second;
 
-			m_entities.erase( name );
+			m_entities.erase(name);
 		}
 		else
 		{
-			//Warn( "Attempted to delete a not existing Entity:", name );
+			//Warn("Attempted to delete a not existing Entity:", name);
 		}
 	}
 	
-	void World::Clear( )
+	void World::Clear()
 	{
 		IWorldEntity::WorldEntityMap entitiesToErase = m_entities;
 
-		for ( IWorldEntity::WorldEntityMap::iterator e = entitiesToErase.begin( ); e != entitiesToErase.end( ); ++e )
+		for (IWorldEntity::WorldEntityMap::iterator e = entitiesToErase.begin(); e != entitiesToErase.end(); ++e)
 		{
-			this->DestroyEntity( ( *e ).first );
+			this->DestroyEntity((*e).first);
 		}
 	}
 
-	void World::Destroy( )
+	void World::Destroy()
 	{
-		this->Clear( );
+		this->Clear();
 
-		for ( ISystemScene::SystemSceneMap::reverse_iterator i = m_systemScenes.rbegin( ); i != m_systemScenes.rend( ); ++i )
+		for (ISystemScene::SystemSceneMap::reverse_iterator i = m_systemScenes.rbegin(); i != m_systemScenes.rend(); ++i)
 		{
-			( *i ).second->Destroy( );
+			(*i).second->Destroy();
 		}
 	}
 
-	void World::Serialize( IO::IStream* stream )
+	void World::Serialize(IO::IStream* stream)
 	{
-		stream->Write( m_entities.size( ) );
+		stream->Write(m_entities.size());
 
-		for ( IWorldEntity::WorldEntityMap::iterator e = m_entities.begin( ); e != m_entities.end( ); ++e )
+		for (IWorldEntity::WorldEntityMap::iterator e = m_entities.begin(); e != m_entities.end(); ++e)
 		{
-			( *e ).second->Serialize( stream );
+			(*e).second->Serialize(stream);
 		}
 	}
 
-	void World::DeSerialize( IO::IStream* stream )
+	void World::DeSerialize(IO::IStream* stream)
 	{
 		int entityCount = 0;
-		stream->Read( entityCount );
+		stream->Read(entityCount);
 
-		for( int i = 0; i < entityCount; i++ )
+		for(int i = 0; i <entityCount; i++)
 		{
 			std::string entityName;
-			stream->Read( entityName );
+			stream->Read(entityName);
 
 			int hasFilePath;
-			stream->Read( hasFilePath );
+			stream->Read(hasFilePath);
 
 			std::string entityType;
-			stream->Read( entityType );
+			stream->Read(entityType);
 
-			if ( m_entities.find( entityName ) != m_entities.end( ) )
+			if (m_entities.find(entityName) != m_entities.end())
 			{
-				m_entities[ entityName ]->DeSerialize( stream );
+				m_entities[ entityName ]->DeSerialize(stream);
 			}
 			else
 			{
 				std::stringstream filePath;
-				filePath << "/data/entities/" << entityType << ".xml";
+				filePath <<"/data/entities/" <<entityType <<".xml";
 
-				IWorldEntity* entity = this->CreateEntity( entityName, filePath.str( ), entityType );
-				entity->DeSerialize( stream );
+				IWorldEntity* entity = this->CreateEntity(entityName, filePath.str(), entityType);
+				entity->DeSerialize(stream);
 			}
 		}
 	}
 
-	void World::Update( float deltaMilliseconds )
+	void World::Update(float deltaMilliseconds)
 	{
-		m_serializer->Update( deltaMilliseconds );
+		m_serializer->Update(deltaMilliseconds);
 	}
 
-	void World::LoadLevel( const std::string& levelpath )
+	void World::LoadLevel(const std::string& levelpath)
 	{
-		m_serializer->DeSerializeLevel( this, levelpath );
+		m_serializer->DeSerializeLevel(this, levelpath);
 	}
 
-	AnyType::AnyTypeMap World::ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+	AnyType::AnyTypeMap World::ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters)
 	{
-		if( message == System::Messages::Entity::DeSerializeWorld )
+		if(message == System::Messages::Entity::DeSerializeWorld)
 		{
-			this->DeSerialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+			this->DeSerialize(parameters[ System::Parameters::IO::Stream ].As<IStream*>());
 		}
 
-		if( message == System::Messages::Entity::SerializeWorld )
+		if(message == System::Messages::Entity::SerializeWorld)
 		{
-			this->Serialize( parameters[ System::Parameters::IO::Stream ].As< IStream* >( ) );
+			this->Serialize(parameters[ System::Parameters::IO::Stream ].As<IStream*>());
 		}
 
-		if ( message == System::Messages::Entity::CreateEntity )
+		if (message == System::Messages::Entity::CreateEntity)
 		{
-			this->CreateEntity( parameters[ System::Attributes::Name ].As< std::string >( ), parameters[ System::Attributes::FilePath ].As< std::string >( ), parameters[ System::Attributes::EntityType ].As< std::string >( ) );
+			this->CreateEntity(parameters[ System::Attributes::Name ].As<std::string>(), parameters[ System::Attributes::FilePath ].As<std::string>(), parameters[ System::Attributes::EntityType ].As<std::string>());
 		}
 
-		if ( message == System::Messages::Entity::DestroyEntity )
+		if (message == System::Messages::Entity::DestroyEntity)
 		{
-			this->DestroyEntity( parameters[ System::Attributes::Name ].As< std::string >( ) );
+			this->DestroyEntity(parameters[ System::Attributes::Name ].As<std::string>());
 		}
 
-		return AnyType::AnyTypeMap( );
+		return AnyType::AnyTypeMap();
 	}
 }

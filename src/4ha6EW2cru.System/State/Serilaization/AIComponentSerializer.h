@@ -24,14 +24,14 @@ namespace Serialization
 		 *
 		 *  @return ()
 		 */
-		~AIComponentSerializer( ) { };
+		~AIComponentSerializer() { };
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		AIComponentSerializer( ) { };
+		AIComponentSerializer() { };
 
 
 		/*! DeSerializes the Component from the Supplied Element
@@ -39,14 +39,14 @@ namespace Serialization
 		* @param[in] const std::string entityName
 		* @param[in] const ticpp::Element & componentElement
 		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return ( ISystemComponent* )
+		* @return (ISystemComponent*)
 		*/
-		ISystemComponent* DeSerialize( const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes );
+		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
 	private:
 
-		AIComponentSerializer( const AIComponentSerializer & copy ) { };
-		AIComponentSerializer & operator = ( const AIComponentSerializer & copy ) { return *this; };
+		AIComponentSerializer(const AIComponentSerializer & copy) { };
+		AIComponentSerializer & operator = (const AIComponentSerializer & copy) { return *this; };
 
 	};
 };

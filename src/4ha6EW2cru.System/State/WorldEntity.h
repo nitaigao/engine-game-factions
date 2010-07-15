@@ -24,7 +24,7 @@ namespace State
 		*
 		*  @return ()
 		*/
-		~WorldEntity( ) { };
+		~WorldEntity() { };
 
 
 		/*! Default Constructor
@@ -32,8 +32,8 @@ namespace State
 		 *  @param[in] const std::string & name
 		 *  @return ()
 		 */
-		WorldEntity( const std::string& name )
-			: m_name( name )
+		WorldEntity(const std::string& name)
+			: m_name(name)
 		{
 
 		}
@@ -43,7 +43,7 @@ namespace State
 		*
 		*  @return (const std::string&)
 		*/
-		inline std::string GetName( ) const { return m_name; };
+		inline std::string GetName() const { return m_name; };
 
 
 		/*! Adds an Observer to the Subject
@@ -51,14 +51,14 @@ namespace State
 		*  @param[in] IObserver * observer
 		*  @return (void)
 		*/
-		void AddObserver( const System::MessageType& message, IObserver* observer ) { m_observers.insert( std::make_pair( message, observer ) ); };
+		void AddObserver(const System::MessageType& message, IObserver* observer) { m_observers.insert(std::make_pair(message, observer)); };
 
 
 		/*! Initializes all of the components contained by the entity
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		void Initialize( );
+		void Initialize();
 
 
 		/*! Adds a System Component to the Entity
@@ -66,23 +66,23 @@ namespace State
 		*  @param[in] ISystemComponent * component
 		*  @return (void)
 		*/
-		void AddComponent( ISystemComponent* component );
+		void AddComponent(ISystemComponent* component);
 
 
 		/*! Get a list of all System Components inside the Entity
 		*
 		*  @return (ISystemComponent::SystemComponentList&)
 		*/
-		inline ISystemComponent::SystemComponentList GetComponents( ) const { return m_components; };
+		inline ISystemComponent::SystemComponentList GetComponents() const { return m_components; };
 
 
 		/*! Sets an Attribute on all of the sub components
 		*
 		* @param[in] const System::Attribute & attribute
 		* @param[in] AnyType value
-		* @return ( void )
+		* @return (void)
 		*/
-		void SetAttribute( const System::Attribute& attribute, const AnyType& value );
+		void SetAttribute(const System::Attribute& attribute, const AnyType& value);
 
 
 		/*! Messages the Component to influence its internal state
@@ -90,28 +90,28 @@ namespace State
 		 *  @param[in] const std::string & message
 		 *  @return (AnyType)
 		 */
-		AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
 		/*! Writes the contents of the entity to the given stream
 		*
 		* @param[in] IStream * stream
-		* @return ( void )
+		* @return (void)
 		*/
-		void Serialize( IO::IStream* stream );
+		void Serialize(IO::IStream* stream);
 
 
 		/*! Reads the contents of the entity from the stream
 		*
 		* @param[in] IStream * stream
-		* @return ( void )
+		* @return (void)
 		*/
-		void DeSerialize( IO::IStream* stream );
+		void DeSerialize(IO::IStream* stream);
 
 	private:
 
-		WorldEntity( const WorldEntity & copy ) { };
-		WorldEntity & operator = ( const WorldEntity & copy ) { return *this; };
+		WorldEntity(const WorldEntity & copy) { };
+		WorldEntity & operator = (const WorldEntity & copy) { return *this; };
 
 		std::string m_name;
 		ISystemComponent::SystemComponentList m_components;

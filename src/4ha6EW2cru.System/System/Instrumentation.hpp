@@ -16,7 +16,7 @@
 class Instrumentation : public System::IInstrumentation
 {
 
-	typedef std::map< System::Queues::Queue, float > RoundTimeList;
+	typedef std::map<System::Queues::Queue, float> RoundTimeList;
 
 public:
 
@@ -24,65 +24,65 @@ public:
 	 *
 	 *  @return ()
 	 */
-	~Instrumentation( ) { };
+	~Instrumentation() { };
 
 
 	/*! Default Constructor
 	*
-	* @return (  )
+	* @return ()
 	*/
-	Instrumentation( ) { };
+	Instrumentation() { };
 
 
 	/*! Gets the Frames Per Second Statistic
 	*
-	* @return ( int )
+	* @return (int)
 	*/
-	inline int GetFPS( ) const { return m_fps; };
+	inline int GetFPS() const { return m_fps; };
 
 
 	/*! Sets the Frames Per Second Statistic
 	*
-	* @return ( void )
+	* @return (void)
 	*/
-	inline void SetFPS( int fps ) { m_fps = fps; };
+	inline void SetFPS(int fps) { m_fps = fps; };
 
 
 	/*! Gets the Round Time of the Given Queue
 	*
 	* @param[in] const System::Queues::Queue & queue
-	* @return ( float )
+	* @return (float)
 	*/
-	inline float GetRoundTime( const System::Queues::Queue& queue ) { return m_roundTimes[ queue ]; };
+	inline float GetRoundTime(const System::Queues::Queue& queue) { return m_roundTimes[ queue ]; };
 
 
 	/*! Sets the Round Time of the Given Queue
 	*
 	* @param[in] const System::Queues::Queue & queue
 	* @param[in] const float & roundTime
-	* @return ( void )
+	* @return (void)
 	*/
-	inline void SetRoundTime( const System::Queues::Queue& queue, float roundTime ) { m_roundTimes[ queue ] = roundTime; };
+	inline void SetRoundTime(const System::Queues::Queue& queue, float roundTime) { m_roundTimes[ queue ] = roundTime; };
 
 
 	/*! Sets the name of the active level
 	*
 	* @param[in] const std::string & levelName
-	* @return ( void )
+	* @return (void)
 	*/
-	inline void SetLevelName( const std::string& levelName ) { m_levelName = levelName; };
+	inline void SetLevelName(const std::string& levelName) { m_levelName = levelName; };
 
 
 	/*! Gets the name of the active level
 	*
-	* @return ( std::string )
+	* @return (std::string)
 	*/
-	inline std::string GetLevelName( ) const { return m_levelName; }
+	inline std::string GetLevelName() const { return m_levelName; }
 
 private:
 
-	Instrumentation( const Instrumentation & copy ) { };
-	Instrumentation & operator = ( const Instrumentation & copy ) { return *this; };
+	Instrumentation(const Instrumentation & copy) { };
+	Instrumentation & operator = (const Instrumentation & copy) { return *this; };
 
 	int m_fps;
 	RoundTimeList m_roundTimes;

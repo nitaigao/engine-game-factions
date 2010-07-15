@@ -27,7 +27,7 @@ namespace Resources
 		 *
 		 *  @return ()
 		 */
-		virtual ~IResourceCache( ) { };
+		virtual ~IResourceCache() { };
 
 
 		/*! Returns a Resource from the given file path
@@ -35,15 +35,15 @@ namespace Resources
 		 *  @param[in] const std::string & filePath
 		 *  @return (Resources::IResource*)
 		 */
-		virtual Resources::IResource* GetResource( const std::string& filePath ) = 0;
+		virtual Resources::IResource* GetResource(const std::string& filePath) = 0;
 
 
 		/*! Checks to see if the Resource Exists
 		 *
 		 * @param[in] const std::string & filePath
-		 * @return ( bool )
+		 * @return (bool)
 		 */
-		virtual bool ResourceExists( const std::string& filePath ) = 0;
+		virtual bool ResourceExists(const std::string& filePath) = 0;
 
 
 		/*! Steps the internal data of the cache
@@ -51,7 +51,7 @@ namespace Resources
 		 *  @param[in] float deltaMilliseconds
 		 *  @return (void)
 		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
+		virtual void Update(float deltaMilliseconds) = 0;
 
 
 		/*! Searches for a Resource in the cache
@@ -59,9 +59,9 @@ namespace Resources
 		 * @param[in] const std::string & path
 		 * @param[in] const std::string & searchPattern
 		 * @param[in] bool recursive
-		 * @return ( FileSearchResult::FileSearchResultList* )
+		 * @return (FileSearchResult::FileSearchResultList*)
 		 */
-		virtual IO::FileSearchResult::FileSearchResultList* ResourceSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const = 0;
+		virtual IO::FileSearchResult::FileSearchResultList* ResourceSearch(const std::string& path, const std::string& searchPattern, bool recursive) const = 0;
 
 	};
 };

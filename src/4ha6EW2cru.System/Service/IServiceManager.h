@@ -24,7 +24,7 @@ namespace Services
 		 *
 		 *  @return ()
 		 */
-		virtual ~IServiceManager( ) { };
+		virtual ~IServiceManager() { };
 
 
 		/*! Registers a Service

@@ -24,27 +24,27 @@ namespace Events
 
 	public:
 
-		typedef std::queue< const IEvent* > EventQueue;
+		typedef std::queue<const IEvent*> EventQueue;
 
 		/*! Default Destructor
 		 *
 		 *  @return ()
 		 */
-		virtual ~IEvent( ) { };
+		virtual ~IEvent() { };
 
 		
 		/*! Gets the type of the Event
 		 *
 		 *  @return (std::string)
 		 */
-		virtual std::string GetEventType( ) const = 0;
+		virtual std::string GetEventType() const = 0;
 
 		
 		/*! Returns Event Data attached to the event
 		 *
 		 *  @return (IEventData*)
 		 */
-		virtual IEventData* GetEventData( ) const = 0;
+		virtual IEventData* GetEventData() const = 0;
 
 	};
 };

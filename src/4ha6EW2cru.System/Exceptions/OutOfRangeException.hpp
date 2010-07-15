@@ -20,15 +20,15 @@ public:
 	*
 	*  @return ()
 	*/
-	//~OutOfRangeException( ) { };
+	//~OutOfRangeException() { };
 
 
 	/*! Constructor with default error message
 	*
 	*  @return ()
 	*/
-	OutOfRangeException( )
-		//: std::exception( "A given argument was out of range" )
+	OutOfRangeException()
+		//: std::exception("A given argument was out of range")
 	{
 
 	}
@@ -38,16 +38,16 @@ public:
 	*  @param[in] const std::string message
 	*  @return ()
 	*/
-	OutOfRangeException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	OutOfRangeException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	OutOfRangeException( const OutOfRangeException & copy ) { };
-	OutOfRangeException & operator = ( const OutOfRangeException & copy ) { return *this; };
+	OutOfRangeException(const OutOfRangeException & copy) { };
+	OutOfRangeException & operator = (const OutOfRangeException & copy) { return *this; };
 
 };
 

@@ -25,14 +25,14 @@ namespace IO
 		 *
 		 *  @return ()
 		 */
-		virtual ~IFileSystem( ) { };
+		virtual ~IFileSystem() { };
 
 
 		/*! Initializes the File System
 		 *
 		 *  @return (void)
 		 */
-		virtual void Initialize( ) = 0;
+		virtual void Initialize() = 0;
 
 
 		/*! Mounts the given path into the file system
@@ -41,7 +41,7 @@ namespace IO
 		 *  @param[in] const std::string mountPoint - the internal path the above will be mounted at
 		 *  @return (bool)
 		 */
-		virtual bool Mount( const std::string& path, const std::string& mountPoint ) = 0;
+		virtual bool Mount(const std::string& path, const std::string& mountPoint) = 0;
 
 
 		/*! Returns the file data at the given path
@@ -50,7 +50,7 @@ namespace IO
 		 *  @param[in] bool binary
 		 *  @return (FileBuffer*)
 		 */
-		virtual FileBuffer* GetFile( const std::string& filePath, bool binary ) const = 0;
+		virtual FileBuffer* GetFile(const std::string& filePath, bool binary) const = 0;
 
 
 		/*! Saves the given file data to the path specified in the FileBuffer
@@ -58,7 +58,7 @@ namespace IO
 		 *  @param[in] const FileBuffer & fileBuffer
 		 *  @return (void)
 		 */
-		virtual void SaveFile( const FileBuffer& fileBuffer ) const = 0;
+		virtual void SaveFile(const FileBuffer& fileBuffer) const = 0;
 
 
 		/*! Checks to see if a file exists at the given path
@@ -67,7 +67,7 @@ namespace IO
 		 *  @param[in] bool throwOnFail
 		 *  @return (bool)
 		 */
-		virtual bool FileExists( const std::string& filePath, bool throwOnFail = false ) const = 0;
+		virtual bool FileExists(const std::string& filePath, bool throwOnFail = false) const = 0;
 
 
 		/*! Performs a file search
@@ -77,7 +77,7 @@ namespace IO
 		 *  @param[in] const bool recursive
 		 *  @return (FileSearchResultList*)
 		 */
-		virtual FileSearchResult::FileSearchResultList* FileSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const = 0;
+		virtual FileSearchResult::FileSearchResultList* FileSearch(const std::string& path, const std::string& searchPattern, bool recursive) const = 0;
 
 	};
 };

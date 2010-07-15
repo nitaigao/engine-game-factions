@@ -24,14 +24,14 @@ namespace Serialization
 		*
 		*  @return ()
 		*/
-		~PhysicsComponentSerializer( ) { };
+		~PhysicsComponentSerializer() { };
 
 
 		/*! Default Constructor
 		*
 		*  @return ()
 		*/
-		PhysicsComponentSerializer( ) { };
+		PhysicsComponentSerializer() { };
 
 
 		/*! DeSerializes the Component from the Supplied Element
@@ -39,14 +39,14 @@ namespace Serialization
 		* @param[in] const std::string entityName
 		* @param[in] const ticpp::Element & componentElement
 		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return ( ISystemComponent* )
+		* @return (ISystemComponent*)
 		*/
-		ISystemComponent* DeSerialize( const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes );
+		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 
 	private:
 
-		PhysicsComponentSerializer( const PhysicsComponentSerializer & copy ) { };
-		PhysicsComponentSerializer & operator = ( const PhysicsComponentSerializer & copy ) { return *this; };
+		PhysicsComponentSerializer(const PhysicsComponentSerializer & copy) { };
+		PhysicsComponentSerializer & operator = (const PhysicsComponentSerializer & copy) { return *this; };
 
 	};
 };

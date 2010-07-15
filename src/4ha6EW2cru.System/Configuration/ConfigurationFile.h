@@ -30,18 +30,18 @@ namespace Configuration
 		 *
 		 *  @return ()
 		 */
-		~ConfigurationFile( );
+		~ConfigurationFile();
 
 
-		ConfigurationFile( Platform::IPlatformManager* platformManager, IO::IFileSystem* fileSyostem );
+		ConfigurationFile(Platform::IPlatformManager* platformManager, IO::IFileSystem* fileSyostem);
 
 
 		/*! Loads the given file contents into the configuration
 		*
 		* @param[in] const std::string & fileName
-		* @return ( void )
+		* @return (void)
 		*/
-		void Load( const std::string& fileName );
+		void Load(const std::string& fileName);
 		
 
 		/*! Finds a Configuration Item based on the given section and key
@@ -51,15 +51,15 @@ namespace Configuration
 		 *  @param[in] const AnyType & defaultValue
 		 *  @return (AnyType)
 		 */
-		AnyType FindConfigItem( const std::string& section, const std::string& key, const AnyType& defaultValue );
+		AnyType FindConfigItem(const std::string& section, const std::string& key, const AnyType& defaultValue);
 
 
 		/*! Returns an Entire Config Section
 		*
 		* @param[in] const std::string & section
-		* @return ( AnyType::AnyTypeMap )
+		* @return (AnyType::AnyTypeMap)
 		*/
-		AnyType::AnyTypeMap FindConfigSection( const std::string& section );
+		AnyType::AnyTypeMap FindConfigSection(const std::string& section);
 
 
 		/*! Updates a configuration item based on the given section and key
@@ -69,14 +69,14 @@ namespace Configuration
 		 *  @param[in] const AnyType & value
 		 *  @return (void)
 		 */
-		void Update( const std::string& section, const std::string& key, const AnyType& value );
+		void Update(const std::string& section, const std::string& key, const AnyType& value);
 
 
 		/*! Saves the configuration file to the File System
 		 *
 		 *  @return (void)
 		 */
-		void Save( );
+		void Save();
 
 	private:
 
@@ -86,8 +86,8 @@ namespace Configuration
 		Platform::IPlatformManager* m_platformManager;
 		IO::IFileSystem* m_fileSystem;
 
-		ConfigurationFile( const ConfigurationFile & copy ) { };
-		ConfigurationFile & operator = ( const ConfigurationFile & copy ) { return *this; };
+		ConfigurationFile(const ConfigurationFile & copy) { };
+		ConfigurationFile & operator = (const ConfigurationFile & copy) { return *this; };
 
 	};
 };

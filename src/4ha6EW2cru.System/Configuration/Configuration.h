@@ -7,7 +7,7 @@
 #pragma once
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
-#pragma warning( disable : 4251 )
+#pragma warning(disable : 4251)
 
 #include "IConfiguration.hpp"
 #include "IConfigurationFile.hpp"
@@ -19,8 +19,8 @@ namespace Configuration
 	 */
 	class GAMEAPI ClientConfiguration : public IConfiguration
 	{
-		typedef std::pair< std::string, AnyType > KeyValuePair;
-		typedef std::multimap< std::string, KeyValuePair > DefaultPropertyList;
+		typedef std::pair<std::string, AnyType> KeyValuePair;
+		typedef std::multimap<std::string, KeyValuePair> DefaultPropertyList;
 
 	public:
 
@@ -28,11 +28,11 @@ namespace Configuration
 		 *
 		 *  @return ()
 		 */
-		~ClientConfiguration( );
+		~ClientConfiguration();
 
 
-		ClientConfiguration( Configuration::IConfigurationFile* configurationFile )
-			: m_configFile( configurationFile )
+		ClientConfiguration(Configuration::IConfigurationFile* configurationFile)
+			: m_configFile(configurationFile)
 		{
 
 		};
@@ -41,9 +41,9 @@ namespace Configuration
 		/*! Initializes the Configuration from the given file path, if it doesn't exist it will be created
 		*
 		* @param[in] const std::string & filePath
-		* @return ( void )
+		* @return (void)
 		*/
-		void Initialize( const std::string& filePath );
+		void Initialize(const std::string& filePath);
 
 
 		/*! Finds a configuration item based on the specified section and key
@@ -52,15 +52,15 @@ namespace Configuration
 		 *  @param[in] const std::string & key
 		 *  @return (AnyType)
 		 */
-		AnyType Find( const std::string& section, const std::string& key );
+		AnyType Find(const std::string& section, const std::string& key);
 
 
 		/*! Finds an entire section
 		*
 		* @param[in] const std::string & section
-		* @return ( AnyType::AnyTypeMap )
+		* @return (AnyType::AnyTypeMap)
 		*/
-		AnyType::AnyTypeMap FindSection( const std::string& section );
+		AnyType::AnyTypeMap FindSection(const std::string& section);
 
 
 		/*! Sets the default value for a configuration item
@@ -70,7 +70,7 @@ namespace Configuration
 		 *  @param[in] const AnyType & value
 		 *  @return (void)
 		 */
-		void SetDefault( const std::string& section, const std::string& key, const AnyType& value );
+		void SetDefault(const std::string& section, const std::string& key, const AnyType& value);
 
 
 		/*! Sets the value for a configuration item
@@ -80,15 +80,15 @@ namespace Configuration
 		 *  @param[in] const AnyType & value
 		 *  @return (void)
 		 */
-		void Set( const std::string& section, const std::string& key, const AnyType& value );
+		void Set(const std::string& section, const std::string& key, const AnyType& value);
 
 	private:
 
 		IConfigurationFile* m_configFile;
 		DefaultPropertyList m_defaultPropertyList;
 
-		ClientConfiguration( const ClientConfiguration & copy ) { };
-		ClientConfiguration & operator = ( const ClientConfiguration & copy ) { return *this; };
+		ClientConfiguration(const ClientConfiguration & copy) { };
+		ClientConfiguration & operator = (const ClientConfiguration & copy) { return *this; };
 		
 	};
 };

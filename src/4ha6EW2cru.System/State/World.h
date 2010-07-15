@@ -28,7 +28,7 @@ namespace State
 		*
 		*  @return ()
 		*/
-		~World( );
+		~World();
 
 
 		/*! Default Constructor
@@ -37,12 +37,12 @@ namespace State
 		 * @param[in] IWorldEntityFactory * entityFactory
 		 * @param[in] IEntityService * entityService
 		 * @param[in] Services::IServiceManager * serviceManager
-		 * @return (  )
+		 * @return ()
 		 */
-		World( Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, Services::IServiceManager* serviceManager )
-			: m_serializer( serializer )
-			, m_entityFactory( entityFactory )
-			, m_serviceManager( serviceManager )
+		World(Serialization::IWorldSerializer* serializer, IWorldEntityFactory* entityFactory, Services::IServiceManager* serviceManager)
+			: m_serializer(serializer)
+			, m_entityFactory(entityFactory)
+			, m_serviceManager(serviceManager)
 		{
 
 		}
@@ -53,16 +53,16 @@ namespace State
 		*  @param[in] const std::string & name
 		*  @return (IWorldEntity*)
 		*/
-		IWorldEntity* CreateEntity( const std::string& name );
+		IWorldEntity* CreateEntity(const std::string& name);
 
 
 		/*! Loads an Entity from the given file path
 		*
 		* @param[in] const std::string & name
 		* @param[in] const std::string & filePath
-		* @return ( IWorldEntity& )
+		* @return (IWorldEntity&)
 		*/
-		IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType );
+		IWorldEntity* CreateEntity(const std::string& name, const std::string& filePath, const std::string& entityType);
 
 
 		/*! Creates a World Entity Container
@@ -70,7 +70,7 @@ namespace State
 		*  @param[in] const std::string & name
 		*  @return (IWorldEntity*)
 		*/
-		void DestroyEntity( const std::string& name );
+		void DestroyEntity(const std::string& name);
 
 
 		/*! Adds a System Scene to the internal scene list
@@ -78,81 +78,81 @@ namespace State
 		*  @param[in] ISystemScene * systemScene
 		*  @return (void)
 		*/
-		inline void AddSystemScene( ISystemScene* systemScene ) { m_systemScenes.insert( std::make_pair( systemScene->GetType( ), systemScene ) ); }
+		inline void AddSystemScene(ISystemScene* systemScene) { m_systemScenes.insert(std::make_pair(systemScene->GetType(), systemScene)); }
 		
 		
 		/*! Gets a list of internal system scenes
 		*
 		*  @return (const SystemSceneMap&)
 		*/
-		inline const ISystemScene::SystemSceneMap& GetSystemScenes( ) const { return m_systemScenes; };
+		inline const ISystemScene::SystemSceneMap& GetSystemScenes() const { return m_systemScenes; };
 
 
 		/*! Destroys all entities within the world
 		*
 		*  @return (void)
 		*/
-		void Clear( );
+		void Clear();
 
 
 		/*! Destroys the World and All Registered Scenes
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		void Destroy( );
+		void Destroy();
 
 
 		/*! Updates the world and all of its internal data structures
 		*
 		* @param[in] float deltaMilliseconds
-		* @return ( void )
+		* @return (void)
 		*/
-		void Update( float deltaMilliseconds );
+		void Update(float deltaMilliseconds);
 
 
 		/*! Loads a level from the file system
 		*
 		* @param[in] const std::string & levelpath
-		* @return ( void )
+		* @return (void)
 		*/
-		void LoadLevel( const std::string& levelpath );
+		void LoadLevel(const std::string& levelpath);
 
 
 		/*! Serializes the contents of the world to the Stream
 		*
 		* @param[in] IO::IStream * stream
-		* @return ( void )
+		* @return (void)
 		*/
-		void Serialize( IO::IStream* stream );
+		void Serialize(IO::IStream* stream);
 
 
 		/*! De serializes the contents of the stream into the World
 		*
 		* @param[in] IO::IStream * stream
-		* @return ( void )
+		* @return (void)
 		*/
-		void DeSerialize( IO::IStream* stream );
+		void DeSerialize(IO::IStream* stream);
 
 
 		/*! Gets the System::Types::Type of the Service
 		*
 		*  @return (System::Types::Type)
 		*/
-		inline System::Types::Type GetType( ) const { return System::Types::ENTITY; };
+		inline System::Types::Type GetType() const { return System::Types::ENTITY; };
 
 
 		/*! Messages the system with a command
 		*
 		* @param[in] const std::string & message
 		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
+		* @return (void)
 		*/
-		AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 	private:
 
-		World( const World & copy ) { };
-		World & operator = ( const World & copy ) { return *this; };
+		World(const World & copy) { };
+		World & operator = (const World & copy) { return *this; };
 
 		std::string m_name;
 

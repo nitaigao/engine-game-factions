@@ -19,15 +19,15 @@ public:
 	*
 	*  @return ()
 	*/
-	~ScriptException( ) { };
+	~ScriptException() { };
 
 
 	/*! Constructor with default error message
 	*
 	*  @return ()
 	*/
-	ScriptException( )
-		//: std::exception( "A Script Error has occured" )
+	ScriptException()
+		//: std::exception("A Script Error has occured")
 	{
 
 	}
@@ -38,16 +38,16 @@ public:
 	*  @param[in] const std::string message
 	*  @return ()
 	*/
-	ScriptException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	ScriptException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	ScriptException( const ScriptException & copy ) { };
-	ScriptException & operator = ( const ScriptException & copy ) { return *this; };
+	ScriptException(const ScriptException & copy) { };
+	ScriptException & operator = (const ScriptException & copy) { return *this; };
 
 };
 

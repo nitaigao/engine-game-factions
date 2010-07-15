@@ -20,15 +20,15 @@ public:
 	 *
 	 *  @return ()
 	 */
-	//~AlreadyInitializedException( ) { };
+	//~AlreadyInitializedException() { };
 
 
 	/*! Constructor with default error message
 	 *
 	 *  @return ()
 	 */
-	AlreadyInitializedException( )
-		//: std::exception( "Object has already been Initialized" )
+	AlreadyInitializedException()
+		//: std::exception("Object has already been Initialized")
 	{
 
 	}
@@ -39,16 +39,16 @@ public:
 	 *  @param[in] const std::string message
 	 *  @return ()
 	 */
-	AlreadyInitializedException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	AlreadyInitializedException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	AlreadyInitializedException( const AlreadyInitializedException & copy ) { };
-	AlreadyInitializedException & operator = ( const AlreadyInitializedException & copy ) { return *this; };
+	AlreadyInitializedException(const AlreadyInitializedException & copy) { };
+	AlreadyInitializedException & operator = (const AlreadyInitializedException & copy) { return *this; };
 
 };
 

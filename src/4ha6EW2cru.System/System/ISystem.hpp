@@ -27,22 +27,22 @@ class GAMEAPI ISystem
 
 public:
 
-	typedef std::map< System::Types::Type, ISystem* > SystemTypeMap;
-	typedef std::multimap< System::Queues::Queue, ISystem* > SystemQueueMap;
+	typedef std::map<System::Types::Type, ISystem*> SystemTypeMap;
+	typedef std::multimap<System::Queues::Queue, ISystem*> SystemQueueMap;
 
 	/*! Default Destructor
 	*
 	*  @return ()
 	*/
-	virtual ~ISystem( ) { };
+	virtual ~ISystem() { };
 
 
 	/*! Initializes the System with the game configuration
 	*
 	* @param[in] Configuration::IConfiguration * configuration
-	* @return ( void )
+	* @return (void)
 	*/
-	virtual void Initialize( Configuration::IConfiguration* configuration ) = 0;
+	virtual void Initialize(Configuration::IConfiguration* configuration) = 0;
 
 
 	/*! Steps the System's internal data
@@ -50,35 +50,35 @@ public:
 	*  @param[in] float deltaMilliseconds
 	*  @return (void)
 	*/
-	virtual void Update( float deltaMilliseconds ) = 0;
+	virtual void Update(float deltaMilliseconds) = 0;
 
 
 	/*! Releases the System
 	*
 	*  @return (void)
 	*/
-	virtual void Release( ) = 0;
+	virtual void Release() = 0;
 
 
 	/*! Returns the type of the System
 	*
 	*  @return (System::Types::Type)
 	*/
-	virtual System::Types::Type GetType( ) const = 0;
+	virtual System::Types::Type GetType() const = 0;
 
 
 	/*! Creates the System Scene
 	*
 	*  @return (ISystemScene*)
 	*/
-	virtual ISystemScene* CreateScene( ) = 0;
+	virtual ISystemScene* CreateScene() = 0;
 
 
 	/*! Gets the System's Properties
 	*
 	*  @return (AnyTypeMap)
 	*/
-	virtual AnyType::AnyTypeMap GetAttributes( ) const = 0;
+	virtual AnyType::AnyTypeMap GetAttributes() const = 0;
 
 
 	/*! Sets a System Property
@@ -87,7 +87,7 @@ public:
 	*  @param[in] AnyType value
 	*  @return (void)
 	*/
-	virtual void SetAttribute( const std::string& name, AnyType value ) = 0;
+	virtual void SetAttribute(const std::string& name, AnyType value) = 0;
 
 };
 

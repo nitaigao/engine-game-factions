@@ -20,15 +20,15 @@ public:
 	*
 	*  @return ()
 	*/
-	~ScreenDimensionsException( ) { };
+	~ScreenDimensionsException() { };
 
 
 	/*! Constructor with default error message
 	*
 	*  @return ()
 	*/
-	ScreenDimensionsException( )
-		//: std::exception( "The Screen parameters supplied are invalid" )
+	ScreenDimensionsException()
+		//: std::exception("The Screen parameters supplied are invalid")
 	{
 
 	}
@@ -39,16 +39,16 @@ public:
 	*  @param[in] const std::string message
 	*  @return ()
 	*/
-	ScreenDimensionsException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	ScreenDimensionsException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	ScreenDimensionsException( const ScreenDimensionsException & copy ) { };
-	ScreenDimensionsException & operator = ( const ScreenDimensionsException & copy ) { return *this; };
+	ScreenDimensionsException(const ScreenDimensionsException & copy) { };
+	ScreenDimensionsException & operator = (const ScreenDimensionsException & copy) { return *this; };
 
 };
 

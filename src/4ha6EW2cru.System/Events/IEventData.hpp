@@ -22,7 +22,7 @@ namespace Events
 		 *
 		 *  @return ()
 		 */
-		virtual ~IEventData( ) { };
+		virtual ~IEventData() { };
 
 	};
 };

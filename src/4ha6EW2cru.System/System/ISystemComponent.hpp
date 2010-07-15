@@ -25,16 +25,16 @@ class GAMEAPI ISystemComponent : public IObserver, public ISubject, public Syste
 
 public:
 
-	typedef std::deque< ISystemComponent* > SystemComponentList;
-	typedef std::map< std::string, ISystemComponent* > SystemComponentMap;
-	typedef std::multimap< std::string, ISystemComponent* > SystemComponentMultiMap;
-	typedef std::map< System::Types::Type, ISystemComponent* > SystemComponentTypeMap;
+	typedef std::deque<ISystemComponent*> SystemComponentList;
+	typedef std::map<std::string, ISystemComponent*> SystemComponentMap;
+	typedef std::multimap<std::string, ISystemComponent*> SystemComponentMultiMap;
+	typedef std::map<System::Types::Type, ISystemComponent*> SystemComponentTypeMap;
 
 	/*! Default Destructor
 	 *
 	 *  @return ()
 	 */
-	virtual ~ISystemComponent( ) { };
+	virtual ~ISystemComponent() { };
 
 
 	/*! Initializes the Component
@@ -42,7 +42,7 @@ public:
 	*  @param[in] AnyType::AnyValueMap properties
 	*  @return (void)
 	*/
-	virtual void Initialize( ) = 0;
+	virtual void Initialize() = 0;
 
 
 	/*! Steps the internal data of the Component
@@ -50,35 +50,35 @@ public:
 	*  @param[in] float deltaMilliseconds
 	*  @return (void)
 	*/
-	virtual void Update( float deltaMilliseconds ) = 0;
+	virtual void Update(float deltaMilliseconds) = 0;
 
 
 	/*! Destroys the Component
 	*
 	*  @return (void)
 	*/
-	virtual void Destroy( ) = 0;
+	virtual void Destroy() = 0;
 
 
 	/*! Gets the attributes of the Component
 	*
 	*  @return (AnyValueMap)
 	*/
-	virtual AnyType::AnyTypeMap GetAttributes( ) const = 0;
+	virtual AnyType::AnyTypeMap GetAttributes() const = 0;
 
 
 	/*! Sets an Attribute on the Component *
 	 *  @param[in] const unsigned int attributeId
 	 *  @param[in] const AnyType & value
 	 */
-	virtual void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) = 0;
+	virtual void SetAttribute(const System::Attribute& attributeId, const AnyType& value) = 0;
 
 
 	/*! Returns the Name of the Component
 	 *
-	 * @return ( std::string )
+	 * @return (std::string)
 	 */
-	virtual std::string GetName( ) const = 0;
+	virtual std::string GetName() const = 0;
 
 };
 

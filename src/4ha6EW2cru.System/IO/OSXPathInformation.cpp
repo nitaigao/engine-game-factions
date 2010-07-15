@@ -9,22 +9,22 @@ using namespace Utility;
 namespace IO
 {
 
-	void OSXPathInformation::Initialize( )
+	void OSXPathInformation::Initialize()
 	{
 		
 	}
 
-	std::string OSXPathInformation::GetGlobalDataPath( ) const
+	std::string OSXPathInformation::GetGlobalDataPath() const
 	{
 		return "";
 	}
 
-	std::string OSXPathInformation::GetGlobalDevelopmentPath( ) const
+	std::string OSXPathInformation::GetGlobalDevelopmentPath() const
 	{
 		return "";
 	}
 
-	std::string OSXPathInformation::GetGlobalUserPath( ) const
+	std::string OSXPathInformation::GetGlobalUserPath() const
 	{
     return "";
 	}

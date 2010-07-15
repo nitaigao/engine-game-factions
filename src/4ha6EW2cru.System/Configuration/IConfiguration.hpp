@@ -25,15 +25,15 @@ namespace Configuration
 		 *
 		 *  @return ()
 		 */
-		virtual ~IConfiguration( ) { };
+		virtual ~IConfiguration() { };
 
 
 		/*! Initializes the Configuration from the given file path, if it doesn't exist it will be created
 		 *
 		 * @param[in] const std::string & filePath
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void Initialize( const std::string& filePath ) = 0;
+		virtual void Initialize(const std::string& filePath) = 0;
 
 
 		/*! Finds the value for the given section and key
@@ -42,15 +42,15 @@ namespace Configuration
 		 *  @param[in] const std::string & key
 		 *  @return (void)
 		 */
-		virtual AnyType Find( const std::string& section, const std::string& key ) = 0;
+		virtual AnyType Find(const std::string& section, const std::string& key) = 0;
 
 
 		/*! Finds an entire section
 		*
 		* @param[in] const std::string & section
-		* @return ( AnyType::AnyTypeMap )
+		* @return (AnyType::AnyTypeMap)
 		*/
-		virtual AnyType::AnyTypeMap FindSection( const std::string& section ) = 0;
+		virtual AnyType::AnyTypeMap FindSection(const std::string& section) = 0;
 
 
 		/*! Sets the Default value of an Item
@@ -60,7 +60,7 @@ namespace Configuration
 		 *  @param[in] const boost::any & value
 		 *  @return (void)
 		 */
-		virtual void SetDefault( const std::string& section, const std::string& key, const AnyType& value ) = 0;
+		virtual void SetDefault(const std::string& section, const std::string& key, const AnyType& value) = 0;
 
 
 		/*! Sets the value of an already defaulted item
@@ -70,7 +70,7 @@ namespace Configuration
 		 *  @param[in] const std::string & value
 		 *  @return (void)
 		 */
-		virtual void Set( const std::string& section, const std::string& key, const AnyType& value ) = 0;
+		virtual void Set(const std::string& section, const std::string& key, const AnyType& value) = 0;
 
 	};
 };

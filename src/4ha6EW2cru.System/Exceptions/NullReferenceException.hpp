@@ -23,15 +23,15 @@ public:
 	*
 	*  @return ()
 	*/
-	//~NullReferenceException( ) { };
+	//~NullReferenceException() { };
 
 
 	/*! Constructor with default error message
 	*
 	*  @return ()
 	*/
-	NullReferenceException( )
-		//: std::exception( "The referenced object is NULL" )
+	NullReferenceException()
+		//: std::exception("The referenced object is NULL")
 	{
 
 	}
@@ -42,16 +42,16 @@ public:
 	*  @param[in] const std::string message
 	*  @return ()
 	*/
-	NullReferenceException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	NullReferenceException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	NullReferenceException( const NullReferenceException & copy ) { };
-	NullReferenceException & operator = ( const NullReferenceException & copy ) { return *this; };
+	NullReferenceException(const NullReferenceException & copy) { };
+	NullReferenceException & operator = (const NullReferenceException & copy) { return *this; };
 
 };
 

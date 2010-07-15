@@ -28,7 +28,7 @@ namespace Serialization
 		 *
 		 *  @return ()
 		 */
-		virtual ~IComponentSerializer( ) { };
+		virtual ~IComponentSerializer() { };
 
 
 		/*! DeSerializes the Component from the Supplied Element
@@ -36,9 +36,9 @@ namespace Serialization
 		* @param[in] const std::string entityName
 		* @param[in] const ticpp::Element & componentElement
 		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return ( ISystemComponent* )
+		* @return (ISystemComponent*)
 		*/
-		virtual ISystemComponent* DeSerialize( const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes ) = 0;
+		virtual ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes) = 0;
 
 	};
 };

@@ -8,7 +8,7 @@ namespace Platform
     return 0;
 	}
 	
-  float OSXClock::GetTime( ) const
+  float OSXClock::GetTime() const
 	{ 
     return 0;
 	};

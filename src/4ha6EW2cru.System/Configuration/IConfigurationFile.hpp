@@ -24,15 +24,15 @@ namespace Configuration
 		*
 		*  @return ()
 		*/
-		virtual ~IConfigurationFile( ) { };
+		virtual ~IConfigurationFile() { };
 
 
 		/*! Loads the given file contents into the configuration
 		*
 		* @param[in] const std::string & fileName
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void Load( const std::string& fileName ) = 0;
+		virtual void Load(const std::string& fileName) = 0;
 
 
 		/*! Finds a Configuration Item based on the given section and key
@@ -42,15 +42,15 @@ namespace Configuration
 		*  @param[in] const AnyType & defaultValue
 		*  @return (AnyType)
 		*/
-		virtual AnyType FindConfigItem( const std::string& section, const std::string& key, const AnyType& defaultValue ) = 0;
+		virtual AnyType FindConfigItem(const std::string& section, const std::string& key, const AnyType& defaultValue) = 0;
 
 
 		/*! Returns an Entire Config Section
 		*
 		* @param[in] const std::string & section
-		* @return ( AnyType::AnyTypeMap )
+		* @return (AnyType::AnyTypeMap)
 		*/
-		virtual AnyType::AnyTypeMap FindConfigSection( const std::string& section ) = 0;
+		virtual AnyType::AnyTypeMap FindConfigSection(const std::string& section) = 0;
 
 
 		/*! Updates a configuration item based on the given section and key
@@ -60,14 +60,14 @@ namespace Configuration
 		*  @param[in] const AnyType & value
 		*  @return (void)
 		*/
-		virtual void Update( const std::string& section, const std::string& key, const AnyType& value ) = 0;
+		virtual void Update(const std::string& section, const std::string& key, const AnyType& value) = 0;
 
 
 		/*! Saves the configuration file to the File System
 		*
 		*  @return (void)
 		*/
-		virtual void Save( ) = 0;
+		virtual void Save() = 0;
 
 	};
 };

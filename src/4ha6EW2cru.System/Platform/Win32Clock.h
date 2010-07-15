@@ -15,18 +15,18 @@ namespace Platform
 
 	public:
 
-		~Win32Clock( ) { };
+		~Win32Clock() { };
 
-		Win32Clock( )
-			: m_endFrameTime( 0 )
-			, m_startFrameTime( timeGetTime( ) )
+		Win32Clock()
+			: m_endFrameTime(0)
+			, m_startFrameTime(timeGetTime())
 		{
 
 		}
 
-		float GetDeltaMilliseconds( );
+		float GetDeltaMilliseconds();
 
-		inline float GetTime( ) const { return static_cast< float >( timeGetTime( ) ); };
+		inline float GetTime() const { return static_cast<float>(timeGetTime()); };
 
 	private:
 

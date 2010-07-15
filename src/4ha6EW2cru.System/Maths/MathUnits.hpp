@@ -19,29 +19,29 @@ namespace Maths
 
 	public:
 
-		static float PI( ) { return 4.0f * static_cast< float >( atan( 1.0 ) ); };
+		static float PI() { return 4.0f * static_cast<float>(atan(1.0)); };
 
 		/*! Converts the given Radians to Degrees
 		*
 		* @param[in] const int & radians
-		* @return ( float )
+		* @return (float)
 		*/
-		template< class T >
-		static inline T ToDegrees( const T& radians )
+		template<class T>
+		static inline T ToDegrees(const T& radians)
 		{
-			return radians * ( 180.0f / MathUnits::PI( ) );
+			return radians * (180.0f / MathUnits::PI());
 		}
 
 
 		/*! Converts the given Degrees to Radians
 		*
 		* @param[in] const int & degrees
-		* @return ( float )
+		* @return (float)
 		*/
-		template< class T >
-		static inline T ToRadians( const T& degrees )
+		template<class T>
+		static inline T ToRadians(const T& degrees)
 		{
-			return degrees * ( MathUnits::PI( ) / 180.0f );
+			return degrees * (MathUnits::PI() / 180.0f);
 		}
 
 		/*! Clamps the input value to within the region of the min & max values
@@ -51,11 +51,11 @@ namespace Maths
 		 *  @param[in] T max
 		 *  @return (T)
 		 */
-		template< class T >
-		static inline T Clamp( const T& input, const T& min, const T& max )
+		template<class T>
+		static inline T Clamp(const T& input, const T& min, const T& max)
 		{
-			if ( input < min ) return min;
-			if ( input > max ) return max;
+			if (input <min) return min;
+			if (input> max) return max;
 			return input;
 		}
 
@@ -63,13 +63,13 @@ namespace Maths
 		/*! Rounds the given number to the nearest whole number
 		*
 		* @param[in] T value
-		* @return ( T )
+		* @return (T)
 		*/
-		template< class T >
-		static inline T Round( T value )
+		template<class T>
+		static inline T Round(T value)
 		{
 			double integral = 0;
-      return ( modf( value, &integral ) > 0.5 ) ? ceil( value ) : floor( value );
+      return (modf(value, &integral)> 0.5) ? ceil(value) : floor(value);
 		}
 	};
 }

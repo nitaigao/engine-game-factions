@@ -16,54 +16,54 @@ using namespace boost::program_options;
 
 namespace Platform
 {
-	bool ProgramOptions::HasOption( const std::string& optionName ) const
+	bool ProgramOptions::HasOption(const std::string& optionName) const
 	{
-		ProgramOptionMap::const_iterator i = m_programOptions.find( optionName );
+		ProgramOptionMap::const_iterator i = m_programOptions.find(optionName);
 
-		return i != m_programOptions.end( );
+		return i != m_programOptions.end();
 	}
 
-	std::string ProgramOptions::GetOption( const std::string& optionName ) const
+	std::string ProgramOptions::GetOption(const std::string& optionName) const
 	{
-		ProgramOptionMap::const_iterator i = m_programOptions.find( optionName );
+		ProgramOptionMap::const_iterator i = m_programOptions.find(optionName);
 
-		return ( *i ).second;
+		return (*i).second;
 	}
 
-	void ProgramOptions::Initialize( )
+	void ProgramOptions::Initialize()
 	{
 		/*int argc = 0;
-		LPWSTR* args = CommandLineToArgvW( GetCommandLineW( ), &argc );
+		LPWSTR* args = CommandLineToArgvW(GetCommandLineW(), &argc);
 
 		char** argv = new char*[ argc ];
 
-		for ( int i = 0; i < argc; i++ )
+		for (int i = 0; i <argc; i++)
 		{
 			argv[ i ] = new char[ 20480 ];
-			WideCharToMultiByte( CP_UTF8, 0, args[ i ], -1, ( LPSTR ) argv[ i ], 20480, 0, 0 );
+			WideCharToMultiByte(CP_UTF8, 0, args[ i ], -1, (LPSTR) argv[ i ], 20480, 0, 0);
 		}
 
-		CmdLine cmd( "Command Line Options" );
+		CmdLine cmd("Command Line Options");
 
-		ValueArg< std::string > levelNameArg( "l", System::Options::LevelName.c_str( ), "The Level to Load", false, "", "string" );
-		cmd.add( levelNameArg );
+		ValueArg<std::string> levelNameArg("l", System::Options::LevelName.c_str(), "The Level to Load", false, "", "string");
+		cmd.add(levelNameArg);
 
-		SwitchArg dedicatedServerArg( "d", System::Options::DedicatedServer.c_str( ), "Run as a Dedicated Server", false );
-		cmd.add( dedicatedServerArg );
+		SwitchArg dedicatedServerArg("d", System::Options::DedicatedServer.c_str(), "Run as a Dedicated Server", false);
+		cmd.add(dedicatedServerArg);
 
-		cmd.parse( argc, argv );
+		cmd.parse(argc, argv);
 
-		if ( !levelNameArg.getValue( ).empty( ) )
+		if (!levelNameArg.getValue().empty())
 		{
-			m_programOptions[ System::Options::LevelName.c_str( ) ] = levelNameArg.getValue( );
+			m_programOptions[ System::Options::LevelName.c_str() ] = levelNameArg.getValue();
 		}
 
-		if ( dedicatedServerArg.getValue( ) )
+		if (dedicatedServerArg.getValue())
 		{
-			m_programOptions[ System::Options::DedicatedServer.c_str( ) ] = dedicatedServerArg.getValue( );
+			m_programOptions[ System::Options::DedicatedServer.c_str() ] = dedicatedServerArg.getValue();
 		}
 
-		for ( int i = 0; i < argc; i++ )
+		for (int i = 0; i <argc; i++)
 		{
 			delete[ ] argv[ i ];
 		}

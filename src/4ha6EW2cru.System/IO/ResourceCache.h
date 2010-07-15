@@ -27,15 +27,15 @@ namespace Resources
 		*
 		*  @return ()
 		*/
-		~ResourceCache( );
+		~ResourceCache();
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		ResourceCache( IO::IFileSystem* fileSystem )
-			: m_fileSystem( fileSystem )
+		ResourceCache(IO::IFileSystem* fileSystem)
+			: m_fileSystem(fileSystem)
 		{
 
 		}
@@ -46,15 +46,15 @@ namespace Resources
 		*  @param[in] const std::string & filePath
 		*  @return (Resources::IResource*)
 		*/
-		IResource* GetResource( const std::string& filePath );
+		IResource* GetResource(const std::string& filePath);
 
 
 		/*! Checks to see if the Resource Exists
 		*
 		* @param[in] const std::string & filePath
-		* @return ( bool )
+		* @return (bool)
 		*/
-		bool ResourceExists( const std::string& filePath );
+		bool ResourceExists(const std::string& filePath);
 
 
 		/*! Steps the internal data of the cache, may perform cache releases depending on resource age
@@ -62,7 +62,7 @@ namespace Resources
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		inline void Update( float deltaMilliseconds ) { };
+		inline void Update(float deltaMilliseconds) { };
 
 
 		/*! Searches for a Resource in the cache
@@ -70,9 +70,9 @@ namespace Resources
 		* @param[in] const std::string & path
 		* @param[in] const std::string & searchPattern
 		* @param[in] bool recursive
-		* @return ( FileSearchResult::FileSearchResultList* )
+		* @return (FileSearchResult::FileSearchResultList*)
 		*/
-		IO::FileSearchResult::FileSearchResultList* ResourceSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const;
+		IO::FileSearchResult::FileSearchResultList* ResourceSearch(const std::string& path, const std::string& searchPattern, bool recursive) const;
 
 	private:
 

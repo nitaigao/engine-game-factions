@@ -24,15 +24,15 @@ namespace State
 		 *
 		 *  @return ()
 		 */
-		virtual ~IWorldEntityFactory( ) { };
+		virtual ~IWorldEntityFactory() { };
 
 
 		/*! Creates an Entity
 		 *
 		 * @param[in] const std::string & name
-		 * @return ( IWorldEntity* )
+		 * @return (IWorldEntity*)
 		 */
-		virtual IWorldEntity* CreateEntity( const std::string& name ) const = 0;
+		virtual IWorldEntity* CreateEntity(const std::string& name) const = 0;
 		
 	};
 };

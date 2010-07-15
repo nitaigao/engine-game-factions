@@ -18,7 +18,7 @@ namespace Platform
 	class ProgramOptions : public IProgramOptions
 	{
 
-		typedef std::map< std::string, std::string > ProgramOptionMap;
+		typedef std::map<std::string, std::string> ProgramOptionMap;
 
 	public:
 
@@ -26,42 +26,42 @@ namespace Platform
 		 *
 		 *  @return ()
 		 */
-		~ProgramOptions( ) { };
+		~ProgramOptions() { };
 
 
 		/*! Default Constructor
 		*
-		* @return (  )
+		* @return ()
 		*/
-		ProgramOptions( ) { };
+		ProgramOptions() { };
 
 
 		/*! Initializes the program options from the command line arguments
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		void Initialize( );
+		void Initialize();
 
 
 		/*! Detects whether the given option was passed to the program command line
 		*
 		* @param[in] const std::string & optionName
-		* @return ( bool )
+		* @return (bool)
 		*/
-		bool HasOption( const std::string& optionName ) const;
+		bool HasOption(const std::string& optionName) const;
 
 
 		/*! Returns an option specified on the command line
 		*
 		* @param[in] const std::string & optionName
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		std::string GetOption( const std::string& optionName ) const;
+		std::string GetOption(const std::string& optionName) const;
 
 	private:
 
-		ProgramOptions( const ProgramOptions & copy ) { };
-		ProgramOptions & operator = ( const ProgramOptions & copy ) { return *this; };
+		ProgramOptions(const ProgramOptions & copy) { };
+		ProgramOptions & operator = (const ProgramOptions & copy) { return *this; };
 
 		ProgramOptionMap m_programOptions;
 		

@@ -48,7 +48,7 @@ ADD_LIBRARY(System SHARED
   System/SystemManager.cpp
   
   # this needs to go through a converter of somesort inside the relevent system files instead of being in the core library
-  # FMOD, Havok ( replace with bullet )
+  # FMOD, Havok (replace with bullet)
   Maths/MathMatrix.cpp
   
   Game/Game.cpp
@@ -79,7 +79,7 @@ ADD_LIBRARY(System SHARED
   State/Serilaization/ComponentSerializerFactory.cpp
   State/Serilaization/XMLSerializer.cpp
   
-  )
+ )
   
 TARGET_LINK_LIBRARIES(System ${EXTRA_LIBS} ${PHYSFS_LIBRARY} ${BOOST_LIBRARY})
 

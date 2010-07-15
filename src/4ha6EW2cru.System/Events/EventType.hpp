@@ -14,7 +14,7 @@
 namespace Events
 {
 	typedef std::string EventType;
-	typedef std::map< std::string, unsigned int > EventTypeMap;
+	typedef std::map<std::string, unsigned int> EventTypeMap;
 
 	namespace EventTypes
 	{

@@ -24,14 +24,14 @@ namespace Game
 		 *
 		 *  @return ()
 		 */
-		virtual ~IGame( ) { };
+		virtual ~IGame() { };
 
 
 		/*! Initializes the GameRoot
 		*
 		*  @return (void)
 		*/
-		virtual void Initialize( ) = 0;
+		virtual void Initialize() = 0;
 
 
 		/*! Steps the GameRoot forward
@@ -39,21 +39,21 @@ namespace Game
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		virtual void Update( ) = 0;
+		virtual void Update() = 0;
 
 
 		/*! Releases the GameRoot
 		*
 		*  @return (void)
 		*/
-		virtual void Release( ) = 0;
+		virtual void Release() = 0;
 
 
 		/*! Returns whether or not the GameRoot is ready to Quit
 		*
 		*  @return (bool)
 		*/
-		virtual bool IsQuitting( ) const = 0;
+		virtual bool IsQuitting() const = 0;
 		
 	};
 };

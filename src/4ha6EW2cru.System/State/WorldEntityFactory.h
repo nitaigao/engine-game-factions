@@ -24,27 +24,27 @@ namespace State
 		 *
 		 *  @return ()
 		 */
-		~WorldEntityFactory( ) { };
+		~WorldEntityFactory() { };
 
 
 		/*! Default Constructor
 		*
-		* @return (  )
+		* @return ()
 		*/
-		WorldEntityFactory( ) { };
+		WorldEntityFactory() { };
 
 
 		/*! Creates an Entity
 		*
 		* @param[in] const std::string & name
-		* @return ( IWorldEntity* )
+		* @return (IWorldEntity*)
 		*/
-		IWorldEntity* CreateEntity( const std::string& name ) const;
+		IWorldEntity* CreateEntity(const std::string& name) const;
 
 	private:
 
-		WorldEntityFactory( const WorldEntityFactory & copy ) { };
-		WorldEntityFactory & operator = ( const WorldEntityFactory & copy ) { return *this; };
+		WorldEntityFactory(const WorldEntityFactory & copy) { };
+		WorldEntityFactory & operator = (const WorldEntityFactory & copy) { return *this; };
 		
 	};
 };

@@ -8,55 +8,55 @@ using namespace System;
 
 namespace Serialization
 {
-	ISystemComponent* AnimationComponentSerializer::DeSerialize( const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes )
+	ISystemComponent* AnimationComponentSerializer::DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes)
 	{
 		std::string system;
-		componentElement->GetAttribute( System::Attributes::SystemType, &system );
+		componentElement->GetAttribute(System::Attributes::SystemType, &system);
 
-		ISystemScene::SystemSceneMap::const_iterator systemScene = systemScenes.find( System::SystemTypeMapper::StringToType( system ) );
+		ISystemScene::SystemSceneMap::const_iterator systemScene = systemScenes.find(System::SystemTypeMapper::StringToType(system));
 
 		std::string type;
-		componentElement->GetAttribute( System::Attributes::ComponentType, &type );
+		componentElement->GetAttribute(System::Attributes::ComponentType, &type);
 
-		ISystemComponent* systemComponent = ( *systemScene ).second->CreateComponent( entityName, type );
+		ISystemComponent* systemComponent = (*systemScene).second->CreateComponent(entityName, type);
 
-		std::map< std::string, std::string > animations;
+		std::map<std::string, std::string> animations;
 
-		ticpp::Element* attributesElement = componentElement->FirstChildElement( "attributes" );
-		for( Iterator< Element > attribute = attributesElement->FirstChildElement( false ); attribute != attribute.end( ); attribute++ )
+		ticpp::Element* attributesElement = componentElement->FirstChildElement("attributes");
+		for(Iterator<Element> attribute = attributesElement->FirstChildElement(false); attribute != attribute.end(); attribute++)
 		{
 			std::string key;
-			attribute->GetAttribute( "key", &key );
+			attribute->GetAttribute("key", &key);
 
-			if ( key == "animation" )
+			if (key == "animation")
 			{
 				std::string animationName;
-				attribute->GetAttribute( "v1", &animationName );
+				attribute->GetAttribute("v1", &animationName);
 
 				std::string animationPath;
-				attribute->GetAttribute( "v2", &animationPath );
+				attribute->GetAttribute("v2", &animationPath);
 
-				animations.insert( std::make_pair( animationName, animationPath ) );
+				animations.insert(std::make_pair(animationName, animationPath));
 			}
 
-			if ( key == System::Attributes::Animation::BindPose )
+			if (key == System::Attributes::Animation::BindPose)
 			{
 				std::string animationPath;
-				attribute->GetAttribute( "v1", &animationPath );
+				attribute->GetAttribute("v1", &animationPath);
 
-				systemComponent->SetAttribute( System::Attributes::Animation::BindPose, animationPath );
+				systemComponent->SetAttribute(System::Attributes::Animation::BindPose, animationPath);
 			}
 
-			if ( key == System::Attributes::Animation::DefaultAnimation )
+			if (key == System::Attributes::Animation::DefaultAnimation)
 			{
 				std::string animationPath;
-				attribute->GetAttribute( "v1", &animationPath );
+				attribute->GetAttribute("v1", &animationPath);
 
-				systemComponent->SetAttribute( System::Attributes::Animation::DefaultAnimation, animationPath );
+				systemComponent->SetAttribute(System::Attributes::Animation::DefaultAnimation, animationPath);
 			}
 		}
 
-		systemComponent->SetAttribute( System::Attributes::Animation::Animations , animations );
+		systemComponent->SetAttribute(System::Attributes::Animation::Animations , animations);
 
 		return systemComponent;
 	}

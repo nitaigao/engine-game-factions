@@ -21,28 +21,28 @@ namespace State
 
 	public:
 
-		typedef std::deque< IWorldEntity* > WorldEntityList;
-		typedef std::map< std::string, IWorldEntity* > WorldEntityMap;
+		typedef std::deque<IWorldEntity*> WorldEntityList;
+		typedef std::map<std::string, IWorldEntity*> WorldEntityMap;
 
 		/*! Default Destructor
 		 *
 		 *  @return ()
 		 */
-		virtual ~IWorldEntity( ) { };
+		virtual ~IWorldEntity() { };
 
 
 		/*! Returns the name of the Entity
 		 *
 		 *  @return (const std::string&)
 		 */
-		virtual std::string GetName( ) const = 0;
+		virtual std::string GetName() const = 0;
 
 
 		/*! Initializes all of the components contained by the entity
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void Initialize( ) = 0;
+		virtual void Initialize() = 0;
 
 
 		/*! Adds a System Component to the Entity
@@ -50,14 +50,14 @@ namespace State
 		 *  @param[in] ISystemComponent * component
 		 *  @return (void)
 		 */
-		virtual void AddComponent( ISystemComponent* component ) = 0;
+		virtual void AddComponent(ISystemComponent* component) = 0;
 
 
 		/*! Get a list of all System Components inside the Entity
 		 *
 		 *  @return (ISystemComponent::SystemComponentList&)
 		 */
-		virtual ISystemComponent::SystemComponentList GetComponents( ) const = 0;
+		virtual ISystemComponent::SystemComponentList GetComponents() const = 0;
 
 
 		/*! Adds a Foreign Observer to the Entity
@@ -65,16 +65,16 @@ namespace State
 		*  @param[in] IObserver * observer
 		*  @return (void)
 		*/
-		virtual void AddObserver( const System::MessageType& message, IObserver* observer ) = 0;
+		virtual void AddObserver(const System::MessageType& message, IObserver* observer) = 0;
 
 
 		/*! Sets an Attribute on all of the sub components
 		*
 		* @param[in] const System::Attribute & attribute
 		* @param[in] AnyType value
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void SetAttribute( const System::Attribute& attribute, const AnyType& value ) = 0;
+		virtual void SetAttribute(const System::Attribute& attribute, const AnyType& value) = 0;
 
 	};
 };

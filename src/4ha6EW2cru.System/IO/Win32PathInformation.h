@@ -26,84 +26,84 @@ namespace IO
 		 *
 		 *  @return ()
 		 */
-		~Win32PathInformation( ) { };
+		~Win32PathInformation() { };
 
 
 		/*! Default Constructor
 		*
-		* @return (  )
+		* @return ()
 		*/
-		Win32PathInformation( ) { };
+		Win32PathInformation() { };
 
 
 		/*! Initializes the Platform Manager and all Sub Components
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		GAMEAPI void Initialize( );
+		GAMEAPI void Initialize();
 
 
 		/*! Returns the path to the data directory 
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI std::string GetGlobalDataPath( ) const;
+		GAMEAPI std::string GetGlobalDataPath() const;
 
 
 		/*! Returns the local path to the data directory
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI std::string GetLocalDataPath( ) const { return "/data"; };
+		GAMEAPI std::string GetLocalDataPath() const { return "/data"; };
 
 
 		/*! Returns the path to the development data directory
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI std::string GetGlobalDevelopmentPath( ) const;
+		GAMEAPI std::string GetGlobalDevelopmentPath() const;
 
 
 		/*! Returns the path to the user data directory
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI std::string GetGlobalUserPath( ) const;
+		GAMEAPI std::string GetGlobalUserPath() const;
 
 
 		/*! Returns the path to the user data directory
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI std::string GetGlobalScreenShotsPath( ) const;
+		GAMEAPI std::string GetGlobalScreenShotsPath() const;
 
 
 		/*! Returns the path to the user data directory
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI std::string GetGlobalConfigPath( ) const;
+		GAMEAPI std::string GetGlobalConfigPath() const;
 
 
 		/*! Returns the local path to the config directory
 		*
-		* @return ( std::string )
+		* @return (std::string)
 		*/
-		GAMEAPI inline std::string GetLocalConfigPath( ) const { return "/config"; };
+		GAMEAPI inline std::string GetLocalConfigPath() const { return "/config"; };
 
 
 		/*! Formats a file path to the Platforms Path Format
 		*
 		* @param[in] const std::string & input
-		* @return ( GAMEAPI std::string )
+		* @return (GAMEAPI std::string)
 		*/
-		GAMEAPI std::string FormatPath( const std::string& input ) const;
+		GAMEAPI std::string FormatPath(const std::string& input) const;
 
 
 	private:
 
-		Win32PathInformation( const Win32PathInformation & copy ) { };
-		Win32PathInformation & operator = ( const Win32PathInformation & copy ) { return *this; };
+		Win32PathInformation(const Win32PathInformation & copy) { };
+		Win32PathInformation & operator = (const Win32PathInformation & copy) { return *this; };
 		
 	};
 };

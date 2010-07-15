@@ -24,14 +24,14 @@ namespace Game
 		 *
 		 *  @return ()
 		 */
-		virtual ~IGameFactory( ) { };
+		virtual ~IGameFactory() { };
 
 
 		/*! Creates a Game System
 		 *
-		 * @return ( IGame* )
+		 * @return (IGame*)
 		 */
-		virtual IGame* CreateGame( ) const = 0;
+		virtual IGame* CreateGame() const = 0;
 		
 	};
 };

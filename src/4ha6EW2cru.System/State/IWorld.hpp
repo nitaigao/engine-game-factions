@@ -30,7 +30,7 @@ namespace State
 		 *
 		 *  @return ()
 		 */
-		virtual ~IWorld( ) { };
+		virtual ~IWorld() { };
 
 
 		/*! Creates a World Entity Container
@@ -38,16 +38,16 @@ namespace State
 		 *  @param[in] const std::string & name
 		 *  @return (IWorldEntity*)
 		 */
-		virtual IWorldEntity* CreateEntity( const std::string& name ) = 0;
+		virtual IWorldEntity* CreateEntity(const std::string& name) = 0;
 
 
 		/*! Loads an Entity from the given file path
 		 *
 		 * @param[in] const std::string & name
 		 * @param[in] const std::string & filePath
-		 * @return ( IWorldEntity& )
+		 * @return (IWorldEntity&)
 		 */
-		virtual IWorldEntity* CreateEntity( const std::string& name, const std::string& filePath, const std::string& entityType ) = 0;
+		virtual IWorldEntity* CreateEntity(const std::string& name, const std::string& filePath, const std::string& entityType) = 0;
 
 
 		/*! Creates a World Entity Container
@@ -55,7 +55,7 @@ namespace State
 		*  @param[in] const std::string & name
 		*  @return (IWorldEntity*)
 		*/
-		virtual void DestroyEntity( const std::string& name ) = 0;
+		virtual void DestroyEntity(const std::string& name) = 0;
 
 
 		/*! Adds a System Scene to the internal scene list
@@ -63,60 +63,60 @@ namespace State
 		 *  @param[in] ISystemScene * systemScene
 		 *  @return (void)
 		 */
-		virtual void AddSystemScene( ISystemScene* systemScene ) = 0;
+		virtual void AddSystemScene(ISystemScene* systemScene) = 0;
 
 
 		/*! Gets a list of internal system scenes
 		 *
 		 *  @return (const SystemSceneMap&)
 		 */
-		virtual const ISystemScene::SystemSceneMap& GetSystemScenes( ) const = 0;
+		virtual const ISystemScene::SystemSceneMap& GetSystemScenes() const = 0;
 
 
 		/*! Updates the world and all of its internal data structures
 		 *
 		 * @param[in] float deltaMilliseconds
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
+		virtual void Update(float deltaMilliseconds) = 0;
 
 
 		/*! Destroys all entities within the world
 		 *
 		 *  @return (void)
 		 */
-		virtual void Clear( ) = 0;
+		virtual void Clear() = 0;
 
 		
 		/*! Destroys the World and All Registered Scenes
 		*
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void Destroy( ) = 0;
+		virtual void Destroy() = 0;
 
 
 		/*! Loads a level from the file system
 		 *
 		 * @param[in] const std::string & levelpath
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void LoadLevel( const std::string& levelpath ) = 0;
+		virtual void LoadLevel(const std::string& levelpath) = 0;
 
 
 		/*! Serializes the contents of the world to the Stream
 		 *
 		 * @param[in] IO::IStream * stream
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void Serialize( IO::IStream* stream ) = 0;
+		virtual void Serialize(IO::IStream* stream) = 0;
 
 
 		/*! De serializes the contents of the stream into the World
 		 *
 		 * @param[in] IO::IStream * stream
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void DeSerialize( IO::IStream* stream ) = 0;
+		virtual void DeSerialize(IO::IStream* stream) = 0;
 
 	};
 };

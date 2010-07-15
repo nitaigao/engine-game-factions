@@ -24,23 +24,23 @@ namespace Services
 
 	public:
 
-		typedef std::vector< IService* > ServiceList;
+		typedef std::vector<IService*> ServiceList;
 
 
 		/*! Gets the System::Types::Type of the Service
 		 *
 		 *  @return (System::Types::Type)
 		 */
-		virtual System::Types::Type GetType( ) const = 0;
+		virtual System::Types::Type GetType() const = 0;
 
 
 		/*! Messages the system with a command
 		*
 		* @param[in] const std::string & message
 		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+		virtual AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
 
 	};
 };

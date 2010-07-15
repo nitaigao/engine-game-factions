@@ -27,7 +27,7 @@ namespace Serialization
 		 *
 		 *  @return ()
 		 */
-		virtual ~IWorldSerializer( ) { };
+		virtual ~IWorldSerializer() { };
 
 
 		
@@ -35,18 +35,18 @@ namespace Serialization
 		 *
 		 * @param[in] IWorld * world
 		 * @param[in] const std::string & levelPath
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void DeSerializeLevel( State::IWorld* world, const std::string& levelPath ) = 0;
+		virtual void DeSerializeLevel(State::IWorld* world, const std::string& levelPath) = 0;
 
 
 		/*! De serializes an entity file into the given entity
 		 *
 		 * @param[in] IWorldEntity *
 		 * @param[in] const std::string & filepath
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath ) = 0;
+		virtual void DeSerializeEntity(State::IWorldEntity* entity, const std::string& filepath) = 0;
 
 
 		/*! Steps the loading process
@@ -54,7 +54,7 @@ namespace Serialization
 		 *  @param[in] float deltaMilliseconds
 		 *  @return (void)
 		 */
-		virtual void Update( float deltaMilliseconds ) = 0;
+		virtual void Update(float deltaMilliseconds) = 0;
 	};
 };
 

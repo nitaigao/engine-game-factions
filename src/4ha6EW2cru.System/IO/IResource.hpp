@@ -13,20 +13,20 @@ namespace Resources
 
 	public:
 
-		typedef std::map< std::string, IResource* > ResourceMap;
+		typedef std::map<std::string, IResource*> ResourceMap;
 
 		/*! Default Destructor
 		*
 		*  @return ()
 		*/
-		virtual ~IResource( ) { };
+		virtual ~IResource() { };
 
 
 		/*! Returns the file data of the Resource
 		*
 		*  @return (FileBuffer*)
 		*/
-		virtual IO::FileBuffer* GetFileBuffer( ) const = 0;
+		virtual IO::FileBuffer* GetFileBuffer() const = 0;
 
 
 		/*! Increments the reference count for this resource 
@@ -34,7 +34,7 @@ namespace Resources
 		*
 		*  @return (void)
 		*/
-		virtual void AddReference( ) = 0;
+		virtual void AddReference() = 0;
 
 
 		/*! De increments the reference count for this resource 
@@ -42,7 +42,7 @@ namespace Resources
 		 *
 		 *  @return (void)
 		 */
-		virtual void RemoveReference( ) = 0;
+		virtual void RemoveReference() = 0;
 
 	};
 };

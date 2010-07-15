@@ -22,15 +22,15 @@ public:
 	*
 	*  @return ()
 	*/
-	//~FileNotFoundException( ) { };
+	//~FileNotFoundException() { };
 
 
 	/*! Constructor with default error message
 	*
 	*  @return ()
 	*/
-	FileNotFoundException( )
-		//: std::exception( "There was an error attempting to open an File" )
+	FileNotFoundException()
+		//: std::exception("There was an error attempting to open an File")
 	{
 
 	}
@@ -40,16 +40,16 @@ public:
 	*  @param[in] const std::string message
 	*  @return ()
 	*/
-	FileNotFoundException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	FileNotFoundException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	FileNotFoundException( const FileNotFoundException & copy ) { };
-	FileNotFoundException & operator = ( const FileNotFoundException & copy ) { return *this; };
+	FileNotFoundException(const FileNotFoundException & copy) { };
+	FileNotFoundException & operator = (const FileNotFoundException & copy) { return *this; };
 
 
 };

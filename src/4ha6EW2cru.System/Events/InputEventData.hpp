@@ -22,7 +22,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~KeyEventData( ) { };
+		~KeyEventData() { };
 
 
 		/*! Default Constructor
@@ -31,9 +31,9 @@ namespace Events
 		*  @param[in] const std::string keyText
 		*  @return ()
 		*/
-		KeyEventData( int keyCode, const std::string keyText )
-			: m_keyCode( keyCode )
-			, m_keyText( keyText )
+		KeyEventData(int keyCode, const std::string keyText)
+			: m_keyCode(keyCode)
+			, m_keyText(keyText)
 		{
 
 		};
@@ -43,23 +43,23 @@ namespace Events
 		*
 		*  @return (OIS::KeyCode)
 		*/
-		inline int GetKeyCode( ) { return m_keyCode; };
+		inline int GetKeyCode() { return m_keyCode; };
 
 
 		/*! Returns the text of the key pressed in the Event
 		*
 		*  @return (std::string)
 		*/
-		inline std::string GetKeyText( ) { return m_keyText; };
+		inline std::string GetKeyText() { return m_keyText; };
 
 	private:
 
 		int m_keyCode;
 		std::string m_keyText;
 
-		KeyEventData( ) { };
-		KeyEventData( const KeyEventData & copy ) { };
-		KeyEventData & operator = ( const KeyEventData & copy ) { return *this; };
+		KeyEventData() { };
+		KeyEventData(const KeyEventData & copy) { };
+		KeyEventData & operator = (const KeyEventData & copy) { return *this; };
 
 	};
 
@@ -75,7 +75,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~MouseEventData( ) { };
+		~MouseEventData() { };
 
 
 		/*! Default Constructor
@@ -84,11 +84,11 @@ namespace Events
 		*  @param[in] const OIS::MouseButtonID & mouseButtonId
 		*  @return ()
 		*/
-		MouseEventData( int x, int y, int z, int mouseButtonId )
-			: m_x( x )
-			, m_y( y )
-			, m_z( z )
-			, m_mouseButtonId( mouseButtonId )
+		MouseEventData(int x, int y, int z, int mouseButtonId)
+			: m_x(x)
+			, m_y(y)
+			, m_z(z)
+			, m_mouseButtonId(mouseButtonId)
 		{
 
 		};
@@ -96,30 +96,30 @@ namespace Events
 
 		/*! Returns the X Position of the Mouse
 		 *
-		 * @return ( int )
+		 * @return (int)
 		 */
-		inline int GetX( ) const { return m_x; };
+		inline int GetX() const { return m_x; };
 
 
 		/*! Returns the Y Position of the Mouse
 		*
-		* @return ( int )
+		* @return (int)
 		*/
-		inline int GetY( ) const { return m_y; };
+		inline int GetY() const { return m_y; };
 
 
 		/*! Returns the Z Position of the Mouse
 		*
-		* @return ( int )
+		* @return (int)
 		*/
-		inline int GetZ( ) const { return m_z; };
+		inline int GetZ() const { return m_z; };
 
 
 		/*! Returns the Mouse Button associated with the Event
 		*
 		*  @return (int)
 		*/
-		inline int GetMouseButtonId( ) const { return m_mouseButtonId; };
+		inline int GetMouseButtonId() const { return m_mouseButtonId; };
 
 	private:
 
@@ -128,9 +128,9 @@ namespace Events
 		int m_z;
 		int m_mouseButtonId;
 
-		MouseEventData( ) { };
-		MouseEventData( const MouseEventData & copy ) { };
-		MouseEventData & operator = ( const MouseEventData & copy ) { return *this; };
+		MouseEventData() { };
+		MouseEventData(const MouseEventData & copy) { };
+		MouseEventData & operator = (const MouseEventData & copy) { return *this; };
 
 	};
 };

@@ -11,11 +11,11 @@ namespace Platform
 
 	public:
 
-		virtual ~IClock( ) { };
+		virtual ~IClock() { };
 
-		virtual float GetDeltaMilliseconds( ) = 0;
+		virtual float GetDeltaMilliseconds() = 0;
 
-		virtual float GetTime( ) const = 0;
+		virtual float GetTime() const = 0;
 
 	};
 }

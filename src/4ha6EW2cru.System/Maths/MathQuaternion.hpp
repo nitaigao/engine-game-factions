@@ -26,11 +26,11 @@ namespace Maths
 		 *
 		 *  @return ()
 		 */
-		MathQuaternion( )
-			: X( 0 )
-			, Y( 0 )
-			, Z( 0 )
-			, W( 1 )
+		MathQuaternion()
+			: X(0)
+			, Y(0)
+			, Z(0)
+			, W(1)
 		{
 
 		}
@@ -42,12 +42,12 @@ namespace Maths
 		 *  @param[in] float angle
 		 *  @return ()
 		 */
-		MathQuaternion( const MathVector3& axis, float angle )
+		MathQuaternion(const MathVector3& axis, float angle)
 		{
-			W = cos( 0.5 * angle );
-			X = sin( 0.5 * angle ) * axis.X; 
-			Y = sin( 0.5 * angle ) * axis.Y; 
-			Z = sin( 0.5 * angle ) * axis.Z; 
+			W = cos(0.5 * angle);
+			X = sin(0.5 * angle) * axis.X; 
+			Y = sin(0.5 * angle) * axis.Y; 
+			Z = sin(0.5 * angle) * axis.Z; 
 
 		}
 
@@ -60,11 +60,11 @@ namespace Maths
 		 *  @param[in] float w
 		 *  @return ()
 		 */
-		MathQuaternion( float x, float y, float z, float w )
-			: X( x )
-			, Y( y )
-			, Z( z )
-			, W( w )
+		MathQuaternion(float x, float y, float z, float w)
+			: X(x)
+			, Y(y)
+			, Z(z)
+			, W(w)
 		{
 
 		}
@@ -74,9 +74,9 @@ namespace Maths
 		 *
 		 *  @return (Maths::MathQuaternion)
 		 */
-		inline MathQuaternion Normalize( ) const 
+		inline MathQuaternion Normalize() const 
 		{
-			float length = sqrt( 
+			float length = sqrt(
 				X * X + Y * Y +
 				Z * Z + W * W
 				);
@@ -97,14 +97,14 @@ namespace Maths
 		 *  @param[out] MathVector3 & axis
 		 *  @return (void)
 		 */
-		inline void ToAngleAxis( float& angle, MathVector3& axis ) const
+		inline void ToAngleAxis(float& angle, MathVector3& axis) const
 		{
 			float squaredLength = X * X + Y * Y + Z * Z;
 
-			if( squaredLength > 0.0f )
+			if(squaredLength> 0.0f)
 			{
-				angle = 2.0f * acos( W );
-				float inverseLength = 1.0f / sqrt( squaredLength );
+				angle = 2.0f * acos(W);
+				float inverseLength = 1.0f / sqrt(squaredLength);
 				
 				axis = MathVector3(
 					X * inverseLength,
@@ -115,16 +115,16 @@ namespace Maths
 			else
 			{
 				angle = 0.0f;
-				axis = MathVector3( 1.0f, 0.0f, 0.0f );
+				axis = MathVector3(1.0f, 0.0f, 0.0f);
 			}
 		}
 
 		/*! Returns whether or not the input Quaternion does matches this Quaternion
 		*
 		* @param[in] const MathQuaternion & input
-		* @return ( bool )
+		* @return (bool)
 		*/
-		inline bool operator == ( const MathQuaternion& input ) const
+		inline bool operator == (const MathQuaternion& input) const
 		{
 			return (
 				input.X == X,
@@ -138,11 +138,11 @@ namespace Maths
 		/*! Returns whether or not the input Quaternion does not match this Quaternion
 		*
 		* @param[in] const MathQuaternion & input
-		* @return ( bool )
+		* @return (bool)
 		*/
-		inline bool operator != ( const MathQuaternion& input ) const
+		inline bool operator != (const MathQuaternion& input) const
 		{
-			return !( *this == input );
+			return !(*this == input);
 		}
 
 
@@ -151,7 +151,7 @@ namespace Maths
 		 *  @param[in] const MathQuaternion & input
 		 *  @return (Maths::MathQuaternion)
 		 */
-		inline MathQuaternion operator * ( const MathQuaternion& input ) const
+		inline MathQuaternion operator * (const MathQuaternion& input) const
 		{
 			return MathQuaternion(
 				W * input.X + X * input.W + Y * input.Z - Z * input.Y,
@@ -167,12 +167,12 @@ namespace Maths
 		*  @param[in] const MathQuaternion & input
 		*  @return (Maths::MathVector3)
 		*/
-		inline MathVector3 operator * ( const MathVector3& input ) const
+		inline MathVector3 operator * (const MathVector3& input) const
 		{
-			MathVector3 qVector( X, Y, Z );
+			MathVector3 qVector(X, Y, Z);
 
-			MathVector3 uv = qVector.CrossProduct( input ) * ( 2.0f * W );
-			MathVector3 uuv = qVector.CrossProduct( uv ) * 2.0f;
+			MathVector3 uv = qVector.CrossProduct(input) * (2.0f * W);
+			MathVector3 uuv = qVector.CrossProduct(uv) * 2.0f;
 
 			return input + uv + uuv;
 		}
@@ -183,11 +183,11 @@ namespace Maths
 		 *
 		 * @param[in] std::ostream & stream
 		 * @param[in] const MathQuaternion & input
-		 * @return ( friend std::ostream& )
+		 * @return (friend std::ostream&)
 		 */
-		friend std::ostream& operator << ( std::ostream& stream, const MathQuaternion& input ) 
+		friend std::ostream& operator <<(std::ostream& stream, const MathQuaternion& input) 
 		{
-			stream << "X:" << input.X << " Y:" << input.Y << " Z:" << input.Z << " W:" << input.W;
+			stream <<"X:" <<input.X <<" Y:" <<input.Y <<" Z:" <<input.Z <<" W:" <<input.W;
 			return stream;
 		}
 
@@ -196,7 +196,7 @@ namespace Maths
 		 *
 		 *  @return (Maths::MathQuaternion)
 		 */
-		static MathQuaternion Identity( ) { return MathQuaternion( ); }; 
+		static MathQuaternion Identity() { return MathQuaternion(); }; 
 
 	};
 };

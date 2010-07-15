@@ -17,15 +17,15 @@ public:
 	*
 	*  @return ()
 	*/
-	//~FileWriteException( ) { };
+	//~FileWriteException() { };
 
 
 	/*! Constructor with default error message
 	*
 	*  @return ()
 	*/
-	FileWriteException( )
-		//: std::exception( "There was an error attempting to write to a file" )
+	FileWriteException()
+		//: std::exception("There was an error attempting to write to a file")
 	{
 
 	}
@@ -36,16 +36,16 @@ public:
 	*  @param[in] const std::string message
 	*  @return ()
 	*/
-	FileWriteException( const std::string message )
-		//: std::exception( message.c_str( ) )
+	FileWriteException(const std::string message)
+		//: std::exception(message.c_str())
 	{
 
 	}
 
 private:
 
-	FileWriteException( const FileWriteException & copy ) { };
-	FileWriteException & operator = ( const FileWriteException & copy ) { return *this; };
+	FileWriteException(const FileWriteException & copy) { };
+	FileWriteException & operator = (const FileWriteException & copy) { return *this; };
 
 };
 

@@ -24,21 +24,21 @@ class GAMEAPI ISystemScene
 
 public:
 
-	typedef std::vector< ISystemScene* > SystemSceneList;
-	typedef std::map< int, ISystemScene* > SystemSceneMap;
+	typedef std::vector<ISystemScene*> SystemSceneList;
+	typedef std::map<int, ISystemScene*> SystemSceneMap;
 
 	/*! Default Destructor
 	 *
 	 *  @return ()
 	 */
-	virtual ~ISystemScene( ) { };
+	virtual ~ISystemScene() { };
 
 
 	/*! Initializes the System Scene
 	 *
 	 *  @return (void)
 	 */
-	virtual void Initialize( ) = 0;
+	virtual void Initialize() = 0;
 
 
 	/*! Steps internal data of the SystemScene
@@ -46,21 +46,21 @@ public:
 	 *  @param[in] float deltaMilliseconds
 	 *  @return (void)
 	 */
-	virtual void Update( float deltaMilliseconds ) = 0;
+	virtual void Update(float deltaMilliseconds) = 0;
 
 
 	/*! Destroys the System Scene
 	 *
 	 *  @return (void)
 	 */
-	virtual void Destroy( ) = 0;
+	virtual void Destroy() = 0;
 
 
 	/*! Gets the System::Types::Type of the SystemScene
 	 *
 	 *  @return (System::Types::Type)
 	 */
-	virtual System::Types::Type GetType( ) const = 0;
+	virtual System::Types::Type GetType() const = 0;
 
 
 	/*! Creates a SystemComponent specific to the SystemScene
@@ -69,7 +69,7 @@ public:
 	 *  @param[in] const std::string & type
 	 *  @return (ISystemComponent*)
 	 */
-	virtual ISystemComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
+	virtual ISystemComponent* CreateComponent(const std::string& name, const std::string& type) = 0;
 
 
 	/*! Destroys a SystemComponent created by the SystemScene
@@ -77,7 +77,7 @@ public:
 	 *  @param[in] ISystemComponent * component
 	 *  @return (void)
 	 */
-	virtual void DestroyComponent( ISystemComponent* component ) = 0;
+	virtual void DestroyComponent(ISystemComponent* component) = 0;
 };
 
 #endif

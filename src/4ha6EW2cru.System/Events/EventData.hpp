@@ -22,7 +22,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~ScriptCommandEventData( ){ };
+		~ScriptCommandEventData(){ };
 
 
 		/*! Default Constructor
@@ -30,8 +30,8 @@ namespace Events
 		 *  @param[in] const std::string command
 		 *  @return ()
 		 */
-		explicit ScriptCommandEventData( const std::string& command )
-			: m_command( command )
+		explicit ScriptCommandEventData(const std::string& command)
+			: m_command(command)
 		{
 
 		}
@@ -41,15 +41,15 @@ namespace Events
 		 *
 		 *  @return (std::string)
 		 */
-		inline std::string GetCommand( ) { return m_command; };
+		inline std::string GetCommand() { return m_command; };
 
 	private:
 
 		std::string m_command;
 
-		ScriptCommandEventData( ) { };
-		ScriptCommandEventData( const ScriptCommandEventData & copy ) { };
-		ScriptCommandEventData & operator = ( const ScriptCommandEventData & copy ) { return *this; };
+		ScriptCommandEventData() { };
+		ScriptCommandEventData(const ScriptCommandEventData & copy) { };
+		ScriptCommandEventData & operator = (const ScriptCommandEventData & copy) { return *this; };
 
 	};
 
@@ -62,7 +62,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~UIEventData( ) { };
+		~UIEventData() { };
 
 
 		/*! Default Constructor
@@ -70,8 +70,8 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& parameter1 )
-			: m_parameter1( parameter1 )
+		UIEventData(const std::string& parameter1)
+			: m_parameter1(parameter1)
 		{
 
 		}
@@ -82,12 +82,12 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& eventName, int parameter1 )
-			: m_eventName( eventName ) 
+		UIEventData(const std::string& eventName, int parameter1)
+			: m_eventName(eventName) 
 		{
 			std::stringstream param1;
-			param1 << parameter1;
-			m_parameter1 = param1.str( );
+			param1 <<parameter1;
+			m_parameter1 = param1.str();
 		}
 
 
@@ -96,10 +96,10 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& eventName, const std::string& parameter1, const std::string& parameter2 )
-			: m_eventName( eventName ) 
-			, m_parameter1( parameter1 )
-			, m_parameter2( parameter2 )
+		UIEventData(const std::string& eventName, const std::string& parameter1, const std::string& parameter2)
+			: m_eventName(eventName) 
+			, m_parameter1(parameter1)
+			, m_parameter2(parameter2)
 		{
 
 		}
@@ -110,16 +110,16 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& eventName, int parameter1, int parameter2 )
-			: m_eventName( eventName ) 
+		UIEventData(const std::string& eventName, int parameter1, int parameter2)
+			: m_eventName(eventName) 
 		{
 			std::stringstream param1;
-			param1 << parameter1;
-			m_parameter1 = param1.str( );
+			param1 <<parameter1;
+			m_parameter1 = param1.str();
 
 			std::stringstream param2;
-			param2 << parameter2;
-			m_parameter2 = param2.str( );
+			param2 <<parameter2;
+			m_parameter2 = param2.str();
 		}
 
 
@@ -128,13 +128,13 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& eventName, const std::string& parameter1, int parameter2 )
-			: m_eventName( eventName ) 
-			, m_parameter1( parameter1 )
+		UIEventData(const std::string& eventName, const std::string& parameter1, int parameter2)
+			: m_eventName(eventName) 
+			, m_parameter1(parameter1)
 		{
 			std::stringstream param2;
-			param2 << parameter2;
-			m_parameter2 = param2.str( );
+			param2 <<parameter2;
+			m_parameter2 = param2.str();
 		}
 
 
@@ -143,35 +143,35 @@ namespace Events
 		*  @param[in] const std::string levelName
 		*  @return ()
 		*/
-		UIEventData( const std::string& eventName, int parameter1, const std::string& parameter2 )
-			: m_eventName( eventName ) 
-			, m_parameter2( parameter2 )
+		UIEventData(const std::string& eventName, int parameter1, const std::string& parameter2)
+			: m_eventName(eventName) 
+			, m_parameter2(parameter2)
 		{
 			std::stringstream param1;
-			param1 << parameter1;
-			m_parameter1 = param1.str( );
+			param1 <<parameter1;
+			m_parameter1 = param1.str();
 		}
 
 
 		/*! Returns the name of the Event
 		 *
-		 * @return ( std::string )
+		 * @return (std::string)
 		 */
-		inline std::string GetEventName( ) { return m_eventName; };
+		inline std::string GetEventName() { return m_eventName; };
 
 
 		/*! Returns parameter 1
 		*
 		*  @return (std::string)
 		*/
-		inline std::string GetParameter1( ) { return m_parameter1; };
+		inline std::string GetParameter1() { return m_parameter1; };
 
 
 		/*! Returns parameter 1
 		*
 		*  @return (std::string)
 		*/
-		inline std::string GetParameter2( ) { return m_parameter2; };
+		inline std::string GetParameter2() { return m_parameter2; };
 
 
 	private:
@@ -180,9 +180,9 @@ namespace Events
 		std::string m_parameter1;
 		std::string m_parameter2;
 
-		UIEventData( ) { };
-		UIEventData( const UIEventData & copy ) { };
-		UIEventData & operator = ( const UIEventData & copy ) { return *this; };
+		UIEventData() { };
+		UIEventData(const UIEventData & copy) { };
+		UIEventData & operator = (const UIEventData & copy) { return *this; };
 	};
 
 	class LevelChangedEventData : public IEventData
@@ -194,7 +194,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~LevelChangedEventData( ) { };
+		~LevelChangedEventData() { };
 
 
 		/*! Default Constructor
@@ -202,8 +202,8 @@ namespace Events
 		 *  @param[in] const std::string levelName
 		 *  @return ()
 		 */
-		explicit LevelChangedEventData( const std::string& levelName )
-			: m_levelName( levelName )
+		explicit LevelChangedEventData(const std::string& levelName)
+			: m_levelName(levelName)
 		{
 
 		}
@@ -213,15 +213,15 @@ namespace Events
 		 *
 		 *  @return (std::string)
 		 */
-		inline std::string GetLevelName( ) { return m_levelName; };
+		inline std::string GetLevelName() { return m_levelName; };
 
 	private:
 
 		std::string m_levelName;
 
-		LevelChangedEventData( ) { };
-		LevelChangedEventData( const LevelChangedEventData & copy ) { };
-		LevelChangedEventData & operator = ( const LevelChangedEventData & copy ) { return *this; };
+		LevelChangedEventData() { };
+		LevelChangedEventData(const LevelChangedEventData & copy) { };
+		LevelChangedEventData & operator = (const LevelChangedEventData & copy) { return *this; };
 
 	};
 
@@ -234,7 +234,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~MessageLoggedEventData( ) { };
+		~MessageLoggedEventData() { };
 
 
 		/*! Default Constructor
@@ -242,8 +242,8 @@ namespace Events
 		 *  @param[in] const std::string message
 		 *  @return ()
 		 */
-		explicit MessageLoggedEventData( const System::MessageType& message )
-			: m_message( message )
+		explicit MessageLoggedEventData(const System::MessageType& message)
+			: m_message(message)
 		{
 
 		}
@@ -253,15 +253,15 @@ namespace Events
 		 *
 		 *  @return (std::string)
 		 */
-		inline std::string GetMessage( ) { return m_message; };
+		inline std::string GetMessage() { return m_message; };
 
 	private:
 
 		std::string m_message;
 
-		MessageLoggedEventData( ) { };
-		MessageLoggedEventData( const MessageLoggedEventData & copy ) { };
-		MessageLoggedEventData & operator = ( const MessageLoggedEventData & copy ) { return *this; };
+		MessageLoggedEventData() { };
+		MessageLoggedEventData(const MessageLoggedEventData & copy) { };
+		MessageLoggedEventData & operator = (const MessageLoggedEventData & copy) { return *this; };
 
 
 	};
@@ -275,7 +275,7 @@ namespace Events
 		*
 		*  @return ()
 		*/
-		~ServerEventData( ) { };
+		~ServerEventData() { };
 
 
 		/*! Default Constructor
@@ -286,26 +286,26 @@ namespace Events
 		 * @param[in] int numPlayers
 		 * @param[in] int ping
 		 * @param[in] const std::string & address
-		 * @return ( )
+		 * @return ()
 		 */
-		ServerEventData( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address )
-			: m_serverName( serverName )
-			, m_mapName( mapName )
-			, m_maxPlayers( maxPlayers )
-			, m_numPlayers( numPlayers )
-			, m_ping( ping )
-			, m_address( address )
+		ServerEventData(const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address)
+			: m_serverName(serverName)
+			, m_mapName(mapName)
+			, m_maxPlayers(maxPlayers)
+			, m_numPlayers(numPlayers)
+			, m_ping(ping)
+			, m_address(address)
 		{
 
 		}
 
 
-		inline std::string GetServerName( ) { return m_serverName; }; 
-		inline std::string GetMapName( ) { return m_mapName; }; 
-		inline int GetMaxPlayers( ) { return m_maxPlayers; }; 
-		inline int GetNumPlayers( ) { return m_numPlayers; }; 
-		inline int GetPing( ) { return m_ping; }; 
-		inline std::string GetAddress( ) { return m_address; };
+		inline std::string GetServerName() { return m_serverName; }; 
+		inline std::string GetMapName() { return m_mapName; }; 
+		inline int GetMaxPlayers() { return m_maxPlayers; }; 
+		inline int GetNumPlayers() { return m_numPlayers; }; 
+		inline int GetPing() { return m_ping; }; 
+		inline std::string GetAddress() { return m_address; };
 
 
 	private:

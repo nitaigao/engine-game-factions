@@ -25,23 +25,23 @@ public:
 	 *
 	 *  @return ()
 	 */
-	virtual ~ISystemManager( ) { };
+	virtual ~ISystemManager() { };
 
 
 	/*! Loads the relevant Game Systems
 	 *
 	 * @param[in] bool isDedicated
-	 * @return ( void )
+	 * @return (void)
 	 */
-	virtual void LoadSystems( bool isDedicated ) = 0;
+	virtual void LoadSystems(bool isDedicated) = 0;
 
 
 	/*! Loads a System dll and returns a pointer to the contained ISystem
 	*
 	* @param[in] const std::string & systemPath
-	* @return ( ISystem* )
+	* @return (ISystem*)
 	*/
-	virtual ISystem* LoadSystem( const std::string& systemPath ) = 0;
+	virtual ISystem* LoadSystem(const std::string& systemPath) = 0;
 
 
 	/*! Registers a System
@@ -49,7 +49,7 @@ public:
 	 *  @param[in] ISystem * system
 	 *  @return (void)
 	 */
-	virtual void RegisterSystem( const System::Queues::Queue& systemQueue, ISystem* system ) = 0;
+	virtual void RegisterSystem(const System::Queues::Queue& systemQueue, ISystem* system) = 0;
 
 
 	/*! Gets a Registered System
@@ -57,14 +57,14 @@ public:
 	 *  @param[in] System::Types::Type systemType
 	 *  @return (ISystem*)
 	 */
-	virtual ISystem* GetSystem( const System::Types::Type& systemType ) const = 0;
+	virtual ISystem* GetSystem(const System::Types::Type& systemType) const = 0;
 
 
 	/*! Initializes all Registered Systems
 	 *
 	 *  @return (void)
 	 */
-	virtual void InitializeAllSystems( ) = 0;
+	virtual void InitializeAllSystems() = 0;
 
 
 	/*! Checks to see if a system has been registered
@@ -72,7 +72,7 @@ public:
 	*  @param[in] const System::Types::Type & systemType
 	*  @return (bool)
 	*/
-	virtual bool HasSystem( const System::Types::Type& systemType ) const = 0;
+	virtual bool HasSystem(const System::Types::Type& systemType) const = 0;
 
 
 	/*! Steps each Registered System
@@ -80,21 +80,21 @@ public:
 	 *  @param[in] float deltaMilliseconds
 	 *  @return (void)
 	 */
-	virtual void Update( float deltaMilliseconds ) = 0;
+	virtual void Update(float deltaMilliseconds) = 0;
 
 
 	/*! Releases all Registered Systems
 	 *
 	 *  @return (void)
 	 */
-	virtual void Release( ) = 0;
+	virtual void Release() = 0;
 
 
 	/*! Creates a World from All Registered Systems
 	 *
 	 *  @return (IWorld*)
 	 */
-	virtual State::IWorld* CreateWorld( ) = 0;
+	virtual State::IWorld* CreateWorld() = 0;
 
 };
 

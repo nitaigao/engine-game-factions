@@ -15,7 +15,7 @@ namespace Maths
 
 	public:
 
-		MathMatrix( float angle, const MathVector3& axis );
+		MathMatrix(float angle, const MathVector3& axis);
 
 	};
 

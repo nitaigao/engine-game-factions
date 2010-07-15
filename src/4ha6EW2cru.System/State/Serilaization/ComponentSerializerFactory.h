@@ -25,14 +25,14 @@ namespace Serialization
 		 *  @param[in] const System::Types::Type & systemType
 		 *  @return (IComponentSerializer*)
 		 */
-		static IComponentSerializer* Create( const System::Types::Type& systemType );
+		static IComponentSerializer* Create(const System::Types::Type& systemType);
 
 	private:
 
-		~ComponentSerializerFactory( ) { };
-		ComponentSerializerFactory( ) { };
-		ComponentSerializerFactory( const ComponentSerializerFactory & copy ) { };
-		ComponentSerializerFactory & operator = ( const ComponentSerializerFactory & copy ) { return *this; };
+		~ComponentSerializerFactory() { };
+		ComponentSerializerFactory() { };
+		ComponentSerializerFactory(const ComponentSerializerFactory & copy) { };
+		ComponentSerializerFactory & operator = (const ComponentSerializerFactory & copy) { return *this; };
 
 	};
 };

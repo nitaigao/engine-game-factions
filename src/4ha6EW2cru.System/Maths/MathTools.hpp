@@ -30,22 +30,22 @@ namespace Maths
 		/*! Returns a Vector created from an Ogre Vector
 		*
 		* @param[in] const Ogre::Vector3 & vector
-		* @return ( Maths::MathVector3 )
+		* @return (Maths::MathVector3)
 		*/
-		inline static MathVector3 FromOgreVector3( const Ogre::Vector3& vector )
+		inline static MathVector3 FromOgreVector3(const Ogre::Vector3& vector)
 		{
-			return Maths::MathVector3( vector.x, vector.y, vector.z );
+			return Maths::MathVector3(vector.x, vector.y, vector.z);
 		};
 
 
 		/*! Returns a Vector Created from a Havok Vector
 		*
 		* @param[in] const hkVector4 & vector
-		* @return ( Maths::MathVector3 )
+		* @return (Maths::MathVector3)
 		*/
-		/*inline static MathVector3 FromhkVector4( const hkVector4& vector )
+		/*inline static MathVector3 FromhkVector4(const hkVector4& vector)
 		{
-			return Maths::MathVector3( vector( 0 ), vector( 1 ), vector( 2 ) );
+			return Maths::MathVector3(vector(0), vector(1), vector(2));
 		};*/
 
 
@@ -53,9 +53,9 @@ namespace Maths
 		*
 		*  @return (Ogre::Vector3)
 		*/
-		inline static Ogre::Vector3 AsOgreVector3( const MathVector3& vector )
+		inline static Ogre::Vector3 AsOgreVector3(const MathVector3& vector)
 		{ 
-			return Ogre::Vector3( vector.X, vector.Y, vector.Z ); 
+			return Ogre::Vector3(vector.X, vector.Y, vector.Z); 
 		};
 
 
@@ -63,9 +63,9 @@ namespace Maths
 		*
 		*  @return (hkVector4)
 		*/
-		/*inline static hkVector4 AshkVector4( const MathVector3& vector )
+		/*inline static hkVector4 AshkVector4(const MathVector3& vector)
 		{ 
-			return hkVector4( vector.X, vector.Y, vector.Z );
+			return hkVector4(vector.X, vector.Y, vector.Z);
 		};*/
 
 
@@ -73,7 +73,7 @@ namespace Maths
 		*
 		*  @return (FMOD_VECTOR)
 		*/
-		/*inline static FMOD_VECTOR AsFMODVector( const MathVector3& vector )
+		/*inline static FMOD_VECTOR AsFMODVector(const MathVector3& vector)
 		{ 
 			FMOD_VECTOR returnValue; 
 			returnValue.x = vector.X; 
@@ -88,9 +88,9 @@ namespace Maths
 		*  @param[in] const Ogre::Quaternion & quaternion
 		*  @return (MathQuaternion)
 		*/
-		inline static Maths::MathQuaternion FromOgreQuaternion( const Ogre::Quaternion& quaternion )
+		inline static Maths::MathQuaternion FromOgreQuaternion(const Ogre::Quaternion& quaternion)
 		{
-			return Maths::MathQuaternion( quaternion.x, quaternion.y, quaternion.z, quaternion.w );
+			return Maths::MathQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 		}
 
 
@@ -99,9 +99,9 @@ namespace Maths
 		*  @param[in] const hkQuaternion & quaternion
 		*  @return (MathQuaternion)
 		*/
-		/*inline static Maths::MathQuaternion FromhkQuaternion( const hkQuaternion& quaternion )
+		/*inline static Maths::MathQuaternion FromhkQuaternion(const hkQuaternion& quaternion)
 		{
-			return Maths::MathQuaternion( quaternion( 0 ), quaternion( 1 ), quaternion( 2 ), quaternion( 3 ) );
+			return Maths::MathQuaternion(quaternion(0), quaternion(1), quaternion(2), quaternion(3));
 		}*/
 
 
@@ -109,9 +109,9 @@ namespace Maths
 		*
 		*  @return (Ogre::Quaternion)
 		*/
-		inline static Ogre::Quaternion AsOgreQuaternion( Maths::MathQuaternion& quternion )
+		inline static Ogre::Quaternion AsOgreQuaternion(Maths::MathQuaternion& quternion)
 		{ 
-			return Ogre::Quaternion( quternion.W, quternion.X, quternion.Y, quternion.Z ); 
+			return Ogre::Quaternion(quternion.W, quternion.X, quternion.Y, quternion.Z); 
 		};
 
 
@@ -119,17 +119,17 @@ namespace Maths
 		*
 		*  @return (hkQuaternion)
 		*/
-		/*inline static hkQuaternion AshkQuaternion( Maths::MathQuaternion& quternion )
+		/*inline static hkQuaternion AshkQuaternion(Maths::MathQuaternion& quternion)
 		{ 
-			return hkQuaternion( quternion.X, quternion.Y, quternion.Z, quternion.W ); 
+			return hkQuaternion(quternion.X, quternion.Y, quternion.Z, quternion.W); 
 		};*/
 
 	private:
 
-		~MathTools( ) { };
-		MathTools( ) { };
-		MathTools( const MathTools & copy ) { };
-		MathTools & operator = ( const MathTools & copy ) { return *this; };
+		~MathTools() { };
+		MathTools() { };
+		MathTools(const MathTools & copy) { };
+		MathTools & operator = (const MathTools & copy) { return *this; };
 		
 	};
 };

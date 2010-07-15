@@ -28,7 +28,7 @@ namespace Events
 		 *
 		 *  @return ()
 		 */
-		virtual ~IEventManager( ) { };
+		virtual ~IEventManager() { };
 
 
 		/*! Queues an Event for processing on the next call to Update
@@ -36,16 +36,16 @@ namespace Events
 		*  @param[in] const IEvent * event
 		*  @return (void)
 		*/
-		virtual void QueueEvent( const Events::IEvent* event ) = 0;
+		virtual void QueueEvent(const Events::IEvent* event) = 0;
 
 
 		/*! Queues an Event for processing on the next call to Update
 		 *
 		 * @param[in] const std::string &
 		 * @param[in] IEventData *
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void QueueEvent( const std::string&, IEventData* ) = 0;
+		virtual void QueueEvent(const std::string&, IEventData*) = 0;
 
 
 		/*! Processes an Event immediately
@@ -53,7 +53,7 @@ namespace Events
 		*  @param[in] const IEvent * event
 		*  @return (void)
 		*/
-		virtual void TriggerEvent( const Events::IEvent* event ) = 0;
+		virtual void TriggerEvent(const Events::IEvent* event) = 0;
 
 
 		/*! Dispatched all events in the Event Queue to their Listening Event Handlers
@@ -61,25 +61,25 @@ namespace Events
 		*  @param[in] float deltaMilliseconds
 		*  @return (void)
 		*/
-		virtual void Update( float deltaMilliseconds ) = 0;
+		virtual void Update(float deltaMilliseconds) = 0;
 
 		
 		/*! Adds an EventListener for Event processing
 		 *
 		 * @param[in] const std::string & eventType
 		 * @param[in] IEventListener * eventListener
-		 * @return ( void )
+		 * @return (void)
 		 */
-		virtual void AddEventListener( const std::string& eventType, IEventListener* eventListener ) = 0;
+		virtual void AddEventListener(const std::string& eventType, IEventListener* eventListener) = 0;
 
 
 		/*! Marks an Event Listener for removal on the next call to Update
 		*
 		* @param[in] const std::string & eventType
 		* @param[in] IEventListener * eventListener
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void RemoveEventListener( const std::string& eventType, IEventListener* eventListener ) = 0;
+		virtual void RemoveEventListener(const std::string& eventType, IEventListener* eventListener) = 0;
 		
 	};
 };

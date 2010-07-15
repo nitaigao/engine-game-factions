@@ -18,71 +18,71 @@ namespace IO
 	static const std::string COMPANY_NAME = "Black Art Studios";
 	static const std::string GAME_NAME = "Factions";
 
-	void Win32PathInformation::Initialize( )
+	void Win32PathInformation::Initialize()
 	{
-		if( !exists( this->GetGlobalUserPath( ) ) )
+		if(!exists(this->GetGlobalUserPath()))
 		{
-			create_directories( this->GetGlobalUserPath( ) );
+			create_directories(this->GetGlobalUserPath());
 		}
 
-		if( !exists( this->GetGlobalScreenShotsPath( ) ) )
+		if(!exists(this->GetGlobalScreenShotsPath()))
 		{
-			create_directories( this->GetGlobalScreenShotsPath( ) );
+			create_directories(this->GetGlobalScreenShotsPath());
 		}
 
-		if( !exists( this->GetGlobalConfigPath( ) ) )
+		if(!exists(this->GetGlobalConfigPath()))
 		{
-			create_directories( this->GetGlobalConfigPath( ) );
+			create_directories(this->GetGlobalConfigPath());
 		}
 	}
 
-	std::string Win32PathInformation::GetGlobalDataPath( ) const
+	std::string Win32PathInformation::GetGlobalDataPath() const
 	{
 		TCHAR modulePath[ TCHAR_MAX ];
-		GetModuleFileName( 0, modulePath, TCHAR_MAX );
+		GetModuleFileName(0, modulePath, TCHAR_MAX);
 
 		std::stringstream exePath;
-		exePath << modulePath;
+		exePath <<modulePath;
 
 		std::string binName = "bin";
 
-		int binIndex = exePath.str( ).rfind( binName.c_str( ) );
+		int binIndex = exePath.str().rfind(binName.c_str());
 		
-		std::string folderPath = exePath.str( ).substr( 0, binIndex );
+		std::string folderPath = exePath.str().substr(0, binIndex);
 
 		std::stringstream dataPath;
-		dataPath << folderPath << "data";
+		dataPath <<folderPath <<"data";
 
-		return dataPath.str( );
+		return dataPath.str();
 	}
 
-	std::string Win32PathInformation::GetGlobalDevelopmentPath( ) const
+	std::string Win32PathInformation::GetGlobalDevelopmentPath() const
 	{
 		return "../../../etc/data";
 	}
 
-	std::string Win32PathInformation::GetGlobalUserPath( ) const
+	std::string Win32PathInformation::GetGlobalUserPath() const
 	{
 		TCHAR systemDirPath[ TCHAR_MAX ];
-		SHGetFolderPath( 0, CSIDL_PERSONAL, 0, 0, systemDirPath );
+		SHGetFolderPath(0, CSIDL_PERSONAL, 0, 0, systemDirPath);
 
 		std::stringstream systemPath;
-		systemPath << systemDirPath << "\\" << COMPANY_NAME << "\\" << GAME_NAME;
+		systemPath <<systemDirPath <<"\\" <<COMPANY_NAME <<"\\" <<GAME_NAME;
 
-		return systemPath.str( );
+		return systemPath.str();
 	}
 
 	std::string Win32PathInformation::GetGlobalScreenShotsPath() const
 	{
 		std::stringstream screenshotsPath;
-		screenshotsPath << this->GetGlobalUserPath( ) << "\\" << "screenshots";
-		return screenshotsPath.str( );
+		screenshotsPath <<this->GetGlobalUserPath() <<"\\" <<"screenshots";
+		return screenshotsPath.str();
 	}
 
 	std::string Win32PathInformation::GetGlobalConfigPath() const
 	{
 		std::stringstream configPath;
-		configPath << this->GetGlobalUserPath( ) << "\\" << "config";
-		return configPath.str( );
+		configPath <<this->GetGlobalUserPath() <<"\\" <<"config";
+		return configPath.str();
 	}
 }

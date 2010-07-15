@@ -25,30 +25,30 @@ namespace Services
 		*
 		*  @return ()
 		*/
-		~ServiceManager( ) { };
+		~ServiceManager() { };
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		ServiceManager( ) { };
+		ServiceManager() { };
 
 		/*! Registers a Service
 		*
 		*  @param[in] IService * service
 		*  @return (void)
 		*/
-		inline void RegisterService( IService* service ) { m_services.push_back( service ); };
+		inline void RegisterService(IService* service) { m_services.push_back(service); };
 
 
 		/*! Messages all Registered Services
 		*
 		* @param[in] const std::string & message
 		* @param[in] AnyType::AnyTypeMap parameters
-		* @return ( AnyType::AnyTypeMap )
+		* @return (AnyType::AnyTypeMap)
 		*/
-		AnyType::AnyTypeMap MessageAll( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+		AnyType::AnyTypeMap MessageAll(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
 		/*! Finds a Registered Service by System::Types::Type
@@ -56,7 +56,7 @@ namespace Services
 		*  @param[in] System::Types::Type systemType
 		*  @return (IService*)
 		*/
-		IService* FindService( System::Types::Type systemType ) const;
+		IService* FindService(System::Types::Type systemType) const;
 
 
 	private:

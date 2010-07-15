@@ -5,8 +5,8 @@
 
 namespace State
 {
-	IWorldEntity* WorldEntityFactory::CreateEntity( const std::string& name ) const
+	IWorldEntity* WorldEntityFactory::CreateEntity(const std::string& name) const
 	{
-		return new WorldEntity( name );
+		return new WorldEntity(name);
 	}
 }

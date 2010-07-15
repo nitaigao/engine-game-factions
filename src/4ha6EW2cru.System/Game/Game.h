@@ -39,27 +39,27 @@ namespace Game
 		 *
 		 *  @return ()
 		 */
-		~GameRoot( ) { };
+		~GameRoot() { };
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		GameRoot( 
+		GameRoot(
 			Platform::IProgramOptions* programOptions, Configuration::IConfiguration* configuration, Platform::IPlatformManager* platformManager, 
 			ISystemManager* systemManager, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager, IO::IFileSystem* fileSystem
 			)
-			: m_isQuitting( false )
-			, m_isInitialized( false )
-			, m_world( 0 )
-			, m_platformManager( platformManager )
-			, m_programOptions( programOptions )
-			, m_systemManager( systemManager )
-			, m_configuration( configuration )
-			, m_eventManager( eventManager )
-			, m_serviceManager( serviceManager )
-			, m_fileSystem( fileSystem )
+			: m_isQuitting(false)
+			, m_isInitialized(false)
+			, m_world(0)
+			, m_platformManager(platformManager)
+			, m_programOptions(programOptions)
+			, m_systemManager(systemManager)
+			, m_configuration(configuration)
+			, m_eventManager(eventManager)
+			, m_serviceManager(serviceManager)
+			, m_fileSystem(fileSystem)
 		{
 
 		}
@@ -69,7 +69,7 @@ namespace Game
 		 *
 		 *  @return (void)
 		 */
-		void Initialize( );
+		void Initialize();
 
 
 		/*! Steps the GameRoot forward
@@ -77,27 +77,27 @@ namespace Game
 		 *  @param[in] float deltaMilliseconds
 		 *  @return (void)
 		 */
-		void Update( );
+		void Update();
 
 		
 		/*! Releases the GameRoot
 		 *
 		 *  @return (void)
 		 */
-		void Release( );
+		void Release();
 
 
 		/*! Returns whether or not the GameRoot is ready to Quit
 		 *
 		 *  @return (bool)
 		 */
-		bool IsQuitting( ) const { return m_isQuitting; };
+		bool IsQuitting() const { return m_isQuitting; };
 
 	private:
 
-		void OnGameQuit( const Events::IEvent* event );
-		void OnGameLevelChanged( const Events::IEvent* event );
-		void OnGameEnded( const Events::IEvent* event );
+		void OnGameQuit(const Events::IEvent* event);
+		void OnGameLevelChanged(const Events::IEvent* event);
+		void OnGameEnded(const Events::IEvent* event);
 
 		bool m_isQuitting;
 		bool m_isInitialized;
@@ -111,8 +111,8 @@ namespace Game
 		Services::IServiceManager* m_serviceManager;
 		IO::IFileSystem* m_fileSystem;
 
-		GameRoot( const GameRoot & copy ) { };
-		GameRoot & operator = ( const GameRoot & copy ) { return *this; };
+		GameRoot(const GameRoot & copy) { };
+		GameRoot & operator = (const GameRoot & copy) { return *this; };
 
 	};
 };

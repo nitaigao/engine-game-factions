@@ -26,23 +26,23 @@ namespace System
 		 *
 		 *  @return ()
 		 */
-		virtual ~ISerializable( ) { };
+		virtual ~ISerializable() { };
 
 
 		/*! Writes the contents of the object to the given stream
 		*
 		* @param[in] IStream * stream
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void Serialize( IO::IStream* stream ) = 0;
+		virtual void Serialize(IO::IStream* stream) = 0;
 
 
 		/*! Reads the contents of the object from the stream
 		*
 		* @param[in] IStream * stream
-		* @return ( void )
+		* @return (void)
 		*/
-		virtual void DeSerialize( IO::IStream* stream ) = 0;
+		virtual void DeSerialize(IO::IStream* stream) = 0;
 		
 	};
 };

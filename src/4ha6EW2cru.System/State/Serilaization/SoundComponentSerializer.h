@@ -24,14 +24,14 @@ namespace Serialization
 		 *
 		 *  @return ()
 		 */
-		~SoundComponentSerializer( ) { };
+		~SoundComponentSerializer() { };
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		SoundComponentSerializer( )
+		SoundComponentSerializer()
 		{
 
 		}
@@ -41,16 +41,16 @@ namespace Serialization
 		* @param[in] const std::string entityName
 		* @param[in] const ticpp::Element & componentElement
 		* @param[in] const ISystemScene::SystemSceneMap & systemScenes
-		* @return ( ISystemComponent* )
+		* @return (ISystemComponent*)
 		*/
-		ISystemComponent* DeSerialize( const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes );
+		ISystemComponent* DeSerialize(const std::string entityName, ticpp::Element* componentElement, const ISystemScene::SystemSceneMap& systemScenes);
 		
 
 	private:
 
 		
-		SoundComponentSerializer( const SoundComponentSerializer & copy ) { };
-		SoundComponentSerializer & operator = ( const SoundComponentSerializer & copy ) { return *this; };
+		SoundComponentSerializer(const SoundComponentSerializer & copy) { };
+		SoundComponentSerializer & operator = (const SoundComponentSerializer & copy) { return *this; };
 
 	};
 };

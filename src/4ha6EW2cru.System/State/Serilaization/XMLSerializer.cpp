@@ -38,20 +38,20 @@ namespace Serialization
 {
 	XMLSerializer::~XMLSerializer()
 	{
-		while( m_loadQueueEl.size( ) > 0 )
+		while(m_loadQueueEl.size()> 0)
 		{
-			delete m_loadQueueEl.front( );
-			m_loadQueueEl.pop( );
+			delete m_loadQueueEl.front();
+			m_loadQueueEl.pop();
 		}
 	}
 	
-	void XMLSerializer::DeSerializeLevel( IWorld* world, const std::string& levelPath )
+	void XMLSerializer::DeSerializeLevel(IWorld* world, const std::string& levelPath)
 	{
-		if ( !m_resourceCache->ResourceExists( levelPath ) )
+		if (!m_resourceCache->ResourceExists(levelPath))
 		{
 			std::stringstream logMessage;
-			logMessage << "Unable to locate level file at path: " << levelPath;
-			//Warn( logMessage.str( ) );
+			logMessage <<"Unable to locate level file at path: " <<levelPath;
+			//Warn(logMessage.str());
 			return;
 		}
 
@@ -59,50 +59,50 @@ namespace Serialization
 		m_loadProgress = 0;
 		m_loadTotal = 0;
 
-		IEventData* eventData = new UIEventData( "WORLD_LOADING_STARTED" );
-		m_eventManager->QueueEvent( new Event( EventTypes::WORLD_LOADING_STARTED, eventData ) );
+		IEventData* eventData = new UIEventData("WORLD_LOADING_STARTED");
+		m_eventManager->QueueEvent(new Event(EventTypes::WORLD_LOADING_STARTED, eventData));
 	
-		IResource* resource = m_resourceCache->GetResource( levelPath );
-		Document levelFile( resource->GetFileBuffer()->fileBytes );
+		IResource* resource = m_resourceCache->GetResource(levelPath);
+		Document levelFile(resource->GetFileBuffer()->fileBytes);
 
-		this->LoadElement( levelFile.FirstChildElement( ) );
+		this->LoadElement(levelFile.FirstChildElement());
 	}
 
-	void XMLSerializer::LoadElement( ticpp::Element* element )
+	void XMLSerializer::LoadElement(ticpp::Element* element)
 	{
-		for( Iterator< Element > child = element->FirstChildElement( false ); child != child.end( ); child++ )
+		for(Iterator<Element> child = element->FirstChildElement(false); child != child.end(); child++)
 		{
 			std::string elementName;
-			( *child ).GetValue( &elementName );
+			(*child).GetValue(&elementName);
 
-			if ( elementName == "color" || elementName == "entity" )
+			if (elementName == "color" || elementName == "entity")
 			{
-				m_loadQueueEl.push( ( *child ).ClonePtr( ) );
+				m_loadQueueEl.push((*child).ClonePtr());
 				m_loadTotal++;
 			}
 
-			this->LoadElement( &( *child ) );
+			this->LoadElement(&(*child));
 		}
 	}
 
-	void XMLSerializer::DeserializeElement( ticpp::Element* element )
+	void XMLSerializer::DeserializeElement(ticpp::Element* element)
 	{
 		std::string elementName;
-		element->GetValue( &elementName );
+		element->GetValue(&elementName);
 
-		if ( elementName == "entity" )
+		if (elementName == "entity")
 		{
-			this->LoadEntity( element );
+			this->LoadEntity(element);
 		}
-		else if ( elementName == "color" )
+		else if (elementName == "color")
 		{
-			this->LoadColor( element );
+			this->LoadColor(element);
 		}
 	}
 	
-	void XMLSerializer::LoadColor( ticpp::Element* element )
+	void XMLSerializer::LoadColor(ticpp::Element* element)
 	{
-		if ( m_systemManager->HasSystem( System::Types::RENDER ) )
+		if (m_systemManager->HasSystem(System::Types::RENDER))
 		{
 			std::string key;
 
@@ -110,160 +110,160 @@ namespace Serialization
 			float green = 0;
 			float blue = 0;
 
-			element->GetAttribute( "type", &key );
-			element->GetAttribute( "r", &red );
-			element->GetAttribute( "g", &green );
-			element->GetAttribute( "b", &blue );
+			element->GetAttribute("type", &key);
+			element->GetAttribute("r", &red);
+			element->GetAttribute("g", &green);
+			element->GetAttribute("b", &blue);
 
 			AnyType::AnyTypeMap parameters;
 			parameters[ "r" ] = red;
 			parameters[ "g" ] = green;
 			parameters[ "b" ] = blue;
 
-			ISystem* graphicsSystem = m_systemManager->GetSystem( System::Types::RENDER );
+			ISystem* graphicsSystem = m_systemManager->GetSystem(System::Types::RENDER);
 
-			graphicsSystem->SetAttribute( key, parameters );
+			graphicsSystem->SetAttribute(key, parameters);
 		}
 	}
 
-	void XMLSerializer::ImportEntity( const std::string& src, NodePtrMap& components )
+	void XMLSerializer::ImportEntity(const std::string& src, NodePtrMap& components)
 	{
-		IResource* resource = m_resourceCache->GetResource( src );
-		Document externalFile( resource->GetFileBuffer( )->fileBytes );
+		IResource* resource = m_resourceCache->GetResource(src);
+		Document externalFile(resource->GetFileBuffer()->fileBytes);
 
 		std::string externalSource;
-		externalFile.FirstChildElement( false )->GetAttribute( "src", &externalSource, false );
+		externalFile.FirstChildElement(false)->GetAttribute("src", &externalSource, false);
 
-		if ( !externalSource.empty( ) )
+		if (!externalSource.empty())
 		{
-			this->ImportEntity( externalSource, components );
+			this->ImportEntity(externalSource, components);
 		}
 
-		for( Iterator< Element > child = externalFile.FirstChildElement( false ); child != child.end( ); child++ )
+		for(Iterator<Element> child = externalFile.FirstChildElement(false); child != child.end(); child++)
 		{
-			this->LoadEntityComponents( &*child, components );
+			this->LoadEntityComponents(&*child, components);
 		}
 	}
 
-	IWorldEntity* XMLSerializer::CreateEntity( const std::string& name, NodePtrMap& components )
+	IWorldEntity* XMLSerializer::CreateEntity(const std::string& name, NodePtrMap& components)
 	{
-		IWorldEntity* entity = m_world->CreateEntity( name );
+		IWorldEntity* entity = m_world->CreateEntity(name);
 
-		this->PopulateEntity( entity, components );
+		this->PopulateEntity(entity, components);
 
 		return entity;
 	}
 
-	void XMLSerializer::PopulateEntity( IWorldEntity* entity, NodePtrMap& components )
+	void XMLSerializer::PopulateEntity(IWorldEntity* entity, NodePtrMap& components)
 	{
-		for( NodePtrMap::iterator i = components.begin( ); i != components.end( ); ++i )
+		for(NodePtrMap::iterator i = components.begin(); i != components.end(); ++i)
 		{
-			if ( m_systemManager->HasSystem( ( *i ).first ) ) 
+			if (m_systemManager->HasSystem((*i).first)) 
 			{
-				IComponentSerializer* serializer = ComponentSerializerFactory::Create( ( *i ).first );
-				ISystemComponent* component = serializer->DeSerialize( entity->GetName( ), ( *i ).second->ToElement( ), m_world->GetSystemScenes( ) );
-				entity->AddComponent( component );
+				IComponentSerializer* serializer = ComponentSerializerFactory::Create((*i).first);
+				ISystemComponent* component = serializer->DeSerialize(entity->GetName(), (*i).second->ToElement(), m_world->GetSystemScenes());
+				entity->AddComponent(component);
 
 				delete serializer;
 			}
 
-			delete ( *i ).second;
+			delete (*i).second;
 		}
 	}
 	
-	void XMLSerializer::LoadEntity( ticpp::Element* element )
+	void XMLSerializer::LoadEntity(ticpp::Element* element)
 	{ 	
 		std::string src;
-		element->GetAttribute( "src", &src, false );
+		element->GetAttribute("src", &src, false);
 
 		NodePtrMap components;
 
-		if ( !src.empty( ) )
+		if (!src.empty())
 		{
-			this->ImportEntity( src, components );
+			this->ImportEntity(src, components);
 		}
 
-		this->LoadEntityComponents( element, components );
+		this->LoadEntityComponents(element, components);
 
 		std::string name;
-		element->GetAttribute( "name", &name );
+		element->GetAttribute("name", &name);
 
-		IWorldEntity* entity = this->CreateEntity( name, components );
-		entity->Initialize( );
+		IWorldEntity* entity = this->CreateEntity(name, components);
+		entity->Initialize();
 	}
 
-	void XMLSerializer::LoadEntity( const std::string& name, const std::string& entityFilePath )
+	void XMLSerializer::LoadEntity(const std::string& name, const std::string& entityFilePath)
 	{
 		NodePtrMap components;
 
-		this->ImportEntity( entityFilePath, components );
-		IWorldEntity* entity = this->CreateEntity( name, components );
+		this->ImportEntity(entityFilePath, components);
+		IWorldEntity* entity = this->CreateEntity(name, components);
 
-		entity->SetAttribute( System::Attributes::FilePath, entityFilePath );
-		entity->Initialize( );
+		entity->SetAttribute(System::Attributes::FilePath, entityFilePath);
+		entity->Initialize();
 	}
 
-	void XMLSerializer::LoadEntityComponents( ticpp::Element* element, NodePtrMap& components )
+	void XMLSerializer::LoadEntityComponents(ticpp::Element* element, NodePtrMap& components)
 	{
-		for( Iterator< Element > child = element->FirstChildElement( false ); child != child.end( ); child++ )
+		for(Iterator<Element> child = element->FirstChildElement(false); child != child.end(); child++)
 		{
 			std::string elementName;
-			child->GetValue( &elementName );
+			child->GetValue(&elementName);
 
-			if ( elementName == "components" )
+			if (elementName == "components")
 			{
-				for( Iterator< Element > component = ( *child ).FirstChildElement( false ); component != component.end( ); component++ )
+				for(Iterator<Element> component = (*child).FirstChildElement(false); component != component.end(); component++)
 				{
 					std::string system;
-					( *component ).GetAttribute( "system", &system );
+					(*component).GetAttribute("system", &system);
 
-					System::Types::Type systemType = System::SystemTypeMapper::StringToType( system );
+					System::Types::Type systemType = System::SystemTypeMapper::StringToType(system);
 
-					if ( components.find( systemType ) != components.end( ) )
+					if (components.find(systemType) != components.end())
 					{
 						delete components[ systemType ];
 					}
 
-					components[ systemType ] = ( *component ).ClonePtr( );
+					components[ systemType ] = (*component).ClonePtr();
 				}
 			}
 		}
 	}
 	
-	void XMLSerializer::Update( float deltaMilliseconds )
+	void XMLSerializer::Update(float deltaMilliseconds)
 	{
-		if ( !m_loadQueueEl.empty( ) )
+		if (!m_loadQueueEl.empty())
 		{
-			this->DeserializeElement( m_loadQueueEl.front( )->ToElement( ) );
+			this->DeserializeElement(m_loadQueueEl.front()->ToElement());
 
-			delete m_loadQueueEl.front( );
+			delete m_loadQueueEl.front();
 
-			m_loadQueueEl.pop( );
+			m_loadQueueEl.pop();
 
-			float progressPercent = ( ( float ) ++m_loadProgress / ( float ) m_loadTotal ) * 100.0f;
+			float progressPercent = ((float) ++m_loadProgress / (float) m_loadTotal) * 100.0f;
 
 			std::stringstream progress;
-			progress << static_cast< int >( progressPercent );
+			progress <<static_cast<int>(progressPercent);
 
-			IEventData* eventData = new UIEventData( progress.str( ) );
-			m_eventManager->QueueEvent( new Event( EventTypes::WORLD_LOADING_PROGRESS, eventData ) );
+			IEventData* eventData = new UIEventData(progress.str());
+			m_eventManager->QueueEvent(new Event(EventTypes::WORLD_LOADING_PROGRESS, eventData));
 
-			if ( m_loadQueueEl.empty( ) )
+			if (m_loadQueueEl.empty())
 			{
 				m_loadProgress = m_loadTotal;
 
-				m_eventManager->QueueEvent( new Event( EventTypes::WORLD_LOADING_FINISHED ) );
+				m_eventManager->QueueEvent(new Event(EventTypes::WORLD_LOADING_FINISHED));
 
-				m_serviceManager->MessageAll( System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap( ) );
+				m_serviceManager->MessageAll(System::Messages::Network::Client::LevelLoaded, AnyType::AnyTypeMap());
 			}
 		}
 	}
 
-	void XMLSerializer::DeSerializeEntity( State::IWorldEntity* entity, const std::string& filepath )
+	void XMLSerializer::DeSerializeEntity(State::IWorldEntity* entity, const std::string& filepath)
 	{
 		NodePtrMap components;
 
-		this->ImportEntity( filepath, components );
-		this->PopulateEntity( entity, components );
+		this->ImportEntity(filepath, components);
+		this->PopulateEntity(entity, components);
 	}
 }

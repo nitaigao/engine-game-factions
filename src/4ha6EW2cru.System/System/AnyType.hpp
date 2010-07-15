@@ -20,22 +20,22 @@ class AnyType
 
 public:
 
-	typedef std::map< std::string, AnyType > AnyTypeMap;
-	typedef std::map< unsigned int, AnyType > AnyTypeKeyMap;
+	typedef std::map<std::string, AnyType> AnyTypeMap;
+	typedef std::map<unsigned int, AnyType> AnyTypeKeyMap;
 
 
 	/*! Default Destructor
 	 *
 	 *  @return ()
 	 */
-	~AnyType( ) { };
+	~AnyType() { };
 
 
 	/*! Default Constructor
 	 *
 	 *  @return ()
 	 */
-	AnyType( ) { };
+	AnyType() { };
 
 
 	/*! Constructor to accept specific int values
@@ -43,8 +43,8 @@ public:
 	 *  @param[in] const int & value
 	 *  @return ()
 	 */
-	AnyType( int value )
-		: m_value( value )
+	AnyType(int value)
+		: m_value(value)
 	{
 
 	}
@@ -55,8 +55,8 @@ public:
 	 *  @param[in] const char * value
 	 *  @return ()
 	 */
-	AnyType( const char* value )
-		: m_value( std::string( value ) )
+	AnyType(const char* value)
+		: m_value(std::string(value))
 	{
 
 	}
@@ -67,9 +67,9 @@ public:
 	 *  @param[in] const T & value
 	 *  @return ()
 	 */
-	template< class T >
-	AnyType( const T& value )
-		: m_value( value )
+	template<class T>
+	AnyType(const T& value)
+		: m_value(value)
 	{
 
 	}
@@ -79,18 +79,18 @@ public:
 	 *
 	 *  @return (boost::T)
 	 */
-	template< class T >
-	T As( ) const { return boost::any_cast< T >( m_value ); };
+	template<class T>
+	T As() const { return boost::any_cast<T>(m_value); };
 
 
 	/*! Gets the Type of the contained Value
 	 *
 	 *  @return (const std::type_info&)
 	 */
-	const std::type_info& GetType( ) const { return m_value.type( ); };
+	const std::type_info& GetType() const { return m_value.type(); };
 
 
-	bool operator == ( const AnyType& input ) const
+	bool operator == (const AnyType& input) const
 	{
 		return false;
 	}

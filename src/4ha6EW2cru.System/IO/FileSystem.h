@@ -29,15 +29,15 @@ namespace IO
 		*
 		*  @return ()
 		*/
-		~FileSystem( );
+		~FileSystem();
 
 
 		/*! Default Constructor
 		 *
 		 *  @return ()
 		 */
-		FileSystem( Platform::IPlatformManager* platformManager )
-			: m_platformManager( platformManager )
+		FileSystem(Platform::IPlatformManager* platformManager)
+			: m_platformManager(platformManager)
 		{
 
 		}
@@ -47,7 +47,7 @@ namespace IO
 		*
 		*  @return (void)
 		*/
-		void Initialize( );
+		void Initialize();
 
 
 		/*! Mounts the given path into the file system
@@ -56,7 +56,7 @@ namespace IO
 		*  @param[in] const std::string mountPoint - the internal path the above will be mounted at
 		*  @return (bool)
 		*/
-		bool Mount( const std::string& filePath, const std::string& mountPoint );
+		bool Mount(const std::string& filePath, const std::string& mountPoint);
 
 
 		/*! Returns the file data at the given path
@@ -65,7 +65,7 @@ namespace IO
 		*  @param[in] bool binary
 		*  @return (FileBuffer*)
 		*/
-		FileBuffer* GetFile( const std::string& filePath, bool binary = true ) const;
+		FileBuffer* GetFile(const std::string& filePath, bool binary = true) const;
 
 
 		/*! Saves the given file data to the path specified in the FileBuffer
@@ -73,7 +73,7 @@ namespace IO
 		*  @param[in] const FileBuffer & fileBuffer
 		*  @return (void)
 		*/
-		void SaveFile( const FileBuffer& fileBuffer ) const;
+		void SaveFile(const FileBuffer& fileBuffer) const;
 
 
 		/*! Checks to see if a file exists at the given path
@@ -82,7 +82,7 @@ namespace IO
 		*  @param[in] bool throwOnFail
 		*  @return (bool)
 		*/
-		bool FileExists( const std::string& filePath, bool throwOnFail = false ) const;
+		bool FileExists(const std::string& filePath, bool throwOnFail = false) const;
 
 
 		/*! Performs a file search
@@ -92,14 +92,14 @@ namespace IO
 		*  @param[in] const bool recursive
 		*  @return (FileSearchResultList*)
 		*/
-		FileSearchResult::FileSearchResultList* FileSearch( const std::string& path, const std::string& searchPattern, bool recursive ) const;
+		FileSearchResult::FileSearchResultList* FileSearch(const std::string& path, const std::string& searchPattern, bool recursive) const;
 
 	private:
 
-		FileSearchResult::FileSearchResultList* _FileSearch( const std::string& path, const std::string& pattern, bool recursive, FileSearchResult::FileSearchResultList* results ) const;
+		FileSearchResult::FileSearchResultList* _FileSearch(const std::string& path, const std::string& pattern, bool recursive, FileSearchResult::FileSearchResultList* results) const;
 
-		FileSystem( const FileSystem & copy ) { };
-		FileSystem & operator = ( const FileSystem & copy ) { return *this; };
+		FileSystem(const FileSystem & copy) { };
+		FileSystem & operator = (const FileSystem & copy) { return *this; };
 
 		Platform::IPlatformManager* m_platformManager;
 
