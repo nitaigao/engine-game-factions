@@ -32,24 +32,24 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptFactory( ) { };
+    ~ScriptFactory() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    ScriptFactory( 
+    ScriptFactory(
       Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
       Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, 
       Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation
-      )
-      : m_configuration( configuration )
-      , m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
-      , m_eventManager( eventManager )
-      , m_platformManager( platformManager )
-      , m_instrumentation( instrumentation )
+     )
+      : m_configuration(configuration)
+      , m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
+      , m_eventManager(eventManager)
+      , m_platformManager(platformManager)
+      , m_instrumentation(instrumentation)
     {
 
     }
@@ -57,21 +57,21 @@ namespace Script
 
     /*! Creates the Script System
      *
-     * @return ( IScriptSystem* )
+     * @return (IScriptSystem*)
      */
-    IScriptSystem* CreateScriptSystem(  );
+    IScriptSystem* CreateScriptSystem();
 
 
     /*! Creates a Script System Scene
      *
-     * @return ( IScriptSystemScene* )
+     * @return (IScriptSystemScene*)
      */
-    IScriptSystemScene* CreateScriptSystemScene( );
+    IScriptSystemScene* CreateScriptSystemScene();
 
   private:
 
-    ScriptFactory( const ScriptFactory & copy ) { };
-    ScriptFactory & operator = ( const ScriptFactory & copy ) { return *this; };
+    ScriptFactory(const ScriptFactory & copy) { };
+    ScriptFactory & operator = (const ScriptFactory & copy) { return *this; };
 
 
     Configuration::IConfiguration* m_configuration;

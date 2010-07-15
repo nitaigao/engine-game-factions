@@ -26,16 +26,16 @@ namespace Sound
      *
      *  @return ()
      */
-    ~SoundFactory( ) { };
+    ~SoundFactory() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    SoundFactory( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-      : m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
+    SoundFactory(Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache)
+      : m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -43,14 +43,14 @@ namespace Sound
 
     /*! Creates a SoundSystem Object
     *
-    * @return ( ISoundSystem* )
+    * @return (ISoundSystem*)
     */
-    ISoundSystem* CreateSoundSystem( );
+    ISoundSystem* CreateSoundSystem();
 
   private:
 
-    SoundFactory( const SoundFactory & copy ) { };
-    SoundFactory & operator = ( const SoundFactory & copy ) { return *this; };
+    SoundFactory(const SoundFactory & copy) { };
+    SoundFactory & operator = (const SoundFactory & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
     Resources::IResourceCache* m_resourceCache;

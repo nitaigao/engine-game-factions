@@ -26,15 +26,15 @@ namespace Sound
      *
      *  @return ()
      */
-    ~SoundEventSystem( ) { };
+    ~SoundEventSystem() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    SoundEventSystem( )
-      : m_eventSystem( )
+    SoundEventSystem()
+      : m_eventSystem()
     {
 
     }
@@ -42,53 +42,53 @@ namespace Sound
 
     /*! Initializes the Event System
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( FMOD::System* fmodSystem );
+    void Initialize(FMOD::System* fmodSystem);
 
 
     /*! Triggers a Sound Event
     *
     * @param[in] const std::string & eventPath
-    * @return ( FMOD::Event* )
+    * @return (FMOD::Event*)
     */
-    FMOD::Event* TriggerEvent( const std::string& eventPath );  
+    FMOD::Event* TriggerEvent(const std::string& eventPath);  
 
 
     /*! Keys out a Sound Event
     *
     * @param[in] const std::string & eventPath
-    * @return ( void )
+    * @return (void)
     */
-    void KeyOutEvent( const std::string& eventPath );  
+    void KeyOutEvent(const std::string& eventPath);  
 
 
     /*! Sets the Position the Speakers would be listening from
     *
     * @param[in] const Maths::MathVector3 & position
-    * @return ( void )
+    * @return (void)
     */
-    void SetListenerPosition( const Maths::MathVector3& position );
+    void SetListenerPosition(const Maths::MathVector3& position);
 
 
     /*! Destroys the Event System
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Updates the Event System
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
   private:
 
-    SoundEventSystem( const SoundEventSystem & copy ) { };
-    SoundEventSystem & operator = ( const SoundEventSystem & copy ) { return *this; };
+    SoundEventSystem(const SoundEventSystem & copy) { };
+    SoundEventSystem & operator = (const SoundEventSystem & copy) { return *this; };
 
     FMOD::EventSystem* m_eventSystem;
     SoundEventList m_activeSoundEvents;

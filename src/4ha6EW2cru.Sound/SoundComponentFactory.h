@@ -25,15 +25,15 @@ namespace Sound
      *
      *  @return ()
      */
-    ~SoundComponentFactory( ) { };
+    ~SoundComponentFactory() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    SoundComponentFactory( ISoundEventSystem* eventSystem )
-      : m_eventSystem( eventSystem )
+    SoundComponentFactory(ISoundEventSystem* eventSystem)
+      : m_eventSystem(eventSystem)
     {
 
     }
@@ -43,14 +43,14 @@ namespace Sound
     *
     * @param[in] const std::string & name
     * @param[in] const std::string & type
-    * @return ( ISoundSystemComponent* )
+    * @return (ISoundSystemComponent*)
     */
-    ISoundSystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISoundSystemComponent* CreateComponent(const std::string& name, const std::string& type);
 
   private:
 
-    SoundComponentFactory( const SoundComponentFactory & copy ) { };
-    SoundComponentFactory & operator = ( const SoundComponentFactory & copy ) { return *this; };
+    SoundComponentFactory(const SoundComponentFactory & copy) { };
+    SoundComponentFactory & operator = (const SoundComponentFactory & copy) { return *this; };
 
     ISoundEventSystem* m_eventSystem;
     

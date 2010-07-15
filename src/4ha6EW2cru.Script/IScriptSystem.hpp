@@ -24,7 +24,7 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptSystem( ) { };
+    virtual ~IScriptSystem() { };
 
   };
 };

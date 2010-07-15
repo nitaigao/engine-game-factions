@@ -26,16 +26,16 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptComponentFactory( ) { };
+    virtual ~IScriptComponentFactory() { };
 
 
     /*! Creates a Script Component
      *
      * @param[in] const std::string & name
      * @param[in] const std::string & type
-     * @return ( IScriptComponent* )
+     * @return (IScriptComponent*)
      */
-    virtual IScriptComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
+    virtual IScriptComponent* CreateComponent(const std::string& name, const std::string& type) = 0;
     
   };
 };

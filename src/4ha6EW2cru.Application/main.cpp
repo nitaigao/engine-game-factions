@@ -16,7 +16,7 @@ using namespace Game;
 #ifdef _DEBUG
 #  define _CRTDBG_MAP_ALLOC 
 #  define _CRTDBG_MAP_ALLOC_NEW 
-#  define new new ( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#  define new new (_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 
 /*! Windows main point of Entry
@@ -27,24 +27,24 @@ using namespace Game;
  *  @param[in] int nCmdShow
  *  @return (int WINAPI)
  */
-int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 
 #ifdef _DEBUG
   //_crtBreakAlloc = 87928;
-  _CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); 
+  _CrtSetDbgFlag (_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
 #endif
 
   GameFactory gameFactory;
-  IGame* game = gameFactory.CreateGame( );
-  game->Initialize( );
+  IGame* game = gameFactory.CreateGame();
+  game->Initialize();
 
-  while( !game->IsQuitting( ) )
+  while(!game->IsQuitting())
   {
-    game->Update( );
+    game->Update();
   }
 
-  game->Release( );
+  game->Release();
 
   delete game;
   

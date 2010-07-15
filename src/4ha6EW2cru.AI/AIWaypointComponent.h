@@ -22,20 +22,20 @@ namespace AI
      *
      *  @return ()
      */
-    ~AIWaypointComponent( ) { };
+    ~AIWaypointComponent() { };
 
 
-    AIWaypointComponent( const std::string& name, Services::IServiceManager* serviceManager )
-      : AISystemComponent( name, serviceManager )
+    AIWaypointComponent(const std::string& name, Services::IServiceManager* serviceManager)
+      : AISystemComponent(name, serviceManager)
     {
 
     }
 
   private:
 
-    AIWaypointComponent( ) { };
-    AIWaypointComponent( const AIWaypointComponent & copy ) { };
-    AIWaypointComponent & operator = ( const AIWaypointComponent & copy ) { return *this; };
+    AIWaypointComponent() { };
+    AIWaypointComponent(const AIWaypointComponent & copy) { };
+    AIWaypointComponent & operator = (const AIWaypointComponent & copy) { return *this; };
     
   };
 };

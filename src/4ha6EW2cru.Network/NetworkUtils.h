@@ -27,31 +27,31 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkUtils( ) { };
+    ~NetworkUtils() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkUtils( ) { };
+    NetworkUtils() { };
 
     static const SystemAddress BROADCAST_ADDRESS;
     static const unsigned int NetworkUtils::SERVER_PORT;
 
-    static unsigned char GetPacketIdentifier( Packet *packet );
+    static unsigned char GetPacketIdentifier(Packet *packet);
 
-    static RakNet::BitStream* ReceiveNetworkMessage( Packet* packet );
+    static RakNet::BitStream* ReceiveNetworkMessage(Packet* packet);
 
-    static void SendNetworkMessage( RakNet::BitStream& data, const SystemAddress& destination, RakPeerInterface* networkInterface );
+    static void SendNetworkMessage(RakNet::BitStream& data, const SystemAddress& destination, RakPeerInterface* networkInterface);
 
-    static void HandleRPCError( Packet* packet );
+    static void HandleRPCError(Packet* packet);
     
 
   private:
 
-    NetworkUtils( const NetworkUtils & copy ) { };
-    NetworkUtils & operator = ( const NetworkUtils & copy ) { return *this; };
+    NetworkUtils(const NetworkUtils & copy) { };
+    NetworkUtils & operator = (const NetworkUtils & copy) { return *this; };
     
   };
 };

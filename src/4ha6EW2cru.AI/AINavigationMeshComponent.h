@@ -27,11 +27,11 @@ namespace AI
      *
      *  @return ()
      */
-    ~AINavigationMeshComponent( );
+    ~AINavigationMeshComponent();
 
 
-    AINavigationMeshComponent( const std::string& name, Services::IServiceManager* serviceManager )
-      : AISystemComponent( name, serviceManager )
+    AINavigationMeshComponent(const std::string& name, Services::IServiceManager* serviceManager)
+      : AISystemComponent(name, serviceManager)
     {
 
     }
@@ -39,44 +39,44 @@ namespace AI
 
     /*! Initializes the Component
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Destroys the Component
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
-    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
     /*! Returns a Path in way points from the start point to the destination point
     *
     * @param[in] const Maths::MathVector3 & start
     * @param[in] const Maths::MathVector3 & finish
-    * @return ( Maths::MathVector3::MathVector3List )
+    * @return (Maths::MathVector3::MathVector3List)
     */
-    Maths::MathVector3::MathVector3List FindPath( const Maths::MathVector3& start, const Maths::MathVector3& finish );
+    Maths::MathVector3::MathVector3List FindPath(const Maths::MathVector3& start, const Maths::MathVector3& finish);
 
 
     /*! Returns a Path in way points from the start Polygon to the destination Polygon
     *
     * @param[in] NavigationPolygon * start
     * @param[in] NavigationPolygon * finish
-    * @return ( Maths::MathVector3::MathVector3List )
+    * @return (Maths::MathVector3::MathVector3List)
     */
-    Maths::MathVector3::MathVector3List FindPath( NavigationPolygon* start, NavigationPolygon* finish  );
+    Maths::MathVector3::MathVector3List FindPath(NavigationPolygon* start, NavigationPolygon* finish );
 
   private:
 
-    AINavigationMeshComponent( ) { };
-    AINavigationMeshComponent( const AINavigationMeshComponent & copy ) { };
-    AINavigationMeshComponent & operator = ( const AINavigationMeshComponent & copy ) { return *this; };
+    AINavigationMeshComponent() { };
+    AINavigationMeshComponent(const AINavigationMeshComponent & copy) { };
+    AINavigationMeshComponent & operator = (const AINavigationMeshComponent & copy) { return *this; };
 
-    void RecalculateNeighbours( );
+    void RecalculateNeighbours();
 
     NavigationPolygon::NavPolyList m_polygons;
     

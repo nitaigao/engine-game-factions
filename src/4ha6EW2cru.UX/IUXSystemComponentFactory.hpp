@@ -24,15 +24,15 @@ namespace UX
      *
      *  @return ()
      */
-    virtual ~IUXSystemComponentFactory( ) { };
+    virtual ~IUXSystemComponentFactory() { };
 
 
     /*! Creates a Script Component
     *
     * @param[in] const std::string & name
-    * @return ( IUXSystemComponent* )
+    * @return (IUXSystemComponent*)
     */
-    virtual IUXSystemComponent* CreateComponent( const std::string& name ) = 0;
+    virtual IUXSystemComponent* CreateComponent(const std::string& name) = 0;
     
   };
 };

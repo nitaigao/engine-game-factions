@@ -12,50 +12,50 @@ using namespace Configuration;
 
 namespace Network
 {
-  NetworkClientProvider::~NetworkClientProvider( )
+  NetworkClientProvider::~NetworkClientProvider()
   {
     delete m_endpoint;
     delete m_controller;
     delete m_networkInterface;
   }
 
-  void NetworkClientProvider::Connect( const std::string& serverAddress )
+  void NetworkClientProvider::Connect(const std::string& serverAddress)
   {
-    int serverPort = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerPort ).As< int >( );
-    m_networkInterface->Connect( serverPort, serverAddress );
+    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As< int >();
+    m_networkInterface->Connect(serverPort, serverAddress);
   }
 
   void NetworkClientProvider::Disconnect()
   {
-    m_networkInterface->Disconnect( );
+    m_networkInterface->Disconnect();
   }
 
-  void NetworkClientProvider::Initialize( int maxConnections )
+  void NetworkClientProvider::Initialize(int maxConnections)
   {
-    m_networkInterface->Initialize( 0, maxConnections );
-    m_controller->Initialize( );
-    m_endpoint->Initialize( );
+    m_networkInterface->Initialize(0, maxConnections);
+    m_controller->Initialize();
+    m_endpoint->Initialize();
   }
 
-  void NetworkClientProvider::Update( float deltaMilliseconds )
+  void NetworkClientProvider::Update(float deltaMilliseconds)
   {
-    m_endpoint->Update( deltaMilliseconds );
+    m_endpoint->Update(deltaMilliseconds);
   }
 
-  void NetworkClientProvider::SelectCharacter( const std::string& characterName )
+  void NetworkClientProvider::SelectCharacter(const std::string& characterName)
   {
-    m_controller->SelectCharacter( characterName );
+    m_controller->SelectCharacter(characterName);
   }
 
-  void NetworkClientProvider::FindServers( )
+  void NetworkClientProvider::FindServers()
   {
-    int serverPort = m_configuration->Find( ConfigSections::Network, ConfigItems::Network::ServerPort ).As< int >( );
-    m_controller->FindServers( serverPort );
+    int serverPort = m_configuration->Find(ConfigSections::Network, ConfigItems::Network::ServerPort).As< int >();
+    m_controller->FindServers(serverPort);
   }
 
-  void NetworkClientProvider::Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  void NetworkClientProvider::Message(ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters)
   {
-    if ( 
+    if (
       message == System::Messages::Move_Forward_Pressed ||
       message == System::Messages::Move_Backward_Pressed ||
       message == System::Messages::Move_Forward_Released ||
@@ -66,9 +66,9 @@ namespace Network
       message == System::Messages::Strafe_Left_Released ||
       message == System::Messages::Jump ||
       message == System::Messages::Mouse_Moved
-      )
+     )
     {
-      m_controller->MessageEntity( subject->GetName( ), message, parameters );
+      m_controller->MessageEntity(subject->GetName(), message, parameters);
     }
   }
 }

@@ -13,27 +13,27 @@ protected:
 
   MockNetworkInterface* m_networkInterface;
 
-  void EstablishContext( )
+  void EstablishContext()
   {
-    m_networkInterface = new MockNetworkInterface( );
+    m_networkInterface = new MockNetworkInterface();
   }
 
 
-  void DestroyContext( )
+  void DestroyContext()
   {
     delete m_networkInterface;
   }
 
-  NetworkClientController* CreateSubject( )
+  NetworkClientController* CreateSubject()
   {
-    return new NetworkClientController( m_networkInterface ); 
+    return new NetworkClientController(m_networkInterface); 
   }
 };
 
 
-TEST_F( NetworkClientController_Tests, should_broadcast_offline_ping_when_looking_for_servers )
+TEST_F(NetworkClientController_Tests, should_broadcast_offline_ping_when_looking_for_servers)
 {
   int port = 0;
-  EXPECT_CALL( *m_networkInterface, BroadcastOfflinePing( port ) );
-  m_subject->FindServers( port );
+  EXPECT_CALL(*m_networkInterface, BroadcastOfflinePing(port));
+  m_subject->FindServers(port);
 }

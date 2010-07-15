@@ -29,7 +29,7 @@ namespace Renderer
      *
      *  @return ()
      */
-    ~BadArchive( ) { };
+    ~BadArchive() { };
 
 
     /*! Default Constructor
@@ -38,9 +38,9 @@ namespace Renderer
      *  @param[in] const std::string type
      *  @return ()
      */
-    BadArchive( const std::string& name, const std::string& type, Resources::IResourceCache* resourceCache )
-      : Archive( name, type )
-      , m_resourceCache( resourceCache )
+    BadArchive(const std::string& name, const std::string& type, Resources::IResourceCache* resourceCache)
+      : Archive(name, type)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -51,7 +51,7 @@ namespace Renderer
      *  @param[in] void
      *  @return (bool)
      */
-    inline bool isCaseSensitive( void ) const { return true; };
+    inline bool isCaseSensitive(void) const { return true; };
 
 
     /*! Returns the last modified time of the Archive
@@ -61,21 +61,21 @@ namespace Renderer
      *  @param[in] const Ogre::String & filename
      *  @return (time_t)
      */
-    time_t getModifiedTime( const Ogre::String& filename ) { return 0; }; 
+    time_t getModifiedTime(const Ogre::String& filename) { return 0; }; 
 
 
     /*! Stub that would initialize the archive
      *
      *  @return (void)
      */
-    inline void load( ) { };
+    inline void load() { };
 
 
     /*! Stub that would unload the archive
      *
      *  @return (void)
      */
-    inline void unload( ) { };
+    inline void unload() { };
 
 
     /*! Opens a file from the file system
@@ -83,7 +83,7 @@ namespace Renderer
      *  @param[in] const Ogre::String & filename
      *  @return (Ogre::DataStreamPtr)
      */
-    Ogre::DataStreamPtr open( const Ogre::String& filename ) const;
+    Ogre::DataStreamPtr open(const Ogre::String& filename) const;
 
 
     /*! Checks to see if the file exists on the file system
@@ -91,7 +91,7 @@ namespace Renderer
      *  @param[in] const Ogre::String & filename
      *  @return (bool)
      */
-    bool exists( const Ogre::String& filename );
+    bool exists(const Ogre::String& filename);
 
 
     /*! Returns a list of files contained on the file system
@@ -100,16 +100,16 @@ namespace Renderer
      *  @param[in] bool dirs
      *  @return (Ogre::StringVectorPtr)
      */
-    Ogre::StringVectorPtr list( bool recursive = true, bool dirs = false );
+    Ogre::StringVectorPtr list(bool recursive = true, bool dirs = false);
 
 
-    /*! Returns a list of files with all accompanying meta data attached( path, extension etc )
+    /*! Returns a list of files with all accompanying meta data attached(path, extension etc)
      *
      *  @param[in] bool recursive
      *  @param[in] bool dirs
      *  @return (Ogre::FileInfoListPtr)
      */
-    Ogre::FileInfoListPtr listFileInfo( bool recursive = true, bool dirs = false );
+    Ogre::FileInfoListPtr listFileInfo(bool recursive = true, bool dirs = false);
 
 
     /*! Finds a file on the file system
@@ -119,24 +119,24 @@ namespace Renderer
      *  @param[in] bool dirs
      *  @return (Ogre::StringVectorPtr)
      */
-    Ogre::StringVectorPtr find( const Ogre::String& pattern, bool recursive = true, bool dirs = false );
+    Ogre::StringVectorPtr find(const Ogre::String& pattern, bool recursive = true, bool dirs = false);
 
 
-    /*! Finds a file with its accompanying meta data attached ( path, extension etc )
+    /*! Finds a file with its accompanying meta data attached (path, extension etc)
      *
      *  @param[in] const Ogre::String & pattern
      *  @param[in] bool recursive
      *  @param[in] bool dirs
      *  @return (Ogre::FileInfoListPtr)
      */
-    Ogre::FileInfoListPtr findFileInfo( const Ogre::String& pattern, bool recursive = true, bool dirs = false );
+    Ogre::FileInfoListPtr findFileInfo(const Ogre::String& pattern, bool recursive = true, bool dirs = false);
 
   private:
 
     TableOfContents m_tableOfContents;
     Resources::IResourceCache* m_resourceCache;
 
-    BadArchive & operator = ( const BadArchive & copy ) { return *this; };
+    BadArchive & operator = (const BadArchive & copy) { return *this; };
 
   };
 };

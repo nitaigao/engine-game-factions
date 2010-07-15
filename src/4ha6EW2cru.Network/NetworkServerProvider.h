@@ -34,19 +34,19 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkServerProvider( );
+    ~NetworkServerProvider();
 
 
     /*! IoC Constructor
      *
      * @param[in] INetworkInterface * networkInterface
-     * @return (  )
+     * @return ()
      */
-    NetworkServerProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkServerController* controller, INetworkServerEndpoint* endpoint )
-      : m_networkInterface( networkInterface )
-      , m_controller( controller )
-      , m_configuration( configuration )
-      , m_endpoint( endpoint )
+    NetworkServerProvider(Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkServerController* controller, INetworkServerEndpoint* endpoint)
+      : m_networkInterface(networkInterface)
+      , m_controller(controller)
+      , m_configuration(configuration)
+      , m_endpoint(endpoint)
     {
 
     }
@@ -55,17 +55,17 @@ namespace Network
     /*! Initializes the Network Interface
     *
     * @param[in] int maxConnections
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( int maxConnections );
+    void Initialize(int maxConnections);
 
 
     /*! Updates the Network Provider
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Distributes the message for the entity across the Network
@@ -73,30 +73,30 @@ namespace Network
     * @param[in] ISystemComponent* subject
     * @param[in] const System::Message & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    void Message(ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Destroys the Provider
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( ) { };
+    void Destroy() { };
 
 
     /*! Instructs all connected clients that the level has changed
      *
      * @param[in] const Events::IEvent * event
-     * @return ( void )
+     * @return (void)
      */
-    void OnGameLevelChanged( const Events::IEvent* event );
+    void OnGameLevelChanged(const Events::IEvent* event);
 
 
   private:
 
-    NetworkServerProvider( const NetworkServerProvider & copy ) { };
-    NetworkServerProvider & operator = ( const NetworkServerProvider & copy ) { return *this; };
+    NetworkServerProvider(const NetworkServerProvider & copy) { };
+    NetworkServerProvider & operator = (const NetworkServerProvider & copy) { return *this; };
 
     INetworkInterface* m_networkInterface;
     INetworkServerController* m_controller;

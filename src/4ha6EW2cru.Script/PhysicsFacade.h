@@ -29,15 +29,15 @@ namespace Script
      *
      *  @return ()
      */
-    ~PhysicsFacade( ) { };
+    ~PhysicsFacade() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    PhysicsFacade( Services::IServiceManager* serviceManager )
-      : m_serviceManager( serviceManager )
+    PhysicsFacade(Services::IServiceManager* serviceManager)
+      : m_serviceManager(serviceManager)
     {
 
     }
@@ -45,16 +45,16 @@ namespace Script
 
     /*! Registers the Script functions
     *
-    * @return ( void )
+    * @return (void)
     */
-    static luabind::scope RegisterFunctions( );
+    static luabind::scope RegisterFunctions();
 
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "physics"; };
+    inline std::string GetName() { return "physics"; };
 
 
     /*! Casts a Ray and Returns the Hit Results
@@ -64,21 +64,21 @@ namespace Script
      * @param[in] float length
      * @param[in] bool sortByDistance
      * @param[in] int maxResults
-     * @return ( std::vector< std::string > )
+     * @return (std::vector< std::string >)
      */
-    std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults );
+    std::vector< std::string > RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults);
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
   private:
 
-    PhysicsFacade( const PhysicsFacade & copy ) { };
-    PhysicsFacade & operator = ( const PhysicsFacade & copy ) { return *this; };
+    PhysicsFacade(const PhysicsFacade & copy) { };
+    PhysicsFacade & operator = (const PhysicsFacade & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
     

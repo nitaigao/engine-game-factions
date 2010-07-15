@@ -26,7 +26,7 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~ISoundFacade( ) { };
+    virtual ~ISoundFacade() { };
 
     
     /*! Instructs the Sound System to play some music from the given event path
@@ -34,7 +34,7 @@ namespace Script
      *  @param[in] const std::string & eventPath
      *  @return (void)
      */
-    virtual void PlayMusic( const std::string& eventPath ) = 0;
+    virtual void PlayMusic(const std::string& eventPath) = 0;
 
   };
 };

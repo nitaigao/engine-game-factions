@@ -29,34 +29,34 @@ namespace Testing
      *
      *  @return ()
      */
-    ~Environment( ) { };
+    ~Environment() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    Environment( ) { };
+    Environment() { };
 
-    virtual void SetUp( )
+    virtual void SetUp()
     {
-      m_eventManager = new EventManager( );
-      m_platformManager = new Win32PlatformManager( 0, 0, 0 );
+      m_eventManager = new EventManager();
+      m_platformManager = new Win32PlatformManager(0, 0, 0);
 
-      Logging::Logger::Initialize( m_platformManager, m_eventManager );
+      Logging::Logger::Initialize(m_platformManager, m_eventManager);
     }
 
-    virtual void TearDown( )
+    virtual void TearDown()
     {
-      Logging::Logger::Get( )->Release( );
+      Logging::Logger::Get()->Release();
       delete m_platformManager;
       delete m_eventManager;
     }
 
   private:
 
-    Environment( const Environment & copy ) { };
-    Environment & operator = ( const Environment & copy ) { return *this; };
+    Environment(const Environment & copy) { };
+    Environment & operator = (const Environment & copy) { return *this; };
 
     Platform::Win32PlatformManager* m_platformManager;
     Events::EventManager* m_eventManager;

@@ -28,17 +28,17 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkServerController( ) { };
+    ~NetworkServerController() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkServerController( INetworkInterface* networkInterface, Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation )
-      : m_networkInterface( networkInterface )
-      , m_serviceManager( serviceManager )
-      , m_instrumentation( instrumentation )
+    NetworkServerController(INetworkInterface* networkInterface, Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation)
+      : m_networkInterface(networkInterface)
+      , m_serviceManager(serviceManager)
+      , m_instrumentation(instrumentation)
     {
 
     }
@@ -46,50 +46,50 @@ namespace Network
 
     /*! Initializes the Server Controller
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Instructs the Controller that a client has connected
     *
     * @param[in] const SystemAddress & clientAddress
-    * @return ( void )
+    * @return (void)
     */
-    void ClientConnected( const SystemAddress& clientAddress );
+    void ClientConnected(const SystemAddress& clientAddress);
 
 
     /*! Instructs the controller that a client has disconnected
     *
     * @param[in] const SystemAddress & clientDisconnected
-    * @return ( void )
+    * @return (void)
     */
-    void ClientDisconnected( const SystemAddress& clientAddress );
+    void ClientDisconnected(const SystemAddress& clientAddress);
 
 
     /*! Broadcasts to the connected clients to create the Entity
     *
     * @param[in] const std::string & entityName
     * @param[in] const std::string & filePath
-    * @return ( void )
+    * @return (void)
     */
-    void CreateEntity( const std::string& entityName, const std::string& entityType );
+    void CreateEntity(const std::string& entityName, const std::string& entityType);
 
 
     /*! Broadcasts to the connected clients to destroy the entity
     *
     * @param[in] const std::string & entityName
-    * @return ( void )
+    * @return (void)
     */
-    void DestroyEntity( const std::string& entityName );
+    void DestroyEntity(const std::string& entityName);
 
 
     /*! Pushes a world update to the client at the given address
     *
     * @param[in] const SystemAddress & address
-    * @return ( void )
+    * @return (void)
     */
-    void SendWorldUpdate( const SystemAddress& address );
+    void SendWorldUpdate(const SystemAddress& address);
 
 
     /*! Forwards the Message to the given Entity
@@ -97,22 +97,22 @@ namespace Network
     * @param[in] const std::string & entityName
     * @param[in] const System::MessageType & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    void MessageEntity(const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Updates the internal state of the controller and processes the send queue at the send interval
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds ) { };
+    void Update(float deltaMilliseconds) { };
 
   private:
 
-    NetworkServerController( const NetworkServerController & copy ) { };
-    NetworkServerController & operator = ( const NetworkServerController & copy ) { return *this; };
+    NetworkServerController(const NetworkServerController & copy) { };
+    NetworkServerController & operator = (const NetworkServerController & copy) { return *this; };
 
     INetworkInterface* m_networkInterface; 
     Services::IServiceManager* m_serviceManager;

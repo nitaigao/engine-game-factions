@@ -32,7 +32,7 @@ namespace Geometry
     *
     *  @return ()
     */
-    ~GeometrySystemComponent( ) { };
+    ~GeometrySystemComponent() { };
 
 
     /*! Default Constructor
@@ -40,8 +40,8 @@ namespace Geometry
      *  @param[in] const std::string & name
      *  @return ()
      */
-    explicit GeometrySystemComponent( const std::string& name )
-      : m_name( name )
+    explicit GeometrySystemComponent(const std::string& name)
+      : m_name(name)
     {
 
     }
@@ -52,7 +52,7 @@ namespace Geometry
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Steps the internal data of the Component
@@ -60,14 +60,14 @@ namespace Geometry
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    inline void Update( float deltaMilliseconds ) { };
+    inline void Update(float deltaMilliseconds) { };
 
 
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    inline void Destroy( ) { };
+    inline void Destroy() { };
 
 
     /*! Adds an Observer to the Component
@@ -75,14 +75,14 @@ namespace Geometry
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    inline void AddObserver( IObserver* observer ) { m_observers.push_back( observer ); };
+    inline void AddObserver(IObserver* observer) { m_observers.push_back(observer); };
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -90,7 +90,7 @@ namespace Geometry
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Posts a message to observers
@@ -99,7 +99,7 @@ namespace Geometry
     *  @param[in] AnyType::AnyValueMap parameters
     *  @return (AnyType)
     */
-    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Messages the Component to influence its internal state
@@ -107,30 +107,30 @@ namespace Geometry
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream );
+    void Serialize(IO::IStream* stream);
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream );
+    void DeSerialize(IO::IStream* stream);
 
 
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
   private:
 
@@ -140,9 +140,9 @@ namespace Geometry
 
     ObserverList m_observers;
 
-    GeometrySystemComponent( ) { };
-    GeometrySystemComponent( const GeometrySystemComponent & copy ) { };
-    GeometrySystemComponent & operator = ( const GeometrySystemComponent & copy ) { return *this; };
+    GeometrySystemComponent() { };
+    GeometrySystemComponent(const GeometrySystemComponent & copy) { };
+    GeometrySystemComponent & operator = (const GeometrySystemComponent & copy) { return *this; };
 
   };
 };

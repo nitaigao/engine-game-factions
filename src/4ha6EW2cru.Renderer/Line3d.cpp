@@ -7,7 +7,7 @@ using namespace std;
 
 namespace Renderer
 {
-  Line3D::Line3D( const std::string& name )
+  Line3D::Line3D(const std::string& name)
   {
     mRenderOp.vertexData = new VertexData();
     mDrawn = false;

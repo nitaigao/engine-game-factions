@@ -22,23 +22,23 @@ namespace BaseContext
     MockNetworkServerEndpoint* m_endpoint;
     MockConfigurartion* m_configuration;
 
-    virtual void EstablishContext( )
+    virtual void EstablishContext()
     {
-      m_interface = new MockNetworkInterface( );
-      m_controller = new MockNetworkServerController( );
-      m_endpoint = new MockNetworkServerEndpoint( );
-      m_configuration = new MockConfigurartion( );
+      m_interface = new MockNetworkInterface();
+      m_controller = new MockNetworkServerController();
+      m_endpoint = new MockNetworkServerEndpoint();
+      m_configuration = new MockConfigurartion();
 
     }
 
-    virtual void DestroyContext( )
+    virtual void DestroyContext()
     {
       delete m_configuration;
     }
 
-    NetworkServerProvider* CreateSubject( )
+    NetworkServerProvider* CreateSubject()
     {
-      return new NetworkServerProvider( m_configuration, m_interface, m_controller, m_endpoint );
+      return new NetworkServerProvider(m_configuration, m_interface, m_controller, m_endpoint);
     }
   };
 };
@@ -51,32 +51,32 @@ namespace given_a_component_sends_a_message
   
   protected:
 
-    void EstablishContext( )
+    void EstablishContext()
     {
-      BaseContext::NetworkServerProvider_BaseContext::EstablishContext( );
+      BaseContext::NetworkServerProvider_BaseContext::EstablishContext();
 
-      m_component = new MockNetworkSystemComponent( );
+      m_component = new MockNetworkSystemComponent();
     }
 
-    void DestroyContext( )
+    void DestroyContext()
     {
-      BaseContext::NetworkServerProvider_BaseContext::DestroyContext( );
+      BaseContext::NetworkServerProvider_BaseContext::DestroyContext();
 
       delete m_component;
     }
   
-    void Expecting( )
+    void Expecting()
     {
-      EXPECT_CALL( *m_component, GetName( ) )
-        .WillRepeatedly( Return( "name" ) );
+      EXPECT_CALL(*m_component, GetName())
+        .WillRepeatedly(Return("name"));
     }
   
-    void When( )
+    void When()
     {
-      m_subject->Message( m_component, System::Messages::Move_Forward_Pressed, AnyType::AnyTypeMap( ) );
+      m_subject->Message(m_component, System::Messages::Move_Forward_Pressed, AnyType::AnyTypeMap());
     }
     
   };
 
-  TEST_F( when_the_message_is_sent, then_the_message_should_be_sent_using_the_name_of_the_component ) { }
+  TEST_F(when_the_message_is_sent, then_the_message_should_be_sent_using_the_name_of_the_component) { }
 }

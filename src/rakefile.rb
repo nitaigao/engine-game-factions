@@ -25,7 +25,7 @@ namespace :vendor do
   desc "Cleans the solution"
   task :clean do
     begin
-      MSBuild.new($vendor_file).clean( $build_configuration )
+      MSBuild.new($vendor_file).clean($build_configuration)
     rescue Exception => e
       raise "\n\nFailed: There was an error when trying to clean the solution\n#{e}"
     end
@@ -34,7 +34,7 @@ namespace :vendor do
   desc "Builds the solution"
   task :compile do
     begin
-      MSBuild.new($vendor_file).compile( $build_configuration )
+      MSBuild.new($vendor_file).compile($build_configuration)
     rescue Exception => e
       raise "\n\nFailed: There was an error when compiling the solution\n#{e}"
     end
@@ -45,7 +45,7 @@ namespace :build do
   desc "Cleans the solution"
   task :clean do
     begin
-      MSBuild.new($solution_file).clean( $build_configuration )
+      MSBuild.new($solution_file).clean($build_configuration)
       FileUtils.rm_rf($outputdir)
     rescue Exception => e
       raise "\n\nFailed: There was an error when trying to clean the solution\n#{e}"
@@ -55,7 +55,7 @@ namespace :build do
   desc "Builds the solution"
   task :compile do
     begin
-      MSBuild.new($solution_file).compile( $build_configuration )
+      MSBuild.new($solution_file).compile($build_configuration)
     rescue Exception => e
       raise "\n\nFailed: There was an error when compiling the solution\n#{e}"
     end
@@ -65,9 +65,9 @@ namespace :build do
   task :test do
     begin
     
-      Dir.glob( File.join( $outputbindir , "*Tests.exe" )  ) .each{ | test |
+      Dir.glob(File.join($outputbindir , "*Tests.exe") ) .each{ | test |
 
-        system( test + ' --gtest_output=xml:\\')
+        system(test + ' --gtest_output=xml:\\')
       
       }
         
@@ -81,19 +81,19 @@ namespace :data do
   desc "Copies all required data to the build output"
   task :build do
     begin
-      game_dir = File.join( $outputdir, 'data' )
+      game_dir = File.join($outputdir, 'data')
       
       FileUtils.rm_rf game_dir
       FileUtils.mkdir game_dir
       
-      etc_data_dir = File.join( '..', 'etc', 'data' )
+      etc_data_dir = File.join('..', 'etc', 'data')
       game_data_dir = game_dir
       
-      Dir.foreach( etc_data_dir ) { | dir |
+      Dir.foreach(etc_data_dir) { | dir |
         if !dir.to_s.include? "." then
         
-          etc_data = File.join( etc_data_dir, dir )
-          game_data = File.join( game_data_dir, dir )
+          etc_data = File.join(etc_data_dir, dir)
+          game_data = File.join(game_data_dir, dir)
           game_data_zip = game_data + '.bad'
           
           puts game_data_zip
@@ -102,7 +102,7 @@ namespace :data do
             Find.find(etc_data) do |path|       
               if File.directory?(path) == false then       
                 dest = path.slice(etc_data.length + 1, path.length - etc_data.length - 1)
-                zipfile.add( dest, path ) if dest
+                zipfile.add(dest, path) if dest
               end
             end
           end
@@ -127,12 +127,12 @@ namespace :deploy do
     
     build_output_dir = $outputdir
         
-      build_file_list = FileList.new( File.join( $outputdir,'**/*.exe' ), File.join( $outputdir,'**/*.dll' ), File.join( $outputdir,'**/*.cfg' ), File.join( $outputdir,'**/*.bad' ) )
+      build_file_list = FileList.new(File.join($outputdir,'**/*.exe'), File.join($outputdir,'**/*.dll'), File.join($outputdir,'**/*.cfg'), File.join($outputdir,'**/*.bad'))
     
     Zip::ZipFile.open(output_path, Zip::ZipFile::CREATE) do |zipfile|
         build_file_list.each { |path|           
       if File.directory?(path) == false then       
-        dest = File.join( $application_name, path.slice( build_output_dir.length + 1, path.length - build_output_dir.length - 1 ) )
+        dest = File.join($application_name, path.slice(build_output_dir.length + 1, path.length - build_output_dir.length - 1))
         puts "Adding #{dest} to #{output_path}"
         zipfile.add(dest,path) if dest
       end
@@ -150,10 +150,10 @@ $application_name = 'Factions'
 $vendor_file = '../etc/vendor/Vendor.sln'
 $solution_file =  '4ha6EW2cru.sln'
 $builddir = '../build'
-$packagesdir = File.join( '../', 'packages' )
-$packagefile = File.join( $application_name + '.zip' )
-$outputdir = File.join( $builddir, $build_configuration )
-$outputbindir = File.join( $outputdir, 'bin' )
+$packagesdir = File.join('../', 'packages')
+$packagefile = File.join($application_name + '.zip')
+$outputdir = File.join($builddir, $build_configuration)
+$outputbindir = File.join($outputdir, 'bin')
 
 task :data => [ "data:build" ]
 task :build => [ "build:clean", "build:compile" ]

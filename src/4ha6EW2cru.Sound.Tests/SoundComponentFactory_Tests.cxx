@@ -13,29 +13,29 @@ protected:
 
   MockSoundEventSystem* m_eventSystem;
 
-  void EstablishContext( )
+  void EstablishContext()
   {
-    m_eventSystem = new MockSoundEventSystem( );
+    m_eventSystem = new MockSoundEventSystem();
   }
 
-  void DestroyContext( )
+  void DestroyContext()
   {
     delete m_eventSystem;
   }
 
-  SoundComponentFactory* CreateSubject( )
+  SoundComponentFactory* CreateSubject()
   {
-    return new SoundComponentFactory( m_eventSystem ); 
+    return new SoundComponentFactory(m_eventSystem); 
   }
 };
 
 
-TEST_F( SoundComponentFactory_Tests, should_create_a_component )
+TEST_F(SoundComponentFactory_Tests, should_create_a_component)
 {
   ISystemComponent* notExpected = 0;
-  ISystemComponent* result = m_subject->CreateComponent( "test", "type" );
+  ISystemComponent* result = m_subject->CreateComponent("test", "type");
 
-  EXPECT_NE( notExpected, result );
+  EXPECT_NE(notExpected, result);
 
   delete result;
 }

@@ -24,7 +24,7 @@ namespace Animation
      *
      *  @return ()
      */
-    virtual ~IAnimationSystem( ) { };
+    virtual ~IAnimationSystem() { };
     
   };
 };

@@ -24,15 +24,15 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkSystemComponentFactory( ) { };
+    virtual ~INetworkSystemComponentFactory() { };
 
 
     /*! Creates a Network System Component
      *
      * @param[in] const std::string & name
-     * @return ( INetworkSystemComponent* )
+     * @return (INetworkSystemComponent*)
      */
-    virtual INetworkSystemComponent* Create( const std::string& name ) = 0;
+    virtual INetworkSystemComponent* Create(const std::string& name) = 0;
     
   };
 };

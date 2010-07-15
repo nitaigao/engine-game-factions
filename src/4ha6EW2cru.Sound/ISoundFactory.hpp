@@ -24,14 +24,14 @@ namespace Sound
      *
      *  @return ()
      */
-    virtual ~ISoundFactory( ) { };
+    virtual ~ISoundFactory() { };
 
 
     /*! Creates a SoundSystem Object
      *
-     * @return ( ISoundSystem* )
+     * @return (ISoundSystem*)
      */
-    virtual ISoundSystem* CreateSoundSystem( ) = 0;
+    virtual ISoundSystem* CreateSoundSystem() = 0;
     
   };
 };

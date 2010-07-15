@@ -13,38 +13,38 @@ using namespace IO;
 #include "Management/Management.h"
 
 #include "../Suites.h"
-CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( BadArchiveFactoryFixture, Suites::IOSuite( ) );
+CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(BadArchiveFactoryFixture, Suites::IOSuite());
 
-void BadArchiveFactoryFixture::setUp( )
+void BadArchiveFactoryFixture::setUp()
 {
-  Management::Initialize( );
+  Management::Initialize();
 
-  _bfactory = new BadArchiveFactory( );
+  _bfactory = new BadArchiveFactory();
 }
 
-void BadArchiveFactoryFixture::tearDown( )
+void BadArchiveFactoryFixture::tearDown()
 {
   delete _bfactory;
 
-  Management::Release( );
+  Management::Release();
 }
 
-void BadArchiveFactoryFixture::Should_Create_BadArchive( )
+void BadArchiveFactoryFixture::Should_Create_BadArchive()
 {
-  Ogre::Archive* archive = _bfactory->createInstance( "../../../etc/data/test/test.bad" );
+  Ogre::Archive* archive = _bfactory->createInstance("../../../etc/data/test/test.bad");
 
-  CPPUNIT_ASSERT( archive != 0 );
+  CPPUNIT_ASSERT(archive != 0);
 
-  _bfactory->destroyInstance( archive );
+  _bfactory->destroyInstance(archive);
 }
 
-void BadArchiveFactoryFixture::Should_Throw_On_Destroy_Given_NULL_Archive( )
+void BadArchiveFactoryFixture::Should_Throw_On_Destroy_Given_NULL_Archive()
 {
-  CPPUNIT_ASSERT_THROW( _bfactory->destroyInstance( 0 ), NullReferenceException );;
+  CPPUNIT_ASSERT_THROW(_bfactory->destroyInstance(0), NullReferenceException);;
 }
 
-void BadArchiveFactoryFixture::Should_Destroy_Valid_Archive( )
+void BadArchiveFactoryFixture::Should_Destroy_Valid_Archive()
 {
-  Ogre::Archive* archive = _bfactory->createInstance( "../../../etc/data/test/test.bad" );
-  _bfactory->destroyInstance( archive );
+  Ogre::Archive* archive = _bfactory->createInstance("../../../etc/data/test/test.bad");
+  _bfactory->destroyInstance(archive);
 }

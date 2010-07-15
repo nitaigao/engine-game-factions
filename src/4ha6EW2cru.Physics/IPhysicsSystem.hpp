@@ -8,13 +8,13 @@ class IPhysicsSystem : public ISystem
 
 public:
 
-  ~IPhysicsSystem( ) { };
+  ~IPhysicsSystem() { };
 
   /*! Returns the Physics World
   *
   *  @return (hkpWorld*)
   */
-  virtual hkpWorld* GetWorld( ) const = 0;
+  virtual hkpWorld* GetWorld() const = 0;
 
 };
 

@@ -6,41 +6,41 @@ namespace Script
 {
   void ScriptUpdateDispatcher::Destroy()
   {
-    for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
+    for(IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin(); i != m_updateHandlers.end(); ++i)
     {
-      delete ( *i );
+      delete (*i);
     }
   }
 
-  void ScriptUpdateDispatcher::RegisterUpdateHandler( IScriptFunctionHandler* handler )
+  void ScriptUpdateDispatcher::RegisterUpdateHandler(IScriptFunctionHandler* handler)
   {
-    m_updateHandlers.push_back( handler );
+    m_updateHandlers.push_back(handler);
   }
 
-  void ScriptUpdateDispatcher::Update( float deltaMilliseconds )
+  void ScriptUpdateDispatcher::Update(float deltaMilliseconds)
   {
-    for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( );)
+    for(IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin(); i != m_updateHandlers.end();)
     {
-      if( ( *i )->IsMarkedForDeletion( ) )
+      if((*i)->IsMarkedForDeletion())
       {
-        delete ( *i );
-        i = m_updateHandlers.erase( i );
+        delete (*i);
+        i = m_updateHandlers.erase(i);
       }
       else
       {
-        ( *i )->CallFunction( deltaMilliseconds );
+        (*i)->CallFunction(deltaMilliseconds);
         ++i;
       }
     }
   }
 
-  void ScriptUpdateDispatcher::UnRegisterUpdateHandler( IScriptFunctionHandler* handler )
+  void ScriptUpdateDispatcher::UnRegisterUpdateHandler(IScriptFunctionHandler* handler)
   {
-    for( IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin( ); i != m_updateHandlers.end( ); ++i )
+    for(IScriptFunctionHandler::FunctionList::iterator i = m_updateHandlers.begin(); i != m_updateHandlers.end(); ++i)
     {
-      if ( ( *i )->Compare( handler ) )
+      if ((*i)->Compare(handler))
       {
-        ( *i )->MarkForDeletion( );
+        (*i)->MarkForDeletion();
       }
     }
 

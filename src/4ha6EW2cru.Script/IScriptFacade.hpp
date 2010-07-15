@@ -30,22 +30,22 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptFacade( ) { };
+    virtual ~IScriptFacade() { };
 
 
     /*! Initializes the Facade with the given ScriptComponent
      *
      * @param[in] IScriptComponent *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Initialize( ) = 0;
+    virtual void Initialize() = 0;
 
 
     /*! Returns the Name that the Facade will use in script
      *
-     * @return ( std::string )
+     * @return (std::string)
      */
-    virtual std::string GetName( ) = 0;
+    virtual std::string GetName() = 0;
 
 
     enum FacadeType

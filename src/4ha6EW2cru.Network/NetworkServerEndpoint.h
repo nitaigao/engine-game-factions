@@ -29,57 +29,57 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkServerEndpoint( ) { };
+    ~NetworkServerEndpoint() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkServerEndpoint( INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller, Services::IServiceManager* serviceManager );
+    NetworkServerEndpoint(INetworkInterface* networkInterface, INetworkSystemScene* networkScene, INetworkServerController* controller, Services::IServiceManager* serviceManager);
 
 
     /*! Initializes the Endpoint
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Updates the Endpoint
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Called when a client has finished loading a level
     *
     * @param[in] RakNet::RPC3 * rpcFromNetwork
-    * @return ( void )
+    * @return (void)
     */
-    void LevelLoaded( RakNet::RPC3* rpcFromNetwork );
+    void LevelLoaded(RakNet::RPC3* rpcFromNetwork);
 
 
     /*! Called when a client has selected a character
     *
     * @param[in] const std::string & characterName
     * @param[in] RakNet::RPC3 * rpcFromnetwork
-    * @return ( void )
+    * @return (void)
     */
-    void SelectCharacter( const std::string& characterName, RakNet::RPC3* rpcFromnetwork );
+    void SelectCharacter(const std::string& characterName, RakNet::RPC3* rpcFromnetwork);
 
-    static void Net_LevelLoaded( RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork );
-    static void Net_SelectCharacter( RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork );
-    static void Net_MessageEntity( RakNet::RakString entityName, RakNet::RakString message, RakNet::BitStream& parameters, RakNet::RPC3* rpcFromNetwork );
+    static void Net_LevelLoaded(RakNet::RakString levelName, RakNet::RPC3* rpcFromNetwork);
+    static void Net_SelectCharacter(RakNet::RakString characterName, RakNet::RPC3* rpcFromnetwork);
+    static void Net_MessageEntity(RakNet::RakString entityName, RakNet::RakString message, RakNet::BitStream& parameters, RakNet::RPC3* rpcFromNetwork);
 
-    void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork );
+    void MessageEntity(const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters, RakNet::RPC3* rpcFromNetwork);
 
   private:
 
-    NetworkServerEndpoint( const NetworkServerEndpoint & copy ) { };
-    NetworkServerEndpoint & operator = ( const NetworkServerEndpoint & copy ) { return *this; };
+    NetworkServerEndpoint(const NetworkServerEndpoint & copy) { };
+    NetworkServerEndpoint & operator = (const NetworkServerEndpoint & copy) { return *this; };
     
     INetworkInterface* m_networkInterface;
     INetworkServerController* m_networkController;

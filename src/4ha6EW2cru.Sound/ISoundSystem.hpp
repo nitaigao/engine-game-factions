@@ -27,7 +27,7 @@ namespace Sound
      *
      *  @return ()
      */
-    virtual ~ISoundSystem( ) { };
+    virtual ~ISoundSystem() { };
 
 
     /*! Opens a sound file for FMOD
@@ -37,9 +37,9 @@ namespace Sound
      * @param[in] unsigned int * filesize
      * @param[in] void * * handle
      * @param[in] void * * userdata
-     * @return ( bool )
+     * @return (bool)
      */
-    virtual bool FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata ) = 0;
+    virtual bool FileOpen(const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata) = 0;
 
   };
 };

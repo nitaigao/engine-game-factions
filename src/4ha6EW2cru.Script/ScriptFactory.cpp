@@ -15,21 +15,21 @@ using namespace Configuration;
 
 namespace Script
 {
-  IScriptSystem* ScriptFactory::CreateScriptSystem( )
+  IScriptSystem* ScriptFactory::CreateScriptSystem()
   {
-    return new ScriptSystem( 
-      this->CreateScriptSystemScene( ), 
-      this->CreateScriptSystemScene( ), 
+    return new ScriptSystem(
+      this->CreateScriptSystemScene(), 
+      this->CreateScriptSystemScene(), 
       m_serviceManager 
-      );
+     );
   }
 
-  IScriptSystemScene* ScriptFactory::CreateScriptSystemScene( )
+  IScriptSystemScene* ScriptFactory::CreateScriptSystemScene()
   {
-    ILuaState* state = new LuaState( m_resourceCache );
-    IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory( m_serviceManager, m_eventManager, m_platformManager, m_instrumentation, m_resourceCache );
-    IScriptComponentFactory* componentFactory = new ScriptComponentFactory( state, m_eventManager, facadeFactory );
+    ILuaState* state = new LuaState(m_resourceCache);
+    IScriptFacadeFactory* facadeFactory = new ScriptFacadeFactory(m_serviceManager, m_eventManager, m_platformManager, m_instrumentation, m_resourceCache);
+    IScriptComponentFactory* componentFactory = new ScriptComponentFactory(state, m_eventManager, facadeFactory);
 
-    return new ScriptSystemScene( m_configuration, componentFactory, state, m_serviceManager );
+    return new ScriptSystemScene(m_configuration, componentFactory, state, m_serviceManager);
   }
 }

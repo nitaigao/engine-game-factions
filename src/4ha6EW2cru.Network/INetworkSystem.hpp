@@ -26,7 +26,7 @@ namespace Network
     *
     *  @return ()
     */
-    virtual ~INetworkSystem( ) { };
+    virtual ~INetworkSystem() { };
 
   };
 };

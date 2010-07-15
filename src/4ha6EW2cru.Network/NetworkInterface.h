@@ -26,108 +26,108 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkInterface( );
+    ~NetworkInterface();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkInterface( );
+    NetworkInterface();
 
 
     /*! Initializes the Network Interface
     *
     * @param[in] int maxConnections
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( unsigned int port, int maxConnections );
+    void Initialize(unsigned int port, int maxConnections);
 
 
     /*! Shuts the Network Interface Down
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( unsigned int timeToBlock );
+    void Destroy(unsigned int timeToBlock);
 
     /*! Receives information from the Network
     *
-    * @return ( Packet* )
+    * @return (Packet*)
     */
-    Packet* Receive( );
+    Packet* Receive();
 
 
     /*! Deallocates the Packet and deletes the pointer to it
     *
     * @param[in] Packet * packet
-    * @return ( void )
+    * @return (void)
     */
-    void DeAllocatePacket( Packet* packet );
+    void DeAllocatePacket(Packet* packet);
 
 
     /*! Sets the Information that will be sent in an offline Ping Response
     *
     * @param[in] BitStream * information
-    * @return ( void )
+    * @return (void)
     */
-    void SetOfflinePingInformation( RakNet::BitStream* information );
+    void SetOfflinePingInformation(RakNet::BitStream* information);
 
 
     /*! Returns the Number of Peer connected to the Interface
     *
-    * @return ( int )
+    * @return (int)
     */
-    inline int GetConnectionCount( ) { return m_networkAdapter->NumberOfConnections( ); };
+    inline int GetConnectionCount() { return m_networkAdapter->NumberOfConnections(); };
 
 
     /*! Connects the interface to a Peer
     *
     * @param[in] const std::string address
-    * @return ( void )
+    * @return (void)
     */
-    void Connect( unsigned int port, const std::string& address );
+    void Connect(unsigned int port, const std::string& address);
 
 
     /*! Disconnects the Interface from it's connected Peer
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Disconnect( );
+    void Disconnect();
 
 
     /*! Attaches a plugin to the interface
     *
     * @param[in] PluginInterface2 * plugin
-    * @return ( void )
+    * @return (void)
     */
-    void AttachPlugin( PluginInterface2* plugin );
+    void AttachPlugin(PluginInterface2* plugin);
 
 
     /*! Returns the RPC interface
     *
-    * @return ( RakNet::RPC3* )
+    * @return (RakNet::RPC3*)
     */
-    inline RakNet::RPC3* GetRPC( ) { return m_rpc; }
+    inline RakNet::RPC3* GetRPC() { return m_rpc; }
 
 
     /*! Broadcasts the Network with a Ping
     *
-    * @return ( void )
+    * @return (void)
     */
-    void BroadcastOfflinePing( unsigned int port );
+    void BroadcastOfflinePing(unsigned int port);
 
 
     /*! Finds the NetworkAddress for communicating with the given address
     *
     * @param[in] const SystemAddress & address
-    * @return ( SystemAddress )
+    * @return (SystemAddress)
     */
-    SystemAddress GetAddress( const SystemAddress& address );
+    SystemAddress GetAddress(const SystemAddress& address);
 
   private:
 
-    NetworkInterface( const NetworkInterface & copy ) { };
-    NetworkInterface & operator = ( const NetworkInterface & copy ) { return *this; };
+    NetworkInterface(const NetworkInterface & copy) { };
+    NetworkInterface & operator = (const NetworkInterface & copy) { return *this; };
 
     RakPeerInterface* m_networkAdapter;
     RakNet::RPC3* m_rpc;

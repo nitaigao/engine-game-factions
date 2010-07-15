@@ -24,7 +24,7 @@ namespace Renderer
     *
     *  @return ()
     */
-    ~CameraComponent( ) { };
+    ~CameraComponent() { };
 
 
     /*! Default Constructor
@@ -33,8 +33,8 @@ namespace Renderer
     *  @param[in] RendererSystemScene * scene
     *  @return ()
     */
-    CameraComponent( const std::string& name, IRenderSystemScene* scene )
-      : RendererSystemComponent( name, scene )
+    CameraComponent(const std::string& name, IRenderSystemScene* scene)
+      : RendererSystemComponent(name, scene)
     {
 
     }
@@ -44,12 +44,12 @@ namespace Renderer
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
   private:
 
-    CameraComponent( const CameraComponent & copy ) { };
-    CameraComponent & operator = ( const CameraComponent & copy ) { return *this; };
+    CameraComponent(const CameraComponent & copy) { };
+    CameraComponent & operator = (const CameraComponent & copy) { return *this; };
     
   };
 };

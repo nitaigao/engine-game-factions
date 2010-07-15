@@ -27,14 +27,14 @@ namespace AI
     *
     *  @return ()
     */
-    ~AISystemScene( ) { };
+    ~AISystemScene() { };
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    AISystemScene( Services::IServiceManager* m_serviceManager )
+    AISystemScene(Services::IServiceManager* m_serviceManager)
     {
 
     }
@@ -43,28 +43,28 @@ namespace AI
     *
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
     /*! Steps internal data of the SystemScene
     *
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Destroys the System Scene
     *
     *  @return (void)
     */
-    inline void Destroy( ) { };
+    inline void Destroy() { };
 
 
     /*! Gets the System::Types::Type of the SystemScene
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::AI; };
+    inline System::Types::Type GetType() const { return System::Types::AI; };
 
     /*! Creates a SystemComponent specific to the SystemScene
     *
@@ -72,33 +72,33 @@ namespace AI
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISystemComponent* CreateComponent(const std::string& name, const std::string& type);
     
     /*! Destroys a SystemComponent created by the SystemScene
     *
     *  @param[in] ISystemComponent * component
     *  @return (void)
     */
-    void DestroyComponent( ISystemComponent* component );
+    void DestroyComponent(ISystemComponent* component);
 
 
     /*! Returns all way points in the Scene
     *
-    * @return ( ISystemComponent::SystemComponentList )
+    * @return (ISystemComponent::SystemComponentList)
     */
-    ISystemComponent::SystemComponentList GetWaypoints( );
+    ISystemComponent::SystemComponentList GetWaypoints();
 
 
     /*! Returns the Navigation Mesh for the Scene
     *
-    * @return ( INavigationMesh* )
+    * @return (INavigationMesh*)
     */
-    ISystemComponent* GetNavigationMesh( ) { return ( *m_componentsByType.find( "navmesh" ) ).second; };
+    ISystemComponent* GetNavigationMesh() { return (*m_componentsByType.find("navmesh")).second; };
 
   private:
 
-    AISystemScene( const AISystemScene & copy ) { };
-    AISystemScene & operator = ( const AISystemScene & copy ) { return *this; };
+    AISystemScene(const AISystemScene & copy) { };
+    AISystemScene & operator = (const AISystemScene & copy) { return *this; };
 
     ISystemComponent::SystemComponentMap m_componentsByName;
     ISystemComponent::SystemComponentMultiMap m_componentsByType;

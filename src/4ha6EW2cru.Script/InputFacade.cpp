@@ -15,43 +15,43 @@ namespace Script
   luabind::scope InputFacade::RegisterFunctions()
   {
     return (
-      class_< InputFacade >( "InputFacade" )
-        .def( "getTextForMessage", &InputFacade::GetTextForMessage )
-        .def( "setMessageBinding", &InputFacade::SetMessageBinding )
-        .def( "setDefaultMessageBinding", &InputFacade::SetDefaultMessageBinding )
-      );
+      class_< InputFacade >("InputFacade")
+        .def("getTextForMessage", &InputFacade::GetTextForMessage)
+        .def("setMessageBinding", &InputFacade::SetMessageBinding)
+        .def("setDefaultMessageBinding", &InputFacade::SetDefaultMessageBinding)
+     );
   }
 
-  std::string InputFacade::GetTextForMessage( const System::MessageType& message )
+  std::string InputFacade::GetTextForMessage(const System::MessageType& message)
   {
-    IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
+    IService* inputService = m_serviceManager->FindService(System::Types::INPUT);
 
     AnyType::AnyTypeMap parameters;
     parameters[ System::Attributes::Message ] = message;
 
-    return inputService->ProcessMessage( System::Messages::Input::GetTextForMessage, parameters )[ "result" ].As< std::string >( );
+    return inputService->ProcessMessage(System::Messages::Input::GetTextForMessage, parameters)[ "result" ].As< std::string >();
   }
 
 
-  void InputFacade::SetMessageBinding( const System::MessageType& message, const std::string& binding )
+  void InputFacade::SetMessageBinding(const System::MessageType& message, const std::string& binding)
   {
-    IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
-
-    AnyType::AnyTypeMap parameters;
-    parameters[ System::Attributes::Message ] = message;
-    parameters[ System::Parameters::Binding ] = binding;
-
-    inputService->ProcessMessage( System::Messages::SetBindingForMessage, parameters );
-  }
-
-  void InputFacade::SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding )
-  {
-    IService* inputService = m_serviceManager->FindService( System::Types::INPUT );
+    IService* inputService = m_serviceManager->FindService(System::Types::INPUT);
 
     AnyType::AnyTypeMap parameters;
     parameters[ System::Attributes::Message ] = message;
     parameters[ System::Parameters::Binding ] = binding;
 
-    inputService->ProcessMessage( System::Messages::Input::SetDefaultBindingForMessage, parameters );
+    inputService->ProcessMessage(System::Messages::SetBindingForMessage, parameters);
+  }
+
+  void InputFacade::SetDefaultMessageBinding(const System::MessageType& message, const std::string& binding)
+  {
+    IService* inputService = m_serviceManager->FindService(System::Types::INPUT);
+
+    AnyType::AnyTypeMap parameters;
+    parameters[ System::Attributes::Message ] = message;
+    parameters[ System::Parameters::Binding ] = binding;
+
+    inputService->ProcessMessage(System::Messages::Input::SetDefaultBindingForMessage, parameters);
   }
 }

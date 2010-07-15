@@ -23,23 +23,23 @@ namespace Network
 
   public:
 
-    GAMEAPI ~ServerCache( );
+    GAMEAPI ~ServerCache();
 
-    ServerCache( ) { };
+    ServerCache() { };
 
 
-    GAMEAPI bool Exists( const std::string& systemAddress ) const;
-    GAMEAPI int GetCount( ) const;
-    GAMEAPI void Add( const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port );
-    GAMEAPI IServerAdvertisement* Find( int index ) const;
-    GAMEAPI void Clear( );
+    GAMEAPI bool Exists(const std::string& systemAddress) const;
+    GAMEAPI int GetCount() const;
+    GAMEAPI void Add(const std::string& serverName, const std::string& mapName, int maxPlayers, int numPlayers, int ping, const std::string& address, unsigned int port);
+    GAMEAPI IServerAdvertisement* Find(int index) const;
+    GAMEAPI void Clear();
 
 
 
   private:
 
-    ServerCache( const ServerCache & copy ) { };
-    ServerCache & operator = ( const ServerCache & copy ) { return *this; };
+    ServerCache(const ServerCache & copy) { };
+    ServerCache & operator = (const ServerCache & copy) { return *this; };
 
 
     IServerAdvertisement::ServerAdvertisementMap m_advertCache;

@@ -18,14 +18,14 @@ public:
 
   static int handle_count;
 
-  static void HandleEvent( )
+  static void HandleEvent()
   {
     MockScriptBinder::handle_count++;
   }
 
-  static void QueueEvent( )
+  static void QueueEvent()
   {
-    EventManager::GetInstance( )->QueueEvent( new Event( TEST_EVENT ) );
+    EventManager::GetInstance()->QueueEvent(new Event(TEST_EVENT));
   }
 
 };

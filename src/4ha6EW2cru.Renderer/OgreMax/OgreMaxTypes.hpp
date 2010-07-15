@@ -939,7 +939,7 @@ namespace OgreMax
                 const Ogre::Vector3& attachPosition = Ogre::Vector3::ZERO,
                 const Ogre::Vector3& attachScale = Ogre::Vector3::UNIT_SCALE,
                 const Ogre::Quaternion& attachRotation = Ogre::Quaternion::IDENTITY
-                )
+               )
             {                
                 this->node = 0;
                 this->entity = entity;
@@ -977,7 +977,7 @@ namespace OgreMax
                     Ogre::Bone* bone = skeleton->getBone(this->boneName);
                     //TODO: Modify Ogre to accept name when creating TagPoint
                     Ogre::TagPoint* tagPoint = skeleton->createTagPointOnBone(bone);
-          tagPoint->setName( name );
+          tagPoint->setName(name);
                     tagPoint->setPosition(this->attachPosition);
                     tagPoint->setScale(this->attachScale);
                     tagPoint->setOrientation(this->attachRotation);

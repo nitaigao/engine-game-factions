@@ -29,53 +29,53 @@ namespace Sound
      *
      *  @return ()
      */
-    virtual ~ISoundEventSystem( ) { };
+    virtual ~ISoundEventSystem() { };
 
 
     /*! Initializes the Event System
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Initialize( FMOD::System* fmodSystem ) = 0;
+    virtual void Initialize(FMOD::System* fmodSystem) = 0;
 
 
     /*! Triggers a Sound Event
      *
      * @param[in] const std::string & eventPath
-     * @return ( FMOD::Event* )
+     * @return (FMOD::Event*)
      */
-    virtual FMOD::Event* TriggerEvent( const std::string& eventPath ) = 0;    
+    virtual FMOD::Event* TriggerEvent(const std::string& eventPath) = 0;    
 
 
     /*! Keys out a Sound Event
     *
     * @param[in] const std::string & eventPath
-    * @return ( void )
+    * @return (void)
     */
-    virtual void KeyOutEvent( const std::string& eventPath ) = 0;  
+    virtual void KeyOutEvent(const std::string& eventPath) = 0;  
 
 
     /*! Sets the Position the Speakers would be listening from
      *
      * @param[in] const Maths::MathVector3 & position
-     * @return ( void )
+     * @return (void)
      */
-    virtual void SetListenerPosition( const Maths::MathVector3& position ) = 0;
+    virtual void SetListenerPosition(const Maths::MathVector3& position) = 0;
 
 
     /*! Destroys the Event System
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Destroy( ) = 0;
+    virtual void Destroy() = 0;
 
 
     /*! Updates the Event System
      *
      * @param[in] float deltaMilliseconds
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Update( float deltaMilliseconds ) = 0;
+    virtual void Update(float deltaMilliseconds) = 0;
   };
 };
 

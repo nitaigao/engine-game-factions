@@ -28,30 +28,30 @@ namespace Input
 
     /*! Default Destructor
     *
-    * @return (  )
+    * @return ()
     */
-    virtual ~IInputSystem( ) { };
+    virtual ~IInputSystem() { };
 
     
     /*! Returns the Bindings setup in the config file
     *
-    * @return ( AnyType::AnyTypeMap )
+    * @return (AnyType::AnyTypeMap)
     */
-    virtual InputMessageBinding::InputMessageBindingList GetBindings( ) = 0;
+    virtual InputMessageBinding::InputMessageBindingList GetBindings() = 0;
 
 
     /*! Returns the Keyboard controller
     *
-    * @return ( OIS::Keyboard* )
+    * @return (OIS::Keyboard*)
     */
-    virtual OIS::Keyboard* GetKeyboard( ) = 0;
+    virtual OIS::Keyboard* GetKeyboard() = 0;
 
 
     /*! Returns the Mouse controller
     *
-    * @return ( OIS::Mouse* )
+    * @return (OIS::Mouse*)
     */
-    virtual OIS::Mouse* GetMouse( ) = 0;
+    virtual OIS::Mouse* GetMouse() = 0;
 
   };
 };

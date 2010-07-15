@@ -28,56 +28,56 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~IServerAdvertisement( ) { };
+    virtual ~IServerAdvertisement() { };
 
 
     /*! Returns the name of the server
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    virtual std::string GetServerName( ) = 0;
+    virtual std::string GetServerName() = 0;
     
 
     /*! Returns the name of the level running on the server
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    virtual std::string GetLevelName( ) = 0;
+    virtual std::string GetLevelName() = 0;
 
 
     /*! Returns the maximum number of players that are allowed to connect
     *
-    * @return ( int )
+    * @return (int)
     */
-    virtual int GetMaxPlayers( ) = 0;
+    virtual int GetMaxPlayers() = 0;
 
 
     /*! Returns the number of players currently connected to the server
     *
-    * @return ( int )
+    * @return (int)
     */
-    virtual int GetPlayerCount( ) = 0;
+    virtual int GetPlayerCount() = 0;
 
 
     /*! Returns the round trip time from the client to the server
     *
-    * @return ( int )
+    * @return (int)
     */
-    virtual int GetPing( ) = 0;
+    virtual int GetPing() = 0;
 
 
     /*! Returns the address of the server including the port
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    virtual std::string GetServerAddress( ) = 0;
+    virtual std::string GetServerAddress() = 0;
 
 
     /*! Returns the serverAddress of the server including the port
     *
-    * @return ( int )
+    * @return (int)
     */
-    virtual int GetServerPort( ) = 0;
+    virtual int GetServerPort() = 0;
   };
 };
 

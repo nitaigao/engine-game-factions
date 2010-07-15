@@ -39,24 +39,24 @@ namespace Renderer
     *
     *  @return ()
     */
-    ~RendererSystem( );
+    ~RendererSystem();
 
 
     /*! Default Constructor
     *
     *  @return ()
     */
-    RendererSystem( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-      : m_configuration( 0 )
-      , m_root( 0 )
-      , m_window( 0 )
-      , m_sceneManager( 0 )
-      , m_scene( 0 )
-      , m_logListener( 0 )
-      , m_eventManager( eventManager )
-      , m_platformManager( platformManager )
-      , m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
+    RendererSystem(Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache)
+      : m_configuration(0)
+      , m_root(0)
+      , m_window(0)
+      , m_sceneManager(0)
+      , m_scene(0)
+      , m_logListener(0)
+      , m_eventManager(eventManager)
+      , m_platformManager(platformManager)
+      , m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -66,7 +66,7 @@ namespace Renderer
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -74,44 +74,44 @@ namespace Renderer
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( );
+    void Release();
 
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    inline AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    inline AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::RENDER; };
+    inline System::Types::Type GetType() const { return System::Types::RENDER; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    inline ISystemScene* CreateScene( );
+    inline ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets a System Property
@@ -120,27 +120,27 @@ namespace Renderer
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value );
+    inline void SetAttribute(const std::string& name, AnyType value);
 
 
-    void GetMeshInformation( const Ogre::Mesh* const mesh, size_t &vertex_count, Ogre::Vector3* &vertices, size_t &index_count, unsigned long* &indices, 
+    void GetMeshInformation(const Ogre::Mesh* const mesh, size_t &vertex_count, Ogre::Vector3* &vertices, size_t &index_count, unsigned long* &indices, 
       const Ogre::Vector3 &position = Ogre::Vector3::ZERO,
       const Ogre::Quaternion &orient = Ogre::Quaternion::IDENTITY,
       const Ogre::Vector3 &scale = Ogre::Vector3::UNIT_SCALE 
-      );
+     );
     
 
   private:
 
-    RendererSystem( const RendererSystem & copy ) { };
-    RendererSystem & operator = ( const RendererSystem & copy ) { return *this; };
+    RendererSystem(const RendererSystem & copy) { };
+    RendererSystem & operator = (const RendererSystem & copy) { return *this; };
 
-    void windowClosed( Ogre::RenderWindow* rw );
+    void windowClosed(Ogre::RenderWindow* rw);
 
-    void OnGameEnded( const Events::IEvent* event );
+    void OnGameEnded(const Events::IEvent* event);
 
-    void CreateRenderWindow( const std::string& windowTitle, int width, int height, bool fullScreen );
-    std::vector< std::string > GetVideoModes( ) const;
+    void CreateRenderWindow(const std::string& windowTitle, int width, int height, bool fullScreen);
+    std::vector< std::string > GetVideoModes() const;
 
     AnyType::AnyTypeMap m_attributes;
     Configuration::IConfiguration* m_configuration;

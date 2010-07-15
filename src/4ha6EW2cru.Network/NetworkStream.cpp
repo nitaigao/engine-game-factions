@@ -7,55 +7,55 @@ using namespace RakNet;
 
 namespace Network
 {
-  void NetworkStream::Write( const std::string& data )
+  void NetworkStream::Write(const std::string& data)
   { 
-     m_bitStream->Write( RakString( data ) ); 
+     m_bitStream->Write(RakString(data)); 
   }
 
-  void NetworkStream::Write( int data )
+  void NetworkStream::Write(int data)
   {
-    m_bitStream->Write( data );
+    m_bitStream->Write(data);
   }
 
-  void NetworkStream::Write( const Maths::MathVector3& data )
+  void NetworkStream::Write(const Maths::MathVector3& data)
   {
-    m_bitStream->Write( data.X );
-    m_bitStream->Write( data.Y );
-    m_bitStream->Write( data.Z );
+    m_bitStream->Write(data.X);
+    m_bitStream->Write(data.Y);
+    m_bitStream->Write(data.Z);
   }
 
-  void NetworkStream::Write( const Maths::MathQuaternion& data )
+  void NetworkStream::Write(const Maths::MathQuaternion& data)
   {
-    m_bitStream->Write( data.X );
-    m_bitStream->Write( data.Y );
-    m_bitStream->Write( data.Z );
-    m_bitStream->Write( data.W );
+    m_bitStream->Write(data.X);
+    m_bitStream->Write(data.Y);
+    m_bitStream->Write(data.Z);
+    m_bitStream->Write(data.W);
   }
 
-  void NetworkStream::Read( std::string& data )
+  void NetworkStream::Read(std::string& data)
   {
     RakString returnValue;
-    m_bitStream->Read( returnValue );
-    data = returnValue.C_String( );
+    m_bitStream->Read(returnValue);
+    data = returnValue.C_String();
   }
 
-  void NetworkStream::Read( int& data )
+  void NetworkStream::Read(int& data)
   {
-    m_bitStream->Read( data );
+    m_bitStream->Read(data);
   }
 
-  void NetworkStream::Read( Maths::MathVector3& data )
+  void NetworkStream::Read(Maths::MathVector3& data)
   {
-    m_bitStream->Read( data.X );
-    m_bitStream->Read( data.Y );
-    m_bitStream->Read( data.Z );
+    m_bitStream->Read(data.X);
+    m_bitStream->Read(data.Y);
+    m_bitStream->Read(data.Z);
   }
 
-  void NetworkStream::Read( Maths::MathQuaternion& data )
+  void NetworkStream::Read(Maths::MathQuaternion& data)
   {
-    m_bitStream->Read( data.X );
-    m_bitStream->Read( data.Y );
-    m_bitStream->Read( data.Z );
-    m_bitStream->Read( data.W );
+    m_bitStream->Read(data.X);
+    m_bitStream->Read(data.Y);
+    m_bitStream->Read(data.Z);
+    m_bitStream->Read(data.W);
   }
 }

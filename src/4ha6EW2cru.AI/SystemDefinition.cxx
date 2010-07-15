@@ -24,29 +24,29 @@ using namespace Logging;
 #include "Platform/IPlatformManager.h"
 using namespace Platform;
 
-BOOL __stdcall DllMain( HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
+BOOL __stdcall DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
   return true;
 }
 
-extern "C" void __stdcall Initialize( Logger* logger )
+extern "C" void __stdcall Initialize(Logger* logger)
 {
 
 }
 
-extern "C" ISystem* __stdcall CreateSystem( 
+extern "C" ISystem* __stdcall CreateSystem(
   IConfiguration* configuration, 
   IServiceManager* serviceManager, 
   IResourceCache* resourceCache, 
   IEventManager* eventManager, 
   IInstrumentation* instrumentation,
   IPlatformManager* platformManager
-  )
+ )
 {
-  return new AI::AISystem( serviceManager );
+  return new AI::AISystem(serviceManager);
 }
 
-extern "C" void __stdcall DestroySystem( ISystem* system )
+extern "C" void __stdcall DestroySystem(ISystem* system)
 {
   delete system;
   system = 0;

@@ -26,10 +26,10 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkServerProvider( ) { };
+    virtual ~INetworkServerProvider() { };
 
 
-    virtual void OnGameLevelChanged( const Events::IEvent* event ) = 0;
+    virtual void OnGameLevelChanged(const Events::IEvent* event) = 0;
     
   };
 };

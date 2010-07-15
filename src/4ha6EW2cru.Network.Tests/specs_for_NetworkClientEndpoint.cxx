@@ -30,16 +30,16 @@ namespace given_the_client_is_looking_for_servers
     MockServiceManager* m_serviceManager;
     MockNetworkSystemScene* m_scene;
 
-    virtual void EstablishContext( )
+    virtual void EstablishContext()
     {
-      m_networkInterface = new MockNetworkInterface( );
-      m_scene = new MockNetworkSystemScene( );
-      m_serverCache = new MockServerCache( );
-      m_eventManager = new MockEventManager( );
-      m_serviceManager = new MockServiceManager( );
+      m_networkInterface = new MockNetworkInterface();
+      m_scene = new MockNetworkSystemScene();
+      m_serverCache = new MockServerCache();
+      m_eventManager = new MockEventManager();
+      m_serviceManager = new MockServiceManager();
     }
 
-    virtual void DestroyContext( )
+    virtual void DestroyContext()
     {
       delete m_networkInterface;
       delete m_scene;
@@ -48,13 +48,13 @@ namespace given_the_client_is_looking_for_servers
       delete m_serviceManager;
     }
 
-    NetworkClientEndpoint* CreateSubject( )
+    NetworkClientEndpoint* CreateSubject()
     {
-      return new NetworkClientEndpoint( m_networkInterface, m_scene, m_eventManager, m_serviceManager );
+      return new NetworkClientEndpoint(m_networkInterface, m_scene, m_eventManager, m_serviceManager);
     }
   };
 
-  void DestroyPacket( Packet* packet )
+  void DestroyPacket(Packet* packet)
   {
     delete[ ] packet->data;
     delete packet;
@@ -66,32 +66,32 @@ namespace given_the_client_is_looking_for_servers
 
   protected:
 
-    void Expecting( )
+    void Expecting()
     {
-      EXPECT_CALL( *m_eventManager, QueueEvent( An< const IEvent* >( ) ) )
-        .WillOnce( Invoke( &MockEventManager::ConsumeEvent ) );
+      EXPECT_CALL(*m_eventManager, QueueEvent(An< const IEvent* >()))
+        .WillOnce(Invoke(&MockEventManager::ConsumeEvent));
 
-      EXPECT_CALL( *m_networkInterface, Receive( ) )
-        .WillOnce( Return( m_packet ) );
+      EXPECT_CALL(*m_networkInterface, Receive())
+        .WillOnce(Return(m_packet));
 
-      EXPECT_CALL( *m_networkInterface, DeAllocatePacket( m_packet ) )
-        .WillOnce( Invoke( &DestroyPacket ) );
+      EXPECT_CALL(*m_networkInterface, DeAllocatePacket(m_packet))
+        .WillOnce(Invoke(&DestroyPacket));
     }
 
-    void EstablishContext( )
+    void EstablishContext()
     {
-      NetworkClientEndpoint_BaseContext::EstablishContext( );
+      NetworkClientEndpoint_BaseContext::EstablishContext();
 
-      m_packet = new Packet( );
+      m_packet = new Packet();
       m_packet->data = new unsigned char[ 1 ];
       m_packet->data[ 0 ] = ID_PONG;
     }
 
-    void When( )
+    void When()
     {
-      m_subject->Update( 0 );
+      m_subject->Update(0);
     }
   };
 
-  TEST_F( when_a_server_advertises, then_the_client_should_inform_the_game_of_the_advertisement )  { }
+  TEST_F(when_a_server_advertises, then_the_client_should_inform_the_game_of_the_advertisement)  { }
 };

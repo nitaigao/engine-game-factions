@@ -26,24 +26,24 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkServerEndpoint( ) { };
+    virtual ~INetworkServerEndpoint() { };
 
 
     /*! Called when a client has finished loading a level
      *
      * @param[in] RakNet::RPC3 * rpcFromNetwork
-     * @return ( void )
+     * @return (void)
      */
-    virtual void LevelLoaded( RakNet::RPC3* rpcFromNetwork ) = 0;
+    virtual void LevelLoaded(RakNet::RPC3* rpcFromNetwork) = 0;
 
 
     /*! Called when a client has selected a character
      *
      * @param[in] const std::string & characterName
      * @param[in] RakNet::RPC3 * rpcFromnetwork
-     * @return ( void )
+     * @return (void)
      */
-    virtual void SelectCharacter( const std::string& characterName, RakNet::RPC3* rpcFromnetwork ) = 0;
+    virtual void SelectCharacter(const std::string& characterName, RakNet::RPC3* rpcFromnetwork) = 0;
     
   };
 };

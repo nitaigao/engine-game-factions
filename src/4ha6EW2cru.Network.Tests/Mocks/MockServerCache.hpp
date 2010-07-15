@@ -19,11 +19,11 @@ namespace
 
   public:
 
-    MOCK_CONST_METHOD1( Exists, bool( const std::string& ) );
-    MOCK_CONST_METHOD0( GetCount, int( ) );
-    MOCK_METHOD7( Add, void( const std::string&, const std::string&, int, int, int, const std::string&, unsigned int ) );
-    MOCK_CONST_METHOD1( Find, IServerAdvertisement*( int ) );
-    MOCK_METHOD0( Clear, void( ) );
+    MOCK_CONST_METHOD1(Exists, bool(const std::string&));
+    MOCK_CONST_METHOD0(GetCount, int());
+    MOCK_METHOD7(Add, void(const std::string&, const std::string&, int, int, int, const std::string&, unsigned int));
+    MOCK_CONST_METHOD1(Find, IServerAdvertisement*(int));
+    MOCK_METHOD0(Clear, void());
     
   };
 };

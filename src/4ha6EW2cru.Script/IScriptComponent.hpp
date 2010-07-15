@@ -33,16 +33,16 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptComponent( ) { };
+    virtual ~IScriptComponent() { };
 
 
     /*! Registers a Script Function to receive Events
      *
      * @param[in] const std::string & eventType
      * @param[in] luabind::object handlerFunction
-     * @return ( void )
+     * @return (void)
      */
-    virtual void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
+    virtual void RegisterEventHandler(const std::string& eventType, const luabind::object& handlerFunction) = 0;
 
 
     /*!  Registers an LUA function to receive messages
@@ -50,7 +50,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    virtual void SubscribeMessage( const System::MessageType& message, const luabind::object& function ) = 0;
+    virtual void SubscribeMessage(const System::MessageType& message, const luabind::object& function) = 0;
 
 
     /*! UnRegisters an LUA function from receiving messages
@@ -58,7 +58,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    virtual void UnSubscribeMessage( const System::MessageType& message,  const luabind::object& function ) = 0;
+    virtual void UnSubscribeMessage(const System::MessageType& message,  const luabind::object& function) = 0;
 
 
     /*!  Registers an LUA function to be included in the Game Update Loop
@@ -66,7 +66,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    virtual void RegisterUpdateHandler( const luabind::object& function ) = 0;
+    virtual void RegisterUpdateHandler(const luabind::object& function) = 0;
 
 
     /*! UnRegisters an LUA function from being included in the Game Update Loop
@@ -74,7 +74,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    virtual void UnRegisterUpdateHandler( const luabind::object& function ) = 0;
+    virtual void UnRegisterUpdateHandler(const luabind::object& function) = 0;
 
   };
 };

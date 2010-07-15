@@ -26,16 +26,16 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptFacadeManager( ) { };
+    ~ScriptFacadeManager() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    ScriptFacadeManager( IScriptFacadeFactory* facadeFactory, ILuaState* state )
-      : m_facadeFactory( facadeFactory )
-      , m_state( state )
+    ScriptFacadeManager(IScriptFacadeFactory* facadeFactory, ILuaState* state)
+      : m_facadeFactory(facadeFactory)
+      , m_state(state)
     {
 
     }
@@ -44,21 +44,21 @@ namespace Script
     /*! Initializes the Facade Manager with the given ScriptComponent
     *
     * @param[in] IScriptComponent *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ISystemComponent* scriptComponent );
+    void Initialize(ISystemComponent* scriptComponent);
 
 
     /*! Destroys each ScriptFacade
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
   private:
 
-    ScriptFacadeManager( const ScriptFacadeManager & copy ) { };
-    ScriptFacadeManager & operator = ( const ScriptFacadeManager & copy ) { return *this; };
+    ScriptFacadeManager(const ScriptFacadeManager & copy) { };
+    ScriptFacadeManager & operator = (const ScriptFacadeManager & copy) { return *this; };
 
     IScriptFacadeFactory* m_facadeFactory;
     IScriptFacade::ScriptFacadeList m_facades;

@@ -1,7 +1,7 @@
 # The set of languages for which implicit dependencies are needed:
 SET(CMAKE_DEPENDS_LANGUAGES
   "CXX"
-  )
+ )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
   "/Users/NK/Development/factions/src/4ha6EW2cru.System/Configuration/Configuration.cpp" "/Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/System.dir/Configuration/Configuration.cpp.o"
@@ -38,9 +38,9 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp" "/Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o"
   "/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp" "/Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/System.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o"
   "/Users/NK/Development/factions/src/4ha6EW2cru.System/precompiled.cpp" "/Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeFiles/System.dir/precompiled.cpp.o"
-  )
+ )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES
-  )
+ )

@@ -27,7 +27,7 @@ namespace Renderer
      *
      *  @return ()
      */
-    ~FPSCameraComponent( ) { };
+    ~FPSCameraComponent() { };
 
 
     /*! Default Constructor
@@ -36,12 +36,12 @@ namespace Renderer
      *  @param[in] RendererSystemScene * scene
      *  @return ()
      */
-    FPSCameraComponent( const std::string& name, IRenderSystemScene* scene )
-      : RendererSystemComponent( name, scene )
-      , m_cameraNode( 0 )
-      , m_totalYaw ( 0 )
-      , m_totalPitch( 0 )
-      , m_sensitivity( 0.01 )
+    FPSCameraComponent(const std::string& name, IRenderSystemScene* scene)
+      : RendererSystemComponent(name, scene)
+      , m_cameraNode(0)
+      , m_totalYaw (0)
+      , m_totalPitch(0)
+      , m_sensitivity(0.01)
     {
 
     }
@@ -52,7 +52,7 @@ namespace Renderer
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Steps the internal data of the Component
@@ -60,15 +60,15 @@ namespace Renderer
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
-    virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    virtual AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
   private:
 
-    FPSCameraComponent( ) { };
-    FPSCameraComponent( const FPSCameraComponent & copy ) { };
-    FPSCameraComponent & operator = ( const FPSCameraComponent & copy ) { return *this; };
+    FPSCameraComponent() { };
+    FPSCameraComponent(const FPSCameraComponent & copy) { };
+    FPSCameraComponent & operator = (const FPSCameraComponent & copy) { return *this; };
 
     Ogre::SceneNode* m_cameraNode;
 

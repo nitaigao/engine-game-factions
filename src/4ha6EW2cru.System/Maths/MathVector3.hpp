@@ -99,7 +99,7 @@ namespace Maths
         Y * input.Z - Z * input.Y,
         Z * input.X - X * input.Z,
         X * input.Y - Y * input.X
-        );
+       );
     }
 
 
@@ -109,7 +109,7 @@ namespace Maths
      */
     inline MathVector3 Normalize() const
     {
-      float length = sqrt(X * X + Y * Y + Z * Z );
+      float length = sqrt(X * X + Y * Y + Z * Z);
 
       return (length> 0.0f) 
         ? MathVector3(X, Y, Z) / length
@@ -127,7 +127,7 @@ namespace Maths
         MathUnits::Round(X),
         MathUnits::Round(Y),
         MathUnits::Round(Z)
-        );
+       );
     }
 
 
@@ -142,7 +142,7 @@ namespace Maths
         X / input,
         Y / input,
         Z / input
-        );
+       );
     }
 
 
@@ -157,7 +157,7 @@ namespace Maths
         input.X + X,
         input.Y + Y,
         input.Z + Z
-        );
+       );
     };
 
 
@@ -183,7 +183,7 @@ namespace Maths
         X - input.X,
         Y - input.Y,
         Z - input.Z
-        );
+       );
     };
 
 
@@ -198,7 +198,7 @@ namespace Maths
         input * X,
         input * Y,
         input * Z
-        );
+       );
     };
 
 
@@ -213,7 +213,7 @@ namespace Maths
         X * input.X,
         Y * input.Y,
         Z * input.Z
-        );
+       );
     };
 
 

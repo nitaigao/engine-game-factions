@@ -8,11 +8,11 @@ class MockEventData : public IEventData
 
 public:
 
-  MockEventData( const int& const data )
-    : _data( data )
+  MockEventData(const int& const data)
+    : _data(data)
   { };
 
-  inline const int& GetData( ) const { return _data; };
+  inline const int& GetData() const { return _data; };
 
 private:
 

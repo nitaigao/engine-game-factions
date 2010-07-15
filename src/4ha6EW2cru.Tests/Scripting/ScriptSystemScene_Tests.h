@@ -8,18 +8,18 @@
 class ScriptSystemScene_Tests : public CPPUNIT_NS::TestFixture
 {
 
-  CPPUNIT_TEST_SUITE( ScriptSystemScene_Tests );
-  CPPUNIT_TEST( Should_Initialize_Correctly );
-  CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE(ScriptSystemScene_Tests);
+  CPPUNIT_TEST(Should_Initialize_Correctly);
+  CPPUNIT_TEST_SUITE_END();
 
 public:
 
-  void setUp( );
-  void tearDown( );
+  void setUp();
+  void tearDown();
 
 protected:
 
-  void Should_Initialize_Correctly( );
+  void Should_Initialize_Correctly();
 
 };
 

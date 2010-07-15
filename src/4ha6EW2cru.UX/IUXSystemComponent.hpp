@@ -25,25 +25,25 @@ namespace UX
 
     typedef std::deque< IUXSystemComponent* > UXSystemComponentList;
 
-    virtual ~IUXSystemComponent( ) { };
+    virtual ~IUXSystemComponent() { };
 
 
     /*! Registers a Script Function to receive Events
     *
     * @param[in] const std::string & eventType
     * @param[in] luabind::object handlerFunction
-    * @return ( void )
+    * @return (void)
     */
-    virtual void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
+    virtual void RegisterEventHandler(const std::string& eventType, const luabind::object& handlerFunction) = 0;
 
 
     /*! Unregisters a Script Function from receiving Events
     *
     * @param[in] const std::string & eventType
     * @param[in] luabind::object handlerFunction
-    * @return ( void )
+    * @return (void)
     */
-    virtual void UnregisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction ) = 0;
+    virtual void UnregisterEventHandler(const std::string& eventType, const luabind::object& handlerFunction) = 0;
 
   };
 };

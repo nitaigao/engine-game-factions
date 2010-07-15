@@ -15,37 +15,37 @@ protected:
 
   MockSoundComponentFactory* m_factory;
 
-  void EstablishContext( )
+  void EstablishContext()
   {
-    m_factory = new MockSoundComponentFactory( );
+    m_factory = new MockSoundComponentFactory();
   }
 
-  void DestroyContext( )
+  void DestroyContext()
   {
 
   }
 
-  SoundScene* CreateSubject( )
+  SoundScene* CreateSubject()
   {
-    return new SoundScene( m_factory ); 
+    return new SoundScene(m_factory); 
   }
 };
 
-TEST_F( SoundScene_Tests, should_create_components )
+TEST_F(SoundScene_Tests, should_create_components)
 {
   std::string name = "test";
   std::string type = "default";
 
   MockSoundSystemComponent component;
 
-  EXPECT_CALL( *m_factory, CreateComponent( name, type ) ).WillOnce( Return( &component ) );
-  m_subject->CreateComponent( name, type );
+  EXPECT_CALL(*m_factory, CreateComponent(name, type)).WillOnce(Return(&component));
+  m_subject->CreateComponent(name, type);
 }
 
-TEST_F( SoundScene_Tests, should_destroy_components )
+TEST_F(SoundScene_Tests, should_destroy_components)
 {
-  MockSoundSystemComponent* component = new MockSoundSystemComponent( );
-  EXPECT_CALL( *component, Destroy( ) );
+  MockSoundSystemComponent* component = new MockSoundSystemComponent();
+  EXPECT_CALL(*component, Destroy());
 
-  m_subject->DestroyComponent( component );
+  m_subject->DestroyComponent(component);
 }

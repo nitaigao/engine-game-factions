@@ -33,23 +33,23 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkSystem( );
+    ~NetworkSystem();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkSystem( Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
+    NetworkSystem(Services::IServiceManager* serviceManager, System::IInstrumentation* instrumentation, 
       INetworkSystemScene* scene, INetworkClientProvider* clientProvider, INetworkServerProvider* serverProvider
-      , Events::IEventManager* eventManager, Configuration::IConfiguration* configuration )
-      : m_instrumentation( instrumentation )
-      , m_serviceManager( serviceManager )
-      , m_scene( scene )
-      , m_clientProvider( clientProvider )
-      , m_serverProvider( serverProvider )
-      , m_eventManager( eventManager )
-      , m_configuration( configuration )
+      , Events::IEventManager* eventManager, Configuration::IConfiguration* configuration)
+      : m_instrumentation(instrumentation)
+      , m_serviceManager(serviceManager)
+      , m_scene(scene)
+      , m_clientProvider(clientProvider)
+      , m_serverProvider(serverProvider)
+      , m_eventManager(eventManager)
+      , m_configuration(configuration)
     {
       m_attributes[ System::Attributes::Network::IsServer ] = false;
     }
@@ -59,7 +59,7 @@ namespace Network
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -67,44 +67,44 @@ namespace Network
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( );
+    void Release();
 
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::NETWORK; };
+    inline System::Types::Type GetType() const { return System::Types::NETWORK; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets a System Property
@@ -113,12 +113,12 @@ namespace Network
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { m_attributes[ name ] = value; };
+    inline void SetAttribute(const std::string& name, AnyType value) { m_attributes[ name ] = value; };
 
   private:
 
-    NetworkSystem( const NetworkSystem & copy ) { };
-    NetworkSystem & operator = ( const NetworkSystem & copy ) { return *this; };
+    NetworkSystem(const NetworkSystem & copy) { };
+    NetworkSystem & operator = (const NetworkSystem & copy) { return *this; };
   
     AnyType::AnyTypeMap m_attributes;
 

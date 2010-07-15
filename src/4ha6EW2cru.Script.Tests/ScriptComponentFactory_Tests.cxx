@@ -19,34 +19,34 @@ protected:
   MockEventManager* m_eventManager;
   MockScriptFacadeFactory* m_facadeFactory;
 
-  void EstablishContext( )
+  void EstablishContext()
   {
-    m_masterState = new MockLuaState( );
-    m_eventManager = new MockEventManager( );
-    m_facadeFactory = new MockScriptFacadeFactory( );
+    m_masterState = new MockLuaState();
+    m_eventManager = new MockEventManager();
+    m_facadeFactory = new MockScriptFacadeFactory();
   }
 
-  void DestroyContext( )
+  void DestroyContext()
   {
     delete m_masterState;
     delete m_eventManager;
   }
 
-  ScriptComponentFactory* CreateSubject( )
+  ScriptComponentFactory* CreateSubject()
   {
-    return new ScriptComponentFactory( m_masterState, m_eventManager, m_facadeFactory ); 
+    return new ScriptComponentFactory(m_masterState, m_eventManager, m_facadeFactory); 
   }
 };
 
-TEST_F( ScriptComponentFactory_Tests, should_create_component )
+TEST_F(ScriptComponentFactory_Tests, should_create_component)
 {
-  MockLuaState* childState = new MockLuaState( );
-  EXPECT_CALL( *m_masterState, CreateChild(  ) ).WillOnce( Return( childState ) );
+  MockLuaState* childState = new MockLuaState();
+  EXPECT_CALL(*m_masterState, CreateChild()).WillOnce(Return(childState));
 
-  IScriptComponent* actual = m_subject->CreateComponent( "name", "type" );
+  IScriptComponent* actual = m_subject->CreateComponent("name", "type");
   IScriptComponent* expected = 0;
 
-  EXPECT_NE( expected, actual );
+  EXPECT_NE(expected, actual);
 
   delete actual;
 }

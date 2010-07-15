@@ -6,22 +6,22 @@
 class InputSystemFixture : public CPPUNIT_NS::TestFixture
 {
 
-  CPPUNIT_TEST_SUITE( InputSystemFixture );
-  CPPUNIT_TEST( Should_Initialize_Properly );
-  CPPUNIT_TEST( Should_Throw_Given_Already_Initialized );
-  CPPUNIT_TEST( Should_Not_Initialize_With_NULL_HWND );  
-  CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE(InputSystemFixture);
+  CPPUNIT_TEST(Should_Initialize_Properly);
+  CPPUNIT_TEST(Should_Throw_Given_Already_Initialized);
+  CPPUNIT_TEST(Should_Not_Initialize_With_NULL_HWND);  
+  CPPUNIT_TEST_SUITE_END();
 
 public:
 
-  void setUp ( void );
-  void tearDown ( void );
+  void setUp (void);
+  void tearDown (void);
 
 protected:
 
-  void Should_Initialize_Properly( );
-  void Should_Throw_Given_Already_Initialized( );
-  void Should_Not_Initialize_With_NULL_HWND( );
+  void Should_Initialize_Properly();
+  void Should_Throw_Given_Already_Initialized();
+  void Should_Not_Initialize_With_NULL_HWND();
 
 };
 

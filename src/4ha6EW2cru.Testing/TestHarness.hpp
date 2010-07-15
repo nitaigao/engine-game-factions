@@ -19,23 +19,23 @@ namespace Testing
 
   public:
 
-    virtual void SetUp( )
+    virtual void SetUp()
     {
-      EstablishContext( );
-      m_subject = CreateSubject( );
+      EstablishContext();
+      m_subject = CreateSubject();
     }
 
-    virtual void TearDown( )
+    virtual void TearDown()
     {
-      DestroyContext( );
+      DestroyContext();
       delete m_subject;
     }
 
   protected:
 
-    virtual void EstablishContext( ) { };
-    virtual void DestroyContext( ) { };
-    virtual T* CreateSubject( ) = 0;
+    virtual void EstablishContext() { };
+    virtual void DestroyContext() { };
+    virtual T* CreateSubject() = 0;
 
     T* m_subject;
 

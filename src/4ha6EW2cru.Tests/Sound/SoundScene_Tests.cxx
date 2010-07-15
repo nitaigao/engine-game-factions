@@ -13,15 +13,15 @@ public:
 
   ISystemComponent* _component;
 
-  void SetupTest( )
+  void SetupTest()
   {
-    _subject = new SoundScene( 0 );
+    _subject = new SoundScene(0);
     _component = 0;
   }
 
-  void TearDownTest( )
+  void TearDownTest()
   {
-    if ( _component != 0 )
+    if (_component != 0)
     {
       delete _component;
     }
@@ -31,22 +31,22 @@ public:
 class when_the_scene_is_initialized : public SoundScene_Specs_BaseContext
 {
 
-  void EstablishBaseContext( )
+  void EstablishBaseContext()
   {
-    _component = _subject->CreateComponent( "test", "default" );
+    _component = _subject->CreateComponent("test", "default");
   }
 
-  void should_a_component_on_create_component( )
+  void should_a_component_on_create_component()
   {
-    CPPUNIT_ASSERT( _component != 0  );
+    CPPUNIT_ASSERT(_component != 0 );
   }
 
-  CPPUNIT_TEST_SUITE( when_the_scene_is_initialized );
-  CPPUNIT_TEST( should_a_component_on_create_component );
-  CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE(when_the_scene_is_initialized);
+  CPPUNIT_TEST(should_a_component_on_create_component);
+  CPPUNIT_TEST_SUITE_END();
 };
 
 #include "../Suites.h"
-//CPPUNIT_TEST_SUITE_NAMED_REGISTRATION( when_the_scene_is_initialized, Suites::SoundSuite( ) );
+//CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(when_the_scene_is_initialized, Suites::SoundSuite());
 
 #endif

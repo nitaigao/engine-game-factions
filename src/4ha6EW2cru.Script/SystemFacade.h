@@ -29,16 +29,16 @@ namespace Script
      *
      *  @return ()
      */
-    ~SystemFacade( ) { };
+    ~SystemFacade() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    SystemFacade( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager )
-      : m_eventManager( eventManager )
-      , m_platformManager( platformManager )
+    SystemFacade(Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager)
+      : m_eventManager(eventManager)
+      , m_platformManager(platformManager)
     {
 
     }
@@ -46,16 +46,16 @@ namespace Script
 
     /*! Returns the Script functions
     *
-    * @return ( luabind::scope )
+    * @return (luabind::scope)
     */
-    static luabind::scope RegisterFunctions( );
+    static luabind::scope RegisterFunctions();
 
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "system"; };
+    inline std::string GetName() { return "system"; };
 
 
     /*!  Prints the specified message to the console
@@ -63,14 +63,14 @@ namespace Script
     *  @param[in] const std::string & message
     *  @return (void)
     */
-    static void Print( const std::string& message );
+    static void Print(const std::string& message);
 
 
     /*! Quits the game
     *
     *  @return (void)
     */
-    void Quit( );
+    void Quit();
 
 
     /*! Loads the specified level
@@ -78,33 +78,33 @@ namespace Script
     *  @param[in] const std::string & levelName
     *  @return (void)
     */
-    void LoadLevel( const std::string& levelName );
+    void LoadLevel(const std::string& levelName);
 
 
     /*! Ends the current Game
     *
     *  @return (void)
     */
-    void EndGame( );
+    void EndGame();
 
 
     /*! Returns the system time in Milliseconds
     *
     *  @return (float)
     */
-    float GetTime( ) const;
+    float GetTime() const;
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
   private:
 
-    SystemFacade( const SystemFacade & copy ) { };
-    SystemFacade & operator = ( const SystemFacade & copy ) { return *this; };
+    SystemFacade(const SystemFacade & copy) { };
+    SystemFacade & operator = (const SystemFacade & copy) { return *this; };
 
     Events::IEventManager* m_eventManager;
     Platform::IPlatformManager* m_platformManager;

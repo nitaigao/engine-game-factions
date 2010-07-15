@@ -45,7 +45,7 @@ void OgreMaxUtilities::LoadXmlDocument(const String& fileName, TiXmlDocument& do
             Exception::ERR_FILE_NOT_FOUND,
         errorMessage.str(), 
         "OgreMaxUtilities::LoadXmlDocument"
-            );
+           );
     }
 
     //Get the file contents
@@ -64,7 +64,7 @@ void OgreMaxUtilities::LoadXmlDocument(const String& fileName, TiXmlDocument& do
             Exception::ERR_INVALID_STATE,
         errorMessage.str(), 
         "OgreMaxUtilities::LoadXmlDocument"
-            );
+           );
     }
 }
 
@@ -281,7 +281,7 @@ Light::LightTypes OgreMaxUtilities::ParseLightType(const String& type)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseLightType"
-        );
+       );
 }
 
 ProjectionType OgreMaxUtilities::ParseProjectionType(const String& type)
@@ -302,7 +302,7 @@ ProjectionType OgreMaxUtilities::ParseProjectionType(const String& type)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseProjectionType"
-        );
+       );
 }
 
 BillboardType OgreMaxUtilities::ParseBillboardType(const String& type)
@@ -329,7 +329,7 @@ BillboardType OgreMaxUtilities::ParseBillboardType(const String& type)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseBillboardType"
-        );
+       );
 }
 
 BillboardOrigin OgreMaxUtilities::ParseBillboardOrigin(const String& origin)
@@ -364,7 +364,7 @@ BillboardOrigin OgreMaxUtilities::ParseBillboardOrigin(const String& origin)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseBillboardOrigin"
-        );
+       );
 }
 
 BillboardRotationType OgreMaxUtilities::ParseBillboardRotationType(const String& rotationType)
@@ -385,7 +385,7 @@ BillboardRotationType OgreMaxUtilities::ParseBillboardRotationType(const String&
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseBillboardRotationType"
-        );
+       );
 }
 
 FogMode OgreMaxUtilities::ParseFogMode(const String& mode)
@@ -410,7 +410,7 @@ FogMode OgreMaxUtilities::ParseFogMode(const String& mode)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseFogMode"
-        );
+       );
 }
 
 HardwareBuffer::Usage OgreMaxUtilities::ParseHardwareBufferUsage(const String& usage)
@@ -437,7 +437,7 @@ HardwareBuffer::Usage OgreMaxUtilities::ParseHardwareBufferUsage(const String& u
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseHardwareBufferUsage"
-        );
+       );
 }
 
 Node::TransformSpace OgreMaxUtilities::ParseTransformSpace(const String& space)
@@ -460,7 +460,7 @@ Node::TransformSpace OgreMaxUtilities::ParseTransformSpace(const String& space)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseTransformSpace"
-        );
+       );
 }
 
 BoundingVolume::Type OgreMaxUtilities::ParseBoundingVolumeType(const String& type)
@@ -483,7 +483,7 @@ BoundingVolume::Type OgreMaxUtilities::ParseBoundingVolumeType(const String& typ
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseBoundingVolumeType"
-        );
+       );
 }
 
 void OgreMaxUtilities::LoadCustomParameters(const TiXmlElement* objectElement, std::vector<CustomParameter>& customParameters)
@@ -596,7 +596,7 @@ ShadowTechnique OgreMaxUtilities::ParseShadowTechnique(const String& technique)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseShadowTechnique"
-        );
+       );
 }
 
 UpAxis OgreMaxUtilities::ParseUpAxis(const String& upAxis)
@@ -617,7 +617,7 @@ UpAxis OgreMaxUtilities::ParseUpAxis(const String& upAxis)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseUpAxis"
-        );
+       );
 }
 
 Animation::InterpolationMode OgreMaxUtilities::ParseAnimationInterpolationMode(const String& mode)
@@ -638,7 +638,7 @@ Animation::InterpolationMode OgreMaxUtilities::ParseAnimationInterpolationMode(c
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseAnimationInterpolationMode"
-        );
+       );
 }
 
 Animation::RotationInterpolationMode OgreMaxUtilities::ParseAnimationRotationInterpolationMode(const String& mode)
@@ -659,7 +659,7 @@ Animation::RotationInterpolationMode OgreMaxUtilities::ParseAnimationRotationInt
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseAnimationRotationInterpolationMode"
-        );
+       );
 }
 
 NodeVisibility OgreMaxUtilities::ParseNodeVisibility(const String& visibility)
@@ -755,7 +755,7 @@ uint8 OgreMaxUtilities::ParseRenderQueue(const String& renderQueue)
                 Exception::ERR_INVALIDPARAMS,
               errorMessage.str(), 
               "OgreMaxUtilities::ParseRenderQueue"
-                );
+               );
         }
     }
 }
@@ -814,7 +814,7 @@ PixelFormat OgreMaxUtilities::ParsePixelFormat(const String& pixelFormat)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParsePixelFormat"
-        );
+       );
 }
 
 TextureType OgreMaxUtilities::ParseTextureType(const String& textureType)
@@ -839,7 +839,7 @@ TextureType OgreMaxUtilities::ParseTextureType(const String& textureType)
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxUtilities::ParseTextureType"
-        );
+       );
 }
 
 void OgreMaxUtilities::LoadClipping(const TiXmlElement* objectElement, Real& nearClip, Real& farClip)
@@ -1090,7 +1090,7 @@ Entity* OgreMaxUtilities::CreateEntity
     const String& entityName, 
     const String& meshFile, 
     std::vector<EntityParameters::Subentity>& subentities
-    )
+   )
 {
     Entity* entity = sceneManager->createEntity(entityName, meshFile);
 

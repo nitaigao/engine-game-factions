@@ -24,7 +24,7 @@ namespace Renderer
      *
      *  @return ()
      */
-    virtual ~IRendererSystem( ) { };
+    virtual ~IRendererSystem() { };
 
   };
 };

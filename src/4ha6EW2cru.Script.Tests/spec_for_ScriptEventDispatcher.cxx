@@ -19,19 +19,19 @@ namespace given_a_script_is_running
 
     MockEventManager* m_eventManager;
 
-    virtual void EstablishContext( )
+    virtual void EstablishContext()
     {
-      m_eventManager = new MockEventManager( );
+      m_eventManager = new MockEventManager();
     }
 
-    virtual void DestroyContext( )
+    virtual void DestroyContext()
     {
       delete m_eventManager;
     }
 
-    ScriptEventDispatcher* CreateSubject( )
+    ScriptEventDispatcher* CreateSubject()
     {
-      return new ScriptEventDispatcher( m_eventManager ); 
+      return new ScriptEventDispatcher(m_eventManager); 
     }
   };
   
@@ -40,24 +40,24 @@ namespace given_a_script_is_running
   
   protected:
   
-    void Expecting( )
+    void Expecting()
     {
-      EXPECT_CALL( *m_eventManager, AddEventListener( A< const std::string& >( ), An< IEventListener* >( ) ) )
-        .WillOnce( Invoke( MockEventManager::ConsumeEventListener ) );
+      EXPECT_CALL(*m_eventManager, AddEventListener(A< const std::string& >(), An< IEventListener* >()))
+        .WillOnce(Invoke(MockEventManager::ConsumeEventListener));
 
-      EXPECT_CALL( *m_eventManager, RemoveEventListener( A< const std::string& >( ), An< IEventListener* >( ) ) )
-        .WillOnce( Invoke( MockEventManager::ConsumeEventListener ) );
+      EXPECT_CALL(*m_eventManager, RemoveEventListener(A< const std::string& >(), An< IEventListener* >()))
+        .WillOnce(Invoke(MockEventManager::ConsumeEventListener));
     }
 
-    void When( )
+    void When()
     {
-      m_subject->RegisterEventHandler( EventTypes::TEST_EVENT, new MockScriptFunctionHandler( ) );
+      m_subject->RegisterEventHandler(EventTypes::TEST_EVENT, new MockScriptFunctionHandler());
 
-      //m_subject->Destroy( );
+      //m_subject->Destroy();
     }
     
   };
 
-  //TEST_F( when_registering_for_an_event, then_the_event_manager_should_be_informed ) { }
-  TEST_F( when_registering_for_an_event, then_the_handler_should_receive_events ) { };
+  //TEST_F(when_registering_for_an_event, then_the_event_manager_should_be_informed) { }
+  TEST_F(when_registering_for_an_event, then_the_handler_should_receive_events) { };
 };

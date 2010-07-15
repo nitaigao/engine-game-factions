@@ -28,18 +28,18 @@ namespace Script
     *
     *  @return ()
     */
-    ~ScriptSystem( );
+    ~ScriptSystem();
 
 
     /*! Default Constructor
     *
     *  @return ()
     */
-    ScriptSystem( IScriptSystemScene* scene, IScriptSystemScene* auxScene, Services::IServiceManager* serviceManager )
-      : m_scene( scene )
-      , m_auxScene( auxScene )
-      , m_serviceManager( serviceManager )
-      , m_configuration( 0 )
+    ScriptSystem(IScriptSystemScene* scene, IScriptSystemScene* auxScene, Services::IServiceManager* serviceManager)
+      : m_scene(scene)
+      , m_auxScene(auxScene)
+      , m_serviceManager(serviceManager)
+      , m_configuration(0)
     {
 
     }
@@ -49,7 +49,7 @@ namespace Script
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -57,44 +57,44 @@ namespace Script
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( );
+    void Release();
 
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::SCRIPT; };
+    inline System::Types::Type GetType() const { return System::Types::SCRIPT; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets a System Property
@@ -103,12 +103,12 @@ namespace Script
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };
+    inline void SetAttribute(const std::string& name, AnyType value) { };
 
   private:
 
-    ScriptSystem( const ScriptSystem & copy ) { };
-    ScriptSystem & operator = ( const ScriptSystem & copy ) { return *this; };
+    ScriptSystem(const ScriptSystem & copy) { };
+    ScriptSystem & operator = (const ScriptSystem & copy) { return *this; };
 
     AnyType::AnyTypeMap m_attributes;
     Configuration::IConfiguration* m_configuration;

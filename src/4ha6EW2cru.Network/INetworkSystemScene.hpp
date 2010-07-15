@@ -26,15 +26,15 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkSystemScene( ) { };
+    virtual ~INetworkSystemScene() { };
 
 
     /*! Adds a Network provider to the Scene
      *
      * @param[in] INetworkProvider * provider
-     * @return ( void )
+     * @return (void)
      */
-    virtual void AddNetworkProvider( INetworkProvider* provider ) = 0;
+    virtual void AddNetworkProvider(INetworkProvider* provider) = 0;
 
 
     /*! Messages a component within the Scene
@@ -42,9 +42,9 @@ namespace Network
     * @param[in] const std::string componentId
     * @param[in] const System::MessageType & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    virtual void MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    virtual void MessageComponent(const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
     
   };
 };

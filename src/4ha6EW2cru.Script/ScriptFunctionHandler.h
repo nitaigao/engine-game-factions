@@ -25,15 +25,15 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptFunctionHandler( ) { };
+    ~ScriptFunctionHandler() { };
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    ScriptFunctionHandler( const luabind::object& functionHandler )
-      : m_functionHandler( functionHandler )
-      , m_isMarkedForDeletion( false )
+    ScriptFunctionHandler(const luabind::object& functionHandler)
+      : m_functionHandler(functionHandler)
+      , m_isMarkedForDeletion(false)
     {
 
     }
@@ -43,47 +43,47 @@ namespace Script
      *
      *  @return (void)
      */
-    inline void MarkForDeletion( ) { m_isMarkedForDeletion = true; };
+    inline void MarkForDeletion() { m_isMarkedForDeletion = true; };
 
 
     /*! Returns whether or not the handler is marked for deletion on the next UX Update or Event Tick
      *
      *  @return (bool)
      */
-    inline bool IsMarkedForDeletion( ) const { return m_isMarkedForDeletion; };
+    inline bool IsMarkedForDeletion() const { return m_isMarkedForDeletion; };
 
 
     /*! Calls a Function Handler with the given parameters
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void CallFunction( float deltaMilliseconds );
+    void CallFunction(float deltaMilliseconds);
 
 
     /*! Calls the Function Handler with the given parameters
     *
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    void CallFunction( AnyType::AnyTypeMap parameters );
+    void CallFunction(AnyType::AnyTypeMap parameters);
 
 
     /*! Calls the Function Handler with the given parameters
      *
      * @param[in] const std::string & eventType
      * @param[in] Events::IEventData * eventData
-     * @return ( void )
+     * @return (void)
      */
-    void CallFunction( const std::string& eventType, Events::IEventData* eventData );
+    void CallFunction(const std::string& eventType, Events::IEventData* eventData);
 
 
-    void CallFunction( const System::MessageType& message, AnyType::AnyTypeMap& parameters );
+    void CallFunction(const System::MessageType& message, AnyType::AnyTypeMap& parameters);
 
 
-    bool Compare( IScriptFunctionHandler* input )
+    bool Compare(IScriptFunctionHandler* input)
     {
-      return static_cast< ScriptFunctionHandler* >( input )->m_functionHandler == m_functionHandler;
+      return static_cast< ScriptFunctionHandler* >(input)->m_functionHandler == m_functionHandler;
     }
 
 
@@ -92,8 +92,8 @@ namespace Script
     bool m_isMarkedForDeletion;
     luabind::object m_functionHandler;
 
-    ScriptFunctionHandler( const ScriptFunctionHandler & copy ) { };
-    ScriptFunctionHandler & operator = ( const ScriptFunctionHandler & copy ) { return *this; };
+    ScriptFunctionHandler(const ScriptFunctionHandler & copy) { };
+    ScriptFunctionHandler & operator = (const ScriptFunctionHandler & copy) { return *this; };
 
   };
 };

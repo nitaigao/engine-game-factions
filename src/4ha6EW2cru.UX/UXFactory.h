@@ -24,16 +24,16 @@ namespace UX
   {
     /*! Creates a UX System
      *
-     * @return ( IUXSystem* )
+     * @return (IUXSystem*)
      */
-    virtual IUXSystem* CreateUXSystem( ) = 0;
+    virtual IUXSystem* CreateUXSystem() = 0;
 
 
     /*! Creates a UX GUI
      *
-     * @return ( IGUI* )
+     * @return (IGUI*)
      */
-    virtual IGUI* CreateUXGUI( ) = 0;
+    virtual IGUI* CreateUXGUI() = 0;
 
   };
 
@@ -50,23 +50,23 @@ namespace UX
      *
      *  @return ()
      */
-    ~UXFactory( ) { };
+    ~UXFactory() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    UXFactory( Configuration::IConfiguration* configuration, Events::IEventManager* eventManager, 
+    UXFactory(Configuration::IConfiguration* configuration, Events::IEventManager* eventManager, 
       Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache,
       Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation
-      )
-      : m_configuration( configuration )
-      , m_eventManager( eventManager )
-      , m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
-      , m_platformManager( platformManager )
-      , m_instrumentation( instrumentation )
+     )
+      : m_configuration(configuration)
+      , m_eventManager(eventManager)
+      , m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
+      , m_platformManager(platformManager)
+      , m_instrumentation(instrumentation)
     {
 
     }
@@ -76,21 +76,21 @@ namespace UX
     /*! Creates a UX System
      *
      * @param[in] IConfiguration * configuration
-     * @return ( IUXSystem* )
+     * @return (IUXSystem*)
      */
-    IUXSystem* CreateUXSystem( );
+    IUXSystem* CreateUXSystem();
 
 
     /*! Creates a UX GUI
     *
-    * @return ( IGUI* )
+    * @return (IGUI*)
     */
-    IGUI* CreateUXGUI( );
+    IGUI* CreateUXGUI();
 
   private:
 
-    UXFactory( const UXFactory & copy ) { };
-    UXFactory & operator = ( const UXFactory & copy ) { return *this; };
+    UXFactory(const UXFactory & copy) { };
+    UXFactory & operator = (const UXFactory & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
     Events::IEventManager* m_eventManager;

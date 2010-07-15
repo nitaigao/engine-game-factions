@@ -18,7 +18,7 @@
 namespace UX
 {
   /*! 
-   *  The System that controls the User Experience ( ie. GUI Elements )
+   *  The System that controls the User Experience (ie. GUI Elements)
    */
   class GAMEAPI UXSystem : public IUXSystem, public Services::IService
   {
@@ -29,18 +29,18 @@ namespace UX
     *
     *  @return ()
     */
-    ~UXSystem( );
+    ~UXSystem();
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    UXSystem( IGUI* gui, IUXSystemScene* scene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager )
-      : m_scene( scene )
-      , m_gui( gui )
-      , m_eventManager( eventManager )
-      , m_serviceManager( serviceManager )
+    UXSystem(IGUI* gui, IUXSystemScene* scene, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager)
+      : m_scene(scene)
+      , m_gui(gui)
+      , m_eventManager(eventManager)
+      , m_serviceManager(serviceManager)
     {
 
     }
@@ -50,7 +50,7 @@ namespace UX
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -58,44 +58,44 @@ namespace UX
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases the System
     *
     *  @return (void)
     */
-    void Release( );
+    void Release();
 
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::UX; };
+    inline System::Types::Type GetType() const { return System::Types::UX; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets a System Property
@@ -104,13 +104,13 @@ namespace UX
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };
+    inline void SetAttribute(const std::string& name, AnyType value) { };
 
-    void OnMouseMoved( const Events::IEvent* event );
-    void OnMousePressed( const Events::IEvent* event );
-    void OnMouseReleased( const Events::IEvent* event );
-    void OnKeyUp( const Events::IEvent* event );
-    void OnKeyDown( const Events::IEvent* event );
+    void OnMouseMoved(const Events::IEvent* event);
+    void OnMousePressed(const Events::IEvent* event);
+    void OnMouseReleased(const Events::IEvent* event);
+    void OnKeyUp(const Events::IEvent* event);
+    void OnKeyDown(const Events::IEvent* event);
 
     AnyType::AnyTypeMap m_attributes;
 

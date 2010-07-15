@@ -24,22 +24,22 @@ namespace Renderer
      *
      *  @return ()
      */
-    ~OgreLogListener( ) { };
+    ~OgreLogListener() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    OgreLogListener( ) { };
+    OgreLogListener() { };
 
 
-    void messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName );
+    void messageLogged(const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName);
 
   private:
 
-    OgreLogListener( const OgreLogListener & copy ) { };
-    OgreLogListener & operator = ( const OgreLogListener & copy ) { return *this; };
+    OgreLogListener(const OgreLogListener & copy) { };
+    OgreLogListener & operator = (const OgreLogListener & copy) { return *this; };
     
   };
 };

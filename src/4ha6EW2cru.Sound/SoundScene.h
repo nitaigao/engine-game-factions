@@ -33,7 +33,7 @@ namespace Sound
      *
      *  @return ()
      */
-    ~SoundScene( );
+    ~SoundScene();
 
 
     /*! Default Constructor
@@ -41,8 +41,8 @@ namespace Sound
     *  @param[in] ISystem * system
     *  @return ()
     */
-    explicit SoundScene( ISoundComponentFactory* componentFactory )
-      : m_componentFactory( componentFactory )
+    explicit SoundScene(ISoundComponentFactory* componentFactory)
+      : m_componentFactory(componentFactory)
     {
 
     }
@@ -52,7 +52,7 @@ namespace Sound
     *
     *  @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Steps internal data of the SystemScene
@@ -60,21 +60,21 @@ namespace Sound
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds ) { };
+    void Update(float deltaMilliseconds) { };
 
 
     /*! Destroys the System Scene
     *
     *  @return (void)
     */
-    inline void Destroy( ) { };
+    inline void Destroy() { };
 
 
     /*! Gets the System::Types::Type of the SystemScene
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::SOUND; };
+    inline System::Types::Type GetType() const { return System::Types::SOUND; };
 
 
     /*! Creates a SystemComponent specific to the SystemScene
@@ -83,7 +83,7 @@ namespace Sound
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISystemComponent* CreateComponent(const std::string& name, const std::string& type);
 
 
     /*! Destroys a SystemComponent created by the SystemScene
@@ -91,10 +91,10 @@ namespace Sound
     *  @param[in] ISystemComponent * component
     *  @return (void)
     */
-    void DestroyComponent( ISystemComponent* component );
+    void DestroyComponent(ISystemComponent* component);
 
-    inline ISoundSystem* GetSoundSystem( ) { return m_soundSystem; };
-    inline void SetSoundSystem( ISoundSystem* soundSystem ) { m_soundSystem = soundSystem; };
+    inline ISoundSystem* GetSoundSystem() { return m_soundSystem; };
+    inline void SetSoundSystem(ISoundSystem* soundSystem) { m_soundSystem = soundSystem; };
 
   private:
 

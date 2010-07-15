@@ -26,16 +26,16 @@ namespace AI
      *
      *  @return ()
      */
-    ~AISystem( ) { };
+    ~AISystem() { };
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    AISystem( Services::IServiceManager* serviceManager )
-      : m_scene( 0 )
-      , m_serviceManager( serviceManager )
+    AISystem(Services::IServiceManager* serviceManager)
+      : m_scene(0)
+      , m_serviceManager(serviceManager)
     {
 
     }
@@ -45,7 +45,7 @@ namespace AI
      *
      *  @return (void)
      */
-    inline void Initialize( Configuration::IConfiguration* configuration ) { };
+    inline void Initialize(Configuration::IConfiguration* configuration) { };
 
 
     /*! Steps the System's internal data
@@ -53,35 +53,35 @@ namespace AI
      *  @param[in] float deltaMilliseconds
      *  @return (void)
      */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases the System
      *
      *  @return (void)
      */
-    inline void Release( ) { };
+    inline void Release() { };
     
 
     /*! Returns the type of the System
      *
      *  @return (System::Types::Type)
      */
-    inline System::Types::Type GetType( ) const { return System::Types::AI; };
+    inline System::Types::Type GetType() const { return System::Types::AI; };
 
 
     /*! Creates a System Scene
      *
      *  @return (ISystemScene*)
      */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
      *
      *  @return (AnyTypeMap)
      */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets a System Property
@@ -90,12 +90,12 @@ namespace AI
      *  @param[in] AnyType value
      *  @return (void)
      */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };
+    inline void SetAttribute(const std::string& name, AnyType value) { };
 
   private:
 
-    AISystem( const AISystem & copy ) { };
-    AISystem & operator = ( const AISystem & copy ) { return *this; };
+    AISystem(const AISystem & copy) { };
+    AISystem & operator = (const AISystem & copy) { return *this; };
 
     AnyType::AnyTypeMap m_attributes;
     ISystemScene* m_scene;

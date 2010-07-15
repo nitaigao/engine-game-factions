@@ -24,14 +24,14 @@ namespace Input
      *
      *  @return ()
      */
-    virtual ~IInputFactory( ) { };
+    virtual ~IInputFactory() { };
 
 
     /*! Creates an Input System
      *
-     * @return ( IInputSystem* )
+     * @return (IInputSystem*)
      */
-    virtual IInputSystem* CreateInputSystem( ) = 0;
+    virtual IInputSystem* CreateInputSystem() = 0;
     
   };
 };

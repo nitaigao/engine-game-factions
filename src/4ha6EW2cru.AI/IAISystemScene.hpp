@@ -24,20 +24,20 @@ namespace AI
      *
      *  @return ()
      */
-    virtual ~IAISystemScene( ) { };
+    virtual ~IAISystemScene() { };
 
 
     /*! Returns all way points in the Scene
     *
-    * @return ( ISystemComponent::SystemComponentList )
+    * @return (ISystemComponent::SystemComponentList)
     */
-    virtual ISystemComponent::SystemComponentList GetWaypoints( ) = 0;
+    virtual ISystemComponent::SystemComponentList GetWaypoints() = 0;
 
     /*! Returns the Navigation Mesh for the Scene
     *
-    * @return ( INavigationMesh* )
+    * @return (INavigationMesh*)
     */
-    virtual ISystemComponent* GetNavigationMesh( ) = 0;
+    virtual ISystemComponent* GetNavigationMesh() = 0;
 
   };
 };

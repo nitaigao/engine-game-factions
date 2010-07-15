@@ -183,7 +183,7 @@ void OgreMaxScene::Load
     SceneNode* rootNode,
     OgreMaxSceneCallback* callback,
     const String& defaultResourceGroupName    
-    )
+   )
 {
     OgreMaxOneRenderWindow oneRenderWindow(renderWindow);
 
@@ -199,7 +199,7 @@ void OgreMaxScene::Load
     SceneNode* rootNode,
     OgreMaxSceneCallback* callback,
     const String& defaultResourceGroupName    
-    )
+   )
 {
     bool isFileName = (loadOptions & FILE_NAME_CONTAINS_CONTENT) == 0;
 
@@ -251,7 +251,7 @@ void OgreMaxScene::Load
                     Exception::ERR_INVALID_STATE,
                 errorMessage.str(), 
                 "OgreMaxScene::Load"
-                    );
+                   );
             }
         }
         else if (!this->baseResourceLocation.empty())
@@ -265,7 +265,7 @@ void OgreMaxScene::Load
                 Exception::ERR_FILE_NOT_FOUND,
               errorMessage.str(), 
               "OgreMaxScene::Load"
-                );
+               );
         }
         else
         {
@@ -287,7 +287,7 @@ void OgreMaxScene::Load
                 Exception::ERR_INVALIDPARAMS,
             errorMessage.str(), 
                 "OgreMaxScene::Load"
-                );
+               );
         }
     }
 
@@ -303,7 +303,7 @@ void OgreMaxScene::Load
     SceneNode* rootNode,
     OgreMaxSceneCallback* callback,
     const String& defaultResourceGroupName    
-    )
+   )
 {   
     this->renderWindows = &renderWindows;
     this->loadOptions = loadOptions;
@@ -734,7 +734,7 @@ String OgreMaxScene::GetNewObjectName(const TiXmlElement* objectElement, SceneNo
             Exception::ERR_DUPLICATE_ITEM,
         errorMessage.str(), 
         "OgreMaxScene::GetNewObjectName"
-            );
+           );
     }
 
     return prefixedName;
@@ -772,14 +772,14 @@ void OgreMaxScene::LoadScene(const TiXmlElement* objectElement)
         StringUtil::StrStreamType errorMessage;
         errorMessage 
             << "The scene file's required Ogre version (" << this->minOgreVersion.ToString()
-            << ") is not supported by the Ogre version this viewer uses ( " << CURRENT_OGRE_VERSION_STRING << ")";
+            << ") is not supported by the Ogre version this viewer uses (" << CURRENT_OGRE_VERSION_STRING << ")";
 
         OGRE_EXCEPT
             (
             Exception::ERR_NOT_IMPLEMENTED,
         errorMessage.str(), 
         "OgreMaxScene::LoadScene"
-            );
+           );
     }
 
     //Create scene manager
@@ -967,7 +967,7 @@ void OgreMaxScene::LoadInstancedGeometries(const TiXmlElement* objectElement)
             Exception::ERR_INVALIDPARAMS, 
             "Instanced geometry is not supported by the current render system and/or video card", 
             "OgreMaxScene::LoadInstancedGeometry"
-            );
+           );
   }
 
     //Read all the instanced geometries
@@ -1264,7 +1264,7 @@ void OgreMaxScene::CommitResourceLocations()
                 resourceLocationIterator->type, 
                 this->defaultResourceGroupName, 
                 resourceLocationIterator->recursive
-                );
+               );
 
             //The resource location is no longer uninitialized
             //This seems to fix a compiler error with GCC
@@ -1427,7 +1427,7 @@ void OgreMaxScene::LoadEnvironment(const TiXmlElement* objectElement)
         this->fogParameters.expDensity, 
         linearStart, 
         linearEnd
-        );
+       );
 }
 
 void OgreMaxScene::LoadRenderTextures(const TiXmlElement* objectElement)
@@ -1504,7 +1504,7 @@ void OgreMaxScene::LoadRenderTextures(const TiXmlElement* objectElement)
             0, 
             renderTextureParams.pixelFormat, 
             TU_RENDERTARGET
-            );    
+           );    
         
         //Initialize all the texture's render targets
         size_t faceCount = loadedRenderTexture->renderTexture->getNumFaces();
@@ -1796,7 +1796,7 @@ void OgreMaxScene::LoadNode(const TiXmlElement* objectElement, SceneNode* parent
             this->defaultResourceGroupName,
             modelNode,
             this
-            );
+           );
     }
 
     //Iterate over all the node children
@@ -1931,7 +1931,7 @@ void OgreMaxScene::LoadSkyBox(const TiXmlElement* objectElement)
         parameters.drawFirst, 
         parameters.rotation, 
         parameters.resourceGroupName
-        );
+       );
 }
 
 void OgreMaxScene::LoadSkyDome(const TiXmlElement* objectElement)
@@ -1986,7 +1986,7 @@ void OgreMaxScene::LoadSkyDome(const TiXmlElement* objectElement)
         parameters.ySegments, 
         -1, 
         parameters.resourceGroupName
-        );
+       );
 }
 
 void OgreMaxScene::LoadSkyPlane(const TiXmlElement* objectElement)
@@ -2039,7 +2039,7 @@ void OgreMaxScene::LoadSkyPlane(const TiXmlElement* objectElement)
         parameters.xSegments, 
         parameters.ySegments, 
         parameters.resourceGroupName
-        );
+       );
 }
 
 void OgreMaxScene::LoadShadows(const TiXmlElement* objectElement)
@@ -2288,7 +2288,7 @@ void OgreMaxScene::LoadEntity(const TiXmlElement* objectElement, const MovableOb
         parameters.resourceGroupName, 
         parameters.vertexBufferUsage, parameters.indexBufferUsage, 
         parameters.vertexBufferShadowed, parameters.indexBufferShadowed
-        );
+       );
     
     //Notify callback if the mesh was just loaded
     if (isNewMesh && this->callback != 0)
@@ -2745,7 +2745,7 @@ void OgreMaxScene::LoadPlane(const TiXmlElement* objectElement, const MovableObj
         parameters.upVector,
         parameters.vertexBufferUsage, parameters.indexBufferUsage,
         parameters.vertexBufferShadowed, parameters.indexBufferShadowed
-        );
+       );
 
     //Create plane entity
     Entity* entity = this->sceneManager->createEntity(parameters.name, parameters.planeName);
@@ -3114,7 +3114,7 @@ void OgreMaxScene::LoadRenderTextureMaterials
     (
     const TiXmlElement* objectElement, 
     std::vector<RenderTextureParameters::Material>& materials
-    )
+   )
 {
     size_t index = 0;
     const TiXmlElement* childElement = 0;
@@ -3160,5 +3160,5 @@ ShadowCameraSetup* OgreMaxScene::ParseShadowCameraSetup(const String& type, Plan
         Exception::ERR_INVALIDPARAMS,
       errorMessage.str(), 
       "OgreMaxScene::ParseShadowCameraSetup"
-        );
+       );
 }

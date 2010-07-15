@@ -22,7 +22,7 @@ namespace Network
 {
   class INetworkFactory
   {
-    virtual INetworkSystem* CreateNetworkSystem( ) = 0;
+    virtual INetworkSystem* CreateNetworkSystem() = 0;
   };
 
   /*! 
@@ -37,7 +37,7 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkFactory( ) { };
+    ~NetworkFactory() { };
 
     
     /*! Default Constructor
@@ -47,27 +47,27 @@ namespace Network
      * @param[in] Resources::IResourceCache * resourceCache
      * @param[in] Events::IEventManager * eventManager
      * @param[in] System::IInstrumentation * instrumentation
-     * @return (  )
+     * @return ()
      */
-    NetworkFactory( 
+    NetworkFactory(
       Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, 
       Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, System::IInstrumentation* instrumentation
-      )
-      : m_configuration( configuration )
-      , m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
-      , m_eventManager( eventManager )
-      , m_instrumentation( instrumentation )
+     )
+      : m_configuration(configuration)
+      , m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
+      , m_eventManager(eventManager)
+      , m_instrumentation(instrumentation)
     {
 
     }
 
-    INetworkSystem* CreateNetworkSystem( );
+    INetworkSystem* CreateNetworkSystem();
 
   private:
 
-    NetworkFactory( const NetworkFactory & copy ) { };
-    NetworkFactory & operator = ( const NetworkFactory & copy ) { return *this; };
+    NetworkFactory(const NetworkFactory & copy) { };
+    NetworkFactory & operator = (const NetworkFactory & copy) { return *this; };
 
 
     Configuration::IConfiguration* m_configuration;

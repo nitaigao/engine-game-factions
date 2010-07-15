@@ -26,16 +26,16 @@ namespace Script
      *
      *  @return ()
      */
-    ~LuaState( ) { };
+    ~LuaState() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    LuaState( Resources::IResourceCache* resourceCache )
-      : m_state( 0 )
-      , m_resourceCache( resourceCache )
+    LuaState(Resources::IResourceCache* resourceCache)
+      : m_state(0)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -43,80 +43,80 @@ namespace Script
 
     /*! Initializes a new Lua State 
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Destroys the lua_State
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Creates a Child LuaState
     *
-    * @return ( ILuaState* )
+    * @return (ILuaState*)
     */
-    ILuaState* CreateChild( );
+    ILuaState* CreateChild();
 
     
     /*! Sets a Script Global within the LuaState
      *
      * @param[in] const std::string & globalName
      * @param[in] T * subject
-     * @return ( void )
+     * @return (void)
      */
     template< class T >
-    void SetGlobal( const std::string& globalName, T* subject )
+    void SetGlobal(const std::string& globalName, T* subject)
     {
-      luabind::globals( m_state )[ globalName ] = subject;
+      luabind::globals(m_state)[ globalName ] = subject;
     }
 
     /*! Registers Types for use in the LuaState Script
     *
     * @param[in] luabind::scope
-    * @return ( void )
+    * @return (void)
     */
-    void RegisterTypes( const luabind::scope& classScope );
+    void RegisterTypes(const luabind::scope& classScope);
 
 
     /*! Loads a Script File from the FileSystem
     *
     * @param[in] const std::string & scriptPath
-    * @return ( void )
+    * @return (void)
     */
-    void LoadScript( const std::string& scriptPath );
+    void LoadScript(const std::string& scriptPath);
 
 
     /*! Executes this Script State
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Execute( );
+    void Execute();
 
 
     /*! Runs a new Parse over a Script
     *
-    * @return ( void )
+    * @return (void)
     */
-    void ReParse( );
+    void ReParse();
 
 
     /*! Executes the given string as Lua code
     *
     * @param[in] const std::string & scriptString
-    * @return ( void )
+    * @return (void)
     */
-    void ExecuteString( const std::string& scriptString );
+    void ExecuteString(const std::string& scriptString);
 
   private:
 
-    LuaState( const LuaState & copy ) { };
-    LuaState & operator = ( const LuaState & copy ) { return *this; };
+    LuaState(const LuaState & copy) { };
+    LuaState & operator = (const LuaState & copy) { return *this; };
 
-    static int LuaPanic( lua_State* state ); 
+    static int LuaPanic(lua_State* state); 
 
     lua_State* m_state;
     Resources::IResourceCache* m_resourceCache;

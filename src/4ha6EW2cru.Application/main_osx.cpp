@@ -13,15 +13,15 @@ using namespace Game;
 int main()
 {
   GameFactory gameFactory;
-  IGame* game = gameFactory.CreateGame( );
-  game->Initialize( );
+  IGame* game = gameFactory.CreateGame();
+  game->Initialize();
 
-  while( !game->IsQuitting( ) )
+  while(!game->IsQuitting())
   {
-    game->Update( );
+    game->Update();
   }
 
-  game->Release( );
+  game->Release();
 
   delete game;
   

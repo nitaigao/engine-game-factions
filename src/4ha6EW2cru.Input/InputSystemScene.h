@@ -38,7 +38,7 @@ namespace Input
     *
     *  @return ()
     */
-    ~InputSystemScene( ) { };
+    ~InputSystemScene() { };
 
 
     /*! Default Constructor
@@ -47,12 +47,12 @@ namespace Input
     *  @param[in] OIS::Keyboard * keyboard
     *  @return ()
     */
-    explicit InputSystemScene( Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Events::IEventManager* eventManager, IInputSystem* system )
-      : m_configuration( configuration ) 
-      , m_serviceManager( serviceManager )
-      , m_eventManager( eventManager )
-      , m_system( system )
-      , m_inputAllowed( false )
+    explicit InputSystemScene(Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Events::IEventManager* eventManager, IInputSystem* system)
+      : m_configuration(configuration) 
+      , m_serviceManager(serviceManager)
+      , m_eventManager(eventManager)
+      , m_system(system)
+      , m_inputAllowed(false)
     {
 
     }
@@ -62,7 +62,7 @@ namespace Input
     *
     *  @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Steps internal data of the SystemScene
@@ -70,21 +70,21 @@ namespace Input
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Destroys the System Scene
     *
     *  @return (void)
     */
-    inline void Destroy( ) { };
+    inline void Destroy() { };
 
 
     /*! Gets the System::Types::Type of the SystemScene
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::INPUT; }
+    inline System::Types::Type GetType() const { return System::Types::INPUT; }
 
 
     /*! Creates a SystemComponent specific to the SystemScene
@@ -93,7 +93,7 @@ namespace Input
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISystemComponent* CreateComponent(const std::string& name, const std::string& type);
 
 
     /*! Destroys a SystemComponent created by the SystemScene
@@ -101,7 +101,7 @@ namespace Input
     *  @param[in] ISystemComponent * component
     *  @return (void)
     */
-    void DestroyComponent( ISystemComponent* component );
+    void DestroyComponent(ISystemComponent* component);
 
 
     /*! Sets whether the game will receive input from the player, the interface is unaffected
@@ -109,7 +109,7 @@ namespace Input
     *  @param[in] const bool & inputAllowed
     *  @return (void)
     */
-    void SetInputAllowed( bool inputAllowed ) { m_inputAllowed = inputAllowed; };
+    void SetInputAllowed(bool inputAllowed) { m_inputAllowed = inputAllowed; };
 
 
     /*! Called by the System when a player presses a key on the keyboard
@@ -117,7 +117,7 @@ namespace Input
     *  @param[in] const OIS::KeyEvent & arg
     *  @return (bool)
     */
-    bool KeyPressed( const OIS::KeyEvent &arg );
+    bool KeyPressed(const OIS::KeyEvent &arg);
 
 
     /*! Called by the System when a player releases a key on the keyboard
@@ -125,7 +125,7 @@ namespace Input
     *  @param[in] const OIS::KeyEvent & arg
     *  @return (bool)
     */
-    bool KeyReleased( const OIS::KeyEvent &arg );
+    bool KeyReleased(const OIS::KeyEvent &arg);
 
 
     /*! Called by the System when a player moves the mouse
@@ -133,7 +133,7 @@ namespace Input
     *  @param[in] const OIS::MouseEvent & arg
     *  @return (bool)
     */
-    bool MouseMoved( const OIS::MouseEvent &arg );
+    bool MouseMoved(const OIS::MouseEvent &arg);
 
 
     /*! Called by the System when a player presses a mouse button
@@ -142,7 +142,7 @@ namespace Input
     *  @param[in] OIS::MouseButtonID id
     *  @return (bool)
     */
-    bool MousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    bool MousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
 
     /*! Called by the System when a player releases a mouse button
@@ -151,20 +151,20 @@ namespace Input
     *  @param[in] OIS::MouseButtonID id
     *  @return (bool)
     */
-    bool MouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    bool MouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
 
     /*! Returns the System controlling the Scene
     *
-    * @return ( IInputSystem* )
+    * @return (IInputSystem*)
     */
-    IInputSystem* GetSystem( ) { return m_system; };
+    IInputSystem* GetSystem() { return m_system; };
 
   private:
 
-    InputSystemScene( ) { };
-    InputSystemScene( const InputSystemScene & copy ) { };
-    InputSystemScene & operator = ( const InputSystemScene & copy ) { return *this; };
+    InputSystemScene() { };
+    InputSystemScene(const InputSystemScene & copy) { };
+    InputSystemScene & operator = (const InputSystemScene & copy) { return *this; };
 
     bool m_inputAllowed;
 

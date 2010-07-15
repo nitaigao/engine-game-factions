@@ -27,15 +27,15 @@ namespace Renderer
      *
      *  @return ()
      */
-    ~BadArchiveFactory( ) { };
+    ~BadArchiveFactory() { };
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    BadArchiveFactory( Resources::IResourceCache* resourceCache )
-      : m_resourceCache( resourceCache )
+    BadArchiveFactory(Resources::IResourceCache* resourceCache)
+      : m_resourceCache(resourceCache)
     {
 
     }
@@ -45,7 +45,7 @@ namespace Renderer
      *
      *  @return (const Ogre::String&)
      */
-    const Ogre::String& getType( ) const;
+    const Ogre::String& getType() const;
 
 
     /*! Creates an instance of a BadArchive
@@ -53,7 +53,7 @@ namespace Renderer
      *  @param[in] const Ogre::String & name
      *  @return (Ogre::Archive*)
      */
-    Ogre::Archive* createInstance( const Ogre::String& name ); 
+    Ogre::Archive* createInstance(const Ogre::String& name); 
 
 
     /*! Destroys an instance of a BadArchive
@@ -61,12 +61,12 @@ namespace Renderer
      *  @param[in] Ogre::Archive *
      *  @return (void)
      */
-    void destroyInstance( Ogre::Archive* );  
+    void destroyInstance(Ogre::Archive*);  
 
   private:
 
-    BadArchiveFactory( const BadArchiveFactory & copy ) { };
-    BadArchiveFactory & operator = ( const BadArchiveFactory & copy ) { return *this; };
+    BadArchiveFactory(const BadArchiveFactory & copy) { };
+    BadArchiveFactory & operator = (const BadArchiveFactory & copy) { return *this; };
 
     Resources::IResourceCache* m_resourceCache;
 

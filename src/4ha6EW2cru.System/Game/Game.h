@@ -49,7 +49,7 @@ namespace Game
     GameRoot(
       Platform::IProgramOptions* programOptions, Configuration::IConfiguration* configuration, Platform::IPlatformManager* platformManager, 
       ISystemManager* systemManager, Events::IEventManager* eventManager, Services::IServiceManager* serviceManager, IO::IFileSystem* fileSystem
-      )
+     )
       : m_isQuitting(false)
       , m_isInitialized(false)
       , m_world(0)

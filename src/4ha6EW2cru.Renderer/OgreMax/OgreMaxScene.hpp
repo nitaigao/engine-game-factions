@@ -150,7 +150,7 @@ namespace OgreMax
             Ogre::SceneNode* rootNode = 0,
             OgreMaxSceneCallback* callback = 0,
             const Ogre::String& defaultResourceGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME
-            );
+           );
 
         void Load
             (
@@ -161,7 +161,7 @@ namespace OgreMax
             Ogre::SceneNode* rootNode = 0,
             OgreMaxSceneCallback* callback = 0,
             const Ogre::String& defaultResourceGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME
-            );
+           );
 
         /** 
          * Destroys the internal OgreMaxScene objects 
@@ -316,7 +316,7 @@ namespace OgreMax
                 const Ogre::String& name, 
                 const Ogre::String& type, 
                 bool recursive = false
-                )
+               )
             {
                 this->name = name;
                 this->type = type;
@@ -385,7 +385,7 @@ namespace OgreMax
             Ogre::SceneNode* rootNode = 0,
             OgreMaxSceneCallback* callback = 0,
             const Ogre::String& defaultResourceGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME            
-            );
+           );
 
         //Ogre::RenderTargetListener methods
         void preRenderTargetUpdate(const Ogre::RenderTargetEvent& e);
@@ -464,7 +464,7 @@ namespace OgreMax
             (
             const TiXmlElement* childElement, 
             std::vector<Types::RenderTextureParameters::Material>& materials
-            );
+           );
 
         Ogre::ShadowCameraSetup* ParseShadowCameraSetup(const Ogre::String& type, Ogre::Plane optimalPlane);                
 

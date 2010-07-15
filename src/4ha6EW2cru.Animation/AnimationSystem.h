@@ -29,18 +29,18 @@ namespace Animation
      *
      *  @return ()
      */
-    ~AnimationSystem( ) { };
+    ~AnimationSystem() { };
 
     
     /*! Default Constructor
     *
     *  @return ()
     */
-    AnimationSystem( Resources::IResourceCache* resourceCache )
-      : m_scene( 0 )
-      , m_threadMemory( 0 )
-      , m_stackBuffer( 0 )
-      , m_resourceCache( resourceCache )
+    AnimationSystem(Resources::IResourceCache* resourceCache)
+      : m_scene(0)
+      , m_threadMemory(0)
+      , m_stackBuffer(0)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -50,7 +50,7 @@ namespace Animation
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -58,35 +58,35 @@ namespace Animation
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( );
+    void Release();
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::ANIMATION; };
+    inline System::Types::Type GetType() const { return System::Types::ANIMATION; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    inline AnyType::AnyTypeMap GetAttributes() const { return AnyType::AnyTypeMap(); };
 
 
     /*! Sets a System Property
@@ -95,15 +95,15 @@ namespace Animation
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };    
+    inline void SetAttribute(const std::string& name, AnyType value) { };    
 
 
   private:
 
-    AnimationSystem( const AnimationSystem & copy ) { };
-    AnimationSystem & operator = ( const AnimationSystem & copy ) { return *this; };
+    AnimationSystem(const AnimationSystem & copy) { };
+    AnimationSystem & operator = (const AnimationSystem & copy) { return *this; };
 
-    static void errorReportFunction( const char* str, void* errorOutputObject );
+    static void errorReportFunction(const char* str, void* errorOutputObject);
 
     hkThreadMemory* m_threadMemory;
     char* m_stackBuffer;

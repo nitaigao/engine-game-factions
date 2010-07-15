@@ -60,7 +60,7 @@ void TeamcityProgressListener::addFailure(const TestFailure &failure) {
         failure.failedTest()->getName(),
         e->message().shortDescription(),
         details
-    );
+   );
 }
 
 void TeamcityProgressListener::endTest(Test *test) {

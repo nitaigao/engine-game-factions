@@ -29,69 +29,69 @@ namespace Script
      *
      *  @return ()
      */
-    ~InputFacade( ) { };
+    ~InputFacade() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    InputFacade( Services::IServiceManager* serviceManager )
-      : m_serviceManager( serviceManager )
+    InputFacade(Services::IServiceManager* serviceManager)
+      : m_serviceManager(serviceManager)
     {
 
     }
 
     /*! Registers the Script functions with the given state
     *
-    * @return ( void )
+    * @return (void)
     */
-    static luabind::scope  RegisterFunctions( );
+    static luabind::scope  RegisterFunctions();
 
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "input"; };
+    inline std::string GetName() { return "input"; };
 
 
     /*! Returns the key or mouse text associated with the given message
     *
     * @param[in] const std::string & message
-    * @return ( std::string )
+    * @return (std::string)
     */
-    std::string GetTextForMessage( const System::MessageType& message );
+    std::string GetTextForMessage(const System::MessageType& message);
 
 
     /*! Sets the key or mouse button to the given message
     *
     * @param[in] const std::string & message
     * @param[in] const std::string & binding
-    * @return ( void )
+    * @return (void)
     */
-    void SetMessageBinding( const System::MessageType& message, const std::string& binding );
+    void SetMessageBinding(const System::MessageType& message, const std::string& binding);
 
 
     /*! Sets a default binding for the given message which will be used if the binding isn't specified in the config file
     *
     * @param[in] const std::string & message
     * @param[in] const std::string & binding
-    * @return ( void )
+    * @return (void)
     */
-    void SetDefaultMessageBinding( const System::MessageType& message, const std::string& binding );
+    void SetDefaultMessageBinding(const System::MessageType& message, const std::string& binding);
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
   private:
 
-    InputFacade( const InputFacade & copy ) { };
-    InputFacade & operator = ( const InputFacade & copy ) { return *this; };
+    InputFacade(const InputFacade & copy) { };
+    InputFacade & operator = (const InputFacade & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
     

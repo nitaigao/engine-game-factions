@@ -24,7 +24,7 @@ namespace Animation
      *
      *  @return ()
      */
-    virtual ~IAnimationSystemScene( ) { };
+    virtual ~IAnimationSystemScene() { };
     
   };
 };

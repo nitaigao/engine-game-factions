@@ -19,13 +19,13 @@ namespace
 
   public:
 
-    MOCK_METHOD1( RegisterUpdateHandler, void( Script::IScriptFunctionHandler* ) );
-    MOCK_METHOD1( Update, void( float ) );
-    MOCK_METHOD1( UnRegisterUpdateHandler, void( Script::IScriptFunctionHandler* ) );
-    MOCK_METHOD0( Destroy, void( ) );
+    MOCK_METHOD1(RegisterUpdateHandler, void(Script::IScriptFunctionHandler*));
+    MOCK_METHOD1(Update, void(float));
+    MOCK_METHOD1(UnRegisterUpdateHandler, void(Script::IScriptFunctionHandler*));
+    MOCK_METHOD0(Destroy, void());
 
 
-    static void ConsumeFunctionHandler( Script::IScriptFunctionHandler* handler )
+    static void ConsumeFunctionHandler(Script::IScriptFunctionHandler* handler)
     {
       delete handler;
     }

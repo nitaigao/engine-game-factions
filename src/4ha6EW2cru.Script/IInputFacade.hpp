@@ -24,7 +24,7 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IInputFacade( ) { };
+    virtual ~IInputFacade() { };
     
   };
 };

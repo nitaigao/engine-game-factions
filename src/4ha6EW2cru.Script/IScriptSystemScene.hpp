@@ -30,15 +30,15 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptSystemScene( ) { };
+    virtual ~IScriptSystemScene() { };
 
 
     /*! Unloads and Destroys a Script Component
      *
      * @param[in] const std::string & name
-     * @return ( void )
+     * @return (void)
      */
-    virtual void UnloadComponent( const std::string& name ) = 0;
+    virtual void UnloadComponent(const std::string& name) = 0;
 
 
   };

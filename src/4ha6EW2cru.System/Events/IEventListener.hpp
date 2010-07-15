@@ -73,7 +73,7 @@ namespace Events
       return (
         this->GetHandlerAddress() == input->GetHandlerAddress() &&
         this->GetHandlerFunctionName() == input->GetHandlerFunctionName()
-        );
+       );
     }
 
   };

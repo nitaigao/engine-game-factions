@@ -24,32 +24,32 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkStream( ) { };
+    virtual ~INetworkStream() { };
 
 
     /*! Writes string data to the stream
     *
     * @param[in] const std::string & data
-    * @return ( void )
+    * @return (void)
     */
-    virtual void Write( const std::string& data ) = 0;
+    virtual void Write(const std::string& data) = 0;
 
 
     /*! Reads data into the string
     *
     * @param[in] std::string data
-    * @return ( GAMEAPI void )
+    * @return (GAMEAPI void)
     */
-    virtual void Read( std::string& data ) = 0;
+    virtual void Read(std::string& data) = 0;
 
 
 
     /*! Sets the position of the read cursor
     *
     * @param[in] const unsigned int & position
-    * @return ( void )
+    * @return (void)
     */
-    virtual void SetReadPosition( const unsigned int& position ) = 0;
+    virtual void SetReadPosition(const unsigned int& position) = 0;
     
   };
 };

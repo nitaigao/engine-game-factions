@@ -35,7 +35,7 @@ namespace Input
      *
      *  @return ()
      */
-    ~InputSystem( );
+    ~InputSystem();
   
   
     /*! Default Constructor
@@ -43,15 +43,15 @@ namespace Input
      *  @param[in] Configuration::IConfiguration * configuration
      *  @return ()
      */
-    InputSystem( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager )
-      : _inputAllowed( true )
-      , m_eventManager( eventManager )
-      , m_configuration( 0 )
-      , m_inputManager( 0 )
-      , m_keyboard( 0 )
-      , m_mouse( 0 )
-      , m_platformManager( platformManager )
-      , m_serviceManager( serviceManager )
+    InputSystem(Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager)
+      : _inputAllowed(true)
+      , m_eventManager(eventManager)
+      , m_configuration(0)
+      , m_inputManager(0)
+      , m_keyboard(0)
+      , m_mouse(0)
+      , m_platformManager(platformManager)
+      , m_serviceManager(serviceManager)
     {
   
     }
@@ -61,7 +61,7 @@ namespace Input
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
   
   
     /*! Performs an Input capture and steps internal data
@@ -69,44 +69,44 @@ namespace Input
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    inline void Update( float deltaMilliseconds );
+    inline void Update(float deltaMilliseconds);
 
   
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( ) { };
+    void Release() { };
   
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
   
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    System::Types::Type GetType( ) const { return System::Types::INPUT; };
+    System::Types::Type GetType() const { return System::Types::INPUT; };
   
   
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
   
   
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    inline AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
   
   
     /*! Sets a System Property
@@ -115,7 +115,7 @@ namespace Input
     *  @param[in] AnyType value
     *  @return (void)
     */
-    void SetAttribute( const std::string& name, AnyType value );
+    void SetAttribute(const std::string& name, AnyType value);
   
 
     /*! Creates a SystemComponent specific to the SystemScene
@@ -124,7 +124,7 @@ namespace Input
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, System::Types::Type systemType ) { return 0; };
+    ISystemComponent* CreateComponent(const std::string& name, System::Types::Type systemType) { return 0; };
   
     
     /*! Callback fired when the user presses a button on the keyboard
@@ -132,7 +132,7 @@ namespace Input
      *  @param[in] const OIS::KeyEvent & arg
      *  @return (bool)
      */
-    bool keyPressed( const OIS::KeyEvent &arg );
+    bool keyPressed(const OIS::KeyEvent &arg);
   
     
     /*! Callback fired when the user releases a button on the keyboard
@@ -140,7 +140,7 @@ namespace Input
      *  @param[in] const OIS::KeyEvent & arg
      *  @return (bool)
      */
-    bool keyReleased( const OIS::KeyEvent &arg );
+    bool keyReleased(const OIS::KeyEvent &arg);
   
     
     /*! Callback fired when the user moves the mouse
@@ -148,7 +148,7 @@ namespace Input
      *  @param[in] const OIS::MouseEvent & arg
      *  @return (bool)
      */
-    bool mouseMoved( const OIS::MouseEvent &arg );
+    bool mouseMoved(const OIS::MouseEvent &arg);
   
   
     /*! Callback fired when the user presses a button on the mouse
@@ -157,7 +157,7 @@ namespace Input
      *  @param[in] OIS::MouseButtonID id
      *  @return (bool)
      */
-    bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    bool mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
   
     
     /*! Callback fired when the user releases a button on the mouse 
@@ -166,36 +166,36 @@ namespace Input
      *  @param[in] OIS::MouseButtonID id
      *  @return (bool)
      */
-    bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    bool mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
 
     /*! Returns the Bindings setup in the config file
     *
-    * @return ( AnyType::AnyTypeMap )
+    * @return (AnyType::AnyTypeMap)
     */
-    inline InputMessageBinding::InputMessageBindingList GetBindings( ) { return m_messageBindings; };
+    inline InputMessageBinding::InputMessageBindingList GetBindings() { return m_messageBindings; };
 
 
     /*! Returns the Keyboard controller
     *
-    * @return ( OIS::Keyboard* )
+    * @return (OIS::Keyboard*)
     */
-    inline OIS::Keyboard* GetKeyboard( ) { return m_keyboard; };
+    inline OIS::Keyboard* GetKeyboard() { return m_keyboard; };
 
 
     /*! Returns the Mouse controller
     *
-    * @return ( OIS::Mouse* )
+    * @return (OIS::Mouse*)
     */
-    inline OIS::Mouse* GetMouse( ) { return m_mouse; };
+    inline OIS::Mouse* GetMouse() { return m_mouse; };
   
   
   private:
 
-    InputSystem( const InputSystem & copy ) { };
-    InputSystem & operator = ( const InputSystem & copy ) { return *this; };
+    InputSystem(const InputSystem & copy) { };
+    InputSystem & operator = (const InputSystem & copy) { return *this; };
 
-    void LoadMessageBindings( );
+    void LoadMessageBindings();
   
     bool _inputAllowed;
   

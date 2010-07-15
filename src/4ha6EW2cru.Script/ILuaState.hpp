@@ -25,66 +25,66 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~ILuaState( ) { };
+    virtual ~ILuaState() { };
 
 
     /*! Initializes a new LuaState 
     *
-    * @return ( void )
+    * @return (void)
     */
-    virtual void Initialize( ) = 0;
+    virtual void Initialize() = 0;
 
 
     /*! Destroys the lua_State
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Destroy( ) = 0;
+    virtual void Destroy() = 0;
 
 
     /*! Creates a Child LuaState
      *
-     * @return ( ILuaState* )
+     * @return (ILuaState*)
      */
-    virtual ILuaState* CreateChild( ) = 0;
+    virtual ILuaState* CreateChild() = 0;
 
 
     /*! Registers Types for use in the LuaState Script
      *
      * @param[in] luabind::scope
-     * @return ( void )
+     * @return (void)
      */
-    virtual void RegisterTypes( const luabind::scope& classScope ) = 0;
+    virtual void RegisterTypes(const luabind::scope& classScope) = 0;
 
 
     /*! Loads a Script File from the FileSystem
      *
      * @param[in] const std::string & scriptPath
-     * @return ( void )
+     * @return (void)
      */
-    virtual void LoadScript( const std::string& scriptPath ) = 0; 
+    virtual void LoadScript(const std::string& scriptPath) = 0; 
 
 
     /*! Executes this Script State
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Execute( ) = 0;
+    virtual void Execute() = 0;
 
 
     /*! Runs a new Parse over a Script
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void ReParse( ) = 0;
+    virtual void ReParse() = 0;
 
 
     /*! Executes the given string as Lua code
      *
      * @param[in] const std::string & scriptString
-     * @return ( void )
+     * @return (void)
      */
-    virtual void ExecuteString( const std::string& scriptString ) = 0;
+    virtual void ExecuteString(const std::string& scriptString) = 0;
     
   };
 };

@@ -25,7 +25,7 @@ namespace Testing
      *
      *  @return ()
      */
-    ~Specificaton( )
+    ~Specificaton()
     {
       
     }
@@ -35,8 +35,8 @@ namespace Testing
      *
      *  @return ()
      */
-    Specificaton( )
-      : _subject( 0 )
+    Specificaton()
+      : _subject(0)
     {
 
     }
@@ -46,10 +46,10 @@ namespace Testing
      *
      *  @return (void)
      */
-    void setUp( )
+    void setUp()
     {
-      this->SetupTest( );
-      this->EstablishBaseContext( );
+      this->SetupTest();
+      this->EstablishBaseContext();
     }
 
 
@@ -57,11 +57,11 @@ namespace Testing
     *
     *  @return (void)
     */
-    void tearDown( )
+    void tearDown()
     {
-      this->TearDownTest( );
+      this->TearDownTest();
 
-      if ( _subject != 0 )
+      if (_subject != 0)
       {
         delete _subject;
       }
@@ -72,21 +72,21 @@ namespace Testing
      *
      *  @return (void)
      */
-    virtual void SetupTest( ) { };
+    virtual void SetupTest() { };
 
 
     /*! Override to tear the test data down
      *
      *  @return (void)
      */
-    virtual void TearDownTest( ) { };
+    virtual void TearDownTest() { };
 
 
     /*! Override to setup the test data in the BaseContext or derived classes
      *
      *  @return (void)
      */
-    virtual void EstablishBaseContext( ) { };
+    virtual void EstablishBaseContext() { };
 
 
   protected:
@@ -96,8 +96,8 @@ namespace Testing
   private:
 
     
-    Specificaton( const Specificaton & copy ) { };
-    Specificaton & operator = ( const Specificaton & copy ) { return *this; };
+    Specificaton(const Specificaton & copy) { };
+    Specificaton & operator = (const Specificaton & copy) { return *this; };
 
   };
 };

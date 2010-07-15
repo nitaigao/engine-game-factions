@@ -25,17 +25,17 @@ protected:
   MockInstrumentation* m_instrumentation;
   MockResourceCache* m_resourceCache;
 
-  void EstablishContext( )
+  void EstablishContext()
   {
-    m_state = new MockLuaState( );
-    m_serviceManager = new MockServiceManager( );
-    m_eventManager = new MockEventManager( );
-    m_platformManager = new MockPlatformManager( );
-    m_instrumentation = new MockInstrumentation( );
-    m_resourceCache = new MockResourceCache( );
+    m_state = new MockLuaState();
+    m_serviceManager = new MockServiceManager();
+    m_eventManager = new MockEventManager();
+    m_platformManager = new MockPlatformManager();
+    m_instrumentation = new MockInstrumentation();
+    m_resourceCache = new MockResourceCache();
   }
 
-  void DestroyContext( )
+  void DestroyContext()
   {
     delete m_state;
     delete m_serviceManager;
@@ -45,16 +45,16 @@ protected:
     delete m_resourceCache;
   }
 
-  ScriptFacadeFactory* CreateSubject( )
+  ScriptFacadeFactory* CreateSubject()
   {
-    return new ScriptFacadeFactory( m_serviceManager, m_eventManager, m_platformManager, m_instrumentation, m_resourceCache );
+    return new ScriptFacadeFactory(m_serviceManager, m_eventManager, m_platformManager, m_instrumentation, m_resourceCache);
   }
 };
 
-TEST_F( ScriptFacadeFactory_Tests, should_create_component )
+TEST_F(ScriptFacadeFactory_Tests, should_create_component)
 {
   MockScriptComponent component;
 
-  IScriptFacade* facade = m_subject->CreateScriptFacade( IScriptFacade::ANIMATION, &component, m_state );
+  IScriptFacade* facade = m_subject->CreateScriptFacade(IScriptFacade::ANIMATION, &component, m_state);
   delete facade;
 }

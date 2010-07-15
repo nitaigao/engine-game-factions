@@ -26,7 +26,7 @@ namespace Renderer
      *
      *  @return ()
      */
-    virtual ~IRendererSystemComponent( ) { };
+    virtual ~IRendererSystemComponent() { };
 
   };
 };

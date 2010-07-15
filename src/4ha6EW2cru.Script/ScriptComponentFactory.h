@@ -28,17 +28,17 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptComponentFactory( );
+    ~ScriptComponentFactory();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    ScriptComponentFactory( ILuaState* masterState, Events::IEventManager* eventManager, IScriptFacadeFactory* facadeFactory )
-      : m_masterState( masterState )
-      , m_eventManager( eventManager )
-      , m_facadeFactory( facadeFactory )
+    ScriptComponentFactory(ILuaState* masterState, Events::IEventManager* eventManager, IScriptFacadeFactory* facadeFactory)
+      : m_masterState(masterState)
+      , m_eventManager(eventManager)
+      , m_facadeFactory(facadeFactory)
     {
 
     }
@@ -48,14 +48,14 @@ namespace Script
     *
     * @param[in] const std::string & name
     * @param[in] const std::string & type
-    * @return ( IScriptComponent* )
+    * @return (IScriptComponent*)
     */
-    IScriptComponent* CreateComponent( const std::string& name, const std::string& type );
+    IScriptComponent* CreateComponent(const std::string& name, const std::string& type);
 
   private:
 
-    ScriptComponentFactory( const ScriptComponentFactory & copy ) { };
-    ScriptComponentFactory & operator = ( const ScriptComponentFactory & copy ) { return *this; };
+    ScriptComponentFactory(const ScriptComponentFactory & copy) { };
+    ScriptComponentFactory & operator = (const ScriptComponentFactory & copy) { return *this; };
 
     ILuaState* m_masterState;
     Events::IEventManager* m_eventManager;

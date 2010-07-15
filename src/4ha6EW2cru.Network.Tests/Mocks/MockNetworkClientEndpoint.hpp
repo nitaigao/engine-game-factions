@@ -19,9 +19,9 @@ namespace
 
   public:
 
-    MOCK_METHOD0( Initialize, void( ) );
-    MOCK_METHOD1( Update, void( float ) );
-    MOCK_METHOD1( SetPassive, void( bool ) );
+    MOCK_METHOD0(Initialize, void());
+    MOCK_METHOD1(Update, void(float));
+    MOCK_METHOD1(SetPassive, void(bool));
     
   };
 };

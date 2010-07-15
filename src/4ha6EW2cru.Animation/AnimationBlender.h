@@ -28,18 +28,18 @@ namespace Animation
      *
      *  @return ()
      */
-    ~AnimationBlender( ) { };
+    ~AnimationBlender() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    AnimationBlender( )
-      : m_sourceController( 0 )
-      , m_targetController( 0 )
-      , m_timeLeft( 0 )
-      , m_blendTime( 0 )
+    AnimationBlender()
+      : m_sourceController(0)
+      , m_targetController(0)
+      , m_timeLeft(0)
+      , m_blendTime(0)
     {
 
     }
@@ -48,41 +48,41 @@ namespace Animation
     *
     * @param[in] const std::string & animationName
     * @param[in] hkaDefaultAnimationControl * controller
-    * @return ( void )
+    * @return (void)
     */
-    inline void RegisterController( const std::string& animationName, hkaDefaultAnimationControl* controller ) 
+    inline void RegisterController(const std::string& animationName, hkaDefaultAnimationControl* controller) 
     { 
-      m_animationControllers.insert( std::make_pair( animationName, controller ) ); 
+      m_animationControllers.insert(std::make_pair(animationName, controller)); 
     };
 
 
     /*! Blends the given animation into the main animation loop
     *
     * @param[in] const std::string & animationName
-    * @return ( void )
+    * @return (void)
     */
-    void Blend( const std::string& animationName );
+    void Blend(const std::string& animationName);
 
 
     /*! UnBlends the given animation into the main animation loop
     *
     * @param[in] const std::string & animationName
-    * @return ( void )
+    * @return (void)
     */
-    void UnBlend( const std::string& animationName );
+    void UnBlend(const std::string& animationName);
 
 
     /*! Steps the Animation Blend forward
     *
     * @param[in] const float & deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
   private:
 
-    AnimationBlender( const AnimationBlender & copy ) { };
-    AnimationBlender & operator = ( const AnimationBlender & copy ) { return *this; };
+    AnimationBlender(const AnimationBlender & copy) { };
+    AnimationBlender & operator = (const AnimationBlender & copy) { return *this; };
 
     hkaDefaultAnimationControl* m_sourceController;
     hkaDefaultAnimationControl* m_targetController;

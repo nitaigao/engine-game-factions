@@ -19,22 +19,22 @@ protected:
   MockEventManager* m_eventManager;
   MockScriptFacadeFactory* m_facadeFactory;
 
-  void EstablishContext( )
+  void EstablishContext()
   {
-    m_masterState = new MockLuaState( );
-    m_eventManager = new MockEventManager( );
-    m_gui = new MockGUI( );
-    m_facadeFactory = new MockScriptFacadeFactory( );
+    m_masterState = new MockLuaState();
+    m_eventManager = new MockEventManager();
+    m_gui = new MockGUI();
+    m_facadeFactory = new MockScriptFacadeFactory();
   }
 
 
-  void DestroyContext( )
+  void DestroyContext()
   {
     delete m_eventManager;
   }
 
-  UXSystemComponentFactory* CreateSubject( )
+  UXSystemComponentFactory* CreateSubject()
   {
-    return new UXSystemComponentFactory( m_masterState, m_gui, m_eventManager, m_facadeFactory ); 
+    return new UXSystemComponentFactory(m_masterState, m_gui, m_eventManager, m_facadeFactory); 
   }
 };

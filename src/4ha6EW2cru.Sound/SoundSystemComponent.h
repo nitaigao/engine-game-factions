@@ -30,7 +30,7 @@ namespace Sound
     *
     *  @return ()
     */
-    ~SoundSystemComponent( ) { };
+    ~SoundSystemComponent() { };
 
 
     /*! Default Constructor
@@ -38,9 +38,9 @@ namespace Sound
     *  @param[in] const std::string & name
     *  @return ()
     */
-    SoundSystemComponent( const std::string& name, ISoundEventSystem* eventSystem )
-      : m_name( name )
-      , m_eventSystem( eventSystem )
+    SoundSystemComponent(const std::string& name, ISoundEventSystem* eventSystem)
+      : m_name(name)
+      , m_eventSystem(eventSystem)
     {
 
     }
@@ -50,7 +50,7 @@ namespace Sound
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    inline void Initialize( ) { };
+    inline void Initialize() { };
 
 
     /*! Steps the internal data of the Component
@@ -58,14 +58,14 @@ namespace Sound
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds ) { };
+    void Update(float deltaMilliseconds) { };
 
 
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Adds an Observer to the Component
@@ -73,14 +73,14 @@ namespace Sound
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    inline void AddObserver( IObserver* observer ) { };
+    inline void AddObserver(IObserver* observer) { };
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -88,7 +88,7 @@ namespace Sound
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Posts a message to observers
@@ -97,7 +97,7 @@ namespace Sound
     *  @param[in] AnyType::AnyValueMap parameters
     *  @return (AnyType)
     */
-    inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+    inline AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) { return AnyType(); };
 
 
     /*! Messages the Component to influence its internal state
@@ -105,38 +105,38 @@ namespace Sound
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream ) { };
+    void Serialize(IO::IStream* stream) { };
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream ) { };
+    void DeSerialize(IO::IStream* stream) { };
 
 
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
 
-    void KeyoutEvent( const std::string& eventPath );
+    void KeyoutEvent(const std::string& eventPath);
 
   private:
 
-    SoundSystemComponent( const SoundSystemComponent & copy ) { };
-    SoundSystemComponent & operator = ( const SoundSystemComponent & copy ) { return *this; };
+    SoundSystemComponent(const SoundSystemComponent & copy) { };
+    SoundSystemComponent & operator = (const SoundSystemComponent & copy) { return *this; };
 
     ISoundEventSystem* m_eventSystem;
 

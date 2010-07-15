@@ -24,7 +24,7 @@ namespace Sound
      *
      *  @return ()
      */
-    virtual ~ISoundSystemComponent( ) { };
+    virtual ~ISoundSystemComponent() { };
 
   };
 };

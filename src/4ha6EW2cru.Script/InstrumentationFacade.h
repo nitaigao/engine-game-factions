@@ -27,15 +27,15 @@ namespace Script
      *
      *  @return ()
      */
-    ~InstrumentationFacade( ) { };
+    ~InstrumentationFacade() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    InstrumentationFacade( System::IInstrumentation* instrumentation )
-      : m_instrumentation( instrumentation )
+    InstrumentationFacade(System::IInstrumentation* instrumentation)
+      : m_instrumentation(instrumentation)
     {
 
     }
@@ -44,43 +44,43 @@ namespace Script
     /*! Registers the Script functions with the given state
     *
     * @param[in] lua_State * state
-    * @return ( void )
+    * @return (void)
     */
-    static luabind::scope  RegisterFunctions( );
+    static luabind::scope  RegisterFunctions();
 
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "instrumentation"; };
+    inline std::string GetName() { return "instrumentation"; };
 
 
     /*! Gets the FPS Statistic for the Game
     *
-    * @return ( int )
+    * @return (int)
     */
-    inline int GetFPS( ) { return m_instrumentation->GetFPS( ); };
+    inline int GetFPS() { return m_instrumentation->GetFPS(); };
 
 
     /*! Returns the Round Time for the given Queue
     *
     * @param[in] const System::Queues::Queue & queue
-    * @return ( float )
+    * @return (float)
     */
-    inline float GetRoundTime( const System::Queues::Queue& queue ) { return m_instrumentation->GetRoundTime( queue ); };
+    inline float GetRoundTime(const System::Queues::Queue& queue) { return m_instrumentation->GetRoundTime(queue); };
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
   private:
 
-    InstrumentationFacade( const InstrumentationFacade & copy ) { };
-    InstrumentationFacade & operator = ( const InstrumentationFacade & copy ) { return *this; };
+    InstrumentationFacade(const InstrumentationFacade & copy) { };
+    InstrumentationFacade & operator = (const InstrumentationFacade & copy) { return *this; };
 
     System::IInstrumentation* m_instrumentation;
     

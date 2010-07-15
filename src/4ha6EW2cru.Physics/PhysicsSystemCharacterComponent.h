@@ -27,7 +27,7 @@ namespace Physics
      *
      *  @return ()
      */
-    ~PhysicsSystemCharacterComponent( );
+    ~PhysicsSystemCharacterComponent();
 
 
     /*! Default Constructor
@@ -37,16 +37,16 @@ namespace Physics
      *  @param[in] int componentId
      *  @return ()
      */
-    PhysicsSystemCharacterComponent( const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache )
-      : PhysicsSystemComponent( name, scene, resourceCache )
-      , m_characterBody( 0 )
-      , m_characterContext( 0 )
-      , m_framesInAir( 0 )
-      , m_isMovingForward( false )
-      , m_isMovingBackward( false )
-      , m_isMovingLeft( false )
-      , m_isMovingRight( false )
-      , m_previousGround( new hkpSurfaceInfo( ) )
+    PhysicsSystemCharacterComponent(const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache)
+      : PhysicsSystemComponent(name, scene, resourceCache)
+      , m_characterBody(0)
+      , m_characterContext(0)
+      , m_framesInAir(0)
+      , m_isMovingForward(false)
+      , m_isMovingBackward(false)
+      , m_isMovingLeft(false)
+      , m_isMovingRight(false)
+      , m_previousGround(new hkpSurfaceInfo())
     {
 
     }
@@ -57,7 +57,7 @@ namespace Physics
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Steps the internal data of the Component
@@ -65,9 +65,9 @@ namespace Physics
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
-    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
   private:
 
@@ -83,7 +83,7 @@ namespace Physics
 
     int m_framesInAir;
 
-    PhysicsSystemCharacterComponent & operator = ( const PhysicsSystemCharacterComponent & copy ) { return *this; };
+    PhysicsSystemCharacterComponent & operator = (const PhysicsSystemCharacterComponent & copy) { return *this; };
 
   };
 };

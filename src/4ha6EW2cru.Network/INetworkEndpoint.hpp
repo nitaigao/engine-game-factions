@@ -24,22 +24,22 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkEndpoint( ) { };
+    virtual ~INetworkEndpoint() { };
 
 
     /*! Initializes the Endpoint
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Initialize( ) = 0;
+    virtual void Initialize() = 0;
 
 
     /*! Updates the Endpoint
      *
      * @param[in] float deltaMilliseconds
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Update( float deltaMilliseconds ) = 0;
+    virtual void Update(float deltaMilliseconds) = 0;
     
   };
 };

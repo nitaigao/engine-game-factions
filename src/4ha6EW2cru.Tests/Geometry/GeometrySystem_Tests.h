@@ -7,13 +7,13 @@
 
 class GeometrySystem_Tests : public CPPUNIT_NS::TestFixture
 {
-  CPPUNIT_TEST_SUITE( GeometrySystem_Tests );
-  CPPUNIT_TEST( Should_Return_GeometrySystemScene_On_CreateScene );
-  CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE(GeometrySystem_Tests);
+  CPPUNIT_TEST(Should_Return_GeometrySystemScene_On_CreateScene);
+  CPPUNIT_TEST_SUITE_END();
 
 protected:
 
-  void Should_Return_GeometrySystemScene_On_CreateScene( );
+  void Should_Return_GeometrySystemScene_On_CreateScene();
 
 };
 

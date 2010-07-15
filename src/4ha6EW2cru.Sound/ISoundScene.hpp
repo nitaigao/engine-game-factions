@@ -25,9 +25,9 @@ namespace Sound
      *
      *  @return ()
      */
-    virtual ~ISoundScene( ) { };
+    virtual ~ISoundScene() { };
 
-    virtual ISoundSystem* GetSoundSystem( ) = 0;
+    virtual ISoundSystem* GetSoundSystem() = 0;
 
     
 

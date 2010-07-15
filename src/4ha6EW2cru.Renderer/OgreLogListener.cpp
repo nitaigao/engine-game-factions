@@ -7,24 +7,24 @@ using namespace Logging;
 
 namespace Renderer
 {
-  void OgreLogListener::messageLogged( const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName )
+  void OgreLogListener::messageLogged(const Ogre::String& message, Ogre::LogMessageLevel lml, bool maskDebug, const Ogre::String &logName)
   {
     std::stringstream logMessage;
     logMessage << logName << " " << message;
 
-    switch( lml )
+    switch(lml)
     {
 
     case Ogre::LML_TRIVIAL: 
-      Debug( logMessage.str( ) );
+      Debug(logMessage.str());
       break;
 
     case Ogre::LML_NORMAL: 
-      Info( logMessage.str( ) );
+      Info(logMessage.str());
       break;
 
     case Ogre::LML_CRITICAL:
-      Fatal( logMessage.str( ) );
+      Fatal(logMessage.str());
       break;
     }
 

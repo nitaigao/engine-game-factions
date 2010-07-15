@@ -26,50 +26,50 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptUpdateDispatcher( ) { };
+    ~ScriptUpdateDispatcher() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    ScriptUpdateDispatcher( ) { };
+    ScriptUpdateDispatcher() { };
 
 
     /*! Destroys the Dispatcher
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Registers an Update Handler to be called on each System Tick
     *
     * @param[in] IScriptFunctionHandler* handler
-    * @return ( void )
+    * @return (void)
     */
-    void RegisterUpdateHandler( IScriptFunctionHandler* handler );
+    void RegisterUpdateHandler(IScriptFunctionHandler* handler);
 
 
     /*! Updates all registered Update Handlers
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! UnRegisters an Update Handler from being called on each System Tick
     *
     * @param[in] IScriptFunctionHandler* handler
-    * @return ( void )
+    * @return (void)
     */
-    void UnRegisterUpdateHandler( IScriptFunctionHandler* handler );
+    void UnRegisterUpdateHandler(IScriptFunctionHandler* handler);
 
   private:
 
-    ScriptUpdateDispatcher( const ScriptUpdateDispatcher & copy ) { };
-    ScriptUpdateDispatcher & operator = ( const ScriptUpdateDispatcher & copy ) { return *this; };
+    ScriptUpdateDispatcher(const ScriptUpdateDispatcher & copy) { };
+    ScriptUpdateDispatcher & operator = (const ScriptUpdateDispatcher & copy) { return *this; };
 
     IScriptFunctionHandler::FunctionList m_updateHandlers;
     

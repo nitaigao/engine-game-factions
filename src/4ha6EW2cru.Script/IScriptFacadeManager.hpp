@@ -26,22 +26,22 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptFacadeManager( ) { };
+    virtual ~IScriptFacadeManager() { };
 
 
     /*! Initializes the Facade Manager with the given ScriptComponent
      *
      * @param[in] IScriptComponent *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Initialize( ISystemComponent* scriptComponent ) = 0;
+    virtual void Initialize(ISystemComponent* scriptComponent) = 0;
 
 
     /*! Destroys each ScriptFacade
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Destroy( ) = 0;
+    virtual void Destroy() = 0;
     
   };
 };

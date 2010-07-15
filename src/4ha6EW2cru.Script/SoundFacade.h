@@ -26,57 +26,57 @@ namespace Script
 
     /*! Registers the Script functions with the given state
     *
-    * @return ( void )
+    * @return (void)
     */
-    static luabind::scope RegisterFunctions( );
+    static luabind::scope RegisterFunctions();
 
     /*! Default Destructor
      *
      *  @return ()
      */
-    ~SoundFacade( ) { };
+    ~SoundFacade() { };
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    SoundFacade( ISystemComponent* component, Services::IServiceManager* serviceManager )
-      : m_component( component )
-      , m_serviceManager( serviceManager )
+    SoundFacade(ISystemComponent* component, Services::IServiceManager* serviceManager)
+      : m_component(component)
+      , m_serviceManager(serviceManager)
     {
 
     }
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "sound"; };
+    inline std::string GetName() { return "sound"; };
 
 
-    void TriggerEvent( const std::string& eventPath );
+    void TriggerEvent(const std::string& eventPath);
 
-    void KeyOutEvent( const std::string& eventPath );
+    void KeyOutEvent(const std::string& eventPath);
 
     /*! Instructs the Sound System to play some music from the given event path
     *
     *  @param[in] const std::string & eventPath
     *  @return (void)
     */
-    void PlayMusic( const std::string& eventPath );
+    void PlayMusic(const std::string& eventPath);
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
   private:
 
-    SoundFacade( const SoundFacade & copy ) { };
-    SoundFacade & operator = ( const SoundFacade & copy ) { return *this; };
+    SoundFacade(const SoundFacade & copy) { };
+    SoundFacade & operator = (const SoundFacade & copy) { return *this; };
 
     ISystemComponent* m_component;
     Services::IServiceManager* m_serviceManager;

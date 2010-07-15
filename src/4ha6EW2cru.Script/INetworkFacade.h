@@ -24,7 +24,7 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~INetworkFacade( ) { };
+    virtual ~INetworkFacade() { };
     
   };
 };

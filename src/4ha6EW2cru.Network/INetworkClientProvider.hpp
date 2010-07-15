@@ -27,53 +27,53 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkClientProvider( ) { };
+    virtual ~INetworkClientProvider() { };
 
 
     /*! Connects the Provider to a Server Address
      *
      * @param[in] const std::string & serverAddress
      * @param[in] unsigned int port
-     * @return (  )
+     * @return ()
      */
-    virtual void Connect( const std::string& serverAddress ) = 0;
+    virtual void Connect(const std::string& serverAddress) = 0;
 
 
     /*! Disconnects the Provider if connected to a Server
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Disconnect( ) = 0;
+    virtual void Disconnect() = 0;
 
 
     /*! Selects a Character to play on the Server
      *
      * @param[in] const std::string & characterName
-     * @return ( void )
+     * @return (void)
      */
-    virtual void SelectCharacter( const std::string& characterName ) = 0;
+    virtual void SelectCharacter(const std::string& characterName) = 0;
 
 
     /*! Broadcasts the Local Network for Servers
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void FindServers( ) = 0;
+    virtual void FindServers() = 0;
 
 
     /*! Stops the Client from receiving traffic, but it can still send messages
      *
      * @param[in] bool isPassive
-     * @return ( void )
+     * @return (void)
      */
-    virtual void SetPassive( bool isPassive ) = 0;
+    virtual void SetPassive(bool isPassive) = 0;
 
 
     /*! Tells the Server that the Client has finished loading the level
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void LevelLoaded( ) = 0;
+    virtual void LevelLoaded() = 0;
   };
 };
 

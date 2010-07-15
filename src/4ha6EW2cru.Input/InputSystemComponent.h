@@ -32,16 +32,16 @@ namespace Input
     *
     *  @return ()
     */
-    ~InputSystemComponent( ) { };
+    ~InputSystemComponent() { };
   
   
     /*! Default Constructor
     *
     *  @return ()
     */
-    InputSystemComponent( Services::IServiceManager* serviceManager )
-      : m_historySize( 10 )
-      , m_serviceManager( serviceManager )
+    InputSystemComponent(Services::IServiceManager* serviceManager)
+      : m_historySize(10)
+      , m_serviceManager(serviceManager)
     {
 
     }
@@ -52,7 +52,7 @@ namespace Input
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
   
   
     /*! Steps the internal data of the Component
@@ -60,21 +60,21 @@ namespace Input
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
   
   
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    void Destroy( ) { };
+    void Destroy() { };
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -82,7 +82,7 @@ namespace Input
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Adds an Observer to the Component
@@ -90,37 +90,37 @@ namespace Input
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    void AddObserver( IObserver* observer ) { m_observers.push_back( observer ); };
+    void AddObserver(IObserver* observer) { m_observers.push_back(observer); };
 
 
     /*! Gets the System::Types::Type of the Component
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::INPUT; };
+    inline System::Types::Type GetType() const { return System::Types::INPUT; };
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream ) { };
+    void Serialize(IO::IStream* stream) { };
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream ) { };
+    void DeSerialize(IO::IStream* stream) { };
 
 
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
 
     /*! Posts a message to observers
@@ -129,7 +129,7 @@ namespace Input
     *  @param[in] AnyType::AnyValueMap parameters
     *  @return (AnyType)
     */
-    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Messages the Component to influence its internal state
@@ -137,59 +137,59 @@ namespace Input
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Called by the Scene when the user presses a mouse button
     *
     * @param[in] const OIS::MouseEvent & arg
     * @param[in] OIS::MouseButtonID id
-    * @return ( void )
+    * @return (void)
     */
-    void MousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    void MousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
 
     /*! Called by the Scene when the user releases a mouse button
     *
     * @param[in] const OIS::MouseEvent & arg
     * @param[in] OIS::MouseButtonID id
-    * @return ( void )
+    * @return (void)
     */
-    void MouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
+    void MouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
 
     /*! Called the the Scene when the user moves the mouse
     *
     * @param[in] const OIS::MouseEvent & arg
-    * @return ( void )
+    * @return (void)
     */
-    void MouseMoved( const OIS::MouseEvent &arg ) { };
+    void MouseMoved(const OIS::MouseEvent &arg) { };
 
 
     /*! Called by the Scene when a key is pressed
     *
     * @param[in] const OIS::KeyEvent & arg
-    * @return ( void )
+    * @return (void)
     */
-    void KeyPressed( const OIS::KeyEvent &arg );
+    void KeyPressed(const OIS::KeyEvent &arg);
 
 
     /*! Called by the Scene when a key is released
     *
     * @param[in] const KeyEvent & arg
-    * @return ( void )
+    * @return (void)
     */
-    void KeyReleased( const OIS::KeyEvent &arg );
+    void KeyReleased(const OIS::KeyEvent &arg);
 
   
   private:
   
-    InputSystemComponent( const InputSystemComponent & copy ) { };
-    InputSystemComponent & operator = ( const InputSystemComponent & copy ) { return *this; };
+    InputSystemComponent(const InputSystemComponent & copy) { };
+    InputSystemComponent & operator = (const InputSystemComponent & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
 
-    float AverageInputHistory( const InputHistory& inputHistory );
+    float AverageInputHistory(const InputHistory& inputHistory);
 
     InputMessageBinding::InputMessageBindingList m_keyUpMessages;
     InputMessageBinding::InputMessageBindingList m_mouseUpMessages;

@@ -25,16 +25,16 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkClientController( ) { };
+    ~NetworkClientController() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkClientController( INetworkInterface* networkInterface )
-      : m_networkInterface( networkInterface )
-      , m_isPassive( false )
+    NetworkClientController(INetworkInterface* networkInterface)
+      : m_networkInterface(networkInterface)
+      , m_isPassive(false)
     {
 
     }
@@ -42,30 +42,30 @@ namespace Network
 
     /*! Initializes the Controller
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Selects a character within the game
     *
-    * @return ( void )
+    * @return (void)
     */
-    void SelectCharacter( const std::string& characterName );
+    void SelectCharacter(const std::string& characterName);
 
 
     /*! Broadcasts the Network for Servers
     *
-    * @return ( void )
+    * @return (void)
     */
-    void FindServers( unsigned int port );
+    void FindServers(unsigned int port);
 
 
     /*! Tells the Server that the Client has finished loading the Level
     *
-    * @return ( void )
+    * @return (void)
     */
-    void LevelLoaded( );
+    void LevelLoaded();
 
 
     /*! Forwards the Message to the given Entity
@@ -73,31 +73,31 @@ namespace Network
     * @param[in] const std::string & entityName
     * @param[in] const System::MessageType & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    void MessageEntity(const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Stops the Controller from Sending client data
     *
     * @param[in] bool isPassive
-    * @return ( void )
+    * @return (void)
     */
-    inline void SetPassive( bool isPassive ) { m_isPassive = isPassive; };
+    inline void SetPassive(bool isPassive) { m_isPassive = isPassive; };
 
 
     /*! Updates the internal state of the controller and processes the send queue at the send interval
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds ) { };
+    void Update(float deltaMilliseconds) { };
 
 
   private:
 
-    NetworkClientController( const NetworkClientController & copy ) { };
-    NetworkClientController & operator = ( const NetworkClientController & copy ) { return *this; };
+    NetworkClientController(const NetworkClientController & copy) { };
+    NetworkClientController & operator = (const NetworkClientController & copy) { return *this; };
 
     INetworkInterface* m_networkInterface;
     bool m_isPassive;

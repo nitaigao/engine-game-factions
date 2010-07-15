@@ -30,18 +30,18 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkClientProvider( );
+    ~NetworkClientProvider();
   
 
     /*! IoC Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkClientProvider( Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint )
-      : m_networkInterface( networkInterface )
-      , m_endpoint( endpoint )
-      , m_controller( controller )
-      , m_configuration( configuration )
+    NetworkClientProvider(Configuration::IConfiguration* configuration, INetworkInterface* networkInterface, INetworkClientController* controller, INetworkClientEndpoint* endpoint)
+      : m_networkInterface(networkInterface)
+      , m_endpoint(endpoint)
+      , m_controller(controller)
+      , m_configuration(configuration)
     {
 
     }
@@ -50,17 +50,17 @@ namespace Network
     /*! Initializes the Network Interface
     *
     * @param[in] int maxConnections
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( int maxConnections );
+    void Initialize(int maxConnections);
 
 
     /*! Updates the Network Provider
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Distributes the message for the entity across the Network
@@ -68,71 +68,71 @@ namespace Network
     * @param[in] ISystemComponent* subject
     * @param[in] const System::Message & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    void Message(ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Destroys the Provider
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( ) { };
+    void Destroy() { };
 
 
     /*! Connects the Provider to a Server Address
     *
     * @param[in] const std::string & serverAddress
     * @param[in] unsigned int port
-    * @return (  )
+    * @return ()
     */
-    void Connect( const std::string& serverAddress );
+    void Connect(const std::string& serverAddress);
 
 
     /*! Disconnects the Provider if connected to a Server
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Disconnect( );
+    void Disconnect();
 
 
     /*! Selects a Character to play on the Server
     *
     * @param[in] const std::string & characterName
-    * @return ( void )
+    * @return (void)
     */
-    void SelectCharacter( const std::string& characterName );
+    void SelectCharacter(const std::string& characterName);
 
 
     /*! Broadcasts the Local Network for Servers
     *
-    * @return ( void )
+    * @return (void)
     */
-    void FindServers( );
+    void FindServers();
 
 
     /*! Stops the Client from receiving traffic, but it can still send messages
     *
     * @param[in] bool isPassive
-    * @return ( void )
+    * @return (void)
     */
-     inline void SetPassive( bool isPassive ) 
+     inline void SetPassive(bool isPassive) 
      { 
-       m_endpoint->SetPassive( isPassive ); 
-       m_controller->SetPassive( isPassive );
+       m_endpoint->SetPassive(isPassive); 
+       m_controller->SetPassive(isPassive);
      };
 
 
      /*! Tells the Server that the Client has finished loading the level
      *
-     * @return ( void )
+     * @return (void)
      */
-     inline void LevelLoaded( ) { m_controller->LevelLoaded( ); };
+     inline void LevelLoaded() { m_controller->LevelLoaded(); };
 
   private:
 
-    NetworkClientProvider( const NetworkClientProvider & copy ) { };
-    NetworkClientProvider & operator = ( const NetworkClientProvider & copy ) { return *this; };
+    NetworkClientProvider(const NetworkClientProvider & copy) { };
+    NetworkClientProvider & operator = (const NetworkClientProvider & copy) { return *this; };
 
     INetworkInterface* m_networkInterface;
     INetworkClientEndpoint* m_endpoint;

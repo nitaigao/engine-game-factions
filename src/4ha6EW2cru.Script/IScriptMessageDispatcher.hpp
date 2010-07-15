@@ -29,51 +29,51 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptMessageDispatcher( ) { };
+    virtual ~IScriptMessageDispatcher() { };
 
 
     /*! Dispatches a message to the listening Handlers
      *
      * @param[in] const System::MessageType & message
      * @param[in] AnyType::AnyTypeMap & parameters
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Dispatch_Message( const System::MessageType& message, AnyType::AnyTypeMap& parameters ) = 0;
+    virtual void Dispatch_Message(const System::MessageType& message, AnyType::AnyTypeMap& parameters) = 0;
 
 
     /*! Adds a Message handler ready for Message dispatch
     *
     * @param[in] const System::MessageType & message
     * @param[in] IScriptFunctionHandler * functionHandler
-    * @return ( void )
+    * @return (void)
     */
-    virtual void AddMessageHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+    virtual void AddMessageHandler(const System::MessageType& message, luabind::object delegateFunction) = 0;
 
 
     /*! Returns whether or not the handler has been added for the message
      *
      * @param[in] const System::MessageType & message
      * @param[in] IScriptFunctionHandler * functionHandler
-     * @return ( bool )
+     * @return (bool)
      */
-    virtual bool HasHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+    virtual bool HasHandler(const System::MessageType& message, luabind::object delegateFunction) = 0;
 
 
     /*! Removes the message handler from the handler list
     *
     * @param[in] const System::MessageType & message
     * @param[in] IScriptFunctionHandler * functionHandler
-    * @return ( void )
+    * @return (void)
     */
-    virtual void RemoveHandler( const System::MessageType& message, luabind::object delegateFunction ) = 0;
+    virtual void RemoveHandler(const System::MessageType& message, luabind::object delegateFunction) = 0;
 
 
     /*! Updates the Dispatcher
      *
      * @param[in] float
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Update( float ) = 0;
+    virtual void Update(float) = 0;
     
   };
 };

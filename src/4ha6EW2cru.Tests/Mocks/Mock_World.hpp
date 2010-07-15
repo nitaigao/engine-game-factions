@@ -20,55 +20,55 @@ class Mock_World : public IWorld, public MockObject
 
 public:
 
-  virtual ~Mock_World( )
+  virtual ~Mock_World()
   {
-    for ( IWorldEntity::WorldEntityList::iterator e = _entities.begin( ); e != _entities.end( ); ++e )
+    for (IWorldEntity::WorldEntityList::iterator e = _entities.begin(); e != _entities.end(); ++e)
     {
-      ISystemComponent::SystemComponentList components = ( *e )->GetComponents( );
+      ISystemComponent::SystemComponentList components = (*e)->GetComponents();
 
-      for( ISystemComponent::SystemComponentList::iterator c = components.begin( ); c != components.end( ); ++c )
+      for(ISystemComponent::SystemComponentList::iterator c = components.begin(); c != components.end(); ++c)
       {
-        _systemScenes[ ( *c )->GetAttributes( )[ System::Attributes::SystemType ].As< System::Types::Type >( ) ]->DestroyComponent( ( *c ) );
+        _systemScenes[ (*c)->GetAttributes()[ System::Attributes::SystemType ].As< System::Types::Type >() ]->DestroyComponent((*c));
       }
 
-      delete ( *e );
+      delete (*e);
     }
 
-    for ( ISystemScene::SystemSceneMap::iterator i = _systemScenes.begin( ); i != _systemScenes.end( ); ++i )
+    for (ISystemScene::SystemSceneMap::iterator i = _systemScenes.begin(); i != _systemScenes.end(); ++i)
     {
-      delete ( *i ).second;
+      delete (*i).second;
     }
   }
 
-  Mock_World( )
-    : MockObject( "Mock_World", 0 )
-    , createEntity_count( "Mock_World/CreateComponent", this )
-    , destroyEntity_count( "Mock_World/DestroyComponent", this )
+  Mock_World()
+    : MockObject("Mock_World", 0)
+    , createEntity_count("Mock_World/CreateComponent", this)
+    , destroyEntity_count("Mock_World/DestroyComponent", this)
   { };
 
   ExpectationCounter createEntity_count;
   ExpectationCounter destroyEntity_count;
 
-  IWorldEntity* CreateEntity( const std::string& name )
+  IWorldEntity* CreateEntity(const std::string& name)
   {
-    IWorldEntity* entity = new Mock_Entity( );
-    _entities.push_back( entity );
+    IWorldEntity* entity = new Mock_Entity();
+    _entities.push_back(entity);
     return entity;
   }
 
-  void DestroyEntity( IWorldEntity* entity )
+  void DestroyEntity(IWorldEntity* entity)
   {
 
   }
 
-  void AddSystemScene( ISystemScene* systemScene )
+  void AddSystemScene(ISystemScene* systemScene)
   {
-    _systemScenes[ systemScene->GetType( ) ] = systemScene;
+    _systemScenes[ systemScene->GetType() ] = systemScene;
   }
 
-  const ISystemScene::SystemSceneMap& GetSystemScenes( ) const { return _systemScenes; };
+  const ISystemScene::SystemSceneMap& GetSystemScenes() const { return _systemScenes; };
 
-  void Update( const float& deltaMilliseconds ) { };
+  void Update(const float& deltaMilliseconds) { };
 
 private:
 
@@ -77,7 +77,7 @@ private:
 
 private:
 
-  Mock_World & operator = ( const Mock_World & copy ) { return *this; };
+  Mock_World & operator = (const Mock_World & copy) { return *this; };
 };
 
 #endif

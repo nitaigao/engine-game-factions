@@ -27,22 +27,22 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkController( ) { };
+    virtual ~INetworkController() { };
 
 
     /*! Initializes the Controller
     *
-    * @return ( void )
+    * @return (void)
     */
-    virtual void Initialize( ) = 0;
+    virtual void Initialize() = 0;
 
 
     /*! Updates the internal state of the controller and processes the send queue at the send interval
      *
      * @param[in] float deltaMilliseconds
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Update( float deltaMilliseconds ) = 0;
+    virtual void Update(float deltaMilliseconds) = 0;
     
   };
 };

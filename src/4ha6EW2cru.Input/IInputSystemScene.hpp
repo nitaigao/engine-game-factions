@@ -18,9 +18,9 @@ namespace Input
 
   public:
 
-    virtual ~IInputSystemScene( ) { };
+    virtual ~IInputSystemScene() { };
 
-    virtual IInputSystem* GetSystem( ) = 0;
+    virtual IInputSystem* GetSystem() = 0;
 
   };
 };

@@ -18,150 +18,150 @@ using namespace Logging;
 
 namespace Renderer
 {
-  RendererSystemComponent::~RendererSystemComponent( )
+  RendererSystemComponent::~RendererSystemComponent()
   {
-    m_scene->GetSceneManager( )->getRootSceneNode( )->removeAndDestroyChild( m_name );
+    m_scene->GetSceneManager()->getRootSceneNode()->removeAndDestroyChild(m_name);
   }
 
-  void RendererSystemComponent::Initialize( )
+  void RendererSystemComponent::Initialize()
   {
-    m_sceneNode = m_scene->GetSceneManager( )->createSceneNode( m_name );
+    m_sceneNode = m_scene->GetSceneManager()->createSceneNode(m_name);
 
-    this->LoadModel( m_sceneNode, m_attributes[ System::Parameters::Model ].As< std::string >( ) );
+    this->LoadModel(m_sceneNode, m_attributes[ System::Parameters::Model ].As< std::string >());
 
-    m_scene->GetSceneManager( )->getRootSceneNode( )->addChild( m_sceneNode );
+    m_scene->GetSceneManager()->getRootSceneNode()->addChild(m_sceneNode);
   }
 
-  void RendererSystemComponent::LoadModel( Ogre::SceneNode* sceneNode, const std::string& modelPath )
+  void RendererSystemComponent::LoadModel(Ogre::SceneNode* sceneNode, const std::string& modelPath)
   {
-    OgreMaxModel* model = new OgreMaxModel( );
+    OgreMaxModel* model = new OgreMaxModel();
 
     try
     {
       std::stringstream prefix;
       prefix << m_name << "_";
 
-      model->Load( modelPath );
-      model->CreateInstance( 
-        m_scene->GetSceneManager( ), prefix.str( ), 0, OgreMaxModel::NO_ANIMATION_STATES, 
+      model->Load(modelPath);
+      model->CreateInstance(
+        m_scene->GetSceneManager(), prefix.str(), 0, OgreMaxModel::NO_ANIMATION_STATES, 
         0, Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, sceneNode 
-        );
+       );
     }
-    catch( Ogre::FileNotFoundException e )
+    catch(Ogre::FileNotFoundException e)
     {
-      Fatal( e.what( ) );
+      Fatal(e.what());
     }
 
     delete model;
   }
 
-  void RendererSystemComponent::Destroy( )
+  void RendererSystemComponent::Destroy()
   {
-    this->DestroySceneNode( m_sceneNode );
+    this->DestroySceneNode(m_sceneNode);
   }
 
-  AnyType RendererSystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  AnyType RendererSystemComponent::PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters)
   {
-    return m_observer->Observe( this, message, parameters );
+    return m_observer->Observe(this, message, parameters);
   }
 
-  AnyType RendererSystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  AnyType RendererSystemComponent::Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters)
   {
-    if ( message == System::Messages::SetPosition )
+    if (message == System::Messages::SetPosition)
     {
-      MathVector3 position = parameters[ System::Attributes::Position ].As< MathVector3 >( );
-      m_sceneNode->setPosition( MathTools::AsOgreVector3( position ) );
+      MathVector3 position = parameters[ System::Attributes::Position ].As< MathVector3 >();
+      m_sceneNode->setPosition(MathTools::AsOgreVector3(position));
     }
 
-    if ( message == System::Messages::SetOrientation )
+    if (message == System::Messages::SetOrientation)
     {
-      MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As< MathQuaternion >( );
-      m_sceneNode->setOrientation(MathTools::AsOgreQuaternion( orientation ) );
+      MathQuaternion orientation = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
+      m_sceneNode->setOrientation(MathTools::AsOgreQuaternion(orientation));
     }
 
-    if ( message == System::Messages::GetAnimationState )
+    if (message == System::Messages::GetAnimationState)
     {
       SkeletonList skeletons;
 
-      this->LinkSkeletons( m_sceneNode, &skeletons );
+      this->LinkSkeletons(m_sceneNode, &skeletons);
       
       return skeletons;
     }
 
-    return AnyType( );
+    return AnyType();
   }
 
-  void RendererSystemComponent::DestroySceneNode( Ogre::SceneNode* sceneNode )
+  void RendererSystemComponent::DestroySceneNode(Ogre::SceneNode* sceneNode)
   {
-    Ogre::Node::ChildNodeIterator children = sceneNode->getChildIterator( );
+    Ogre::Node::ChildNodeIterator children = sceneNode->getChildIterator();
 
-    while( children.hasMoreElements( ) )
+    while(children.hasMoreElements())
     {
-      SceneNode* childSceneNode = static_cast< SceneNode* >( children.getNext( ) );
-      this->DestroySceneNode( childSceneNode );
+      SceneNode* childSceneNode = static_cast< SceneNode* >(children.getNext());
+      this->DestroySceneNode(childSceneNode);
     }
 
-    SceneNode::ObjectIterator objects = sceneNode->getAttachedObjectIterator( );
+    SceneNode::ObjectIterator objects = sceneNode->getAttachedObjectIterator();
 
-    while( objects.hasMoreElements( ) )
+    while(objects.hasMoreElements())
     {
-      MovableObject* object = objects.getNext( );
+      MovableObject* object = objects.getNext();
 
-      if( object->getMovableType( ) == EntityFactory::FACTORY_TYPE_NAME )
+      if(object->getMovableType() == EntityFactory::FACTORY_TYPE_NAME)
       {
-        Entity* entity = m_scene->GetSceneManager( )->getEntity( object->getName( ) );
+        Entity* entity = m_scene->GetSceneManager()->getEntity(object->getName());
         
-        Ogre::Entity::ChildObjectListIterator childObjects = entity->getAttachedObjectIterator( );
+        Ogre::Entity::ChildObjectListIterator childObjects = entity->getAttachedObjectIterator();
 
-        while( childObjects.hasMoreElements( ) )
+        while(childObjects.hasMoreElements())
         {
-          m_scene->GetSceneManager( )->destroyMovableObject( childObjects.getNext( ) );
+          m_scene->GetSceneManager()->destroyMovableObject(childObjects.getNext());
         }
       }
 
-      m_scene->GetSceneManager( )->destroyMovableObject( object );
+      m_scene->GetSceneManager()->destroyMovableObject(object);
     }
 
-    sceneNode->removeAndDestroyAllChildren( );
+    sceneNode->removeAndDestroyAllChildren();
   }
 
-  void RendererSystemComponent::LinkSkeletons( Ogre::SceneNode* sceneNode, RendererSystemComponent::SkeletonList* skeletons )
+  void RendererSystemComponent::LinkSkeletons(Ogre::SceneNode* sceneNode, RendererSystemComponent::SkeletonList* skeletons)
   {
-    SceneNode::ObjectIterator objects = sceneNode->getAttachedObjectIterator( );
+    SceneNode::ObjectIterator objects = sceneNode->getAttachedObjectIterator();
 
-    while( objects.hasMoreElements( ) )
+    while(objects.hasMoreElements())
     {
-      MovableObject* object = objects.getNext( );
+      MovableObject* object = objects.getNext();
 
-      if( object->getMovableType( ) == EntityFactory::FACTORY_TYPE_NAME )
+      if(object->getMovableType() == EntityFactory::FACTORY_TYPE_NAME)
       {
-        Entity* entity = m_scene->GetSceneManager( )->getEntity( object->getName( ) );
+        Entity* entity = m_scene->GetSceneManager()->getEntity(object->getName());
 
-        if ( entity->hasSkeleton( ) )
+        if (entity->hasSkeleton())
         {
-          Ogre::Skeleton::BoneIterator boneIterator = entity->getSkeleton( )->getBoneIterator( );
+          Ogre::Skeleton::BoneIterator boneIterator = entity->getSkeleton()->getBoneIterator();
 
-          while( boneIterator.hasMoreElements( ) )
+          while(boneIterator.hasMoreElements())
           {
-            Ogre::Bone* oBone = boneIterator.getNext( );
-            oBone->setManuallyControlled( true );
+            Ogre::Bone* oBone = boneIterator.getNext();
+            oBone->setManuallyControlled(true);
 
-            /*Entity *axis = m_scene->GetSceneManager( )->createEntity( oBone->getName( ) + "_axis", "/data/entities/meshes/axes.mesh" );
-            TagPoint* tagPoint = entity->attachObjectToBone( oBone->getName( ), axis );
-            tagPoint->setScale( 0.005f, 0.005f, 0.005f );*/
+            /*Entity *axis = m_scene->GetSceneManager()->createEntity(oBone->getName() + "_axis", "/data/entities/meshes/axes.mesh");
+            TagPoint* tagPoint = entity->attachObjectToBone(oBone->getName(), axis);
+            tagPoint->setScale(0.005f, 0.005f, 0.005f);*/
           }
 
-          skeletons->push_back( entity->getSkeleton( ) );
+          skeletons->push_back(entity->getSkeleton());
         }
       }
     }
 
-    Node::ChildNodeIterator children = sceneNode->getChildIterator( );
+    Node::ChildNodeIterator children = sceneNode->getChildIterator();
 
-    while( children.hasMoreElements( ) )
+    while(children.hasMoreElements())
     {
-      SceneNode* child = static_cast< SceneNode* >( children.getNext( ) );
-      this->LinkSkeletons( child, skeletons );
+      SceneNode* child = static_cast< SceneNode* >(children.getNext());
+      this->LinkSkeletons(child, skeletons);
     }
   }
 }

@@ -19,8 +19,8 @@ namespace
 
   public:
 
-    MOCK_CONST_METHOD0( GetType, System::Types::Type( ) );
-    MOCK_METHOD2( ProcessMessage, AnyType::AnyTypeMap( const System::MessageType&, AnyType::AnyTypeMap ) );
+    MOCK_CONST_METHOD0(GetType, System::Types::Type());
+    MOCK_METHOD2(ProcessMessage, AnyType::AnyTypeMap(const System::MessageType&, AnyType::AnyTypeMap));
     
   };
 };

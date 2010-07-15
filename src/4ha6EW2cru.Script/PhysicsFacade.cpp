@@ -19,12 +19,12 @@ namespace Script
   luabind::scope PhysicsFacade::RegisterFunctions()
   {
     return
-      class_< PhysicsFacade >( "PhysicsFacade" )
-      .def( "rayQuery", &PhysicsFacade::RayQuery, copy_table( result ) )
+      class_< PhysicsFacade >("PhysicsFacade")
+      .def("rayQuery", &PhysicsFacade::RayQuery, copy_table(result))
       ;
   }
 
-   std::vector< std::string > PhysicsFacade::RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults )
+   std::vector< std::string > PhysicsFacade::RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& direction, float length, bool sortByDistance, int maxResults)
    {
      AnyType::AnyTypeMap parameters;
 
@@ -40,10 +40,10 @@ namespace Script
      debugParameters[ "origin" ] = origin;
      debugParameters[ "destination" ] = destination;
 
-     IService* renderService = Management::Get( )->GetServiceManager( )->FindService( System::Types::RENDER );
-     renderService->MessageType( "drawLine", debugParameters );*/
+     IService* renderService = Management::Get()->GetServiceManager()->FindService(System::Types::RENDER);
+     renderService->MessageType("drawLine", debugParameters);*/
 
-     IService* rayService = m_serviceManager->FindService( System::Types::PHYSICS );
-     return rayService->ProcessMessage( System::Messages::RayQuery, parameters ) [ "hits" ].As< std::vector< std::string > >( );
+     IService* rayService = m_serviceManager->FindService(System::Types::PHYSICS);
+     return rayService->ProcessMessage(System::Messages::RayQuery, parameters) [ "hits" ].As< std::vector< std::string > >();
    }
 }

@@ -31,23 +31,23 @@ namespace given_a_script_is_running
     MockScriptEventDispatcher* m_eventDispatcher;
     MockScriptUpdateDispatcher* m_updateDispatcher;
 
-    virtual void EstablishContext( )
+    virtual void EstablishContext()
     {
-      m_state = new MockLuaState( );
-      m_scriptFacadeManager = new MockScriptFacadeManager( );
-      m_messageDispatcher = new MockScriptMessageDispatcher( );
-      m_eventDispatcher = new MockScriptEventDispatcher( );
-      m_updateDispatcher = new MockScriptUpdateDispatcher( );
+      m_state = new MockLuaState();
+      m_scriptFacadeManager = new MockScriptFacadeManager();
+      m_messageDispatcher = new MockScriptMessageDispatcher();
+      m_eventDispatcher = new MockScriptEventDispatcher();
+      m_updateDispatcher = new MockScriptUpdateDispatcher();
     }
 
-    virtual void DestroyContext( )
+    virtual void DestroyContext()
     {
 
     }
 
-    ScriptComponent* CreateSubject( )
+    ScriptComponent* CreateSubject()
     {
-      return new ScriptComponent( m_state, m_scriptFacadeManager, m_messageDispatcher, m_eventDispatcher, m_updateDispatcher );
+      return new ScriptComponent(m_state, m_scriptFacadeManager, m_messageDispatcher, m_eventDispatcher, m_updateDispatcher);
     }
   };
   
@@ -58,27 +58,27 @@ namespace given_a_script_is_running
   
   protected:
 
-    void EstablishContext( )
+    void EstablishContext()
     {
-      ScriptComponent_BaseContext::EstablishContext( );
+      ScriptComponent_BaseContext::EstablishContext();
 
       m_eventType = "TestEvent";
     }
   
-    void Expecting( )
+    void Expecting()
     {
-      EXPECT_CALL( *m_eventDispatcher, RegisterEventHandler( m_eventType, A< IScriptFunctionHandler* >( ) ) )
-        .WillOnce( Invoke( MockScriptEventDispatcher::ConsumeFunctionHandler ) );
+      EXPECT_CALL(*m_eventDispatcher, RegisterEventHandler(m_eventType, A< IScriptFunctionHandler* >()))
+        .WillOnce(Invoke(MockScriptEventDispatcher::ConsumeFunctionHandler));
     }
   
-    void When( )
+    void When()
     {
-      m_subject->RegisterEventHandler( m_eventType, luabind::object( ) );
+      m_subject->RegisterEventHandler(m_eventType, luabind::object());
     }
     
   };
 
-  TEST_F( when_the_script_registers_an_event_handler, then_the_request_should_be_forwareded_to_the_dispatcher ) { };
+  TEST_F(when_the_script_registers_an_event_handler, then_the_request_should_be_forwareded_to_the_dispatcher) { };
 
   class when_a_script_registers_an_update_handler : public ScriptComponent_BaseContext
   {
@@ -89,28 +89,28 @@ namespace given_a_script_is_running
 
     void EstablishContext()
     {
-      ScriptComponent_BaseContext::EstablishContext( );
+      ScriptComponent_BaseContext::EstablishContext();
 
       m_delta = 10;
     }
 
-    void Expecting( )
+    void Expecting()
     {
-      EXPECT_CALL( *m_updateDispatcher, RegisterUpdateHandler( An< IScriptFunctionHandler* >( ) ) )
-        .WillOnce( Invoke( MockScriptUpdateDispatcher::ConsumeFunctionHandler ) );
+      EXPECT_CALL(*m_updateDispatcher, RegisterUpdateHandler(An< IScriptFunctionHandler* >()))
+        .WillOnce(Invoke(MockScriptUpdateDispatcher::ConsumeFunctionHandler));
 
-      EXPECT_CALL( *m_updateDispatcher, Update( m_delta ) );
+      EXPECT_CALL(*m_updateDispatcher, Update(m_delta));
     }
   
-    void When( )
+    void When()
     {
-      m_subject->RegisterUpdateHandler( luabind::object( ) );
-      m_subject->Update( m_delta );
+      m_subject->RegisterUpdateHandler(luabind::object());
+      m_subject->Update(m_delta);
     }
     
   };
 
-  TEST_F( when_a_script_registers_an_update_handler, then_it_should_receive_updates ) { }
+  TEST_F(when_a_script_registers_an_update_handler, then_it_should_receive_updates) { }
 
 
   class when_a_script_unregisters_an_update_handler : public ScriptComponent_BaseContext
@@ -122,23 +122,23 @@ namespace given_a_script_is_running
 
     void EstablishContext()
     {
-      ScriptComponent_BaseContext::EstablishContext( );
+      ScriptComponent_BaseContext::EstablishContext();
 
       m_delta = 10;
     }
 
-    void Expecting( )
+    void Expecting()
     {
-      EXPECT_CALL( *m_updateDispatcher, UnRegisterUpdateHandler( An< IScriptFunctionHandler* >( ) ) )
-        .WillOnce( Invoke( MockScriptUpdateDispatcher::ConsumeFunctionHandler ) );
+      EXPECT_CALL(*m_updateDispatcher, UnRegisterUpdateHandler(An< IScriptFunctionHandler* >()))
+        .WillOnce(Invoke(MockScriptUpdateDispatcher::ConsumeFunctionHandler));
     }
 
-    void When( )
+    void When()
     {
-      m_subject->UnRegisterUpdateHandler( luabind::object( ) );
+      m_subject->UnRegisterUpdateHandler(luabind::object());
     }
 
   };
 
-  TEST_F( when_a_script_unregisters_an_update_handler, then_it_should_not_receive_updates ) { }
+  TEST_F(when_a_script_unregisters_an_update_handler, then_it_should_not_receive_updates) { }
 };

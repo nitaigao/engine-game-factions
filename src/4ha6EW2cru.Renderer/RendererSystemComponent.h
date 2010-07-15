@@ -29,7 +29,7 @@ namespace Renderer
     *
     *  @return ()
     */
-    virtual ~RendererSystemComponent( );
+    virtual ~RendererSystemComponent();
 
 
     /*! Default Constructor
@@ -37,11 +37,11 @@ namespace Renderer
     *  @param[in] const std::string & name
     *  @return ()
     */
-    RendererSystemComponent( const std::string& name, IRenderSystemScene* scene )
-      : m_name( name )
-      , m_sceneNode( 0 )
-      , m_scene( scene )
-      , m_observer( 0 )
+    RendererSystemComponent(const std::string& name, IRenderSystemScene* scene)
+      : m_name(name)
+      , m_sceneNode(0)
+      , m_scene(scene)
+      , m_observer(0)
     {
 
     }
@@ -52,7 +52,7 @@ namespace Renderer
     *  @param[in] AnyType::AnyTypeMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Steps the internal data of the Component
@@ -60,14 +60,14 @@ namespace Renderer
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    virtual void Update( float deltaMilliseconds ) { };
+    virtual void Update(float deltaMilliseconds) { };
 
 
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Adds an Observer to the Component
@@ -75,14 +75,14 @@ namespace Renderer
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    void AddObserver( IObserver* observer ) { m_observer = observer; };
+    void AddObserver(IObserver* observer) { m_observer = observer; };
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -90,7 +90,7 @@ namespace Renderer
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Sets the Properties of the Component
@@ -98,7 +98,7 @@ namespace Renderer
     *  @param[in] AnyType::AnyTypeMap systemProperties
     *  @return (void)
     */
-    void SetAttributes( AnyType::AnyTypeMap& properties ) { };
+    void SetAttributes(AnyType::AnyTypeMap& properties) { };
 
 
     /*! Posts a message to observers
@@ -107,7 +107,7 @@ namespace Renderer
     *  @param[in] AnyType::AnyTypeMap parameters
     *  @return (AnyType)
     */
-    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Messages the Component to influence its internal state
@@ -115,38 +115,38 @@ namespace Renderer
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    virtual AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream ) { };
+    void Serialize(IO::IStream* stream) { };
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream ) { };
+    void DeSerialize(IO::IStream* stream) { };
 
 
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
   protected:
 
-    RendererSystemComponent( ) { };
+    RendererSystemComponent() { };
 
-    void LoadModel( Ogre::SceneNode* sceneNode, const std::string& modelPath );
-    void DestroySceneNode( Ogre::SceneNode* sceneNode );
-    void LinkSkeletons( Ogre::SceneNode* sceneNode, RendererSystemComponent::SkeletonList* skeletons );
+    void LoadModel(Ogre::SceneNode* sceneNode, const std::string& modelPath);
+    void DestroySceneNode(Ogre::SceneNode* sceneNode);
+    void LinkSkeletons(Ogre::SceneNode* sceneNode, RendererSystemComponent::SkeletonList* skeletons);
 
     std::string m_name;
 
@@ -158,8 +158,8 @@ namespace Renderer
 
   private:
 
-    RendererSystemComponent( const RendererSystemComponent & copy ) { };
-    RendererSystemComponent & operator = ( const RendererSystemComponent & copy ) { return *this; };
+    RendererSystemComponent(const RendererSystemComponent & copy) { };
+    RendererSystemComponent & operator = (const RendererSystemComponent & copy) { return *this; };
 
   };
 };

@@ -27,16 +27,16 @@ namespace UX
      *
      *  @return ()
      */
-    ~GUI( );
+    ~GUI();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    GUI( MyGUI::Gui* gui, Services::IServiceManager* serviceManager )
-      : m_gui( gui )
-      , m_serviceManager( serviceManager )
+    GUI(MyGUI::Gui* gui, Services::IServiceManager* serviceManager)
+      : m_gui(gui)
+      , m_serviceManager(serviceManager)
     {
 
     }
@@ -44,60 +44,60 @@ namespace UX
 
     /*! Returns the ViewPort Width
     *
-    * @return ( int )
+    * @return (int)
     */
-    int GetViewWidth( ) const;
+    int GetViewWidth() const;
 
 
     /*! Returns the ViewPort Height
     *
-    * @return ( int )
+    * @return (int)
     */
-    int GetViewHeight( ) const;
+    int GetViewHeight() const;
 
 
     /*! Finds a widget within the GUI
     *
     * @param[in] const std::string & widgetName
-    * @return ( MyGUI::WidgetPtr )
+    * @return (MyGUI::WidgetPtr)
     */
-    MyGUI::WidgetPtr FindWidget( const std::string& widgetName ) const;
+    MyGUI::WidgetPtr FindWidget(const std::string& widgetName) const;
 
 
     /*! Shows the mouse on the Screen
     *
-    * @return ( void )
+    * @return (void)
     */
-    void ShowMouse( ) const;
+    void ShowMouse() const;
 
 
     /*! Hides the mouse on the Screen
     *
-    * @return ( void )
+    * @return (void)
     */
-    void HideMouse( ) const;
+    void HideMouse() const;
 
 
     /*! Instructs the GUI that the window has been resized
     *
-    * @return ( void )
+    * @return (void)
     */
-    void WindowResized( ) const;
+    void WindowResized() const;
 
 
     /*! Initializes the GUI
     *
     * @param[in] const std::string & skinPath
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( const std::string& skinPath );
+    void Initialize(const std::string& skinPath);
 
 
     /*! Destroys the GUI
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Informs the GUI that the mouse has been moved
@@ -105,9 +105,9 @@ namespace UX
     * @param[in] int x
     * @param[in] int y
     * @param[in] int z
-    * @return ( void )
+    * @return (void)
     */
-    void MouseMoved( int x, int y, int z );
+    void MouseMoved(int x, int y, int z);
 
 
     /*! Informs the GUI that a mouse button has been pressed
@@ -115,9 +115,9 @@ namespace UX
     * @param[in] int x
     * @param[in] int y
     * @param[in] int mouseButtonID
-    * @return ( void )
+    * @return (void)
     */
-    void MousePressed( int x, int y, int mouseButtonID );
+    void MousePressed(int x, int y, int mouseButtonID);
 
 
     /*! Informs the GUI that a mouse button has been released
@@ -125,57 +125,57 @@ namespace UX
     * @param[in] int x
     * @param[in] int y
     * @param[in] int mouseButtonID
-    * @return ( void )
+    * @return (void)
     */
-    void MouseReleased( int x, int y, int mouseButtonID );
+    void MouseReleased(int x, int y, int mouseButtonID);
 
 
 
     /*! Informs the GUI that a key has been released
     *
     * @param[in] int keyCode
-    * @return ( void )
+    * @return (void)
     */
-    void KeyReleased( int keyCode );
+    void KeyReleased(int keyCode);
 
 
     /*! Informs the GUI that a key has been pressed
     *
     * @param[in] int keyCode
-    * @return ( void )
+    * @return (void)
     */
-    void KeyPressed( int keyCode );
+    void KeyPressed(int keyCode);
 
 
     /*! Loads a layout from the file system
     *
     * @param[in] const std::string & layoutPath
-    * @return ( void )
+    * @return (void)
     */
-    void LoadLayout( const std::string& layoutPath );
+    void LoadLayout(const std::string& layoutPath);
 
 
     /*! Updates the GUI
     *
     * @param[in] float deltaMilliseconds
-    * @return ( void )
+    * @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Clears the Scene of All Widgets
     *
-    * @return ( void )
+    * @return (void)
     */
-    void ClearScene( );
+    void ClearScene();
 
-    void _unlinkWidget( MyGUI::WidgetPtr widget );
+    void _unlinkWidget(MyGUI::WidgetPtr widget);
 
 
   private:
 
-    GUI( const GUI & copy ) { };
-    GUI & operator = ( const GUI & copy ) { return *this; };
+    GUI(const GUI & copy) { };
+    GUI & operator = (const GUI & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
     MyGUI::Gui* m_gui;

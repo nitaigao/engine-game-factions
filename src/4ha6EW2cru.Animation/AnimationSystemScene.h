@@ -24,17 +24,17 @@ namespace Animation
 
     /*! Default Destructor
      *
-     *  @return ( )
+     *  @return ()
      */
-    ~AnimationSystemScene( ) { };
+    ~AnimationSystemScene() { };
 
 
     /*! Default Constructor
     *
-    * @return ( )
+    * @return ()
     */
-    AnimationSystemScene( Resources::IResourceCache* resourceCache )
-      : m_resourceCache( resourceCache )
+    AnimationSystemScene(Resources::IResourceCache* resourceCache)
+      : m_resourceCache(resourceCache)
     {
 
     }
@@ -44,7 +44,7 @@ namespace Animation
     *
     *  @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Steps internal data of the SystemScene
@@ -52,21 +52,21 @@ namespace Animation
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Destroys the System Scene
     *
     *  @return (void)
     */
-    inline void Destroy( ) { };
+    inline void Destroy() { };
 
 
     /*! Gets the System::Types::Type of the SystemScene
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::ANIMATION; };
+    inline System::Types::Type GetType() const { return System::Types::ANIMATION; };
 
 
     /*! Creates a SystemComponent specific to the SystemScene
@@ -75,7 +75,7 @@ namespace Animation
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISystemComponent* CreateComponent(const std::string& name, const std::string& type);
 
 
     /*! Destroys a SystemComponent created by the SystemScene
@@ -83,13 +83,13 @@ namespace Animation
     *  @param[in] ISystemComponent * component
     *  @return (void)
     */
-    void DestroyComponent( ISystemComponent* component );
+    void DestroyComponent(ISystemComponent* component);
 
 
   private:
 
-    AnimationSystemScene( const AnimationSystemScene & copy ) { };
-    AnimationSystemScene & operator = ( const AnimationSystemScene & copy ) { return *this; };
+    AnimationSystemScene(const AnimationSystemScene & copy) { };
+    AnimationSystemScene & operator = (const AnimationSystemScene & copy) { return *this; };
 
     ISystemComponent::SystemComponentMap m_components;
     Resources::IResourceCache* m_resourceCache;

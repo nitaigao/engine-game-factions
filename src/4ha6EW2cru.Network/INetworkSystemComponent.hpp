@@ -25,22 +25,22 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkSystemComponent( ) { };
+    virtual ~INetworkSystemComponent() { };
 
 
     /*! Adds a Network Provider to the Component
      *
      * @param[in] INetworkProvider * provider
-     * @return ( void )
+     * @return (void)
      */
-    virtual void AddProvider( INetworkProvider* provider ) = 0;
+    virtual void AddProvider(INetworkProvider* provider) = 0;
 
 
     /*! Returns the Position of the parent Entity in the scene
     *
-    * @return ( Maths::MathVector3& )
+    * @return (Maths::MathVector3&)
     */
-    virtual Maths::MathVector3 GetPosition( ) const = 0;
+    virtual Maths::MathVector3 GetPosition() const = 0;
 
   };
 };

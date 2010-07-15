@@ -79,7 +79,7 @@ ADD_LIBRARY(System SHARED
   State/Serilaization/ComponentSerializerFactory.cpp
   State/Serilaization/XMLSerializer.cpp
   
- )
+)
   
 TARGET_LINK_LIBRARIES(System ${EXTRA_LIBS} ${PHYSFS_LIBRARY} ${BOOST_LIBRARY})
 

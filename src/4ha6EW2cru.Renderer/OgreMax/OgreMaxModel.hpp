@@ -57,7 +57,7 @@ namespace OgreMax
             (
             const Ogre::String& fileName, 
             const Ogre::String& resourceGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME
-            );
+           );
 
         /**
          * Options that may be passed to CreateInstance()
@@ -100,7 +100,7 @@ namespace OgreMax
             const Ogre::String& defaultResourceGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
             Ogre::SceneNode* node = 0,
             OgreMaxScene* scene = 0
-            ) const;
+           ) const;
 
     private:
         Ogre::SceneNode* CreateInstance
@@ -114,7 +114,7 @@ namespace OgreMax
             const Ogre::String& defaultResourceGroupName,
             Ogre::SceneNode* node = 0,
             OgreMaxScene* scene = 0
-            ) const;
+           ) const;
 
         void CreateMovableObject
             (
@@ -124,7 +124,7 @@ namespace OgreMax
             const Types::MovableObjectOwner& owner,
             OgreMaxModelInstanceCallback* callback, 
             const Ogre::String& defaultResourceGroupName
-            ) const;
+           ) const;
 
         void CreateEntity
             (
@@ -136,7 +136,7 @@ namespace OgreMax
             Types::ObjectExtraDataPtr objectExtraData,
             OgreMaxModelInstanceCallback* callback, 
             const Ogre::String& defaultResourceGroupName
-            ) const;
+           ) const;
 
         void CreateLight
             (
@@ -146,7 +146,7 @@ namespace OgreMax
             const Types::MovableObjectOwner& owner,
             Types::ObjectExtraDataPtr objectExtraData,
             OgreMaxModelInstanceCallback* callback
-            ) const;
+           ) const;
 
         void CreateCamera
             (
@@ -156,7 +156,7 @@ namespace OgreMax
             const Types::MovableObjectOwner& owner,
             Types::ObjectExtraDataPtr objectExtraData,
             OgreMaxModelInstanceCallback* callback
-            ) const;
+           ) const;
 
         void CreateParticleSystem
             (
@@ -166,7 +166,7 @@ namespace OgreMax
             const Types::MovableObjectOwner& owner,
             Types::ObjectExtraDataPtr objectExtraData,
             OgreMaxModelInstanceCallback* callback
-            ) const;
+           ) const;
 
         void CreateBillboardSet
             (
@@ -176,7 +176,7 @@ namespace OgreMax
             const Types::MovableObjectOwner& owner,
             Types::ObjectExtraDataPtr objectExtraData,
             OgreMaxModelInstanceCallback* callback
-            ) const;
+           ) const;
 
         void CreatePlane
             (
@@ -188,7 +188,7 @@ namespace OgreMax
             Types::ObjectExtraDataPtr objectExtraData,
             OgreMaxModelInstanceCallback* callback, 
             const Ogre::String& defaultResourceGroupName
-            ) const;
+           ) const;
 
         void LoadNode(const TiXmlElement* objectElement, Types::NodeParameters& node);
         Types::EntityParameters* LoadEntity(const TiXmlElement* objectElement);

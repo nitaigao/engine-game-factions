@@ -35,25 +35,25 @@
 class HavokPhysicsSystemScene_Tests : public CPPUNIT_NS::TestFixture
 {
 
-  CPPUNIT_TEST_SUITE( HavokPhysicsSystemScene_Tests );
-  CPPUNIT_TEST( Should_Return_A_PhysicsSystemComponent_On_CreateComponent );
-  CPPUNIT_TEST_SUITE_END( );
+  CPPUNIT_TEST_SUITE(HavokPhysicsSystemScene_Tests);
+  CPPUNIT_TEST(Should_Return_A_PhysicsSystemComponent_On_CreateComponent);
+  CPPUNIT_TEST_SUITE_END();
 
 public:
 
-  void setUp( );
-  void tearDown( );
+  void setUp();
+  void tearDown();
 
 protected:
 
-  void Should_Return_A_PhysicsSystemComponent_On_CreateComponent( );
+  void Should_Return_A_PhysicsSystemComponent_On_CreateComponent();
 
 private:
 
   hkThreadMemory* _threadMemory;
   char* _stackBuffer;
 
-  static void errorReportFunction( const char* str, void* errorOutputObject ) { };
+  static void errorReportFunction(const char* str, void* errorOutputObject) { };
 
 };
 

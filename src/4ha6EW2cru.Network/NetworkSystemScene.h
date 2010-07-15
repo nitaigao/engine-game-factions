@@ -26,15 +26,15 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkSystemScene( );
+    ~NetworkSystemScene();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkSystemScene( INetworkSystemComponentFactory* componentFactory )
-      : m_componentFactory( componentFactory )
+    NetworkSystemScene(INetworkSystemComponentFactory* componentFactory)
+      : m_componentFactory(componentFactory)
     {
 
     }
@@ -44,7 +44,7 @@ namespace Network
     *
     *  @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Steps internal data of the SystemScene
@@ -52,21 +52,21 @@ namespace Network
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Destroys the System Scene
     *
     *  @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Gets the System::Types::Type of the SystemScene
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::NETWORK; };
+    inline System::Types::Type GetType() const { return System::Types::NETWORK; };
 
 
     /*! Creates a SystemComponent specific to the SystemScene
@@ -75,7 +75,7 @@ namespace Network
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISystemComponent* CreateComponent(const std::string& name, const std::string& type);
 
 
     /*! Destroys a SystemComponent created by the SystemScene
@@ -83,15 +83,15 @@ namespace Network
     *  @param[in] ISystemComponent * component
     *  @return (void)
     */
-    void DestroyComponent( ISystemComponent* component );
+    void DestroyComponent(ISystemComponent* component);
 
 
     /*! Adds a Network provider to the Scene
     *
     * @param[in] INetworkProvider * provider
-    * @return ( void )
+    * @return (void)
     */
-    inline void AddNetworkProvider( INetworkProvider* provider ) { m_networkProviders.push_back( provider ); };
+    inline void AddNetworkProvider(INetworkProvider* provider) { m_networkProviders.push_back(provider); };
 
 
     /*! Messages a component within the Scene
@@ -99,14 +99,14 @@ namespace Network
     * @param[in] const std::string componentId
     * @param[in] const System::MessageType & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    void MessageComponent( const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    void MessageComponent(const std::string& componentId, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
   private:
 
-    NetworkSystemScene( const NetworkSystemScene & copy ) { };
-    NetworkSystemScene & operator = ( const NetworkSystemScene & copy ) { return *this; };
+    NetworkSystemScene(const NetworkSystemScene & copy) { };
+    NetworkSystemScene & operator = (const NetworkSystemScene & copy) { return *this; };
 
     ISystemComponent::SystemComponentMap m_components;
     INetworkProvider::NetworkProviderList m_networkProviders;

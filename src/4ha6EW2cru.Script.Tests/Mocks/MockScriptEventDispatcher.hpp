@@ -20,12 +20,12 @@ namespace
 
   public:
 
-    MOCK_METHOD2( RegisterEventHandler, void( const std::string&, Script::IScriptFunctionHandler* ) );
-    MOCK_METHOD2( UnregisterEventHandler, void( const std::string&, Script::IScriptFunctionHandler* ) );
-    MOCK_METHOD1( EventHandler, void( const Events::IEvent* ) );
+    MOCK_METHOD2(RegisterEventHandler, void(const std::string&, Script::IScriptFunctionHandler*));
+    MOCK_METHOD2(UnregisterEventHandler, void(const std::string&, Script::IScriptFunctionHandler*));
+    MOCK_METHOD1(EventHandler, void(const Events::IEvent*));
 
 
-    static void ConsumeFunctionHandler( const std::string& eventType, Script::IScriptFunctionHandler* handler )
+    static void ConsumeFunctionHandler(const std::string& eventType, Script::IScriptFunctionHandler* handler)
     {
       delete handler;
     }

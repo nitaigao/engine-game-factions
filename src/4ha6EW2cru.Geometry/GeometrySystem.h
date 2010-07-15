@@ -28,21 +28,21 @@ namespace Geometry
      *
      *  @return ()
      */
-    ~GeometrySystem( ) { };
+    ~GeometrySystem() { };
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    GeometrySystem( ) { };
+    GeometrySystem() { };
 
 
     /*! Initializes the System
     *
     *  @return (void)
     */
-    inline void Initialize( Configuration::IConfiguration* configuration ) { };
+    inline void Initialize(Configuration::IConfiguration* configuration) { };
 
 
     /*! Steps the System's internal data
@@ -50,35 +50,35 @@ namespace Geometry
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    inline void Update( float deltaMilliseconds ) { };
+    inline void Update(float deltaMilliseconds) { };
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    inline void Release( ) { };
+    inline void Release() { };
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::GEOMETRY; };
+    inline System::Types::Type GetType() const { return System::Types::GEOMETRY; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
     
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    inline AnyType::AnyTypeMap GetAttributes() const { return AnyType::AnyTypeMap(); };
 
 
     /*! Sets a System Property
@@ -87,12 +87,12 @@ namespace Geometry
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };
+    inline void SetAttribute(const std::string& name, AnyType value) { };
 
   private:
 
-    GeometrySystem( const GeometrySystem & copy ) { };
-    GeometrySystem & operator = ( const GeometrySystem & copy ) { return *this; };
+    GeometrySystem(const GeometrySystem & copy) { };
+    GeometrySystem & operator = (const GeometrySystem & copy) { return *this; };
 
   };
 };

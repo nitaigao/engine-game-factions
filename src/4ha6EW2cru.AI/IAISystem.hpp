@@ -24,7 +24,7 @@ namespace AI
      *
      *  @return ()
      */
-    virtual ~IAISystem( ) { };
+    virtual ~IAISystem() { };
 
   };
 };

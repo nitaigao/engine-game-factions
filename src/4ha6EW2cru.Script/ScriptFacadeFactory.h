@@ -29,7 +29,7 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptFacadeFactory( ) { };
+    ~ScriptFacadeFactory() { };
 
 
     
@@ -40,14 +40,14 @@ namespace Script
      * @param[in] Platform::IPlatformManager * platformManager
      * @param[in] System::IInstrumentation * instrumentation
      * @param[in] Resources::IResourceCache * resourceCache
-     * @return (  )
+     * @return ()
      */
-    ScriptFacadeFactory( Services::IServiceManager* serviceManager, Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation, Resources::IResourceCache* resourceCache )
-      : m_serviceManager( serviceManager )
-      , m_eventManager( eventManager )
-      , m_platformManager( platformManager )
-      , m_instrumentation( instrumentation )
-      , m_resourceCache( resourceCache )
+    ScriptFacadeFactory(Services::IServiceManager* serviceManager, Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, System::IInstrumentation* instrumentation, Resources::IResourceCache* resourceCache)
+      : m_serviceManager(serviceManager)
+      , m_eventManager(eventManager)
+      , m_platformManager(platformManager)
+      , m_instrumentation(instrumentation)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -56,14 +56,14 @@ namespace Script
     /*! Creates a ScriptFacade of the given type
     *
     * @param[in] IScriptFacade::FacadeType
-    * @return ( IScriptFacade* )
+    * @return (IScriptFacade*)
     */
-    IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state );
+    IScriptFacade* CreateScriptFacade(IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state);
 
   private:
 
-    ScriptFacadeFactory( const ScriptFacadeFactory & copy ) { };
-    ScriptFacadeFactory & operator = ( const ScriptFacadeFactory & copy ) { return *this; };
+    ScriptFacadeFactory(const ScriptFacadeFactory & copy) { };
+    ScriptFacadeFactory & operator = (const ScriptFacadeFactory & copy) { return *this; };
 
     Services::IServiceManager* m_serviceManager;
     Events::IEventManager* m_eventManager;

@@ -32,23 +32,23 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkProvider( ) { };
+    virtual ~INetworkProvider() { };
 
 
     /*! Initializes the Network Interface
      *
      * @param[in] int maxConnections
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Initialize( int maxConnections ) = 0;
+    virtual void Initialize(int maxConnections) = 0;
 
 
     /*! Updates the Network Provider
      *
      * @param[in] float deltaMilliseconds
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Update( float deltaMilliseconds ) = 0;
+    virtual void Update(float deltaMilliseconds) = 0;
 
 
     /*! Distributes the message for the entity across the Network
@@ -56,16 +56,16 @@ namespace Network
      * @param[in] ISystemComponent* subject
      * @param[in] const System::Message & message
      * @param[in] AnyType::AnyTypeMap parameters
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Message( ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    virtual void Message(ISystemComponent* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
 
 
     /*! Destroys the Provider
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Destroy( ) = 0;
+    virtual void Destroy() = 0;
     
   };
 };

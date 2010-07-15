@@ -22,7 +22,7 @@ namespace AI
      *
      *  @return ()
      */
-    virtual ~IBehaviour( ) { };
+    virtual ~IBehaviour() { };
 
 
     /*! Sets the Behavior
@@ -30,14 +30,14 @@ namespace AI
     *  @param[in] const std::string & behavior
     *  @return (void)
     */
-    virtual void SetBehavior( const std::string& behavior ) = 0;
+    virtual void SetBehavior(const std::string& behavior) = 0;
 
 
     /*! Gets the Behavior Name
     *
     *  @return (std::string)
     */
-    virtual std::string GetBehavior( ) const = 0;
+    virtual std::string GetBehavior() const = 0;
 
   };
 };

@@ -27,15 +27,15 @@ namespace Script
      *
      *  @return ()
      */
-    ~ScriptEventDispatcher( );
+    ~ScriptEventDispatcher();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    ScriptEventDispatcher( Events::IEventManager* eventManager )
-      : m_eventManager( eventManager )
+    ScriptEventDispatcher(Events::IEventManager* eventManager)
+      : m_eventManager(eventManager)
     {
 
     }
@@ -45,31 +45,31 @@ namespace Script
     *
     * @param[in] const std::string & eventType
     * @param[in] IScriptFunctionHandler * eventHandler
-    * @return ( void )
+    * @return (void)
     */
-    void RegisterEventHandler( const std::string& eventType, Script::IScriptFunctionHandler* eventHandler );
+    void RegisterEventHandler(const std::string& eventType, Script::IScriptFunctionHandler* eventHandler);
 
 
     /*! Unregisters a Script Function from receiving Events
     *
     * @param[in] const std::string & eventType
     * @param[in] IScriptFunctionHandler * eventHandler
-    * @return ( void )
+    * @return (void)
     */
-    void UnregisterEventHandler( const std::string& eventType, Script::IScriptFunctionHandler* eventHandler );
+    void UnregisterEventHandler(const std::string& eventType, Script::IScriptFunctionHandler* eventHandler);
 
 
     /*! Handles incoming Events
     *
     * @param[in] const Events::IEvent * event
-    * @return ( void )
+    * @return (void)
     */
-    void EventHandler( const Events::IEvent* event );
+    void EventHandler(const Events::IEvent* event);
 
   private:
 
-    ScriptEventDispatcher( const ScriptEventDispatcher & copy ) { };
-    ScriptEventDispatcher & operator = ( const ScriptEventDispatcher & copy ) { return *this; };
+    ScriptEventDispatcher(const ScriptEventDispatcher & copy) { };
+    ScriptEventDispatcher & operator = (const ScriptEventDispatcher & copy) { return *this; };
 
     Events::IEventManager* m_eventManager;
     Events::EventTypeMap m_eventTypes;

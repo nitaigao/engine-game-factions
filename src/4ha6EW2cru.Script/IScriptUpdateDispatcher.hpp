@@ -24,38 +24,38 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptUpdateDispatcher( ) { };
+    virtual ~IScriptUpdateDispatcher() { };
 
 
     /*! Destroys the Dispatcher
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Destroy( ) = 0;
+    virtual void Destroy() = 0;
 
 
     /*! Registers an Update Handler to be called on each System Tick
      *
      * @param[in] IScriptFunctionHandler* handler
-     * @return ( void )
+     * @return (void)
      */
-    virtual void RegisterUpdateHandler( IScriptFunctionHandler* handler ) = 0;
+    virtual void RegisterUpdateHandler(IScriptFunctionHandler* handler) = 0;
 
 
     /*! Updates all registered Update Handlers
      *
      * @param[in] float deltaMilliseconds
-     * @return ( void )
+     * @return (void)
      */
-    virtual void Update( float deltaMilliseconds ) = 0;
+    virtual void Update(float deltaMilliseconds) = 0;
 
 
     /*! UnRegisters an Update Handler from being called on each System Tick
     *
     * @param[in] IScriptFunctionHandler* handler
-    * @return ( void )
+    * @return (void)
     */
-    virtual void UnRegisterUpdateHandler( IScriptFunctionHandler* handler ) = 0;
+    virtual void UnRegisterUpdateHandler(IScriptFunctionHandler* handler) = 0;
     
   };
 };

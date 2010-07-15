@@ -36,7 +36,7 @@ namespace UX
     *
     *  @return ()
     */
-    ~UXSystemComponent( );
+    ~UXSystemComponent();
 
 
     /*! Default Constructor
@@ -44,19 +44,19 @@ namespace UX
     *  @param[in] ILuaState * state
     *  @return ()
     */
-    UXSystemComponent( 
+    UXSystemComponent(
       Script::ILuaState* state, 
       Script::IScriptFacadeManager* facadeManager, 
       Script::IScriptMessageDispatcher* messageDispatcher, 
       Script::IScriptEventDispatcher* eventDispatcher, 
       Script::IScriptUpdateDispatcher* updateDispatcher 
-      )
-      : m_state( state )
-      , m_facadeManager( facadeManager )
-      , m_messageDispatcher( messageDispatcher )
-      , m_eventDispatcher( eventDispatcher )
-      , m_updateDispatcher( updateDispatcher )
-      , m_observer( 0 )
+     )
+      : m_state(state)
+      , m_facadeManager(facadeManager)
+      , m_messageDispatcher(messageDispatcher)
+      , m_eventDispatcher(eventDispatcher)
+      , m_updateDispatcher(updateDispatcher)
+      , m_observer(0)
     {
 
     };
@@ -67,7 +67,7 @@ namespace UX
     *  @param[in] AnyType::AnyValueMap parameters
     *  @return (AnyType)
     */
-    inline AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+    inline AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) { return AnyType(); };
 
 
     /*! Messages the Component to influence its internal state
@@ -75,7 +75,7 @@ namespace UX
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    inline AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return AnyType( ); };
+    inline AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters) { return AnyType(); };
 
     /* Inherited from ISystemComponent */
 
@@ -84,7 +84,7 @@ namespace UX
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Steps the internal data of the Component
@@ -92,14 +92,14 @@ namespace UX
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Adds an Observer to the Component
@@ -107,14 +107,14 @@ namespace UX
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    inline void AddObserver( IObserver* observer ) { };
+    inline void AddObserver(IObserver* observer) { };
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -122,23 +122,23 @@ namespace UX
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream ) { };
+    void Serialize(IO::IStream* stream) { };
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream ) { };
+    void DeSerialize(IO::IStream* stream) { };
 
 
     /*!  Registers an LUA function to be included in the Game Update Loop
@@ -146,7 +146,7 @@ namespace UX
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    void RegisterUpdate( const luabind::object& function );
+    void RegisterUpdate(const luabind::object& function);
 
 
     /*! UnRegisters an LUA function from being included in the Game Update Loop
@@ -154,40 +154,40 @@ namespace UX
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    void UnRegisterUpdate( const luabind::object& function );
+    void UnRegisterUpdate(const luabind::object& function);
 
 
     /*! Registers a Script Function to receive Events
     *
     * @param[in] const std::string & eventType
     * @param[in] luabind::object handlerFunction
-    * @return ( void )
+    * @return (void)
     */
-    void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction );
+    void RegisterEventHandler(const std::string& eventType, const luabind::object& handlerFunction);
 
 
     /*! Unregisters a Script Function from receiving Events
     *
     * @param[in] const std::string & eventType
     * @param[in] luabind::object handlerFunction
-    * @return ( void )
+    * @return (void)
     */
-    void UnregisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction );
+    void UnregisterEventHandler(const std::string& eventType, const luabind::object& handlerFunction);
 
 
     /*! Runs the given input as LUA code
     *
     * @param[in] const std::string & input
-    * @return ( void )
+    * @return (void)
     */
-    void ExecuteString( const std::string& input );
+    void ExecuteString(const std::string& input);
 
 
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
   private:
 

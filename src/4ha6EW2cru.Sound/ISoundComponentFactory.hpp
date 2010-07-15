@@ -26,16 +26,16 @@ namespace Sound
      *
      *  @return ()
      */
-    virtual ~ISoundComponentFactory( ) { };
+    virtual ~ISoundComponentFactory() { };
 
 
     /*! Creates a SoundSystem Component
      *
      * @param[in] const std::string & name
      * @param[in] const std::string & type
-     * @return ( ISoundSystemComponent* )
+     * @return (ISoundSystemComponent*)
      */
-    virtual ISoundSystemComponent* CreateComponent( const std::string& name, const std::string& type ) = 0;
+    virtual ISoundSystemComponent* CreateComponent(const std::string& name, const std::string& type) = 0;
     
   };
 };

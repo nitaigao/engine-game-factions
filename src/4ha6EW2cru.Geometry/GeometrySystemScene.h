@@ -24,7 +24,7 @@ namespace Geometry
     *
     *  @return ()
     */
-    ~GeometrySystemScene( ) { };
+    ~GeometrySystemScene() { };
 
 
     /*! Default Constructor
@@ -32,8 +32,8 @@ namespace Geometry
      *  @param[in] ISystem * system
      *  @return ()
      */
-    explicit GeometrySystemScene( ISystem* system )
-      : m_system( system )
+    explicit GeometrySystemScene(ISystem* system)
+      : m_system(system)
     {
 
     }
@@ -43,7 +43,7 @@ namespace Geometry
     *
     *  @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Steps internal data of the SystemScene
@@ -51,21 +51,21 @@ namespace Geometry
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    inline void Update( float deltaMilliseconds ) { };
+    inline void Update(float deltaMilliseconds) { };
 
 
     /*! Destroys the System Scene
     *
     *  @return (void)
     */
-    inline void Destroy( ) { };
+    inline void Destroy() { };
 
 
     /*! Gets the System::Types::Type of the SystemScene
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::GEOMETRY; };
+    inline System::Types::Type GetType() const { return System::Types::GEOMETRY; };
 
 
     /*! Creates a SystemComponent specific to the SystemScene
@@ -74,7 +74,7 @@ namespace Geometry
     *  @param[in] const std::string & type
     *  @return (ISystemComponent*)
     */
-    ISystemComponent* CreateComponent( const std::string& name, const std::string& type );
+    ISystemComponent* CreateComponent(const std::string& name, const std::string& type);
 
 
     /*! Destroys a SystemComponent created by the SystemScene
@@ -82,15 +82,15 @@ namespace Geometry
     *  @param[in] ISystemComponent * component
     *  @return (void)
     */
-    void DestroyComponent( ISystemComponent* component );
+    void DestroyComponent(ISystemComponent* component);
 
   private:
 
     ISystem* m_system;
 
-    GeometrySystemScene( ) { };
-    GeometrySystemScene( const GeometrySystemScene & copy ) { };
-    GeometrySystemScene & operator = ( const GeometrySystemScene & copy ) { return *this; };
+    GeometrySystemScene() { };
+    GeometrySystemScene(const GeometrySystemScene & copy) { };
+    GeometrySystemScene & operator = (const GeometrySystemScene & copy) { return *this; };
 
   };
 };

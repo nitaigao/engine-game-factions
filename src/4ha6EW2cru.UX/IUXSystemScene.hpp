@@ -24,7 +24,7 @@ namespace UX
      *
      *  @return ()
      */
-    virtual ~IUXSystemScene( ) { };
+    virtual ~IUXSystemScene() { };
 
   };
 };

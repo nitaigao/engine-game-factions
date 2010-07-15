@@ -31,19 +31,19 @@ namespace Physics
      *
      *  @return ()
      */
-    ~HavokPhysicsSystem( ) { };
+    ~HavokPhysicsSystem() { };
 
 
     /*! Default Constructor
      *
      *  @return ()
      */
-    HavokPhysicsSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-      : m_threadMemory( 0 )
-      , m_stackBuffer( 0 )
-      , m_scene( 0 )
-      , m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
+    HavokPhysicsSystem(Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache)
+      : m_threadMemory(0)
+      , m_stackBuffer(0)
+      , m_scene(0)
+      , m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -53,7 +53,7 @@ namespace Physics
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -61,44 +61,44 @@ namespace Physics
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( );
+    void Release();
 
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::PHYSICS; };
+    inline System::Types::Type GetType() const { return System::Types::PHYSICS; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    inline AnyType::AnyTypeMap GetAttributes() const { return AnyType::AnyTypeMap(); };
     
 
     /*! Sets a System Property
@@ -107,7 +107,7 @@ namespace Physics
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };
+    inline void SetAttribute(const std::string& name, AnyType value) { };
     
     
     /*! Performs a Ray Query on the Scene, destination is not direction, its the end point of the Ray
@@ -117,23 +117,23 @@ namespace Physics
      *  @param[in] bool sortByDistance
      *  @return (std::vector< std::string >)
      */
-    std::vector< std::string > RayQuery( const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults );
+    std::vector< std::string > RayQuery(const Maths::MathVector3& origin, const Maths::MathVector3& destination, bool sortByDistance, const unsigned int& maxResults);
 
 
     /*! Returns the Physics World from within Havok
     *
     *  @return (hkpWorld*)
     */
-    hkpWorld* GetWorld( ) const { return m_world; };
+    hkpWorld* GetWorld() const { return m_world; };
 
   private:
 
-    HavokPhysicsSystem( const HavokPhysicsSystem & copy ) { };
-    HavokPhysicsSystem & operator = ( const HavokPhysicsSystem & copy ) { return *this; };
+    HavokPhysicsSystem(const HavokPhysicsSystem & copy) { };
+    HavokPhysicsSystem & operator = (const HavokPhysicsSystem & copy) { return *this; };
 
     Resources::IResourceCache* m_resourceCache;
 
-    static void errorReportFunction( const char* str, void* errorOutputObject );
+    static void errorReportFunction(const char* str, void* errorOutputObject);
 
     HavokPhysicsSystemScene* m_scene;
 

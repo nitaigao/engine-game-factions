@@ -26,33 +26,33 @@ namespace Network
      *
      *  @return ()
      */
-    ~NetworkSystemComponentFactory( ) { };
+    ~NetworkSystemComponentFactory() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkSystemComponentFactory( ) { };
+    NetworkSystemComponentFactory() { };
 
 
     /*! Creates a Network System Component
     *
     * @param[in] const std::string & name
-    * @return ( INetworkSystemComponent* )
+    * @return (INetworkSystemComponent*)
     */
-    INetworkSystemComponent* Create( const std::string& name )
+    INetworkSystemComponent* Create(const std::string& name)
     {
-      INetworkSystemComponent* component = new NetworkSystemComponent( );
-      component->SetAttribute( System::Attributes::Name, name );
-      component->SetAttribute( System::Attributes::SystemType, System::Types::NETWORK );
+      INetworkSystemComponent* component = new NetworkSystemComponent();
+      component->SetAttribute(System::Attributes::Name, name);
+      component->SetAttribute(System::Attributes::SystemType, System::Types::NETWORK);
       return component;
     }
 
   private:
 
-    NetworkSystemComponentFactory( const NetworkSystemComponentFactory & copy ) { };
-    NetworkSystemComponentFactory & operator = ( const NetworkSystemComponentFactory & copy ) { return *this; };
+    NetworkSystemComponentFactory(const NetworkSystemComponentFactory & copy) { };
+    NetworkSystemComponentFactory & operator = (const NetworkSystemComponentFactory & copy) { return *this; };
     
   };
 };

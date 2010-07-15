@@ -22,14 +22,14 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptConfiguration( ) { };
+    virtual ~IScriptConfiguration() { };
 
 
     /*! Returns whether or not the Game is in FullScreen
      *
      *  @return (bool)
      */
-    virtual bool IsFullScreen( ) const  = 0;
+    virtual bool IsFullScreen() const  = 0;
 
 
     /*! Sets whether the game is in Full Screen
@@ -37,14 +37,14 @@ namespace Script
      *  @param[in] bool isFullScreen
      *  @return (void)
      */
-    virtual void SetFullScreen( bool isFullScreen ) = 0;
+    virtual void SetFullScreen(bool isFullScreen) = 0;
 
 
     /*! Returns the Game windows Width
      *
      *  @return (int)
      */
-    virtual int GetDisplayWidth ( ) const = 0;
+    virtual int GetDisplayWidth () const = 0;
 
 
     /*! Sets the Game window Width
@@ -52,14 +52,14 @@ namespace Script
      *  @param[in] int width
      *  @return (void)
      */
-    virtual void SetDisplayWidth( int width )  = 0;
+    virtual void SetDisplayWidth(int width)  = 0;
 
 
     /*! Returns the Game window Height
      *
      *  @return (int)
      */
-    virtual int GetDisplayHeight ( ) const = 0;
+    virtual int GetDisplayHeight () const = 0;
 
 
     /*! Sets the Game window Height
@@ -67,21 +67,21 @@ namespace Script
      *  @param[in] int height
      *  @return (void)
      */
-    virtual void SetDisplayHeight( int height ) = 0;
+    virtual void SetDisplayHeight(int height) = 0;
 
 
     /*! Returns the Game window Color Depth
      *
      *  @return (int)
      */
-    virtual int GetColorDepth( ) const = 0;
+    virtual int GetColorDepth() const = 0;
 
 
     /*! Returns whether the Developer Console is Enabled
      *
      *  @return (bool)
      */
-    virtual bool IsConsole( ) const = 0;
+    virtual bool IsConsole() const = 0;
 
 
     /*! Sets whether the Developer Console is Enabled
@@ -89,7 +89,7 @@ namespace Script
      *  @param[in] bool isConsole
      *  @return (void)
      */
-    virtual void SetConsole( bool isConsole ) = 0;
+    virtual void SetConsole(bool isConsole) = 0;
 
   };
 };

@@ -616,7 +616,7 @@ SceneNode* OgreMaxModel::CreateInstance
     const String& defaultResourceGroupName,
     SceneNode* node,
     OgreMaxScene* scene
-    ) const
+   ) const
 {    
     if (parentNode == 0)
         parentNode = sceneManager->getRootSceneNode();
@@ -632,7 +632,7 @@ SceneNode* OgreMaxModel::CreateInstance
         defaultResourceGroupName,
         node,
         scene
-        );
+       );
 }
 
 SceneNode* OgreMaxModel::CreateInstance
@@ -646,7 +646,7 @@ SceneNode* OgreMaxModel::CreateInstance
     const String& defaultResourceGroupName,
     SceneNode* node,
     OgreMaxScene* scene
-    ) const
+   ) const
 {
     //Create the node if necessary
     bool newNode = false;
@@ -686,7 +686,7 @@ SceneNode* OgreMaxModel::CreateInstance
                 defaultResourceGroupName,
                 node,
                 scene
-                );
+               );
         }
     }
 
@@ -766,7 +766,7 @@ SceneNode* OgreMaxModel::CreateInstance
             defaultResourceGroupName,
             0,
             scene
-            );
+           );
     }
 
     //Set the initial state if it hasn't already been set
@@ -803,7 +803,7 @@ void OgreMaxModel::CreateMovableObject
     const MovableObjectOwner& owner,
     OgreMaxModelInstanceCallback* callback, 
     const String& defaultResourceGroupName
-    ) const
+   ) const
 {
     String objectName = baseName + object->name;
     ObjectExtraDataPtr objectExtraData(new ObjectExtraData(*object->extraData.getPointer()));        
@@ -853,7 +853,7 @@ void OgreMaxModel::CreateEntity
     ObjectExtraDataPtr objectExtraData,
     OgreMaxModelInstanceCallback* callback, 
     const String& defaultResourceGroupName
-    ) const
+   ) const
 {
     //Load the mesh
     bool isNewMesh = !MeshManager::getSingleton().resourceExists(entityParams->meshFile);
@@ -863,7 +863,7 @@ void OgreMaxModel::CreateEntity
         !entityParams->resourceGroupName.empty() ? entityParams->resourceGroupName : defaultResourceGroupName, 
         entityParams->vertexBufferUsage, entityParams->indexBufferUsage, 
         entityParams->vertexBufferShadowed, entityParams->indexBufferShadowed
-        );
+       );
 
     //Notify callback if the mesh was just loaded
     if (isNewMesh && callback != 0)
@@ -914,7 +914,7 @@ void OgreMaxModel::CreateEntity
                     entityOwner,
                     callback,
                     defaultResourceGroupName
-                    );
+                   );
             }
             else
                 entityOwner.AttachEmpty(boneAttachment.name);
@@ -943,7 +943,7 @@ void OgreMaxModel::CreateLight
     const MovableObjectOwner& owner,
     ObjectExtraDataPtr objectExtraData,
     OgreMaxModelInstanceCallback* callback
-    ) const
+   ) const
 {
     //Create the light
     Light* light = sceneManager->createLight(objectName);
@@ -986,7 +986,7 @@ void OgreMaxModel::CreateCamera
     const MovableObjectOwner& owner,
     ObjectExtraDataPtr objectExtraData,
     OgreMaxModelInstanceCallback* callback
-    ) const
+   ) const
 {
     //Create the camera
     Camera* camera = sceneManager->createCamera(objectName);    
@@ -1026,7 +1026,7 @@ void OgreMaxModel::CreateParticleSystem
     const MovableObjectOwner& owner,
     ObjectExtraDataPtr objectExtraData,
     OgreMaxModelInstanceCallback* callback
-    ) const
+   ) const
 {
     //Create the particle system
     ParticleSystem* particleSystem = sceneManager->createParticleSystem(objectName, particleSystemParams->file);    
@@ -1060,7 +1060,7 @@ void OgreMaxModel::CreateBillboardSet
     const MovableObjectOwner& owner,
     ObjectExtraDataPtr objectExtraData,
     OgreMaxModelInstanceCallback* callback
-    ) const
+   ) const
 {
     //Create the billboard set
     BillboardSet* billboardSet = sceneManager->createBillboardSet(objectName);
@@ -1126,7 +1126,7 @@ void OgreMaxModel::CreatePlane
     ObjectExtraDataPtr objectExtraData,
     OgreMaxModelInstanceCallback* callback, 
     const String& defaultResourceGroupName
-    ) const
+   ) const
 {
     //Create plane mesh
     String planeName = baseName + planeParameters->planeName;
@@ -1143,7 +1143,7 @@ void OgreMaxModel::CreatePlane
         planeParameters->upVector,
         planeParameters->vertexBufferUsage, planeParameters->indexBufferUsage,
         planeParameters->vertexBufferShadowed, planeParameters->indexBufferShadowed
-        );
+       );
 
     //Create plane entity
     Entity* entity = sceneManager->createEntity(objectName, planeName);

@@ -24,15 +24,15 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkClientEndpoint( ) { };
+    virtual ~INetworkClientEndpoint() { };
 
 
     /*! Stops the Endpoint from Receiving data
      *
      * @param[in] bool isPassive
-     * @return ( void )
+     * @return (void)
      */
-    virtual void SetPassive( bool isPassive ) = 0;
+    virtual void SetPassive(bool isPassive) = 0;
     
   };
 };

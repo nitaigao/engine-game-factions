@@ -30,15 +30,15 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptFacadeFactory( ) { };
+    virtual ~IScriptFacadeFactory() { };
 
 
     /*! Creates a ScriptFacade of the given type
      *
      * @param[in] IScriptFacade::FacadeType
-     * @return ( IScriptFacade* )
+     * @return (IScriptFacade*)
      */
-    virtual IScriptFacade* CreateScriptFacade( IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state ) = 0;
+    virtual IScriptFacade* CreateScriptFacade(IScriptFacade::FacadeType facadeType, ISystemComponent* component, ILuaState* state) = 0;
     
   };
 };

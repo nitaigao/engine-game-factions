@@ -19,8 +19,8 @@ namespace
 
   public:
 
-    MOCK_METHOD1( Initialize, void ( ISystemComponent* ) );
-    MOCK_METHOD0( Destroy, void( ) );
+    MOCK_METHOD1(Initialize, void (ISystemComponent*));
+    MOCK_METHOD0(Destroy, void());
 
   };
 };

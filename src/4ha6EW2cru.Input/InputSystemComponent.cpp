@@ -19,89 +19,89 @@ namespace Input
 {  
   void InputSystemComponent::Initialize()
   {
-    for( int i = 0; i < m_historySize; i++ )
+    for(int i = 0; i < m_historySize; i++)
     {
-      m_xHistory.push_front( 0.0f );
-      m_yHistory.push_front( 0.0f );
+      m_xHistory.push_front(0.0f);
+      m_yHistory.push_front(0.0f);
     }
 
     m_attributes[ System::Parameters::DeltaX ] = 0.0f;
     m_attributes[ System::Parameters::DeltaY ] = 0.0f;
   }
 
-  AnyType InputSystemComponent::PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  AnyType InputSystemComponent::PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters)
   {
-    for( ObserverList::iterator i = m_observers.begin( ); i != m_observers.end( ); ++i )
+    for(ObserverList::iterator i = m_observers.begin(); i != m_observers.end(); ++i)
     {
-      ( *i )->Observe( this, message, parameters );
+      (*i)->Observe(this, message, parameters);
     }
 
-    return AnyType( );
+    return AnyType();
   }
 
-  AnyType InputSystemComponent::Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters )
+  AnyType InputSystemComponent::Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters)
   {
-    if ( message == System::Messages::SetPosition )
+    if (message == System::Messages::SetPosition)
     {
-      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >( );
+      m_attributes[ System::Attributes::Position ] = parameters[ System::Attributes::Position ].As< MathVector3 >();
 
-      this->PushMessage( System::Messages::SetPlayerPosition, parameters );
+      this->PushMessage(System::Messages::SetPlayerPosition, parameters);
     }
 
-    if ( message == System::Messages::SetOrientation )
+    if (message == System::Messages::SetOrientation)
     {
-      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >( );
+      m_attributes[ System::Attributes::Orientation ] = parameters[ System::Attributes::Orientation ].As< MathQuaternion >();
     }
 
-    return AnyType( );
+    return AnyType();
   }
 
-  void InputSystemComponent::Update( float deltaMilliseconds )
+  void InputSystemComponent::Update(float deltaMilliseconds)
   {
-    Mouse* mouse = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >( )->GetSystem( )->GetMouse( );
-    MouseState mouseState = mouse->getMouseState( );
+    Mouse* mouse = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >()->GetSystem()->GetMouse();
+    MouseState mouseState = mouse->getMouseState();
 
-    m_xHistory.pop_back( );
-    m_xHistory.push_front( -mouseState.X.rel );
+    m_xHistory.pop_back();
+    m_xHistory.push_front(-mouseState.X.rel);
 
-    float mouseY = ( m_attributes[ System::Parameters::InvertYAxis ].As< bool >( ) ) ? -mouseState.Y.rel : mouseState.Y.rel;
+    float mouseY = (m_attributes[ System::Parameters::InvertYAxis ].As< bool >()) ? -mouseState.Y.rel : mouseState.Y.rel;
 
-    m_yHistory.pop_back( );
-    m_yHistory.push_front( mouseY );
+    m_yHistory.pop_back();
+    m_yHistory.push_front(mouseY);
 
-    float lastInputX = m_attributes[ System::Parameters::DeltaX ].As< float >( );
-    float lastInputY = m_attributes[ System::Parameters::DeltaY ].As< float >( );
+    float lastInputX = m_attributes[ System::Parameters::DeltaX ].As< float >();
+    float lastInputY = m_attributes[ System::Parameters::DeltaY ].As< float >();
 
-    float nextInputX = this->AverageInputHistory( m_xHistory );
-    float nextInputY = this->AverageInputHistory( m_yHistory );
+    float nextInputX = this->AverageInputHistory(m_xHistory);
+    float nextInputY = this->AverageInputHistory(m_yHistory);
 
-    bool nextInputZero = ( nextInputX == 0.0f && nextInputY == 0.0f );
-    bool lastInputZero = ( lastInputX == 0.0f && lastInputY == 0.0f );
+    bool nextInputZero = (nextInputX == 0.0f && nextInputY == 0.0f);
+    bool lastInputZero = (lastInputX == 0.0f && lastInputY == 0.0f);
 
     m_attributes[ System::Parameters::DeltaX ] = nextInputX;
     m_attributes[ System::Parameters::DeltaY ] = nextInputY;
 
-    if ( !nextInputZero || nextInputZero && !lastInputZero )
+    if (!nextInputZero || nextInputZero && !lastInputZero)
     {
-      this->PushMessage( System::Messages::Mouse_Moved, m_attributes );
+      this->PushMessage(System::Messages::Mouse_Moved, m_attributes);
     }
   }
 
-  void InputSystemComponent::MouseReleased( const MouseEvent &arg, MouseButtonID id )
+  void InputSystemComponent::MouseReleased(const MouseEvent &arg, MouseButtonID id)
   {
     AnyType::AnyTypeMap parameters;
-    parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >( );
+    parameters[ System::Attributes::Name ] = m_attributes[ System::Attributes::Name ].As< std::string >();
     parameters[ System::Parameters::Input::MouseButtonId ] = id;
 
-    m_serviceManager->MessageAll( System::Messages::Input::MouseReleased, parameters );
+    m_serviceManager->MessageAll(System::Messages::Input::MouseReleased, parameters);
 
-    for( InputMessageBinding::InputMessageBindingList::iterator i = m_mouseUpMessages.begin( ); i != m_mouseUpMessages.end( ); )
+    for(InputMessageBinding::InputMessageBindingList::iterator i = m_mouseUpMessages.begin(); i != m_mouseUpMessages.end();)
     {
-      if ( ( *i ).GetType( ) == BINDING_MOUSE && id == static_cast< OIS::MouseButtonID >( ( *i ).GetCode( ) ) )
+      if ((*i).GetType() == BINDING_MOUSE && id == static_cast< OIS::MouseButtonID >((*i).GetCode()))
       {
-        std::string newMessage = ( *i ).GetMessage( ).replace( ( *i ).GetMessage( ).find_first_of( "+" ), 1, "-" );
-        this->PushMessage( newMessage, m_attributes );
-        i = m_mouseUpMessages.erase( i );
+        std::string newMessage = (*i).GetMessage().replace((*i).GetMessage().find_first_of("+"), 1, "-");
+        this->PushMessage(newMessage, m_attributes);
+        i = m_mouseUpMessages.erase(i);
       }
       else
       {
@@ -110,46 +110,46 @@ namespace Input
     }
   }
 
-  void InputSystemComponent::MousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
+  void InputSystemComponent::MousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id)
   {
     AnyType::AnyTypeMap parameters;
-    parameters[ System::Attributes::Name ] =  m_attributes[ System::Attributes::Name ].As< std::string >( );
+    parameters[ System::Attributes::Name ] =  m_attributes[ System::Attributes::Name ].As< std::string >();
     parameters[ System::Parameters::Input::MouseButtonId ] = id;
 
-    m_serviceManager->MessageAll( System::Messages::Input::MousePressed, parameters );
+    m_serviceManager->MessageAll(System::Messages::Input::MousePressed, parameters);
 
-    IInputSystem* inputSystem = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >( )->GetSystem( );
-    InputMessageBinding::InputMessageBindingList messageBindings = inputSystem->GetBindings( );
+    IInputSystem* inputSystem = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >()->GetSystem();
+    InputMessageBinding::InputMessageBindingList messageBindings = inputSystem->GetBindings();
 
-    for( InputMessageBinding::InputMessageBindingList::iterator i = messageBindings.begin( ); i != messageBindings.end( ); ++i )
+    for(InputMessageBinding::InputMessageBindingList::iterator i = messageBindings.begin(); i != messageBindings.end(); ++i)
     {
-      if ( ( *i ).GetType( ) == BINDING_MOUSE )
+      if ((*i).GetType() == BINDING_MOUSE)
       {
-        if ( id == static_cast< OIS::MouseButtonID >( ( *i ).GetCode( ) ) )
+        if (id == static_cast< OIS::MouseButtonID >((*i).GetCode()))
         {
-          if ( ( *i ).GetMessage( ).find( "+" ) != std::string::npos )
+          if ((*i).GetMessage().find("+") != std::string::npos)
           {
-            m_mouseUpMessages.push_back( ( *i ) );
+            m_mouseUpMessages.push_back((*i));
           }
 
-          this->PushMessage( ( *i ).GetMessage( ), m_attributes );
+          this->PushMessage((*i).GetMessage(), m_attributes);
         }
       }
     }
   }
 
-  float InputSystemComponent::AverageInputHistory( const InputHistory& inputHistory )
+  float InputSystemComponent::AverageInputHistory(const InputHistory& inputHistory)
   {
     int index = 0;
     float sum = 0.0f;
 
-    float modifier = static_cast< float >( m_attributes[ System::Parameters::MouseSensitivity ].As< int >( ) ) / 100.0f;
+    float modifier = static_cast< float >(m_attributes[ System::Parameters::MouseSensitivity ].As< int >()) / 100.0f;
 
-    for ( InputHistory::const_iterator i = inputHistory.begin( ); i != inputHistory.end( ); ++i )
+    for (InputHistory::const_iterator i = inputHistory.begin(); i != inputHistory.end(); ++i)
     {
-      sum += ( *i ) * pow( modifier, index++ );
+      sum += (*i) * pow(modifier, index++);
 
-      if ( m_attributes[ System::Parameters::SmoothMouse ].As< bool >( ) )
+      if (m_attributes[ System::Parameters::SmoothMouse ].As< bool >())
       {
         break;
       }
@@ -158,17 +158,17 @@ namespace Input
     return sum / m_historySize;
   }
 
-  void InputSystemComponent::KeyReleased( const KeyEvent &arg )
+  void InputSystemComponent::KeyReleased(const KeyEvent &arg)
   {
-    for( InputMessageBinding::InputMessageBindingList::iterator i = m_keyUpMessages.begin( ); i != m_keyUpMessages.end( ); )
+    for(InputMessageBinding::InputMessageBindingList::iterator i = m_keyUpMessages.begin(); i != m_keyUpMessages.end();)
     {
-      if ( ( *i ).GetType( ) == BINDING_KEYBOARD )
+      if ((*i).GetType() == BINDING_KEYBOARD)
       {
-        if ( arg.key == static_cast< OIS::KeyCode >( ( *i ).GetCode( ) ) )
+        if (arg.key == static_cast< OIS::KeyCode >((*i).GetCode()))
         {
-          std::string newMessage = ( *i ).GetMessage( ).replace( ( *i ).GetMessage( ).find_first_of( "+" ), 1, "-" );
-          this->PushMessage( newMessage, m_attributes );
-          i = m_keyUpMessages.erase( i );
+          std::string newMessage = (*i).GetMessage().replace((*i).GetMessage().find_first_of("+"), 1, "-");
+          this->PushMessage(newMessage, m_attributes);
+          i = m_keyUpMessages.erase(i);
           return;
         }
       }
@@ -177,23 +177,23 @@ namespace Input
     }
   }
 
-  void InputSystemComponent::KeyPressed( const OIS::KeyEvent &arg )
+  void InputSystemComponent::KeyPressed(const OIS::KeyEvent &arg)
   {
-    IInputSystem* inputSystem = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >( )->GetSystem( );
-    InputMessageBinding::InputMessageBindingList messageBindings = inputSystem->GetBindings( );
+    IInputSystem* inputSystem = m_attributes[ System::Attributes::Parent ].As< IInputSystemScene* >()->GetSystem();
+    InputMessageBinding::InputMessageBindingList messageBindings = inputSystem->GetBindings();
 
-    for( InputMessageBinding::InputMessageBindingList::iterator i = messageBindings.begin( ); i != messageBindings.end( ); ++i )
+    for(InputMessageBinding::InputMessageBindingList::iterator i = messageBindings.begin(); i != messageBindings.end(); ++i)
     {
-      if ( ( *i ).GetType( ) == BINDING_KEYBOARD )
+      if ((*i).GetType() == BINDING_KEYBOARD)
       {
-        if ( arg.key == static_cast< OIS::KeyCode >( ( *i ).GetCode( ) ) )
+        if (arg.key == static_cast< OIS::KeyCode >((*i).GetCode()))
         {
-          if ( ( *i ).GetMessage( ).find( "+" ) != std::string::npos )
+          if ((*i).GetMessage().find("+") != std::string::npos)
           {
-            m_keyUpMessages.push_back( ( *i ) );
+            m_keyUpMessages.push_back((*i));
           }
 
-          this->PushMessage( ( *i ).GetMessage( ), m_attributes );
+          this->PushMessage((*i).GetMessage(), m_attributes);
         }
       }
     }

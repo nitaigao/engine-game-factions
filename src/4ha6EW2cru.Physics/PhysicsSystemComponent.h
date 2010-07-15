@@ -34,7 +34,7 @@ namespace Physics
      *
      *  @return ()
      */
-    virtual ~PhysicsSystemComponent( );
+    virtual ~PhysicsSystemComponent();
 
 
     /*! Default Constructor
@@ -44,12 +44,12 @@ namespace Physics
      *  @param[in] int componentId
      *  @return ()
      */
-    PhysicsSystemComponent( const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache )
-      : _name ( name )
-      , _scene( scene )
-      , m_resourceCache( resourceCache )
-      , m_loadedData( 0 )
-      , m_body( 0 )
+    PhysicsSystemComponent(const std::string& name, HavokPhysicsSystemScene* scene, Resources::IResourceCache* resourceCache)
+      : _name (name)
+      , _scene(scene)
+      , m_resourceCache(resourceCache)
+      , m_loadedData(0)
+      , m_body(0)
     {
 
     }
@@ -60,7 +60,7 @@ namespace Physics
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    virtual void Initialize( );
+    virtual void Initialize();
 
 
     /*! Steps the internal data of the Component
@@ -68,14 +68,14 @@ namespace Physics
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    virtual void Update( float deltaMilliseconds ) { };
+    virtual void Update(float deltaMilliseconds) { };
 
 
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    void Destroy( ) { };
+    void Destroy() { };
 
 
     /*! Adds an Observer to the Component
@@ -83,14 +83,14 @@ namespace Physics
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    inline void AddObserver( IObserver* observer ) { m_observer = observer; };
+    inline void AddObserver(IObserver* observer) { m_observer = observer; };
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -98,7 +98,7 @@ namespace Physics
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Posts a message to observers
@@ -107,7 +107,7 @@ namespace Physics
     *  @param[in] AnyType::AnyValueMap parameters
     *  @return (AnyType)
     */
-    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Messages the Component to influence its internal state
@@ -115,37 +115,37 @@ namespace Physics
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    virtual AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    virtual AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream ) { };
+    void Serialize(IO::IStream* stream) { };
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream ) { };
+    void DeSerialize(IO::IStream* stream) { };
 
 
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
 
     /*! Returns the RigidBody of the Component
     *
     *  @return (hkpRigidBody*)
     */
-    inline hkpRigidBody* GetRigidBody( ) const { return m_body; };
+    inline hkpRigidBody* GetRigidBody() const { return m_body; };
 
   protected:
 
@@ -160,8 +160,8 @@ namespace Physics
 
     Resources::IResourceCache* m_resourceCache;
 
-    PhysicsSystemComponent( const PhysicsSystemComponent & copy ) { };
-    PhysicsSystemComponent & operator = ( const PhysicsSystemComponent & copy ) { return *this; };
+    PhysicsSystemComponent(const PhysicsSystemComponent & copy) { };
+    PhysicsSystemComponent & operator = (const PhysicsSystemComponent & copy) { return *this; };
 
   };
 };

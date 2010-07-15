@@ -29,18 +29,18 @@ namespace UX
      *
      *  @return ()
      */
-    ~UXSystemComponentFactory( );
+    ~UXSystemComponentFactory();
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    UXSystemComponentFactory( Script::ILuaState* masterState, IGUI* gui, Events::IEventManager* eventManager, Script::IScriptFacadeFactory* facadeFactory )
-      : m_masterState( masterState )
-      , m_gui( gui )
-      , m_eventManager( eventManager )
-      , m_facadeFactory( facadeFactory )
+    UXSystemComponentFactory(Script::ILuaState* masterState, IGUI* gui, Events::IEventManager* eventManager, Script::IScriptFacadeFactory* facadeFactory)
+      : m_masterState(masterState)
+      , m_gui(gui)
+      , m_eventManager(eventManager)
+      , m_facadeFactory(facadeFactory)
     {
 
     }
@@ -49,14 +49,14 @@ namespace UX
     /*! Creates a Script Component
     *
     * @param[in] const std::string & name
-    * @return ( IUXSystemComponent* )
+    * @return (IUXSystemComponent*)
     */
-    IUXSystemComponent* CreateComponent( const std::string& name );
+    IUXSystemComponent* CreateComponent(const std::string& name);
 
   private:
 
-    UXSystemComponentFactory( const UXSystemComponentFactory & copy ) { };
-    UXSystemComponentFactory & operator = ( const UXSystemComponentFactory & copy ) { return *this; };
+    UXSystemComponentFactory(const UXSystemComponentFactory & copy) { };
+    UXSystemComponentFactory & operator = (const UXSystemComponentFactory & copy) { return *this; };
 
     Script::ILuaState* m_masterState;
     Events::IEventManager* m_eventManager;

@@ -26,23 +26,23 @@ namespace Script
     /*! Registers the Script functions with the given state
     *
     * @param[in] lua_State * state
-    * @return ( void )
+    * @return (void)
     */
-    static luabind::scope RegisterFunctions( );
+    static luabind::scope RegisterFunctions();
 
     /*! Default Destructor
      *
      *  @return ()
      */
-    ~AnimationFacade( ) { };
+    ~AnimationFacade() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    AnimationFacade( ISystemComponent* component )
-      : m_component( component )
+    AnimationFacade(ISystemComponent* component)
+      : m_component(component)
     {
 
     }
@@ -50,38 +50,38 @@ namespace Script
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "animation"; };
+    inline std::string GetName() { return "animation"; };
 
 
     /*! Instructs the Animation System to Start an Animation for the component
     *
     * @param[in] const std::string & animationName
     * @param[in] const bool & loop
-    * @return ( void )
+    * @return (void)
     */
-    void StartAnimation( const std::string& animationName, bool loop );
+    void StartAnimation(const std::string& animationName, bool loop);
 
 
     /*! Instructs the Animation System to Stop an Animation for the component
     *
     * @param[in] const std::string & animationName
-    * @return ( void )
+    * @return (void)
     */
-    void StopAnimation( const std::string& animationName );
+    void StopAnimation(const std::string& animationName);
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
   private:
 
-    AnimationFacade( const AnimationFacade & copy ) { };
-    AnimationFacade & operator = ( const AnimationFacade & copy ) { return *this; };
+    AnimationFacade(const AnimationFacade & copy) { };
+    AnimationFacade & operator = (const AnimationFacade & copy) { return *this; };
   
     ISystemComponent* m_component;
     

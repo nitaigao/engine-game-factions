@@ -32,20 +32,20 @@ namespace Sound
      *
      *  @return ()
      */
-    ~SoundSystem( );
+    ~SoundSystem();
 
 
     /*! Default Constructor
     *
     *  @return ()
     */
-    SoundSystem( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, ISoundScene* scene, ISoundEventSystem* eventSystem );
+    SoundSystem(Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, ISoundScene* scene, ISoundEventSystem* eventSystem);
 
     /*! Initializes the System
     *
     *  @return (void)
     */
-    void Initialize( Configuration::IConfiguration* configuration );
+    void Initialize(Configuration::IConfiguration* configuration);
 
 
     /*! Steps the System's internal data
@@ -53,44 +53,44 @@ namespace Sound
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Releases internal data of the System
     *
     *  @return (System::Types::Type)
     */
-    void Release( );
+    void Release();
 
 
     /*! Messages the system with a command
     *
     * @param[in] const std::string & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    AnyType::AnyTypeMap ProcessMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType::AnyTypeMap ProcessMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Returns the type of the System
     *
     *  @return (System::Types::Type)
     */
-    inline System::Types::Type GetType( ) const { return System::Types::SOUND; };
+    inline System::Types::Type GetType() const { return System::Types::SOUND; };
 
 
     /*! Creates a System Scene
     *
     *  @return (ISystemScene*)
     */
-    ISystemScene* CreateScene( );
+    ISystemScene* CreateScene();
 
 
     /*! Gets the System's Properties
     *
     *  @return (AnyTypeMap)
     */
-    inline AnyType::AnyTypeMap GetAttributes( ) const { return AnyType::AnyTypeMap( ); };
+    inline AnyType::AnyTypeMap GetAttributes() const { return AnyType::AnyTypeMap(); };
 
 
     /*! Sets a System Property
@@ -99,7 +99,7 @@ namespace Sound
     *  @param[in] AnyType value
     *  @return (void)
     */
-    inline void SetAttribute( const std::string& name, AnyType value ) { };  
+    inline void SetAttribute(const std::string& name, AnyType value) { };  
 
 
     /*! Opens a sound file for FMOD
@@ -109,15 +109,15 @@ namespace Sound
     * @param[in] unsigned int * filesize
     * @param[in] void * * handle
     * @param[in] void * * userdata
-    * @return ( bool )
+    * @return (bool)
     */
-    bool FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
+    bool FileOpen(const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata);
 
 
   private:
 
-    SoundSystem( const SoundSystem & copy ) { };
-    SoundSystem & operator = ( const SoundSystem & copy ) { return *this; };
+    SoundSystem(const SoundSystem & copy) { };
+    SoundSystem & operator = (const SoundSystem & copy) { return *this; };
 
     static ISoundSystem* m_soundSystem;
 
@@ -128,10 +128,10 @@ namespace Sound
     Services::IServiceManager* m_serviceManager;
     Resources::IResourceCache* m_resourceCache;
 
-    static FMOD_RESULT F_CALLBACK FMOD_FileOpen( const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata );
-    static FMOD_RESULT F_CALLBACK FMOD_FileClose( void* handle, void*  userdata );
-    static FMOD_RESULT F_CALLBACK FMOD_FileRead( void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata );
-    static FMOD_RESULT F_CALLBACK FMOD_FileSeek( void* handle, unsigned int pos, void* userdata );
+    static FMOD_RESULT F_CALLBACK FMOD_FileOpen(const char* name, int unicode, unsigned int* filesize, void** handle, void** userdata);
+    static FMOD_RESULT F_CALLBACK FMOD_FileClose(void* handle, void*  userdata);
+    static FMOD_RESULT F_CALLBACK FMOD_FileRead(void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread, void* userdata);
+    static FMOD_RESULT F_CALLBACK FMOD_FileSeek(void* handle, unsigned int pos, void* userdata);
   };
 };
 

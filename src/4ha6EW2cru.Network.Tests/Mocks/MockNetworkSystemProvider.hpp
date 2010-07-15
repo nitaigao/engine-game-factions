@@ -19,10 +19,10 @@ namespace
 
   public:
 
-    MOCK_METHOD1( Initialize, void( int ) );
-    MOCK_METHOD1( Update, void( float ) );
-    MOCK_METHOD3( Message, void( ISystemComponent*, const System::MessageType&, AnyType::AnyTypeMap ) );
-    MOCK_METHOD0( Destroy, void( ) );
+    MOCK_METHOD1(Initialize, void(int));
+    MOCK_METHOD1(Update, void(float));
+    MOCK_METHOD3(Message, void(ISystemComponent*, const System::MessageType&, AnyType::AnyTypeMap));
+    MOCK_METHOD0(Destroy, void());
 
     
   };

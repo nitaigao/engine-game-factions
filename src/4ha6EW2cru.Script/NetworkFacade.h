@@ -33,16 +33,16 @@ namespace Script
      *
      *  @return ()
      */
-    ~NetworkFacade( ) { };
+    ~NetworkFacade() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    NetworkFacade( Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache )
-      : m_serviceManager( serviceManager )
-      , m_resourceCache( resourceCache )
+    NetworkFacade(Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache)
+      : m_serviceManager(serviceManager)
+      , m_resourceCache(resourceCache)
     {
 
     }
@@ -51,54 +51,54 @@ namespace Script
     /*! Registers the Script functions with the given state
     *
     * @param[in] lua_State * state
-    * @return ( void )
+    * @return (void)
     */
-    static luabind::scope RegisterFunctions( );
+    static luabind::scope RegisterFunctions();
 
 
     /*! Returns the Name that the Facade will use in script
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) { return "network"; };
+    inline std::string GetName() { return "network"; };
 
 
     /*! Requests the Game connects to the specified server
     *
     * @param[in] const std::string & serverAddress
-    * @return ( void )
+    * @return (void)
     */
-    void Connect( const std::string& hostAddress );
+    void Connect(const std::string& hostAddress);
 
 
     /*! Disconnects if connected to a server
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Disconnect( );
+    void Disconnect();
 
 
     /*! Messages the Server that a character has been selected
     *
     * @param[in] const std::string & characterName
-    * @return ( void )
+    * @return (void)
     */
-    void SelectCharacter( const std::string& characterName );
+    void SelectCharacter(const std::string& characterName);
 
 
     /*! Instructs the Network Stack to look for Game Servers
     *
-    * @return ( void )
+    * @return (void)
     */
-    void FindServers( );
+    void FindServers();
 
 
     /*! Returns the Server Advertisement at the given Cache Index within the Client Server Cache
     *
     * @param[in] const int & cacheIndex
-    * @return ( ServerAdvertisement* )
+    * @return (ServerAdvertisement*)
     */
-    Utility::StringUtils::StringMap GetServerAd( int cacheIndex );
+    Utility::StringUtils::StringMap GetServerAd(int cacheIndex);
 
 
     
@@ -110,29 +110,29 @@ namespace Script
      * @param[in] int timeLimit
      * @param[in] int fragLimit
      * @param[in] int maxPlayers
-     * @return ( void )
+     * @return (void)
      */
-    void CreateServer( const std::string& levelName, int botCount, const std::string& serverName, int timeLimit, int fragLimit, int maxPlayers );
+    void CreateServer(const std::string& levelName, int botCount, const std::string& serverName, int timeLimit, int fragLimit, int maxPlayers);
 
 
     /*! Initializes the Facade with the given ScriptComponent
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ) { };
+    void Initialize() { };
 
 
     /*! Returns a list of available maps to play on the Server
      *
-     * @return ( StringUtils::StringList )
+     * @return (StringUtils::StringList)
      */
-    Utility::StringUtils::StringList GetServerMaps( ) const;
+    Utility::StringUtils::StringList GetServerMaps() const;
 
 
   private:
 
-    NetworkFacade( const NetworkFacade & copy ) { };
-    NetworkFacade & operator = ( const NetworkFacade & copy ) { return *this; };
+    NetworkFacade(const NetworkFacade & copy) { };
+    NetworkFacade & operator = (const NetworkFacade & copy) { return *this; };
     
     Services::IServiceManager* m_serviceManager;
     Resources::IResourceCache* m_resourceCache;

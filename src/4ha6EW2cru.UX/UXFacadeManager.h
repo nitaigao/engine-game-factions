@@ -26,16 +26,16 @@ namespace UX
      *
      *  @return ()
      */
-    ~UXFacadeManager( ) { };
+    ~UXFacadeManager() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    UXFacadeManager( Script::IScriptFacadeFactory* facadeFactory, Script::ILuaState* state )
-      : m_facadeFactory( facadeFactory )
-      , m_state( state )
+    UXFacadeManager(Script::IScriptFacadeFactory* facadeFactory, Script::ILuaState* state)
+      : m_facadeFactory(facadeFactory)
+      , m_state(state)
     {
 
     }
@@ -44,21 +44,21 @@ namespace UX
     /*! Initializes the Facade Manager with the given ScriptComponent
     *
     * @param[in] IScriptComponent *
-    * @return ( void )
+    * @return (void)
     */
-    void Initialize( ISystemComponent* scriptComponent );
+    void Initialize(ISystemComponent* scriptComponent);
 
 
     /*! Destroys each ScriptFacade
     *
-    * @return ( void )
+    * @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
   private:
 
-    UXFacadeManager( const UXFacadeManager & copy ) { };
-    UXFacadeManager & operator = ( const UXFacadeManager & copy ) { return *this; };
+    UXFacadeManager(const UXFacadeManager & copy) { };
+    UXFacadeManager & operator = (const UXFacadeManager & copy) { return *this; };
 
     Script::IScriptFacadeFactory* m_facadeFactory;
     Script::IScriptFacade::ScriptFacadeList m_facades;

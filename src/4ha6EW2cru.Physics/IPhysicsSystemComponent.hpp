@@ -28,14 +28,14 @@ namespace Physics
      *
      *  @return ()
      */
-    virtual ~IPhysicsSystemComponent( ) { };
+    virtual ~IPhysicsSystemComponent() { };
 
 
     /*! Returns the RigidBody of the Component
      *
      *  @return (hkpRigidBody*)
      */
-    virtual hkpRigidBody* GetRigidBody( ) const = 0;
+    virtual hkpRigidBody* GetRigidBody() const = 0;
 
   };
 };

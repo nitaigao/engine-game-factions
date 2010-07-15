@@ -19,7 +19,7 @@ namespace
 
   public:
 
-    MOCK_METHOD2( CreateComponent, ISoundSystemComponent*( const std::string&, const std::string& ) );
+    MOCK_METHOD2(CreateComponent, ISoundSystemComponent*(const std::string&, const std::string&));
     
 
     

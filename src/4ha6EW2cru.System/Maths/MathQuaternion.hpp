@@ -79,14 +79,14 @@ namespace Maths
       float length = sqrt(
         X * X + Y * Y +
         Z * Z + W * W
-        );
+       );
 
       return MathQuaternion(
         X / length,
         Y / length,
         Z / length,
         W / length
-        );
+       );
     };
 
 
@@ -110,7 +110,7 @@ namespace Maths
           X * inverseLength,
           Y * inverseLength,
           Z * inverseLength
-          );
+         );
       }
       else
       {
@@ -131,7 +131,7 @@ namespace Maths
         input.Y == Y,
         input.Z == Z,
         input.W == W
-        );
+       );
     }
 
     
@@ -158,7 +158,7 @@ namespace Maths
         W * input.Y + Y * input.W + Z * input.X - X * input.Z,
         W * input.Z + Z * input.W + X * input.Y - Y * input.X,
         W * input.W - X * input.X - Y * input.Y - Z * input.Z
-      );
+     );
     };
 
 

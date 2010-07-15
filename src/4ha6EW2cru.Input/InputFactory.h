@@ -28,17 +28,17 @@ namespace Input
      *
      *  @return ()
      */
-    ~InputFactory( ) { };
+    ~InputFactory() { };
 
 
     /*! Default Constructor
     *
-    * @return (  )
+    * @return ()
     */
-    InputFactory( Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager ) 
-      : m_eventManager( eventManager )
-      , m_platformManager( platformManager )
-      , m_serviceManager( serviceManager )
+    InputFactory(Events::IEventManager* eventManager, Platform::IPlatformManager* platformManager, Services::IServiceManager* serviceManager) 
+      : m_eventManager(eventManager)
+      , m_platformManager(platformManager)
+      , m_serviceManager(serviceManager)
     {
 
     }
@@ -46,14 +46,14 @@ namespace Input
 
     /*! Creates an Input System
     *
-    * @return ( IInputSystem* )
+    * @return (IInputSystem*)
     */
-    IInputSystem* CreateInputSystem( );
+    IInputSystem* CreateInputSystem();
 
   private:
 
-    InputFactory( const InputFactory & copy ) { };
-    InputFactory & operator = ( const InputFactory & copy ) { return *this; };
+    InputFactory(const InputFactory & copy) { };
+    InputFactory & operator = (const InputFactory & copy) { return *this; };
 
     Events::IEventManager* m_eventManager;
     Platform::IPlatformManager* m_platformManager;

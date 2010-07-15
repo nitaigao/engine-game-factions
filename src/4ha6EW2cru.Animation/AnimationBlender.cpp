@@ -9,57 +9,57 @@ using namespace Logging;
 
 namespace Animation
 {
-  void AnimationBlender::Blend( const std::string& animationName )
+  void AnimationBlender::Blend(const std::string& animationName)
   {
-    if ( m_animationControllers.find( animationName ) == m_animationControllers.end( ) )
+    if (m_animationControllers.find(animationName) == m_animationControllers.end())
     {
       std::stringstream logMessage;
       logMessage << "AnimationBlender::Blend: " << animationName << " doesn't exist";
-      Warn( logMessage.str( ) );
+      Warn(logMessage.str());
     }
     else
     {
-      AnimationControllerList::iterator result = m_blendAnimations.find( animationName );
+      AnimationControllerList::iterator result = m_blendAnimations.find(animationName);
 
-      if ( result == m_blendAnimations.end( ) )
+      if (result == m_blendAnimations.end())
       {
-        m_blendAnimations.insert( *m_animationControllers.find( animationName ) );
+        m_blendAnimations.insert(*m_animationControllers.find(animationName));
       }
 
-      m_unblendAnimations.erase( animationName );
+      m_unblendAnimations.erase(animationName);
     }
   }
 
-  void AnimationBlender::UnBlend( const std::string& animationName )
+  void AnimationBlender::UnBlend(const std::string& animationName)
   {
-    if ( m_animationControllers.find( animationName ) == m_animationControllers.end( ) )
+    if (m_animationControllers.find(animationName) == m_animationControllers.end())
     {
       std::stringstream logMessage;
       logMessage << "AnimationBlender::UnBlend: " << animationName << " doesn't exist";
-      Warn( logMessage.str( ) );
+      Warn(logMessage.str());
     }
     else
     {
-      AnimationControllerList::iterator result = m_unblendAnimations.find( animationName );
+      AnimationControllerList::iterator result = m_unblendAnimations.find(animationName);
 
-      if ( result == m_unblendAnimations.end( ) )
+      if (result == m_unblendAnimations.end())
       {
-        m_unblendAnimations.insert( *m_animationControllers.find( animationName ) );
+        m_unblendAnimations.insert(*m_animationControllers.find(animationName));
       }
 
-      m_blendAnimations.erase( animationName );
+      m_blendAnimations.erase(animationName);
     }
   }
 
-  void AnimationBlender::Update( float deltaMilliseconds )
+  void AnimationBlender::Update(float deltaMilliseconds)
   {
-    for( AnimationControllerList::iterator i = m_blendAnimations.begin( ); i != m_blendAnimations.end( ); )
+    for(AnimationControllerList::iterator i = m_blendAnimations.begin(); i != m_blendAnimations.end();)
     {
-      ( *i ).second->setMasterWeight( ( *i ).second->getMasterWeight( ) + 0.1f );
+      (*i).second->setMasterWeight((*i).second->getMasterWeight() + 0.1f);
 
-      if ( ( *i ).second->getMasterWeight( ) >= 1.0f )
+      if ((*i).second->getMasterWeight() >= 1.0f)
       {
-        i = m_blendAnimations.erase( i );
+        i = m_blendAnimations.erase(i);
       }
       else
       {
@@ -67,13 +67,13 @@ namespace Animation
       }
     }
 
-    for( AnimationControllerList::iterator i = m_unblendAnimations.begin( ); i != m_unblendAnimations.end( ); )
+    for(AnimationControllerList::iterator i = m_unblendAnimations.begin(); i != m_unblendAnimations.end();)
     {
-      ( *i ).second->setMasterWeight( ( *i ).second->getMasterWeight( ) - 0.1f );
+      (*i).second->setMasterWeight((*i).second->getMasterWeight() - 0.1f);
 
-      if ( ( *i ).second->getMasterWeight( ) <= 0.0f )
+      if ((*i).second->getMasterWeight() <= 0.0f)
       {
-        i = m_unblendAnimations.erase( i );
+        i = m_unblendAnimations.erase(i);
       }
       else
       {

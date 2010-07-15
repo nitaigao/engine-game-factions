@@ -141,7 +141,7 @@ namespace OgreMax
             const Ogre::String& entityName, 
             const Ogre::String& meshFile, 
             std::vector<Types::EntityParameters::Subentity>& subentities
-            );
+           );
 
         /** Determines if the specified character is a path separator */
         static bool IsSeparator(char c);

@@ -32,51 +32,51 @@ namespace Script
      *
      *  @return ()
      */
-    virtual ~IScriptFunctionHandler( ) { };
+    virtual ~IScriptFunctionHandler() { };
 
 
     /*! Marks the Handler for deletion on the next UX Update or Event Tick
     *
     *  @return (void)
     */
-    virtual void MarkForDeletion( ) = 0;
+    virtual void MarkForDeletion() = 0;
 
 
     /*! Returns whether or not the handler is marked for deletion on the next UX Update or Event Tick
     *
     *  @return (bool)
     */
-    virtual bool IsMarkedForDeletion( ) const = 0;
+    virtual bool IsMarkedForDeletion() const = 0;
 
 
     /*! Calls a Function Handler with the given parameters
      *
      * @param[in] float deltaMilliseconds
-     * @return ( void )
+     * @return (void)
      */
-    virtual void CallFunction( float deltaMilliseconds ) = 0;
+    virtual void CallFunction(float deltaMilliseconds) = 0;
 
 
     /*! Calls the Function Handler with the given parameters
      *
      * @param[in] AnyType::AnyTypeMap parameters
-     * @return ( void )
+     * @return (void)
      */
-    virtual void CallFunction( AnyType::AnyTypeMap parameters ) = 0;
+    virtual void CallFunction(AnyType::AnyTypeMap parameters) = 0;
 
 
     /*! Calls the Function Handler with the given parameters
      *
      * @param[in] const std::string & eventType
      * @param[in] Events::IEventData * eventData
-     * @return ( void )
+     * @return (void)
      */
-    virtual void CallFunction( const std::string& eventType, Events::IEventData* eventData ) = 0;
+    virtual void CallFunction(const std::string& eventType, Events::IEventData* eventData) = 0;
 
-    virtual void CallFunction( const System::MessageType& message, AnyType::AnyTypeMap& parameters ) = 0;
+    virtual void CallFunction(const System::MessageType& message, AnyType::AnyTypeMap& parameters) = 0;
 
 
-    virtual bool Compare( IScriptFunctionHandler* input ) = 0;
+    virtual bool Compare(IScriptFunctionHandler* input) = 0;
   };
 };
 

@@ -12,7 +12,7 @@ namespace Utility
 
     int index = result.find(oldString);
 
-    for(; index != std::string::npos; )
+    for(; index != std::string::npos;)
     {
       if(newString.empty())
       {

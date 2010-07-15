@@ -18,9 +18,9 @@ namespace Input
 
     /*! Default Destructor
     *
-    * @return (  )
+    * @return ()
     */
-    ~InputMessageBinding( ) { };
+    ~InputMessageBinding() { };
 
 
 
@@ -28,19 +28,19 @@ namespace Input
     *
     * @param[in] const std::string & message
     * @param[in] const std::string & fullCode
-    * @return (  )
+    * @return ()
     */
-    InputMessageBinding( const System::MessageType& message, const std::string& fullCode )
+    InputMessageBinding(const System::MessageType& message, const std::string& fullCode)
     {
       m_message = message;
       m_fullCode = fullCode;
 
       std::string keyIdentifier = "k_";
 
-      if( fullCode.find( keyIdentifier ) != std::string::npos )
+      if(fullCode.find(keyIdentifier) != std::string::npos)
       {
-        std::string codeText = fullCode.substr( fullCode.find( keyIdentifier ) + keyIdentifier.size( ) );
-        std::stringstream codeStream( codeText );
+        std::string codeText = fullCode.substr(fullCode.find(keyIdentifier) + keyIdentifier.size());
+        std::stringstream codeStream(codeText);
 
         codeStream >> m_code;
 
@@ -49,16 +49,16 @@ namespace Input
 
       std::string mouseIdentifier = "m_";
 
-      if ( fullCode.find( mouseIdentifier ) != std::string::npos )
+      if (fullCode.find(mouseIdentifier) != std::string::npos)
       {
-        std::string codeText = fullCode.substr( fullCode.find( mouseIdentifier ) + mouseIdentifier.size( ) );
+        std::string codeText = fullCode.substr(fullCode.find(mouseIdentifier) + mouseIdentifier.size());
         
-        std::stringstream codeStream( codeText );
+        std::stringstream codeStream(codeText);
         codeStream >> m_code;
 
         m_type = BINDING_MOUSE;
 
-        switch( static_cast< OIS::MouseButtonID >( m_code ) )
+        switch(static_cast< OIS::MouseButtonID >(m_code))
         {
 
         case OIS::MB_Left: m_text = "MOUSE1"; break;
@@ -77,52 +77,52 @@ namespace Input
 
     /*! Returns a string name of the type
     *
-    * @return ( const std::string )
+    * @return (const std::string)
     */
-    static const std::string TypeName( ) { return "InputMessageBinding"; };
+    static const std::string TypeName() { return "InputMessageBinding"; };
 
 
     /*! Returns the Type of the MessageType Binding
     *
-    * @return ( InputMessageBindingType )
+    * @return (InputMessageBindingType)
     */
-    InputMessageBindingType GetType( ) const  { return m_type; };
+    InputMessageBindingType GetType() const  { return m_type; };
 
 
     /*! Gets the Input Code
     *
-    * @return ( unsigned int )
+    * @return (unsigned int)
     */
-    unsigned int GetCode( ) const { return m_code; };
+    unsigned int GetCode() const { return m_code; };
 
 
     /*! Returns the Full Code used to create the binding
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    std::string GetFullCode( ) const { return m_fullCode; };
+    std::string GetFullCode() const { return m_fullCode; };
 
 
     /*! Returns the text of the Input
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    std::string GetText( ) const { return m_text; };
+    std::string GetText() const { return m_text; };
 
 
     /*! Sets the text representation of the binding
     *
     * @param[in] const std::string & text
-    * @return ( void )
+    * @return (void)
     */
-    void SetText( const std::string& text ) { m_text = text; };
+    void SetText(const std::string& text) { m_text = text; };
 
 
     /*! Gets the MessageType Associated with the Binding
     *
-    * @return ( unsigned int )
+    * @return (unsigned int)
     */
-    System::MessageType GetMessage( ) const { return m_message; };
+    System::MessageType GetMessage() const { return m_message; };
 
   private:
 

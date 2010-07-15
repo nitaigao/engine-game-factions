@@ -29,28 +29,28 @@ namespace Network
      *
      *  @return ()
      */
-    virtual ~INetworkClientController( ) { };
+    virtual ~INetworkClientController() { };
 
 
     /*! Selects a character within the game
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void SelectCharacter( const std::string& characterName ) = 0;
+    virtual void SelectCharacter(const std::string& characterName) = 0;
 
 
     /*! Broadcasts the Network for Servers
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void FindServers( unsigned int port ) = 0;
+    virtual void FindServers(unsigned int port) = 0;
     
 
     /*! Tells the Server that the Client has finished loading the Level
      *
-     * @return ( void )
+     * @return (void)
      */
-    virtual void LevelLoaded( ) = 0;
+    virtual void LevelLoaded() = 0;
 
 
     /*! Forwards the Message to the given Entity
@@ -58,17 +58,17 @@ namespace Network
     * @param[in] const std::string & entityName
     * @param[in] const System::MessageType & message
     * @param[in] AnyType::AnyTypeMap parameters
-    * @return ( void )
+    * @return (void)
     */
-    virtual void MessageEntity( const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters ) = 0;
+    virtual void MessageEntity(const std::string& entityName, const System::MessageType& message, AnyType::AnyTypeMap parameters) = 0;
 
 
     /*! Stops the Controller from Sending client data
     *
     * @param[in] bool isPassive
-    * @return ( void )
+    * @return (void)
     */
-    virtual void SetPassive( bool isPassive ) = 0;
+    virtual void SetPassive(bool isPassive) = 0;
   };
 };
 

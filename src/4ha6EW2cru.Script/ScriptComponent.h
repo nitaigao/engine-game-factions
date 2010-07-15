@@ -35,7 +35,7 @@ namespace Script
     *
     *  @return ()
     */
-    ~ScriptComponent( );
+    ~ScriptComponent();
 
 
     /*! Default Constructor
@@ -43,13 +43,13 @@ namespace Script
     *  @param[in] const std::string & name
     *  @return ()
     */
-    ScriptComponent( ILuaState* state, IScriptFacadeManager* facadeManager, IScriptMessageDispatcher* messageDispatcher, IScriptEventDispatcher* eventDispatcher, IScriptUpdateDispatcher* updateDispatcher )
-      : m_state( state )
-      , m_facadeManager( facadeManager )
-      , m_messageDispatcher( messageDispatcher )
-      , m_eventDispatcher( eventDispatcher )
-      , m_updateDispatcher( updateDispatcher )
-      , m_observer( 0 )
+    ScriptComponent(ILuaState* state, IScriptFacadeManager* facadeManager, IScriptMessageDispatcher* messageDispatcher, IScriptEventDispatcher* eventDispatcher, IScriptUpdateDispatcher* updateDispatcher)
+      : m_state(state)
+      , m_facadeManager(facadeManager)
+      , m_messageDispatcher(messageDispatcher)
+      , m_eventDispatcher(eventDispatcher)
+      , m_updateDispatcher(updateDispatcher)
+      , m_observer(0)
     {
 
     };
@@ -60,7 +60,7 @@ namespace Script
     *  @param[in] AnyType::AnyValueMap properties
     *  @return (void)
     */
-    void Initialize( );
+    void Initialize();
 
 
     /*! Steps the internal data of the Component
@@ -68,14 +68,14 @@ namespace Script
     *  @param[in] float deltaMilliseconds
     *  @return (void)
     */
-    void Update( float deltaMilliseconds );
+    void Update(float deltaMilliseconds);
 
 
     /*! Destroys the Component
     *
     *  @return (void)
     */
-    void Destroy( );
+    void Destroy();
 
 
     /*! Adds an Observer to the Component
@@ -83,7 +83,7 @@ namespace Script
     *  @param[in] IObserver * observer
     *  @return (void)
     */
-    inline void AddObserver( IObserver* observer ) { m_observer = observer; };
+    inline void AddObserver(IObserver* observer) { m_observer = observer; };
 
 
     /*! Pushes any Changes to the Observers
@@ -91,14 +91,14 @@ namespace Script
     *  @param[in] const unsigned int& systemChanges
     *  @return (void)
     */
-    void PushChanges( const unsigned int& systemChanges );
+    void PushChanges(const unsigned int& systemChanges);
 
 
     /*! Gets the properties of the Component
     *
     *  @return (AnyTypeKeyMap)
     */
-    AnyType::AnyTypeMap GetAttributes( ) const { return m_attributes; };
+    AnyType::AnyTypeMap GetAttributes() const { return m_attributes; };
 
 
     /*! Sets an Attribute on the Component *
@@ -106,7 +106,7 @@ namespace Script
     *  @param[in] const unsigned int attributeId
     *  @param[in] const AnyType & value
     */
-    inline void SetAttribute( const System::Attribute& attributeId, const AnyType& value ) { m_attributes[ attributeId ] = value; };
+    inline void SetAttribute(const System::Attribute& attributeId, const AnyType& value) { m_attributes[ attributeId ] = value; };
 
 
     /*! Messages the Component to influence its internal state
@@ -114,23 +114,23 @@ namespace Script
     *  @param[in] const std::string & message
     *  @return (AnyType)
     */
-    AnyType Observe( const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters );
+    AnyType Observe(const ISubject* subject, const System::MessageType& message, AnyType::AnyTypeMap parameters);
 
 
     /*! Writes the contents of the object to the given stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void Serialize( IO::IStream* stream ) { };
+    void Serialize(IO::IStream* stream) { };
 
 
     /*! Reads the contents of the object from the stream
     *
     * @param[in] IStream * stream
-    * @return ( void )
+    * @return (void)
     */
-    void DeSerialize( IO::IStream* stream ) { };
+    void DeSerialize(IO::IStream* stream) { };
 
 
     /*! Posts a message to the parent Entity
@@ -139,7 +139,7 @@ namespace Script
      *  @param[in] AnyType::AnyValueMap parameters
      *  @return (AnyType)
      */
-    AnyType PushMessage( const System::MessageType& message, AnyType::AnyTypeMap parameters ) { return m_observer->Observe( this, message, parameters ); };
+    AnyType PushMessage(const System::MessageType& message, AnyType::AnyTypeMap parameters) { return m_observer->Observe(this, message, parameters); };
 
 
     /* Script Handlers */
@@ -148,7 +148,7 @@ namespace Script
      *
      *  @return (void)
      */
-    void RunScript( );
+    void RunScript();
 
 
     /*! Includes a script into the current LUA State
@@ -156,16 +156,16 @@ namespace Script
      *  @param[in] const std::string & scriptPath
      *  @return (void)
      */
-    void IncludeScript( const std::string& scriptPath );
+    void IncludeScript(const std::string& scriptPath);
 
 
     /*! Registers a Script Function to receive Events
     *
     * @param[in] const std::string & eventType
     * @param[in] luabind::object handlerFunction
-    * @return ( void )
+    * @return (void)
     */
-    void RegisterEventHandler( const std::string& eventType, const luabind::object& handlerFunction );
+    void RegisterEventHandler(const std::string& eventType, const luabind::object& handlerFunction);
 
 
     /*!  Registers an LUA function to receive messages
@@ -173,7 +173,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    void SubscribeMessage( const System::MessageType& message, const luabind::object& function );
+    void SubscribeMessage(const System::MessageType& message, const luabind::object& function);
 
 
     /*! UnRegisters an LUA function from receiving messages
@@ -181,7 +181,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    void UnSubscribeMessage( const System::MessageType& message,  const luabind::object& function );
+    void UnSubscribeMessage(const System::MessageType& message,  const luabind::object& function);
 
 
     /*!  Registers an LUA function to be included in the Game Update Loop
@@ -189,7 +189,7 @@ namespace Script
      *  @param[in] luabind::object function
      *  @return (void)
      */
-    void RegisterUpdateHandler( const luabind::object& function );
+    void RegisterUpdateHandler(const luabind::object& function);
 
 
     /*! UnRegisters an LUA function from being included in the Game Update Loop
@@ -197,7 +197,7 @@ namespace Script
     *  @param[in] luabind::object function
     *  @return (void)
     */
-    void UnRegisterUpdateHandler( const luabind::object& function );
+    void UnRegisterUpdateHandler(const luabind::object& function);
 
 
     /*! Executed the given string as LUA code against the components LUA State
@@ -205,26 +205,26 @@ namespace Script
      *  @param[in] const std::string & input
      *  @return (void)
      */
-    void ExecuteString( const std::string& input );
+    void ExecuteString(const std::string& input);
 
     
     /*! Returns the Name of the Component
     *
-    * @return ( std::string )
+    * @return (std::string)
     */
-    inline std::string GetName( ) const { return ( *m_attributes.find( System::Attributes::Name ) ).second.As< std::string >( ); };
+    inline std::string GetName() const { return (*m_attributes.find(System::Attributes::Name)).second.As< std::string >(); };
 
 
-    inline Maths::MathVector3 GetLookAt( ) const { return m_lookAt; };
+    inline Maths::MathVector3 GetLookAt() const { return m_lookAt; };
 
-    inline Maths::MathVector3 GetPosition( ) { return m_attributes[ System::Attributes::Position ].As< Maths::MathVector3 >( ); };
+    inline Maths::MathVector3 GetPosition() { return m_attributes[ System::Attributes::Position ].As< Maths::MathVector3 >(); };
 
-    inline void SetPosition( const Maths::MathVector3& position );
+    inline void SetPosition(const Maths::MathVector3& position);
 
   private:
 
-    ScriptComponent( const ScriptComponent & copy ) { };
-    ScriptComponent & operator = ( const ScriptComponent & copy ) { return *this; };
+    ScriptComponent(const ScriptComponent & copy) { };
+    ScriptComponent & operator = (const ScriptComponent & copy) { return *this; };
 
     ILuaState* m_state;
 
