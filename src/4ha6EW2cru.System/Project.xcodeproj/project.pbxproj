@@ -1,0 +1,1086 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		11EE16011EE16011EE160000 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 13BE41013BE41013BE410000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				11EE38011EE38011EE380000 /* CMake ReRun */,
+				11EEA8011EEA8011EEA80000 /* CMake Rules */,
+			);
+			dependencies = (
+				11C72F011C72F011C72F0000 /* PBXTargetDependency */,
+				11D95E011D95E011D95E0000 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		11748A011748A011748A0000 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 117592011759201175920000 /* Logger.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		117990011799001179900000 /* ServiceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 117970011797001179700000 /* ServiceManager.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11B4F5011B4F5011B4F50000 /* SystemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D058011D058011D0580000 /* SystemManager.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11BB05011BB05011BB050000 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11D5B8011D5B8011D5B80000 /* Platform.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11BFE0011BFE0011BFE00000 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C09B011C09B011C09B0000 /* Game.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11C11E011C11E011C11E0000 /* OSXPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C105011C105011C1050000 /* OSXPlatform.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11C8D4011C8D4011C8D40000 /* ResourceCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11A689011A689011A6890000 /* ResourceCache.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11D10D011D10D011D10D0000 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1174BC01174BC01174BC0000 /* EventManager.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11E185011E185011E1850000 /* GameFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11AEB2011AEB2011AEB20000 /* GameFactory.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11F978011F978011F9780000 /* precompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11F908011F908011F9080000 /* precompiled.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11FA6F011FA6F011FA6F0000 /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11FA56011FA56011FA560000 /* Configuration.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		11FB1F011FB1F011FB1F0000 /* ConfigurationFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11FB06011FB06011FB060000 /* ConfigurationFile.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		138ED30138ED30138ED30000 /* FileSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 11C894011C894011C8940000 /* FileSystem.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		138F380138F380138F380000 /* ProgramOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 138F180138F180138F180000 /* ProgramOptions.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		138FE00138FE00138FE00000 /* OSXPlatformManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 138FC70138FC70138FC70000 /* OSXPlatformManager.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		1390F601390F601390F60000 /* OSXClock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 139079013907901390790000 /* OSXClock.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		139393013939301393930000 /* main_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13BFBF013BFBF013BFBF0000 /* main_osx.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		13CFF5013CFF5013CFF50000 /* OSXPathInformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 139126013912601391260000 /* OSXPathInformation.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11C6E2011C6E2011C6E20000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11EC05011EC05011EC050000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11EF20011EF20011EF200000;
+			remoteInfo = Application;
+		};
+		11C757011C757011C7570000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11EC05011EC05011EC050000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 117BF60117BF60117BF60000;
+			remoteInfo = Base;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1174BC01174BC01174BC0000 /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventManager.cpp; path = Events/EventManager.cpp; sourceTree = SOURCE_ROOT; };
+		117592011759201175920000 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Logging/Logger.cpp; sourceTree = SOURCE_ROOT; };
+		117970011797001179700000 /* ServiceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ServiceManager.cpp; path = Service/ServiceManager.cpp; sourceTree = SOURCE_ROOT; };
+		11A689011A689011A6890000 /* ResourceCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourceCache.cpp; path = IO/ResourceCache.cpp; sourceTree = SOURCE_ROOT; };
+		11AEB2011AEB2011AEB20000 /* GameFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameFactory.cpp; path = Game/GameFactory.cpp; sourceTree = SOURCE_ROOT; };
+		11C09B011C09B011C09B0000 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = Game/Game.cpp; sourceTree = SOURCE_ROOT; };
+		11C105011C105011C1050000 /* OSXPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSXPlatform.cpp; path = System/platform/OSXPlatform.cpp; sourceTree = SOURCE_ROOT; };
+		11C66F011C66F011C66F0000 /* libBase.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libBase.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		11C894011C894011C8940000 /* FileSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileSystem.cpp; path = IO/FileSystem.cpp; sourceTree = SOURCE_ROOT; };
+		11D058011D058011D0580000 /* SystemManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemManager.cpp; path = System/SystemManager.cpp; sourceTree = SOURCE_ROOT; };
+		11D5B8011D5B8011D5B80000 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Platform.cpp; path = System/platform/Platform.cpp; sourceTree = SOURCE_ROOT; };
+		11F894011F894011F8940000 /* Application */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = Application; sourceTree = BUILT_PRODUCTS_DIR; };
+		11F908011F908011F9080000 /* precompiled.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = precompiled.cpp; sourceTree = SOURCE_ROOT; };
+		11F9AD011F9AD011F9AD0000 /* Export.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Export.hpp; sourceTree = SOURCE_ROOT; };
+		11FA56011FA56011FA560000 /* Configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Configuration.cpp; path = Configuration/Configuration.cpp; sourceTree = SOURCE_ROOT; };
+		11FB06011FB06011FB060000 /* ConfigurationFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigurationFile.cpp; path = Configuration/ConfigurationFile.cpp; sourceTree = SOURCE_ROOT; };
+		138F180138F180138F180000 /* ProgramOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProgramOptions.cpp; path = Platform/ProgramOptions.cpp; sourceTree = SOURCE_ROOT; };
+		138FC70138FC70138FC70000 /* OSXPlatformManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSXPlatformManager.cpp; path = Platform/OSXPlatformManager.cpp; sourceTree = SOURCE_ROOT; };
+		139079013907901390790000 /* OSXClock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSXClock.cpp; path = Platform/OSXClock.cpp; sourceTree = SOURCE_ROOT; };
+		139126013912601391260000 /* OSXPathInformation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OSXPathInformation.cpp; path = IO/OSXPathInformation.cpp; sourceTree = SOURCE_ROOT; };
+		13BF86013BF86013BF860000 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		13BFBF013BFBF013BFBF0000 /* main_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_osx.cpp; path = ../4ha6EW2cru.Application/main_osx.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		11E875011E875011E8750000 = {
+			isa = PBXGroup;
+			children = (
+				11E8A2011E8A2011E8A20000 /* Sources */,
+				11E8DF011E8DF011E8DF0000 /* Resources */,
+				11E91C011E91C011E91C0000 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		11E8A2011E8A2011E8A20000 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				11E946011E946011E9460000 /* ALL_BUILD */,
+				11E9EE011E9EE011E9EE0000 /* Application */,
+				11EA90011EA90011EA900000 /* Base */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		11E8DF011E8DF011E8DF0000 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		11E91C011E91C011E91C0000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11F894011F894011F8940000 /* Application */,
+				11C66F011C66F011C66F0000 /* libBase.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11E946011E946011E9460000 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				11E9A4011E9A4011E9A40000 /* CMake Rules */,
+				13BF86013BF86013BF860000 /* CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		11E9A4011E9A4011E9A40000 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		11E9EE011E9EE011E9EE0000 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				11EA2F011EA2F011EA2F0000 /* Source Files */,
+				13BF86013BF86013BF860000 /* CMakeLists.txt */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		11EA2F011EA2F011EA2F0000 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				13BFBF013BFBF013BFBF0000 /* main_osx.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		11EA90011EA90011EA900000 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				11EACC011EACC011EACC0000 /* Source Files */,
+				11EB14011EB14011EB140000 /* Header Files */,
+				13BF86013BF86013BF860000 /* CMakeLists.txt */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		11EACC011EACC011EACC0000 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				11F908011F908011F9080000 /* precompiled.cpp */,
+				11FA56011FA56011FA560000 /* Configuration.cpp */,
+				11FB06011FB06011FB060000 /* ConfigurationFile.cpp */,
+				117592011759201175920000 /* Logger.cpp */,
+				1174BC01174BC01174BC0000 /* EventManager.cpp */,
+				117970011797001179700000 /* ServiceManager.cpp */,
+				11D058011D058011D0580000 /* SystemManager.cpp */,
+				11D5B8011D5B8011D5B80000 /* Platform.cpp */,
+				11C105011C105011C1050000 /* OSXPlatform.cpp */,
+				11C09B011C09B011C09B0000 /* Game.cpp */,
+				11AEB2011AEB2011AEB20000 /* GameFactory.cpp */,
+				11A689011A689011A6890000 /* ResourceCache.cpp */,
+				11C894011C894011C8940000 /* FileSystem.cpp */,
+				138F180138F180138F180000 /* ProgramOptions.cpp */,
+				138FC70138FC70138FC70000 /* OSXPlatformManager.cpp */,
+				139079013907901390790000 /* OSXClock.cpp */,
+				139126013912601391260000 /* OSXPathInformation.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		11EB14011EB14011EB140000 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				11F9AD011F9AD011F9AD0000 /* Export.hpp */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		117BF60117BF60117BF60000 /* Base */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 117BE50117BE50117BE50000 /* Build configuration list for PBXNativeTarget "Base" */;
+			buildPhases = (
+				13BCB0013BCB0013BCB00000 /* CMake ReRun */,
+				1394FF01394FF01394FF0000 /* Sources */,
+				13BD23013BD23013BD230000 /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Base;
+			productName = Base;
+			productReference = 11C66F011C66F011C66F0000 /* libBase.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		11EF20011EF20011EF200000 /* Application */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EF41011EF41011EF410000 /* Build configuration list for PBXNativeTarget "Application" */;
+			buildPhases = (
+				138DE70138DE70138DE70000 /* CMake ReRun */,
+				138DA40138DA40138DA40000 /* Sources */,
+				138E5A0138E5A0138E5A0000 /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11D95E011D95E011D95E0000 /* PBXTargetDependency */,
+			);
+			name = Application;
+			productName = Application;
+			productReference = 11F894011F894011F8940000 /* Application */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11EC05011EC05011EC050000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
+			buildConfigurationList = 11EC7F011EC7F011EC7F0000 /* Build configuration list for PBXProject "Project" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 0;
+			mainGroup = 11E875011E875011E8750000;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11EE16011EE16011EE160000 /* ALL_BUILD */,
+				11EF20011EF20011EF200000 /* Application */,
+				117BF60117BF60117BF60000 /* Base */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11EE38011EE38011EE380000 /* CMake ReRun */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake ReRun";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/NK/Development/factions/src/4ha6EW2cru.System -f /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeScripts/ReRunCMake.make";
+		};
+		11EEA8011EEA8011EEA80000 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/NK/Development/factions/src/4ha6EW2cru.System -f /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+		};
+		138DE70138DE70138DE70000 /* CMake ReRun */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake ReRun";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/NK/Development/factions/src/4ha6EW2cru.System -f /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeScripts/ReRunCMake.make";
+		};
+		138E5A0138E5A0138E5A0000 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/NK/Development/factions/src/4ha6EW2cru.System -f /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeScripts/Application_postBuildPhase.make$CONFIGURATION all";
+		};
+		13BCB0013BCB0013BCB00000 /* CMake ReRun */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake ReRun";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/NK/Development/factions/src/4ha6EW2cru.System -f /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeScripts/ReRunCMake.make";
+		};
+		13BD23013BD23013BD230000 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/NK/Development/factions/src/4ha6EW2cru.System -f /Users/NK/Development/factions/src/4ha6EW2cru.System/CMakeScripts/Base_postBuildPhase.make$CONFIGURATION all";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		138DA40138DA40138DA40000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				139393013939301393930000 /* main_osx.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1394FF01394FF01394FF0000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11F978011F978011F9780000 /* precompiled.cpp in Sources */,
+				11FA6F011FA6F011FA6F0000 /* Configuration.cpp in Sources */,
+				11FB1F011FB1F011FB1F0000 /* ConfigurationFile.cpp in Sources */,
+				11748A011748A011748A0000 /* Logger.cpp in Sources */,
+				11D10D011D10D011D10D0000 /* EventManager.cpp in Sources */,
+				117990011799001179900000 /* ServiceManager.cpp in Sources */,
+				11B4F5011B4F5011B4F50000 /* SystemManager.cpp in Sources */,
+				11BB05011BB05011BB050000 /* Platform.cpp in Sources */,
+				11C11E011C11E011C11E0000 /* OSXPlatform.cpp in Sources */,
+				11BFE0011BFE0011BFE00000 /* Game.cpp in Sources */,
+				11E185011E185011E1850000 /* GameFactory.cpp in Sources */,
+				11C8D4011C8D4011C8D40000 /* ResourceCache.cpp in Sources */,
+				138ED30138ED30138ED30000 /* FileSystem.cpp in Sources */,
+				138F380138F380138F380000 /* ProgramOptions.cpp in Sources */,
+				138FE00138FE00138FE00000 /* OSXPlatformManager.cpp in Sources */,
+				1390F601390F601390F60000 /* OSXClock.cpp in Sources */,
+				13CFF5013CFF5013CFF50000 /* OSXPathInformation.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11C72F011C72F011C72F0000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11EF20011EF20011EF200000 /* Application */;
+			targetProxy = 11C6E2011C6E2011C6E20000 /* PBXContainerItemProxy */;
+		};
+		11D95E011D95E011D95E0000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 117BF60117BF60117BF60000 /* Base */;
+			targetProxy = 11C757011C757011C7570000 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		11A7D0011A7D0011A7D00000 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/MinSizeRel;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)\"'",
+					Base_EXPORTS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = /Users/NK/Development/factions/build/bin/MinSizeRel;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-headerpad_max_install_names",
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Base;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		11B830011B830011B8300000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/Release;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)\"'",
+					Base_EXPORTS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = /Users/NK/Development/factions/build/bin/Release;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNDEBUG",
+					"-fPIC",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-headerpad_max_install_names",
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Base;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		11BC36011BC36011BC360000 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/RelWithDebInfo;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)\"'",
+					Base_EXPORTS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = /Users/NK/Development/factions/build/bin/RelWithDebInfo;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-fPIC",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-fPIC",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-headerpad_max_install_names",
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Base;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		11DB02011DB02011DB020000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/Debug;
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .dylib;
+				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"'CMAKE_INTDIR=\"$(CONFIGURATION)\"'",
+					Base_EXPORTS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = /Users/NK/Development/factions/build/bin/Debug;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-fPIC",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-fPIC",
+				);
+				OTHER_LDFLAGS = (
+					"-dynamiclib",
+					"-headerpad_max_install_names",
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Base;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		11EC98011EC98011EC980000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+				);
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System/build;
+			};
+			name = Debug;
+		};
+		11ECB7011ECB7011ECB70000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+				);
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System/build;
+			};
+			name = Release;
+		};
+		11ECD6011ECD6011ECD60000 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+				);
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System/build;
+			};
+			name = MinSizeRel;
+		};
+		11ECF5011ECF5011ECF50000 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+				);
+				SDKROOT = /Developer/SDKs/MacOSX10.6.sdk;
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System/build;
+			};
+			name = RelWithDebInfo;
+		};
+		11EF77011EF77011EF770000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/Debug;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-headerpad_max_install_names",
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					/Users/NK/Development/factions/build/bin/Debug/libBase.dylib,
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Application;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		11F1B8011F1B8011F1B80000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/Release;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-headerpad_max_install_names",
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					/Users/NK/Development/factions/build/bin/Release/libBase.dylib,
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Application;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		11F3F3011F3F3011F3F30000 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/MinSizeRel;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-headerpad_max_install_names",
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					/Users/NK/Development/factions/build/bin/MinSizeRel/libBase.dylib,
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Application;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		11F629011F629011F6290000 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				CONFIGURATION_BUILD_DIR = /Users/NK/Development/factions/build/bin/RelWithDebInfo;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-headerpad_max_install_names",
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					/Users/NK/Development/factions/build/bin/RelWithDebInfo/libBase.dylib,
+					"-framework",
+					Ogre,
+					"-framework",
+					CoreFoundation,
+					/Users/NK/Development/factions/etc/vendor/physfs/libphysfs.dylib,
+					"/Users/NK/Development/boost-trunk/stage/lib/libboost_filesystem.dylib",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = Application;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		134DA60134DA60134DA60000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		13CBD0013CBD0013CBD00000 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		13CDC8013CDC8013CDC80000 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		13D02A013D02A013D02A0000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/.,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tinyxml/include,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/physfs,
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../../etc/vendor/tclap/include,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../ogre-prebuilt/include/OGRE",
+					/Users/NK/Development/factions/src/4ha6EW2cru.System/../4ha6EW2cru.Application,
+					"/Users/NK/Development/factions/src/4ha6EW2cru.System/../../../boost-trunk",
+				);
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/NK/Development/factions/src/4ha6EW2cru.System;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		117BE50117BE50117BE50000 /* Build configuration list for PBXNativeTarget "Base" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11DB02011DB02011DB020000 /* Debug */,
+				11B830011B830011B8300000 /* Release */,
+				11A7D0011A7D0011A7D00000 /* MinSizeRel */,
+				11BC36011BC36011BC360000 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		11EC7F011EC7F011EC7F0000 /* Build configuration list for PBXProject "Project" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EC98011EC98011EC980000 /* Debug */,
+				11ECB7011ECB7011ECB70000 /* Release */,
+				11ECD6011ECD6011ECD60000 /* MinSizeRel */,
+				11ECF5011ECF5011ECF50000 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		11EF41011EF41011EF410000 /* Build configuration list for PBXNativeTarget "Application" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EF77011EF77011EF770000 /* Debug */,
+				11F1B8011F1B8011F1B80000 /* Release */,
+				11F3F3011F3F3011F3F30000 /* MinSizeRel */,
+				11F629011F629011F6290000 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		13BE41013BE41013BE410000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13D02A013D02A013D02A0000 /* Debug */,
+				134DA60134DA60134DA60000 /* Release */,
+				13CBD0013CBD0013CBD00000 /* MinSizeRel */,
+				13CDC8013CDC8013CDC80000 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11EC05011EC05011EC050000 /* Project object */;
+}

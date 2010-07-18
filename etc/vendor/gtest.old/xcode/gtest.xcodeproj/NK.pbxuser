@@ -1,0 +1,1306 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 4C87DFE311F1E9430027849A /* sample1_unittest */;
+		activeSDKPreference = macosx10.6;
+		activeTarget = 8D07F2BC0486CC7A007CD1D0 /* gtest */;
+		codeSenseManager = 4C87E01411F1E97B0027849A /* Code sense */;
+		executables = (
+			4C87DFE311F1E9430027849A /* sample1_unittest */,
+			4C87DFE411F1E9430027849A /* sample2_unittest */,
+			4C87DFE511F1E9430027849A /* sample3_unittest */,
+			4C87DFE611F1E9430027849A /* sample4_unittest */,
+			4C87DFE711F1E9430027849A /* sample5_unittest */,
+			4C87DFE811F1E9430027849A /* sample6_unittest */,
+			4C87DFE911F1E9430027849A /* sample7_unittest */,
+			4C87DFEA11F1E9430027849A /* sample8_unittest */,
+			4C87DFEB11F1E9430027849A /* gtest-death-test_test */,
+			4C87DFEC11F1E9430027849A /* gtest_environment_test */,
+			4C87DFED11F1E9430027849A /* gtest-filepath_test */,
+			4C87DFEE11F1E9430027849A /* gtest-linked_ptr_test */,
+			4C87DFEF11F1E9430027849A /* gtest_main_unittest */,
+			4C87DFF011F1E9430027849A /* gtest-message_test */,
+			4C87DFF111F1E9430027849A /* gtest_no_test_unittest */,
+			4C87DFF211F1E9430027849A /* gtest-options_test */,
+			4C87DFF311F1E9430027849A /* gtest-param-test_test */,
+			4C87DFF411F1E9430027849A /* gtest-port_test */,
+			4C87DFF511F1E9430027849A /* gtest_pred_impl_unittest */,
+			4C87DFF611F1E9430027849A /* gtest_prod_test */,
+			4C87DFF711F1E9430027849A /* gtest_repeat_test */,
+			4C87DFF811F1E9430027849A /* gtest_sole_header_test */,
+			4C87DFF911F1E9430027849A /* gtest_stress_test */,
+			4C87DFFA11F1E9430027849A /* gtest_test_part_test */,
+			4C87DFFB11F1E9430027849A /* gtest-typed-test_test */,
+			4C87DFFC11F1E9430027849A /* gtest_unittest */,
+			4C87DFFD11F1E9430027849A /* gtest_break_on_failure_unittest */,
+			4C87DFFE11F1E9430027849A /* gtest_color_test */,
+			4C87DFFF11F1E9430027849A /* gtest_env_var_test */,
+			4C87E00011F1E9430027849A /* gtest_filter_unittest */,
+			4C87E00111F1E9430027849A /* gtest_list_tests_unittest */,
+			4C87E00211F1E9430027849A /* gtest_output_test */,
+			4C87E00311F1E9430027849A /* gtest_xml_outfile1_test_ */,
+			4C87E00411F1E9430027849A /* gtest_xml_outfile2_test_ */,
+			4C87E00511F1E9430027849A /* gtest_xml_output_unittest */,
+			4C87E00611F1E9430027849A /* gtest_uninitialized_test */,
+			4C87E00711F1E9430027849A /* gtest_nc */,
+		);
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 301066563;
+			PBXWorkspaceStateSaveDate = 301066563;
+		};
+		sourceControlManager = 4C87E01311F1E97B0027849A /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	222ECC8F0E9EB33A00BEED94 /* gtest_sole_header_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF811F1E9430027849A /* gtest_sole_header_test */,
+		);
+	};
+	222ECCA20E9EB47B00BEED94 /* gtest_test_part_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFFA11F1E9430027849A /* gtest_test_part_test */,
+		);
+	};
+	22A866010E70A39900F7AE6E /* sample6_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE811F1E9430027849A /* sample6_unittest */,
+		);
+	};
+	3B238C660E81B8B500846E11 /* gtest-death-test_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFEB11F1E9430027849A /* gtest-death-test_test */,
+		);
+	};
+	3B238D520E82855F00846E11 /* gtest-filepath_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFED11F1E9430027849A /* gtest-filepath_test */,
+		);
+	};
+	3B238D690E8285DA00846E11 /* gtest-message_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF011F1E9430027849A /* gtest-message_test */,
+		);
+	};
+	3B238D790E82868F00846E11 /* gtest-options_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF211F1E9430027849A /* gtest-options_test */,
+		);
+	};
+	3B238E0F0E82887E00846E11 /* gtest-typed-test_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFFB11F1E9430027849A /* gtest-typed-test_test */,
+		);
+	};
+	3B238E1A0E82888500846E11 /* gtest_break_on_failure_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFFD11F1E9430027849A /* gtest_break_on_failure_unittest */,
+		);
+	};
+	3B238E270E82888800846E11 /* gtest_color_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFFE11F1E9430027849A /* gtest_color_test */,
+		);
+	};
+	3B238E360E82889000846E11 /* gtest_env_var_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFFF11F1E9430027849A /* gtest_env_var_test */,
+		);
+	};
+	3B238E410E82889500846E11 /* gtest_environment_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFEC11F1E9430027849A /* gtest_environment_test */,
+		);
+	};
+	3B238E4E0E82889800846E11 /* gtest_filter_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00011F1E9430027849A /* gtest_filter_unittest */,
+		);
+	};
+	3B238E5B0E82889B00846E11 /* gtest_list_tests_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00111F1E9430027849A /* gtest_list_tests_unittest */,
+		);
+	};
+	3B238E7A0E82894300846E11 /* gtest_main_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFEF11F1E9430027849A /* gtest_main_unittest */,
+		);
+	};
+	3B238E850E82894800846E11 /* gtest_nc */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00711F1E9430027849A /* gtest_nc */,
+		);
+	};
+	3B238E920E82894A00846E11 /* gtest_no_test_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF111F1E9430027849A /* gtest_no_test_unittest */,
+		);
+	};
+	3B238E9F0E82894D00846E11 /* gtest_output_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00211F1E9430027849A /* gtest_output_test */,
+		);
+	};
+	3B238EAC0E82894F00846E11 /* gtest_pred_impl_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF511F1E9430027849A /* gtest_pred_impl_unittest */,
+		);
+	};
+	3B238EC30E8289C100846E11 /* gtest_prod_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF611F1E9430027849A /* gtest_prod_test */,
+		);
+	};
+	3B238ECE0E8289C300846E11 /* gtest_repeat_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF711F1E9430027849A /* gtest_repeat_test */,
+		);
+	};
+	3B238EDB0E8289C700846E11 /* gtest_stress_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF911F1E9430027849A /* gtest_stress_test */,
+		);
+	};
+	3B238EE60E8289C900846E11 /* gtest_uninitialized_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00611F1E9430027849A /* gtest_uninitialized_test */,
+		);
+	};
+	3B238EF30E8289CE00846E11 /* gtest_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFFC11F1E9430027849A /* gtest_unittest */,
+		);
+	};
+	3B238F0A0E828A3800846E11 /* gtest_xml_outfile1_test_ */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00311F1E9430027849A /* gtest_xml_outfile1_test_ */,
+		);
+	};
+	3B238F150E828A3B00846E11 /* gtest_xml_outfile2_test_ */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00411F1E9430027849A /* gtest_xml_outfile2_test_ */,
+		);
+	};
+	3B238F220E828A3D00846E11 /* gtest_xml_output_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87E00511F1E9430027849A /* gtest_xml_output_unittest */,
+		);
+	};
+	3B238F5F0E828B5400846E11 /* Check */ = {
+		activeExec = 0;
+	};
+	404885920E2F814C00CF7658 /* sample1_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE311F1E9430027849A /* sample1_unittest */,
+		);
+	};
+	404885B00E2F82BA00CF7658 /* sample2_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE411F1E9430027849A /* sample2_unittest */,
+		);
+	};
+	404885D40E2F832A00CF7658 /* sample3_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE511F1E9430027849A /* sample3_unittest */,
+		);
+	};
+	404885E10E2F833000CF7658 /* sample4_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE611F1E9430027849A /* sample4_unittest */,
+		);
+	};
+	404885EE0E2F833400CF7658 /* sample5_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE711F1E9430027849A /* sample5_unittest */,
+		);
+	};
+	40538A0A0ED71AF200AF209A /* gtest_xml_outfiles_test */ = {
+		activeExec = 0;
+	};
+	408454310E96D39000AC66C2 /* Setup Python */ = {
+		activeExec = 0;
+	};
+	40C44ADC0E3798F4008FCC51 /* Version Info */ = {
+		activeExec = 0;
+	};
+	4539C9050EC27FBC00A70F4C /* sample7_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFE911F1E9430027849A /* sample7_unittest */,
+		);
+	};
+	4539C9110EC27FC000A70F4C /* sample8_unittest */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFEA11F1E9430027849A /* sample8_unittest */,
+		);
+	};
+	4539C94D0EC282D400A70F4C /* gtest-param-test_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF311F1E9430027849A /* gtest-param-test_test */,
+		);
+	};
+	4539C9930EC283A800A70F4C /* gtest-port_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFF411F1E9430027849A /* gtest-port_test */,
+		);
+	};
+	4539C9A20EC2840700A70F4C /* gtest-linked_ptr_test */ = {
+		activeExec = 0;
+		executables = (
+			4C87DFEE11F1E9430027849A /* gtest-linked_ptr_test */,
+		);
+	};
+	4C87DFE311F1E9430027849A /* sample1_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample1_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFE411F1E9430027849A /* sample2_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample2_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFE511F1E9430027849A /* sample3_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample3_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFE611F1E9430027849A /* sample4_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample4_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFE711F1E9430027849A /* sample5_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample5_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFE811F1E9430027849A /* sample6_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample6_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFE911F1E9430027849A /* sample7_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample7_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFEA11F1E9430027849A /* sample8_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = sample8_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFEB11F1E9430027849A /* gtest-death-test_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-death-test_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFEC11F1E9430027849A /* gtest_environment_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_environment_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFED11F1E9430027849A /* gtest-filepath_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-filepath_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFEE11F1E9430027849A /* gtest-linked_ptr_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-linked_ptr_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFEF11F1E9430027849A /* gtest_main_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_main_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF011F1E9430027849A /* gtest-message_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-message_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF111F1E9430027849A /* gtest_no_test_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_no_test_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF211F1E9430027849A /* gtest-options_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-options_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF311F1E9430027849A /* gtest-param-test_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-param-test_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF411F1E9430027849A /* gtest-port_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-port_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF511F1E9430027849A /* gtest_pred_impl_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_pred_impl_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF611F1E9430027849A /* gtest_prod_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_prod_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF711F1E9430027849A /* gtest_repeat_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_repeat_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF811F1E9430027849A /* gtest_sole_header_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_sole_header_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFF911F1E9430027849A /* gtest_stress_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_stress_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFFA11F1E9430027849A /* gtest_test_part_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_test_part_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFFB11F1E9430027849A /* gtest-typed-test_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "gtest-typed-test_test";
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFFC11F1E9430027849A /* gtest_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFFD11F1E9430027849A /* gtest_break_on_failure_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_break_on_failure_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFFE11F1E9430027849A /* gtest_color_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_color_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87DFFF11F1E9430027849A /* gtest_env_var_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_env_var_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00011F1E9430027849A /* gtest_filter_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_filter_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00111F1E9430027849A /* gtest_list_tests_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_list_tests_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00211F1E9430027849A /* gtest_output_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_output_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00311F1E9430027849A /* gtest_xml_outfile1_test_ */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_xml_outfile1_test_;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00411F1E9430027849A /* gtest_xml_outfile2_test_ */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_xml_outfile2_test_;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00511F1E9430027849A /* gtest_xml_output_unittest */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_xml_output_unittest;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00611F1E9430027849A /* gtest_uninitialized_test */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_uninitialized_test;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E00711F1E9430027849A /* gtest_nc */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = gtest_nc;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	4C87E01311F1E97B0027849A /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	4C87E01411F1E97B0027849A /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	8D07F2BC0486CC7A007CD1D0 /* gtest */ = {
+		activeExec = 0;
+	};
+}
