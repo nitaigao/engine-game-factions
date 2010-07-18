@@ -28,6 +28,7 @@ namespace Game
 {
   void GameRoot::Initialize()
   {
+            
     Logger::Initialize(m_platformManager, m_eventManager);
     Logger::Get()->SetLogLevel(Logging::LEVEL_WARN);
     //Info("Game Startup"); 
@@ -90,7 +91,7 @@ namespace Game
     m_eventManager->Update(deltaMilliseconds);
     m_platformManager->Update(deltaMilliseconds);
 
-    m_world->Update(deltaMilliseconds);
+    //m_world->Update(deltaMilliseconds);
   }
 
   void GameRoot::Release()

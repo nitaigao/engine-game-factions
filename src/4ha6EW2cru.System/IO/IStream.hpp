@@ -10,8 +10,8 @@
 
 #include <string>
 
-#include "../Maths/MathVector3.hpp"
-#include "../Maths/MathQuaternion.hpp"
+//#include "../Maths/MathVector3.hpp"
+//#include "../Maths/MathQuaternion.hpp"
 
 #include "../Export.hpp"
 
@@ -69,7 +69,7 @@ namespace IO
     * @param[in] const Maths::MathVector3 & data
     * @return (void)
     */
-    virtual void Write(const Maths::MathVector3& data) = 0;
+    //virtual void Write(const Maths::MathVector3& data) = 0;
 
 
     /*! Reads a Vector from the Stream
@@ -77,7 +77,7 @@ namespace IO
      * @param[in] Maths::MathVector3 & data
      * @return (void)
      */
-    virtual void Read(Maths::MathVector3& data) = 0;
+  //  virtual void Read(Maths::MathVector3& data) = 0;
 
 
     /*! Writes a Quaternion to the Stream
@@ -85,7 +85,7 @@ namespace IO
      * @param[in] const Maths::MathQuaternion & data
      * @return (void)
      */
-    virtual void Write(const Maths::MathQuaternion& data) = 0;
+    //virtual void Write(const Maths::MathQuaternion& data) = 0;
 
 
     /*! Reads a Quaternion from the Stream
@@ -93,7 +93,7 @@ namespace IO
      * @param[in] Maths::MathQuaternion & data
      * @return (void)
      */
-    virtual void Read(Maths::MathQuaternion& data) = 0;
+    //virtual void Read(Maths::MathQuaternion& data) = 0;
 
     
   };

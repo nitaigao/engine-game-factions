@@ -84,7 +84,7 @@ public:
   *  @param[in] System::Types::Type systemType
   *  @return (ISystem*)
   */
-  ISystem* GetSystem(const System::Types::Type& systemType) const;
+//  ISystem* GetSystem(const System::Types::Type& systemType) const;
 
 
   /*! Initializes all Registered Systems

@@ -3,6 +3,8 @@
 
 #include "../Events/Event.h"
 
+#include "/System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h"
+
 namespace Platform
 {
   OSXPlatformManager::~OSXPlatformManager()
@@ -36,7 +38,7 @@ namespace Platform
 
   void OSXPlatformManager::Update(float deltaMilliseconds)
   {
-    
+    while(CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.003, TRUE) == kCFRunLoopRunHandledSource);
   }
 
   void OSXPlatformManager::CloseWindow()

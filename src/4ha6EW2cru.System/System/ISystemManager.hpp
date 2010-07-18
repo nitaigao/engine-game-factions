@@ -57,7 +57,7 @@ public:
    *  @param[in] System::Types::Type systemType
    *  @return (ISystem*)
    */
-  virtual ISystem* GetSystem(const System::Types::Type& systemType) const = 0;
+  //virtual ISystem* GetSystem(const System::Types::Type& systemType) const = 0;
 
 
   /*! Initializes all Registered Systems

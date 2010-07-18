@@ -29,7 +29,7 @@
 #elif defined(__IBMCPP__)
 # if defined(__COMPILER_VER__)
 #  define COMPILER_ID "zOS"
-# elif __IBMCPP__>= 800
+# elif __IBMCPP__ >= 800
 #  define COMPILER_ID "XL"
 # else
 #  define COMPILER_ID "VisualAge"

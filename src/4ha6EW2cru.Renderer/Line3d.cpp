@@ -46,7 +46,7 @@ namespace Renderer
     mPoints[index] = value;
   }
 
-  void Line3D::drawLine(Vector3 &start, Vector3 &end)
+  void Line3D::drawLine(const Vector3 &start, const Vector3 &end)
   {
     if(mPoints.size())
       mPoints.clear();

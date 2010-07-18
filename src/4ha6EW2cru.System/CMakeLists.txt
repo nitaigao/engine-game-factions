@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 SET (PROJECT_BINARY_DIR ../../build/bin)
 SET (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}) 
@@ -23,17 +23,21 @@ IF(APPLE)
    MARK_AS_ADVANCED (OGRE_LIBRARY)
    SET(EXTRA_LIBS ${OGRE_LIBRARY})
    SET(CMAKE_OSX_ARCHITECTURES i386)
+   
+   FIND_LIBRARY(CF_LIBRARY CoreFoundation)
+   MARK_AS_ADVANCED (CF_LIBRARY)
+   SET(EXTRA_LIBS ${EXTRA_LIBS} ${CF_LIBRARY})
 ENDIF (APPLE)
 
 ADD_LIBRARY(Base SHARED 
   
   #Deps -- need to be split out
   #tinyxml
-  ../../etc/vendor/tinyxml/include/ticpp.cpp 
-  ../../etc/vendor/tinyxml/include/tinyxml.cpp 
-  ../../etc/vendor/tinyxml/include/tinyxmlparser.cpp 
-  ../../etc/vendor/tinyxml/include/tinyxmlerror.cpp
-  
+#  ../../etc/vendor/tinyxml/include/ticpp.cpp 
+#  ../../etc/vendor/tinyxml/include/tinyxml.cpp 
+#  ../../etc/vendor/tinyxml/include/tinyxmlparser.cpp 
+#  ../../etc/vendor/tinyxml/include/tinyxmlerror.cpp
+#  
   precompiled.cpp 
   Export.hpp
   
@@ -45,9 +49,12 @@ ADD_LIBRARY(Base SHARED
   Service/ServiceManager.cpp
   System/SystemManager.cpp
   
+  System/platform/Platform.cpp
+  System/platform/OSXPlatform.cpp
+  
   # this needs to go through a converter of somesort inside the relevent system files instead of being in the core library
   # FMOD, Havok (replace with bullet)
-  Maths/MathMatrix.cpp
+  #Maths/MathMatrix.cpp
   
   Game/Game.cpp
   Game/GameFactory.cpp
@@ -55,28 +62,28 @@ ADD_LIBRARY(Base SHARED
   IO/ResourceCache.cpp
   IO/FileSystem.cpp
   
-  State/World.cpp
-  State/WorldEntity.cpp
-  State/WorldEntityFactory.cpp
-
+#  State/World.cpp
+#  State/WorldEntity.cpp
+#  State/WorldEntityFactory.cpp
+#
   Platform/ProgramOptions.cpp
   Platform/OSXPlatformManager.cpp
   Platform/OSXClock.cpp
   IO/OSXPathInformation.cpp
   
-  State/Serilaization/AIComponentSerializer.cpp
-  State/Serilaization/AnimationComponentSerializer.cpp
-  State/Serilaization/AIComponentSerializer.cpp
-  State/Serilaization/GeometryComponentSerializer.cpp
-  State/Serilaization/GraphicsComponentSerializer.cpp
-  State/Serilaization/InputComponentSerializer.cpp
-  State/Serilaization/NetworkComponentSerializer.cpp
-  State/Serilaization/PhysicsComponentSerializer.cpp
-  State/Serilaization/ScriptComponentSerializer.cpp
-  State/Serilaization/SoundComponentSerializer.cpp
-  State/Serilaization/ComponentSerializerFactory.cpp
-  State/Serilaization/XMLSerializer.cpp
-  
+#  State/Serilaization/AIComponentSerializer.cpp
+#  State/Serilaization/AnimationComponentSerializer.cpp
+#  State/Serilaization/AIComponentSerializer.cpp
+#  State/Serilaization/GeometryComponentSerializer.cpp
+#  State/Serilaization/GraphicsComponentSerializer.cpp
+#  State/Serilaization/InputComponentSerializer.cpp
+#  State/Serilaization/NetworkComponentSerializer.cpp
+#  State/Serilaization/PhysicsComponentSerializer.cpp
+#  State/Serilaization/ScriptComponentSerializer.cpp
+#  State/Serilaization/SoundComponentSerializer.cpp
+#  State/Serilaization/ComponentSerializerFactory.cpp
+#  State/Serilaization/XMLSerializer.cpp
+#  
 )
   
 TARGET_LINK_LIBRARIES(Base ${EXTRA_LIBS} ${PHYSFS_LIBRARY} ${BOOST_LIBRARY})

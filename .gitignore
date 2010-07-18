@@ -19,3 +19,7 @@ profile/
 packages/
 profile/
 obj/
+*CMakeFiles*
+*CMakeCache.txt
+*.cmake
+*.DS_Store

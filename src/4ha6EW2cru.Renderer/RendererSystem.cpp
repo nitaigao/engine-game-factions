@@ -5,7 +5,14 @@
 #include "RendererSystemScene.h"
 #include "LineFactory.h"
 
+#ifdef WINDOWS
 #include <OgreD3D9Plugin.h>
+#endif
+
+#ifdef __MACOSX__
+#include <OgreGLPlugin.h>
+#endif
+
 using namespace Ogre;
 
 #include "Events/Event.h"
@@ -88,14 +95,18 @@ namespace Renderer
 
     m_root = new Root("", "", ""); 
 
-    m_logListener = new OgreLogListener();
-    LogManager::getSingletonPtr()->getLog("")->addListener(m_logListener);
+/*    m_logListener = new OgreLogListener();
+    LogManager::getSingletonPtr()->getLog("")->addListener(m_logListener);*/
 
-    m_root->installPlugin(new D3D9Plugin());
-    RenderSystemList *renderSystems = m_root->getAvailableRenderers();
-    RenderSystemList::iterator renderSystemIterator = renderSystems->begin();
-    m_root->setRenderSystem(*renderSystemIterator);
-
+#ifdef WINDOWS    
+    //m_root->installPlugin(new D3D9Plugin());
+#endif
+//#ifdef __MACOSX__
+    m_root->loadPlugin("RenderSystem_GL");
+//#endif
+   RenderSystemList renderSystems = m_root->getAvailableRenderers();
+   RenderSystemList::iterator renderSystemIterator = renderSystems.begin();
+   m_root->setRenderSystem(*renderSystemIterator);
     std::stringstream videoModeDesc;
     videoModeDesc <<m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::Width).As<int>();   
     videoModeDesc <<" x ";
@@ -106,13 +117,13 @@ namespace Renderer
     (*renderSystemIterator)->setConfigOption("Full Screen", m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::FullScreen).As<bool>() ? "Yes" : "No");
     (*renderSystemIterator)->setConfigOption("VSync", m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::VSync).As<bool>() ? "Yes" : "No");
 
-    m_root->initialise(false);
+    m_root->initialise(true);
 
-    ArchiveManager::getSingletonPtr()->addArchiveFactory(new BadArchiveFactory(m_resourceCache));
-    ResourceGroupManager::getSingletonPtr()->addResourceLocation("/", "BAD");
+    /*ArchiveManager::getSingletonPtr()->addArchiveFactory(new BadArchiveFactory(m_resourceCache));
+    ResourceGroupManager::getSingletonPtr()->addResourceLocation("/", "BAD");*/
     ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
 
-    try
+    /*try
     {
       this->CreateRenderWindow(
         m_configuration->Find(ConfigSections::Graphics, ConfigItems::Graphics::WindowTitle).As<std::string>(), 
@@ -133,11 +144,11 @@ namespace Renderer
 
         m_platformManager->CloseWindow();
       }
-    }
+    }*/
 
     Ogre::WindowEventUtilities::addWindowEventListener(m_window, this);
 
-    m_attributes[ "availableVideoModes" ] = this->GetVideoModes();
+    //m_attributes[ "availableVideoModes" ] = this->GetVideoModes();
 
     m_sceneManager = m_root->createSceneManager(ST_GENERIC, "default");
 
@@ -147,21 +158,21 @@ namespace Renderer
     camera->setNearClipDistance(1.0f);
     camera->setFarClipDistance(500.0f);
 
-    Viewport* viewPort = m_window->addViewport(camera);
+    Viewport* viewPort = m_root->getAutoCreatedWindow()->addViewport(camera);
     viewPort->setBackgroundColour(ColourValue::Black);
 
     camera->setAspectRatio(Real(viewPort->getActualWidth()) / Real(viewPort->getActualHeight()));
 
     m_root->renderOneFrame();
 
-    LineFactory* lineFactory = new LineFactory();
+    /*LineFactory* lineFactory = new LineFactory();
     m_factories.push_back(lineFactory);
-    m_root->addMovableObjectFactory(lineFactory);
+    m_root->addMovableObjectFactory(lineFactory);*/
 
     m_eventManager->AddEventListener(EventTypes::GAME_ENDED, MakeEventListener(this, &RendererSystem::OnGameEnded));
 
     m_serviceManager->RegisterService(this);
-
+    
     //CompositorManager::getSingletonPtr()->addCompositor(m_sceneManager->getCurrentViewport(), "HDR");
     //CompositorManager::getSingletonPtr()->setCompositorEnabled(m_sceneManager->getCurrentViewport(), "HDR", true);
   }
@@ -170,7 +181,7 @@ namespace Renderer
   {
     m_root->renderOneFrame();
 
-    m_scene->Update(deltaMilliseconds);
+    //m_scene->Update(deltaMilliseconds);
   }
 
   void RendererSystem::SetAttribute(const std::string& name, AnyType value)
@@ -278,7 +289,7 @@ namespace Renderer
 
   void RendererSystem::windowClosed(RenderWindow* rw)
   {
-    m_eventManager->QueueEvent(new Event(EventTypes::GAME_QUIT));
+    //m_eventManager->QueueEvent(new Event(EventTypes::GAME_QUIT));
   }
 
   std::vector<std::string> RendererSystem::GetVideoModes() const

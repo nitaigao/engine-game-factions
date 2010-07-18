@@ -49,7 +49,7 @@ namespace Renderer
     }
     catch(Ogre::FileNotFoundException e)
     {
-      Fatal(e.what());
+      //Fatal(e.what());
     }
 
     delete model;

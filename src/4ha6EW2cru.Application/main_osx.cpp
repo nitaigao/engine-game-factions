@@ -12,6 +12,7 @@ using namespace Game;
 
 int main()
 {
+  
   GameFactory gameFactory;
   IGame* game = gameFactory.CreateGame();
   game->Initialize();

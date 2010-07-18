@@ -15,8 +15,8 @@
 
 extern "C"
 {
-  //typedef void (__stdcall* InitializeSystemFunction) (Logger* logger);
-  //typedef ISystem* (__stdcall* CreateSystemFunction) (Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, System::IInstrumentation* instrumentation, Platform::IPlatformManager* platformManager);
+  typedef void (*InitializeSystemFunction) (Logger* logger);
+  typedef ISystem* (*CreateSystemFunction) (Configuration::IConfiguration* configuration, Services::IServiceManager* serviceManager, Resources::IResourceCache* resourceCache, Events::IEventManager* eventManager, System::IInstrumentation* instrumentation, Platform::IPlatformManager* platformManager);
   //typedef void (__stdcall* DestroySystemFunction) (ISystem* system);
 };
 

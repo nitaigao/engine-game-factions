@@ -340,30 +340,6 @@ Logging/Logger.cpp.s:
 	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Logging/Logger.cpp.s
 .PHONY : Logging/Logger.cpp.s
 
-Maths/MathMatrix.o: Maths/MathMatrix.cpp.o
-.PHONY : Maths/MathMatrix.o
-
-# target to build an object file
-Maths/MathMatrix.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Maths/MathMatrix.cpp.o
-.PHONY : Maths/MathMatrix.cpp.o
-
-Maths/MathMatrix.i: Maths/MathMatrix.cpp.i
-.PHONY : Maths/MathMatrix.i
-
-# target to preprocess a source file
-Maths/MathMatrix.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Maths/MathMatrix.cpp.i
-.PHONY : Maths/MathMatrix.cpp.i
-
-Maths/MathMatrix.s: Maths/MathMatrix.cpp.s
-.PHONY : Maths/MathMatrix.s
-
-# target to generate assembly for a file
-Maths/MathMatrix.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Maths/MathMatrix.cpp.s
-.PHONY : Maths/MathMatrix.cpp.s
-
 Platform/OSXClock.o: Platform/OSXClock.cpp.o
 .PHONY : Platform/OSXClock.o
 
@@ -460,342 +436,6 @@ Service/ServiceManager.cpp.s:
 	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Service/ServiceManager.cpp.s
 .PHONY : Service/ServiceManager.cpp.s
 
-State/Serilaization/AIComponentSerializer.o: State/Serilaization/AIComponentSerializer.cpp.o
-.PHONY : State/Serilaization/AIComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/AIComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AIComponentSerializer.cpp.o
-.PHONY : State/Serilaization/AIComponentSerializer.cpp.o
-
-State/Serilaization/AIComponentSerializer.i: State/Serilaization/AIComponentSerializer.cpp.i
-.PHONY : State/Serilaization/AIComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/AIComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AIComponentSerializer.cpp.i
-.PHONY : State/Serilaization/AIComponentSerializer.cpp.i
-
-State/Serilaization/AIComponentSerializer.s: State/Serilaization/AIComponentSerializer.cpp.s
-.PHONY : State/Serilaization/AIComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/AIComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AIComponentSerializer.cpp.s
-.PHONY : State/Serilaization/AIComponentSerializer.cpp.s
-
-State/Serilaization/AnimationComponentSerializer.o: State/Serilaization/AnimationComponentSerializer.cpp.o
-.PHONY : State/Serilaization/AnimationComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/AnimationComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AnimationComponentSerializer.cpp.o
-.PHONY : State/Serilaization/AnimationComponentSerializer.cpp.o
-
-State/Serilaization/AnimationComponentSerializer.i: State/Serilaization/AnimationComponentSerializer.cpp.i
-.PHONY : State/Serilaization/AnimationComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/AnimationComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AnimationComponentSerializer.cpp.i
-.PHONY : State/Serilaization/AnimationComponentSerializer.cpp.i
-
-State/Serilaization/AnimationComponentSerializer.s: State/Serilaization/AnimationComponentSerializer.cpp.s
-.PHONY : State/Serilaization/AnimationComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/AnimationComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/AnimationComponentSerializer.cpp.s
-.PHONY : State/Serilaization/AnimationComponentSerializer.cpp.s
-
-State/Serilaization/ComponentSerializerFactory.o: State/Serilaization/ComponentSerializerFactory.cpp.o
-.PHONY : State/Serilaization/ComponentSerializerFactory.o
-
-# target to build an object file
-State/Serilaization/ComponentSerializerFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ComponentSerializerFactory.cpp.o
-.PHONY : State/Serilaization/ComponentSerializerFactory.cpp.o
-
-State/Serilaization/ComponentSerializerFactory.i: State/Serilaization/ComponentSerializerFactory.cpp.i
-.PHONY : State/Serilaization/ComponentSerializerFactory.i
-
-# target to preprocess a source file
-State/Serilaization/ComponentSerializerFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ComponentSerializerFactory.cpp.i
-.PHONY : State/Serilaization/ComponentSerializerFactory.cpp.i
-
-State/Serilaization/ComponentSerializerFactory.s: State/Serilaization/ComponentSerializerFactory.cpp.s
-.PHONY : State/Serilaization/ComponentSerializerFactory.s
-
-# target to generate assembly for a file
-State/Serilaization/ComponentSerializerFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ComponentSerializerFactory.cpp.s
-.PHONY : State/Serilaization/ComponentSerializerFactory.cpp.s
-
-State/Serilaization/GeometryComponentSerializer.o: State/Serilaization/GeometryComponentSerializer.cpp.o
-.PHONY : State/Serilaization/GeometryComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/GeometryComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GeometryComponentSerializer.cpp.o
-.PHONY : State/Serilaization/GeometryComponentSerializer.cpp.o
-
-State/Serilaization/GeometryComponentSerializer.i: State/Serilaization/GeometryComponentSerializer.cpp.i
-.PHONY : State/Serilaization/GeometryComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/GeometryComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GeometryComponentSerializer.cpp.i
-.PHONY : State/Serilaization/GeometryComponentSerializer.cpp.i
-
-State/Serilaization/GeometryComponentSerializer.s: State/Serilaization/GeometryComponentSerializer.cpp.s
-.PHONY : State/Serilaization/GeometryComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/GeometryComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GeometryComponentSerializer.cpp.s
-.PHONY : State/Serilaization/GeometryComponentSerializer.cpp.s
-
-State/Serilaization/GraphicsComponentSerializer.o: State/Serilaization/GraphicsComponentSerializer.cpp.o
-.PHONY : State/Serilaization/GraphicsComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/GraphicsComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GraphicsComponentSerializer.cpp.o
-.PHONY : State/Serilaization/GraphicsComponentSerializer.cpp.o
-
-State/Serilaization/GraphicsComponentSerializer.i: State/Serilaization/GraphicsComponentSerializer.cpp.i
-.PHONY : State/Serilaization/GraphicsComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/GraphicsComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GraphicsComponentSerializer.cpp.i
-.PHONY : State/Serilaization/GraphicsComponentSerializer.cpp.i
-
-State/Serilaization/GraphicsComponentSerializer.s: State/Serilaization/GraphicsComponentSerializer.cpp.s
-.PHONY : State/Serilaization/GraphicsComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/GraphicsComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/GraphicsComponentSerializer.cpp.s
-.PHONY : State/Serilaization/GraphicsComponentSerializer.cpp.s
-
-State/Serilaization/InputComponentSerializer.o: State/Serilaization/InputComponentSerializer.cpp.o
-.PHONY : State/Serilaization/InputComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/InputComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/InputComponentSerializer.cpp.o
-.PHONY : State/Serilaization/InputComponentSerializer.cpp.o
-
-State/Serilaization/InputComponentSerializer.i: State/Serilaization/InputComponentSerializer.cpp.i
-.PHONY : State/Serilaization/InputComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/InputComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/InputComponentSerializer.cpp.i
-.PHONY : State/Serilaization/InputComponentSerializer.cpp.i
-
-State/Serilaization/InputComponentSerializer.s: State/Serilaization/InputComponentSerializer.cpp.s
-.PHONY : State/Serilaization/InputComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/InputComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/InputComponentSerializer.cpp.s
-.PHONY : State/Serilaization/InputComponentSerializer.cpp.s
-
-State/Serilaization/NetworkComponentSerializer.o: State/Serilaization/NetworkComponentSerializer.cpp.o
-.PHONY : State/Serilaization/NetworkComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/NetworkComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/NetworkComponentSerializer.cpp.o
-.PHONY : State/Serilaization/NetworkComponentSerializer.cpp.o
-
-State/Serilaization/NetworkComponentSerializer.i: State/Serilaization/NetworkComponentSerializer.cpp.i
-.PHONY : State/Serilaization/NetworkComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/NetworkComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/NetworkComponentSerializer.cpp.i
-.PHONY : State/Serilaization/NetworkComponentSerializer.cpp.i
-
-State/Serilaization/NetworkComponentSerializer.s: State/Serilaization/NetworkComponentSerializer.cpp.s
-.PHONY : State/Serilaization/NetworkComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/NetworkComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/NetworkComponentSerializer.cpp.s
-.PHONY : State/Serilaization/NetworkComponentSerializer.cpp.s
-
-State/Serilaization/PhysicsComponentSerializer.o: State/Serilaization/PhysicsComponentSerializer.cpp.o
-.PHONY : State/Serilaization/PhysicsComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/PhysicsComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/PhysicsComponentSerializer.cpp.o
-.PHONY : State/Serilaization/PhysicsComponentSerializer.cpp.o
-
-State/Serilaization/PhysicsComponentSerializer.i: State/Serilaization/PhysicsComponentSerializer.cpp.i
-.PHONY : State/Serilaization/PhysicsComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/PhysicsComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/PhysicsComponentSerializer.cpp.i
-.PHONY : State/Serilaization/PhysicsComponentSerializer.cpp.i
-
-State/Serilaization/PhysicsComponentSerializer.s: State/Serilaization/PhysicsComponentSerializer.cpp.s
-.PHONY : State/Serilaization/PhysicsComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/PhysicsComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/PhysicsComponentSerializer.cpp.s
-.PHONY : State/Serilaization/PhysicsComponentSerializer.cpp.s
-
-State/Serilaization/ScriptComponentSerializer.o: State/Serilaization/ScriptComponentSerializer.cpp.o
-.PHONY : State/Serilaization/ScriptComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/ScriptComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ScriptComponentSerializer.cpp.o
-.PHONY : State/Serilaization/ScriptComponentSerializer.cpp.o
-
-State/Serilaization/ScriptComponentSerializer.i: State/Serilaization/ScriptComponentSerializer.cpp.i
-.PHONY : State/Serilaization/ScriptComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/ScriptComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ScriptComponentSerializer.cpp.i
-.PHONY : State/Serilaization/ScriptComponentSerializer.cpp.i
-
-State/Serilaization/ScriptComponentSerializer.s: State/Serilaization/ScriptComponentSerializer.cpp.s
-.PHONY : State/Serilaization/ScriptComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/ScriptComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/ScriptComponentSerializer.cpp.s
-.PHONY : State/Serilaization/ScriptComponentSerializer.cpp.s
-
-State/Serilaization/SoundComponentSerializer.o: State/Serilaization/SoundComponentSerializer.cpp.o
-.PHONY : State/Serilaization/SoundComponentSerializer.o
-
-# target to build an object file
-State/Serilaization/SoundComponentSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/SoundComponentSerializer.cpp.o
-.PHONY : State/Serilaization/SoundComponentSerializer.cpp.o
-
-State/Serilaization/SoundComponentSerializer.i: State/Serilaization/SoundComponentSerializer.cpp.i
-.PHONY : State/Serilaization/SoundComponentSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/SoundComponentSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/SoundComponentSerializer.cpp.i
-.PHONY : State/Serilaization/SoundComponentSerializer.cpp.i
-
-State/Serilaization/SoundComponentSerializer.s: State/Serilaization/SoundComponentSerializer.cpp.s
-.PHONY : State/Serilaization/SoundComponentSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/SoundComponentSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/SoundComponentSerializer.cpp.s
-.PHONY : State/Serilaization/SoundComponentSerializer.cpp.s
-
-State/Serilaization/XMLSerializer.o: State/Serilaization/XMLSerializer.cpp.o
-.PHONY : State/Serilaization/XMLSerializer.o
-
-# target to build an object file
-State/Serilaization/XMLSerializer.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/XMLSerializer.cpp.o
-.PHONY : State/Serilaization/XMLSerializer.cpp.o
-
-State/Serilaization/XMLSerializer.i: State/Serilaization/XMLSerializer.cpp.i
-.PHONY : State/Serilaization/XMLSerializer.i
-
-# target to preprocess a source file
-State/Serilaization/XMLSerializer.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/XMLSerializer.cpp.i
-.PHONY : State/Serilaization/XMLSerializer.cpp.i
-
-State/Serilaization/XMLSerializer.s: State/Serilaization/XMLSerializer.cpp.s
-.PHONY : State/Serilaization/XMLSerializer.s
-
-# target to generate assembly for a file
-State/Serilaization/XMLSerializer.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/Serilaization/XMLSerializer.cpp.s
-.PHONY : State/Serilaization/XMLSerializer.cpp.s
-
-State/World.o: State/World.cpp.o
-.PHONY : State/World.o
-
-# target to build an object file
-State/World.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/World.cpp.o
-.PHONY : State/World.cpp.o
-
-State/World.i: State/World.cpp.i
-.PHONY : State/World.i
-
-# target to preprocess a source file
-State/World.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/World.cpp.i
-.PHONY : State/World.cpp.i
-
-State/World.s: State/World.cpp.s
-.PHONY : State/World.s
-
-# target to generate assembly for a file
-State/World.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/World.cpp.s
-.PHONY : State/World.cpp.s
-
-State/WorldEntity.o: State/WorldEntity.cpp.o
-.PHONY : State/WorldEntity.o
-
-# target to build an object file
-State/WorldEntity.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntity.cpp.o
-.PHONY : State/WorldEntity.cpp.o
-
-State/WorldEntity.i: State/WorldEntity.cpp.i
-.PHONY : State/WorldEntity.i
-
-# target to preprocess a source file
-State/WorldEntity.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntity.cpp.i
-.PHONY : State/WorldEntity.cpp.i
-
-State/WorldEntity.s: State/WorldEntity.cpp.s
-.PHONY : State/WorldEntity.s
-
-# target to generate assembly for a file
-State/WorldEntity.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntity.cpp.s
-.PHONY : State/WorldEntity.cpp.s
-
-State/WorldEntityFactory.o: State/WorldEntityFactory.cpp.o
-.PHONY : State/WorldEntityFactory.o
-
-# target to build an object file
-State/WorldEntityFactory.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntityFactory.cpp.o
-.PHONY : State/WorldEntityFactory.cpp.o
-
-State/WorldEntityFactory.i: State/WorldEntityFactory.cpp.i
-.PHONY : State/WorldEntityFactory.i
-
-# target to preprocess a source file
-State/WorldEntityFactory.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntityFactory.cpp.i
-.PHONY : State/WorldEntityFactory.cpp.i
-
-State/WorldEntityFactory.s: State/WorldEntityFactory.cpp.s
-.PHONY : State/WorldEntityFactory.s
-
-# target to generate assembly for a file
-State/WorldEntityFactory.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/State/WorldEntityFactory.cpp.s
-.PHONY : State/WorldEntityFactory.cpp.s
-
 System/SystemManager.o: System/SystemManager.cpp.o
 .PHONY : System/SystemManager.o
 
@@ -820,101 +460,53 @@ System/SystemManager.cpp.s:
 	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/SystemManager.cpp.s
 .PHONY : System/SystemManager.cpp.s
 
-Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.o
+System/platform/OSXPlatform.o: System/platform/OSXPlatform.cpp.o
+.PHONY : System/platform/OSXPlatform.o
 
 # target to build an object file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.o
+System/platform/OSXPlatform.cpp.o:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/platform/OSXPlatform.cpp.o
+.PHONY : System/platform/OSXPlatform.cpp.o
 
-Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.i
+System/platform/OSXPlatform.i: System/platform/OSXPlatform.cpp.i
+.PHONY : System/platform/OSXPlatform.i
 
 # target to preprocess a source file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.i
+System/platform/OSXPlatform.cpp.i:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/platform/OSXPlatform.cpp.i
+.PHONY : System/platform/OSXPlatform.cpp.i
 
-Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.s
+System/platform/OSXPlatform.s: System/platform/OSXPlatform.cpp.s
+.PHONY : System/platform/OSXPlatform.s
 
 # target to generate assembly for a file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.cpp.s
+System/platform/OSXPlatform.cpp.s:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/platform/OSXPlatform.cpp.s
+.PHONY : System/platform/OSXPlatform.cpp.s
 
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.o
+System/platform/Platform.o: System/platform/Platform.cpp.o
+.PHONY : System/platform/Platform.o
 
 # target to build an object file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.o
+System/platform/Platform.cpp.o:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/platform/Platform.cpp.o
+.PHONY : System/platform/Platform.cpp.o
 
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.i
-
-# target to preprocess a source file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.i
-
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.s
-
-# target to generate assembly for a file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.cpp.s
-
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.o
-
-# target to build an object file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.o
-
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.i
+System/platform/Platform.i: System/platform/Platform.cpp.i
+.PHONY : System/platform/Platform.i
 
 # target to preprocess a source file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.i
+System/platform/Platform.cpp.i:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/platform/Platform.cpp.i
+.PHONY : System/platform/Platform.cpp.i
 
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.s
-
-# target to generate assembly for a file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.cpp.s
-
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.o: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.o
-
-# target to build an object file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.o
-
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.i: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.i
-
-# target to preprocess a source file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.i
-
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.s: Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.s
+System/platform/Platform.s: System/platform/Platform.cpp.s
+.PHONY : System/platform/Platform.s
 
 # target to generate assembly for a file
-Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s:
-	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
-.PHONY : Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.cpp.s
+System/platform/Platform.cpp.s:
+	$(MAKE) -f CMakeFiles/Base.dir/build.make CMakeFiles/Base.dir/System/platform/Platform.cpp.s
+.PHONY : System/platform/Platform.cpp.s
 
 Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.o: Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.cpp.o
 .PHONY : Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.o
@@ -1001,9 +593,6 @@ help:
 	@echo "... Logging/Logger.o"
 	@echo "... Logging/Logger.i"
 	@echo "... Logging/Logger.s"
-	@echo "... Maths/MathMatrix.o"
-	@echo "... Maths/MathMatrix.i"
-	@echo "... Maths/MathMatrix.s"
 	@echo "... Platform/OSXClock.o"
 	@echo "... Platform/OSXClock.i"
 	@echo "... Platform/OSXClock.s"
@@ -1016,63 +605,15 @@ help:
 	@echo "... Service/ServiceManager.o"
 	@echo "... Service/ServiceManager.i"
 	@echo "... Service/ServiceManager.s"
-	@echo "... State/Serilaization/AIComponentSerializer.o"
-	@echo "... State/Serilaization/AIComponentSerializer.i"
-	@echo "... State/Serilaization/AIComponentSerializer.s"
-	@echo "... State/Serilaization/AnimationComponentSerializer.o"
-	@echo "... State/Serilaization/AnimationComponentSerializer.i"
-	@echo "... State/Serilaization/AnimationComponentSerializer.s"
-	@echo "... State/Serilaization/ComponentSerializerFactory.o"
-	@echo "... State/Serilaization/ComponentSerializerFactory.i"
-	@echo "... State/Serilaization/ComponentSerializerFactory.s"
-	@echo "... State/Serilaization/GeometryComponentSerializer.o"
-	@echo "... State/Serilaization/GeometryComponentSerializer.i"
-	@echo "... State/Serilaization/GeometryComponentSerializer.s"
-	@echo "... State/Serilaization/GraphicsComponentSerializer.o"
-	@echo "... State/Serilaization/GraphicsComponentSerializer.i"
-	@echo "... State/Serilaization/GraphicsComponentSerializer.s"
-	@echo "... State/Serilaization/InputComponentSerializer.o"
-	@echo "... State/Serilaization/InputComponentSerializer.i"
-	@echo "... State/Serilaization/InputComponentSerializer.s"
-	@echo "... State/Serilaization/NetworkComponentSerializer.o"
-	@echo "... State/Serilaization/NetworkComponentSerializer.i"
-	@echo "... State/Serilaization/NetworkComponentSerializer.s"
-	@echo "... State/Serilaization/PhysicsComponentSerializer.o"
-	@echo "... State/Serilaization/PhysicsComponentSerializer.i"
-	@echo "... State/Serilaization/PhysicsComponentSerializer.s"
-	@echo "... State/Serilaization/ScriptComponentSerializer.o"
-	@echo "... State/Serilaization/ScriptComponentSerializer.i"
-	@echo "... State/Serilaization/ScriptComponentSerializer.s"
-	@echo "... State/Serilaization/SoundComponentSerializer.o"
-	@echo "... State/Serilaization/SoundComponentSerializer.i"
-	@echo "... State/Serilaization/SoundComponentSerializer.s"
-	@echo "... State/Serilaization/XMLSerializer.o"
-	@echo "... State/Serilaization/XMLSerializer.i"
-	@echo "... State/Serilaization/XMLSerializer.s"
-	@echo "... State/World.o"
-	@echo "... State/World.i"
-	@echo "... State/World.s"
-	@echo "... State/WorldEntity.o"
-	@echo "... State/WorldEntity.i"
-	@echo "... State/WorldEntity.s"
-	@echo "... State/WorldEntityFactory.o"
-	@echo "... State/WorldEntityFactory.i"
-	@echo "... State/WorldEntityFactory.s"
 	@echo "... System/SystemManager.o"
 	@echo "... System/SystemManager.i"
 	@echo "... System/SystemManager.s"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.o"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.i"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/ticpp.s"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.o"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.i"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxml.s"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.o"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.i"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlerror.s"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.o"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.i"
-	@echo "... Users/NK/Development/factions/etc/vendor/tinyxml/include/tinyxmlparser.s"
+	@echo "... System/platform/OSXPlatform.o"
+	@echo "... System/platform/OSXPlatform.i"
+	@echo "... System/platform/OSXPlatform.s"
+	@echo "... System/platform/Platform.o"
+	@echo "... System/platform/Platform.i"
+	@echo "... System/platform/Platform.s"
 	@echo "... Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.o"
 	@echo "... Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.i"
 	@echo "... Users/NK/Development/factions/src/4ha6EW2cru.Application/main_osx.s"

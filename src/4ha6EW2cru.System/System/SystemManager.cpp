@@ -16,16 +16,21 @@ using namespace Serialization;
 #include "../State/WorldEntityFactory.h"
 using namespace State;
 
+#include "platform/Library.hpp"
+#include "platform/IPlatform.hpp"
+#include "platform/Platform.h"
+using namespace Platform;
+
 void SystemManager::RegisterSystem(const System::Queues::Queue& systemQueue, ISystem* system)
 {
   _systemsByQueue.insert(std::make_pair(systemQueue, system));
   _systemsByType.insert(std::make_pair(system->GetType(), system));
 }
 
-ISystem* SystemManager::GetSystem(const System::Types::Type& systemType) const
+/*ISystem* SystemManager::GetSystem(const System::Types::Type& systemType) const
 {
   return (*(_systemsByType.find(systemType))).second;
-}
+}*/
 
 void SystemManager::InitializeAllSystems()
 {
@@ -114,7 +119,7 @@ void SystemManager::Release()
 
 IWorld* SystemManager::CreateWorld()
 {
-  Serialization::IWorldSerializer* serializer = new XMLSerializer(m_eventManager, m_resourceCache, this, m_serviceManager);
+  /*Serialization::IWorldSerializer* serializer = new XMLSerializer(m_eventManager, m_resourceCache, this, m_serviceManager);
   IWorldEntityFactory* factory = new WorldEntityFactory();
   
   World* world = new World(serializer, factory, m_serviceManager);
@@ -125,7 +130,8 @@ IWorld* SystemManager::CreateWorld()
     world->AddSystemScene((*i).second->CreateScene());
   }
 
-  return world;
+  return world;*/
+    return 0;
 }
 
 bool SystemManager::HasSystem(const System::Types::Type& systemType) const
@@ -135,27 +141,16 @@ bool SystemManager::HasSystem(const System::Types::Type& systemType) const
 
 ISystem* SystemManager::LoadSystem(const std::string& systemPath)
 {
-  //HMODULE library = LoadLibrary(systemPath.c_str());
+  IPlatform* platform = Platform::Local();
+  Library* library = platform->LoadLibrary(systemPath.c_str());
 
-  //if (library == NULL)
-  //{
-    //DWORD error = GetLastError();
+  library->Function<InitializeSystemFunction>("Initialize")(Logger::Get());
+  ISystem* system = library->Function<CreateSystemFunction>("CreateSystem")(m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager);
 
-    //FileNotFoundException e("SystemManager::LoadSystem - Unable to load the given System dll");
-    //Fatal(e.what());
-    //throw e;
-  //}
+  delete platform;
+  delete library;
 
-  //InitializeSystemFunction initializeSystem = reinterpret_cast<InitializeSystemFunction>(GetProcAddress(library, "Initialize"));
-  //initializeSystem(Logger::Get());
-
-  //CreateSystemFunction createSystem = reinterpret_cast<CreateSystemFunction>(GetProcAddress(library, "CreateSystem"));
-  //ISystem* system = createSystem(m_configuration, m_serviceManager, m_resourceCache, m_eventManager, m_instrumentation, m_platformManager);
-
-  //m_systemLibraries.insert(std::make_pair(system, library));
-
-  //return system;
-  return 0;
+  return system;
 }
 
 void SystemManager::LoadSystems(bool isDedicated)
@@ -169,18 +164,17 @@ void SystemManager::LoadSystems(bool isDedicated)
   ISystem* networkSystem = this->LoadSystem("4ha6EW2cru.Network.dll");
   this->RegisterSystem(System::Queues::HOUSE, networkSystem);
 
-
   ISystem* physicsSystem = this->LoadSystem("4ha6EW2cru.Physics.dll");
   this->RegisterSystem(System::Queues::LOGIC, physicsSystem);
 
   ISystem* aiSystem = this->LoadSystem("4ha6EW2cru.AI.dll");
-  this->RegisterSystem(System::Queues::HOUSE, aiSystem);
+this->RegisterSystem(System::Queues::HOUSE, aiSystem);
 
   if (!isDedicated)
-  {
-    ISystem* rendererSystem = this->LoadSystem("4ha6EW2cru.Renderer.dll");
+  {*/
+    ISystem* rendererSystem = this->LoadSystem("OGRERenderer");
     this->RegisterSystem(System::Queues::HOUSE, rendererSystem);
-
+/*
     ISystem* animationSystem = this->LoadSystem("4ha6EW2cru.Animation.dll");
     this->RegisterSystem(System::Queues::HOUSE, animationSystem);
 

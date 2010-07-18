@@ -24,17 +24,19 @@ using namespace Logging;
 #include "Platform/IPlatformManager.h"
 using namespace Platform;
 
+#ifdef WINDOWS
 BOOL __stdcall DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
   return true;
 }
+#endif
 
-extern "C" void __stdcall Initialize(Logger* logger)
+extern "C" void Initialize(Logger* logger)
 {
-
+  
 }
 
-extern "C" ISystem* __stdcall CreateSystem(
+extern "C" ISystem* CreateSystem(
   IConfiguration* configuration, 
   IServiceManager* serviceManager, 
   IResourceCache* resourceCache, 
@@ -46,7 +48,7 @@ extern "C" ISystem* __stdcall CreateSystem(
   return new Renderer::RendererSystem(eventManager, platformManager, serviceManager, resourceCache);
 }
 
-extern "C" void __stdcall DestroySystem(ISystem* system)
+extern "C" void DestroySystem(ISystem* system)
 {
   delete system;
   system = 0;
